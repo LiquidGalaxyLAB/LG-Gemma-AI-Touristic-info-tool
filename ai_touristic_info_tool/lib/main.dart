@@ -11,42 +11,43 @@ import 'helpers/lg_connection_shared_pref.dart';
 import 'models/ssh_model.dart';
 
 void main() async {
-   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   /// Initialize shared preferences for LG connection
   await LgConnectionSharedPref.init();
   await dotenv.load(fileName: ".env");
-  
-  runApp(  MultiProvider(
+
+  runApp(
+    MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Connectionprovider()),
         ChangeNotifierProvider(create: (_) => SSHprovider()),
         ChangeNotifierProvider(create: (_) => CurrentViewProvider()),
       ],
       child: const AITouristicInfo(),
-    ),);
-  //   Timer.periodic(const Duration(seconds: 30), (timer) async {
-  //   final sshData =
-  //       Provider.of<SSHprovider>(navigatorKey.currentContext!, listen: false);
-  //   Connectionprovider connection = Provider.of<Connectionprovider>(
-  //       navigatorKey.currentContext!,
-  //       listen: false);
+    ),
+  );
+  Timer.periodic(const Duration(seconds: 30), (timer) async {
+    final sshData =
+        Provider.of<SSHprovider>(navigatorKey.currentContext!, listen: false);
+    Connectionprovider connection = Provider.of<Connectionprovider>(
+        navigatorKey.currentContext!,
+        listen: false);
 
-  //   String? result = await sshData.reconnectClient(
-  //       SSHModel(
-  //         username: LgConnectionSharedPref.getUserName() ?? '',
-  //         host: LgConnectionSharedPref.getIP() ?? '',
-  //         passwordOrKey: LgConnectionSharedPref.getPassword() ?? '',
-  //         port: int.parse(LgConnectionSharedPref.getPort() ?? '22'),
-  //       ),
-  //       navigatorKey.currentContext!);
-  //   if (result == '') {
-    
-  //     connection.isConnected = true;
-  //   } else {
-  //     connection.isConnected = false;
-  //   }
-  // });
+    String? result = await sshData.reconnectClient(
+        SSHModel(
+          username: LgConnectionSharedPref.getUserName() ?? '',
+          host: LgConnectionSharedPref.getIP() ?? '',
+          passwordOrKey: LgConnectionSharedPref.getPassword() ?? '',
+          port: int.parse(LgConnectionSharedPref.getPort() ?? '22'),
+        ),
+        navigatorKey.currentContext!);
+    if (result == '') {
+      connection.isConnected = true;
+    } else {
+      connection.isConnected = false;
+    }
+  });
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -59,11 +60,10 @@ class AITouristicInfo extends StatelessWidget {
     return MaterialApp(
       title: 'AI Touristic Info Tool',
       theme: ThemeData(
-        
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainLayout() ,
+      home: const MainLayout(),
     );
   }
 }
