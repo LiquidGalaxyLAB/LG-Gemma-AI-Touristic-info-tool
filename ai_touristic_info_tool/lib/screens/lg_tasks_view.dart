@@ -206,7 +206,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.25,
                 onpressed: () async {
-                  /// retrieving the ssh data from the `ssh provider`
+                                   /// retrieving the ssh data from the `ssh provider`
                   final sshData =
                       Provider.of<SSHprovider>(context, listen: false);
 
@@ -215,8 +215,23 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                   ///checking the connection status first
                   if (sshData.client != null && connection.isLgConnected) {
-                    LgService(sshData).clearKml();
+                    //warning message first
+
+                    dialogBuilder(
+                        context,
+                        'Are you sure you want to set Refresh?',
+                        false,
+                        'YES', () {
+                      try {
+                        LgService(sshData).setRefresh();
+                      } catch (e) {
+                        // ignore: avoid_print
+                        print(e);
+                      }
+                    }, () {});
                   } else {
+                    ///Showing error message
+
                     dialogBuilder(
                         context,
                         'NOT connected to LG !! \n Please Connect to LG',
@@ -241,7 +256,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.26,
                 onpressed: () async {
-                  /// retrieving the ssh data from the `ssh provider`
+                                    /// retrieving the ssh data from the `ssh provider`
                   final sshData =
                       Provider.of<SSHprovider>(context, listen: false);
 
@@ -250,8 +265,23 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                   ///checking the connection status first
                   if (sshData.client != null && connection.isLgConnected) {
-                    LgService(sshData).clearKml();
+                    //warning message first
+
+                    dialogBuilder(
+                        context,
+                        'Are you sure you want to Reset Refresh?',
+                        false,
+                        'YES', () {
+                      try {
+                        LgService(sshData).resetRefresh();
+                      } catch (e) {
+                        // ignore: avoid_print
+                        print(e);
+                      }
+                    }, () {});
                   } else {
+                    ///Showing error message
+
                     dialogBuilder(
                         context,
                         'NOT connected to LG !! \n Please Connect to LG',
@@ -293,7 +323,7 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                   ///checking the connection status first
                   if (sshData.client != null && connection.isLgConnected) {
-                    LgService(sshData).clearKml();
+                    LgService(sshData).setLogos();
                   } else {
                     dialogBuilder(
                         context,
@@ -328,7 +358,7 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                   ///checking the connection status first
                   if (sshData.client != null && connection.isLgConnected) {
-                    LgService(sshData).clearKml();
+                    LgService(sshData).clearKml(keepLogos: false);
                   } else {
                     dialogBuilder(
                         context,

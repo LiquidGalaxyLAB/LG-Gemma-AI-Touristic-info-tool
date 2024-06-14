@@ -28,27 +28,27 @@ void main() async {
       child: const AITouristicInfo(),
     ),
   );
-  // Timer.periodic(const Duration(seconds: 30), (timer) async {
-  //   final sshData =
-  //       Provider.of<SSHprovider>(navigatorKey.currentContext!, listen: false);
-  //   Connectionprovider connection = Provider.of<Connectionprovider>(
-  //       navigatorKey.currentContext!,
-  //       listen: false);
+  Timer.periodic(const Duration(seconds: 30), (timer) async {
+    final sshData =
+        Provider.of<SSHprovider>(navigatorKey.currentContext!, listen: false);
+    Connectionprovider connection = Provider.of<Connectionprovider>(
+        navigatorKey.currentContext!,
+        listen: false);
 
-  //   String? result = await sshData.reconnectClient(
-  //       SSHModel(
-  //         username: LgConnectionSharedPref.getUserName() ?? '',
-  //         host: LgConnectionSharedPref.getIP() ?? '',
-  //         passwordOrKey: LgConnectionSharedPref.getPassword() ?? '',
-  //         port: int.parse(LgConnectionSharedPref.getPort() ?? '22'),
-  //       ),
-  //       navigatorKey.currentContext!);
-  //   if (result == '') {
-  //     connection.isLgConnected = true;
-  //   } else {
-  //     connection.isLgConnected = false;
-  //   }
-  // });
+    String? result = await sshData.reconnectClient(
+        SSHModel(
+          username: LgConnectionSharedPref.getUserName() ?? '',
+          host: LgConnectionSharedPref.getIP() ?? '',
+          passwordOrKey: LgConnectionSharedPref.getPassword() ?? '',
+          port: int.parse(LgConnectionSharedPref.getPort() ?? '22'),
+        ),
+        navigatorKey.currentContext!);
+    if (result == '') {
+      connection.isLgConnected = true;
+    } else {
+      connection.isLgConnected = false;
+    }
+  });
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

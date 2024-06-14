@@ -30,13 +30,15 @@ class _ConnectionViewState extends State<ConnectionView> {
   final TextEditingController _ipController =
       TextEditingController(text: LgConnectionSharedPref.getIP());
   final TextEditingController _portController =
-      TextEditingController(text: LgConnectionSharedPref.getPort());
+      TextEditingController(text: LgConnectionSharedPref.getPort() ?? '22');
   final TextEditingController _userNameController =
       TextEditingController(text: LgConnectionSharedPref.getUserName());
   final TextEditingController _passwordController =
       TextEditingController(text: LgConnectionSharedPref.getPassword());
   final TextEditingController _screenAmountController = TextEditingController(
-      text: LgConnectionSharedPref.getScreenAmount().toString());
+      text: LgConnectionSharedPref.getScreenAmount().toString() == 'null'
+          ? '3'
+          : LgConnectionSharedPref.getScreenAmount().toString());
 
   final TextEditingController _aiIpAddressController =
       TextEditingController(text: LgConnectionSharedPref.getAiIp());
@@ -120,8 +122,9 @@ class _ConnectionViewState extends State<ConnectionView> {
                                 key: const ValueKey("lgpass"),
                                 textController: _passwordController,
                                 isSuffixRequired: true,
-                                isHidden: false,
+                                isHidden: true,
                                 maxLength: 50,
+                                maxlines: 1,
                                 width: MediaQuery.sizeOf(context).width * 0.5,
                               ),
                             ),
@@ -135,6 +138,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                                 isSuffixRequired: true,
                                 isHidden: false,
                                 maxLength: 50,
+                                maxlines: 1,
                                 width: MediaQuery.sizeOf(context).width * 0.5,
                               ),
                             ),
@@ -148,6 +152,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                                 isSuffixRequired: true,
                                 isHidden: false,
                                 maxLength: 50,
+                                maxlines: 1,
                                 width: MediaQuery.sizeOf(context).width * 0.5,
                               ),
                             ),
@@ -161,6 +166,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                                 isSuffixRequired: true,
                                 isHidden: false,
                                 maxLength: 50,
+                                maxlines: 1,
                                 width: MediaQuery.sizeOf(context).width * 0.5,
                               ),
                             ),
@@ -261,7 +267,32 @@ class _ConnectionViewState extends State<ConnectionView> {
                               prefixIconColor: FontAppColors.secondaryFont,
                               prefixIconSize: 30,
                               isSuffixIcon: false,
-                              onpressed: () async {},
+                              onpressed: () async {
+                                final sshData = Provider.of<SSHprovider>(
+                                    context,
+                                    listen: false);
+                                Connectionprovider connection =
+                                    Provider.of<Connectionprovider>(context,
+                                        listen: false);
+                                dialogBuilder(
+                                    context,
+                                    'Are you sure you want to disconnect?',
+                                    false,
+                                    'YES', () {
+                                  if (connection.isLgConnected) {
+                                    sshData.disconnect();
+                                    connection.isLgConnected = false;
+                                  } else {
+                                    dialogBuilder(
+                                        context,
+                                        'You are already disconnected!',
+                                        true,
+                                        'OK',
+                                        null,
+                                        null);
+                                  }
+                                }, null);
+                              },
                             ),
                           ],
                         ),
@@ -313,6 +344,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                                 isSuffixRequired: true,
                                 isHidden: false,
                                 maxLength: 50,
+                                maxlines: 1,
                                 width: MediaQuery.sizeOf(context).width * 0.5,
                               ),
                             ),

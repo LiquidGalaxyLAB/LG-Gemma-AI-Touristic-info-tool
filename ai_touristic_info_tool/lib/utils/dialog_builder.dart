@@ -12,16 +12,19 @@ Future<void> dialogBuilder(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
+        backgroundColor: FontAppColors.secondaryFont,
         title: const Text(
           'Alert!',
           style: TextStyle(fontSize: textSize, color: LgAppColors.lgColor2),
         ),
-        content: Text(dialogMessage, style: const TextStyle(fontSize: textSize)),
+        content:
+            Text(dialogMessage, style: const TextStyle(fontSize: textSize)),
         actions: <Widget>[
           if (isOne == false)
             TextButton(
               child: const Text('CANCEL',
-                  style: TextStyle(fontSize: textSize, color: LgAppColors.lgColor2)),
+                  style: TextStyle(
+                      fontSize: textSize, color: LgAppColors.lgColor2)),
               onPressed: () {
                 Navigator.of(context).pop();
                 if (onCancel != null) {

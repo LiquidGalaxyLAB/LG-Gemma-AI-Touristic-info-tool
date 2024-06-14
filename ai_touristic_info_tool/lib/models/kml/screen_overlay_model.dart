@@ -86,16 +86,17 @@ class ScreenOverlayModel {
     return ScreenOverlayModel(
       name: 'LogoSO',
       icon:
-          'https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/week-1/ai_touristic_info_tool/assets/images/Logos_Screen.jpg?raw=true',
+          'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/Logos_Screen.jpg?raw=true',
+//1980 × 1080 px  710 × 387 px
       overlayX: 0,
       overlayY: 1,
       screenX: 0.02,
       screenY: 0.95,
-      // sizeX: 765,
-      // sizeY: 594,
+      // sizeX: 710,
+      // sizeY: 387,
 
-      sizeX: 382.5, // reduce the size by 50%
-      sizeY: 297, // reduce the size by 50%
+      sizeX: 355.5, // reduce the size by 50%
+      sizeY: 193.5, // reduce the size by 50%
     );
   }
 }

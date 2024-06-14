@@ -31,7 +31,7 @@ class SSHprovider extends ChangeNotifier {
   String? _passwordOrKey = LgConnectionSharedPref.getPassword();
 
   /// Property that defines the number of LG screens
-  int? _numberOfScreens = LgConnectionSharedPref.getScreenAmount();
+  int? _numberOfScreens = LgConnectionSharedPref.getScreenAmount() ?? 3;
 
   /// Property that defines the SSH client
   SSHClient? _client;
@@ -180,7 +180,7 @@ class SSHprovider extends ChangeNotifier {
     _host = LgConnectionSharedPref.getIP() ?? '';
     _passwordOrKey = LgConnectionSharedPref.getPassword() ?? '';
     _port = int.parse(LgConnectionSharedPref.getPort() ?? '22');
-    _numberOfScreens = LgConnectionSharedPref.getScreenAmount();
+    _numberOfScreens = LgConnectionSharedPref.getScreenAmount() ?? 3;
 
     notifyListeners();
     return result;

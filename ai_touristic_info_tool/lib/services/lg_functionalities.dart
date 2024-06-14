@@ -265,7 +265,7 @@ fi
 
   /// Sets the logos KML into the Liquid Galaxy rig. A KML [name] and [content] may be passed, but it's not required.
   Future<void> setLogos({
-    String name = 'HAPIS-logos',
+    String name = 'App-logos',
     String content = '<name>Logos</name>',
   }) async {
     final screenOverlay = ScreenOverlayModel.logos();
