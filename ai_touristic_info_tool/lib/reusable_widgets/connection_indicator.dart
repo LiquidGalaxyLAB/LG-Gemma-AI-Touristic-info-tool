@@ -20,30 +20,38 @@ class ConnectionIndicator extends StatefulWidget {
 }
 
 class _ConnectionIndicatorState extends State<ConnectionIndicator> {
- 
   @override
   Widget build(BuildContext context) {
-     Connectionprovider connection = Provider.of<Connectionprovider>(
-     context,
-      listen: false);
+    Connectionprovider connection =
+        Provider.of<Connectionprovider>(context, listen: false);
     return Align(
       alignment: Alignment.topRight,
       child: Container(
-        width: 300,
-        height: 50,
+        width: MediaQuery.of(context).size.width * 0.3,
+        height: MediaQuery.of(context).size.height * 0.05,
         decoration: BoxDecoration(
           color: PrimaryAppColors.innerBackground,
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              'LG Connection',
+              'LG Rig',
               style: TextStyle(fontFamily: fontType, fontSize: textSize),
             ),
             CircleAvatar(
-              backgroundColor: connection.isConnected
+              backgroundColor: connection.isLgConnected
+                  ? LgAppColors.lgColor4
+                  : LgAppColors.lgColor2,
+              radius: 20,
+            ),
+            Text(
+              'AI Server',
+              style: TextStyle(fontFamily: fontType, fontSize: textSize),
+            ),
+            CircleAvatar(
+              backgroundColor: connection.isAiConnected
                   ? LgAppColors.lgColor4
                   : LgAppColors.lgColor2,
               radius: 20,

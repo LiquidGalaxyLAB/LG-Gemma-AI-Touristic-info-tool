@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ai_touristic_info_tool/reusable_widgets/main_layout.dart';
+import 'package:ai_touristic_info_tool/screens/splash_screen.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
@@ -27,27 +28,27 @@ void main() async {
       child: const AITouristicInfo(),
     ),
   );
-  Timer.periodic(const Duration(seconds: 30), (timer) async {
-    final sshData =
-        Provider.of<SSHprovider>(navigatorKey.currentContext!, listen: false);
-    Connectionprovider connection = Provider.of<Connectionprovider>(
-        navigatorKey.currentContext!,
-        listen: false);
+  // Timer.periodic(const Duration(seconds: 30), (timer) async {
+  //   final sshData =
+  //       Provider.of<SSHprovider>(navigatorKey.currentContext!, listen: false);
+  //   Connectionprovider connection = Provider.of<Connectionprovider>(
+  //       navigatorKey.currentContext!,
+  //       listen: false);
 
-    String? result = await sshData.reconnectClient(
-        SSHModel(
-          username: LgConnectionSharedPref.getUserName() ?? '',
-          host: LgConnectionSharedPref.getIP() ?? '',
-          passwordOrKey: LgConnectionSharedPref.getPassword() ?? '',
-          port: int.parse(LgConnectionSharedPref.getPort() ?? '22'),
-        ),
-        navigatorKey.currentContext!);
-    if (result == '') {
-      connection.isConnected = true;
-    } else {
-      connection.isConnected = false;
-    }
-  });
+  //   String? result = await sshData.reconnectClient(
+  //       SSHModel(
+  //         username: LgConnectionSharedPref.getUserName() ?? '',
+  //         host: LgConnectionSharedPref.getIP() ?? '',
+  //         passwordOrKey: LgConnectionSharedPref.getPassword() ?? '',
+  //         port: int.parse(LgConnectionSharedPref.getPort() ?? '22'),
+  //       ),
+  //       navigatorKey.currentContext!);
+  //   if (result == '') {
+  //     connection.isLgConnected = true;
+  //   } else {
+  //     connection.isLgConnected = false;
+  //   }
+  // });
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -63,7 +64,7 @@ class AITouristicInfo extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainLayout(),
+      home: const SplashScreen(),
     );
   }
 }

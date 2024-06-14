@@ -17,7 +17,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-        top: 30,
+        top: 15,
         left: 50,
         right: 50,
         child: Row(

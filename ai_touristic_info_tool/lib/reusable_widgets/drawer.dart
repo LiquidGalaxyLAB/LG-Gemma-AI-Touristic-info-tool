@@ -97,7 +97,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 setState(() {
                   selected = 'favs';
                   isDefault = false;
-                  currViewProvider.currentView = 'favorites';
+                  currViewProvider.currentView = 'favs';
                 });
               }),
           NavigationItem(

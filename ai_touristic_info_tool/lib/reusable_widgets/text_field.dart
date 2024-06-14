@@ -64,7 +64,6 @@ class TextFormFieldWidget extends StatelessWidget {
   final Color? fillColor;
   final double width;
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -79,7 +78,7 @@ class TextFormFieldWidget extends StatelessWidget {
         decoration: InputDecoration(
           labelText: _label,
           labelStyle: TextStyle(
-            fontSize: textSize + 4,
+            fontSize: textSize + 2,
             fontFamily: fontType,
             fontWeight: FontWeight.bold,
             color: FontAppColors.primaryFont,

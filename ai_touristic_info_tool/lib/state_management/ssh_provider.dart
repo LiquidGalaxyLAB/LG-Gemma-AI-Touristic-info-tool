@@ -75,9 +75,9 @@ class SSHprovider extends ChangeNotifier {
     Connectionprovider connection =
         Provider.of<Connectionprovider>(context, listen: false);
     if (result == '') {
-      connection.isConnected = true;
+      connection.isLgConnected = true;
     } else {
-      connection.isConnected = false;
+      connection.isLgConnected = false;
     }
 
     return result;

@@ -9,6 +9,8 @@ class LgConnectionSharedPref {
   static const String _keyUserName = 'userName';
   static const String _keyPassword = 'pass';
   static const String _keyScreenAmount = 'screenAmount';
+  static const String _keyAiPort = 'aiPort';
+  static const String _keyAiIp = 'aiIP';
 
   /// Initializes the SharedPreferences instance for local data storage.
   static Future init() async => _prefs = await SharedPreferences.getInstance();
@@ -35,6 +37,10 @@ class LgConnectionSharedPref {
   static Future<void> setScreenAmount(int screenAmount) async =>
       await _prefs?.setInt(_keyScreenAmount, screenAmount);
 
+  static Future<void> setAiIp(String aiIp) async =>
+      await _prefs?.setString(_keyAiIp, aiIp);
+  static Future<void> setAiPort(String aiPort) async =>
+      await _prefs?.setString(_keyAiPort, aiPort);
   // Getters
 
   /// Retrieves the saved IP address from the lg session.
@@ -51,6 +57,9 @@ class LgConnectionSharedPref {
 
   /// Retrieves the saved screen amount from the lg session.
   static int? getScreenAmount() => _prefs?.getInt(_keyScreenAmount);
+
+  static String? getAiPort() => _prefs?.getString(_keyAiPort);
+  static String? getAiIp() => _prefs?.getString(_keyAiIp);
 
   // Removers
 
@@ -71,4 +80,7 @@ class LgConnectionSharedPref {
   /// Removes the saved screen amount from the lg session.
   static Future<void> removeScreenAmount() async =>
       await _prefs?.remove(_keyScreenAmount);
+
+  static Future<void> removeAiPort() async => await _prefs?.remove(_keyAiPort);
+  static Future<void> removeAiIp() async => await _prefs?.remove(_keyAiIp);
 }

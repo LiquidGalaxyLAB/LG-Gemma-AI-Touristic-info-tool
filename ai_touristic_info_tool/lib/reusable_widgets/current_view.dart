@@ -1,3 +1,4 @@
+import 'package:ai_touristic_info_tool/screens/about_view.dart';
 import 'package:ai_touristic_info_tool/screens/lg_connection_view.dart';
 import 'package:ai_touristic_info_tool/screens/lg_tasks_view.dart';
 import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
@@ -18,7 +19,7 @@ class _CurrentViewState extends State<CurrentView> {
         builder: (context, viewProvider, child) {
       if (viewProvider.currentView == 'home') {
         return const Placeholder();
-      } else if (viewProvider.currentView == 'animal') {
+      } else if (viewProvider.currentView == 'favs') {
         return const Placeholder();
       } else if (viewProvider.currentView == 'connection') {
         return const ConnectionView();
@@ -26,6 +27,8 @@ class _CurrentViewState extends State<CurrentView> {
         return const LGTasksView();
       } else if (viewProvider.currentView == 'settings') {
         return const Placeholder();
+      } else if (viewProvider.currentView == 'about') {
+        return const AboutScreen();
       }
       return const Placeholder();
     });

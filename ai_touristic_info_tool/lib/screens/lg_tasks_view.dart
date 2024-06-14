@@ -1,4 +1,5 @@
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
@@ -18,16 +19,34 @@ class _LGTasksViewState extends State<LGTasksView> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          'LG Tasks',
-          style: TextStyle(
-            fontFamily: fontType,
-            fontSize: headingSize,
-            color: FontAppColors.primaryFont,
-            fontWeight: FontWeight.bold,
+        TopBarWidget(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/lgTasks.png",
+                width: MediaQuery.of(context).size.width * 0.1,
+                height: MediaQuery.of(context).size.height * 0.1,
+                color: FontAppColors.secondaryFont,
+              ),
+              Center(
+                child: Text(
+                  'LG Tasks',
+                  style: TextStyle(
+                    fontFamily: fontType,
+                    fontSize: headingSize,
+                    color: FontAppColors.secondaryFont,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.08,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -55,7 +74,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                       Provider.of<Connectionprovider>(context, listen: false);
 
                   ///checking the connection status first
-                  if (sshData.client != null && connection.isConnected) {
+                  if (sshData.client != null && connection.isLgConnected) {
                     /// calling `reboot` from `LGService`
 
                     dialogBuilder(context, 'Are you sure you want to Relaunch?',
@@ -95,7 +114,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                       Provider.of<Connectionprovider>(context, listen: false);
 
                   ///checking the connection status first
-                  if (sshData.client != null && connection.isConnected) {
+                  if (sshData.client != null && connection.isLgConnected) {
                     /// calling `reboot` from `LGService`
 
                     dialogBuilder(context, 'Are you sure you want to Reboot?',
@@ -137,7 +156,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                       Provider.of<Connectionprovider>(context, listen: false);
 
                   ///checking the connection status first
-                  if (sshData.client != null && connection.isConnected) {
+                  if (sshData.client != null && connection.isLgConnected) {
                     //warning message first
 
                     dialogBuilder(
@@ -166,6 +185,9 @@ class _LGTasksViewState extends State<LGTasksView> {
                 }),
           ],
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.08,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -192,7 +214,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                       Provider.of<Connectionprovider>(context, listen: false);
 
                   ///checking the connection status first
-                  if (sshData.client != null && connection.isConnected) {
+                  if (sshData.client != null && connection.isLgConnected) {
                     LgService(sshData).clearKml();
                   } else {
                     dialogBuilder(
@@ -227,7 +249,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                       Provider.of<Connectionprovider>(context, listen: false);
 
                   ///checking the connection status first
-                  if (sshData.client != null && connection.isConnected) {
+                  if (sshData.client != null && connection.isLgConnected) {
                     LgService(sshData).clearKml();
                   } else {
                     dialogBuilder(
@@ -240,6 +262,9 @@ class _LGTasksViewState extends State<LGTasksView> {
                   }
                 }),
           ],
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.08,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -267,7 +292,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                       Provider.of<Connectionprovider>(context, listen: false);
 
                   ///checking the connection status first
-                  if (sshData.client != null && connection.isConnected) {
+                  if (sshData.client != null && connection.isLgConnected) {
                     LgService(sshData).clearKml();
                   } else {
                     dialogBuilder(
@@ -302,7 +327,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                       Provider.of<Connectionprovider>(context, listen: false);
 
                   ///checking the connection status first
-                  if (sshData.client != null && connection.isConnected) {
+                  if (sshData.client != null && connection.isLgConnected) {
                     LgService(sshData).clearKml();
                   } else {
                     dialogBuilder(
@@ -337,7 +362,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                       Provider.of<Connectionprovider>(context, listen: false);
 
                   ///checking the connection status first
-                  if (sshData.client != null && connection.isConnected) {
+                  if (sshData.client != null && connection.isLgConnected) {
                     LgService(sshData).clearKml();
                   } else {
                     dialogBuilder(
@@ -350,6 +375,9 @@ class _LGTasksViewState extends State<LGTasksView> {
                   }
                 }),
           ],
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.08,
         ),
       ],
     );

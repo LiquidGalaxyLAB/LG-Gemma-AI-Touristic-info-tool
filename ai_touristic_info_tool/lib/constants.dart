@@ -60,4 +60,4 @@ class PrimaryAppColors {
 final fontType = GoogleFonts.montserrat().fontFamily;
 const double titleSize = 40;
 const double headingSize = 35;
-const double textSize = 25;
+const double textSize = 20;

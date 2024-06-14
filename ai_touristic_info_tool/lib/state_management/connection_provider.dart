@@ -9,13 +9,23 @@ import 'package:flutter/material.dart';
 
 class Connectionprovider extends ChangeNotifier {
 
-  bool _isConnected = false;
+  bool _isLgConnected = false;
 
-  set isConnected(bool value) {
-    _isConnected = value;
+  set isLgConnected(bool value) {
+    _isLgConnected = value;
     notifyListeners();
   }
   
-  bool get isConnected => _isConnected;
+  bool get isLgConnected => _isLgConnected;
+
+
+  bool _isAiConnected = false;
+
+  set isAiConnected(bool value) {
+    _isAiConnected = value;
+    notifyListeners();
+  }
+  
+  bool get isAiConnected => _isAiConnected;
 
 }
