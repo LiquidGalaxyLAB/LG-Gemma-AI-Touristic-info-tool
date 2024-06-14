@@ -1,5 +1,6 @@
 /// Class that defines the `screen overlay` entity, which contains its properties and methods.
 /// Used for displaying the ballons and the logos
+library;
 
 class ScreenOverlayModel {
   /// Property that defines the screen overlay `name`.
@@ -85,7 +86,7 @@ class ScreenOverlayModel {
     return ScreenOverlayModel(
       name: 'LogoSO',
       icon:
-          'https://github.com/Mahy02/HAPIS-Refurbishment--Humanitarian-Aid-Panoramic-Interactive-System-/blob/main/hapis/assets/images/LOGO%20LIQUID%20GALAXY-sq1000-%20OKnoline.png?raw=true',
+          'https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/week-1/ai_touristic_info_tool/assets/images/Logos_Screen.jpg?raw=true',
       overlayX: 0,
       overlayY: 1,
       screenX: 0.02,
