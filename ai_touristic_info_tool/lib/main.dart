@@ -4,6 +4,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/main_layout.dart';
 import 'package:ai_touristic_info_tool/screens/splash_screen.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => Connectionprovider()),
         ChangeNotifierProvider(create: (_) => SSHprovider()),
         ChangeNotifierProvider(create: (_) => CurrentViewProvider()),
+        ChangeNotifierProvider(create: (_) => MapTypeProvider()),
       ],
       child: const AITouristicInfo(),
     ),
