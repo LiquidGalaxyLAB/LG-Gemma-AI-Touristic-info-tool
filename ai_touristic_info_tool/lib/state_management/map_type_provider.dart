@@ -1,9 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 
 class MapTypeProvider extends ChangeNotifier {
-  String _currentView = 'hybrid';
+  String _currentView = 'satellite';
 
   String get currentView => _currentView;
 
