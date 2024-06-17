@@ -6,6 +6,7 @@ from langchain_core.prompts import (
     ChatPromptTemplate,
     FewShotChatMessagePromptTemplate,
 )
+import time
 
 query = "Best Pizza places"
 city="Cairo"
@@ -25,7 +26,17 @@ prompt_template = PromptTemplate(
                                 '''
                                 You are a helpful touristic advisor bot. Your name is Adventura.
                                 You help people find the best places to visit, eat and stay nearby their location.
-                                Can you find me 10 top-rated places for {query} in {city}, {country} and include details like name, description, genre, rating, opening hours, closing hours, address_location and any interesting information you have on them using this search data {DuckDuckGo_Search}?.
+                                Can you find me 10 places for {query} in {city}, {country} and include details like:
+                                - name
+                                - description
+                                - genre
+                                - rating
+                                - opening hours
+                                - closing hours
+                                - accurate address_location
+                                - Link to their website
+                                - any interesting information you have on them 
+                                using this search data: {DuckDuckGo_Search}.
                                 '''
                                 )
 
@@ -33,14 +44,16 @@ print(prompt_template)
 
 
 from langchain_community.llms import Ollama
-llm = Ollama(model="gemma:7b")
+llm = Ollama(model="gemma:2b")
 
 
 llm_chain= prompt_template | llm 
 
 
 from langchain_community.tools import DuckDuckGoSearchResults
-search = DuckDuckGoSearchResults()
+
+start_time = time.time()
+search = DuckDuckGoSearchResults(num_results=10)
 search_query= f"Best {query} in {city} {country}"
 search_result = search.run(search_query)
 print(search_result)
@@ -57,7 +70,8 @@ llm_results = llm_chain.invoke(input=input_data)
 
 print(llm_results)
 
-
+elapsed_time = time.time() - start_time
+print(f"Execution time: {elapsed_time:.2f} seconds")
 
 
 '''
@@ -70,14 +84,12 @@ Results:
 - Open: 12 PM - 12 AM
 - Address: New Cairo & Sheikh Zayed
 
-
 **2. Sapori Di Carlo:**
 - Authentic Italian vibes
 - Mouthwatering Neapolitan pizzas
 - Rating: 4.5/5
 - Open: 12 PM - 11 PM
 - Address: Zamalek
-
 
 **3. Pizza Station:**
 - Cairo's first New Yorker pizza by the slice
@@ -86,14 +98,12 @@ Results:
 - Open: 11:30 AM - 11 PM
 - Address: Various locations
 
-
 **4. Jimmy's Pizzeria:**
 - Neapolitan & American-style pizzas
 - Popular for their authentic calzones
 - Rating: 4.2/5
 - Open: 12 PM - 11 PM
 - Address: Various locations
-
 
 **5. La Casetta:**
 - Popular for cheesy pizzas and mints
@@ -102,14 +112,12 @@ Results:
 - Open: 12 PM - 11 PM
 - Address: El-Mohandes Street, Heliopolis
 
-
 **6. Pizzeria Napoli:**
 - Authentic Neapolitan pizzas with fresh ingredients
 - Excellent for takeout
 - Rating: 4.0/5
 - Open: 12 PM - 11 PM
 - Address: Al-Motawalli Street, Mohandes
-
 
 **7. Pizzeria 7th Street:**
 - Wide variety of pizzas and toppings
@@ -118,14 +126,12 @@ Results:
 - Open: 11:30 AM - 11 PM
 - Address: 7th Street, Heliopolis
 
-
 **8. Mama Pizza:**
 - Classic Italian pizzas with fresh flavors
 - Relaxed and casual atmosphere
 - Rating: 3.8/5
 - Open: 12 PM - 10 PM
 - Address: New Cairo
-
 
 **9. Pizzeria Roma:**
 - Authentic Italian pizza cooked in a wood-fired oven
