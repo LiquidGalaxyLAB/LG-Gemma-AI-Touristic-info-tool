@@ -21,76 +21,9 @@ from langchain_core.prompts import PromptTemplate
 import time
 import requests
 from bs4 import BeautifulSoup as soup
-
-
-
-#Scraping:
-# biGQs _P fiohW ngXxk : name and url
-# name: biGQs _P fiohW ngXxk
-
-# url = 'https://www.tripadvisor.com/Search?q=best+cinemas+in+cairo+egypt'
-
-# # Set headers to mimic a browser request
-# # headers = {
-# #     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-# #     'Accept-Language': 'en-US,en;q=0.9',
-# #     'Accept-Encoding': 'gzip, deflate, br',
-# #     'Connection': 'keep-alive'
-# # }
-# headers = {
-#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-#     'Accept-Language': 'en-US,en;q=0.9',
-#     'Connection': 'keep-alive',
-#     'Referer': 'https://www.google.com/'  # Sometimes setting a referer can help
-# }
-
-# try:
-#     # Use a session to persist certain parameters across requests
-#     session = requests.Session()
-#     session.headers.update(headers)
-    
-#     response = session.get(url)
-#     response.raise_for_status()  # Will raise an HTTPError for bad responses (4xx or 5xx)
-#     print(response.status_code)
-#     print(response.content)
-
-#     bsobj = soup(response.content, 'lxml')
-#     print(bsobj)
-#     # You can now process bsobj to extract the information you need
-#     # print(bsobj.prettify()[:500])  # Print first 500 characters of the parsed HTML for verification
-
-#     places=[]
-#     for name in bsobj.findAll('div', {'class':'biGQs _P fiohW ngXxk'}):
-#         places.append(name.text.strip())
-#     print(places)
-#     ratings=[]
-#     for rating in bsobj.findAll('a',{'class':'jVDab o W f u w hzzSG JqMhy'}):
-#         ratings.append(rating['aria-label'])
-
-#     print(ratings)
-
-# except requests.exceptions.RequestException as e:
-#     print(f"Error fetching the URL: {e}")
-
-# print('start')
-# html= requests.get('https://www.tripadvisor.in/Hotels-g187147-Paris_Ile_de_France-Hotels.html')
-# print(html.status_code)
-# bsobj= soup(html.content, 'lxml')
-
-# places=[]
-# for name in bsobj.findAll('div', {'class':'biGQs _P fiohW ngXxk'}):
-#     places.append(name.text.strip())
-# print(places)
-
-#jVDab o W f u w hzzSG JqMhy
-# ratings=[]
-# for rating in bsobj.findAll('a',{'class':'jVDab o W f u w hzzSG JqMhy'}):
-#     ratings.append(rating['aria-label'])
-
-# print(ratings)
-
-
-###################################3
+import urllib.parse
+from langchain_community.document_loaders import AsyncChromiumLoader
+from langchain_community.document_transformers import Html2TextTransformer
 
 embeddings = (
     OllamaEmbeddings(model="all-minilm")
@@ -103,25 +36,92 @@ question="Best pizza places in Cairo Egypt"
 words = question.split()
 url_search = '+'.join(words)
 print(url_search)
+
+seed_url=f'https://www.google.com/search?q={url_search}'
+google_maps_url=f'https://www.google.com/maps/search/{url_search}'
+print('seed_url:',seed_url)
+print('google_maps_url:',google_maps_url)
+
+
+general_fetched_urls=[]
+all_fetched_urls=[]
+
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+
+response = requests.get(seed_url, headers=headers)
+if response.status_code == 200:
+    page_content = response.text
+    
+    # Parse HTML content
+    sp = soup(page_content, 'html.parser')
+    
+    # Find all <a> tags and extract URLs
+     # Find all <a> tags and extract URLs
+    for a_tag in sp.find_all('a', href=True):
+        link = a_tag['href']
+
+        # Check if the link contains 'url=' and '&ved'
+        if 'url=' in link and '&ved=' in link:
+            # Extract the part after 'url='
+            url_part = link.split('url=')[1]
+            # Find the position of '&ved=' and slice the URL up to that position
+            url = url_part.split('&ved=')[0]
+            # Decode the URL to handle any URL encoding
+            decoded_url = urllib.parse.unquote(url)
+            
+            # Ensure the URL starts with 'https://'
+            if decoded_url.startswith('https://'):
+                # scraped_urls.append(decoded_url)
+                try:
+                    # Try to make a request to the URL to check for SSL certificate validity
+                    r = requests.get(decoded_url, headers=headers, verify=True, timeout=20)
+                    # If the request is successful and no SSL errors are raised, add the URL to the list
+                    # print(r.status_code)
+                    if r.status_code == 200 or r.status_code == 520:
+                        general_fetched_urls.append(decoded_url)
+                except requests.exceptions.SSLError:
+                    # SSL certificate is not valid
+                    print(f"SSL Error for URL: {link}")
+                except requests.exceptions.RequestException as e:
+                    # Handle other request exceptions (timeouts, connection errors, etc.)
+                    print(f"Request Exception for URL: {link}, Error: {e}")
+
+
+
+# Display the scraped URLs
+print('General fetched Urls:')
+print(general_fetched_urls)
+all_fetched_urls=general_fetched_urls+google_maps_url
+print('All fetched Urls:')
+print(all_fetched_urls)
+print("---------------------------------")
+
 start_time = time.time()
 
+# loader = WebBaseLoader(
+#     web_paths=(scraped_urls),
+#      bs_kwargs=dict(
+#         # parse_only=bs4.SoupStrainer(
+#         #     class_=("post-content", "post-title", "post-header")
+#         # )
+#     ),
+# )
 
-   
-
-loader = WebBaseLoader(
-    web_paths=(f"https://www.tripadvisor.com/Restaurants-g294201-c31-Cairo_Cairo_Governorate.html",),
-     bs_kwargs=dict(
-        # parse_only=bs4.SoupStrainer(
-        #     class_=("post-content", "post-title", "post-header")
-        # )
-    ),
-)
-
-
+loader = AsyncChromiumLoader(all_fetched_urls, user_agent="MyAppUserAgent")
 # docs = loader.load()
-# print(len(docs))
-# print(f'docs 0:{docs[0]}')
+# docs[0].page_content[0:100]
 
+docs = loader.load()
+print(len(docs))
+
+html2text = Html2TextTransformer()
+docs_transformed = html2text.transform_documents(docs)
+# docs_transformed[0].page_content[0:500]
+print(f'docs_transformed 0:{docs_transformed[0]}')
+print(f'docs_transformed 1:{docs_transformed[1]}')
+print(f'docs_transformed 2:{docs_transformed[2]}')
 
 # text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 # splits = text_splitter.split_documents(docs)
