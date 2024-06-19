@@ -17,13 +17,14 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.llms import Ollama
 from langchain_community.embeddings import OllamaEmbeddings
-from langchain_core.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate, ChatPromptTemplate
 import time
 import requests
 from bs4 import BeautifulSoup as soup
 import urllib.parse
 from langchain_community.document_loaders import AsyncChromiumLoader
 from langchain_community.document_transformers import Html2TextTransformer
+from langdetect import detect
 
 embeddings = (
     OllamaEmbeddings(model="all-minilm")
@@ -31,24 +32,35 @@ embeddings = (
 llm = Ollama(model="gemma:7b")
 
 
-question="Best pizza places in Cairo Egypt"
+user_query="Best pizza places in Cairo Egypt"
 
-words = question.split()
+question_template_p1='Please, Can you help me find the Top 10 places for'
+question_template_p2='and include all details you know about them such as name, location, description and more!'
+question= f'{question_template_p1} {user_query} {question_template_p2}'
+
+
+words = user_query.split()
 url_search = '+'.join(words)
 print(url_search)
 
 seed_url=f'https://www.google.com/search?q={url_search}'
-google_maps_url=f'https://www.google.com/maps/search/{url_search}'
+# google_maps_url=f'https://www.google.com/maps/search/{url_search}'
 print('seed_url:',seed_url)
-print('google_maps_url:',google_maps_url)
+# print('google_maps_url:',google_maps_url)
 
 
 general_fetched_urls=[]
-all_fetched_urls=[]
+# all_fetched_urls=[]
 
+
+# headers = {
+#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+    "Accept-Language": "en-US,en;q=0.5",
+    "Referer": "https://www.google.com/",
+}
 
 response = requests.get(seed_url, headers=headers)
 if response.status_code == 200:
@@ -58,7 +70,6 @@ if response.status_code == 200:
     sp = soup(page_content, 'html.parser')
     
     # Find all <a> tags and extract URLs
-     # Find all <a> tags and extract URLs
     for a_tag in sp.find_all('a', href=True):
         link = a_tag['href']
 
@@ -80,7 +91,9 @@ if response.status_code == 200:
                     # If the request is successful and no SSL errors are raised, add the URL to the list
                     # print(r.status_code)
                     if r.status_code == 200 or r.status_code == 520:
-                        general_fetched_urls.append(decoded_url)
+                            general_fetched_urls.append(decoded_url)
+                            if len(general_fetched_urls) >= 8:
+                                break
                 except requests.exceptions.SSLError:
                     # SSL certificate is not valid
                     print(f"SSL Error for URL: {link}")
@@ -93,9 +106,11 @@ if response.status_code == 200:
 # Display the scraped URLs
 print('General fetched Urls:')
 print(general_fetched_urls)
-all_fetched_urls=general_fetched_urls+google_maps_url
-print('All fetched Urls:')
-print(all_fetched_urls)
+# all_fetched_urls.extend(general_fetched_urls)
+# all_fetched_urls.extend(google_maps_url)
+
+# print('All fetched Urls:')
+# # print(all_fetched_urls)
 print("---------------------------------")
 
 start_time = time.time()
@@ -109,7 +124,7 @@ start_time = time.time()
 #     ),
 # )
 
-loader = AsyncChromiumLoader(all_fetched_urls, user_agent="MyAppUserAgent")
+loader = AsyncChromiumLoader(general_fetched_urls, user_agent="MyAppUserAgent")
 # docs = loader.load()
 # docs[0].page_content[0:100]
 
@@ -121,18 +136,47 @@ docs_transformed = html2text.transform_documents(docs)
 # docs_transformed[0].page_content[0:500]
 print(f'docs_transformed 0:{docs_transformed[0]}')
 print(f'docs_transformed 1:{docs_transformed[1]}')
-print(f'docs_transformed 2:{docs_transformed[2]}')
 
-# text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-# splits = text_splitter.split_documents(docs)
-# vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
 
-# # Retrieve and generate using the relevant snippets of the blog.
-# retriever = vectorstore.as_retriever()
+# Function to detect language and filter non-English documents
+def is_english(text):
+    try:
+        return detect(text) == 'en'
+    except:
+        return False
 
+# Filter out non-English documents
+docs_transformed_english = [doc for doc in docs_transformed if is_english(doc.page_content)]
+print(f'docs_transformed EN 0:{docs_transformed_english[0]}')
+print(f'docs_transformed EN 1:{docs_transformed_english[1]}')
+
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+splits = text_splitter.split_documents(docs_transformed)
+vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
+print('vectorestore initialized')
+# Retrieve and generate using the relevant snippets of the blog.
+
+retriever = vectorstore.as_retriever(search_kwargs={"k": 10})
+print('retriever initialized')
+print(retriever)
 # def format_docs(docs):
-#     return "\n\n".join(doc.page_content for doc in docs)
+#     return "\n\n".join(doc.page_content for doc in docs_transformed)
 
+
+prompt_template = '''
+You are a helpful touristic advisor bot that help people find the best places to visit, eat and stay nearby their location. Your name is Adventura.
+Use the provided context as the basis for your answers and do not make up new reasoning paths - just mix-and-match what you are given.
+Your answers must be concise and to the point, and refrain from answering about other topics than touristic information and the user question.
+
+CONTEXT:
+{context}
+
+QUESTION: {question}
+
+YOUR ANSWER:"""
+'''
+
+prompt = ChatPromptTemplate.from_template(prompt_template)
 
 # prompt = PromptTemplate(
 #                                 input_variables = ['question', 'context'], 
@@ -155,24 +199,96 @@ print(f'docs_transformed 2:{docs_transformed[2]}')
 #                                 )
 
 
-# rag_chain = (
-#     {"context": retriever | format_docs, "question": RunnablePassthrough()}
-#     | prompt
-#     | llm
-#     | StrOutputParser()
-# )
+rag_chain = (
+    {"context": retriever , "question": RunnablePassthrough()}
+    | prompt
+    | llm
+    | StrOutputParser()
+)
 
 # input_data = {
 #     'question': question,
 # }
 
-
+print('Asking the model:')
 # llm_results=rag_chain.invoke(input=input_data)
-# print(llm_results)
+llm_results= rag_chain.invoke(question)
+print(llm_results)
 
-# elapsed_time = time.time() - start_time
-# print(f"Execution time: {elapsed_time:.2f} seconds")
+elapsed_time = time.time() - start_time
+print(f"Execution time: {elapsed_time:.2f} seconds")
 
 
-# # cleanup
-# vectorstore.delete_collection()
+# cleanup
+vectorstore.delete_collection()
+
+
+
+'''
+**1. What The Crust:**
+
+* Authentic Neapolitan pizza with AVPN affiliation.
+* Handmade ovens, local & imported Italian ingredients.
+* Friendly staff, fast service, delicious pizzas.
+* Maadi, New Cairo, Sheikh Zayed.
+* Contact: +201005764631, Facebook, Instagram, Website.
+
+**2. 2900 Degrees:**
+
+* Offers gourmet wood-fired pizza.
+* Fresh toppings and traditional Italian recipes.
+* Cozy atmosphere and friendly staff.
+* Specific location not mentioned.
+
+**3. La Vista 6 Ein Sokhna:**
+
+* Houssam recommends their il tavolino pizza, claiming it's the best on TripAdvisor.
+* No specific details provided.
+
+**4. Mama Pizza:**
+
+* Known for their delicious gourmet pizzas.
+* Wide variety of toppings and crust options.
+* Multiple locations throughout Cairo.
+
+**5. Pizzeria Cairo:**
+
+* Popular spot for classic Neapolitan pizza.
+* Known for their generous slices and friendly staff.
+* Multiple locations throughout Cairo.
+
+**6. Pizza Garden:**
+
+* Offers a wide range of pizzas at affordable prices.
+* Great option for large groups or families.
+* Multiple locations throughout Cairo.
+
+**7. Mama Noura:**
+
+* Local chain serving traditional Egyptian pizza with unique toppings.
+* Known for their generous portions and affordable prices.
+* Multiple locations throughout Cairo.
+
+**8. Domino's Pizza:**
+
+* Classic pizza chain with familiar flavors.
+* Good option for quick delivery and familiar pizza.
+* Multiple locations throughout Cairo.
+
+**9. Pizza Hut:**
+
+* Another classic pizza chain with familiar flavors.
+* Good option for quick delivery and familiar pizza.
+* Multiple locations throughout Cairo.
+
+**10. Pizza Street:**
+
+* Casual dining spot with a wide variety of pizzas.
+* Offers vegetarian and vegan options.
+* Multiple locations throughout Cairo.
+
+'''
+
+
+
+#Execution time: 878.01 seconds
