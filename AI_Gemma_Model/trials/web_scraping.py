@@ -1,41 +1,17 @@
 
-import os
-import dotenv , getpass
+from helpers import *
 
-dotenv.load_dotenv()
-
-# os.environ["LANGCHAIN_TRACING_V2"] = "true"
-# os.environ["LANGCHAIN_API_KEY"] = getpass.getpass()
-
-
-import bs4
-from langchain import hub
-from langchain_community.document_loaders import WebBaseLoader
-from langchain_chroma import Chroma
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.llms import Ollama
-from langchain_community.embeddings import OllamaEmbeddings
-from langchain_core.prompts import PromptTemplate, ChatPromptTemplate
-import time
-import requests
-from bs4 import BeautifulSoup as soup
-import urllib.parse
-from langchain_community.document_loaders import AsyncChromiumLoader
-from langchain_community.document_transformers import Html2TextTransformer
-from langdetect import detect
-
-embeddings = (
-    OllamaEmbeddings(model="all-minilm")
-)  
+# embeddings = (
+#     OllamaEmbeddings(model="all-minilm")
+# )  
+embeddings= (OllamaEmbeddings(model='nomic-embed-text'))
 llm = Ollama(model="gemma:7b")
 
 
 user_query="Best pizza places in Cairo Egypt"
 
 question_template_p1='Please, Can you help me find the Top 10 places for'
-question_template_p2='and include all details you know about them such as name, location, description and more!'
+question_template_p2='and include all details you know about them such as name, address locations, description and more!'
 question= f'{question_template_p1} {user_query} {question_template_p2}'
 
 
@@ -125,38 +101,63 @@ start_time = time.time()
 # )
 
 loader = AsyncChromiumLoader(general_fetched_urls, user_agent="MyAppUserAgent")
+# loader = AsyncChromiumLoader(['https://top10cairo.com/best-pizza-cairo/'], user_agent="MyAppUserAgent")
 # docs = loader.load()
 # docs[0].page_content[0:100]
 
 docs = loader.load()
 print(len(docs))
 
+translator = Translator()
 html2text = Html2TextTransformer()
-docs_transformed = html2text.transform_documents(docs)
-# docs_transformed[0].page_content[0:500]
-print(f'docs_transformed 0:{docs_transformed[0]}')
-print(f'docs_transformed 1:{docs_transformed[1]}')
 
 
-# Function to detect language and filter non-English documents
+## Function to detect language and filter non-English documents
 def is_english(text):
     try:
         return detect(text) == 'en'
     except:
         return False
 
+# def translate_to_english(text):
+#     is_detected_english = is_english(text)
+#     if is_detected_english:
+#         return text
+#     else:
+#         translated_text = translator.translate('اهلا', dest='en')
+#         return translated_text
+
+# final_docs=[]
+# docs_transformed = html2text.transform_documents(docs)
+# for doc in docs_transformed:
+#   translated_content = translate_to_english(doc)
+#   final_docs.append(translated_content)
+
+# print(len(final_docs))
+# print(final_docs[0])
+
+
+html2text = Html2TextTransformer()
+docs_transformed = html2text.transform_documents(docs)
+docs_transformed[0].page_content[0:500]
+print(f'docs_transformed 0:{docs_transformed[0]}')
+# print(f'docs_transformed 1:{docs_transformed[1]}')
+
+
+
 # Filter out non-English documents
 docs_transformed_english = [doc for doc in docs_transformed if is_english(doc.page_content)]
 print(f'docs_transformed EN 0:{docs_transformed_english[0]}')
-print(f'docs_transformed EN 1:{docs_transformed_english[1]}')
+# print(f'docs_transformed EN 1:{docs_transformed_english[1]}')
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-splits = text_splitter.split_documents(docs_transformed)
+# splits = text_splitter.split_documents(docs_transformed)
+splits = text_splitter.split_documents(docs_transformed_english)
 vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
 print('vectorestore initialized')
 # Retrieve and generate using the relevant snippets of the blog.
 
-retriever = vectorstore.as_retriever(search_kwargs={"k": 10})
+retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
 print('retriever initialized')
 print(retriever)
 # def format_docs(docs):
@@ -224,7 +225,7 @@ vectorstore.delete_collection()
 
 
 
-'''
+'''  with old embedding (256 context)
 **1. What The Crust:**
 
 * Authentic Neapolitan pizza with AVPN affiliation.
@@ -288,7 +289,46 @@ vectorstore.delete_collection()
 * Multiple locations throughout Cairo.
 
 '''
-
-
-
 #Execution time: 878.01 seconds
+
+'''  with new embeddings
+## Top 10 Pizza Places in Cairo, Egypt:
+
+**1. What The Crust:**
+- Award-winning pizzeria included in "Top 100 Best Pizzerias in the World" list.
+- Located in Downtown Mall New Cairo City.
+- Opening hours: Mon-Thurs & Sat-Sun (12pm-12am), Fri (1pm-12am).
+- Official website, Instagram, Facebook.
+
+**2. Pizza Hut:**
+- Hotline: 19000.
+- Address: 18 Taha Hussein, Abu Al Feda, Zamalek.
+
+**3. Papa John's:**
+- Hotline: 19277.
+- Address not provided.
+
+**4. Vinny's Pizza:**
+- Location not provided.
+
+**5. Domino's:**
+- Location not provided.
+
+**6. Maison Thomas:**
+- Location not provided.
+
+**7. Il Divino:**
+- Location not provided.
+
+**8. Primo's Pizza:**
+- Location not provided.
+
+**9. Olivio Pizzeria & Bar:**
+- Location not provided.
+
+**10. Il Mulino Bakery & Restaurant:**
+- Location not provided.
+
+'''
+#Execution time: 955.31 seconds
+
