@@ -1,36 +1,29 @@
 
 from helpers import *
 
-# embeddings = (
-#     OllamaEmbeddings(model="all-minilm")
-# )  
-embeddings= (OllamaEmbeddings(model='nomic-embed-text'))
+
+embeddings= (OllamaEmbeddings(model='nomic-embed-text'))   #8192 context windo like gemma 7b/2b context window
 llm = Ollama(model="gemma:7b")
 
 
-user_query="Best pizza places in Cairo Egypt"
+user_query="Attractions in Tokyo Japan"
 
-question_template_p1='Please, Can you help me find the Top 10 places for'
-question_template_p2='and include all details you know about them such as name, address locations, description and more!'
-question= f'{question_template_p1} {user_query} {question_template_p2}'
-
+# question_template_p1='Please, Can you help me find the Top 10 places for'
+# question_template_p2='and include all details you know about them such as name, address locations, description and more!'
+# question= f'{question_template_p1} {user_query} {question_template_p2}'
+question= f'{user_query}'
 
 words = user_query.split()
 url_search = '+'.join(words)
 print(url_search)
 
 seed_url=f'https://www.google.com/search?q={url_search}'
-# google_maps_url=f'https://www.google.com/maps/search/{url_search}'
+
 print('seed_url:',seed_url)
-# print('google_maps_url:',google_maps_url)
 
 
 general_fetched_urls=[]
-# all_fetched_urls=[]
 
-
-# headers = {
-#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
@@ -42,39 +35,28 @@ response = requests.get(seed_url, headers=headers)
 if response.status_code == 200:
     page_content = response.text
     
-    # Parse HTML content
     sp = soup(page_content, 'html.parser')
     
-    # Find all <a> tags and extract URLs
     for a_tag in sp.find_all('a', href=True):
         link = a_tag['href']
 
-        # Check if the link contains 'url=' and '&ved'
         if 'url=' in link and '&ved=' in link:
-            # Extract the part after 'url='
             url_part = link.split('url=')[1]
-            # Find the position of '&ved=' and slice the URL up to that position
             url = url_part.split('&ved=')[0]
-            # Decode the URL to handle any URL encoding
             decoded_url = urllib.parse.unquote(url)
             
             # Ensure the URL starts with 'https://'
             if decoded_url.startswith('https://'):
-                # scraped_urls.append(decoded_url)
                 try:
-                    # Try to make a request to the URL to check for SSL certificate validity
                     r = requests.get(decoded_url, headers=headers, verify=True, timeout=20)
-                    # If the request is successful and no SSL errors are raised, add the URL to the list
                     # print(r.status_code)
                     if r.status_code == 200 or r.status_code == 520:
                             general_fetched_urls.append(decoded_url)
                             if len(general_fetched_urls) >= 8:
                                 break
                 except requests.exceptions.SSLError:
-                    # SSL certificate is not valid
                     print(f"SSL Error for URL: {link}")
                 except requests.exceptions.RequestException as e:
-                    # Handle other request exceptions (timeouts, connection errors, etc.)
                     print(f"Request Exception for URL: {link}, Error: {e}")
 
 
@@ -82,35 +64,17 @@ if response.status_code == 200:
 # Display the scraped URLs
 print('General fetched Urls:')
 print(general_fetched_urls)
-# all_fetched_urls.extend(general_fetched_urls)
-# all_fetched_urls.extend(google_maps_url)
 
-# print('All fetched Urls:')
-# # print(all_fetched_urls)
 print("---------------------------------")
 
 start_time = time.time()
 
-# loader = WebBaseLoader(
-#     web_paths=(scraped_urls),
-#      bs_kwargs=dict(
-#         # parse_only=bs4.SoupStrainer(
-#         #     class_=("post-content", "post-title", "post-header")
-#         # )
-#     ),
-# )
 
 loader = AsyncChromiumLoader(general_fetched_urls, user_agent="MyAppUserAgent")
-# loader = AsyncChromiumLoader(['https://top10cairo.com/best-pizza-cairo/'], user_agent="MyAppUserAgent")
-# docs = loader.load()
-# docs[0].page_content[0:100]
-
 docs = loader.load()
 print(len(docs))
-
-translator = Translator()
 html2text = Html2TextTransformer()
-
+translator = Translator()
 
 ## Function to detect language and filter non-English documents
 def is_english(text):
@@ -151,23 +115,21 @@ print(f'docs_transformed EN 0:{docs_transformed_english[0]}')
 # print(f'docs_transformed EN 1:{docs_transformed_english[1]}')
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-# splits = text_splitter.split_documents(docs_transformed)
 splits = text_splitter.split_documents(docs_transformed_english)
 vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
 print('vectorestore initialized')
-# Retrieve and generate using the relevant snippets of the blog.
 
-retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
+retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 print('retriever initialized')
 print(retriever)
-# def format_docs(docs):
-#     return "\n\n".join(doc.page_content for doc in docs_transformed)
 
 
 prompt_template = '''
 You are a helpful touristic advisor bot that help people find the best places to visit, eat and stay nearby their location. Your name is Adventura.
 Use the provided context as the basis for your answers and do not make up new reasoning paths - just mix-and-match what you are given.
-Your answers must be concise and to the point, and refrain from answering about other topics than touristic information and the user question.
+Your answer must include top 10 places with a brief description of each place, and what makes it unique.
+Your answer must include the address of each of the 10 places too.
+If available, include addtional information such as: pricing, rating, contact information, social media links, opening hours, amenities.
 
 CONTEXT:
 {context}
@@ -179,26 +141,38 @@ YOUR ANSWER:"""
 
 prompt = ChatPromptTemplate.from_template(prompt_template)
 
-# prompt = PromptTemplate(
-#                                 input_variables = ['question', 'context'], 
-#                                 template=
-#                                 '''
-#                                 You are a helpful touristic advisor bot. Your name is Adventura.
-#                                 You help people find the best places to visit, eat and stay nearby their location.
-#                                 Can you find me 10 places for {question} and include all details like:
-#                                 - name
-#                                 - description
-#                                 - genre
-#                                 - rating
-#                                 - opening hours
-#                                 - closing hours
-#                                 - accurate address_location
-#                                 - Link to their website
-#                                 - any interesting information you have on them 
-#                                 using this extra context: {context}
-#                                 '''
-#                                 )
+'''
+Your answers must be concise and to the point, and refrain from answering about other topics than touristic information and the user question.
 
+- Place name: 
+  - List of Addresses: Full address of the place. Include all addresses available for this place.
+  - Description: A brief description of the place, and any unique details of that place.
+  - Contact Information: Phone number or hotline
+  - Social Infomration: Any available social media links (e.g., Facebook, Instagram, Twitter, official website)
+  - Ratings: Average rating based on user reviews (if available).
+
+
+  - Rating: Average rating based on user reviews (if available).
+  - Review counts
+  - Opening Hours: Typical opening hours for each day of the week.
+  - Contact Information: Phone number, email, and website (if available).
+  - Amenities: List of amenities available at the place (e.g., Wi-Fi, parking, restrooms, etc.).
+  - Prices: Any pricing available for entry or services.
+'''
+
+# context = "\n\n".join(doc.page_content for doc in docs_transformed_english)
+
+
+# rag_chain = (
+#     prompt
+#     | llm
+#     | StrOutputParser()
+# )
+
+# input_data = {
+#     'question': question,
+#     'context': context
+# }
 
 rag_chain = (
     {"context": retriever , "question": RunnablePassthrough()}
@@ -207,21 +181,20 @@ rag_chain = (
     | StrOutputParser()
 )
 
-# input_data = {
-#     'question': question,
-# }
+
 
 print('Asking the model:')
-# llm_results=rag_chain.invoke(input=input_data)
+
 llm_results= rag_chain.invoke(question)
+# llm_results = rag_chain.invoke(input=input_data)
 print(llm_results)
 
 elapsed_time = time.time() - start_time
 print(f"Execution time: {elapsed_time:.2f} seconds")
 
 
-# cleanup
-vectorstore.delete_collection()
+# # cleanup
+# vectorstore.delete_collection()
 
 
 
@@ -332,3 +305,112 @@ vectorstore.delete_collection()
 '''
 #Execution time: 955.31 seconds
 
+
+
+
+'''
+## Top 10 Pizza Places in Cairo, Egypt:
+
+**1. What The Crust:**
+- Fifth Settlement and Maadi locations
+- Neapolitan pizzas in huge sizes, highly rated
+- Pricey side, but considered worth it
+
+**2. Eatery:**
+- New Cairo and Sheikh Zayed locations
+- Wide variety of mouth-watering Neapolitan pizzas
+- Popular choices: Genovese and Truffles
+
+**3. Sapori Di Carlo:**
+- Zamalek location
+- Authentic vibes and delicious pizzas
+- Must-try: Pollo E Pesto and Pepperonica
+
+**4. Ted’s:**
+- Widespread Cairo locations
+- Authentic Neapolitan pizza with "All You Can Eat Pizza" option
+- Choose your toppings for ultimate customization
+
+**5. 900 Degrees Restaurant:**
+- Variety of Neapolitan pizzas in Cairo
+
+**6. Maison Thomas:**
+- Zamalek, Sheikh Zayed, Heliopolis, New Cairo, Rehab branches
+- Classic pizzeria since the 20s
+- Popular toppings: Mexico, Margherita, Hot Dog
+
+**7. Il Mulino Bakery & Restaurant:**
+- Locations not specified
+- Popular spot with wide range of pizzas
+
+**8. Pizza Hut:**
+- Hotline: 19000
+- Classic pizza chain with familiar offerings
+
+**9. Papa John’s:**
+- Hotline: 19277
+- Familiar pizza chain with standard toppings
+
+**10. Olivio Pizzeria & Bar:**
+- New Cairo location
+- Authentic pizzas with traditional flavors and atmosphere
+Execution time: 952.17 seconds
+
+'''
+'''
+## Best Pizza Places in Italy
+
+**1. Pizzeria Gino Sorbillo (Naples)**
+- Address: Via Pietro Cirillo, 33, 80139 Naples, NA, Italy
+- Rating: 4.9 (1200+ reviews)
+- Opening Hours: Mon-Sun 12pm-12am
+- Amenities: Outdoor seating, Wheelchair accessible
+- Prices: €10-20
+
+**2. Pepe in Grani (Caiazzo)**
+- Address: Via Santa Maria di Costantinopoli, 53, 84010 Caiazzo, Campania, Italy
+- Rating: 4.8 (300+ reviews)
+- Opening Hours: Tues-Sun 12pm-1am
+- Contact Information: +39 349 808 83 83
+- Amenities: Outdoor seating, Reservations recommended
+- Prices: €15-30
+
+**3. L’Antica Pizzeria da Michele (Naples)**
+- Address: Via dei Tribunali, 99, 80138 Naples, NA, Italy
+- Rating: 4.9 (1800+ reviews)
+- Opening Hours: Mon-Sun 10
+-183
+
+'''
+
+'''
+## Top 10 Attractions in Tokyo, Japan:
+
+**1. Sensoji Temple** (Asakusa): Tokyo's oldest temple, known for its towering five-story pagoda and bustling Nakamise shopping street. (Address: 2-3-1 Asakusa, Taito, Tokyo 111-0035)
+
+**2. Meiji Shrine** (Harajuku): A serene forest sanctuary with traditional Japanese architecture and stunning natural beauty. (Address: 1-1 Yoyogi, Shibuya, Tokyo 150-8301)
+
+**3. Shibuya Crossing:** Witness the world's busiest crosswalk, teeming with pedestrians and dazzling lights. (Address: Shibuya Scramble Square, Shibuya, Tokyo 150-0012)
+
+**4. Tokyo Tower:** Breathtaking panoramic views of the city from Tokyo's iconic landmark. (Address: 3-2-8 Shibuya, Shibuya, Tokyo 150-0010)
+
+**5. Shinjuku Gyoen National Garden:** Escape the urban jungle with serene gardens, traditional teahouses, and cherry blossom groves. (Address: 1-4-1 Shinjuku, Shinjuku, Tokyo 160-0014)
+
+**6. Tokyo Disneyland & DisneySea:** Experience the magic of Disney with thrilling rides, enchanting shows, and classic Disney characters. (Address: 1-13-13 Maihama, Urayasu, Chiba 270-0001)
+
+**7. Imperial Palace Gardens:** Stroll through the lush gardens surrounding the Imperial Palace, home to the Japanese royalty. (Address: 1-1 Chiyoda, Chiyoda, Tokyo 100-8114)
+
+**8. Harajuku:** Known for its vibrant fashion, youthful energy, and unique shops. (Address: Harajuku district, Shibuya, Tokyo)
+
+**9. Odaiba:** A futuristic island with stunning waterfront views, futuristic architecture, and a variety of entertainment options. (Address: Odaiba Island, Tokyo Bay, Tokyo)
+
+**10. Tokyo Skytree:** Enjoy breathtaking nighttime views from the tallest tower in Japan. (Address: 1-1-1 Tokyo Skytree, Tokyo 103-6470)
+
+**Additional Information:**
+
+* Many of these attractions have free entry or discounted rates for children and seniors.
+* Opening hours vary, so check the official websites for detailed information.
+* Tokyo Metro and various bus services offer convenient transportation options to reach these attractions.
+Execution time: 1077.99 seconds
+
+'''

@@ -44,7 +44,7 @@ print(prompt_template)
 
 
 from langchain_community.llms import Ollama
-llm = Ollama(model="gemma:2b")
+llm = Ollama(model="gemma:7b")
 
 
 llm_chain= prompt_template | llm 
