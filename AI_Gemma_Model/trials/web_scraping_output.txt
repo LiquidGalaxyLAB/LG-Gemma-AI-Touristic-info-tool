@@ -1,0 +1,307 @@
+
+
+'''  with old embedding (256 context)
+**1. What The Crust:**
+
+* Authentic Neapolitan pizza with AVPN affiliation.
+* Handmade ovens, local & imported Italian ingredients.
+* Friendly staff, fast service, delicious pizzas.
+* Maadi, New Cairo, Sheikh Zayed.
+* Contact: +201005764631, Facebook, Instagram, Website.
+
+**2. 2900 Degrees:**
+
+* Offers gourmet wood-fired pizza.
+* Fresh toppings and traditional Italian recipes.
+* Cozy atmosphere and friendly staff.
+* Specific location not mentioned.
+
+**3. La Vista 6 Ein Sokhna:**
+
+* Houssam recommends their il tavolino pizza, claiming it's the best on TripAdvisor.
+* No specific details provided.
+
+**4. Mama Pizza:**
+
+* Known for their delicious gourmet pizzas.
+* Wide variety of toppings and crust options.
+* Multiple locations throughout Cairo.
+
+**5. Pizzeria Cairo:**
+
+* Popular spot for classic Neapolitan pizza.
+* Known for their generous slices and friendly staff.
+* Multiple locations throughout Cairo.
+
+**6. Pizza Garden:**
+
+* Offers a wide range of pizzas at affordable prices.
+* Great option for large groups or families.
+* Multiple locations throughout Cairo.
+
+**7. Mama Noura:**
+
+* Local chain serving traditional Egyptian pizza with unique toppings.
+* Known for their generous portions and affordable prices.
+* Multiple locations throughout Cairo.
+
+**8. Domino's Pizza:**
+
+* Classic pizza chain with familiar flavors.
+* Good option for quick delivery and familiar pizza.
+* Multiple locations throughout Cairo.
+
+**9. Pizza Hut:**
+
+* Another classic pizza chain with familiar flavors.
+* Good option for quick delivery and familiar pizza.
+* Multiple locations throughout Cairo.
+
+**10. Pizza Street:**
+
+* Casual dining spot with a wide variety of pizzas.
+* Offers vegetarian and vegan options.
+* Multiple locations throughout Cairo.
+
+'''
+#Execution time: 878.01 seconds
+
+'''  with new embeddings
+## Top 10 Pizza Places in Cairo, Egypt:
+
+**1. What The Crust:**
+- Award-winning pizzeria included in "Top 100 Best Pizzerias in the World" list.
+- Located in Downtown Mall New Cairo City.
+- Opening hours: Mon-Thurs & Sat-Sun (12pm-12am), Fri (1pm-12am).
+- Official website, Instagram, Facebook.
+
+**2. Pizza Hut:**
+- Hotline: 19000.
+- Address: 18 Taha Hussein, Abu Al Feda, Zamalek.
+
+**3. Papa John's:**
+- Hotline: 19277.
+- Address not provided.
+
+**4. Vinny's Pizza:**
+- Location not provided.
+
+**5. Domino's:**
+- Location not provided.
+
+**6. Maison Thomas:**
+- Location not provided.
+
+**7. Il Divino:**
+- Location not provided.
+
+**8. Primo's Pizza:**
+- Location not provided.
+
+**9. Olivio Pizzeria & Bar:**
+- Location not provided.
+
+**10. Il Mulino Bakery & Restaurant:**
+- Location not provided.
+
+'''
+#Execution time: 955.31 seconds
+
+
+
+
+'''
+## Top 10 Pizza Places in Cairo, Egypt:
+
+**1. What The Crust:**
+- Fifth Settlement and Maadi locations
+- Neapolitan pizzas in huge sizes, highly rated
+- Pricey side, but considered worth it
+
+**2. Eatery:**
+- New Cairo and Sheikh Zayed locations
+- Wide variety of mouth-watering Neapolitan pizzas
+- Popular choices: Genovese and Truffles
+
+**3. Sapori Di Carlo:**
+- Zamalek location
+- Authentic vibes and delicious pizzas
+- Must-try: Pollo E Pesto and Pepperonica
+
+**4. Ted’s:**
+- Widespread Cairo locations
+- Authentic Neapolitan pizza with "All You Can Eat Pizza" option
+- Choose your toppings for ultimate customization
+
+**5. 900 Degrees Restaurant:**
+- Variety of Neapolitan pizzas in Cairo
+
+**6. Maison Thomas:**
+- Zamalek, Sheikh Zayed, Heliopolis, New Cairo, Rehab branches
+- Classic pizzeria since the 20s
+- Popular toppings: Mexico, Margherita, Hot Dog
+
+**7. Il Mulino Bakery & Restaurant:**
+- Locations not specified
+- Popular spot with wide range of pizzas
+
+**8. Pizza Hut:**
+- Hotline: 19000
+- Classic pizza chain with familiar offerings
+
+**9. Papa John’s:**
+- Hotline: 19277
+- Familiar pizza chain with standard toppings
+
+**10. Olivio Pizzeria & Bar:**
+- New Cairo location
+- Authentic pizzas with traditional flavors and atmosphere
+Execution time: 952.17 seconds
+
+'''
+'''
+## Best Pizza Places in Italy
+
+**1. Pizzeria Gino Sorbillo (Naples)**
+- Address: Via Pietro Cirillo, 33, 80139 Naples, NA, Italy
+- Rating: 4.9 (1200+ reviews)
+- Opening Hours: Mon-Sun 12pm-12am
+- Amenities: Outdoor seating, Wheelchair accessible
+- Prices: €10-20
+
+**2. Pepe in Grani (Caiazzo)**
+- Address: Via Santa Maria di Costantinopoli, 53, 84010 Caiazzo, Campania, Italy
+- Rating: 4.8 (300+ reviews)
+- Opening Hours: Tues-Sun 12pm-1am
+- Contact Information: +39 349 808 83 83
+- Amenities: Outdoor seating, Reservations recommended
+- Prices: €15-30
+
+**3. L’Antica Pizzeria da Michele (Naples)**
+- Address: Via dei Tribunali, 99, 80138 Naples, NA, Italy
+- Rating: 4.9 (1800+ reviews)
+- Opening Hours: Mon-Sun 10
+-183
+
+'''
+
+'''
+## Top 10 Attractions in Tokyo, Japan:
+
+**1. Sensoji Temple** (Asakusa): Tokyo's oldest temple, known for its towering five-story pagoda and bustling Nakamise shopping street. (Address: 2-3-1 Asakusa, Taito, Tokyo 111-0035)
+
+**2. Meiji Shrine** (Harajuku): A serene forest sanctuary with traditional Japanese architecture and stunning natural beauty. (Address: 1-1 Yoyogi, Shibuya, Tokyo 150-8301)
+
+**3. Shibuya Crossing:** Witness the world's busiest crosswalk, teeming with pedestrians and dazzling lights. (Address: Shibuya Scramble Square, Shibuya, Tokyo 150-0012)
+
+**4. Tokyo Tower:** Breathtaking panoramic views of the city from Tokyo's iconic landmark. (Address: 3-2-8 Shibuya, Shibuya, Tokyo 150-0010)
+
+**5. Shinjuku Gyoen National Garden:** Escape the urban jungle with serene gardens, traditional teahouses, and cherry blossom groves. (Address: 1-4-1 Shinjuku, Shinjuku, Tokyo 160-0014)
+
+**6. Tokyo Disneyland & DisneySea:** Experience the magic of Disney with thrilling rides, enchanting shows, and classic Disney characters. (Address: 1-13-13 Maihama, Urayasu, Chiba 270-0001)
+
+**7. Imperial Palace Gardens:** Stroll through the lush gardens surrounding the Imperial Palace, home to the Japanese royalty. (Address: 1-1 Chiyoda, Chiyoda, Tokyo 100-8114)
+
+**8. Harajuku:** Known for its vibrant fashion, youthful energy, and unique shops. (Address: Harajuku district, Shibuya, Tokyo)
+
+**9. Odaiba:** A futuristic island with stunning waterfront views, futuristic architecture, and a variety of entertainment options. (Address: Odaiba Island, Tokyo Bay, Tokyo)
+
+**10. Tokyo Skytree:** Enjoy breathtaking nighttime views from the tallest tower in Japan. (Address: 1-1-1 Tokyo Skytree, Tokyo 103-6470)
+
+**Additional Information:**
+
+* Many of these attractions have free entry or discounted rates for children and seniors.
+* Opening hours vary, so check the official websites for detailed information.
+* Tokyo Metro and various bus services offer convenient transportation options to reach these attractions.
+Execution time: 1077.99 seconds
+
+'''
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+'''
+
+{
+    'countryName': 'United Kingdom', 
+    'CityName': 'London', 
+    'PlacesList': 
+                [
+                    {
+                        'placeName': 'The London Dungeon', 
+                        'address': ['Riverside Building, County Hall, Westminster Bridge Rd'], 
+                        'description': 'Hi-tech haunted house attraction', 
+                        'socialInformation': {'facebook': 'https://www.facebook.com/TheLondonDungeon', 'instagram': 'https://www.instagram.com/thelondondungeon/'}, 
+                        'contactInformation': '+44 (0)20 7395 4200', 
+                        'ratings': 4.3, 
+                        'amenities': ['Haunted house', 'Themed experiences'], 
+                        'prices': 'From £25'
+                    }, 
+                    {
+                        'placeName': 'The London Bridge Experience & London Tombs', 
+                        'address': ['The Rennie Vaults, 2 - 4 Tooley St'], 
+                        'description': 'Theatrical performances, tours & a maze', 
+                        'socialInformation': {'facebook': 'https://www.facebook.com/thelondondbridgeexperience', 'twitter': 'https://twitter.com/LDBExperience'}, 
+                        'contactInformation': '+44 (0)20 7357 5000', 
+                        'ratings': 4.2, 
+                        'amenities': ['Theatrical performances', 'Guided tours', 'Maze'], 
+                        'prices': 'From £20'
+                    }, 
+                    {
+                        'placeName': 'London Eye', 
+                        'address': ['Riverside Building, County Hall'], 
+                        'description': 'Giant observation wheel offering panoramic city views', 
+                        'socialInformation': {'twitter': 'https://twitter.com/LondonEye', 
+                        'instagram': 'https://www.instagram.com/londoneye/'}, 
+                        'contactInformation': '+44 (0)20 7458 7777', 
+                        'ratings': 4.5, 
+                        'amenities': ['Observation wheel', 'Restaurant'], 
+                        'prices': 'From £20'
+                    }, 
+                    {
+                        'placeName': 'SEA LIFE London Aquarium', 
+                        'address': ['Riverside Building, County Hall, Westminster Bridge Rd'], 
+                        'description': 'Oceanic exhibits for all ages', 
+                        'socialInformation': {'facebook': 'https://www.facebook.com/sealifelondon', 'instagram': 'https://www.instagram.com/sealifelondonaquarium/'}, 
+                        'contactInformation': '+44 (0)20 7058 6600', 
+                        'ratings': 4.3, 
+                        'amenities': ['Aquarium', 'Educational programs'], 
+                        'prices': 'From £20'
+                    }, 
+                    {
+                        'placeName': 'The View from The Shard', 
+                        'address': [
+                        'email']}]
+                    } 
+Execution time: 1975.40 seconds 😱
+
+
+{'countryName': 'United Kingdom', 'CityName': 'London', 'PlacesList': [{'placeName': 'Apex City of London Hotel', 'address': ['415 Fulham Road'], 'description': 'Modern lodging with dining & a bar', 'ratings': 4.5, 'amenities': ['Fitness center', 'Free Wi-Fi', 'Air-conditioned', 'Breakfast'], 'prices': 'EGP 14.1K'}, {'placeName': 'Tower of London', 'address': ['Tower Hill'], 'description': 'Medieval castle housing the Crown Jewels', 'ratings': 4.6, 'amenities': [], 'prices': ''}, {'placeName': 'The London Dungeon', 'address': ['Riverside Building, County Hall, Westminster Bridge Rd'], 'description': 'Hi-tech haunted house attraction', 'ratings': 4.3, 'amenities': [], 'prices': ''}, {'placeName': 'SEA LIFE London Aquarium', 'address': ['Riverside Building, County Hall, Westminster Bridge Rd'], 'description': 'Oceanic exhibits for all ages', 'ratings': 4.3, 'amenities': [], 'prices': ''}, {'placeName': 'London Bridge', 'address': ['London Bridge'], 'description': '1970s bridge spanning the River Thames', 'ratings': 4.6, 'amenities': [], 'prices': ''}, {'placeName': 'Tower Bridge', 'address': ['Tower Bridge Rd'], 'description': 'Iconic Victorian turreted bridge', 'ratings': 4.8, 'amenities': [], 'prices': ''}, {'placeName': 'Boxpark', 'address': ['Unit 10, Clarendon Road'], 'description': 'Indoor market with street food and shops', 'ratings': 4.2, 'amenities': [], 'prices': ''}, {'placeName': 'Camden Market', 'address': ['Camden Lock'], 'description': 'Outdoor market selling clothes, food and crafts', 'ratings': 4.4, 'amenities': [], 'prices': ''}, {'placeName': 'Hyde Park', 'address': ['Hyde Park'], 'description': 'Large park with gardens, lake and monuments', 'ratings': 4.9, 'amenities': [], 'prices': ''}, {'placeName': 'Borough Market', 'address': ['85 Borough High Street'], 'description': 'Historic food market selling fresh produce and street food', 'ratings': 4.8, 'amenities': [], 'prices': ''}]}
+
+
+'''
+
+
+'''
+
+{'countryName': 'Egypt', 'CityName': 'Cairo', 'PlacesList': [{'placeName': 'CaiRoma', 'address': ['19 Youssef El-Gendy'], 'description': 'Casual eatery serving sweet & savory pizzas with a focus on perfect Italian pizza.', 'ratings': 4.2, 'amenities': ['Italian'], 'prices': '$$$'}, {'placeName': 'Sapori di Carlo', 'address': ['49 Mohammed Mazhar'], 'description': 'Serves delicious Italian pizza with friendly service.', 'ratings': 4.5, 'amenities': ['Italian'], 'prices': ''}, {'placeName': 'What the Crust', 'address': ['ش275 مكرر'], 'description': 'Casual eatery for sweet & savory pizzas, known for having one of the best pizzas in Egypt.', 'ratings': 4.6, 'amenities': ['Pizza'], 'prices': '$$'}, {'placeName': 'Pane Vino', 'address': ['InterContinental Semiramis, Nile Corniche'], 'description': 'Serves delicious Italian pizza with a wide variety of toppings.', 'ratings': 4.5, 'amenities': ['Italian'], 'prices': '$$'}, {'placeName': 'Pizza Garden', 'address': ['1716 El-Mohandes St'], 'description': 'Serves gourmet pizzas with a wide variety of toppings.', 'ratings': 4.4, 'amenities': ['Pizza'], 'prices': '$$$'}, {'placeName': "Papa Luigi's Pizza", 'address': ['1008 El-Mohandes St'], 'description': 'Serves classic Italian pizzas with a crispy crust.', 'ratings': 4.3, 'amenities': ['Pizza'], 'prices': '$$'}, {'placeName': 'Pinocchio Pizza', 'address': ['104 El-Mohandes St'], 'description': '\n'}]}
+
+
+{'countryName': 'Egypt', 'CityName': 'Alexandria', 'PlacesList': [{'placeName': 'Four Seasons Alexandria at San Stefano', 'address': ['184 Stanley Street, Alexandria, Alexandria Governorate 21515'], 'description': 'Luxury hotel offering 5-star accommodations, an outdoor pool and a spa', 'ratings': 8.9, 'amenities': ['Air conditioning', 'Free Wi-Fi', 'Concierge', 'Restaurant'], 'prices': 'EGP5,448 per night'}, {'placeName': 'Cherry Maryski Hotel', 'address': ['186 Stanley Street, Alexandria, Alexandria Governorate 21515'], 'description': 'Boutique hotel offering stylish rooms and suites with sea views', 'ratings': 8.7, 'amenities': ['Air conditioning', 'Free Wi-Fi', 'Swimming pool', 'Restaurant'], 'prices': 'Starting From EGP2,500 per night'}, {'placeName': 'Plaza Hotel Alexandria', 'address': ['154 Corniche El-Montaza, Alexandria, Alexandria Governorate 21511'], 'description': 'Modern hotel with panoramic sea views, offering spacious rooms and excellent dining', 'ratings': 8.2, 'amenities': ['Air conditioning', 'Free Wi-Fi', 'Gym', 'Restaurant'], 'prices': 'Starting From EGP3,000 per night'}]}
+
+'''
+
+
+{'countryName': 'United Kingdom', 'CityName': 'Edinburgh', 'PlacesList': [{'placeName': 'Code Pod Hostel', 'address': ['18-20 Grassmarket'], 'description': 'Offers flexible and non-refundable rates for groups of 8 or more.', 'ratings': 9.4, 'amenities': ['Free luggage storage', 'WIFI', 'Self-catering kitchen'], 'prices': '€14.34 - €21.94'}, {'placeName': 'a&o Edinburgh City', 'address': ['109-113 Royal Mile'], 'description': 'Located minutes from the historic Royal Mile, right in the heart of the city.', 'ratings': 8.1, 'amenities': ['Key card access'], 'prices': '€12.49 - €19.88'}, {'placeName': 'High Street Hostel', 'address': ['123-129 High Street'], 'description': 'Offers private rooms and dorms.', 'ratings': 8.9, 'amenities': ['Games room', 'TV/dining room'], 'prices': '€18.68 - €21.75'}, {'placeName': 'The Baxter', 'address': ['42-48 Candlemaker Row'], 'description': 'Privately owned by the Baxter brothers, bringing a new standard of hostel.', 'prices': '€16.14 - €74.10'}, {'placeName': 'Edinburgh Backpackers Hostel', 'address': ['100-106 Abbeyhill Road'], 'description': 'Offers dorms and private rooms in a great location with key card access, free luggage storage, WIFI, and a self-catering kitchen.', 'prices': '€26.47 - €30.96'}]}
+
+Execution time: 1224.74 seconds
+
+
+
+
+{'countryName': 'Egypt', 'CityName': 'Cairo', 'PlacesList': [{'placeName': 'Zawya Cinema', 'address': ['15 Emad El-Deen'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.5, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Zamalek Cinema', 'address': ['13 Shagaret Al Dor'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.4, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Galleria Mall Cinema', 'address': ['Galleria Mall at Grand Nile Tower, Corniche El Nil'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.3, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Renaissance Cinema', 'address': ['2005 Nile Corniche'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.2, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Cinema Metro', 'address': [' شارع طلعت حرب عابدين، محافظة القاهرة\u202c'], 'description': 'Movie theater showing the latest releases', 'ratings': 3.7, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Odeon Cinema', 'address': ['4 متفرع من, Talaat Harb'], 'description': 'Chain cinema showing the latest releases', 'ratings': 3.8, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Cinema Plus Cairo', 'address': ['2 Saraya Al Azbakya'], 'description': 'Movie theater showing the latest releases', 'ratings': 3.7, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Ramses Cinema', 'address': ['362J+HX5'], 'description': 'Movie theater showing the latest releases', 'ratings': 3.6, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Cinema Metro', 'address': [' شارع طلعت حرب عابدين، محافظة القاهرة\u202c'], 'description': 'Movie theater showing the latest releases', 'ratings': 3.7, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Galleria Mall Cinema', 'address': ['Galleria Mall at Grand Nile Tower, Corniche El Nil'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.3, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Zamalek Cinema', 'address': ['13 Shagaret Al Dor'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.4, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Zawya Cinema', 'address': ['15 Emad El-Deen'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.5, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Renaissance Cinema', 'address': ['2005 Nile Corniche'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.2, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Cinema Metro', 'address': [' شارع طلعت حرب عابدين، محافظة القاهرة\u202c'], 'description': 'Movie theater showing the latest releases', 'ratings': 3.7, 'amenities': ['Movie theater'], 'prices': ''}]}
+
+
+
+
+ “PlacesList”: [ { “placeName” : ”Sahara Desert”,     &      address: ['Eastern Sahara', 'Western Sahra'],         description :"Vast desert landscape with towering sand dunes and camel rides",       ratings': 4.,5,  "amenities": [], "prices":"Price varies depending on tour duration & itinerary." }, { “placeName”: ”White Sand Desert”,    &      address: ['Siwa Oasis', 'Western Sahara'],         description :"A desert landscape with towering sand dunes and fossilized seashells",     ratings': 4.2,  "amenities": [], "prices":"Price varies depending on tour duration & itinerary." }, { “placeName”: ”Mountains of Egypt”,   &      address: ['Aswan', 'Western Sahara'],         description :"Rocky mountains offering hiking trails with panoramic desert views and Nubian villages",     ratings': 4.8,  "amenities": [], "prices":"Entrance fee is $10 for foreign tourists." }, { “placeName”: ”Abu Simbel”, &      address: ['Aswan', 'Western Sahara'],         description :"Massive temples built by Pharaoh Ramses II with colossal statues and hieroglyphics",     ratings': 4.9,  "amenities": [], "prices":"Entrance fee is $20 for foreign tourists." }, { “placeName”: ”Ras Mohamed National Park”, &      address: ['South Sinai Peninsula'],         description :"A protected area known of its stunning rock formations and diverse wildlife including dolphins",     ratings': 4.7,  "amenities": [], "prices":"Entrance fee is $5 for foreign tourists." }, { “placeName”: ”Wadi Degla”, &      address: ['South Sinai Peninsula'],         description :"A canyon with lush greenery oasis offering hiking trails and rock climbing opportunities.",    &     ratings': 4.6,  "amenities": [], "prices":"Entrance fee is $1 for foreign tourists." }, { “placeName”: ”Egyptian Desert Safari Camp”, &      address: ['Various Locations'],         description :"Immerse yourself in the desert experience with a traditional Bedouin camp offering camel rides",     ratings': 4.9,  "amenities": [], "prices":"Price varies depending on tour duration and inclusions." }, { “placeName”: ”Dakhla Oasis”, &      address: ['Western Sahara'],         description :"A remote oasis known for its crystal-clear water springs in the desert landscape.",    &     ratings': 4.8,  "amenities": [], "prices":"Entrance fee is $50 per person." }, { “placeName”: ”Gebel El Zeit”, &      address: ['Western Sahara'],         description :"A mountain with a unique rock formation resembling an ancient pyramid",       rating ': ', '   '    &     “ amenities” : '',  " prices": ''}, 
+{ " place Name ": ""Wadi Al-Natroun National Park"", address = [ ‘North West of Cairo’], description: “Richly vegetated oasis with hiking trails and historical sites”, rating=4.5, 'amenities': [],'prices':'Entrance fee is $2 for foreign tourists.' }  ] 
