@@ -27,8 +27,8 @@ class _LGTasksViewState extends State<LGTasksView> {
             children: [
               Image.asset(
                 "assets/images/lgTasks.png",
-                width: MediaQuery.of(context).size.width * 0.1,
-                height: MediaQuery.of(context).size.height * 0.1,
+                width: MediaQuery.of(context).size.width * 0.05,
+                height: MediaQuery.of(context).size.height * 0.05,
                 color: FontAppColors.secondaryFont,
               ),
               Center(
@@ -206,7 +206,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.25,
                 onpressed: () async {
-                                   /// retrieving the ssh data from the `ssh provider`
+                  /// retrieving the ssh data from the `ssh provider`
                   final sshData =
                       Provider.of<SSHprovider>(context, listen: false);
 
@@ -256,7 +256,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.26,
                 onpressed: () async {
-                                    /// retrieving the ssh data from the `ssh provider`
+                  /// retrieving the ssh data from the `ssh provider`
                   final sshData =
                       Provider.of<SSHprovider>(context, listen: false);
 

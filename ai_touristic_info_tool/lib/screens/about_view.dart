@@ -27,9 +27,10 @@ class AboutScreen extends StatelessWidget {
               children: [
                 Image.asset(
                   "assets/images/appLogo.png",
+                  scale: 0.5,
                 ),
                 Text(
-                  "LG Gemma \nAI Touristic Info Tool",
+                  "LG Gemma AI Touristic Info Tool",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: titleSize,
@@ -286,7 +287,9 @@ class DevelopersInfoWidget extends StatelessWidget {
               ),
             ],
           ),
-          AppDividerWidget(height: MediaQuery.of(context).size.height * 0.2,),
+          AppDividerWidget(
+            height: MediaQuery.of(context).size.height * 0.2,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -347,4 +350,3 @@ class DevelopersInfoWidget extends StatelessWidget {
     );
   }
 }
-

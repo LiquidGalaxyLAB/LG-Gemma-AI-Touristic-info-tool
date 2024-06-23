@@ -44,3 +44,5 @@ app.*.map.json
 
 #env variables
 .env
+
+../AI_Gemma_Model/gsoc_env/
