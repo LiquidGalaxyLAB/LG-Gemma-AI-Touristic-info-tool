@@ -19,6 +19,7 @@ class PrimaryAppColors {
   static const Color gradient3 = Color(0xFF6988C9);
   static const Color gradient4 = Color(0xFF8096C5);
   static const Color buttonColors = Color(0xFF556EA5);
+  static const Color accentColor = Color.fromARGB(120, 252, 171, 21);
   static const Color innerBackground = Colors.white;
 }
 

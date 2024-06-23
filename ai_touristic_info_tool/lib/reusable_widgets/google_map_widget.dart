@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/map_types_choices_widget.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
@@ -158,80 +159,86 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
   }
   @override
   Widget build(BuildContext context) {
-    return AnimationLimiter(
-      child: Row(
-        children: AnimationConfiguration.toStaggeredList(
-          duration: const Duration(seconds: 10),
-          childAnimationBuilder: (widget) => SlideAnimation(
-            horizontalOffset: 5,
-            child: FadeInAnimation(
-              child: widget,
-            ),
-          ),
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.02,
-            ),
-            SizedBox(
-              height: widget.height,
-              width: widget.width,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: Consumer<MapTypeProvider>(builder: (BuildContext context,
-                    MapTypeProvider value, Widget? child) {
-                  return Stack(
-                    children: [
-                      GoogleMap(
-                        mapType: value.currentView == 'normal'
-                            ? MapType.normal
-                            : value.currentView == 'satellite'
-                                ? MapType.satellite
-                                : MapType.terrain,
-                        initialCameraPosition: CameraPosition(
-                          target: _center,
-                          zoom: 14.4746,
-                          bearing: _bearingvalue,
-                          tilt: _tiltvalue,
-                        ),
-                        compassEnabled: true,
-                        onTap: (LatLng latLng) {
-                          print('Tapped: $latLng');
-                          setState(() {
-                            _center = latLng;
-                          });
-                        },
-                        minMaxZoomPreference: MinMaxZoomPreference.unbounded,
-                        tiltGesturesEnabled: true,
-                        zoomControlsEnabled: true,
-                        zoomGesturesEnabled: true,
-                        scrollGesturesEnabled: true,
-                        onCameraMove: _onCameraMove,
-                        onCameraIdle: _onCameraIdle,
-                        circles: _circles,
-                        polygons: _polygons,
-                        markers: _markers,
-                        onMapCreated: _onMapCreated,
-                      ),
-                      Container(
-                        alignment: Alignment.topRight,
-                        margin: const EdgeInsets.only(top: 10, right: 10),
-                        child: Column(
-                          children: [
-                            FloatingActionButton(
-                              onPressed: _addMarker,
-                              child: const Icon(Icons.add_location),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  );
-                }),
+    return Column(
+      children:[ AnimationLimiter(
+        child: Row(
+          children: AnimationConfiguration.toStaggeredList(
+            duration: const Duration(seconds: 10),
+            childAnimationBuilder: (widget) => SlideAnimation(
+              horizontalOffset: 5,
+              child: FadeInAnimation(
+                child: widget,
               ),
-            )
-          ],
+            ),
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.02,
+              ),
+              SizedBox(
+                height: widget.height,
+                width: widget.width,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(40),
+                  child: Consumer<MapTypeProvider>(builder: (BuildContext context,
+                      MapTypeProvider value, Widget? child) {
+                    return Stack(
+                      children: [
+                        GoogleMap(
+                          mapType: value.currentView == 'normal'
+                              ? MapType.normal
+                              : value.currentView == 'satellite'
+                                  ? MapType.satellite
+                                  : MapType.terrain,
+                          initialCameraPosition: CameraPosition(
+                            target: _center,
+                            zoom: 14.4746,
+                            bearing: _bearingvalue,
+                            tilt: _tiltvalue,
+                          ),
+                          compassEnabled: true,
+                          onTap: (LatLng latLng) {
+                            print('Tapped: $latLng');
+                            setState(() {
+                              _center = latLng;
+                            });
+                          },
+                          minMaxZoomPreference: MinMaxZoomPreference.unbounded,
+                          tiltGesturesEnabled: true,
+                          zoomControlsEnabled: true,
+                          zoomGesturesEnabled: true,
+                          scrollGesturesEnabled: true,
+                          onCameraMove: _onCameraMove,
+                          onCameraIdle: _onCameraIdle,
+                          circles: _circles,
+                          polygons: _polygons,
+                          markers: _markers,
+                          onMapCreated: _onMapCreated,
+                        ),
+                        Container(
+                          alignment: Alignment.topRight,
+                          margin: const EdgeInsets.only(top: 10, right: 10),
+                          child: Column(
+                            children: [
+                              FloatingActionButton(
+                                onPressed: _addMarker,
+                                child: const Icon(Icons.add_location),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    );
+                  }),
+                ),
+              )
+            ],
+          ),
         ),
       ),
-    );
+      SizedBox(
+          height: MediaQuery.of(context).size.height * 0.02,
+        ),
+        const MapTypeChoicesWidget(),
+    ]);
   }
 }
