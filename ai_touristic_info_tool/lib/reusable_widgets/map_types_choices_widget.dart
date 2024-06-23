@@ -1,4 +1,3 @@
-
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:flutter/material.dart';
@@ -12,20 +11,13 @@ class MapTypeChoicesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<MapTypeProvider>(
-      builder:
-          (BuildContext context, MapTypeProvider value, Widget? child) {
+      builder: (BuildContext context, MapTypeProvider value, Widget? child) {
         return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.08,
-            ),
             Text(
               'Satellite',
               style: TextStyle(fontFamily: fontType, fontSize: textSize),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.02,
             ),
             GestureDetector(
               onTap: () => value.currentView = 'satellite',
@@ -47,15 +39,9 @@ class MapTypeChoicesWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.1,
-            ),
             Text(
               'Normal',
               style: TextStyle(fontFamily: fontType, fontSize: textSize),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.02,
             ),
             GestureDetector(
               onTap: () => value.currentView = 'normal',
@@ -77,15 +63,9 @@ class MapTypeChoicesWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.1,
-            ),
             Text(
               'Terrain',
               style: TextStyle(fontFamily: fontType, fontSize: textSize),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.02,
             ),
             GestureDetector(
               onTap: () => value.currentView = 'terrain',
@@ -106,9 +86,6 @@ class MapTypeChoicesWidget extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.1,
             ),
           ],
         );

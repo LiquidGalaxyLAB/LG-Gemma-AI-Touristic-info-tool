@@ -8,12 +8,19 @@ class RecommendationContainer extends StatelessWidget {
   final String? description;
   final double width;
   final double height;
+  final double txtSize;
+  final double? descriptionSize;
+  final double bottomOpacity;
   const RecommendationContainer(
       {super.key,
       required this.imagePath,
       required this.title,
       this.country,
-      this.description, required this.width, required this.height});
+      this.description,
+      required this.width,
+      required this.height,
+      required this.txtSize,
+      this.descriptionSize, required this.bottomOpacity});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +49,7 @@ class RecommendationContainer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(26),
                 gradient: LinearGradient(
                   colors: [
-                    Colors.black.withOpacity(0.6),
+                    Colors.black.withOpacity(bottomOpacity),
                     Colors.black.withOpacity(0.1),
                   ],
                   begin: Alignment.bottomCenter,
@@ -63,7 +70,7 @@ class RecommendationContainer extends StatelessWidget {
                     style: TextStyle(
                       color: FontAppColors.secondaryFont,
                       fontWeight: FontWeight.bold,
-                      fontSize: textSize + 6,
+                      fontSize: txtSize,
                       fontFamily: fontType,
                     ),
                   ),
@@ -72,7 +79,7 @@ class RecommendationContainer extends StatelessWidget {
                       description!,
                       style: TextStyle(
                         color: FontAppColors.secondaryFont,
-                        fontSize: textSize + 2,
+                        fontSize: txtSize,
                         fontFamily: fontType,
                       ),
                     ),

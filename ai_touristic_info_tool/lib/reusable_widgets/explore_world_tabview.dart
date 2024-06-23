@@ -10,7 +10,8 @@ class ExploreWorldTabView extends StatelessWidget {
     super.key,
     required GlobalKey<FormState> formKey,
     required TextEditingController promptController,
-  }) : _formKey = formKey, _promptController = promptController;
+  })  : _formKey = formKey,
+        _promptController = promptController;
 
   final GlobalKey<FormState> _formKey;
   final TextEditingController _promptController;
@@ -37,103 +38,149 @@ class ExploreWorldTabView extends StatelessWidget {
             child: CarouselSlider(
               items: [
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-egypt1.jpg',
-                    title: 'Nile River Cruise in Egypt',
-                    country: 'Egypt',
-                    description:
-                        'Sail along the historic Nile River, visiting ancient temples and monuments.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-egypt1.jpg',
+                  title: 'Nile River Cruise in Egypt',
+                  country: 'Egypt',
+                  description:
+                      'Sail along the historic Nile River, visiting ancient temples and monuments.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-egypt2.jpg',
-                    title:
-                        'Dive the Pristine Coral Reefs of the Red Sea, Egypt',
-                    country: 'Egypt',
-                    description:
-                        'Experience world-class diving with vibrant marine life and stunning coral reefs.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-egypt2.jpg',
+                  title: 'Dive the Pristine Coral Reefs of the Red Sea, Egypt',
+                  country: 'Egypt',
+                  description:
+                      'Experience world-class diving with vibrant marine life and stunning coral reefs.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-scotland.jpg',
-                    title:
-                        'Highland Adventure in the Scottish Highlands',
-                    country: 'Scotland',
-                    description:
-                        'Explore rugged landscapes, historic castles, and scenic lochs in Scotland.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-scotland.jpg',
+                  title: 'Highland Adventure in the Scottish Highlands',
+                  country: 'Scotland',
+                  description:
+                      'Explore rugged landscapes, historic castles, and scenic lochs in Scotland.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-spain.jpg',
-                    title: 'Art and Architecture Tour in Spain',
-                    country: 'Spain',
-                    description:
-                        'Discover Spain\'s rich artistic heritage and architectural marvels, including Gaudí’s works.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-spain.jpg',
+                  title: 'Art and Architecture Tour in Spain',
+                  country: 'Spain',
+                  description:
+                      'Discover Spain\'s rich artistic heritage and architectural marvels, including Gaudí’s works.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-iceland.jpg',
-                    title: 'Volcano Trekking in Iceland',
-                    country: 'Iceland',
-                    description:
-                        'Trek across lava fields, hot springs, and stunning volcanic landscapes.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-iceland.jpg',
+                  title: 'Volcano Trekking in Iceland',
+                  country: 'Iceland',
+                  description:
+                      'Trek across lava fields, hot springs, and stunning volcanic landscapes.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-europe.jpg',
-                    title: 'Cycling Tour in Europe',
-                    country: 'Europe',
-                    description:
-                        'Enjoy a cycling adventure through picturesque landscapes and historic towns in Europe.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-europe.jpg',
+                  title: 'Cycling Tour in Europe',
+                  country: 'Europe',
+                  description:
+                      'Enjoy a cycling adventure through picturesque landscapes and historic towns in Europe.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-uae.jpg',
-                    title: 'Desert Safari in UAE',
-                    country: 'UAE',
-                    description:
-                        'Experience thrilling dune bashing, camel rides, and a taste of Bedouin culture.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-uae.jpg',
+                  title: 'Desert Safari in UAE',
+                  country: 'UAE',
+                  description:
+                      'Experience thrilling dune bashing, camel rides, and a taste of Bedouin culture.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-paris.png',
-                    title: 'City Tour in Paris, France',
-                    country: 'France',
-                    description:
-                        'Explore iconic landmarks like the Eiffel Tower, Louvre Museum, and Notre-Dame Cathedral.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-paris.png',
+                  title: 'City Tour in Paris, France',
+                  country: 'France',
+                  description:
+                      'Explore iconic landmarks like the Eiffel Tower, Louvre Museum, and Notre-Dame Cathedral.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-norway.jpg',
-                    title: 'Aurora Borealis Viewing in Norway',
-                    country: 'Norway',
-                    description:
-                        'Witness the stunning Northern Lights in one of the best viewing spots on Earth.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-norway.jpg',
+                  title: 'Aurora Borealis Viewing in Norway',
+                  country: 'Norway',
+                  description:
+                      'Witness the stunning Northern Lights in one of the best viewing spots on Earth.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-japan.jpg',
-                    title: 'Cultural Tour in Kyoto, Japan',
-                    country: 'Japan',
-                    description:
-                        'Discover ancient temples, traditional tea houses, and the serene beauty of Kyoto\'s gardens.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-japan.jpg',
+                  title: 'Cultural Tour in Kyoto, Japan',
+                  country: 'Japan',
+                  description:
+                      'Discover ancient temples, traditional tea houses, and the serene beauty of Kyoto\'s gardens.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-india2.jpeg',
-                    title: 'Yoga and Wellness Retreats in India',
-                    country: 'India',
-                    description:
-                        'Engage in rejuvenating yoga sessions and meditation practices in serene settings.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-india2.jpeg',
+                  title: 'Yoga and Wellness Retreats in India',
+                  country: 'India',
+                  description:
+                      'Engage in rejuvenating yoga sessions and meditation practices in serene settings.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
                 RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 1,
-                    imagePath: 'assets/images/rec-london.jpg',
-                    title: 'Historical Tour of London',
-                    country: 'London',
-                    description:
-                        'Visit iconic sites such as the Tower of London, Buckingham Palace, and the British Museum.'),
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 1,
+                  bottomOpacity: 0.6,
+                  imagePath: 'assets/images/rec-london.jpg',
+                  title: 'Historical Tour of London',
+                  country: 'London',
+                  description:
+                      'Visit iconic sites such as the Tower of London, Buckingham Palace, and the British Museum.',
+                  txtSize: textSize + 6,
+                  descriptionSize: textSize + 2,
+                ),
               ],
               options: CarouselOptions(
                 height: MediaQuery.of(context).size.height * 0.4,
@@ -165,117 +212,118 @@ class ExploreWorldTabView extends StatelessWidget {
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/landmark.png',
                     title: 'Visting Major Landmarks',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/beach.png',
                     title: 'Beach Holidays',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/sightseeing.png',
                     title: 'City Sightseeing Tours',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/museum.png',
                     title: 'Museums and Historical Sites',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/wildlife.png',
                     title: 'Nature and Wildlife Tours',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/adventure.jpg',
                     title: 'Adventure Sports',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/themepark.jpg',
                     title: 'Theme Parks',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/food.jpg',
                     title: 'Food and Culinary Tours',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/hiking.jpg',
                     title: 'Hiking and Trekking',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/Kayaking.webp',
                     title: 'Kayaking',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/cycling.jpg',
                     title: 'Cycling Tours',
+                    txtSize: textSize + 6,
                   ),
-                  SizedBox(
-                      width:
-                          MediaQuery.of(context).size.width * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   RecommendationContainer(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    bottomOpacity: 0.6,
                     imagePath: 'assets/images/football.jpg',
                     title: 'Football Stadium Tours and Matches',
+                    txtSize: textSize + 6,
                   ),
                 ],
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-                left: 20.0, top: 50, bottom: 20),
+            padding: const EdgeInsets.only(left: 20.0, top: 50, bottom: 20),
             child: Text(
-              'Ask AI model, Gemma whatever you want to explore worldwide: ',
+              'Explore anything worldwide with Gemma. Ask away! ',
               style: TextStyle(
                   fontSize: textSize + 10,
                   fontFamily: fontType,
@@ -301,8 +349,7 @@ class ExploreWorldTabView extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.only(right: 40.0, top: 20),
+                  padding: const EdgeInsets.only(right: 40.0, top: 20),
                   child: LgElevatedButton(
                     key: const ValueKey("world-prompt-button"),
                     height: MediaQuery.sizeOf(context).height * 0.05,

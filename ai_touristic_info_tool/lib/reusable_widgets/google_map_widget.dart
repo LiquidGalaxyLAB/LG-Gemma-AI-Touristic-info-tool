@@ -5,7 +5,10 @@ import 'package:ai_touristic_info_tool/reusable_widgets/map_types_choices_widget
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -77,8 +80,8 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     final sshData = Provider.of<SSHprovider>(context, listen: false);
     String rigcountString = LgService(sshData).getScreenAmount() ?? '5';
     int rigcount = int.parse(rigcountString);
-    motionControls(
-        _latvalue, _longvalue, _zoomvalue / rigcount, _tiltvalue, _bearingvalue);
+    motionControls(_latvalue, _longvalue, _zoomvalue / rigcount, _tiltvalue,
+        _bearingvalue);
   }
 
   void _onMapCreated(GoogleMapController mapController) {
@@ -147,8 +150,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     super.dispose();
   }
 
-
-   @override
+  @override
   void initState() {
     super.initState();
     _latvalue = widget.initialLatValue;
@@ -157,10 +159,11 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     _bearingvalue = widget.initialBearingValue;
     _center = widget.initialCenterValue;
   }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children:[ AnimationLimiter(
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      AnimationLimiter(
         child: Row(
           children: AnimationConfiguration.toStaggeredList(
             duration: const Duration(seconds: 10),
@@ -179,11 +182,15 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                 width: widget.width,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(40),
-                  child: Consumer<MapTypeProvider>(builder: (BuildContext context,
-                      MapTypeProvider value, Widget? child) {
+                  child: Consumer<MapTypeProvider>(builder:
+                      (BuildContext context, MapTypeProvider value,
+                          Widget? child) {
                     return Stack(
                       children: [
                         GoogleMap(
+                          gestureRecognizers: Set()
+                            ..add(Factory<PanGestureRecognizer>(
+                                () => PanGestureRecognizer())),
                           mapType: value.currentView == 'normal'
                               ? MapType.normal
                               : value.currentView == 'satellite'
@@ -236,9 +243,9 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
         ),
       ),
       SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
-        ),
-        const MapTypeChoicesWidget(),
+        height: MediaQuery.of(context).size.height * 0.02,
+      ),
+      SizedBox(width: widget.width, child: const MapTypeChoicesWidget()),
     ]);
   }
 }
