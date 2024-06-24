@@ -6,19 +6,26 @@ from helpers import *
 #     places: 
 
 
+
+
+
 # Define your desired data structure.
 class PlaceData(BaseModel):
     placeName: str = Field(description="Full name of the place")
+    cityName: str = Field(description="Name of the city")
+    countryName: str = Field(description="Name of the country")
     address: List[str] = Field(description="a List of available addresses")
     description: str = Field(description="A brief description of the place and what makes it unique")
-    socialInformation: Dict[str, str] = Field(description="Social media links (e.g., Facebook, Instagram, Twitter, official website)")
-    contactInformation: str = Field(description="Phone number or hotline")
     ratings: float = Field(description="Average rating based on user reviews")
     amenities: List[str] = Field(description="List of amenities available at the place (e.g., Wi-Fi, parking, restrooms, etc.)")
     prices: str = Field(description="Any pricing available for entry or services")
 
 class Places(BaseModel):
     places: List[PlaceData] = Field(description="List of 10 places")
+
+
+parser = PydanticOutputParser(pydantic_object=Places)
+parser.get_format_instructions()
 
 
 llm = Ollama(model="gemma:7b")
@@ -35,8 +42,6 @@ Your answer must include Top 3 places. Each place must have the following inform
     - The name of the place
     - The address of the place
     - A brief description of the place and what makes it unique
-    - Social media links (e.g., Facebook, Instagram, Twitter, official website)
-    - Phone number or hotline
     - Average rating based on user reviews
     - List of amenities available at the place (e.g., Wi-Fi, parking, restrooms, etc.)
     - Any pricing available for entry or services

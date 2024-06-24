@@ -27,7 +27,7 @@ from langsmith.wrappers import wrap_openai
 from langsmith import traceable
 from langsmith import Client
 from langsmith.evaluation import evaluate
-import time
+import time, json
 import requests
 from bs4 import BeautifulSoup as soup
 import urllib.parse
@@ -38,8 +38,11 @@ from googletrans import Translator
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
 from typing import List, Dict
-from langchain.output_parsers import ResponseSchema, StructuredOutputParser
+from langchain.output_parsers import ResponseSchema, StructuredOutputParser, PydanticOutputParser
 from langchain.globals import set_verbose, set_debug
+from langchain_core.prompts.few_shot import FewShotPromptTemplate
+from langchain_core.prompts.prompt import PromptTemplate
+from langchain_core.example_selectors import SemanticSimilarityExampleSelector
 
 # Importing LangSmith
 # from langsmith.tracing import Tracer

@@ -298,10 +298,114 @@ Execution time: 1224.74 seconds
 
 
 
-{'countryName': 'Egypt', 'CityName': 'Cairo', 'PlacesList': [{'placeName': 'Zawya Cinema', 'address': ['15 Emad El-Deen'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.5, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Zamalek Cinema', 'address': ['13 Shagaret Al Dor'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.4, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Galleria Mall Cinema', 'address': ['Galleria Mall at Grand Nile Tower, Corniche El Nil'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.3, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Renaissance Cinema', 'address': ['2005 Nile Corniche'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.2, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Cinema Metro', 'address': [' شارع طلعت حرب عابدين، محافظة القاهرة\u202c'], 'description': 'Movie theater showing the latest releases', 'ratings': 3.7, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Odeon Cinema', 'address': ['4 متفرع من, Talaat Harb'], 'description': 'Chain cinema showing the latest releases', 'ratings': 3.8, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Cinema Plus Cairo', 'address': ['2 Saraya Al Azbakya'], 'description': 'Movie theater showing the latest releases', 'ratings': 3.7, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Ramses Cinema', 'address': ['362J+HX5'], 'description': 'Movie theater showing the latest releases', 'ratings': 3.6, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Cinema Metro', 'address': [' شارع طلعت حرب عابدين، محافظة القاهرة\u202c'], 'description': 'Movie theater showing the latest releases', 'ratings': 3.7, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Galleria Mall Cinema', 'address': ['Galleria Mall at Grand Nile Tower, Corniche El Nil'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.3, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Zamalek Cinema', 'address': ['13 Shagaret Al Dor'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.4, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Zawya Cinema', 'address': ['15 Emad El-Deen'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.5, 'amenities': ['Movie theater'], 'prices': ''}, {'placeName': 'Renaissance Cinema', 'address': ['2005 Nile Corniche'], 'description': 'Movie theater showing the latest releases', 'ratings': 4.2, 'amenities': ['Movie theater', '\ue934'], 'prices': ''}, {'placeName': 'Cinema Metro', 'address': [' شارع طلعت حرب عابدين، محافظة القاهرة\u202c'], 'description': 'Movie theater showing the latest releases', 'ratings': 3.7, 'amenities': ['Movie theater'], 'prices': ''}]}
+{
+    'PlacesList': 
+                [
+                    {
+                        'placeName': 'Zawya Cinema', 
+                        'address': ['15 Emad El-Deen'],
+                        'city': 'Cairo',
+                        'country': 'Egypt', 
+                        'description': 'Movie theater showing the latest releases', 
+                        'ratings': 4.5, 
+                        'amenities': ['Movie theater'], 
+                        'prices': ''
+                    }, 
+                    {
+                        'placeName': 'Zamalek Cinema', 
+                        'address': ['13 Shagaret Al Dor'], 
+                        'city': 'Cairo',
+                        'country': 'Egypt', 
+                        'description': 'Movie theater showing the latest releases', 
+                        'ratings': 4.4, 
+                        'amenities': ['Movie theater', '\ue934'], 
+                        'prices': ''
+                    }, 
+                    {
+                        'placeName': 'Galleria Mall Cinema', 
+                        'address': ['Galleria Mall at Grand Nile Tower, Corniche El Nil'],
+                        'city': 'Cairo',
+                        'country': 'Egypt',  
+                        'description': 'Movie theater showing the latest releases', 
+                        'ratings': 4.3, 
+                        'amenities': ['Movie theater', '\ue934'], 
+                        'prices': ''
+                }, 
+                {
+                    'placeName': 'Renaissance Cinema', 
+                    'address': ['2005 Nile Corniche'], 
+                    'city': 'Cairo',
+                    'country': 'Egypt', 
+                    'description': 'Movie theater showing the latest releases', 
+                    'ratings': 4.2, 
+                    'amenities': ['Movie theater', '\ue934'], 
+                    'prices': ''
+                }, 
+                {
+                    'placeName': 'Cinema Metro', 
+                    'city': 'Cairo',
+                    'country': 'Egypt', 
+                    'address': [' شارع طلعت حرب عابدين، محافظة القاهرة\u202c'], 
+                    'description': 'Movie theater showing the latest releases', 
+                    'ratings': 3.7, 'amenities': ['Movie theater', '\ue934'], 
+                    'prices': ''
+                }, 
+                {
+                    'placeName': 'Odeon Cinema', 
+                    'city': 'Cairo',
+                    'country': 'Egypt', 
+                    'address': ['4 متفرع من, Talaat Harb'], 
+                    'description': 'Chain cinema showing the latest releases', 
+                    'ratings': 3.8, 'amenities': ['Movie theater'], 
+                    'prices': ''
+                }, 
+                {
+                    'placeName': 'Cinema Plus Cairo', 
+                    'city': 'Cairo',
+                    'country': 'Egypt', 
+                    'address': ['2 Saraya Al Azbakya'], 
+                    'description': 'Movie theater showing the latest releases', 
+                    'ratings': 3.7, 
+                    'amenities': ['Movie theater'], 'prices': ''
+                }, 
+                {
+                    'placeName': 'Ramses Cinema', 
+                    'address': ['362J+HX5'], 
+                    'city': 'Cairo',
+                    'country': 'Egypt', 
+                    'description': 'Movie theater showing the latest releases', 
+                    'ratings': 3.6, 
+                    'amenities': ['Movie theater'], 
+                    'prices': ''
+                }, 
+            ]
+}
 
 
 
 
  “PlacesList”: [ { “placeName” : ”Sahara Desert”,     &      address: ['Eastern Sahara', 'Western Sahra'],         description :"Vast desert landscape with towering sand dunes and camel rides",       ratings': 4.,5,  "amenities": [], "prices":"Price varies depending on tour duration & itinerary." }, { “placeName”: ”White Sand Desert”,    &      address: ['Siwa Oasis', 'Western Sahara'],         description :"A desert landscape with towering sand dunes and fossilized seashells",     ratings': 4.2,  "amenities": [], "prices":"Price varies depending on tour duration & itinerary." }, { “placeName”: ”Mountains of Egypt”,   &      address: ['Aswan', 'Western Sahara'],         description :"Rocky mountains offering hiking trails with panoramic desert views and Nubian villages",     ratings': 4.8,  "amenities": [], "prices":"Entrance fee is $10 for foreign tourists." }, { “placeName”: ”Abu Simbel”, &      address: ['Aswan', 'Western Sahara'],         description :"Massive temples built by Pharaoh Ramses II with colossal statues and hieroglyphics",     ratings': 4.9,  "amenities": [], "prices":"Entrance fee is $20 for foreign tourists." }, { “placeName”: ”Ras Mohamed National Park”, &      address: ['South Sinai Peninsula'],         description :"A protected area known of its stunning rock formations and diverse wildlife including dolphins",     ratings': 4.7,  "amenities": [], "prices":"Entrance fee is $5 for foreign tourists." }, { “placeName”: ”Wadi Degla”, &      address: ['South Sinai Peninsula'],         description :"A canyon with lush greenery oasis offering hiking trails and rock climbing opportunities.",    &     ratings': 4.6,  "amenities": [], "prices":"Entrance fee is $1 for foreign tourists." }, { “placeName”: ”Egyptian Desert Safari Camp”, &      address: ['Various Locations'],         description :"Immerse yourself in the desert experience with a traditional Bedouin camp offering camel rides",     ratings': 4.9,  "amenities": [], "prices":"Price varies depending on tour duration and inclusions." }, { “placeName”: ”Dakhla Oasis”, &      address: ['Western Sahara'],         description :"A remote oasis known for its crystal-clear water springs in the desert landscape.",    &     ratings': 4.8,  "amenities": [], "prices":"Entrance fee is $50 per person." }, { “placeName”: ”Gebel El Zeit”, &      address: ['Western Sahara'],         description :"A mountain with a unique rock formation resembling an ancient pyramid",       rating ': ', '   '    &     “ amenities” : '',  " prices": ''}, 
 { " place Name ": ""Wadi Al-Natroun National Park"", address = [ ‘North West of Cairo’], description: “Richly vegetated oasis with hiking trails and historical sites”, rating=4.5, 'amenities': [],'prices':'Entrance fee is $2 for foreign tourists.' }  ] 
+
+
+
+
+{
+  "input": "```json \t
+  
+  {  \"PlacesList\": 
+  
+  [   
+    {
+    \"placeName\":\"DI SFORNO PIZZERIA\", 
+    \"address\":\"+32 Bahgat Ali, Open ⋅ Closes 1 AM \", 
+    “city”:”Cairo”,
+    “country intellig: Egypt“,    \n\n      
+    description:\"Casual pizza chain with wide selection.\",\n       
+    rating : 4.8 ,  \"amenities\": [ ]},   
+    
+    
+    {\"placeName\":\"Casa Della Pasta\", \"address\":\"+ Gezira sporting club, Open ⋅ Closes 10 PM \", 
+    “city”:”Cairo”,“country intellig: Egypt
+    “,    \n\n      description:\"Italian restaurant offering pizza and pasta dishes.\",\n       rating : 4.3 ,  \"amenities\": [ ]},   {\"placeName\":\"Pizza Hut\", \"address\":\"+7/9 Mohammed Mahmoud, Open ⋅ Closes 12 AM \", “city”:”Cairo”,“country intellig: Egypt“,    \n\n      description:\"Popular pizza chain with classic toppings and pan pizzas.\",\n       rating : 3.8 ,  \"amenities\": [ ]},   {\"placeName\":\"Pizza master\", \"address\":\"+ ١٢ المبتدايان،, Open ⋅ Closes 2 AM \", “city”:”Cairo”,“country intellig: Egypt“,    \n\n      description:\"Casual pizza chain with wide selection of toppings.\",\n       rating : 4.1 ,  \"amenities\": [ ]},   {\"placeName\":\"Vinny's Pizza\", \"address\":\"+ Taha Hussien street, Open ⋅ Closes 2 AM \", “city”:”Cairo”,“country intellig: Egypt“,    \n\n      description:\"Modern pizza chain offering gourmet and classic pizzas.\",\n       rating : 4.5 ,  \"amenities\": [ ]},   {\"placeName\":\"Maison Thomas - Zamalek\", \"address\":\"+167/9 El-Mohandes St, Open 23 hours \", “city”:”Cairo”,“country intellig: Egypt“,    \n\n      description:\"Pizzeria offering traditional and gourmet pizzas.\",\n       rating : 4.5 ,  \"amenities\": [ ]},   {\"placeName\":\"Pizza Palace\", \"address\":\"+107 El-Mohandes St, Open ⋅ Closes 2 AM \", “city”:”Cairo”,“country intellig: Egypt“,    \n\n      description:\"Pizzeria offering traditional and gourmet pizzas.\",\n       rating : 4.5 ,  \"amenities\": [ ]},   {\"placeName\":\"Di Napoli Pizzeria\", \"address\":\"+137/8 El-Mohandes St, Open ⋅ Closes 2 AM \", “city”:”Cairo”,“country intellig: Egypt“,    \n\n      description:\"Pizzeria offering traditional and gourmet pizzas.\",\n       rating : 4.5 ,  \"amenities\": [ ]}] }\t\"\"\""
+}

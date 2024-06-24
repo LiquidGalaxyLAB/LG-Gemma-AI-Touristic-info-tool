@@ -1,29 +1,23 @@
 
 from helpers import *
 
-# set_debug(True)
-# set_verbose(True)
-
-# response_schemas = [
-#     # ResponseSchema(name="countryName", description="Name of the country"),
-#     # ResponseSchema(name="Cities", description="List of available cities in the country", type="array(string)"),
-#     ResponseSchema(
-#     name="PlacesList", description="List of 10 places with their details following this example: [{placeName: string, address: [string], city: string, country: string , description: string, ratings: float, amenities: [string], prices: string}]", 
-#     type="array(objects)"
-#     )
-# ]
+set_debug(True)
+set_verbose(True)
 
 response_schemas = [
-    ResponseSchema(name="PlacesList", description= """A List of 10 JSON objects matching the structure
-{placeName: string, address: string, city: string, country: string, description: string, ratings: float, amenities: [string], prices: string}
-""", type="List")
+    ResponseSchema(name="countryName", description="Name of the country"),
+    # ResponseSchema(name="Cities", description="List of available cities in the country", type="array(string)"),
+    ResponseSchema(
+    name="PlacesList", description="List of 10 places with their details following this example: [{placeName: string, address: [string], city: string, description: string, ratings: float, amenities: [string], prices: string}]", 
+    type="array(objects)"
+    )
 ]
 
-embeddings= (OllamaEmbeddings(model='nomic-embed-text',num_ctx=8192, temperature=1.2, show_progress=True, repeat_penalty=1.8, repeat_last_n=-1))   #8192 context windo like gemma 7b/2b context window
-llm = Ollama(model="gemma:7b", num_ctx=8192, temperature=1.2, repeat_penalty=1.8, repeat_last_n=-1)
-# llm = Ollama(model="gemma:7b", num_ctx=8192, temperature=1.2, verbose=True,repeat_penalty=1.8, repeat_last_n=-1)
 
-user_query="Pizza Places in Cairo Egypt"
+embeddings= (OllamaEmbeddings(model='nomic-embed-text',num_ctx=8192, temperature=1.2, show_progress=True, repeat_penalty=1.8, repeat_last_n=-1))   #8192 context windo like gemma 7b/2b context window
+llm = Ollama(model="gemma:7b", num_ctx=8192, temperature=1.2, verbose=True,repeat_penalty=1.8, repeat_last_n=-1)
+
+user_query="Best Pizza places in Cairo Egypt"
 
 # question_template_p1='Please, Can you help me find the Top 10 places for'
 # question_template_p2='and include all details you know about them such as name, address locations, description and more!'
@@ -136,15 +130,14 @@ format_instructions = output_parser.get_format_instructions()
 
 
 
-prompt_template='''
-You are an advanced AI model acting as a touristic guide with extensive knowledge of various travel destinations and touristic information. 
-Use your internal knowledge and the provided context to generate a comprehensive and accurate response.
+
+prompt_template = '''
+You are a helpful touristic advisor bot that help people find the best places to visit, eat and stay nearby their location. Your name is Adventura.
+Use the provided context as the basis for your answers and do not make up new reasoning paths - just mix-and-match what you are given.
 Your answer must include Top 10 places, not more not less, with a brief description of each place, and what makes it unique.
 Your answer must include the accurate address of each of the 10 places too.
 Your answer must include addtional information such as: pricing, rating, and amenities.
 If any of the information is not available to you, leave empty.
-Do not omit any place from the list for brevity. 
-Your answer MUST include all 10 places.
 
 {format_instructions}
 
@@ -155,26 +148,6 @@ QUESTION: {question}
 
 YOUR ANSWER:"""
 '''
-
-# prompt_template = '''
-# You are a helpful touristic advisor bot that help people find the best places to visit, eat and stay nearby their location. Your name is Adventura.
-# Use your own knowledge and the provided context as the basis for your answers and do not make up new reasoning paths.
-# Your answer must include Top 10 places, not more not less, with a brief description of each place, and what makes it unique.
-# Your answer must include the accurate address of each of the 10 places too.
-# Your answer must include addtional information such as: pricing, rating, and amenities.
-# If any of the information is not available to you, leave empty.
-# Do not omit any place from the list for brevity. 
-# Your answer MUST include all 10 places.
-
-# {format_instructions}
-
-# CONTEXT:
-# {context}
-
-# QUESTION: {question}
-
-# YOUR ANSWER:"""
-# '''
 
 prompt= PromptTemplate(
     template=prompt_template, 
@@ -205,5 +178,3 @@ print(f"Execution time: {elapsed_time:.2f} seconds")
 
 # cleanup
 vectorstore.delete_collection()
-
-
