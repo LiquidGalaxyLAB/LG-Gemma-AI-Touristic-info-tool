@@ -2,44 +2,45 @@ from helpers import *
 
 
 
-# response_schemas = [
-#     ResponseSchema(name="generalDescription", description=" A brief description of the content of the list of places.", type= "string"),
-#     ResponseSchema(name="PlacesList", description= """A List of 10 JSON objects matching the structure
-# {placeName: string, address: string, city: string, country: string, description: string, ratings: float, amenities: [string], prices: string}
-# """, type="List")
-# ]
+# # response_schemas = [
+# #     ResponseSchema(name="generalDescription", description=" A brief description of the content of the list of places.", type= "string"),
+# #     ResponseSchema(name="PlacesList", description= """A List of 10 JSON objects matching the structure
+# # {placeName: string, address: string, city: string, country: string, description: string, ratings: float, amenities: [string], prices: string}
+# # """, type="List")
+# # ]
 
 
-# parser = StructuredOutputParser.from_response_schemas(response_schemas)
-# format_instructions = parser.get_format_instructions()
+# # parser = StructuredOutputParser.from_response_schemas(response_schemas)
+# # format_instructions = parser.get_format_instructions()
 
 set_verbose(True)
 set_debug(True)
 
 class Place(BaseModel):
-    name: str = Field(description="Full name of the place")
-    address: str = Field(description="Address of the place")
-    city: str = Field(description="Name of the city")
-    country: str = Field(description="Name of the country")
-    description: str = Field(description="A brief description")
+    name: str = Field(description="Full name of the place", default=None)
+    address: str = Field(description="Address of the place", default=None)
+    city: str = Field(description="Name of the city", default=None)
+    country: str = Field(description="Name of the country", default=None)
+    description: str = Field(description="A brief description", default=None)
     ratings: float = Field(description="Average rating", default=None) 
-    amenities: List[str] = Field(description="List of amenities", default=None)
+    amenities: str = Field(description="Amenities available", default=None)
     price: str = Field(description="Pricing info", default=None) 
 
 class Places(BaseModel):
-    generalDescription: str = Field(description="Brief description of the places")
-    PlacesList: List[Place] = Field(description="List of Place dictionaries")
+    places: List[Place] = Field(description="List of Place dictionaries", default=None)
 
 parser = PydanticOutputParser(pydantic_object=Places)
 
 
 
-llm = Ollama(model="gemma:7b", num_ctx=8192, temperature=1.2, repeat_penalty=1.8, repeat_last_n=-1, verbose=True)
+# llm = Ollama(model="gemma:7b", num_ctx=8192, temperature=1.2, repeat_penalty=1.8, repeat_last_n=-1, verbose=True)
+
+llm = Ollama(model="gemma:7b", num_ctx=8192)# default is 2048
 print('Embeddings')
 embeddings= (OllamaEmbeddings(model='nomic-embed-text',num_ctx=8192, temperature=1.2, show_progress=True, repeat_penalty=1.8, repeat_last_n=-1))   #8192 context windo like gemma 7b/2b context window
 print('Done with embeddings')
 
-user_query = "Attractions in London UK"
+user_query = "Attractions in Cairo Egypt"
 
 
 prompt_template = '''
@@ -67,7 +68,9 @@ prompt = PromptTemplate(
     # partial_variables={"format_instructions": parser.get_format_instructions()},
 )
 
-chain = prompt | llm | parser
+chain = prompt | llm 
+
+# | parser
 
 
 start_time=time.time()
@@ -82,9 +85,15 @@ print(result)
 print('type of result:')
 print(type(result))
 
-# parsed_result= parser.parse(result)
-# print('parsed result:')
-# print(parsed_result)
+parsed_result= parser.parse(result)
+
+# result= {"places": [{"name": "Tower of London", "address": "106 London Bridge, London SE1 2AX", "city": "London", "country": "United Kingdom", "description": "A historic castle and royal palace, now a popular tourist attraction with a rich history and stunning views.", "pricing": "\u00a320.80", "rating": 4.8, "amenities": "Guided tours, gift shop, caf\u00e9"}, {"name": "British Museum", "address": "Great Russell Street, London WC1A 1AA", "city": "London", "country": "United Kingdom", "description": "A world-renowned museum with an extensive collection of artifacts from ancient civilizations to the present day.", "pricing": "Free entry", "rating": 4.9, "amenities": "Free Wi-Fi, caf\u00e9, reading room"}, {"name": "Hyde Park", "address": "Hyde Park, London W2 2BB", "city": "London", "country": "United Kingdom", "description": "A vast royal park in central London, known for its scenic landscapes, boating lake, and wildlife.", "pricing": "Free entry", "rating": 4.7, "amenities": "Picnic areas, boat rental, walking trails"}, {"name": "Natural History Museum", "address": "Cromwell Road, London SW7 5BD", "city": "London", "country": "United Kingdom", "description": "A natural history museum with a diverse collection of fossils, animals, and plants from around the world.", "pricing": "Free entry", "rating": 4.6, "amenities": "Guided tours, caf\u00e9, planetarium"}, {"name": "Tower Bridge", "address": "Tower Bridge, London SE1 2SW", "city": "London", "country": "United Kingdom", "description": "A iconic bridge over the River Thames, known for its unique design and stunning views of the city.", "pricing": "\u00a310.50", "rating": 4.9, "amenities": "Guided tours, climbing experiences, caf\u00e9"}, {"name": "Tate Modern", "address": "Tate Modern, Bankside, London SE1 9TG", "city": "London", "country": "United Kingdom", "description": "A contemporary art gallery with stunning views of the city from its rooftop terraces.", "pricing": "Free entry", "rating": 4.8, "amenities": "Free Wi-Fi, caf\u00e9, art workshops"}, {"name": "St. Paul's Cathedral", "address": "25 Old Change, London EC4A 4AA", "city": "London", "country": "United Kingdom", "description": "A magnificent cathedral with a towering dome and stained glass windows.", "pricing": "Free entry", "rating": 4.9, "amenities": "Guided tours, gift shop, caf\u00e9"}, {"name": "Westminster Abbey", "address": "20 Deans Yard, London SW1A 1AA", "city": "London", "country": "United Kingdom", "description": "A historic abbey church known for its royal connections and stunning architecture.", "pricing": "\u00a320.50", "rating": 4.8, "amenities": "Guided tours, gift shop, caf\u00e9"}, {"name": "Borough Market", "address": "85 Borough High Street, London SE1 1RL", "city": "London", "country": "United Kingdom", "description": "A vibrant food market with a wide variety of fresh produce, meats, and cheeses.", "pricing": "Free entry", "rating": 4.7, "amenities": "Caf\u00e9, street food stalls"}, {"name": "Camden Market", "address": "Camden Lock, Chalk Farm Road, London NW1 2PF", "city": "London", "country": "United Kingdom", "description": "A bustling market with a diverse range of goods, from fashion and jewelry to food and homeware.", "pricing": "Free entry", "rating": 4.6, "amenities": "Caf\u00e9, street food stalls"}]}
+# json_string = json.dumps(result)
+# parsed_result= parser.parse(json_string)
+
+
+print('parsed result:')
+print(parsed_result)
 
 
 # # 1. Attempt to clean up the JSON
@@ -109,22 +118,3 @@ print(type(result))
 
 
 
-'''
-```
-{"properties": 
-            {
-                "general_description": 
-                                        {"title": "General Description", 
-                                        "description": "A brief description of the content of the list of places.", 
-                                        "type": "string"}, 
-                "places": 
-                        {"title": "Places", 
-                        "description": "Python list of dictionaries containing place name, address, city, country, description, ratings, amenities, and prices.", 
-                        "type": "array", "items": {}
-                        }
-            }, 
- "required": ["general_description", "places"]
-}       
-```
-
-'''
