@@ -1,0 +1,104 @@
+{
+    "places": [
+     {
+      "name": "Egyptian Museum",
+      "address": "151, Tahrir St, Cairo 11511",
+      "city": "Cairo",
+      "country": "Egypt",
+      "description": "Home to ancient treasures like the treasures of Tutankhamun and the Mummy of Cleopatra",
+      "pricing": "$10-20",
+      "rating": 4.9,
+      "amenities": "Guided tours, Gift shop, Cafe"
+     },
+     {
+      "name": "Khan el-Khalili",
+      "address": "Khan el-Khalili, Cairo",
+      "city": "Cairo",
+      "country": "Egypt",
+      "description": "A bustling traditional bazaar filled with spices, perfumes, textiles, and souvenirs",
+      "pricing": "Variable",
+      "rating": 4.8,
+      "amenities": "Souvenirs, Food, Coffee shops"
+     },
+     {
+      "name": "Al-Azhar Mosque",
+      "address": "100, Al-Azhar St, Cairo 11571",
+      "city": "Cairo",
+      "country": "Egypt",
+      "description": "One of the oldest and most prestigious universities in Islamic history, with a stunning mosque",
+      "pricing": "Free",
+      "rating": 4.7,
+      "amenities": "Guided tours, Prayer space, Library"
+     },
+     {
+      "name": "Saqqara Pyramids",
+      "address": "Saqqara, Giza Governorate",
+      "city": "Cairo",
+      "country": "Egypt",
+      "description": "Ancient pyramids dating back to the Fourth Dynasty, offering a glimpse of early Egyptian civilization",
+      "pricing": "$15-25",
+      "rating": 4.9,
+      "amenities": "Guided tours, Camel rides, Horseback riding"
+     },
+     {
+      "name": "Giza Pyramids",
+      "address": "Giza, Giza Governorate",
+      "city": "Cairo",
+      "country": "Egypt",
+      "description": "The iconic pyramids of Giza, along with the Sphinx and the surrounding tombs",
+      "pricing": "$40-60",
+      "rating": 4.8,
+      "amenities": "Guided tours, Horseback riding, Camel rides"
+     },
+     {
+      "name": "Islamic Cairo",
+      "address": "Islamic Cairo, Cairo",
+      "city": "Cairo",
+      "country": "Egypt",
+      "description": "A district filled with Islamic landmarks like mosques, madrasas, and historical sites",
+      "pricing": "Free",
+      "rating": 4.6,
+      "amenities": "Guided tours, Mosques, Cultural experiences"
+     },
+     {
+      "name": "Manial Palace",
+      "address": "Garden City, Cairo",
+      "city": "Cairo",
+      "country": "Egypt",
+      "description": "A stunning palace known for its beautiful gardens and royal history",
+      "pricing": "$10-20",
+      "rating": 4.7,
+      "amenities": "Guided tours, Tea room, Gardens"
+     },
+     {
+      "name": "Al-Saladin Citadel",
+      "address": "Cairo, Cairo",
+      "city": "Cairo",
+      "country": "Egypt",
+      "description": "A medieval fortress offering panoramic views of Cairo and its rich history",
+      "pricing": "$15-25",
+      "rating": 4.8,
+      "amenities": "Guided tours, Military museum, Observation deck"
+     },
+     {
+      "name": "Coptic Cairo",
+      "address": "Old Cairo, Cairo",
+      "city": "Cairo",
+      "country": "Egypt",
+      "description": "A historic district with ancient Christian churches and relics",
+      "pricing": "Free",
+      "rating": 4.5,
+      "amenities": "Guided tours, Churches, Ancient sites"
+     },
+     {
+      "name": "Museum of Islamic Art",
+      "address": "57, Saladin St, Cairo 11511",
+      "city": "Cairo",
+      "country": "Egypt",
+      "description": "A renowned museum showcasing Islamic art and artifacts from various eras",
+      "pricing": "$5-10",
+      "rating": 4.9,
+      "amenities": "Guided tours, Gift shop, Cafe"
+     }
+    ]
+   }

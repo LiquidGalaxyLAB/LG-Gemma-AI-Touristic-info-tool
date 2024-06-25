@@ -1,0 +1,104 @@
+{
+    "places": [
+        {
+            "name": "DI SFORNO PIZZERIA", 
+            "address": "32 Bahgat Ali, Mohammed Mazhar, Zamalek",
+            "city": "Cairo",
+            "country": "Egypt",
+            "description": "Known for their delicious pizzas and great atmosphere.",    
+            "ratings": 4.8,
+            "prices": "",
+            "amenities": ["Dine-in", "Takeaway"]
+        },
+        {
+            "name": "Casa Della Past",
+            "address": "10 Gezira sporting club",
+            "city": "Cairo",
+            "country": "Egypt",
+            "description": "Serves tasty pizzas and offers both dine -In & take away options.",
+            "ratings": 4.3,
+            "prices": "",
+            "amenities": ["Dine-in", "Takeaway"]
+        },
+        {
+            "name": "Olivo Pizzeria & Bar",
+            "address": "18 Taha Hussein, Abu Al Feda, Zamalek",
+            "city": "Cairo",
+            "country": "Egypt",
+            "description": "Offers authentic Italian pizzas and casual dining experience.",
+            "ratings": 4.2,
+            "prices": "",
+            "amenities": ["Dine-in", "Takeaway"]
+        },
+        {
+            "name": "CaiRoma",
+            "address": "19 Youssef El-Gendy",
+            "city": "Cairo",
+            "country": "Egypt",
+            "description": "Casual eatery serving sweet & savory pizzas with a focus on perfect Italian pizza.",
+            "ratings": 4.2,
+            "prices": "$$$",
+            "amenities": ["Italian"]
+        },
+        {
+            "name": "Sapori di Carlo",
+            "address": "49 Mohammed Mazhar",
+            "city": "Cairo",
+            "country": "Egypt",
+            "description": "Serves delicious Italian pizza with friendly service.",
+            "ratings": 4.5,
+            "prices": "",
+            "amenities": ["Italian"]
+        },
+        {
+            "name": "What the Crust",
+            "address": "275 Makram Ebeid St",
+            "city": "Cairo",
+            "country": "Egypt",
+            "description": "Casual eatery for sweet & savory pizzas, known for having one of the best pizzas in Egypt.",
+            "ratings": 4.6,
+            "prices": "$$",
+            "amenities": ["Pizza"]
+        },
+        {
+            "name": "Pane Vino",
+            "address": "InterContinental Semiramis, Nile Corniche",
+            "city": "Cairo",
+            "country": "Egypt",
+            "description": "Serves delicious Italian pizza with a wide variety of toppings.",
+            "ratings": 4.5,
+            "prices": "$$",
+            "amenities": ["Italian"]
+        },
+        {
+            "name": "Maison Thomas",
+            "address": "157, 26th of July St, Mohammed Mazhar, Zamalek,",
+            "city": "Cairo",
+            "country": "Egypt",
+            "description": "Serves delicious Italian pizza with a wide variety of toppings.",
+            "ratings": 4.5,
+            "prices": "$$",
+            "amenities": ["Italian"]
+        },
+        {
+            "name": "900 Degrees Restaurant",
+            "address": "Downtown mall, New Cairo",
+            "city": "Cairo",
+            "country": "Egypt",
+            "description": "Variety of Neapolitan pizzas in Cairo",
+            "ratings": 4.3,
+            "prices": "$$",
+            "amenities": ["Italian", "Neapolitan"]
+        },
+        {
+            "name": "Ted's Pizzeria",
+            "address": "2FRG+P59, WaterWay, New Cairo 1",
+            "city": "Cairo",
+            "country": "Egypt",
+            "description": "Authentic Neapolitan pizza with 'All You Can Eat Pizza' option. Choose your toppings for ultimate customization",
+            "ratings": 4.0,
+            "prices": "$$",
+            "amenities": ["All you can eat Pizza"]
+        }
+    ]
+}

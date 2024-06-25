@@ -1,0 +1,94 @@
+{
+    "places": [
+     {
+      "name": "Tower of London",
+      "address": "166 London Bridge, London SE1 2AX",
+      "city": "London",
+      "country": "United Kingdom",
+      "description": "A historic castle and former royal palace, known for its gruesome past as a royal palace, prison, andexecution site.",
+      "pricing": "£20.70",
+      "rating": 4.8,
+      "amenities": "Guided tours, Gift shop, Cafe"
+     },
+     {
+      "name": "Buckingham Palace",
+      "address": "Buckingham Palace, London SW1A 1AA",
+      "city": "London",
+      "country": "United Kingdom",
+      "description": "The official residence of the Queen of England, known for its iconic Changing of the Guard ceremony.",
+      "pricing": "Free entry",
+      "rating": 4.9,
+      "amenities": "Guided tours, Gift shop, Gardens"
+     },
+     {
+      "name": "Hyde Park",
+      "address": "Hyde Park, London W2 2BB",
+      "city": "London",
+      "country": "United Kingdom",
+      "description": "A vast and popular park in central London, known for its lakes, gardens, and open-air events.",
+      "pricing": "Free entry",
+      "rating": 4.7,
+      "amenities": "Picnic spots, Boating, Playground"
+     },
+     {
+      "name": "St. Paul's Cathedral",
+      "address": "1 Cathedral Close, London EC4A 4AA",
+      "city": "London",
+      "country": "United Kingdom",
+      "description": "A towering cathedral known for its iconic dome and stunning views of London.",
+      "pricing": "Free entry",
+      "rating": 4.9,
+      "amenities": "Guided tours, Gift shop, Cafe"
+     },
+     {
+      "name": "The British Museum",
+      "address": "96-99 Great Russell Street, London WC1A 1AA",
+      "city": "London",
+      "country": "United Kingdom",
+      "description": "A vast museum housing a vast collection of artifacts from around the world.",
+      "pricing": "Free entry",
+      "rating": 4.8,
+      "amenities": "Guided tours, Gift shop, Cafe"
+     },
+     {
+        "name": "Borough Market",
+        "address": "85-95 Borough High Street, London SE1 1RL",
+        "city": "London",
+        "country": "United Kingdom",
+        "description": "A vibrant food market offering a wide variety of fresh produce, meats, and other delicacies.",
+        "pricing": "Free entry",
+        "rating": 4.8,
+        "amenities": "Food stalls, Shopping, Seating area"
+       },
+       {
+        "name": "Tate Modern",
+        "address": "Bankside, London SE1 9TG",
+        "city": "London",
+        "country": "United Kingdom",
+        "description": "A contemporary art gallery showcasing works from both established and emerging artists.",
+        "pricing": "Free entry",
+        "rating": 4.7,
+        "amenities": "Guided tours, Gift shop, Cafe"
+       },
+       {
+        "name": "Camden Market",
+        "address": "Camden Road, London NW1 2FB",
+        "city": "London",
+        "country": "United Kingdom",
+        "description": "A large and diverse market selling clothing, jewelry, food, and other items.",
+        "pricing": "Free entry",
+        "rating": 4.8,
+        "amenities": "Shopping, Food stalls, Entertainment"
+       },
+       {
+        "name": "Greenwich Observatory",
+        "address": "1 Observatory Hill, Greenwich, London SE10 8BB",
+        "city": "London",
+        "country": "United Kingdom",
+        "description": "A historic observatory known for its association with Greenwich Mean Time (GMT) and maritime history.",
+        "pricing": "£16.50",
+        "rating": 4.9,
+        "amenities": "Guided tours, Planetarium, Cafe"
+       }
+    ]
+}

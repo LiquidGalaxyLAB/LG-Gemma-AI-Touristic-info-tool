@@ -29,6 +29,7 @@ class LgElevatedButton extends StatelessWidget {
   final IconData? suffixIcon;
   final Color? suffixIconColor;
   final double? suffixIconSize;
+  final double curvatureRadius;
 
   const LgElevatedButton({
     required this.elevatedButtonContent,
@@ -42,13 +43,14 @@ class LgElevatedButton extends StatelessWidget {
     required this.isBold,
     required this.isPrefixIcon,
     required this.isSuffixIcon,
+    required this.curvatureRadius,
     this.prefixIcon,
     this.prefixIconColor,
     this.prefixIconSize,
     this.suffixIcon,
     this.suffixIconColor,
     this.suffixIconSize,
-    super.key,
+    super.key, 
   });
 
   @override
@@ -63,7 +65,7 @@ class LgElevatedButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: buttonColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(curvatureRadius),
           ),
         ),
         child: Stack(

@@ -361,6 +361,7 @@ class ExploreWorldTabView extends StatelessWidget {
                     isLoading: false,
                     isPrefixIcon: false,
                     isSuffixIcon: false,
+                    curvatureRadius: 50,
                     onpressed: () {
                       if (_formKey.currentState!.validate()) {
                         print(_promptController.text);

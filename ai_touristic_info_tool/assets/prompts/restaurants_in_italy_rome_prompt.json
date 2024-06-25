@@ -1,0 +1,104 @@
+{
+    "places": [
+      {
+        "name": "Trattoria Da Augusto",
+        "address": "Via dei Banchi, 48, 00186 Rome, Italy",
+        "city": "Rome",
+        "country": "Italy",
+        "description": "Classic Roman trattoria serving traditional dishes like cacio e pepe and amatriciana.",
+        "pricing": "$$",
+        "rating": 4.5,
+        "amenities": "Outdoor seating, Traditional atmosphere"
+      },
+      {
+        "name": "L’Arcangelo",
+        "address": "Via del Gambero Rosso, 43, 00186 Rome, Italy",
+        "city": "Rome",
+        "country": "Italy",
+        "description": "Cozy restaurant offering gourmet Roman pasta and seasonal dishes.",
+        "pricing": "$$$",
+        "rating": 4.8,
+        "amenities": "Indoor seating, Wine selection"
+      },
+      {
+        "name": "Ristorante Pizzeria Da Baffetto",
+        "address": "Via dei Fori Imperiali, 60, 00189 Rome, Italy",
+        "city": "Rome",
+        "country": "Italy",
+        "description": "Legendary pizzeria known for its thin-crust Roman pizza.",
+        "pricing": "$$",
+        "rating": 4.7,
+        "amenities": "Outdoor seating, Pizza al taglio"
+      },
+      {
+        "name": "Pizzarium",
+        "address": "Via Antonio Scarioni, 10, 00187 Rome, Italy",
+        "city": "Rome",
+        "country": "Italy",
+        "description": "Innovative pizzeria serving gourmet pizza with seasonal toppings.",
+        "pricing": "$$$",
+        "rating": 4.9,
+        "amenities": "Indoor seating, Wood-fired oven"
+      },
+      {
+        "name": "La Carbonara",
+        "address": "Via della Rosetta, 48, 00186 Rome, Italy",
+        "city": "Rome",
+        "country": "Italy",
+        "description": "Traditional Roman trattoria specializing in carbonara pasta.",
+        "pricing": "$$",
+        "rating": 4.4,
+        "amenities": "Indoor seating, Classic dishes"
+      },
+      {
+        "name": "Osteria del Gambero Rosso",
+        "address": "Via del Gambero Rosso, 41, 00186 Rome, Italy",
+        "city": "Rome",
+        "country": "Italy",
+        "description": "Cozy restaurant offering a wide range of Roman dishes and wines.",
+        "pricing": "$$$",
+        "rating": 4.6,
+        "amenities": "Indoor seating, Wine pairing"
+      },
+      {
+        "name": "Ristorante Pizzeria Da Gabriele",
+        "address": "Via del Polito, 30, 00198 Rome, Italy",
+        "city": "Rome",
+        "country": "Italy",
+        "description": "Traditional pizzeria serving classic Roman pizza al taglio.",
+        "pricing": "$$",
+        "rating": 4.3,
+        "amenities": "Outdoor seating, Pizza delivery"
+      },
+      {
+        "name": "Gelateria del Teatro",
+        "address": "Via della Stamperia, 87, 00186 Rome, Italy",
+        "city": "Rome",
+        "country": "Italy",
+        "description": "Iconic gelato shop offering traditional flavors and innovative creations.",
+        "pricing": "€1.50-3.00",
+        "rating": 4.9,
+        "amenities": "Indoor seating, Gelato flights"
+      },
+      {
+        "name": "Formello Gelato",
+        "address": "Via dei Condotti, 33, 00187 Rome, Italy",
+        "city": "Rome",
+        "country": "Italy",
+        "description": "Gourmet gelato shop serving high-quality flavors and toppings.",
+        "pricing": "€2-5",
+        "rating": 4.8,
+        "amenities": "Indoor seating, Gelato workshops"
+      },
+      {
+        "name": "Gelateria Romana",
+        "address": "Piazza Navona, 33, 00186 Rome, Italy",
+        "city": "Rome",
+        "country": "Italy",
+        "description": "Traditional gelato shop offering a wide range of classic flavors.",
+        "pricing": "€1.50-3.00",
+        "rating": 4.5,
+        "amenities": "Outdoor seating, Gelato tours"
+      }
+    ]
+  }

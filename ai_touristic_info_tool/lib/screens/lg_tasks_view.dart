@@ -65,6 +65,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 prefixIconColor: FontAppColors.secondaryFont,
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.25,
+                curvatureRadius: 50,
                 onpressed: () async {
                   /// retrieving the ssh data from the `ssh provider`
                   final sshData =
@@ -105,6 +106,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 prefixIconColor: FontAppColors.secondaryFont,
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.25,
+                curvatureRadius: 50,
                 onpressed: () {
                   /// retrieving the ssh data from the `ssh provider`
                   final sshData =
@@ -147,6 +149,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 prefixIconColor: FontAppColors.secondaryFont,
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.25,
+                curvatureRadius: 50,
                 onpressed: () async {
                   /// retrieving the ssh data from the `ssh provider`
                   final sshData =
@@ -205,6 +208,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 prefixIconColor: FontAppColors.secondaryFont,
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.25,
+                curvatureRadius: 50,
                 onpressed: () async {
                   /// retrieving the ssh data from the `ssh provider`
                   final sshData =
@@ -255,6 +259,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 prefixIconColor: FontAppColors.secondaryFont,
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.26,
+                curvatureRadius: 50,
                 onpressed: () async {
                   /// retrieving the ssh data from the `ssh provider`
                   final sshData =
@@ -313,6 +318,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 prefixIconColor: FontAppColors.secondaryFont,
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.25,
+                curvatureRadius: 50,
                 onpressed: () async {
                   /// retrieving the ssh data from the `ssh provider`
                   final sshData =
@@ -348,6 +354,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 prefixIconColor: FontAppColors.secondaryFont,
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.25,
+                curvatureRadius: 50,
                 onpressed: () async {
                   /// retrieving the ssh data from the `ssh provider`
                   final sshData =
@@ -383,6 +390,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 prefixIconColor: FontAppColors.secondaryFont,
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 0.25,
+                curvatureRadius: 50,
                 onpressed: () async {
                   /// retrieving the ssh data from the `ssh provider`
                   final sshData =

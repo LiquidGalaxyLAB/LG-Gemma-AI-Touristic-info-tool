@@ -197,6 +197,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                               prefixIconColor: FontAppColors.secondaryFont,
                               prefixIconSize: 30,
                               isSuffixIcon: false,
+                              curvatureRadius: 50,
                               onpressed: () async {
                                 /// checking first if form is valid
                                 if (_form1Key.currentState!.validate()) {
@@ -267,6 +268,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                               prefixIconColor: FontAppColors.secondaryFont,
                               prefixIconSize: 30,
                               isSuffixIcon: false,
+                              curvatureRadius: 50,
                               onpressed: () async {
                                 final sshData = Provider.of<SSHprovider>(
                                     context,
@@ -375,6 +377,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                               prefixIconColor: FontAppColors.secondaryFont,
                               prefixIconSize: 30,
                               isSuffixIcon: false,
+                              curvatureRadius: 50,
                               onpressed: () async {
                                 /// checking first if form is valid
                                 if (_form2Key.currentState!.validate()) {
@@ -399,6 +402,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                               isLoading: false,
                               isBold: true,
                               isPrefixIcon: true,
+                              curvatureRadius: 50,
                               prefixIcon:
                                   Icons.signal_wifi_connected_no_internet_4,
                               prefixIconColor: FontAppColors.secondaryFont,

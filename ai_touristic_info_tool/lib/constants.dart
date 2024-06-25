@@ -8,6 +8,15 @@ class LgAppColors {
   static const Color lgColor4 = Color(0xFF4CB15F);
 }
 
+class ButtonColors {
+  static const Color mapButton = Color.fromARGB(255, 146, 199, 255);
+  static const Color photoButton = Color.fromARGB(255, 146, 240, 146);
+  static const Color musicButton = Color.fromARGB(255, 180, 150, 237);
+  static const Color audioButton = Color.fromARGB(255, 246, 180, 87);
+  static const Color promptButton = Color.fromARGB(148, 255, 237, 70);
+  static const Color locationButton = Color.fromARGB(255, 246, 120, 116);
+}
+
 class FontAppColors {
   static const Color primaryFont = Colors.black;
   static const Color secondaryFont = Colors.white;

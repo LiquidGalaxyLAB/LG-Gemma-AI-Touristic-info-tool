@@ -108,6 +108,7 @@ class AboutScreen extends StatelessWidget {
             isBold: true,
             isPrefixIcon: false,
             isSuffixIcon: false,
+            curvatureRadius: 50,
           ),
           const Icon(Icons.ads_click_rounded, size: 50),
           Image.asset(
