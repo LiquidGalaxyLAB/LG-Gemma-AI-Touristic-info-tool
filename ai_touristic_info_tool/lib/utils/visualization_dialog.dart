@@ -1,14 +1,21 @@
-
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_map_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
+import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
+import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
+import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
-void showVisualizationDialog(BuildContext context, List<PlacesModel> places, String query) {
+void showVisualizationDialog(
+    BuildContext context, List<PlacesModel> places, String query) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -221,25 +228,52 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places, Str
                           final placeModel = places[index];
                           return Column(
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    placeModel.name,
-                                    softWrap: true,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      color: FontAppColors.primaryFont,
-                                      fontSize: textSize,
-                                      fontFamily: fontType,
+                              GestureDetector(
+                                onTap: () async {
+                                  final sshData = Provider.of<SSHprovider>(
+                                      context,
+                                      listen: false);
+
+                                  Connectionprovider connection =
+                                      Provider.of<Connectionprovider>(context,
+                                          listen: false);
+
+                                  ///checking the connection status first
+                                  if (sshData.client != null &&
+                                      connection.isLgConnected) {
+                                    await buildPlacePlacemark(
+                                        placeModel, index, query, context);
+                                  } else {
+                                    dialogBuilder(
+                                        context,
+                                        'NOT connected to LG !! \n Please Connect to LG',
+                                        true,
+                                        'OK',
+                                        null,
+                                        null);
+                                  }
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      placeModel.name,
+                                      softWrap: true,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        color: FontAppColors.primaryFont,
+                                        fontSize: textSize,
+                                        fontFamily: fontType,
+                                      ),
                                     ),
-                                  ),
-                                  const Icon(Icons.airplanemode_active_outlined,
-                                      color: FontAppColors.primaryFont,
-                                      size: textSize + 4),
-                                ],
+                                    const Icon(
+                                        Icons.airplanemode_active_outlined,
+                                        color: FontAppColors.primaryFont,
+                                        size: textSize + 4),
+                                  ],
+                                ),
                               ),
                               const Divider(
                                 color: FontAppColors.primaryFont,

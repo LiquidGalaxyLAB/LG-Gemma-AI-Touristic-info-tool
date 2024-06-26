@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>My Map</name>
+    <description>This is my map with multiple placemarks</description>
+
+     <Style id="placemark-style">
+      <IconStyle>
+        <Icon>
+          <href>https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    
+    <Placemark>
+      <name>Placemark 1</name>
+      <styleUrl>#placemark-style</styleUrl>
+      <description>Description for Placemark 1</description>
+      <Point>
+        <coordinates>-122.0822035425683,37.42228990140251,0</coordinates>
+      </Point>
+    </Placemark>
+    
+    <Placemark>
+      <name>Placemark 2</name>
+      <styleUrl>#placemark-style</styleUrl>
+      <description>Description for Placemark 2</description>
+      <Point>
+        <coordinates>-122.085000,37.421999,0</coordinates>
+      </Point>
+    </Placemark>
+    
+    <Placemark>
+      <name>Placemark 3</name>
+      <styleUrl>#placemark-style</styleUrl>
+      <description>Description for Placemark 3</description>
+      <Point>
+        <coordinates>-122.084000,37.420000,0</coordinates>
+      </Point>
+    </Placemark>
+
+  </Document>
+</kml>

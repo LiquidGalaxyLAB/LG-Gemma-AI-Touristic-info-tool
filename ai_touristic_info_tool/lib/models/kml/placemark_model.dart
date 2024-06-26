@@ -57,6 +57,7 @@ class PlacemarkModel {
     required this.name,
     this.point,
     this.line,
+    this.styleId,
   });
 
   /// Property that defines the placemark `tag` according to its current properties.
@@ -209,6 +210,7 @@ class PlacemarkModel {
     return {
       'id': id,
       'name': name,
+      'styleId': styleId,
       'description': description ?? '',
       'icon': icon ?? '',
       'visibility': visibility,
@@ -226,6 +228,7 @@ class PlacemarkModel {
   factory PlacemarkModel.fromMap(Map<String, dynamic> map) {
     return PlacemarkModel(
       id: map['id'],
+      styleId: map['styleId'],
       name: map['name'],
       description: map['description'],
       icon: map['icon'],
