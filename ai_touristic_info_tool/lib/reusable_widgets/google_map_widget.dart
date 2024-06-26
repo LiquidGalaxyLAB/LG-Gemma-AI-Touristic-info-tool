@@ -221,18 +221,18 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                           markers: _markers,
                           onMapCreated: _onMapCreated,
                         ),
-                        Container(
-                          alignment: Alignment.topRight,
-                          margin: const EdgeInsets.only(top: 10, right: 10),
-                          child: Column(
-                            children: [
-                              FloatingActionButton(
-                                onPressed: _addMarker,
-                                child: const Icon(Icons.add_location),
-                              ),
-                            ],
-                          ),
-                        )
+                        // Container(
+                        //   alignment: Alignment.topRight,
+                        //   margin: const EdgeInsets.only(top: 10, right: 10),
+                        //   child: Column(
+                        //     children: [
+                        //       FloatingActionButton(
+                        //         onPressed: _addMarker,
+                        //         child: const Icon(Icons.add_location),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // )
                       ],
                     );
                   }),

@@ -174,7 +174,7 @@ class ExploreWorldTabView extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 1,
                   bottomOpacity: 0.6,
                   imagePath: 'assets/images/rec-london.jpg',
-                  title: 'Historical Tour of London',
+                  title: 'Attractions in London, UK',
                   country: 'London',
                   description:
                       'Visit iconic sites such as the Tower of London, Buckingham Palace, and the British Museum.',

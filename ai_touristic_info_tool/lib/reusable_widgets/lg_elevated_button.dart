@@ -1,5 +1,6 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 ///This is a customer elevated button which is reused in many views through our app
 ///[OptimileElevatedButton] takes as parameters:
@@ -30,6 +31,8 @@ class LgElevatedButton extends StatelessWidget {
   final Color? suffixIconColor;
   final double? suffixIconSize;
   final double curvatureRadius;
+  final Color? borderColor;
+  final double? borderWidth;
 
   const LgElevatedButton({
     required this.elevatedButtonContent,
@@ -44,13 +47,15 @@ class LgElevatedButton extends StatelessWidget {
     required this.isPrefixIcon,
     required this.isSuffixIcon,
     required this.curvatureRadius,
+    this.borderWidth,
     this.prefixIcon,
     this.prefixIconColor,
     this.prefixIconSize,
     this.suffixIcon,
     this.suffixIconColor,
     this.suffixIconSize,
-    super.key, 
+    this.borderColor,
+    super.key,
   });
 
   @override
@@ -65,8 +70,11 @@ class LgElevatedButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: buttonColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(curvatureRadius),
-          ),
+              borderRadius: BorderRadius.circular(curvatureRadius),
+              side: BorderSide(
+                  color: borderColor ?? Colors.transparent,
+                  width: borderWidth ?? 0,
+                  style: BorderStyle.solid)),
         ),
         child: Stack(
           children: [

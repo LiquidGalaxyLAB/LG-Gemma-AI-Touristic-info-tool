@@ -1,5 +1,16 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
+import 'package:ai_touristic_info_tool/models/places_model.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/app_bar_widget.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/google_map_widget.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
+import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RecommendationContainer extends StatelessWidget {
   final String imagePath;
@@ -20,12 +31,21 @@ class RecommendationContainer extends StatelessWidget {
       required this.width,
       required this.height,
       required this.txtSize,
-      this.descriptionSize, required this.bottomOpacity});
+      this.descriptionSize,
+      required this.bottomOpacity});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        PromptsSharedPref.getPlaces(title).then((value) {
+          print('value: $value');
+          print(value.isNotEmpty);
+          if (value.isNotEmpty) {
+            showVisualizationDialog(context, value, title);
+          }
+        });
+      },
       child: Container(
         width: width,
         height: height,

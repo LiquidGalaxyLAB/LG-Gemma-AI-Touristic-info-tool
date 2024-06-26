@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 
 class TopBarWidget extends StatelessWidget {
   final Widget child;
+  final double height;
+  final double width;
   const TopBarWidget({
     super.key,
-    required this.child,
+    required this.child, required this.height, required this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.1,
-      width: MediaQuery.of(context).size.width * 1,
+      // height: MediaQuery.of(context).size.height * 0.1,
+      // width: MediaQuery.of(context).size.width * 1,
+      height: height,
+      width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         gradient: const LinearGradient(

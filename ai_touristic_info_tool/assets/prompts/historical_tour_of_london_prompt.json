@@ -89,6 +89,16 @@
         "pricing": "£16.50",
         "rating": 4.9,
         "amenities": "Guided tours, Planetarium, Cafe"
+       },
+       {
+        "name": "The view from The Shard",
+        "address": "32 London Bridge St, London SE1 9SG",
+        "city": "London",
+        "country": "United Kingdom",
+        "description": "An observation deck offering panoramic views of London from the tallest building in the city.",
+        "pricing": "£32.00",
+        "rating": 4.7,
+        "amenities": "360-degree views, Champagne bar, Gift shop"
        }
     ]
 }

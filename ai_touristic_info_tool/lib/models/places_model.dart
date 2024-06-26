@@ -22,6 +22,36 @@ class PlacesModel {
     required this.latitude,
     required this.longitude,
   });
+
+   // Convert a Place into a JSON Map
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'address': address,
+    'city': city,
+    'country': country,
+    'description': description,
+    'ratings': ratings,
+    'amenities': amenities,
+    'price': price,
+    'latitude': latitude,
+    'longitude': longitude,
+  };
+
+  // Convert a JSON into a Place Object
+  factory PlacesModel.fromJson(Map<String, dynamic> json) {
+    return PlacesModel(
+      name: json['name'],
+      address: json['address'],
+      city: json['city'],
+      country: json['country'],
+      description: json['description'],
+      ratings: json['ratings'],
+      amenities: json['amenities'],
+      price: json['price'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+    );
+  }
 }
 
 

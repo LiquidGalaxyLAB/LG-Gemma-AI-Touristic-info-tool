@@ -37,6 +37,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       TopBarWidget(
+         height: MediaQuery.of(context).size.height * 0.1,
+      width: MediaQuery.of(context).size.width * 1,
         child: Center(
           child: Text(
             'Welcome to your Home page!',

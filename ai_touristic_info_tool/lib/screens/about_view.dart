@@ -22,6 +22,8 @@ class AboutScreen extends StatelessWidget {
       child: Column(
         children: [
           TopBarWidget(
+             height: MediaQuery.of(context).size.height * 0.1,
+      width: MediaQuery.of(context).size.width * 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

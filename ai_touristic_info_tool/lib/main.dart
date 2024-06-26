@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/main_layout.dart';
 import 'package:ai_touristic_info_tool/screens/splash_screen.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
@@ -17,6 +18,7 @@ void main() async {
 
   /// Initialize shared preferences for LG connection
   await LgConnectionSharedPref.init();
+  await PromptsSharedPref.init();
   await dotenv.load(fileName: ".env");
 
   runApp(
