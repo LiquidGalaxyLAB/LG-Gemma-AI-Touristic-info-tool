@@ -349,7 +349,8 @@ fi
     }
   }
 
-    Future<void> sendKmlPlacemarks(String kml, String placemarkName) async {
+  Future<void> sendKmlPlacemarks(String kml, String placemarkName) async {
+    print('inside kml');
     final fileName = '$placemarkName.kml';
     try {
       final kmlFile = await _fileService.createFile(fileName, kml);
@@ -358,6 +359,7 @@ fi
 
       await _sshData
           .execute('echo "\n$_url/$fileName" >> /var/www/html/kmls.txt');
+      print('after execute');
     } catch (e) {
       // ignore: avoid_print
       print(e);

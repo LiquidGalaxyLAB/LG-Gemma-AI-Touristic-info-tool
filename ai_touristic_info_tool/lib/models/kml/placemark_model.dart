@@ -44,6 +44,8 @@ class PlacemarkModel {
   /// Property that defines the placemark `tour` entity.
   TourModel? tour;
 
+  String? orbitContent;
+
   PlacemarkModel({
     this.description,
     this.icon,
@@ -58,6 +60,7 @@ class PlacemarkModel {
     this.point,
     this.line,
     this.styleId,
+    this.orbitContent,
   });
 
   /// Property that defines the placemark `tag` according to its current properties.
@@ -119,6 +122,20 @@ class PlacemarkModel {
       ${point?.tag}
       <visibility>${visibility ? 1 : 0}</visibility>
       <gx:balloonVisibility>0</gx:balloonVisibility>
+      <gx:FlyTo>
+              <gx:duration>1.2</gx:duration>
+              <gx:flyToMode>smooth</gx:flyToMode>
+              <LookAt>
+                  <longitude>${lookAt!.longitude}</longitude>
+                  <latitude>${lookAt!.latitude}</latitude>
+                  <heading>${lookAt!.heading}</heading>
+                  <tilt>${lookAt!.tilt}</tilt>
+                  <range>${lookAt!.range}</range>
+                  <gx:fovy>60</gx:fovy>
+                  <altitude>${lookAt!.altitude}</altitude>
+                  <gx:altitudeMode>${lookAt!.altitudeMode}</gx:altitudeMode>
+              </LookAt>
+            </gx:FlyTo>
     </Placemark>
     ${viewOrbit ? orbitTag : ''}
     ${tour != null ? tour!.tag : ''}
@@ -167,12 +184,21 @@ class PlacemarkModel {
   ''';
 
   String get orbitTag => '''
-    <Placemark>
-      <name>Orbit - $name</name>
-      <styleUrl>line-$id</styleUrl>
-      ${line!.tag}
-    </Placemark>
-  ''';
+ <gx:Tour>
+      <name>Orbit</name>
+      <gx:Playlist>
+      ${orbitContent ?? (lookAt == null ? '' : lookAt!.tag)}
+      </gx:Playlist>
+  </gx:Tour>
+''';
+
+  // String get orbitTag => '''
+  //   <Placemark>
+  //     <name>Orbit - $name</name>
+  //     <styleUrl>line-$id</styleUrl>
+  //     ${line!.tag}
+  //   </Placemark>
+  // ''';
 
   /// Property that defines a placemark tag which contains only a balloon.
   /// FF537DC0
@@ -221,6 +247,7 @@ class PlacemarkModel {
       'point': point?.toMap(),
       'line': line!.toMap(),
       'tour': tour?.toMap(),
+      'orbitContent': orbitContent,
     };
   }
 
@@ -240,6 +267,7 @@ class PlacemarkModel {
       point: PointModel.fromMap(map['point']),
       line: LineModel.fromMap(map['line']),
       tour: map['tour'] != null ? TourModel.fromMap(map['tour']) : null,
+      orbitContent: map['orbitContent'],
     );
   }
 }

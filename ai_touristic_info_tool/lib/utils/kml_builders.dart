@@ -1,6 +1,7 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/kml/KMLModel.dart';
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
+import 'package:ai_touristic_info_tool/models/kml/orbit_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/placemark_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/point_model.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
@@ -12,6 +13,7 @@ import 'package:provider/provider.dart';
 buildPlacePlacemark(
     PlacesModel place, int index, String query, BuildContext context,
     {visibility = true, viewOrbit = true}) async {
+  print('inside placemark');
   final sshData = Provider.of<SSHprovider>(context, listen: false);
 
   String content = '';
@@ -137,7 +139,16 @@ buildPlacePlacemark(
 
   PointModel point =
       PointModel(lat: placeLatitude, lng: placeLongitude, altitude: 1000);
-
+//  LookAtModel lookAtObjOrbit = LookAtModel(
+//                 longitude: longitude,
+//                 latitude: latitude,
+//                 range: '8000',
+//                 tilt: '45',
+//                 altitude: 10000,
+//                 heading: '0',
+//                 altitudeMode: 'relativeToSeaFloor',
+//               );
+  String orbitContent = OrbitModel.tag(lookAt);
   PlacemarkModel placemark = PlacemarkModel(
       id: placeName,
       name: placeName,
@@ -149,17 +160,36 @@ buildPlacePlacemark(
       viewOrbit: viewOrbit,
       scale: 1,
       lookAt: lookAt,
-      point: point);
+      point: point,
+      orbitContent: orbitContent);
 
   content += placemark.tag;
+
+  final kmlBalloon = KMLModel(
+    name: '$placeName-balloon',
+    content: placemark.balloonOnlyTag,
+  );
 
   final kmlPlacemark = KMLModel(
     name: 'places-pins',
     content: content,
   );
 
+  // final orbit =
+  //     OrbitModel.buildOrbit(OrbitModel.tag(lookAt));
+
   try {
+    // await LgService(sshData).clearKml();
+    // await Future.delayed(Duration(seconds: 3));
     await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'placePin');
+    await Future.delayed(Duration(seconds: 3));
+    await LgService(sshData).sendKMLToSlave(
+      LgService(sshData).balloonScreen,
+      kmlBalloon.body,
+    );
+    await Future.delayed(Duration(seconds: 3));
+    await LgService(sshData).startTour('Orbit');
+    print('here');
   } catch (e) {
     print(e);
   }
