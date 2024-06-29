@@ -2,8 +2,8 @@ import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_location_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_world_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
+import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/material.dart';
-
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -24,7 +24,12 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _showHomeBallon();
     _tabController = TabController(length: 2, vsync: this);
+  }
+
+  _showHomeBallon() async {
+    await buildAppBalloon(context);
   }
 
   @override
@@ -37,8 +42,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       TopBarWidget(
-         height: MediaQuery.of(context).size.height * 0.1,
-      width: MediaQuery.of(context).size.width * 1,
+        height: MediaQuery.of(context).size.height * 0.1,
+        width: MediaQuery.of(context).size.width * 1,
         child: Center(
           child: Text(
             'Welcome to your Home page!',
@@ -114,7 +119,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         children: <Widget>[
           ExploreWorldTabView(
               formKey: _form1Key, promptController: _prompt1Controller),
-          ExploreLocationTabView(form2Key: _form2Key, prompt2Controller: _prompt2Controller),
+          ExploreLocationTabView(
+              form2Key: _form2Key, prompt2Controller: _prompt2Controller),
         ],
       ))
     ]);

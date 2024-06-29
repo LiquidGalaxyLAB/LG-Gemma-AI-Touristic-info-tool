@@ -5,6 +5,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
+import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
@@ -56,8 +57,8 @@ class _ConnectionViewState extends State<ConnectionView> {
               Column(
                 children: [
                   TopBarWidget(
-                     height: MediaQuery.of(context).size.height * 0.1,
-      width: MediaQuery.of(context).size.width * 1,
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 1,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -237,7 +238,8 @@ class _ConnectionViewState extends State<ConnectionView> {
                                   connection.isLgConnected = true;
 
                                   ///If connected, the logos should appear by calling `setLogos` from the `LGService` calss
-                                  LgService(sshData).setLogos();
+                                  await LgService(sshData).setLogos();
+                                  await buildAppBalloon(context);
                                 } else {
                                   connection.isLgConnected = false;
 

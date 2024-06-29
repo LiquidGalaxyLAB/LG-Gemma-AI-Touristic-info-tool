@@ -285,9 +285,20 @@ fi
 
   /// Sends a KML [content] to the given slave [screen].
   Future<void> sendKMLToSlave(int screen, String content) async {
+    print('inside kml slave');
     try {
       await _sshData
           .execute("echo '$content' > /var/www/html/kml/slave_$screen.kml");
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+  }
+
+  Future<void> updateKMLonSlave(int screen, String content) async {
+    try {
+      await _sshData
+          .execute("echo '$content' >> /var/www/html/kml/slave_$screen.kml");
     } catch (e) {
       // ignore: avoid_print
       print(e);
@@ -334,23 +345,8 @@ fi
     }
   }
 
-  Future<void> sendKmlPins(String pinsKml, String placemarkName) async {
-    final fileName = '$placemarkName.kml';
-    try {
-      final kmlFile = await _fileService.createFile(fileName, pinsKml);
-
-      await _sshData.uploadKml(kmlFile, fileName);
-
-      await _sshData
-          .execute('echo "\n$_url/$fileName" >> /var/www/html/kmls.txt');
-    } catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
-  }
-
   Future<void> sendKmlPlacemarks(String kml, String placemarkName) async {
-    print('inside kml');
+    print(' inside kml placemarks');
     final fileName = '$placemarkName.kml';
     try {
       final kmlFile = await _fileService.createFile(fileName, kml);
@@ -358,7 +354,7 @@ fi
       await _sshData.uploadKml(kmlFile, fileName);
 
       await _sshData
-          .execute('echo "\n$_url/$fileName" >> /var/www/html/kmls.txt');
+          .execute('echo "\n$_url/$fileName" > /var/www/html/kmls.txt');
       print('after execute');
     } catch (e) {
       // ignore: avoid_print

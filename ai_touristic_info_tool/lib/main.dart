@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/main_layout.dart';
 import 'package:ai_touristic_info_tool/screens/splash_screen.dart';
+import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
+import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -32,27 +34,27 @@ void main() async {
       child: const AITouristicInfo(),
     ),
   );
-//   Timer.periodic(const Duration(seconds: 30), (timer) async {
-//     final sshData =
-//         Provider.of<SSHprovider>(navigatorKey.currentContext!, listen: false);
-//     Connectionprovider connection = Provider.of<Connectionprovider>(
-//         navigatorKey.currentContext!,
-//         listen: false);
+  Timer.periodic(const Duration(seconds: 10), (timer) async {
+    final sshData =
+        Provider.of<SSHprovider>(navigatorKey.currentContext!, listen: false);
+    Connectionprovider connection = Provider.of<Connectionprovider>(
+        navigatorKey.currentContext!,
+        listen: false);
 
-//     String? result = await sshData.reconnectClient(
-//         SSHModel(
-//           username: LgConnectionSharedPref.getUserName() ?? '',
-//           host: LgConnectionSharedPref.getIP() ?? '',
-//           passwordOrKey: LgConnectionSharedPref.getPassword() ?? '',
-//           port: int.parse(LgConnectionSharedPref.getPort() ?? '22'),
-//         ),
-//         navigatorKey.currentContext!);
-//     if (result == '') {
-//       connection.isLgConnected = true;
-//     } else {
-//       connection.isLgConnected = false;
-//     }
-//   });
+    String? result = await sshData.reconnectClient(
+        SSHModel(
+          username: LgConnectionSharedPref.getUserName() ?? '',
+          host: LgConnectionSharedPref.getIP() ?? '',
+          passwordOrKey: LgConnectionSharedPref.getPassword() ?? '',
+          port: int.parse(LgConnectionSharedPref.getPort() ?? '22'),
+        ),
+        navigatorKey.currentContext!);
+    if (result == '') {
+      connection.isLgConnected = true;
+    } else {
+      connection.isLgConnected = false;
+    }
+  });
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -62,6 +64,10 @@ class AITouristicInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sshData = Provider.of<SSHprovider>(context, listen: false);
+    LgService(sshData).setLogos();
+    buildAppBalloon(context);
+
     return MaterialApp(
       title: 'AI Touristic Info Tool',
       theme: ThemeData(
@@ -69,6 +75,7 @@ class AITouristicInfo extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const SplashScreen(),
+      navigatorKey: navigatorKey,
     );
   }
 }

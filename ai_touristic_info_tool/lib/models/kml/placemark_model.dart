@@ -65,12 +65,13 @@ class PlacemarkModel {
 
   /// Property that defines the placemark `tag` according to its current properties.
   /// KML code for a placemark
+  //<href>http://lg1:81/$icon</href>
   String get tag => '''
     <Style id="high-$id">
       <IconStyle>
         <scale>${scale + 0.5}</scale>
         <Icon>
-          <href>http://lg1:81/$icon</href>
+         <href>https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true</href>
         </Icon>
         <hotSpot x="0.5" y="0.5" xunits="fraction" yunits="fraction" />
       </IconStyle>
@@ -79,7 +80,7 @@ class PlacemarkModel {
       <IconStyle>
         <scale>$scale</scale>
         <Icon>
-          <href>http://lg1:81/$icon</href>
+          <href>https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true</href>
         </Icon>
         <hotSpot x="0.5" y="0.5" xunits="fraction" yunits="fraction" />
       </IconStyle>
@@ -143,7 +144,6 @@ class PlacemarkModel {
 
 //https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/animalPin.png?raw=true
   String get styleTag => '''
-
 <Style id="$styleId">
     <IconStyle id="mystyle">
       <Icon>

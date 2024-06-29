@@ -6,6 +6,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart'
 import 'package:ai_touristic_info_tool/reusable_widgets/google_map_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
+import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class RecommendationContainer extends StatelessWidget {
   final String imagePath;
   final String title; //query
   final String? country; //query
+  final String? city; //query
   final String? description;
   final double width;
   final double height;
@@ -27,6 +29,7 @@ class RecommendationContainer extends StatelessWidget {
       required this.imagePath,
       required this.title,
       this.country,
+      this.city,
       this.description,
       required this.width,
       required this.height,
@@ -37,12 +40,13 @@ class RecommendationContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        PromptsSharedPref.getPlaces(title).then((value) {
+      onTap: ()  {
+        PromptsSharedPref.getPlaces(title).then((value) async {
           print('value: $value');
           print(value.isNotEmpty);
           if (value.isNotEmpty) {
-            showVisualizationDialog(context, value, title);
+            await buildQueryPlacemark(title, city, country, context);
+            showVisualizationDialog(context, value, title, city, country);
           }
         });
       },

@@ -175,7 +175,8 @@ class ExploreWorldTabView extends StatelessWidget {
                   bottomOpacity: 0.6,
                   imagePath: 'assets/images/rec-london.jpg',
                   title: 'Attractions in London, UK',
-                  country: 'London',
+                  country: 'United Kingdom',
+                  city: 'London',
                   description:
                       'Visit iconic sites such as the Tower of London, Buckingham Palace, and the British Museum.',
                   txtSize: textSize + 6,

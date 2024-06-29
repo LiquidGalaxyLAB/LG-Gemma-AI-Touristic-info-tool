@@ -5,42 +5,158 @@ import 'package:ai_touristic_info_tool/models/kml/orbit_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/placemark_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/point_model.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
+import 'package:ai_touristic_info_tool/services/coordinates_extraction.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-buildPlacePlacemark(
-    PlacesModel place, int index, String query, BuildContext context,
-    {visibility = true, viewOrbit = true}) async {
-  print('inside placemark');
+String escapeHtml(String input) {
+  return input
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+}
+
+buildAppBalloon(BuildContext context, {visibility = true}) async {
   final sshData = Provider.of<SSHprovider>(context, listen: false);
+  String balloonContent = '''
+<style>
+            .balloon {
+              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
+              color: white;
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Montserrat, sans-serif;
+            }
+            .balloon h1 {
+              font-size: 24px;
+              color: #ffff;
+            }
+            .balloon h2 {
+              font-size: 20px;
+              color: #ffff;
+            }
+            
+            .balloon pp{
+              font-size: 18px;
+              color: #ffff;
+            }
+            .balloon p {
+              font-size: 14px;
+              color: #ffff;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+            }
+           .container-logo {
+            width: 100px; 
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; 
+          }
+          .logo img {
+            max-width: 100%; /* Ensure image fits within container */
+            max-height: 100%; /* Ensure image fits within container */
+            display: block;
+            margin: auto;
+            border-radius: 10px; /* Optional rounded corners for the image */
+          }
+          </style>
+        
+          <div class="balloon">
+              <div class="container-logo">
+                  <div class="logo">
+                    <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
+                  </div>
+              </div>
 
-  String content = '';
+              <div style="text-align:center;">
+              <h1>Welcome to LG Gemma AI Touristic Info Tool!</h1>
+              </div>
 
-  String placeName = place.name;
-  String placeDescription = place.description ?? '';
-  String placeAddress = place.address;
-  String placeCity = place.city ?? '';
-  String placeCountry = place.country ?? '';
-  String placeAmenities = place.amenities ?? '';
-  String placePrices = place.price ?? '\$\$';
-  double placesRating = place.ratings ?? 0;
-  double placeLatitude = place.latitude;
-  double placeLongitude = place.longitude;
+              <div style="text-align:justify;">
+                  <pp>Prepare to be inspired by discovering the most captivating POIs tailored to your preference.</pp>
+              </div>
 
-  String countryCode = countryMap[placeCountry] ?? 'None';
+              <div class="details">
+                <p><b>Contributor:</b> Mahinour Elsarky</p>
+                <p><b>Organization:</b> Liquid Galaxy Project</p>
+                <p><b>Main-Mentors:</b> Claudia Diosan , Andreu Ibanez</p>
+                <p><b>Co-Mentors:</b> Emilie Ma ,  Irene</p>
+                <p><b>Listener Contributors:</b> Vertika Bajpai</p>
+              </div>
+            
+
+
+           
+        </div>
+''';
+
+  LookAtModel lookAt = LookAtModel(
+    longitude: 0.0000101,
+    latitude: 0.0000101,
+    range: '31231212.86',
+    tilt: '0',
+    altitude: 50000.1097385,
+    heading: '0',
+    altitudeMode: 'relativeToSeaFloor',
+  );
+
+  PlacemarkModel placemark = PlacemarkModel(
+    id: 'home',
+    name: 'home',
+    styleId: 'placemark-style',
+    description: 'App Start up',
+    balloonContent: balloonContent,
+    visibility: visibility,
+    lookAt: lookAt,
+    viewOrbit: false,
+  );
+
+  final kmlBalloon = KMLModel(
+    name: 'home-balloon',
+    content: placemark.balloonOnlyTag,
+  );
+
+  try {
+    await LgService(sshData).sendKMLToSlave(
+      LgService(sshData).balloonScreen,
+      kmlBalloon.body,
+    );
+    await LgService(sshData).flyTo(lookAt);
+  } catch (e) {
+    print(e);
+  }
+}
+
+buildQueryPlacemark(
+    String query, String? city, String? country, BuildContext context,
+    {visibility = true}) async {
+  final sshData = Provider.of<SSHprovider>(context, listen: false);
+  String countryCode = countryMap[country] ?? 'None';
   String countryFlagImg;
 
   if (countryCode != 'None') {
     String cc = countryCode.toLowerCase();
-    countryFlagImg = 'https://www.worldometers.info/img/flags/$cc-flag.gif';
+    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
   } else {
     countryFlagImg = '';
   }
-
-  String icon =
-      'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true';
   String balloonContent = '''
  <style>
             .balloon {
@@ -98,32 +214,172 @@ buildPlacePlacemark(
         
           <div class="balloon">
               <div class="container-logo">
-              <div class="logo">
-                <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
+                  <div class="logo">
+                    <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
+                  </div>
               </div>
-            </div>
+
             <div style="text-align:center;">
               <h1>$query</h1>
             </div>
+
             <div style="text-align:center;">
-              <h1> $index. $placeName</h1>
+              <h2>$city</h2>
+              <h2>$country</h2>
             </div>
+
             <div style="text-align:center;">
-              <h2>$placeCity</h2>
-              <h2>$placeCountry</h2>
-            </div>
-             <div style="text-align:center;">
               <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
             </div>
-             <div style="text-align:justify;">
-              <pp>$placeDescription</pp>
-            </div>
-            <div class="details">
-              <p><b>Address:</b>$placeAddress</p>
-              <p><b>Average Ratings:</b>$placesRating</p>
-              <p><b>Pricing:</b>$placePrices</p>
-              <p><b>Amenities:</b>$placeAmenities</p>
-            </div>
+        </div>
+''';
+
+  PlacemarkModel placemark = PlacemarkModel(
+    id: 'query-$city',
+    name: 'query-$city',
+    styleId: 'placemark-style',
+    description: '$query , $city , $country',
+    balloonContent: balloonContent,
+    visibility: visibility,
+    viewOrbit: false,
+  );
+
+  final kmlBalloon = KMLModel(
+    name: '$city-balloon',
+    content: placemark.balloonOnlyTag,
+  );
+
+  try {
+    await LgService(sshData).sendKMLToSlave(
+      LgService(sshData).balloonScreen,
+      kmlBalloon.body,
+    );
+  } catch (e) {
+    print(e);
+  }
+}
+
+buildPlacePlacemark(
+    PlacesModel place, int index, String query, BuildContext context,
+    {visibility = true, viewOrbit = true}) async {
+  print('inside placemark');
+  final sshData = Provider.of<SSHprovider>(context, listen: false);
+
+  String content = '';
+
+  String placeName = escapeHtml(place.name);
+  String placeDescription = place.description ?? '';
+  String placeAddress = place.address;
+  String placeCity = place.city ?? '';
+  String placeCountry = place.country ?? '';
+  String placeAmenities = place.amenities ?? '';
+  String placePrices = place.price ?? '\$\$';
+  double placesRating = place.ratings ?? 0;
+  double placeLatitude = place.latitude;
+  double placeLongitude = place.longitude;
+
+  String countryCode = countryMap[placeCountry] ?? 'None';
+  String countryFlagImg;
+
+  if (countryCode != 'None') {
+    String cc = countryCode.toLowerCase();
+    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+  } else {
+    countryFlagImg = '';
+  }
+
+  String icon =
+      "https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true";
+  String balloonContent = '''
+ <style>
+            .balloon {
+              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
+              color: white;
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Montserrat, sans-serif;
+            }
+            .balloon h1 {
+              font-size: 24px;
+              color: #ffff;
+            }
+            .balloon h2 {
+              font-size: 20px;
+              color: #ffff;
+            }
+            
+            .balloon pp{
+              font-size: 18px;
+              color: #ffff;
+            }
+            .balloon p {
+              font-size: 14px;
+              color: #ffff;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+            }
+           .container-logo {
+            width: 100px; 
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; 
+          }
+          .logo img {
+            max-width: 100%; /* Ensure image fits within container */
+            max-height: 100%; /* Ensure image fits within container */
+            display: block;
+            margin: auto;
+            border-radius: 10px; /* Optional rounded corners for the image */
+          }
+  </style>
+        
+          <div class="balloon">
+
+              <div class="container-logo">
+                <div class="logo">
+                  <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
+                </div>
+              </div>
+
+              <div style="text-align:center;">
+                <h1>$query</h1>
+              </div>
+
+              <div style="text-align:center;">
+                <h1> $index. $placeName</h1>
+              </div>
+
+              <div style="text-align:center;">
+                <h2>$placeCity</h2>
+                <h2>$placeCountry</h2>
+              </div>
+
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </div>
+
+              <div style="text-align:justify;">
+                <pp>$placeDescription</pp>
+              </div>
+
+              <div class="details">
+                <p><b>Address:</b>$placeAddress</p>
+                <p><b>Average Ratings:</b>$placesRating</p>
+                <p><b>Pricing:</b>$placePrices</p>
+                <p><b>Amenities:</b>$placeAmenities</p>
+              </div>
           </div>
 ''';
 
@@ -131,24 +387,24 @@ buildPlacePlacemark(
     longitude: placeLongitude,
     latitude: placeLatitude,
     range: '500',
-    tilt: '45',
-    altitude: 1000,
+    tilt: '60',
+    altitude: 0,
     heading: '0',
     altitudeMode: 'relativeToGround',
   );
 
   PointModel point =
-      PointModel(lat: placeLatitude, lng: placeLongitude, altitude: 1000);
-//  LookAtModel lookAtObjOrbit = LookAtModel(
-//                 longitude: longitude,
-//                 latitude: latitude,
-//                 range: '8000',
-//                 tilt: '45',
-//                 altitude: 10000,
-//                 heading: '0',
-//                 altitudeMode: 'relativeToSeaFloor',
-//               );
-  String orbitContent = OrbitModel.tag(lookAt);
+      PointModel(lat: placeLatitude, lng: placeLongitude, altitude: 0);
+  LookAtModel lookAtObjOrbit = LookAtModel(
+    longitude: placeLongitude,
+    latitude: placeLatitude,
+    range: '500',
+    tilt: '90',
+    altitude: 0,
+    heading: '0',
+    altitudeMode: 'relativeToGround',
+  );
+  String orbitContent = OrbitModel.tag(lookAtObjOrbit);
   PlacemarkModel placemark = PlacemarkModel(
       id: placeName,
       name: placeName,
@@ -171,78 +427,225 @@ buildPlacePlacemark(
   );
 
   final kmlPlacemark = KMLModel(
-    name: 'places-pins',
+    name: '$placeName-pin',
     content: content,
   );
 
-  // final orbit =
-  //     OrbitModel.buildOrbit(OrbitModel.tag(lookAt));
-
   try {
-    // await LgService(sshData).clearKml();
-    // await Future.delayed(Duration(seconds: 3));
-    await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'placePin');
-    await Future.delayed(Duration(seconds: 3));
+    await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, placeName);
     await LgService(sshData).sendKMLToSlave(
       LgService(sshData).balloonScreen,
       kmlBalloon.body,
     );
-    await Future.delayed(Duration(seconds: 3));
-    await LgService(sshData).startTour('Orbit');
-    print('here');
+    await LgService(sshData).flyTo(lookAt);
   } catch (e) {
     print(e);
   }
 }
 
-buildPlacemarks(List<PlacemarkModel> placemarks, BuildContext context) async {
+buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
+    double long, String? city, String? country, String query) async {
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   String content = '';
-  content += placemarks[0].styleTag;
-  for (PlacemarkModel placemark in placemarks) {
+  String icon =
+      "https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true";
+  String countryCode = countryMap[country] ?? 'None';
+  String countryFlagImg;
+
+  if (countryCode != 'None') {
+    String cc = countryCode.toLowerCase();
+    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+  } else {
+    countryFlagImg = '';
+  }
+
+  int poisLength = pois.length;
+
+  String placesBalloonContent = '';
+
+  for (int i = 0; i < poisLength; i++) {
+    int index = i + 1;
+    String name = escapeHtml(pois[i].name);
+    placesBalloonContent += '''
+             <div class="details">
+                <p>$index. $name</p>
+              </div>
+''';
+  }
+
+  String balloonContent = '''
+ <style>
+            .balloon {
+              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
+              color: white;
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Montserrat, sans-serif;
+            }
+            .balloon h1 {
+              font-size: 24px;
+              color: #ffff;
+            }
+            .balloon h2 {
+              font-size: 20px;
+              color: #ffff;
+            }
+            
+            .balloon pp{
+              font-size: 18px;
+              color: #ffff;
+            }
+            .balloon p {
+              font-size: 14px;
+              color: #ffff;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+            }
+           .container-logo {
+            width: 100px; 
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; 
+          }
+          .logo img {
+            max-width: 100%; /* Ensure image fits within container */
+            max-height: 100%; /* Ensure image fits within container */
+            display: block;
+            margin: auto;
+            border-radius: 10px; /* Optional rounded corners for the image */
+          }
+  </style>
+        
+          <div class="balloon">
+
+              <div class="container-logo">
+                <div class="logo">
+                  <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
+                </div>
+              </div>
+
+             <div style="text-align:center;">
+                <h1>$query</h1>
+              </div>
+
+              <div style="text-align:center;">
+                <h2>$city</h2>
+                <h2>$country</h2>
+              </div>
+
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </div>
+
+              
+              <div style="text-align:center;">
+                <pp>Top $poisLength POIs</pp>
+              </div>
+
+              $placesBalloonContent
+          </div>
+''';
+
+  LookAtModel lookAt = LookAtModel(
+    longitude: long,
+    latitude: lat,
+    range: '10000',
+    tilt: '45',
+    altitude: 0,
+    heading: '0',
+    altitudeMode: 'relativeToGround',
+  );
+  String styleId = 'placemark-style';
+  double scale = 1;
+
+  String styleTag = '''
+<Style id="$styleId">
+    <IconStyle id="mystyle">
+      <Icon>
+        <href>$icon</href>
+        <scale>$scale</scale>
+      </Icon>
+    </IconStyle>
+  </Style>
+''';
+
+  content += styleTag;
+
+  for (PlacesModel poi in pois) {
+    PointModel point =
+        PointModel(lat: poi.latitude, lng: poi.longitude, altitude: 0);
+    PlacemarkModel placemark = PlacemarkModel(
+      id: poi.name,
+      name: poi.name,
+      styleId: styleId,
+      description: poi.description ?? '',
+      icon: icon,
+      scale: scale,
+      lookAt: lookAt,
+      point: point,
+    );
+
     content += placemark.placemarkOnlyTag;
   }
+  print('content: $content');
   final kmlPlacemark = KMLModel(
-    name: 'places-pins',
+    name: 'POIs-pins',
     content: content,
   );
 
+  String balloonTag = '''
+ <Style id="balloon-POIs">
+      <BalloonStyle>
+        <bgColor>000000</bgColor>
+        <text><![CDATA[
+         <html>
+          <body style="font-family: montserrat, sans-serif; font-size: 18px; width: 400px; display: flex; justify-content: center; align-items: center;">
+            <div style="background-color: #ffffff; padding: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">
+              <span style="color: black;">$balloonContent</span> <!-- Content of the balloon with red color -->
+            </div>
+          </body>
+        </html>
+        ]]></text>
+      </BalloonStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <IconStyle>
+        <scale>0</scale>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>POIs-Balloon</name>
+      <styleUrl>#balloon-POIs</styleUrl>
+      <gx:balloonVisibility>${balloonContent.isEmpty ? 0 : 1}</gx:balloonVisibility>
+    </Placemark>
+''';
+  final kmlBalloon = KMLModel(
+    name: 'home-balloon',
+    content: balloonTag,
+  );
   try {
-    await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'placePin');
+    await LgService(sshData).flyTo(lookAt);
+    await LgService(sshData).sendKMLToSlave(
+      LgService(sshData).balloonScreen,
+      kmlBalloon.body,
+    );
+    await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'POIs');
   } catch (e) {
     print(e);
   }
 }
 
-// buildLocationBallon(String animalName, String cityName, String countryName,
-//     BuildContext context) async {
-//   final sshData = Provider.of<SSHprovider>(context, listen: false);
-
-//   final placemark = PlacemarkModel(
-//     id: ' $animalName-query-facts',
-//     name: ' $animalName-query-facts',
-//     balloonContent: '''
-//     <div style="text-align:center;">
-//       <b><font size="+3"> 'Discover more about $animalName' <font color="#5D5D5D"></font></font></b>
-//       </div>
-//       <br/><br/>
-//       <p>$animalName can be found in $cityName , $countryName</p>
-//       <br/>
-//     ''',
-//   );
-//   final kmlBalloon = KMLModel(
-//     name: '$animalName-query-balloon',
-//     content: placemark.balloonOnlyTag,
-//   );
-
-//   try {
-//     /// sending kml to slave where we send to `balloon screen` and send the `kml balloon ` body
-//     await LgService(sshData).sendKMLToSlave(
-//       LgService(sshData).balloonScreen,
-//       kmlBalloon.body,
-//     );
-//   } catch (e) {
-//     // ignore: avoid_print
-//     print(e);
-//   }
-// }
+buildQueryTour() {}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" 
+     xmlns:gx="http://www.google.com/kml/ext/2.2">
+  <Document>
+    <name>Place Tour</name>
+    <Style id="placemark-style">
+      <IconStyle>
+        <Icon>
+          <href>https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true</href>
+        </Icon>
+      </IconStyle>
+      <BalloonStyle>
+        <text>
+        <![CDATA[
+          <style>
+            .balloon {
+              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
+              color: white;
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Montserrat, sans-serif;
+            }
+            .balloon h1 {
+              font-size: 24px;
+              color: #ffff;
+            }
+            .balloon h2 {
+              font-size: 20px;
+              color: #ffff;
+            }
+            
+            .balloon pp{
+              font-size: 18px;
+              color: #ffff;
+            }
+            .balloon p {
+              font-size: 14px;
+              color: #ffff;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+            }
+           .container-logo {
+            width: 100px; 
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; 
+          }
+          .logo img {
+            max-width: 100%; /* Ensure image fits within container */
+            max-height: 100%; /* Ensure image fits within container */
+            display: block;
+            margin: auto;
+            border-radius: 10px; /* Optional rounded corners for the image */
+          }
+          </style>
+        
+          <div class="balloon">
+              <div class="container-logo">
+                    <div class="logo">
+                      <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
+                    </div>
+              </div>
+
+              <div style="text-align:center;">
+                <h1>'Welcome to LG Gemma AI Touristic Info Tool!</h1>
+              </div>
+
+              <div style="text-align:justify;">
+                  <pp>Prepare to be inspired by discovering the most captivating POIs tailored to your preference.</pp>
+              </div>
+
+              <div class="details">
+                <p><b>Contributor:</b>Mahinour Elsarky</p>
+                <p><b>Organization:</b>Liquid Galaxy Project</p>
+                <p><b>Main-Mentors:</b>Claudia Diosan , Andreu Ibanez</p>
+                <p><b>Co-Mentors:</b>Emilie Ma ,  Irene</p>
+                <p><b>Listener Contributors:</b>Vertika Bajpai</p>
+              </div>
+          </div>
+        ]]>
+        </text>
+      </BalloonStyle>
+    </Style>
+
+    <Placemark>
+      <name>Buckingham Palace</name>
+      <styleUrl>#placemark-style</styleUrl>
+      <Point>
+        <coordinates>-0.14171833861671615,51.50195171806682</coordinates>
+      </Point>
+    </Placemark>
+
+    <gx:Tour>
+      <name>Orbit Tour</name>
+      <gx:Playlist>
+        <gx:FlyTo>
+          <gx:duration>5</gx:duration>
+          <gx:flyToMode>smooth</gx:flyToMode>
+          <LookAt>
+            <longitude>-0.14171833861671615</longitude>
+            <latitude>51.50195171806682</latitude>
+            <altitude>1000</altitude>
+            <heading>0</heading>
+            <tilt>45</tilt>
+            <range>500</range>
+            <altitudeMode>relativeToGround</altitudeMode>
+          </LookAt>
+        </gx:FlyTo>
+
+        <gx:FlyTo>
+          <gx:duration>10</gx:duration>
+          <gx:flyToMode>smooth</gx:flyToMode>
+          <LookAt>
+            <longitude>-0.14171833861671615</longitude>
+            <latitude>51.50195171806682</latitude>
+            <altitude>1000</altitude>
+            <heading>360</heading>
+            <tilt>45</tilt>
+            <range>500</range>
+            <altitudeMode>relativeToGround</altitudeMode>
+          </LookAt>
+        </gx:FlyTo>
+      </gx:Playlist>
+    </gx:Tour>
+
+  </Document>
+</kml>
