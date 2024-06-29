@@ -79,7 +79,8 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
 
                       ///checking the connection status first
                       if (sshData.client != null && connection.isLgConnected) {
-                        await buildShowPois(places, context, lat, long, city, country, query);
+                        await buildShowPois(
+                            places, context, lat, long, city, country, query);
                       } else {
                         dialogBuilder(
                             context,
@@ -111,7 +112,27 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                   LgElevatedButton(
                     elevatedButtonContent: 'Start\nTour',
                     buttonColor: FontAppColors.secondaryFont,
-                    onpressed: () {},
+                    onpressed: () async {
+                      final sshData =
+                          Provider.of<SSHprovider>(context, listen: false);
+
+                      Connectionprovider connection =
+                          Provider.of<Connectionprovider>(context,
+                              listen: false);
+
+                      ///checking the connection status first
+                      if (sshData.client != null && connection.isLgConnected) {
+                        await buildQueryTour(context, query, places);
+                      } else {
+                        dialogBuilder(
+                            context,
+                            'NOT connected to LG !! \n Please Connect to LG',
+                            true,
+                            'OK',
+                            null,
+                            null);
+                      }
+                    },
                     height: MediaQuery.of(context).size.height * 0.07,
                     width: MediaQuery.of(context).size.width * 0.15,
                     fontSize: textSize,

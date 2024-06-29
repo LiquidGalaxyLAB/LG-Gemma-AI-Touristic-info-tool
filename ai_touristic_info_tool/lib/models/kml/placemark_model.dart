@@ -1,7 +1,7 @@
 import 'line_model.dart';
 import 'look_at_model.dart';
 import 'point_model.dart';
-import 'tour_model.dart';
+import 'tourr_model.dart';
 
 /// Class that defines the `placemark` entity, which contains its properties and methods.
 class PlacemarkModel {

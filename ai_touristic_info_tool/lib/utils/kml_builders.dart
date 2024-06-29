@@ -4,12 +4,11 @@ import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/orbit_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/placemark_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/point_model.dart';
+import 'package:ai_touristic_info_tool/models/kml/tour_model.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
-import 'package:ai_touristic_info_tool/services/coordinates_extraction.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 String escapeHtml(String input) {
@@ -599,7 +598,6 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
 
     content += placemark.placemarkOnlyTag;
   }
-  print('content: $content');
   final kmlPlacemark = KMLModel(
     name: 'POIs-pins',
     content: content,
@@ -648,4 +646,144 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
   }
 }
 
-buildQueryTour() {}
+buildQueryTour(
+    BuildContext context, String query, List<PlacesModel> pois) async {
+  List<LookAtModel> lookAts = [];
+  List<String> ballonContents = [];
+  List<String> poisNames = [];
+
+  for (int i = 0; i < pois.length; i++) {
+    String placeName = pois[i].name;
+    poisNames.add(placeName);
+    LookAtModel lookAt = LookAtModel(
+      longitude: pois[i].longitude,
+      latitude: pois[i].latitude,
+      range: '10000',
+      tilt: '45',
+      altitude: 0,
+      heading: '0',
+      altitudeMode: 'relativeToGround',
+    );
+    lookAts.add(lookAt);
+    String countryFlagImg;
+    String countryCode = countryMap[pois[i].country] ?? 'None';
+    if (countryCode != 'None') {
+      String cc = countryCode.toLowerCase();
+      countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+    } else {
+      countryFlagImg = '';
+    }
+    String balloonContent = '''
+ <style>
+            .balloon {
+              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
+              color: white;
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Montserrat, sans-serif;
+            }
+            .balloon h1 {
+              font-size: 24px;
+              color: #ffff;
+            }
+            .balloon h2 {
+              font-size: 20px;
+              color: #ffff;
+            }
+            
+            .balloon pp{
+              font-size: 18px;
+              color: #ffff;
+            }
+            .balloon p {
+              font-size: 14px;
+              color: #ffff;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+            }
+           .container-logo {
+            width: 100px; 
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; 
+          }
+          .logo img {
+            max-width: 100%; /* Ensure image fits within container */
+            max-height: 100%; /* Ensure image fits within container */
+            display: block;
+            margin: auto;
+            border-radius: 10px; /* Optional rounded corners for the image */
+          }
+  </style>
+        
+          <div class="balloon">
+
+              <div class="container-logo">
+                <div class="logo">
+                  <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
+                </div>
+              </div>
+
+              <div style="text-align:center;">
+                <h1>$query</h1>
+              </div>
+
+              <div style="text-align:center;">
+                <h1> ${i + 1}. ${escapeHtml(pois[i].name)}</h1>
+              </div>
+
+              <div style="text-align:center;">
+                <h2>${escapeHtml(pois[i].city ?? '')}</h2>
+                <h2>${escapeHtml(pois[i].country ?? '')}</h2>
+              </div>
+
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </div>
+
+              <div style="text-align:justify;">
+                <pp>${escapeHtml(pois[i].description ?? '')}</pp>
+              </div>
+
+              <div class="details">
+                <p><b>Address:</b>${escapeHtml(pois[i].address)}</p>
+                <p><b>Average Ratings:</b>${pois[i].ratings ?? ''}</p>
+                <p><b>Pricing:</b>${escapeHtml(pois[i].price ?? '')}</p>
+                <p><b>Amenities:</b>${escapeHtml(pois[i].amenities ?? '')}</p>
+              </div>
+          </div>
+''';
+    ballonContents.add(balloonContent);
+  }
+
+  TourModel tour = TourModel(
+    name: 'app-tour',
+    numberOfPlaces: pois.length,
+    lookAtCoordinates: lookAts,
+    ballonContentOfPlacemarks: ballonContents,
+    poisNames: poisNames,
+  );
+
+  final sshData = Provider.of<SSHprovider>(context, listen: false);
+  final kmlPlacemark = KMLModel(
+    name: 'app-tour',
+    content: tour.tourTag(),
+  );
+  try {
+    await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'app-tour');
+  } catch (e) {
+    print(e);
+  }
+}
