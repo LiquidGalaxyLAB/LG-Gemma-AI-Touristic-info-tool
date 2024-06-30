@@ -1,4 +1,5 @@
 class PlacesModel {
+  int id;
   String name;
   String address;
   String? city;
@@ -7,10 +8,11 @@ class PlacesModel {
   double? ratings;
   String? amenities;
   String? price;
-  double latitude; 
+  double latitude;
   double longitude;
 
   PlacesModel({
+    required this.id,
     required this.name,
     required this.address,
     this.city,
@@ -23,23 +25,25 @@ class PlacesModel {
     required this.longitude,
   });
 
-   // Convert a Place into a JSON Map
+  // Convert a Place into a JSON Map
   Map<String, dynamic> toJson() => {
-    'name': name,
-    'address': address,
-    'city': city,
-    'country': country,
-    'description': description,
-    'ratings': ratings,
-    'amenities': amenities,
-    'price': price,
-    'latitude': latitude,
-    'longitude': longitude,
-  };
+        'id': id,
+        'name': name,
+        'address': address,
+        'city': city,
+        'country': country,
+        'description': description,
+        'ratings': ratings,
+        'amenities': amenities,
+        'price': price,
+        'latitude': latitude,
+        'longitude': longitude,
+      };
 
   // Convert a JSON into a Place Object
   factory PlacesModel.fromJson(Map<String, dynamic> json) {
     return PlacesModel(
+      id: json['id'],
       name: json['name'],
       address: json['address'],
       city: json['city'],

@@ -76,6 +76,7 @@ const double textSize = 20;
 Map<String, List<PlacesModel>> defaultDataConst = {
   'Attractions in London, UK': [
     PlacesModel(
+      id:1,
       name: 'Tower of London',
       address: '166 London Bridge, London SE1 2AX',
       city: 'London',
@@ -89,6 +90,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: -0.0759,
     ),
     PlacesModel(
+      id:2,
       name: 'Buckingham Palace',
       address: 'Buckingham Palace, London SW1A 1AA',
       city: 'London',
@@ -102,6 +104,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: -0.14171833861671615,
     ),
     PlacesModel(
+      id:3,
       name: 'Hyde Park',
       address: 'Hyde Park, London W2 2BB',
       city: 'London',
@@ -115,6 +118,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: -0.1641,
     ),
     PlacesModel(
+      id:4,
       name: 'St. Paul\'s Cathedral',
       address: '1 Cathedral Close, London EC4A 4AA',
       city: 'London',
@@ -128,6 +132,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: -0.0984,
     ),
     PlacesModel(
+      id:5, 
       name: 'The British Museum',
       address: '96-99 Great Russell Street, London WC1A 1AA',
       city: 'London',
@@ -141,6 +146,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: -0.1270,
     ),
     PlacesModel(
+      id:6,
       name: 'Borough Market',
       address: '85-95 Borough High Street, London SE1 1RL',
       city: 'London',
@@ -154,6 +160,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: -0.0905,
     ),
     PlacesModel(
+      id:7,
       name: 'Tate Modern',
       address: 'Bankside, London SE1 9TG',
       city: 'London',
@@ -167,6 +174,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: -0.0994,
     ),
     PlacesModel(
+      id:8,
       name: 'Camden Market',
       address: 'Camden Road, London NW1 2FB',
       city: 'London',
@@ -180,6 +188,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: -0.1460,
     ),
     PlacesModel(
+      id:9,
       name: 'Greenwich Observatory',
       address: '1 Observatory Hill, Greenwich, London SE10 8BB',
       city: 'London',
@@ -193,6 +202,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: -0.0005,
     ),
     PlacesModel(
+      id:10,
       name: "The view from The Shard",
       address: "32 London Bridge St, London SE1 9SG",
       city: "London",
@@ -208,6 +218,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
   ],
   'Top Pizza Places in Cairo Egypt': [
     PlacesModel(
+      id: 1,
       name: "DI SFORNO PIZZERIA",
       address: "32 Bahgat Ali, Mohammed Mazhar, Zamalek",
       city: "Cairo",
@@ -219,6 +230,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 31.35365556051414,
     ),
     PlacesModel(
+      id:2,
       name: "Casa Della Past",
       address: "10 Gezira sporting club",
       city: "Cairo",
@@ -231,6 +243,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 31.229232071254188,
     ),
     PlacesModel(
+      id:3,
       name: "Olivo Pizzeria & Bar",
       address: "18 Taha Hussein, Abu Al Feda, Zamalek",
       city: "Cairo",
@@ -243,6 +256,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 31.22099875549518,
     ),
     PlacesModel(
+      id:4,
       name: "CaiRoma",
       address: "19 Youssef El-Gendy",
       city: "Cairo",
@@ -255,6 +269,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 31.2393844674545,
     ),
     PlacesModel(
+      id:5,
       name: "Sapori di Carlo",
       address: "49 Mohammed Mazhar",
       city: "Cairo",
@@ -266,6 +281,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 31.222200373009805,
     ),
     PlacesModel(
+      id:6,
       name: "What the Crust",
       address: "275 Makram Ebeid St",
       city: "Cairo",
@@ -278,6 +294,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 31.276156900056083,
     ),
     PlacesModel(
+      id:7,
       name: "Pane Vino",
       address: "InterContinental Semiramis, Nile Corniche",
       city: "Cairo",
@@ -290,6 +307,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 31.232064194439,
     ),
     PlacesModel(
+      id:8,
       name: "Maison Thomas",
       address: "157, 26th of July St, Mohammed Mazhar, Zamalek,",
       city: "Cairo",
@@ -302,6 +320,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 31.223336525995233,
     ),
     PlacesModel(
+      id:9,
       name: "900 Degrees Restaurant",
       address: "Downtown mall, New Cairo",
       city: "Cairo",
@@ -313,6 +332,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 31.41009766726725,
     ),
     PlacesModel(
+      id:10,
       name: "Ted's Pizzeria",
       address: "2FRG+P59, WaterWay, New Cairo 1",
       city: "Cairo",
@@ -327,6 +347,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
   ],
   'Restaurants and Cafes in Italy, Rome': [
     PlacesModel(
+      id:1,
       name: "Trattoria Da Augusto",
       address: "Via dei Banchi, 48, 00186 Rome, Italy",
       city: "Rome",
@@ -340,6 +361,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 12.470361752827548,
     ),
     PlacesModel(
+      id:2,
       name: "L’Arcangelo",
       address: "Via del Gambero Rosso, 43, 00186 Rome, Italy",
       city: "Rome",
@@ -353,6 +375,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 12.46865149515685,
     ),
     PlacesModel(
+      id:3,
       name: "Ristorante Pizzeria Da Baffetto",
       address: "Via dei Fori Imperiali, 60, 00189 Rome, Italy",
       city: "Rome",
@@ -365,6 +388,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 12.470422541187084,
     ),
     PlacesModel(
+      id:4,
       name: "Pizzarium",
       address: "Via Antonio Scarioni, 10, 00187 Rome, Italy",
       city: "Rome",
@@ -378,6 +402,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 12.446617250977372,
     ),
     PlacesModel(
+      id:5,
       name: "La Carbonara",
       address: "Via della Rosetta, 48, 00186 Rome, Italy",
       city: "Rome",
@@ -391,6 +416,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 12.470873923882506,
     ),
     PlacesModel(
+      id:6,
       name: "Osteria del Gambero Rosso",
       address: "Via del Gambero Rosso, 41, 00186 Rome, Italy",
       city: "Rome",
@@ -404,6 +430,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 9.183127579064324,
     ),
     PlacesModel(
+      id:7,
       name: "Ristorante Pizzeria Da Gabriele",
       address: "Via del Polito, 30, 00198 Rome, Italy",
       city: "Rome",
@@ -417,6 +444,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 9.191179273965561,
     ),
     PlacesModel(
+      id:8,
       name: "Gelateria del Teatro",
       address: "Via della Stamperia, 87, 00186 Rome, Italy",
       city: "Rome",
@@ -430,6 +458,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 12.469666261108085,
     ),
     PlacesModel(
+      id:9,
       name: "Formello Gelato",
       address: "Via dei Condotti, 33, 00187 Rome, Italy",
       city: "Rome",
@@ -443,6 +472,7 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 12.400485144989153,
     ),
     PlacesModel(
+      id:10,
       name: "Gelateria Romana",
       address: "Piazza Navona, 33, 00186 Rome, Italy",
       city: "Rome",

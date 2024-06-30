@@ -2,11 +2,14 @@ import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_map_widget.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/services/coordinates_extraction.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/map_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -70,6 +73,24 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                     elevatedButtonContent: 'Show\nPOIs',
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () async {
+                      final mapProvider = Provider.of<GoogleMapProvider>(
+                          context,
+                          listen: false);
+                      mapProvider.setBitmapDescriptor();
+                      mapProvider.updateZoom(12.4746);
+                      mapProvider.flyToLocation(
+                          LatLng(myLatLng.latitude, myLatLng.longitude));
+
+                      for (int i = 0; i < places.length; i++) {
+                        PlacesModel placeModel = places[i];
+
+                        LatLng newLocation =
+                            LatLng(placeModel.latitude, placeModel.longitude);
+                        mapProvider.addMarker(newLocation, placeModel.name,
+                            placeModel.description,
+                            removeAll: false);
+                      }
+
                       final sshData =
                           Provider.of<SSHprovider>(context, listen: false);
 
@@ -81,14 +102,6 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                       if (sshData.client != null && connection.isLgConnected) {
                         await buildShowPois(
                             places, context, lat, long, city, country, query);
-                      } else {
-                        dialogBuilder(
-                            context,
-                            'NOT connected to LG !! \n Please Connect to LG',
-                            true,
-                            'OK',
-                            null,
-                            null);
                       }
                     },
                     height: MediaQuery.of(context).size.height * 0.07,
@@ -282,14 +295,6 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                             if (sshData.client != null &&
                                 connection.isLgConnected) {
                               await LgService(sshData).startTour('Orbit');
-                            } else {
-                              dialogBuilder(
-                                  context,
-                                  'NOT connected to LG !! \n Please Connect to LG',
-                                  true,
-                                  'OK',
-                                  null,
-                                  null);
                             }
                           },
                           child: const Icon(Icons.loop_outlined,
@@ -309,15 +314,16 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                             if (sshData.client != null &&
                                 connection.isLgConnected) {
                               await LgService(sshData).stopTour();
-                            } else {
-                              dialogBuilder(
-                                  context,
-                                  'NOT connected to LG !! \n Please Connect to LG',
-                                  true,
-                                  'OK',
-                                  null,
-                                  null);
                             }
+                            // } else {
+                            //   dialogBuilder(
+                            //       context,
+                            //       'NOT connected to LG !! \n Please Connect to LG',
+                            //       true,
+                            //       'OK',
+                            //       null,
+                            //       null);
+                            // }
                           },
                           child: const Icon(Icons.stop_outlined,
                               color: FontAppColors.primaryFont,
@@ -343,6 +349,21 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                             children: [
                               GestureDetector(
                                 onTap: () async {
+                                  LatLng newLocation = LatLng(
+                                      placeModel.latitude,
+                                      placeModel.longitude);
+                                  final mapProvider =
+                                      Provider.of<GoogleMapProvider>(context,
+                                          listen: false);
+                                  mapProvider.setBitmapDescriptor();
+                                  mapProvider.addMarker(newLocation,
+                                      placeModel.name, placeModel.description,
+                                      removeAll: true);
+                                  mapProvider.updateZoom(18.4746);
+                                  mapProvider.updateBearing(90);
+                                  mapProvider.updateTilt(45);
+                                  mapProvider.flyToLocation(newLocation);
+
                                   final sshData = Provider.of<SSHprovider>(
                                       context,
                                       listen: false);
@@ -356,15 +377,16 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                                       connection.isLgConnected) {
                                     await buildPlacePlacemark(
                                         placeModel, index + 1, query, context);
-                                  } else {
-                                    dialogBuilder(
-                                        context,
-                                        'NOT connected to LG !! \n Please Connect to LG',
-                                        true,
-                                        'OK',
-                                        null,
-                                        null);
                                   }
+                                  // } else {
+                                  //   dialogBuilder(
+                                  //       context,
+                                  //       'NOT connected to LG !! \n Please Connect to LG',
+                                  //       true,
+                                  //       'OK',
+                                  //       null,
+                                  //       null);
+                                  // }
                                 },
                                 child: Row(
                                   mainAxisAlignment:

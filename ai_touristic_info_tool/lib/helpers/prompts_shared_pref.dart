@@ -70,8 +70,14 @@ class PromptsSharedPref {
   static Future removePlace(String query, PlacesModel placeToRemove) async {
     List<PlacesModel> places = await getPlaces(query);
     places.removeWhere((place) =>
+    place.id == placeToRemove.id &&
         place.name == placeToRemove.name &&
         place.description == placeToRemove.description);
     await setPlaces(query, places);
   }
+ /// Clears all stored preferences.
+  static Future clearPreferences() async {
+    await _prefs?.clear();
+  }
+
 }

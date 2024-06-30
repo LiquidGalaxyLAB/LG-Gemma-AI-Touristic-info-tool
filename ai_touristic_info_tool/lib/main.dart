@@ -5,6 +5,8 @@ import 'package:ai_touristic_info_tool/screens/splash_screen.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/map_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -16,10 +18,13 @@ import 'models/ssh_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+ 
 
   /// Initialize shared preferences for LG connection
   await LgConnectionSharedPref.init();
-  await PromptsSharedPref.init();
+   //await PromptsSharedPref.clearPreferences();
+   await PromptsSharedPref.init();
+ 
   await dotenv.load(fileName: ".env");
 
   runApp(
@@ -29,6 +34,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => SSHprovider()),
         ChangeNotifierProvider(create: (_) => CurrentViewProvider()),
         ChangeNotifierProvider(create: (_) => MapTypeProvider()),
+        //ChangeNotifierProvider(create: (_) => MapProvider()),
+        ChangeNotifierProvider(create: (_) => GoogleMapProvider()),
       ],
       child: const AITouristicInfo(),
     ),
