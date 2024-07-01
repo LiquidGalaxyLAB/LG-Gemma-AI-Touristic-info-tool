@@ -21,6 +21,8 @@ import 'package:provider/provider.dart';
 
 void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
     String query, String? city, String? country) async {
+  print('inside visualizatiion: $city , $country');
+  //check if null
   MyLatLng myLatLng =
       await GeocodingService().getCoordinates('$city, $country');
   double lat = myLatLng.latitude;

@@ -1,4 +1,5 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/drop_down_list_component.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
@@ -6,8 +7,9 @@ import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
+import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
+import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
-// import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -29,41 +31,17 @@ class ExploreLocationTabView extends StatefulWidget {
 class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
   Map<String, String?> fullAdddress = {};
   bool showAddressFields = false;
+  bool useMap = true;
 
   final _addressController = TextEditingController();
   final _cityController = TextEditingController();
   final _countryController = TextEditingController(text: countries[0]);
   String? _chosenCountry;
-  String addressQuery = '';
-  String whatToDoQuery = '';
-  String fullQuery = '';
-
-  // Future<void> _getAddressFromCoordinates() async {
-  //   Position position = await Geolocator.getCurrentPosition(
-  //       desiredAccuracy: LocationAccuracy.high);
-  //   final Map<String, String?> result = await GeocodingService()
-  //       .getAddressFromLatLng(position.latitude, position.longitude);
-  //   setState(() {
-  //     fullAdddress['city'] = result['city'];
-  //     fullAdddress['country'] = result['country'];
-  //     fullAdddress['address'] = result['address'];
-  //   });
-  //   GoogleMapProvider gmp =
-  //       Provider.of<GoogleMapProvider>(context, listen: false);
-  //   gmp.currentFullAddress = fullAdddress;
-  //   gmp.updateCameraPosition(CameraPosition(
-  //       target: LatLng(position.latitude, position.longitude), zoom: 14.4746));
-  // }
-
-  Future<LatLng> getCoordinates(
-      String? address, String city, String country) async {
-    // MyLatLng myLatLng = await GeocodingService()
-    //     .getCoordinates('${address ?? ''} $city $country');
-    MyLatLng myLatLng = await GeocodingService().getCoordinates('Italy, Rome');
-    double lat = myLatLng.latitude;
-    double long = myLatLng.longitude;
-    return LatLng(lat, long);
-  }
+  String _city = '';
+  String _country = '';
+  String _address = '';
+  String _addressQuery = '';
+  String _whatToDoQuery = '';
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +61,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                 onpressed: () {
                   setState(() {
                     showAddressFields = false;
+                    useMap = true;
                   });
                 },
                 height: MediaQuery.of(context).size.height * 0.1,
@@ -98,31 +77,13 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                 isSuffixIcon: false,
                 curvatureRadius: 10,
               ),
-              // LgElevatedButton(
-              //   elevatedButtonContent: 'Detect\nLocation',
-              //   buttonColor: ButtonColors.locationButton,
-              //   onpressed: () {
-              //    // _getAddressFromCoordinates();
-              //   },
-              //   height: MediaQuery.of(context).size.height * 0.1,
-              //   width: MediaQuery.of(context).size.width * 0.14,
-              //   fontSize: textSize,
-              //   fontColor: FontAppColors.secondaryFont,
-              //   isLoading: false,
-              //   isBold: false,
-              //   isPrefixIcon: true,
-              //   prefixIcon: Icons.location_on_outlined,
-              //   prefixIconColor: Colors.white,
-              //   prefixIconSize: 30,
-              //   isSuffixIcon: false,
-              //   curvatureRadius: 10,
-              // ),
               LgElevatedButton(
                 elevatedButtonContent: 'Type\nAddress',
                 buttonColor: ButtonColors.promptButton,
                 onpressed: () {
                   setState(() {
                     showAddressFields = true;
+                    useMap = false;
                   });
                 },
                 height: MediaQuery.of(context).size.height * 0.1,
@@ -197,62 +158,127 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
           if (showAddressFields)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  TextFormFieldWidget(
-                    label: 'Address',
-                    fontSize: textSize,
-                    key: const ValueKey("address"),
-                    textController: _addressController,
-                    isSuffixRequired: false,
-                    isHidden: false,
-                    maxLength: 100,
-                    maxlines: 1,
-                    width: MediaQuery.sizeOf(context).width * 0.85,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: PrimaryAppColors.buttonColors,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      TextFormFieldWidget(
+                        label: 'Address',
+                        fontSize: textSize,
+                        key: const ValueKey("address"),
+                        textController: _addressController,
+                        isSuffixRequired: false,
+                        isHidden: false,
+                        maxLength: 100,
+                        maxlines: 1,
+                        width: MediaQuery.sizeOf(context).width * 0.85,
+                      ),
+                      TextFormFieldWidget(
+                        label: 'City',
+                        fontSize: textSize,
+                        key: const ValueKey("city"),
+                        textController: _cityController,
+                        isSuffixRequired: true,
+                        isHidden: false,
+                        maxLength: 100,
+                        maxlines: 1,
+                        width: MediaQuery.sizeOf(context).width * 0.85,
+                      ),
+                      DropDownListWidget(
+                        key: const ValueKey("countries"),
+                        fontSize: textSize,
+                        items: countries,
+                        selectedValue: countryIndex != -1
+                            ? countries[countryIndex]
+                            : countries[0],
+                        hinttext: 'Country',
+                        onChanged: (value) {
+                          setState(() {
+                            _countryController.text = value;
+                            _chosenCountry = value;
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      LgElevatedButton(
+                          elevatedButtonContent: 'Save',
+                          buttonColor: PrimaryAppColors.innerBackground,
+                          fontColor: FontAppColors.primaryFont,
+                          onpressed: () async {
+                            setState(() {
+                              _city = _cityController.text;
+                              _country = _chosenCountry ?? '';
+                              _address = _addressController.text;
+
+                              _addressQuery = '$_address $_city $_country';
+                            });
+
+                            MyLatLng myLatLng = await GeocodingService()
+                                .getCoordinates(_addressQuery);
+                            double lat = myLatLng.latitude;
+                            double long = myLatLng.longitude;
+
+                            GoogleMapProvider gmp =
+                                Provider.of<GoogleMapProvider>(context,
+                                    listen: false);
+
+                            gmp.currentFullAddress = {
+                              'city': _city,
+                              'country': _country,
+                              'address': _address
+                            };
+                            gmp.flyToLocation(LatLng(lat, long));
+                            // gmp.updateCameraPosition(CameraPosition(
+                            //     target: LatLng(lat, long), zoom: 14.4746));
+                            print('Lat: $lat , long: $long');
+                          },
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          width: MediaQuery.of(context).size.width * 0.1,
+                          fontSize: textSize,
+                          isLoading: false,
+                          isBold: true,
+                          isPrefixIcon: false,
+                          isSuffixIcon: false,
+                          curvatureRadius: 10)
+                    ],
                   ),
-                  TextFormFieldWidget(
-                    label: 'City',
-                    fontSize: textSize,
-                    key: const ValueKey("city"),
-                    textController: _cityController,
-                    isSuffixRequired: true,
-                    isHidden: false,
-                    maxLength: 100,
-                    maxlines: 1,
-                    width: MediaQuery.sizeOf(context).width * 0.85,
-                  ),
-                  DropDownListWidget(
-                    key: const ValueKey("countries"),
-                    fontSize: 16,
-                    items: countries,
-                    selectedValue: countryIndex != -1
-                        ? countries[countryIndex]
-                        : countries[0],
-                    hinttext: 'Country',
-                    onChanged: (value) {
-                      setState(() {
-                        _countryController.text = value;
-                        _chosenCountry = value;
-                      });
-                    },
-                  ),
-                ],
+                ),
               ),
             ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0, bottom: 20),
-            child: Text(
-              'Navigate till you find your desired location!',
-              style: TextStyle(
-                  fontSize: textSize + 10,
-                  fontFamily: fontType,
-                  fontWeight: FontWeight.bold,
-                  color: FontAppColors.primaryFont),
+          if (useMap)
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, bottom: 20),
+              child: Text(
+                'Navigate till you find your desired location!',
+                style: TextStyle(
+                    fontSize: textSize + 10,
+                    fontFamily: fontType,
+                    fontWeight: FontWeight.bold,
+                    color: FontAppColors.primaryFont),
+              ),
             ),
-          ),
+          if (!useMap)
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, bottom: 20),
+              child: Text(
+                'Click on Use Map button to navigate if you want!',
+                style: TextStyle(
+                    fontSize: textSize + 10,
+                    fontFamily: fontType,
+                    fontWeight: FontWeight.bold,
+                    color: FontAppColors.primaryFont),
+              ),
+            ),
           GoogleMapWidget(
             height: MediaQuery.of(context).size.height * 0.5,
             width: MediaQuery.of(context).size.width * 0.8,
@@ -269,38 +295,15 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
             child: Consumer<GoogleMapProvider>(
               builder: (BuildContext context, GoogleMapProvider value,
                   Widget? child) {
-                String? city;
-                String? country;
-                String? address;
-                if (showAddressFields) {
-                  city = _cityController.text;
-                  country = _chosenCountry;
-                  address = _addressController.text;
-                } else {
-                  city = value.currentFullAddress['city'];
-                  country = value.currentFullAddress['country'];
-                  address = value.currentFullAddress['address'];
-                }
-
-                if (city != null && country != null) {
-                  addressQuery = '${address ?? ''}${city} ${country}';
-                  print('address query');
-                  print(addressQuery);
-                  getCoordinates(address ?? '', city, country).then((value) {
-                    print('value: $value');
-                    setState(() {
-                      GoogleMapProvider gmp = Provider.of<GoogleMapProvider>(
-                          context,
-                          listen: false);
-                      gmp.updateCameraPosition(CameraPosition(
-                          target: LatLng(value.latitude, value.longitude),
-                          zoom: 14.4746));
-                    });
-                  });
+                if (useMap) {
+                  _address = value.currentFullAddress['address'] ?? '';
+                  _city = value.currentFullAddress['city'] ?? '';
+                  _country = value.currentFullAddress['country'] ?? '';
+                  _addressQuery = '$_address $_city $_country';
                 }
 
                 return Text(
-                  'You are in${address ?? ''} ${city ?? ''} ${country ?? ''}',
+                  'You are in $_addressQuery',
                   style: TextStyle(
                     fontSize: textSize + 8,
                     fontFamily: fontType,
@@ -337,7 +340,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/landmarkss.jpg',
                     title: 'Landmarks',
-                    query: 'landmarks in$addressQuery',
+                    query: 'landmarks in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -346,7 +351,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/restaurants.jpeg',
                     title: 'Restaurants and Cafes',
-                    query: 'Restaurants and Cafes in$addressQuery',
+                    query: 'Restaurants and Cafes in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -355,7 +362,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/art.jpeg',
                     title: 'Art and Culture',
-                    query: 'Art and Culture in$addressQuery',
+                    query: 'Art and Culture in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -364,7 +373,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/shopping.jpeg',
                     title: 'Shopping Malls',
-                    query: 'Shopping Malls in$addressQuery',
+                    query: 'Shopping Malls in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -373,7 +384,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/sports.jpeg',
                     title: 'Sports and Recreation',
-                    query: 'Sports and Recreation in$addressQuery',
+                    query: 'Sports and Recreation in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -382,7 +395,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/spa.webp',
                     title: 'Spa and Wellness',
-                    query: 'Spa and Wellness in$addressQuery',
+                    query: 'Spa and Wellness in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -391,7 +406,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/outdoor.jpeg',
                     title: 'Outdoor Activities',
-                    query: 'Outdoor Activities in$addressQuery',
+                    query: 'Outdoor Activities in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -400,7 +417,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/pizza.jpeg',
                     title: 'Top Pizza Places',
-                    query: 'Top Pizza Places in$addressQuery',
+                    query: 'Top Pizza Places in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -409,7 +428,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/history.jpg',
                     title: 'Historical Sites',
-                    query: 'Historical Sites in$addressQuery',
+                    query: 'Historical Sites in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -418,7 +439,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/parks.webp',
                     title: 'Local Parks',
-                    query: 'Local Parks in$addressQuery',
+                    query: 'Local Parks in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -427,7 +450,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/cinema.jpeg',
                     title: 'Cinemas',
-                    query: 'Cinemas in$addressQuery',
+                    query: 'Cinemas in $_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -436,7 +461,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/library.jpeg',
                     title: 'Libraries',
-                    query: 'Libraries in$addressQuery',
+                    query: 'Libraries in $_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -445,7 +472,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/dancing.jpeg',
                     title: 'Dancing Studios',
-                    query: 'Dancing Studios in$addressQuery',
+                    query: 'Dancing Studios in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -454,7 +483,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/yoga.jpg',
                     title: 'Yoga Studios',
-                    query: 'Yoga Studios in$addressQuery',
+                    query: 'Yoga Studios in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -463,7 +494,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/education.jpeg',
                     title: 'Educational Institutions',
-                    query: 'Educational Institutions in$addressQuery',
+                    query: 'Educational Institutions in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -472,7 +505,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     imagePath: 'assets/images/salons.jpeg',
                     title: 'Beauty Salons',
-                    query: 'Beauty Salons in$addressQuery',
+                    query: 'Beauty Salons in$_addressQuery',
+                    city: _city,
+                    country: _country,
                     txtSize: textSize + 2,
                     bottomOpacity: 1,
                   ),
@@ -522,9 +557,22 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     isPrefixIcon: false,
                     isSuffixIcon: false,
                     curvatureRadius: 50,
-                    onpressed: () {
+                    onpressed: () async {
                       if (widget._form2Key.currentState!.validate()) {
-                        print(widget._prompt2Controller.text);
+                        //print(widget._prompt2Controller.text);
+                        _whatToDoQuery = widget._prompt2Controller.text;
+                        String query = '$_whatToDoQuery in$_addressQuery';
+                        print('query: $query');
+                        PromptsSharedPref.getPlaces(query).then((value) async {
+                          print('value: $value');
+                          print(value.isNotEmpty);
+                          if (value.isNotEmpty) {
+                            await buildQueryPlacemark(
+                                query, _city, _country, context);
+                            showVisualizationDialog(
+                                context, value, query, _city, _country);
+                          }
+                        });
                       }
                     },
                     elevatedButtonContent: 'GENERATE',
@@ -541,3 +589,45 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
     );
   }
 }
+
+
+
+/*
+  // Future<void> _getAddressFromCoordinates() async {
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  //   final Map<String, String?> result = await GeocodingService()
+  //       .getAddressFromLatLng(position.latitude, position.longitude);
+  //   setState(() {
+  //     fullAdddress['city'] = result['city'];
+  //     fullAdddress['country'] = result['country'];
+  //     fullAdddress['address'] = result['address'];
+  //   });
+  //   GoogleMapProvider gmp =
+  //       Provider.of<GoogleMapProvider>(context, listen: false);
+  //   gmp.currentFullAddress = fullAdddress;
+  //   gmp.updateCameraPosition(CameraPosition(
+  //       target: LatLng(position.latitude, position.longitude), zoom: 14.4746));
+  // }
+
+
+  // LgElevatedButton(
+              //   elevatedButtonContent: 'Detect\nLocation',
+              //   buttonColor: ButtonColors.locationButton,
+              //   onpressed: () {
+              //    // _getAddressFromCoordinates();
+              //   },
+              //   height: MediaQuery.of(context).size.height * 0.1,
+              //   width: MediaQuery.of(context).size.width * 0.14,
+              //   fontSize: textSize,
+              //   fontColor: FontAppColors.secondaryFont,
+              //   isLoading: false,
+              //   isBold: false,
+              //   isPrefixIcon: true,
+              //   prefixIcon: Icons.location_on_outlined,
+              //   prefixIconColor: Colors.white,
+              //   prefixIconSize: 30,
+              //   isSuffixIcon: false,
+              //   curvatureRadius: 10,
+              // ),
+*/

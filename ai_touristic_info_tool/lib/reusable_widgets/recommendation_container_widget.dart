@@ -35,6 +35,7 @@ class RecommendationContainer extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print('query: $query');
+
         PromptsSharedPref.getPlaces(query).then((value) async {
           print('value: $value');
           print(value.isNotEmpty);

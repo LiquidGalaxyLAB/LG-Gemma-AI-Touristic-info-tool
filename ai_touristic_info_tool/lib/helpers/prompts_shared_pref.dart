@@ -17,8 +17,10 @@ class PromptsSharedPref {
 
   /// Initializes default data to be saved in the list initially.
   static Future _initializeDefaultData() async {
-    Map<String, List<PlacesModel>> defaultData= defaultDataConst;
+    Map<String, List<PlacesModel>> defaultData = defaultDataConst;
     Map<String, List<PlacesModel>> existingData = await getAllPlaces();
+    print('Initializing: ');
+    print(existingData.keys);
     if (existingData.isEmpty) {
       await setAllPlaces(defaultData);
     }
@@ -70,14 +72,14 @@ class PromptsSharedPref {
   static Future removePlace(String query, PlacesModel placeToRemove) async {
     List<PlacesModel> places = await getPlaces(query);
     places.removeWhere((place) =>
-    place.id == placeToRemove.id &&
+        place.id == placeToRemove.id &&
         place.name == placeToRemove.name &&
         place.description == placeToRemove.description);
     await setPlaces(query, places);
   }
- /// Clears all stored preferences.
+
+  /// Clears all stored preferences.
   static Future clearPreferences() async {
     await _prefs?.clear();
   }
-
 }

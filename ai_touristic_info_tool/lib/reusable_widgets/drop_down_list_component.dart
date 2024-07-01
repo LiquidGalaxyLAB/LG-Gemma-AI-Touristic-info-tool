@@ -58,49 +58,47 @@ class DropDownListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DropdownState>(
       key: key,
-      builder: (BuildContext context, state, Widget? child) => Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: DropdownButtonFormField<String>(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: Colors.black,
-                width: 5.0,
-              ),
+      builder: (BuildContext context, state, Widget? child) =>
+          DropdownButtonFormField<String>(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: Colors.black,
+              width: 5.0,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(50),
-              borderSide: const BorderSide(
-                color: PrimaryAppColors.buttonColors,
-                width: 2.0,
-              ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: PrimaryAppColors.buttonColors,
+              width: 5.0,
             ),
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
-            prefixIcon: prefixIcon,
-            hintText: hinttext,
-            fillColor:
-                const Color.fromARGB(156, 240, 240, 240), // set fill color
-            filled: true,
           ),
-          isExpanded: true,
-          icon: const Icon(
-            Icons.arrow_drop_down,
-            color: PrimaryAppColors.buttonColors,
-            size: 36,
-          ),
-          items: items.map((String item) {
-            return buildMenuItem(item, fontSize);
-          }).toList(),
-          value: selectedValue ?? items[0],
-          onChanged: (value) {
-            int index = state.selectedIndex = items.indexOf(value!);
-            int length = items.length;
-            onChanged?.call(value);
-          },
-          style: TextStyle(fontSize: fontSize, color: Colors.black),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
+          prefixIcon: prefixIcon,
+          hintText: hinttext,
+          fillColor: Colors.white,
+          filled: true,
         ),
+        isExpanded: true,
+        icon: const Icon(
+          Icons.arrow_drop_down,
+          color: PrimaryAppColors.buttonColors,
+          size: 36,
+        ),
+        items: items.map((String item) {
+          return buildMenuItem(item, fontSize);
+        }).toList(),
+        value: selectedValue ?? items[0],
+        onChanged: (value) {
+          int index = state.selectedIndex = items.indexOf(value!);
+          int length = items.length;
+          onChanged?.call(value);
+        },
+        style: TextStyle(
+            fontSize: fontSize, color: Colors.black, fontFamily: fontType),
       ),
     );
   }

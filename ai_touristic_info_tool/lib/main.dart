@@ -19,13 +19,13 @@ import 'models/ssh_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- 
 
   /// Initialize shared preferences for LG connection
   await LgConnectionSharedPref.init();
-   //await PromptsSharedPref.clearPreferences();
+
    await PromptsSharedPref.init();
- 
+
+
   await dotenv.load(fileName: ".env");
 
   runApp(
