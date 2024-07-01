@@ -86,8 +86,7 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
 
                         LatLng newLocation =
                             LatLng(placeModel.latitude, placeModel.longitude);
-                        mapProvider.addMarker(newLocation, placeModel.name,
-                            placeModel.description,
+                        mapProvider.addMarker(context, placeModel,
                             removeAll: false);
                       }
 
@@ -252,6 +251,7 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                       initialBearingValue: 61.403038024902344,
                       initialCenterValue: LatLng(lat, long),
                       //LatLng(places[0].latitude, places[0].longitude),
+                      query: query,
                     ),
                   ],
                 ),
@@ -356,13 +356,15 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                                       Provider.of<GoogleMapProvider>(context,
                                           listen: false);
                                   mapProvider.setBitmapDescriptor();
-                                  mapProvider.addMarker(newLocation,
-                                      placeModel.name, placeModel.description,
+                                  mapProvider.addMarker(context, placeModel,
                                       removeAll: true);
                                   mapProvider.updateZoom(18.4746);
                                   mapProvider.updateBearing(90);
                                   mapProvider.updateTilt(45);
                                   mapProvider.flyToLocation(newLocation);
+
+                                  mapProvider.currentlySelectedPin = placeModel;
+                                  mapProvider.pinPillPosition = 10;
 
                                   final sshData = Provider.of<SSHprovider>(
                                       context,

@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/custom_balloon_gm.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/map_types_choices_widget.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
@@ -23,6 +25,7 @@ class GoogleMapWidget extends StatefulWidget {
   final double initialTiltValue;
   final double initialBearingValue;
   final LatLng initialCenterValue;
+  final String? query;
   const GoogleMapWidget({
     super.key,
     required this.width,
@@ -32,6 +35,7 @@ class GoogleMapWidget extends StatefulWidget {
     required this.initialTiltValue,
     required this.initialBearingValue,
     required this.initialCenterValue,
+    this.query,
   });
 
   @override
@@ -124,36 +128,52 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                     return Stack(
                       children: [
                         GoogleMap(
-                          gestureRecognizers: Set()
-                            ..add(Factory<PanGestureRecognizer>(
-                                () => PanGestureRecognizer())),
-                          mapType: value.currentView == 'normal'
-                              ? MapType.normal
-                              : value.currentView == 'satellite'
-                                  ? MapType.satellite
-                                  : MapType.terrain,
-                          initialCameraPosition: CameraPosition(
-                            //target: mapProvider.center,
-                            target: widget.initialCenterValue,
-                            zoom: 14.4746,
-                            bearing: widget.initialBearingValue,
-                            tilt: widget.initialTiltValue,
-                          ),
-                          compassEnabled: true,
-                          minMaxZoomPreference: MinMaxZoomPreference.unbounded,
-                          tiltGesturesEnabled: true,
-                          zoomControlsEnabled: true,
-                          zoomGesturesEnabled: true,
-                          scrollGesturesEnabled: true,
-                          onCameraMove: _onCameraMove,
-                          onCameraIdle: _onCameraIdle,
-                          markers: mapProvider.markers,
-                          onMapCreated: _onMapCreated,
+                            gestureRecognizers: Set()
+                              ..add(Factory<PanGestureRecognizer>(
+                                  () => PanGestureRecognizer())),
+                            mapType: value.currentView == 'normal'
+                                ? MapType.normal
+                                : value.currentView == 'satellite'
+                                    ? MapType.satellite
+                                    : MapType.terrain,
+                            initialCameraPosition: CameraPosition(
+                              //target: mapProvider.center,
+                              target: widget.initialCenterValue,
+                              zoom: 14.4746,
+                              bearing: widget.initialBearingValue,
+                              tilt: widget.initialTiltValue,
+                            ),
+                            compassEnabled: true,
+                            minMaxZoomPreference:
+                                MinMaxZoomPreference.unbounded,
+                            tiltGesturesEnabled: true,
+                            zoomControlsEnabled: true,
+                            zoomGesturesEnabled: true,
+                            scrollGesturesEnabled: true,
+                            onCameraMove: _onCameraMove,
+                            onCameraIdle: _onCameraIdle,
+                            markers: mapProvider.markers,
+                            onMapCreated: _onMapCreated,
+                            onTap: (LatLng location) {
+                              setState(() {
+                                mapProvider.pinPillPosition =
+                                    MediaQuery.of(context).size.height * 1;
+                              });
+                            }),
+                        CustomBalloonGoogleMaps(
+                          pinPillPosition: mapProvider.pinPillPosition,
+                          poi: mapProvider.currentlySelectedPin,
+                          query: widget.query ?? '',
                         ),
                         GestureDetector(
                           onTap: () {
                             print(mapProvider.markers);
-                            mapProvider.clearMarkers();
+                            setState(() {
+                              mapProvider.clearMarkers();
+                              mapProvider.pinPillPosition =
+                                  MediaQuery.of(context).size.height * 1;
+                            });
+
                             print(mapProvider.markers);
                             print('cleared');
                           },
@@ -167,7 +187,6 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                             ),
                           ),
                         ),
-                      
                       ],
                     );
                   }),

@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:flutter/services.dart' show Uint8List;
 import 'package:ai_touristic_info_tool/services/map_services.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,21 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class GoogleMapProvider with ChangeNotifier {
   final MapService _mapService = MapService();
 
+  PlacesModel currentlySelectedPin = PlacesModel(
+    id: -1,
+    name: '',
+    address: '',
+    city: '',
+    country: '',
+    description: '',
+    ratings: 0.0,
+    amenities: '',
+    price: '',
+    latitude: 0.0,
+    longitude: 0.0,
+  );
+
+  double _pinPillPosition = -1000;
   GoogleMapController? _mapController;
   final Set<Marker> _markers = {};
   LatLng _center = const LatLng(0, 0); // Initial center
@@ -15,18 +31,27 @@ class GoogleMapProvider with ChangeNotifier {
   double _bearing = 0;
   double _zoomvalue = 591657550.500000 / pow(2, 14.4746);
   BitmapDescriptor? _iconMarker;
+  //MarkerId? _currentOpenMarkerId;
 
   // Getters for camera values
+
   LatLng get center => _center;
   double get zoom => _zoom;
   double get tilt => _tilt;
   double get bearing => _bearing;
   double get zoomvalue => _zoomvalue;
   Set<Marker> get markers => _markers;
+  double get pinPillPosition => _pinPillPosition;
+
+  set pinPillPosition(double position) {
+    _pinPillPosition = position;
+    notifyListeners();
+  }
 
   // Setter for the map controller
   set mapController(GoogleMapController controller) {
     _mapController = controller;
+    notifyListeners();
   }
 
   void updateZoom(double zoom) {
@@ -68,6 +93,7 @@ class GoogleMapProvider with ChangeNotifier {
         ),
       ),
     );
+    notifyListeners();
   }
 
   Future<void> setBitmapDescriptor() async {
@@ -77,7 +103,7 @@ class GoogleMapProvider with ChangeNotifier {
   }
 
   // Add a marker
-  Future<void> addMarker(LatLng position, String title, String? description,
+  Future<void> addMarker(BuildContext context, PlacesModel poi,
       {bool removeAll = true}) async {
     if (removeAll) {
       _markers.clear(); // Remove all existing markers
@@ -87,24 +113,28 @@ class GoogleMapProvider with ChangeNotifier {
 
     final Marker marker = Marker(
       markerId: MarkerId(markerId),
-      position: position,
+      position: LatLng(poi.latitude, poi.longitude),
+      consumeTapEvents: true,
       infoWindow: InfoWindow(
-        title: title,
-        snippet: description,
+        title: poi.name,
+        snippet: poi.description,
+        onTap: () {
+          print('Info window tapped: ${poi.name}');
+          pinPillPosition = 10;
+          currentlySelectedPin = poi;
+        },
       ),
       icon: _iconMarker ?? BitmapDescriptor.defaultMarker,
       onTap: () {
-        // Handle onTap: show details, navigate, etc.
-        print('Marker tapped: $title');
-        // if (description != null) {
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(content: Text(description))
-        //   );
-        // }
+        print('Marker tapped: ${poi.name}');
+        pinPillPosition = 10;
+        currentlySelectedPin = poi;       
+
       },
     );
 
     _markers.add(marker);
+
     notifyListeners();
   }
 
@@ -116,7 +146,6 @@ class GoogleMapProvider with ChangeNotifier {
 
   // Clear all markers
   void clearMarkers() {
-    //_markers = {};
     _markers.clear();
     notifyListeners();
   }
