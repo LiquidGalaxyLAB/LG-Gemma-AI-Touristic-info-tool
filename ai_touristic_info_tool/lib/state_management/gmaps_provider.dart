@@ -21,7 +21,7 @@ class GoogleMapProvider with ChangeNotifier {
     latitude: 0.0,
     longitude: 0.0,
   );
-
+  Map<String, String?> _currentFullAddress = {};
   double _pinPillPosition = -1000;
   GoogleMapController? _mapController;
   final Set<Marker> _markers = {};
@@ -35,6 +35,8 @@ class GoogleMapProvider with ChangeNotifier {
 
   // Getters for camera values
 
+  
+  Map<String, String?> get currentFullAddress => _currentFullAddress;
   LatLng get center => _center;
   double get zoom => _zoom;
   double get tilt => _tilt;
@@ -42,6 +44,11 @@ class GoogleMapProvider with ChangeNotifier {
   double get zoomvalue => _zoomvalue;
   Set<Marker> get markers => _markers;
   double get pinPillPosition => _pinPillPosition;
+
+  set currentFullAddress(Map<String, String?> address) {
+    _currentFullAddress = address;
+    notifyListeners();
+  }
 
   set pinPillPosition(double position) {
     _pinPillPosition = position;
@@ -77,6 +84,7 @@ class GoogleMapProvider with ChangeNotifier {
     _zoomvalue = 591657550.500000 / pow(2, position.zoom);
     _tilt = position.tilt;
     _bearing = position.bearing;
+    
     notifyListeners(); // Notify listeners of changes
   }
 
@@ -128,8 +136,7 @@ class GoogleMapProvider with ChangeNotifier {
       onTap: () {
         print('Marker tapped: ${poi.name}');
         pinPillPosition = 10;
-        currentlySelectedPin = poi;       
-
+        currentlySelectedPin = poi;
       },
     );
 

@@ -9,6 +9,7 @@ class RecommendationContainer extends StatelessWidget {
   final String title; //query
   final String? country; //query
   final String? city; //query
+  final String query;
   final String? description;
   final double width;
   final double height;
@@ -21,6 +22,7 @@ class RecommendationContainer extends StatelessWidget {
       required this.title,
       this.country,
       this.city,
+      required this.query,
       this.description,
       required this.width,
       required this.height,
@@ -31,8 +33,9 @@ class RecommendationContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()  {
-        PromptsSharedPref.getPlaces(title).then((value) async {
+      onTap: () {
+        print('query: $query');
+        PromptsSharedPref.getPlaces(query).then((value) async {
           print('value: $value');
           print(value.isNotEmpty);
           if (value.isNotEmpty) {

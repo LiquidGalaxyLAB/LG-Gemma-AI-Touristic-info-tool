@@ -5,6 +5,7 @@ import 'package:ai_touristic_info_tool/screens/splash_screen.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/drop_down_state.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/map_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
@@ -36,6 +37,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => MapTypeProvider()),
         //ChangeNotifierProvider(create: (_) => MapProvider()),
         ChangeNotifierProvider(create: (_) => GoogleMapProvider()),
+        ChangeNotifierProvider(create: (_) => DropdownState()),
       ],
       child: const AITouristicInfo(),
     ),

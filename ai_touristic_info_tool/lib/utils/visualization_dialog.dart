@@ -5,7 +5,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/google_map_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
-import 'package:ai_touristic_info_tool/services/coordinates_extraction.dart';
+import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
@@ -21,7 +21,8 @@ import 'package:provider/provider.dart';
 
 void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
     String query, String? city, String? country) async {
-  MyLatLng myLatLng = await getCoordinates('$city, $country');
+  MyLatLng myLatLng =
+      await GeocodingService().getCoordinates('$city, $country');
   double lat = myLatLng.latitude;
   double long = myLatLng.longitude;
   showDialog(
@@ -90,6 +91,8 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                             removeAll: false);
                       }
 
+                      //wait for 5 seconds:
+                      await Future.delayed(const Duration(seconds: 3));
                       final sshData =
                           Provider.of<SSHprovider>(context, listen: false);
 
@@ -122,7 +125,7 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                     width: MediaQuery.of(context).size.width * 0.02,
                   ),
                   LgElevatedButton(
-                    elevatedButtonContent: 'Start\nTour',
+                    elevatedButtonContent: 'Prepare\nTour',
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () async {
                       final sshData =
@@ -135,14 +138,50 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                       ///checking the connection status first
                       if (sshData.client != null && connection.isLgConnected) {
                         await buildQueryTour(context, query, places);
-                      } else {
-                        dialogBuilder(
-                            context,
-                            'NOT connected to LG !! \n Please Connect to LG',
-                            true,
-                            'OK',
-                            null,
-                            null);
+                        print('tour');
+                      }
+                      // } else {
+                      //   dialogBuilder(
+                      //       context,
+                      //       'NOT connected to LG !! \n Please Connect to LG',
+                      //       true,
+                      //       'OK',
+                      //       null,
+                      //       null);
+                      // }
+                    },
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    fontSize: textSize,
+                    fontColor: FontAppColors.primaryFont,
+                    isLoading: false,
+                    isBold: true,
+                    isPrefixIcon: true,
+                    prefixIcon: Icons.flight_takeoff,
+                    prefixIconColor: FontAppColors.primaryFont,
+                    prefixIconSize: 30,
+                    isSuffixIcon: false,
+                    borderColor: FontAppColors.primaryFont,
+                    borderWidth: 2,
+                    curvatureRadius: 10,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.02,
+                  ),
+                  LgElevatedButton(
+                    elevatedButtonContent: 'Play\nTour',
+                    buttonColor: FontAppColors.secondaryFont,
+                    onpressed: () async {
+                      final sshData =
+                          Provider.of<SSHprovider>(context, listen: false);
+
+                      Connectionprovider connection =
+                          Provider.of<Connectionprovider>(context,
+                              listen: false);
+
+                      ///checking the connection status first
+                      if (sshData.client != null && connection.isLgConnected) {
+                        await LgService(sshData).startTour('App Tour');
                       }
                     },
                     height: MediaQuery.of(context).size.height * 0.07,
@@ -166,7 +205,19 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                   LgElevatedButton(
                     elevatedButtonContent: 'Stop\nTour',
                     buttonColor: FontAppColors.secondaryFont,
-                    onpressed: () {},
+                    onpressed: () async {
+                      final sshData =
+                          Provider.of<SSHprovider>(context, listen: false);
+
+                      Connectionprovider connection =
+                          Provider.of<Connectionprovider>(context,
+                              listen: false);
+
+                      ///checking the connection status first
+                      if (sshData.client != null && connection.isLgConnected) {
+                        await LgService(sshData).stopTour();
+                      }
+                    },
                     height: MediaQuery.of(context).size.height * 0.07,
                     width: MediaQuery.of(context).size.width * 0.15,
                     fontSize: textSize,
@@ -175,28 +226,6 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                     isBold: true,
                     isPrefixIcon: true,
                     prefixIcon: Icons.stop_outlined,
-                    prefixIconColor: FontAppColors.primaryFont,
-                    prefixIconSize: 30,
-                    isSuffixIcon: false,
-                    borderColor: FontAppColors.primaryFont,
-                    borderWidth: 2,
-                    curvatureRadius: 10,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.02,
-                  ),
-                  LgElevatedButton(
-                    elevatedButtonContent: 'Resume\nTour',
-                    buttonColor: FontAppColors.secondaryFont,
-                    onpressed: () {},
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    fontSize: textSize,
-                    fontColor: FontAppColors.primaryFont,
-                    isLoading: false,
-                    isBold: true,
-                    isPrefixIcon: true,
-                    prefixIcon: Icons.restore_outlined,
                     prefixIconColor: FontAppColors.primaryFont,
                     prefixIconSize: 30,
                     isSuffixIcon: false,
@@ -365,6 +394,9 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
 
                                   mapProvider.currentlySelectedPin = placeModel;
                                   mapProvider.pinPillPosition = 10;
+
+                                  await Future.delayed(
+                                      const Duration(seconds: 3));
 
                                   final sshData = Provider.of<SSHprovider>(
                                       context,

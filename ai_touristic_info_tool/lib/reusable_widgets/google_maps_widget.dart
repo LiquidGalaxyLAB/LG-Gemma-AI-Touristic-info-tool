@@ -4,6 +4,7 @@ import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/custom_balloon_gm.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/map_types_choices_widget.dart';
+import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/map_provider.dart';
@@ -85,13 +86,19 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
         .updateCameraPosition(position);
   }
 
-  void _onCameraIdle() {
+  void _onCameraIdle() async {
     final sshData = Provider.of<SSHprovider>(context, listen: false);
     String rigcountString = LgService(sshData).getScreenAmount() ?? '5';
     int rigcount = int.parse(rigcountString);
     final mapProvider = Provider.of<GoogleMapProvider>(context, listen: false);
-    motionControls(mapProvider.center.latitude, mapProvider.center.longitude,
-        mapProvider.zoom / rigcount, mapProvider.tilt, mapProvider.bearing);
+    motionControls(
+        mapProvider.center.latitude,
+        mapProvider.center.longitude,
+        mapProvider.zoomvalue / rigcount,
+        mapProvider.tilt,
+        mapProvider.bearing);
+    mapProvider.currentFullAddress= await GeocodingService().getAddressFromLatLng(
+                    mapProvider.center.latitude, mapProvider.center.longitude);
   }
 
   @override
