@@ -2,8 +2,10 @@ import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_location_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_world_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
+import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -26,6 +28,17 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     super.initState();
     _showHomeBallon();
     _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        GoogleMapProvider gmp =
+            Provider.of<GoogleMapProvider>(context, listen: false);
+        if (_tabController.index == 0) {
+          gmp.isWorld = true;
+        } else {
+          gmp.isWorld = false;
+        }
+      }
+    });
   }
 
   _showHomeBallon() async {

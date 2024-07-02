@@ -156,6 +156,8 @@ buildQueryPlacemark(
   } else {
     countryFlagImg = '';
   }
+  city ??= '';
+  country ??= 'World Wide';
   String balloonContent = '''
  <style>
             .balloon {
@@ -457,6 +459,8 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
   } else {
     countryFlagImg = '';
   }
+  city ??= '';
+  country ??= 'World Wide';
 
   int poisLength = pois.length;
 

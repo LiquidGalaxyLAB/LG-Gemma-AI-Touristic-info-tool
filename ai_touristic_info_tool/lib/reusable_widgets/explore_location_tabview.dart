@@ -43,6 +43,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
   String _addressQuery = '';
   String _whatToDoQuery = '';
 
+
+
   @override
   Widget build(BuildContext context) {
     int countryIndex = countries.indexOf(_countryController.text);

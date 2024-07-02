@@ -25,7 +25,7 @@ void main() async {
 
   await PromptsSharedPref.init();
   //clear:
-  await PromptsSharedPref.clearPreferences();
+ // await PromptsSharedPref.clearPreferences();
 
   await dotenv.load(fileName: ".env");
 
