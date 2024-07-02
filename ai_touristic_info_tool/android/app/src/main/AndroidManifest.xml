@@ -1,11 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <supports-screens
+        android:smallScreens="false"
+        android:normalScreens="false"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:requiresSmallestWidthDp="600" />
     
     <application
-    
-        android:label="ai_touristic_info_tool"
+        android:label="Gemma AI Touristic tool 1.0.0+1"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyACyVPHSAXNL2cM45OuO-KnH7uPgx35MhM"/>
         <activity
