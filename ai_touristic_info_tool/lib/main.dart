@@ -23,8 +23,9 @@ void main() async {
   /// Initialize shared preferences for LG connection
   await LgConnectionSharedPref.init();
 
-   await PromptsSharedPref.init();
-
+  await PromptsSharedPref.init();
+  //clear:
+  await PromptsSharedPref.clearPreferences();
 
   await dotenv.load(fileName: ".env");
 

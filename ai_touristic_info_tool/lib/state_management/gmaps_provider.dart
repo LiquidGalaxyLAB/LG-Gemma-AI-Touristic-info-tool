@@ -31,11 +31,11 @@ class GoogleMapProvider with ChangeNotifier {
   double _bearing = 0;
   double _zoomvalue = 591657550.500000 / pow(2, 14.4746);
   BitmapDescriptor? _iconMarker;
+  bool _isWorld = true;
   //MarkerId? _currentOpenMarkerId;
 
   // Getters for camera values
 
-  
   Map<String, String?> get currentFullAddress => _currentFullAddress;
   LatLng get center => _center;
   double get zoom => _zoom;
@@ -44,6 +44,12 @@ class GoogleMapProvider with ChangeNotifier {
   double get zoomvalue => _zoomvalue;
   Set<Marker> get markers => _markers;
   double get pinPillPosition => _pinPillPosition;
+  bool get isWorld => _isWorld;
+
+  set isWorld(bool value) {
+    _isWorld = value;
+    notifyListeners();
+  }
 
   set currentFullAddress(Map<String, String?> address) {
     _currentFullAddress = address;
@@ -84,7 +90,7 @@ class GoogleMapProvider with ChangeNotifier {
     _zoomvalue = 591657550.500000 / pow(2, position.zoom);
     _tilt = position.tilt;
     _bearing = position.bearing;
-    
+
     notifyListeners(); // Notify listeners of changes
   }
 

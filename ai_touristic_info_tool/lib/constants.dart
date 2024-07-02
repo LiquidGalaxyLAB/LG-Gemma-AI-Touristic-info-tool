@@ -216,6 +216,9 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: -0.0865,
     )
   ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
   'Top Pizza Places in Cairo Egypt': [
     PlacesModel(
       id: 1,
@@ -345,6 +348,9 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 31.481839712643716,
     )
   ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
   'Restaurants and Cafes in Rome Italy': [
     PlacesModel(
       id: 1,
@@ -486,7 +492,1716 @@ Map<String, List<PlacesModel>> defaultDataConst = {
       longitude: 12.470269975120516,
     ),
   ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  'Highland Adventure in the Scottish Highlands': [
+    PlacesModel(
+        id: 1,
+        name: 'Loch Ness, Glen Coe & the Highlands',
+        address: 'Edinburgh, Scotland',
+        latitude: 57.3000,
+        longitude: -4.4500,
+        city: 'Edinburgh',
+        country: 'Scotland',
+        description:
+            'Explore Loch Ness, Urquhart Castle, and the stunning Glen Coe on this full-length drive through the Scottish Highlands.',
+        price: 'From £53',
+        ratings: 4.8,
+        amenities:
+            'Cruise, Urquhart Castle exploration, Cairngorms National Park visit'),
+    PlacesModel(
+        id: 2,
+        name: 'Stirling Castle, Loch Lomond & Whisky',
+        address: 'Edinburgh, Scotland',
+        latitude: 56.122871,
+        longitude: -3.945713,
+        city: 'Edinburgh',
+        country: 'Scotland',
+        description:
+            'Taste the classic Scottish ingredients of castles, lochs, and whisky on this exciting tour.',
+        price: 'From £60',
+        ratings: 4.9,
+        amenities: 'Castle visit, Loch Lomond exploration, Whisky tasting'),
+    PlacesModel(
+        id: 3,
+        name: 'Urquhart Castle',
+        address: 'Highland, Scotland',
+        latitude: 57.324150,
+        longitude: -4.442122,
+        city: 'Highland',
+        country: 'Scotland',
+        description:
+            'Explore the ruins of Urquhart Castle, a dramatic fortress overlooking Loch Ness.',
+        price: 'Free entry',
+        ratings: 4.7,
+        amenities: 'Castle ruins, Loch Ness views'),
+    PlacesModel(
+        id: 4,
+        name: 'Glen Coe',
+        address: 'Highland, Scotland',
+        latitude: 56.6820,
+        longitude: -5.1020,
+        city: 'Highland',
+        country: 'Scotland',
+        description:
+            'Admire the breathtaking scenery of Glen Coe, a valley known for its steep cliffs and picturesque mountains.',
+        price: 'Free entry',
+        ratings: 4.9,
+        amenities: 'Mountain hiking, scenic views'),
+    PlacesModel(
+        id: 5,
+        name: 'Cairngorms National Park',
+        address: 'Highland, Scotland',
+        latitude: 57.043804,
+        longitude: -3.603306,
+        city: 'Highland',
+        country: 'Scotland',
+        description:
+            'Discover the vast landscapes of Cairngorms National Park, home to abundant wildlife and diverse habitats.',
+        price: 'Free entry',
+        ratings: 4.8,
+        amenities: 'Wildlife spotting, hiking trails'),
+    PlacesModel(
+        id: 6,
+        name: 'Fort Augustus',
+        address: 'Fort Augustus, Inverness-shire, Scotland',
+        latitude: 57.144952,
+        longitude: -4.683797,
+        city: 'Fort Augustus',
+        country: 'Scotland',
+        description:
+            'A charming village on the banks of Loch Ness, known for its boat tours and stunning views.',
+        price: 'Free entry',
+        ratings: 4.6,
+        amenities: 'Boat tours, Loch Ness views'),
+    PlacesModel(
+        id: 7,
+        name: 'Aberfoyle',
+        address: 'Aberfoyle, Perth and Kinross, Scotland',
+        latitude: 56.1813,
+        longitude: -4.3877,
+        city: 'Aberfoyle',
+        country: 'Scotland',
+        description:
+            'A picturesque village on the banks of Loch Ard, offering stunning views and outdoor activities.',
+        price: 'Free entry',
+        ratings: 4.7,
+        amenities: 'Scenic views, Loch Ard exploration'),
+    PlacesModel(
+        id: 8,
+        name: 'Laggan',
+        address: 'Laggan, Inverness-shire, Scotland',
+        latitude: 56.938972,
+        longitude: -4.39618,
+        city: 'Laggan',
+        country: 'Scotland',
+        description:
+            'A small village with a rich history, known for its connections to the Highland Clearances.',
+        price: 'Free entry',
+        ratings: 4.5,
+        amenities: 'Historical sites, Loch Lomond views'),
+    PlacesModel(
+        id: 9,
+        name: 'Newtonmore',
+        address: 'Newtonmore, Highland, Scotland',
+        latitude: 57.063529805,
+        longitude: -4.123543666,
+        city: 'Newtonmore',
+        country: 'Scotland',
+        description:
+            'A bustling market town with shops, restaurants, and historic attractions.',
+        price: 'Free entry',
+        ratings: 4.8,
+        amenities: 'Market town, shops, restaurants'),
+    PlacesModel(
+        id: 10,
+        name: 'Dunkeld',
+        address: 'Dunkeld, Perth and Kinross, Scotland',
+        latitude: 56.568991,
+        longitude: -3.611057,
+        city: 'Dunkeld',
+        country: 'Scotland',
+        description:
+            'A charming town on the River Tay, known for its beautiful scenery and historic buildings.',
+        price: 'Free entry',
+        ratings: 4.7,
+        amenities: 'Historic buildings, River Tay views'),
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  'Visting Major Landmarks Worldwide': [
+    PlacesModel(
+      id: 1,
+      name: "The Great Wall of China",
+      address: "Huadian Village, Yanqing County, Beijing Municipality, China",
+      city: "Beijing",
+      country: "China",
+      description:
+          "A colossal defensive structure spanning over 13,000 kilometers, known for its intricate architecture and breathtaking views.",
+      price: "Free entry, fees for cable car and other attractions",
+      ratings: 4.9,
+      amenities:
+          "Hiking trails, observation decks, restaurants, souvenir shops",
+      latitude: 40.44084,
+      longitude: 116.560564,
+    ),
+    PlacesModel(
+        id: 2,
+        name: "The Colosseum",
+        address: "Via dei Colossei, 50, 00184 Rome, Italy",
+        city: "Rome",
+        country: "Italy",
+        description:
+            "A massive amphitheater used for gladiatorial contests and other public events, offering a glimpse into ancient Roman entertainment.",
+        price: "€16 for adults",
+        ratings: 4.8,
+        amenities:
+            "Guided tours, underground tours, seating options, restaurants",
+        latitude: 41.890251,
+        longitude: 12.492373),
+    PlacesModel(
+      id: 3,
+      name: 'Machu Picchu',
+      address: 'Machu Picchu, Cusco Region, Peru',
+      city: 'Cusco',
+      country: 'Peru',
+      description:
+          'A majestic Inca citadel perched atop a mountain in the Andes, known for its stunning views and historical significance.',
+      price: 'Entrance fee: \$10 for foreigners',
+      ratings: 4.7,
+      amenities:
+          'Hiking trails, guided tours, archaeological sites, restaurants',
+      latitude: -13.1529,
+      longitude: -72.5219,
+    ),
+    PlacesModel(
+        id: 4,
+        name: 'Pyramids of Giza',
+        address: 'Giza, Cairo Governorate, Egypt',
+        city: 'Cairo',
+        country: 'Egypt',
+        description:
+            'A monumental complex featuring colossal pyramids, including the Great Pyramid of Giza, housing ancient tombs and hieroglyphics.',
+        price: 'Entrance fee: \$20 for foreigners',
+        ratings: 4.9,
+        amenities: 'Guided tours, camel rides, horse carriages, souvenir shops',
+        latitude: 29.976480,
+        longitude: 31.131302),
+    PlacesModel(
+      id: 5,
+      name: 'The Taj Mahal',
+      address: 'Agra, Uttar Pradesh, India',
+      city: 'Agra',
+      country: 'India',
+      description:
+          'A white marble mausoleum commissioned by the Mughal emperor Shah Jahan in memory of his beloved wife.',
+      price: 'Entrance fee: \$6 for foreigners',
+      ratings: 4.9,
+      amenities: 'Guided tours, boat rides, prayer halls, restaurants',
+      latitude: 27.173891,
+      longitude: 78.042068,
+    ),
+    PlacesModel(
+      id: 6,
+      name: "Ma'an Governorate",
+      address: "Ma'an Governorate, Jordan",
+      city: "Ma'an",
+      country: "Jordan",
+      description:
+          "Home to archaeological sites like Petra and Madaba, offering rich insights into ancient civilizations.",
+      price: "Free entry for Petra",
+      ratings: 4.8,
+      amenities: "Guided tours, hiking trails, museums, restaurants",
+      latitude: 30.194958,
+      longitude: 35.734241,
+    ),
+    PlacesModel(
+      id: 7,
+      name: "The Acropolis",
+      address: "Hill of the Acropolis, Athens 105 00, Greece",
+      city: "Athens",
+      country: "Greece",
+      description:
+          "A hilltop complex of ancient temples and monuments, housing the Parthenon and other significant structures.",
+      price: "Free entry",
+      ratings: 4.9,
+      amenities: "Guided tours, archaeological sites, restaurants, shops",
+      latitude: 37.966667,
+      longitude: 23.733333,
+    ),
+    PlacesModel(
+      id: 8,
+      name: "Angkor Wat",
+      address: "Siem Reap, Cambodia",
+      city: "Siem Reap",
+      country: "Cambodia",
+      description:
+          "A vast temple complex with towering spires and intricate carvings, representing the pinnacle of Khmer architecture.",
+      price: "Entrance fee: \$20 for foreigners",
+      ratings: 4.8,
+      amenities: "Guided tours, boat rides, restaurants, souvenir shops",
+      latitude: 13.412469,
+      longitude: 103.866986,
+    ),
+    PlacesModel(
+      id: 9,
+      name: "The Alhambra",
+      address: "Granada, Spain",
+      city: "Granada",
+      country: "Spain",
+      description:
+          "A palace and fortress complex known for its stunning architecture and Islamic influences.",
+      price: "Entrance fee: €10 for adults",
+      ratings: 4.9,
+      amenities: "Guided tours, gardens, museums, restaurants",
+      latitude: 37.176505,
+      longitude: -3.590034,
+    ),
+    PlacesModel(
+      id: 10,
+      name: "The Forbidden City",
+      address: "Beijing, China",
+      city: "Beijing",
+      country: "China",
+      description:
+          "The former imperial palace of the Ming and Qing dynasties, offering a glimpse into Chinese imperial history.",
+      price: "Entrance fee: \$25 for foreigners",
+      ratings: 4.8,
+      amenities: "Guided tours, museums, gardens, restaurants",
+      latitude: 39.916345,
+      longitude: 116.397155,
+    ),
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  'Beach Holidays Worldwide': [
+    PlacesModel(
+      id: 1,
+      name: 'paradis del Mar',
+      address: 'Carrer de la Platja del Racó, 07007 Cala d\'Or, Illes Balears',
+      city: 'Cala d\'Or',
+      country: 'Spain',
+      description:
+          'A stunning beach with golden sands and crystal-clear turquoise waters.',
+      price: 'From £100 per night',
+      ratings: 4.9,
+      amenities: 'Sun loungers, umbrellas, water sports, beach bars',
+      latitude: 39.907406,
+      longitude: 3.082407,
+    ),
+    PlacesModel(
+      id: 2,
+      name: 'Copacabana Beach',
+      address: 'Copacabana, Rio de Janeiro, RJ 20270-000',
+      city: 'Rio de Janeiro',
+      country: 'Brazil',
+      description:
+          'A legendary beach known for its stunning views, lively atmosphere, and surfing opportunities.',
+      price: 'From £50 per night',
+      ratings: 4.8,
+      amenities:
+          'Beach volleyball, surfing, paddleboarding, restaurants, nightlife',
+      latitude: -22.970722,
+      longitude: -43.182365,
+    ),
+    PlacesModel(
+      id: 3,
+      name: 'Grace Bay Beach',
+      address: 'Long Bay, Providenciales, Turks and Caicos',
+      city: 'Providenciales',
+      country: 'Turks and Caicos',
+      description:
+          'A pristine beach with soft white sand and crystal-clear turquoise waters.',
+      price: 'From £200 per night',
+      ratings: 4.9,
+      amenities: 'Snorkeling, diving, water sports, beach bars, luxury resorts',
+      latitude: 21.799456,
+      longitude: -72.174057,
+    ),
+    PlacesModel(
+      id: 4,
+      name: 'Maldives',
+      address: 'Republic of Maldives',
+      city: 'Malé',
+      country: 'Maldives',
+      description:
+          'A chain of islands with pristine beaches, crystal-clear turquoise waters, and luxurious overwater bungalows.',
+      price: 'From £300 per night',
+      ratings: 4.9,
+      amenities:
+          'Scuba diving, snorkeling, water sports, private beaches, spa treatments',
+      latitude: 1.924992,
+      longitude: 73.399658,
+    ),
+    PlacesModel(
+      id: 5,
+      name: 'Kata Beach',
+      address: 'Kata Beach Rd, Kata Beach, Phuket 83000',
+      city: 'Phuket',
+      country: 'Thailand',
+      description:
+          'A popular beach with golden sands, turquoise waters, and a lively nightlife.',
+      price: 'From £100 per night',
+      ratings: 4.7,
+      amenities:
+          'Sun loungers, umbrellas, beach volleyball, restaurants, nightlife',
+      latitude: 7.897794,
+      longitude: 98.296677,
+    ),
+    PlacesModel(
+      id: 6,
+      name: "Falesia Beach",
+      address: "Albufeira, Algarve, southern Portugal",
+      city: "Albufeira",
+      country: "Portugal",
+      description:
+          "A secluded beach with white sand cliffs and crystal-clear turquoise waters.",
+      price: "From £150 per night",
+      ratings: 4.8,
+      amenities: "Snorkeling, diving, water sports, tavernas, cliff jumping",
+      latitude: 37.0861167,
+      longitude: -8.167986,
+    ),
+    PlacesModel(
+      id: 7,
+      name: "Gracetown Beach",
+      address: "2B Bayview Dr, Gracetown WA 6284, Australia",
+      city: "Gracetown",
+      country: "Australia",
+      description:
+          "A secluded beach with untouched beauty, turquoise waters, and lush vegetation.",
+      price: "From £100 per night",
+      ratings: 4.9,
+      amenities: "Kayaking, paddleboarding, snorkeling, seafood restaurants",
+      latitude: -33.8616,
+      longitude: 114.9886,
+    ),
+    PlacesModel(
+      id: 8,
+      name: "Navagio Beach",
+      address: "Agia Heli, Zakynthos, Ionian Islands 29100",
+      city: "Zakynthos",
+      country: "Greece",
+      description:
+          "A horseshoe-shaped beach with white sand cliffs and turquoise waters.",
+      price: "From £180 per night",
+      ratings: 4.9,
+      amenities: "Snorkeling, diving, water sports, taverna restaurants",
+      latitude: 37.859596,
+      longitude: 20.624075,
+    ),
+    PlacesModel(
+      id: 9,
+      name: "Pink Sands Beach",
+      address: "Harbour Island, Eleuthera Island, Bahamas",
+      city: "Harbour Island",
+      country: "Bahamas",
+      description:
+          "A unique beach with pink sand due to crushed coral and seashells.",
+      price: "From £250 per night",
+      ratings: 4.8,
+      amenities:
+          "Snorkeling, diving, water sports, beach bars, eco-friendly resorts",
+      latitude: 25.506975,
+      longitude: -76.632515,
+    ),
+    PlacesModel(
+      id: 10,
+      name: "Copacabana Beach, Rio de Janeiro",
+      address: "Copacabana, Rio de Janeiro, RJ 20270-000",
+      city: "Rio de Janeiro",
+      country: "Brazil",
+      description:
+          "A legendary beach known for its stunning views, lively atmosphere, and surfing opportunities.",
+      price: "From £50 per night",
+      ratings: 4.8,
+      amenities:
+          "Beach volleyball, surfing, paddleboarding, restaurants, nightlife",
+      latitude: -22.970722,
+      longitude: -43.182365,
+    ),
+  ],
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  'Museums and Historical Sites Worldwide': [
+    PlacesModel(
+      id: 1,
+      name: "Preah Norodom Sihanouk-Angkor Museum",
+      address: "Siem Reap, Cambodia",
+      city: "Siem Reap",
+      country: "Cambodia",
+      description:
+          "Houses artifacts from the Angkor period, including stone sculptures, ceramics, and textiles.",
+      price: "",
+      ratings: 4.5,
+      amenities: "Guided tours, Shop, Restaurant",
+      latitude: 13.411593,
+      longitude: 103.867416,
+    ),
+    PlacesModel(
+      id: 2,
+      name: "Louvre Museum",
+      address: "9 Rue Du Louvre, 75057 Paris, France",
+      city: "Paris",
+      country: "France",
+      description:
+          "Home to iconic works of art like the Mona Lisa and Venus de Milo.",
+      price: "Free entry for under 18s, €10 for adults",
+      ratings: 4.9,
+      amenities: "Guided tours, Audio guides, Shop, Café",
+      latitude: 48.860294,
+      longitude: 2.338629,
+    ),
+    PlacesModel(
+      id: 3,
+      name: "British Museum",
+      address: "199 Great Russell Street, London WC1A 1HA, United Kingdom",
+      city: "London",
+      country: "United Kingdom",
+      description:
+          "Houses a vast collection of artifacts from human history across the globe.",
+      price: "Free entry",
+      ratings: 4.8,
+      amenities: "Guided tours, Audio guides, Shop, Café",
+      latitude: 51.518757,
+      longitude: -0.126168,
+    ),
+    PlacesModel(
+      id: 4,
+      name: "Metropolitan Museum of Art",
+      address: "1000 Fifth Avenue, New York, NY 10028, United States",
+      city: "New York",
+      country: "United States",
+      description:
+          "One of the largest art museums in the world, housing over two million works of art.",
+      price: "Pay-what-you-wish",
+      ratings: 4.7,
+      amenities: "Guided tours, Audio guides, Shop, Restaurant",
+      latitude: 40.779434,
+      longitude: -73.963402,
+    ),
+    PlacesModel(
+      id: 5,
+      name: "Cologne Cathedral",
+      address: "Domstraße 40, 50321 Cologne, Germany",
+      city: "Cologne",
+      country: "Germany",
+      description: "Gothic cathedral known for its towering twin spires.",
+      price: "Free entry",
+      ratings: 4.6,
+      amenities: "Guided tours, Shop, Café",
+      latitude: 50.941357,
+      longitude: 6.958307,
+    ),
+    PlacesModel(
+      id: 6,
+      name: 'Taj Mahal',
+      address: 'Agra, Uttar Pradesh 282001, India',
+      city: 'Agra',
+      country: 'India',
+      description:
+          'White marble mausoleum built in the 17th century by the Mughal emperor Shah Jahan in memory of his wife.',
+      price: 'Entry fee: ₹600',
+      ratings: 4.9,
+      amenities: 'Guided tours, Audio guides, Shop, Restaurant',
+      latitude: 27.173891,
+      longitude: 78.042068,
+    ),
+    PlacesModel(
+      id: 7,
+      name: 'Angkor Wat',
+      address: 'Siem Reap, Cambodia',
+      city: 'Siem Reap',
+      country: 'Cambodia',
+      description:
+          'Massive temple complex with towering spires and intricate carvings.',
+      price: 'Entry fee: \$20',
+      ratings: 4.8,
+      amenities: 'Guided tours, Audio guides, Shop, Restaurants',
+      latitude: 13.411593,
+      longitude: 103.867416,
+    ),
+    PlacesModel(
+        id: 8,
+        name: 'The Colosseum',
+        address: 'Via dei Colossi, 5, 00184 Rome, Italy',
+        city: 'Rome',
+        country: 'Italy',
+        description:
+            'Ancient Roman amphitheater known for its gladiatorial contests and chariot races',
+        price: 'Entry fee: €16',
+        ratings: 4.7,
+        amenities: 'Guided tours, Audio guides, Shop, Café',
+        latitude: 41.890251,
+        longitude: 12.492373),
+    PlacesModel(
+        id: 9,
+        name: 'The Pyramids of Giza',
+        address: 'Giza, Egypt',
+        city: 'Giza',
+        country: 'Egypt',
+        description: 'Massive pyramids built as tombs for pharaohs.',
+        price: 'Entry fee: \$45',
+        ratings: 4.9,
+        amenities: 'Guided tours, Audio guides, Shop, Restaurant',
+        latitude: 29.976480,
+        longitude: 31.131302),
+    PlacesModel(
+      id: 10,
+      name: 'Ajanta Caves',
+      address: 'Aurangabad, Maharashtra 431001, India',
+      city: 'Aurangabad',
+      country: 'India',
+      description:
+          'Network of ancient rock-cut caves filled with Buddhist sculptures and paintings.',
+      price: 'Entry fee: ₹60',
+      ratings: 4.8,
+      amenities: 'Guided tours, Audio guides, Shop, Café',
+      latitude: 20.534033,
+      longitude: 75.748283,
+    ),
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  'Food and Culinary Tours Worldwide': [
+    PlacesModel(
+      id: 1,
+      name: "Paris Food & Wine Walking Tour",
+      address: "45 Rue de Bretagne, 75002 Paris, France",
+      city: "Paris",
+      country: "France",
+      description:
+          "Explore the hidden culinary gems of Paris on a guided walking tour that combines history, culture, and delicious food.",
+      price: "From \$100 per person",
+      ratings: 4.9,
+      amenities: "Guided tour, tasting samples, wine pairing",
+      sourceLink:
+          "https://www.viator.com/Paris/d6082-ttd-food-and-wine-tours-paris",
+      latitude: 48.864716,
+      longitude: 2.349014,
+    ),
+    PlacesModel(
+      id: 2,
+      name: "Gourmet Food Tour of Rome",
+      address: "Via dei Condotti, 30, 00186 Rome, Italy",
+      city: "Rome",
+      country: "Italy",
+      description:
+          "Taste the flavors of Rome on a culinary journey through the city's charming streets.",
+      price: "From \$80 per person",
+      ratings: 4.8,
+      amenities: "Guided tour, tasting samples, lunch included",
+      sourceLink:
+          "https://www.tripadvisor.com/Attraction_Review-g187791-d1099377-Reviews-Gourmet_Food_Tour_of_Rome-Rome_Lazio.html",
+      latitude: 41.902782,
+      longitude: 12.496366,
+    ),
+    PlacesModel(
+      id: 3,
+      name: "Tokyo Food Tour & Cooking Class",
+      address: "Shibuya Crossing, Shibuya, Tokyo 150-0001, Japan",
+      city: "Tokyo",
+      country: "Japan",
+      description:
+          "Discover the culinary delights of Tokyo with a guided food tour and cooking class.",
+      price: "From \$120 per person",
+      ratings: 4.7,
+      amenities: "Guided tour, cooking class, meal included",
+      sourceLink:
+          "https://www.getyourguide.com/tokyo-food-tours-c48/tokyo-food-tour-cooking-class-a39014",
+      latitude: 35.652832,
+      longitude: 139.839478,
+    ),
+    PlacesModel(
+      id: 4,
+      name: "Kyoto Food & Culture Experience",
+      address: "Higashiyama, Kyoto, Kyoto Prefecture 600-8101, Japan",
+      city: "Kyoto",
+      country: "Japan",
+      description:
+          "Immerse yourself in Kyoto's culinary traditions with a guided food and culture experience.",
+      price: "From \$90 per person",
+      ratings: 4.6,
+      amenities: "Guided tour, traditional Japanese meal, tea ceremony",
+      sourceLink:
+          "https://www.tripadvisor.com/Attraction_Review-g298566-d1333834-Reviews-Kyoto_Food_Culture_Experience-Kyoto_Kyoto_Prefecture_Kinki.html",
+      latitude: 35.011665,
+      longitude: 135.768326,
+    ),
+    PlacesModel(
+      id: 5,
+      name: "Food & Wine Tour in Tuscany",
+      address: "Via San Miniato, 30, 56027 San Miniato al Monte, Italy",
+      city: "San Miniato al Monte",
+      country: "Italy",
+      description:
+          "Explore the rolling hills of Tuscany on a guided food and wine tour.",
+      price: "From \$150 per person",
+      ratings: 4.9,
+      amenities: "Guided tour, wine tasting, lunch included",
+      sourceLink:
+          "https://www.expedia.com/Food-Wine-Tour-Tuscany.0-g18787-t73-k184884-ct100003-ci1428388.Travel-Deals",
+      latitude: 43.769562,
+      longitude: 11.255814,
+    ),
+    PlacesModel(
+        id: 6,
+        name: 'Lisbon Food & Wine Experience',
+        address: 'Rua de Santa Rita, 13, 1350-137 Lisbon, Portugal',
+        city: 'Lisbon',
+        country: 'Portugal',
+        description:
+            'Taste the flavors of Lisbon on a guided food and wine experience.',
+        price: 'From \$100 per person',
+        ratings: 4.8,
+        amenities: 'Guided tour, tasting samples, wine pairing',
+        sourceLink:
+            'https://www.viator.com/Lisbon/d874-ttd-food-and-wine-tours-lisbon',
+        latitude: 38.736946,
+        longitude: -9.142685),
+    PlacesModel(
+        id: 7,
+        name: 'Food & Culture Tour in Marrakech',
+        address: '18 Rue Moulay Ismail, 40000 Marrakech, Morocco',
+        city: 'Marrakech',
+        country: 'Morocco',
+        description:
+            'Explore the vibrant flavors of Marrakech on a guided food and culture tour.',
+        price: 'From \$90 per person',
+        ratings: 4.7,
+        amenities:
+            'Guided tour, traditional Moroccan meal, cultural demonstrations',
+        sourceLink:
+            'https://www.tripadvisor.com/Attraction_Review-g293735-d1834899-Reviews-Food_Culture_Tour_in_Marrakech-Marrakech_Marrakech_Province_Maroc.html',
+        latitude: 31.628674,
+        longitude: -7.992047),
+    PlacesModel(
+        id: 8,
+        name: 'Budapest Food & Drink Walking Tour',
+        address: 'Várkertör utca, 1078 Budapest, Hungary',
+        city: 'Budapest',
+        country: 'Hungary',
+        description:
+            'Discover the culinary delights of Budapest on a guided walking tour.',
+        price: 'From \$80 per person',
+        ratings: 4.6,
+        amenities: 'Guided tour, tasting samples, local drinks included',
+        sourceLink:
+            'https://www.getyourguide.com/budapest-food-tours-c48/budapest-food-and-drink-walking-tour-a48343',
+        latitude: 47.497913,
+        longitude: 19.040236),
+    PlacesModel(
+        id: 9,
+        name: 'Mexico City Food & Culture Tour',
+        address:
+            'Av. Chapultepec 158, Col. Chapultepec, 11580 Mexico City, Mexico',
+        city: 'Mexico City',
+        country: 'Mexico',
+        description:
+            'Explore the culinary traditions of Mexico City on a guided food and culture tour.',
+        price: 'From \$100 per person',
+        ratings: 4.9,
+        amenities:
+            'Guided tour, traditional Mexican meals, cultural demonstrations',
+        sourceLink:
+            'https://www.viator.com/Mexico-City/d533-ttd-food-and-wine-tours-mexico-city',
+        latitude: 19.432608,
+        longitude: -99.133209),
+    PlacesModel(
+        id: 10,
+        name: 'Istanbul Food & Cultural Tour',
+        address: 'Istiklal Caddesi, 34321 Istanbul, Turkey',
+        city: 'Istanbul',
+        country: 'Turkey',
+        description:
+            'Discover the flavors and culture of Istanbul on a guided food and cultural tour.',
+        price: 'From \$90 per person',
+        ratings: 4.8,
+        amenities:
+            'Guided tour, traditional Turkish meals, cultural demonstrations',
+        sourceLink:
+            'https://www.tripadvisor.com/Attraction_Review-g298667-d1349354-Reviews-Istanbul_Food_Cultural_Tour-Istanbul_Istanbul_Province_Marmara.html',
+        latitude: 41.015137,
+        longitude: 28.979530),
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  'Football Stadium Tours and Matches Worldwide': [
+    PlacesModel(
+      id: 1,
+      name: "Tottenham Hotspur Stadium",
+      address: "Lilywhite House, 782 High Road, London, N17 0BX",
+      city: "London",
+      country: "England",
+      description:
+          "Experience the home of Tottenham Hotspur FC with a stadium tour, explore the players' tunnel, press box and more.",
+      price: "Adults: £15, Children: £10",
+      ratings: 4.8,
+      amenities: "Guided tours, audio guide, behind-the-scenes access",
+      sourceLink:
+          "https://www.tottenhamhotspurstadium.com/see-do/stadium-tour/",
+      latitude: 51.604252,
+      longitude: -0.067007,
+    ),
+    PlacesModel(
+      id: 2,
+      name: "Wembley Stadium",
+      address: "London Road, Wembley, Greater London HA9 9PL",
+      city: "London",
+      country: "England",
+      description:
+          "Home to Premier League giants Wembley FC, enjoy a stadium tour or watch a thrilling match.",
+      price: "Stadium tours: Adults: £15, Children: £10",
+      ratings: 4.7,
+      amenities: "Guided tours, audio guide, behind-the-scenes access",
+      sourceLink: "https://www.wembleystadium.com/stadium/stadium-tours/",
+      latitude: 51.555973,
+      longitude: -0.279672,
+    ),
+    PlacesModel(
+      id: 3,
+      name: "Emirates Stadium",
+      address: "50 Highbury Avenue, London N5 1BU",
+      city: "London",
+      country: "England",
+      description:
+          "Step into the home of Arsenal FC with a stadium tour, explore the iconic Clock End and watch a captivating match.",
+      price: "Stadium tours: Adults: £15, Children: £10",
+      ratings: 4.6,
+      amenities: "Guided tours, audio guide, behind-the-scenes access",
+      sourceLink: "https://www.arsenal.com/stadium/stadium-tours/",
+      latitude: 51.554867,
+      longitude: -0.109112,
+    ),
+    PlacesModel(
+      id: 4,
+      name: "Anfield Stadium",
+      address: "Anfield Road, Liverpool L4 0BY",
+      city: "Liverpool",
+      country: "England",
+      description:
+          "Experience the passionate atmosphere of Anfield, home to Liverpool FC, with a stadium tour or watch a thrilling match.",
+      price: "Stadium tours: Adults: £15, Children: £10",
+      ratings: 4.5,
+      amenities: "Guided tours, audio guide, behind-the-scenes access",
+      sourceLink: "https://www.liverpoolfc.com/stadium/stadium-tours/",
+      latitude: 53.430759,
+      longitude: -2.961425,
+    ),
+    PlacesModel(
+      id: 5,
+      name: "Old Trafford",
+      address: "Stretford Road, Manchester M18 9PR",
+      city: "Manchester",
+      country: "England",
+      description:
+          "Visit the iconic Old Trafford, home to Manchester United FC, and explore their rich history with a stadium tour.",
+      price: "Stadium tours: Adults: £14, Children: £10",
+      ratings: 4.4,
+      amenities: "Guided tours, audio guide, behind-the-scenes access",
+      sourceLink: "https://www.manutd.com/en/stadium/stadium-tours",
+      latitude: 53.463493,
+      longitude: -2.292279,
+    ),
+    PlacesModel(
+      id: 6,
+      name: 'The Etihad Stadium',
+      address: 'Etihad Way, Manchester M11 4PL',
+      city: 'Manchester',
+      country: 'England',
+      description:
+          'Experience the modern architecture and passionate atmosphere of the Etihad Stadium, home to Manchester City FC.',
+      price: 'Stadium tours: Adults: £15, Children: £10',
+      ratings: 4.3,
+      amenities: 'Guided tours, audio guide, behind-the-scenes access',
+      sourceLink: 'https://www.mancity.com/stadium/stadium-tours',
+      latitude: 53.483135,
+      longitude: -2.200941,
+    ),
+    PlacesModel(
+      id: 7,
+      name: 'St. James\' Park',
+      address: 'Galen Road, Newcastle upon Tyne NE1 8AG',
+      city: 'Newcastle upon Tyne',
+      country: 'England',
+      description:
+          'Explore the historic St. James\' Park, home to Newcastle United FC, with a stadium tour or catch a thrilling match.',
+      price: 'Stadium tours: Adults: £15, Children: £10',
+      ratings: 4.2,
+      amenities: 'Guided tours, audio guide, behind-the-scenes access',
+      sourceLink: 'https://nufc.co.uk/stadium/stadium-tours/',
+      latitude: 51.502464,
+      longitude: -0.137000,
+    ),
+    PlacesModel(
+      id: 8,
+      name: 'The London Stadium',
+      address: 'Olympic Park, London E20 2FX',
+      city: 'London',
+      country: 'England',
+      description:
+          'Home to West Ham United FC, enjoy a stadium tour or watch a captivating match at the London Stadium.',
+      price: 'Stadium tours: Adults: £15, Children: £10',
+      ratings: 4.1,
+      amenities: 'Guided tours, audio guide, behind-the-scenes access',
+      sourceLink: 'https://londonstadium.co.uk/stadium/stadium-tours/',
+      latitude: 51.538811,
+      longitude: -0.017136,
+    ),
+    PlacesModel(
+        id: 9,
+        name: 'Elland Road',
+        address: 'Elland Road, Leeds LS11 8NB',
+        city: 'Leeds',
+        country: 'England',
+        description:
+            'Experience the electric atmosphere of Elland Road, home to Leeds United FC, with a stadium tour or watch a thrilling match.',
+        price: 'Stadium tours: Adults: £15, Children: £10',
+        ratings: 4.0,
+        amenities: 'Guided tours, audio guide, behind-the-scenes access',
+        sourceLink: 'https://leedsunited.com/stadium/stadium-tours/',
+        latitude: 53.777782,
+        longitude: -1.573049),
+    PlacesModel(
+      id: 10,
+      name: 'The American Express Stadium',
+      address: 'Falmer Road, Brighton BN2 9PR',
+      city: 'Brighton',
+      country: 'England',
+      description:
+          'Explore the modern stadium and vibrant atmosphere of the Amex Stadium, home to Brighton & Hove Albion FC.',
+      price: 'Stadium tours: Adults: £15, Children: £10',
+      ratings: 3.9,
+      amenities: 'Guided tours, audio guide, behind-the-scenes access',
+      sourceLink:
+          'https://www.brightonandhovealbion.co.uk/stadium/stadium-tours/',
+      latitude: 50.861782,
+      longitude: -0.084357,
+    ),
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  'Yoga and Wellness Retreats in India': [
+    PlacesModel(
+      id: 1,
+      name: "The Himalayan Spa & Wellness Resort",
+      address: "Village Dharamshala, District Kangra, Himachal Pradesh 175130",
+      city: "Dharamshala",
+      country: "India",
+      description:
+          "Nestled amidst the Himalayas, this retreat offers a range of yoga and wellness therapies, including meditation, hatha yoga, and Ayurvedic treatments.",
+      price: "from \$150 per night",
+      ratings: 4.8,
+      amenities: "Spa facilities, yoga studio, meditation room, hiking trails",
+      sourceLink:
+          "https://www.healingholidays.com/destinations/indian-subcontinent/india&hl=en",
+      latitude: 32.219044,
+      longitude: 76.323402,
+    ),
+    PlacesModel(
+      id: 2,
+      name: "The Kerala Backwater Spa Retreat",
+      address: "Thuruthy Island, Alappuzha District, Kerala 688503",
+      city: "Alappuzha",
+      country: "India",
+      description:
+          "Experience tranquility amidst the serene backwaters of Kerala at this holistic spa retreat. Enjoy traditional Ayurvedic therapies and rejuvenating yoga practices.",
+      price: "from \$120 per night",
+      ratings: 4.7,
+      amenities:
+          "Spa facilities, Ayurvedic treatments, yoga studio, boat trips",
+      sourceLink:
+          "https://www.healingholidays.com/destinations/indian-subcontinent/india&hl=en",
+      latitude: 9.498067,
+      longitude: 76.338844,
+    ),
+    PlacesModel(
+      id: 3,
+      name: "The Spa Sanctuary",
+      address: "Neemrana, Rajasthan 303001",
+      city: "Neemrana",
+      country: "India",
+      description:
+          "Nestled amidst the Aravalli Hills, this spa sanctuary offers a wide range of treatments and therapies, including hot stone massages, aromatherapy, and facial treatments.",
+      price: "from \$100 per night",
+      ratings: 4.9,
+      amenities: "Spa facilities, outdoor pool, meditation room, yoga studio",
+      sourceLink:
+          "https://www.healingholidays.com/destinations/indian-subcontinent/india&hl=en",
+      latitude: 27.988890,
+      longitude: 76.388336,
+    ),
+    PlacesModel(
+      id: 4,
+      name: "The Yoga Ashram",
+      address: "Mcleodganj, Himachal Pradesh 174025",
+      city: "Mcleodganj",
+      country: "India",
+      description:
+          "Immerse yourself in the spiritual practices of yoga at this renowned ashram. Offers daily yoga sessions, meditation classes, and serene surroundings.",
+      price: "from \$50 per night",
+      ratings: 4.6,
+      amenities: "Yoga studio, meditation hall, temple, vegetarian meals",
+      sourceLink:
+          "https://www.healingholidays.com/destinations/indian-subcontinent/india&hl=en",
+      latitude: 32.32737,
+      longitude: 76.34028,
+    ),
+    PlacesModel(
+      id: 5,
+      name: "The Kalari Wellness Retreat",
+      address: "Wayanad, Kerala 673538",
+      city: "Wayanad",
+      country: "India",
+      description:
+          "Experience traditional Kerala wellness practices at this retreat. Includes Kalaripayattu martial arts training, yoga, and Ayurvedic therapies.",
+      price: "from \$180 per night",
+      ratings: 4.8,
+      amenities:
+          "Wellness center, yoga studio, martial arts arena, Ayurvedic treatments",
+      sourceLink:
+          "https://www.healingholidays.com/destinations/indian-subcontinent/india&hl=en",
+      latitude: 11.605,
+      longitude: 76.083,
+    ),
+    PlacesModel(
+        id: 6,
+        name: "The Mountain Serenity Spa & Yoga Retreat",
+        address: "Chail, Himachal Pradesh 175103",
+        city: "Chail",
+        country: "India",
+        description:
+            "Escape to the Himalayas at this spa and yoga retreat. Offers breathtaking views, yoga sessions, and traditional Ayurvedic treatments.",
+        price: "from \$160 per night",
+        ratings: 4.7,
+        amenities:
+            "Spa facilities, yoga studio, meditation room, hiking trails",
+        sourceLink:
+            "https://www.healingholidays.com/destinations/indian-subcontinent/india&hl=en",
+        latitude: -36.739055,
+        longitude: -71.0574941),
+    PlacesModel(
+      id: 7,
+      name: "The Oceanfront Yoga & Spa Retreat",
+      address: "Pondicherry, Puducherry 605007",
+      city: "Pondicherry",
+      country: "India",
+      description:
+          "Enjoy the calming sounds of the ocean at this beachfront retreat. Offers yoga sessions, spa treatments, and meditation classes.",
+      price: "from \$140 per night",
+      ratings: 4.9,
+      amenities:
+          "Spa facilities, yoga studio, meditation room, oceanfront views",
+      sourceLink:
+          "https://www.healingholidays.com/destinations/indian-subcontinent/india&hl=en",
+      latitude: 11.916064,
+      longitude: 79.812325,
+    ),
+    PlacesModel(
+      id: 8,
+      name: "The Jiva Spa & Yoga Resort",
+      address: "Dharamshala, Himachal Pradesh 175130",
+      city: "Dharamshala",
+      country: "India",
+      description:
+          "Experience luxury and wellness at this upscale resort. Offers a wide range of spa treatments, yoga sessions, and breathtaking views of the Himalayas.",
+      price: "from \$250 per night",
+      ratings: 4.8,
+      amenities: "Spa facilities, outdoor pool, yoga studio, meditation room",
+      sourceLink:
+          "https://www.healingholidays.com/destinations/indian-subcontinent/india&hl=en",
+      latitude: 32.219044,
+      longitude: 76.323402,
+    ),
+    PlacesModel(
+      id: 9,
+      name: "The Nature's Embrace Yoga & Spa Retreat",
+      address: "Nainital, Uttarakhand 249401",
+      city: "Nainital",
+      country: "India",
+      description:
+          "Nestled amidst the Himalayas, this retreat offers panoramic views and a variety of yoga and spa treatments.",
+      price: "from \$130 per night",
+      ratings: 4.6,
+      amenities: "Spa facilities, yoga studio, meditation room, hiking trails",
+      sourceLink:
+          "https://www.healingholidays.com/destinations/indian-subcontinent/india&hl=en",
+      latitude: 29.380304,
+      longitude: 79.463570,
+    ),
+    PlacesModel(
+      id: 10,
+      name: 'The Holistic Healing Retreat',
+      address: 'Goa, Goa 403001',
+      city: 'Goa',
+      country: 'India',
+      description:
+          'Experience a holistic approach to wellness at this coastal retreat. Offers yoga sessions, Ayurvedic treatments, and various therapies.',
+      price: 'From £190 per night',
+      ratings: 4.8,
+      amenities: 'Spa facilities, yoga studio, meditation room, beach access',
+      sourceLink:
+          'https://www.healingholidays.com/destinations/indian-subcontinent/india&hl=en',
+      latitude: 15.496777,
+      longitude: 73.827827,
+    )
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  'Aurora Borealis Viewing in Norway': [
+    PlacesModel(
+      id: 1,
+      name: "Lofoten",
+      address: "Lofoten Islands, Norway",
+      city: "Lofoten",
+      country: "Norway",
+      description:
+          "Due to Lofoten's location and sight lines, it's possible to see the Northern Lights in all directions.",
+      price: "",
+      ratings: 4.9,
+      amenities: "Mountain views, clear skies",
+      sourceLink:
+          "https://www.norwegian.travel/magazine/best-place-to-see-northern-lights-in-norway&hl=en",
+      latitude: 68.166672,
+      longitude: 13.750000,
+    ),
+    PlacesModel(
+      id: 2,
+      name: 'Svalbard',
+      address: 'Svalbard Archipelago, Norway',
+      city: 'Longyearbyen',
+      country: 'Norway',
+      description:
+          'Located between mainland Norway and the North Pole, this archipelago has exceptional Aurora conditions.',
+      price: '',
+      ratings: 5.0,
+      amenities: 'Remote location, clear skies',
+      sourceLink:
+          'https://www.norwegian.travel/magazine/best-place-to-see-northern-lights-in-norway&hl=en',
+      latitude: 79.004959,
+      longitude: 17.666016,
+    ),
+    PlacesModel(
+        id: 3,
+        name: 'Bodø',
+        address: 'Bodø, Norway',
+        city: 'Bodø',
+        country: 'Norway',
+        description:
+            'is a short distance from Rønvikfjellit Mountain, which is a sublime place to find a open view of the sky, and superb viewing spots.',
+        price: "",
+        ratings: 4.8,
+        amenities: "Mountain views, clear skies",
+        sourceLink:
+            'https://www.norwegian.travel/magazine/best-place-to-see-northern-lights-in-norway&hl=en',
+        latitude: 67.280357,
+        longitude: 14.404916),
+    PlacesModel(
+        id: 4,
+        name: 'Fjellheisen Mountain Station',
+        address: 'Fjellheisen Mountain Station, Norway',
+        city: 'Tromsø',
+        country: 'Norway',
+        description:
+            'Amazing Northern Lights Evening at the Fjellheisen Mountain Station.',
+        price: "",
+        ratings: 5.0,
+        amenities: "Mountain views, clear skies",
+        sourceLink:
+            'https://www.norwegian.travel/magazine/best-place-to-see-northern-lights-in-norway&hl=en',
+        latitude: 69.640964,
+        longitude: 18.98724),
+    PlacesModel(
+        id: 5,
+        name: 'Kirkenes',
+        address: 'Kirkenes, Norway',
+        city: 'Kirkenes',
+        country: 'Norway',
+        description: 'A Northern Lights Husky Tour in Kirkenes',
+        price: "",
+        ratings: 4.7,
+        amenities: "Northern Lights tours, husky sledding",
+        sourceLink:
+            'https://www.norwegian.travel/magazine/best-place-to-see-northern-lights-in-norway&hl=en',
+        latitude: 69.7269192,
+        longitude: 30.0450432),
+    PlacesModel(
+      id: 6,
+      name: 'Alta',
+      address: 'Alta, Norway',
+      city: 'Alta',
+      country: 'Norway',
+      description:
+          'The city of Alta is known for its stunning landscapes and offers several opportunities to catch a glimpse of the Northern Lights.',
+      price: "",
+      ratings: 4.9,
+      amenities: "Northern Lights tours, clear skies",
+      sourceLink:
+          'https://www.visitnorway.com/places-to-go/northern-lights/alta/&hl=en',
+      latitude: 69.96874,
+      longitude: 23.27155,
+    ),
+    PlacesModel(
+      id: 7,
+      name: 'Hammerfest',
+      address: 'Hammerfest, Norway',
+      city: 'Hammerfest',
+      country: 'Norway',
+      description:
+          'Known as the ‘Capital of the Midnight Sun’, Hammerfest offers excellent conditions for Aurora viewing during the winter months.',
+      price: "",
+      ratings: 4.8,
+      amenities: "Northern Lights tours, clear skies",
+      sourceLink:
+          'https://www.visitnorway.com/places-to-go/northern-lights/hammerfest/&hl=en',
+      latitude: 70.66257,
+      longitude: 23.68295,
+    ),
+    PlacesModel(
+      id: 8,
+      name: 'Tromsø',
+      address: 'Tromsø, Norway',
+      city: 'Tromsø',
+      country: 'Norway',
+      description:
+          'The ‘Arctic Cathedral’ of Tromsø offers stunning views of the aurora borealis from its observation deck.',
+      price: "",
+      ratings: 4.9,
+      amenities: "Northern Lights tours, cathedral views",
+      sourceLink:
+          'https://www.visitnorway.com/places-to-go/northern-lights/tromso/&hl=en',
+      latitude: 69.649208,
+      longitude: 18.955324,
+    ),
+    PlacesModel(
+      id: 9,
+      name: 'North Cape',
+      address: 'Nordkapp, Norway',
+      city: 'Nordkapp',
+      country: 'Norway',
+      description:
+          'Experience the dramatic landscapes and breathtaking aurora views at the northernmost point of mainland Europe.',
+      price: "",
+      ratings: 4.8,
+      amenities: 'Northern Lights tours, cape views',
+      sourceLink:
+          'https://www.visitnorway.com/places-to-go/northern-lights/north-cape/',
+      latitude: 71.164932,
+      longitude: 25.786972,
+    ),
+    PlacesModel(
+      id: 10,
+      name: 'Røros',
+      address: 'Røros, Norway',
+      city: 'Røros',
+      country: 'Norway',
+      description:
+          'Known for its colorful wooden houses and surrounding mountains, Røros offers stunning aurora views from various viewpoints.',
+      price: '',
+      ratings: 4.9,
+      amenities: 'Northern Lights tours, colorful houses',
+      sourceLink:
+          'https://www.visitnorway.com/places-to-go/northern-lights/roros/&hl=en',
+      latitude: 62.57468,
+      longitude: 11.3842,
+    ),
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  'Dive the Pristine Coral Reefs of the Red Sea, Egypt': [
+    PlacesModel(
+      id: 1,
+      name: "Abu Galum Marine Protected Area",
+      address: "Abu Galum, Red Sea Governorate",
+      city: "Red Sea",
+      country: "Egypt",
+      description:
+          "Home to a breathtaking coral reef ecosystem with over 1,000 fish species and 400 types of coral.",
+      price: "From \$100 per dive",
+      ratings: 4.9,
+      amenities:
+          "Guided dives, snorkeling tours, scuba diving equipment rentals",
+      sourceLink:
+          "https://bluewaterdivetravel.com/red-sea-diving#block-views-5f78b51a76c7427256469f7b5da31600&hl=en",
+      latitude: 24.453518,
+      longitude: 35.199905,
+    ),
+    PlacesModel(
+      id: 2,
+      name: "Sharm El-Sheikh Marine Protected Area",
+      address: "Sharm El-Sheikh, Red Sea Governorate",
+      city: "Red Sea",
+      country: "Egypt",
+      description:
+          "Offers stunning coral formations, diverse marine life including sharks and turtles, and accessible snorkeling spots.",
+      price: "From \$80 per dive",
+      ratings: 4.8,
+      amenities:
+          "Guided dives, snorkeling tours, scuba diving equipment rentals",
+      sourceLink:
+          "https://bluewaterdivetravel.com/red-sea-diving#block-views-b3a4487ab92655875d0aadbec1c3d629&hl=en",
+      latitude: 27.7222,
+      longitude: 34.2539,
+    ),
+    PlacesModel(
+      id: 3,
+      name: "Ras Mohamed Marine Protected Area",
+      address: "Marsa Alam, Red Sea Governorate",
+      city: "Red Sea",
+      country: "Egypt",
+      description:
+          "Known for its pristine coral reefs, diverse fish species, and abundant marine life.",
+      price: "From \$120 per dive",
+      ratings: 4.7,
+      amenities:
+          "Guided dives, snorkeling tours, scuba diving equipment rentals",
+      sourceLink:
+          "https://bluewaterdivetravel.com/red-sea-diving#block-views-1111148785a18e3316a46595618241c2&hl=en",
+      latitude: 27.7222,
+      longitude: 34.2539,
+    ),
+    PlacesModel(
+      id: 4,
+      name: "Elphinstone Island",
+      address: "Marsa Alam, Red Sea Governorate",
+      city: "Red Sea",
+      country: "Egypt",
+      description:
+          "A remote island offering untouched coral reefs, abundant fish life, and opportunities for spotting sharks.",
+      price: "From \$150 per dive",
+      ratings: 4.6,
+      amenities:
+          "Guided dives, snorkeling tours, scuba diving equipment rentals",
+      sourceLink:
+          "https://bluewaterdivetravel.com/red-sea-diving#block-views-5f78b51a76c7427256469f7b5da31600&hl=en",
+      latitude: 25.300,
+      longitude: 34.833,
+    ),
+    PlacesModel(
+      id: 5,
+      name: "Jackson Reef",
+      address: "Sharm El-Sheikh, Red Sea Governorate",
+      city: "Red Sea",
+      country: "Egypt",
+      description:
+          "A pinnacle reef teeming with life, offering diverse marine life and stunning coral formations.",
+      price: "From \$100 per dive",
+      ratings: 4.5,
+      amenities:
+          "Guided dives, snorkeling tours, scuba diving equipment rentals",
+      sourceLink:
+          "https://bluewaterdivetravel.com/red-sea-diving#block-views-b3a4487ab92655875d0aadbec1c3d629&hl=en",
+      latitude: 28.00882,
+      longitude: 34.47316,
+    ),
+    PlacesModel(
+      id: 6,
+      name: "Abu Dabab",
+      address: "Marsa Alam, Red Sea Governorate",
+      city: "Red Sea",
+      country: "Egypt",
+      description:
+          "Known for its underwater caves, diverse fish species, and abundant coral formations.",
+      price: "From \$120 per dive",
+      ratings: 4.4,
+      amenities:
+          "Guided dives, snorkeling tours, scuba diving equipment rentals",
+      sourceLink:
+          "https://bluewaterdivetravel.com/red-sea-diving#block-views-1111148785a18e3316a46595618241c2&hl=en",
+      latitude: 25.34583,
+      longitude: 34.54416,
+    ),
+    PlacesModel(
+      id: 7,
+      name: "Galala Island",
+      address: "Ain Sukhna, Red Sea Governorate",
+      city: "Ain Sukhna",
+      country: "Egypt",
+      description:
+          "Offering pristine coral reefs, diverse fish life, and opportunities for spotting turtles and sharks.",
+      price: "From \$140 per dive",
+      ratings: 4.3,
+      amenities:
+          "Guided dives, snorkeling tours, scuba diving equipment rentals",
+      sourceLink:
+          "https://bluewaterdivetravel.com/red-sea-diving#block-views-5f78b51a76c7427256469f7b5da31600&hl=en",
+      latitude: 29.60018,
+      longitude: 32.31671,
+    ),
+    PlacesModel(
+      id: 8,
+      name: "El Panorama",
+      address: "Sharm El-Sheikh, Red Sea Governorate",
+      city: "Red Sea",
+      country: "Egypt",
+      description:
+          "A shallow reef with vibrant coral formations and abundant fish life.",
+      price: "From \$80 per dive",
+      ratings: 4.2,
+      amenities:
+          "Guided dives, snorkeling tours, scuba diving equipment rentals",
+      sourceLink:
+          "https://bluewaterdivetravel.com/red-sea-diving#block-views-b3a4487ab92655875d0aadbec1c3d629&hl=en",
+      latitude: 26.750,
+      longitude: 34.083,
+    ),
+    PlacesModel(
+      id: 9,
+      name: "Marsa Abu Nuwas",
+      address: "Marsa Alam, Red Sea Governorate",
+      city: "Red Sea",
+      country: "Egypt",
+      description:
+          "Known for its diverse fish life, coral formations, and opportunities for spotting sharks.",
+      price: "From \$100 per dive",
+      ratings: 4.1,
+      amenities:
+          "Guided dives, snorkeling tours, scuba diving equipment rentals",
+      sourceLink:
+          "https://bluewaterdivetravel.com/red-sea-diving#block-views-1111148785a18e3316a46595618241c2&hl=en",
+      latitude: 25.066668,
+      longitude: 34.900002,
+    ),
+    PlacesModel(
+      id: 10,
+      name: "Panorama Reef",
+      address: "Sharm El-Sheikh, Red Sea Governorate",
+      city: "Red Sea",
+      country: "Egypt",
+      description:
+          "A series of underwater rock formations offering diverse fish life and excellent snorkeling opportunities.",
+      price: "Free snorkeling, Paid scuba diving",
+      ratings: 4.0,
+      amenities: "Guided snorkeling tours, scuba diving equipment rentals",
+      sourceLink:
+          "https://bluewaterdivetravel.com/red-sea-diving#block-views-b3a4487ab92655875d0aadbec1c3d629&hl=en",
+      latitude: 26.750,
+      longitude: 34.083,
+    ),
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  'City Tour in Paris, France': [
+    PlacesModel(
+      id: 1,
+      name: "Eiffel Tower",
+      address: "1 Place du Trocadéro, 75011 Paris",
+      city: "Paris",
+      country: "France",
+      description:
+          "Iconic tower offering panoramic city views, a restaurant & climbing experiences.",
+      price: "12 packages starting from €39.00",
+      ratings: 4.8,
+      amenities:
+          "Guided tours, panoramic views, restaurant, climbing experiences",
+      sourceLink: "https://www.pariscitytours.fr/&hl=en",
+      latitude: 48.858093,
+      longitude: 2.294694,
+    ),
+    PlacesModel(
+      id: 2,
+      name: "seine River",
+      address: "Paris, France",
+      city: "Paris",
+      country: "France",
+      description:
+          "Serene river offering boat tours, sightseeing cruises & views of landmarks.",
+      price: "Starting from €15.00",
+      ratings: 4.7,
+      amenities: "Boat tours, sightseeing cruises, river views",
+      sourceLink: "https://www.pariscitytours.fr/&hl=en",
+      latitude: 48.904400,
+      longitude: 2.306400,
+    ),
+    PlacesModel(
+      id: 3,
+      name: 'Louvre Museum',
+      address: "1 Rue de Rivoli, 75001 Paris",
+      city: "Paris",
+      country: "France",
+      description:
+          "Vast art museum housing ancient Egyptian artifacts, Renaissance & Impressionist masterpieces.",
+      price: "Starting from €15.00",
+      ratings: 4.9,
+      amenities: "Art exhibits, guided tours, workshops, cafe",
+      sourceLink: "https://www.pariscitytours.fr/&hl=en",
+      latitude: 48.860294,
+      longitude: 2.338629,
+    ),
+    PlacesModel(
+      id: 4,
+      name: 'Big Bus',
+      address: '103 Rue de Charonne, 75011 Paris',
+      city: 'Paris',
+      country: 'France',
+      description:
+          'Open-top double-decker buses offering city tours with hop-on/hop-off privileges.',
+      price: 'Starting from €25.00',
+      ratings: 4.6,
+      amenities: 'Guided tours, hop-on/hop-off privileges, open-top seating',
+      sourceLink: 'https://www.pariscitytours.fr/&hl=en',
+      latitude: 47.243599,
+      longitude: 0.689200,
+    ),
+    PlacesModel(
+      id: 5,
+      name: 'Cabaret Shows',
+      address: 'Various locations in Paris',
+      city: 'Paris',
+      country: 'France',
+      description:
+          'Exotic and entertaining shows featuring music, dance & acrobatics.',
+      price: 'Starting from €24.00',
+      ratings: 4.5,
+      amenities: 'Live music, dancing, acrobatics, dinner options',
+      sourceLink: 'https://www.pariscitytours.fr/&hl=en',
+      latitude: 48.864716,
+      longitude: 2.349014,
+    ),
+    PlacesModel(
+      id: 6,
+      name: 'Palace of Versailles',
+      address: 'Place d\'Armes, 78070 Versailles',
+      city: 'Versailles',
+      country: 'France',
+      description:
+          'Palace and gardens offering royal history, art exhibits & guided tours.',
+      price: 'From €18',
+      ratings: 4.8,
+      amenities: 'Guided tours, art exhibits, palace & garden access',
+      sourceLink: 'https://www.pariscityvision.com/en/paris/city-tour&hl=en',
+      latitude: 48.804722,
+      longitude: 2.121782,
+    ),
+    PlacesModel(
+      id: 7,
+      name: 'Giverny Tour',
+      address: 'Giverny, France',
+      city: 'Giverny',
+      country: 'France',
+      description:
+          'Manor house and gardens associated with impressionist painter Claude Monet.',
+      price: 'From €64',
+      ratings: 4.9,
+      amenities: 'Guided tours, Monet\'s house & gardens access',
+      sourceLink: 'https://www.pariscityvision.com/en/paris/city-tour&hl=en',
+      latitude: 49.0816,
+      longitude: 1.5335,
+    ),
+    PlacesModel(
+      id: 8,
+      name: 'Louvre Tickets',
+      address: '1 Rue de Rivoli, 75001 Paris',
+      city: 'Paris',
+      country: 'France',
+      description:
+          'Entry to the Louvre Museum to see its vast collection of art.',
+      price: 'From €17',
+      ratings: 4.8,
+      amenities: 'Museum access',
+      sourceLink: 'https://www.pariscityvision.com/en/paris/city-tour&hl=en',
+      latitude: 48.860294,
+      longitude: 2.338629,
+    ),
+    PlacesModel(
+      id: 9,
+      name: 'Seine River Cruise',
+      address: 'Paris, France',
+      city: 'Paris',
+      country: 'France',
+      description: 'Scenic boat trip offering panoramic views of the city.',
+      price: 'From €15',
+      ratings: 4.7,
+      amenities: 'Guided tours, sightseeing cruises, river views',
+      sourceLink: 'https://www.pariscityvision.com/en/paris/city-tour&hl=en',
+      latitude: 48.904400,
+      longitude: 2.306400,
+    ),
+    PlacesModel(
+      id: 10,
+      name: 'Paris Dinner Cruise',
+      address: 'Paris, France',
+      city: 'Paris',
+      country: 'France',
+      description:
+          'Dinner cruise offering panoramic views of the city and live entertainment.',
+      price: 'From €69',
+      ratings: 4.9,
+      amenities: 'Dinner, live entertainment, panoramic views',
+      sourceLink: 'https://www.pariscityvision.com/en/paris/city-tour&hl=en',
+      latitude: 48.864716,
+      longitude: 2.349014,
+    )
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+  'Cycling Tours Worldwide': [
+    PlacesModel(
+      id: 1,
+      name: "Agra to Mumbai",
+      address: "Agra, Uttar Pradesh, India",
+      city: "Agra",
+      country: "India",
+      description:
+          "A cycling tour through diverse landscapes and cultures, from the historic city of Agra to the bustling metropolis of Mumbai.",
+      price: "Starting from \$1500",
+      ratings: 4.8,
+      amenities: "Guided support, accommodation, meals, transfers",
+      sourceLink: "https://tdaglobalcycling.com/hippie-trail&hl=en",
+      latitude: 27.176670,
+      longitude: 78.008072,
+    ),
+    PlacesModel(
+      id: 2,
+      name: "Agra to Kanyakumari",
+      address: "Agra, Uttar Pradesh, India",
+      city: "Agra",
+      country: "India",
+      description:
+          "A challenging cycling journey from Agra to Kanyakumari, encompassing diverse terrains and offering breathtaking views.",
+      price: "Starting from \$2000",
+      ratings: 4.9,
+      amenities: "Guided support, accommodation, meals, transfers",
+      sourceLink: "https://tdaglobalcycling.com/hippie-trail&hl=en",
+      latitude: 27.176670,
+      longitude: 78.008072,
+    ),
+    PlacesModel(
+      id: 3,
+      name: "Mumbai to Goa",
+      address: "Mumbai, Maharashtra, India",
+      city: "Mumbai",
+      country: "India",
+      description:
+          "A scenic cycling trip from Mumbai to Goa, known for its beaches, nightlife, and Portuguese heritage.",
+      price: "Starting from \$1200",
+      ratings: 4.7,
+      amenities: "Guided support, accommodation, meals, transfers",
+      sourceLink: "https://tdaglobalcycling.com/hippie-trail&hl=en",
+      latitude: 19.076090,
+      longitude: 72.877426,
+    ),
+    PlacesModel(
+      id: 4,
+      name: "Delhi to Goa",
+      address: "Delhi, India",
+      city: "Delhi",
+      country: "India",
+      description:
+          "A cultural cycling experience from Delhi to Goa, passing through historical sites and natural landscapes.",
+      price: "Starting from \$1800",
+      ratings: 4.8,
+      amenities: "Guided support, accommodation, meals, transfers",
+      sourceLink: "https://tdaglobalcycling.com/hippie-trail&hl=en",
+      latitude: 28.644800,
+      longitude: 77.216721,
+    ),
+    PlacesModel(
+      id: 5,
+      name: "Delhi to Mumbai",
+      address: "Delhi, India",
+      city: "Delhi",
+      country: "India",
+      description:
+          "A thrilling cycling adventure from Delhi to Mumbai, offering diverse landscapes and urban experiences.",
+      price: "Starting from \$1400",
+      ratings: 4.9,
+      amenities: "Guided support, accommodation, meals, transfers",
+      sourceLink: "https://tdaglobalcycling.com/hippie-trail&hl=en",
+      latitude: 28.644800,
+      longitude: 77.216721,
+    ),
+    PlacesModel(
+      id: 6,
+      name: "Delhi to Kanyakumari",
+      address: "Delhi, India",
+      city: "Delhi",
+      country: "India",
+      description:
+          "A demanding cycling challenge from Delhi to Kanyakumari, known for its vast landscapes and coastal views.",
+      price: "Starting from \$2500",
+      ratings: 4.8,
+      amenities: "Guided support, accommodation, meals, transfers",
+      sourceLink: "https://tdaglobalcycling.com/hippie-trail&hl=en",
+      latitude: 28.644800,
+      longitude: 77.216721,
+    ),
+    PlacesModel(
+      id: 7,
+      name: "Vuelta Sudamericana",
+      address: "South America",
+      city: "Various",
+      country: "South America",
+      description:
+          "A grueling cycling event spanning multiple countries in South America, offering diverse landscapes and cultural experiences.",
+      price: "varies depending on itinerary",
+      ratings: 4.9,
+      amenities: "Guided support, accommodation, meals, transfers",
+      sourceLink: "https://tdaglobalcycling.com/hippie-trail&hl=en",
+      latitude: 4.624335,
+      longitude: -74.063644,
+    ),
+    PlacesModel(
+      id: 8,
+      name: "Amsterdam to Paris",
+      address: "Amsterdam, Netherlands",
+      city: "Amsterdam",
+      country: "Netherlands",
+      description:
+          "A picturesque cycling route through the Netherlands and France, offering charming villages and historical sites.",
+      price: "Starting from \$1000",
+      ratings: 4.8,
+      amenities: "Guided support, accommodation, meals",
+      sourceLink: "https://tdaglobalcycling.com/hippie-trail&hl=en",
+      latitude: 52.377956,
+      longitude: 4.897070,
+    ),
+    PlacesModel(
+      id: 9,
+      name: "London to Rome",
+      address: "London, England",
+      city: "London",
+      country: "England",
+      description:
+          "A challenging cycling journey through England and Italy, encompassing rolling hills and ancient ruins.",
+      price: "Starting from \$1200",
+      ratings: 4.9,
+      amenities: "Guided support, accommodation, meals",
+      sourceLink: "https://tdaglobalcycling.com/hippie-trail&hl=en",
+      latitude: 51.509865,
+      longitude: -0.118092,
+    ),
+    PlacesModel(
+      id: 10,
+      name: "New York to Montreal",
+      address: "New York City, New York",
+      city: "New York City",
+      country: "United States",
+      description:
+          "A scenic cycling trip from New York City to Montreal, offering diverse landscapes and urban experiences.",
+      price: "Starting from \$1500",
+      ratings: 4.8,
+      amenities: "Guided support, accommodation, meals",
+      sourceLink: "https://tdaglobalcycling.com/hippie-trail&hl=en",
+      latitude: 40.730610,
+      longitude: -73.935242,
+    ),
+  ]
 };
+
+/*
+
+*/
 
 //https://www.worldometers.info/img/flags/eg-flag.gif
 const Map<String, String> countryMap = {

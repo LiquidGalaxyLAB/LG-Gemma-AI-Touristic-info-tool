@@ -97,9 +97,13 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
         mapProvider.zoomvalue / rigcount,
         mapProvider.tilt,
         mapProvider.bearing);
-        
-    mapProvider.currentFullAddress= await GeocodingService().getAddressFromLatLng(
-                    mapProvider.center.latitude, mapProvider.center.longitude);
+    if (mapProvider.center.latitude != 0 &&
+        mapProvider.center.longitude != 0 &&
+        mapProvider.isWorld == true) {
+      mapProvider.currentFullAddress = await GeocodingService()
+          .getAddressFromLatLng(
+              mapProvider.center.latitude, mapProvider.center.longitude);
+    }
   }
 
   @override

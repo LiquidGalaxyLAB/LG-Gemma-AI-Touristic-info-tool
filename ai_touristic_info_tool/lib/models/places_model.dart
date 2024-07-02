@@ -10,6 +10,7 @@ class PlacesModel {
   String? price;
   double latitude;
   double longitude;
+  String? sourceLink;
 
   PlacesModel({
     required this.id,
@@ -23,6 +24,7 @@ class PlacesModel {
     this.price,
     required this.latitude,
     required this.longitude,
+    this.sourceLink
   });
 
   // Convert a Place into a JSON Map
@@ -38,6 +40,7 @@ class PlacesModel {
         'price': price,
         'latitude': latitude,
         'longitude': longitude,
+        'sourceLink': sourceLink
       };
 
   // Convert a JSON into a Place Object
@@ -54,6 +57,7 @@ class PlacesModel {
       price: json['price'],
       latitude: json['latitude'],
       longitude: json['longitude'],
+      sourceLink: json['sourceLink']
     );
   }
 }

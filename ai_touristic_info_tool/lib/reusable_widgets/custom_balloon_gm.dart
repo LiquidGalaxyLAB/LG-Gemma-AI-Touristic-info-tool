@@ -153,111 +153,113 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         color: FontAppColors.secondaryFont,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Address: ',
-                                  style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
-                                    fontFamily: fontType,
-                                    fontWeight: FontWeight.bold,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Address: ',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: poi.address,
-                                  style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
-                                    fontFamily: fontType,
-                                    fontWeight: FontWeight.normal,
+                                  TextSpan(
+                                    text: poi.address,
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              textAlign: TextAlign.left,
                             ),
-                            textAlign: TextAlign.left,
-                          ),
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Avg. Ratings: ',
-                                  style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
-                                    fontFamily: fontType,
-                                    fontWeight: FontWeight.bold,
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Avg. Ratings: ',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: '${poi.ratings}',
-                                  style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
-                                    fontFamily: fontType,
-                                    fontWeight: FontWeight.normal,
+                                  TextSpan(
+                                    text: '${poi.ratings}',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              textAlign: TextAlign.left,
                             ),
-                            textAlign: TextAlign.left,
-                          ),
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Pricing: ',
-                                  style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
-                                    fontFamily: fontType,
-                                    fontWeight: FontWeight.bold,
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Pricing: ',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: '${poi.price}',
-                                  style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
-                                    fontFamily: fontType,
-                                    fontWeight: FontWeight.normal,
+                                  TextSpan(
+                                    text: '${poi.price}',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              textAlign: TextAlign.left,
                             ),
-                            textAlign: TextAlign.left,
-                          ),
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Amenities: ',
-                                  style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
-                                    fontFamily: fontType,
-                                    fontWeight: FontWeight.bold,
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Amenities: ',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: '${poi.amenities}',
-                                  style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
-                                    fontFamily: fontType,
-                                    fontWeight: FontWeight.normal,
+                                  TextSpan(
+                                    text: '${poi.amenities}',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              textAlign: TextAlign.left,
                             ),
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

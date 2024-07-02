@@ -569,6 +569,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                           if (value.isNotEmpty) {
                             await buildQueryPlacemark(
                                 query, _city, _country, context);
+
                             showVisualizationDialog(
                                 context, value, query, _city, _country);
                           }

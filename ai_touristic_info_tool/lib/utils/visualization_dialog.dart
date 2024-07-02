@@ -22,9 +22,14 @@ import 'package:provider/provider.dart';
 void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
     String query, String? city, String? country) async {
   print('inside visualizatiion: $city , $country');
+  MyLatLng myLatLng;
   //check if null
-  MyLatLng myLatLng =
-      await GeocodingService().getCoordinates('$city, $country');
+  if (country == '' || country == null) {
+    myLatLng = MyLatLng(places[0].latitude, places[0].longitude);
+  } else {
+    myLatLng = await GeocodingService().getCoordinates('$city, $country');
+  }
+
   double lat = myLatLng.latitude;
   double long = myLatLng.longitude;
   showDialog(
