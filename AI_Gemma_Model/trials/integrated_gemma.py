@@ -35,7 +35,7 @@ embeddings= (OllamaEmbeddings(model='nomic-embed-text',num_ctx=8192, show_progre
 ####################################### User Query  ######################################################
 
 
-user_query="Best Restaurants and Cafes in Italy, Rome"
+user_query="Cycling Tours Worldwide"
 question= f'{user_query}'
 
 ####################################### Web scraping ######################################################
@@ -158,7 +158,7 @@ If any of the information is not available to you, leave empty.
 Do not omit any place from the list for brevity. 
 Your answer MUST include all 10 places.
 Your answer must be in a Well-defined JSON format, with correct curly braces, commas, and quotes. Only user double quotes for strings in your JSON format.
-Each Place should include the following details: name, address, city, country, description, pricing, rating, amenities. 
+Each Place should include the following details: name (string), address (string), city (string), country (string), description (string), pricing (string), rating (float), amenities (string). 
 The response should be in UTF-8 JSON format, all places enclosed in the 'places' field of the JSON to be returned without any extra comments or quote wrappers.
 
 
@@ -213,6 +213,39 @@ print("Time taken: ", end_time-start_time)
 
 vectorstore.delete_collection()
 
+############################################# Langserve ######################################
+
+# # Define the LangServe app
+# app = LangServeApp()
+
+# class TouristGuideHandler(LangServeHandler):
+#     def handle_request(self, request):
+#         user_query = request["query"]
+#         result = rag_chain.invoke({"question": user_query})
+#         return result
+
+# # Add the handler to the app
+# app.add_handler(TouristGuideHandler, "/guide")
+
+# if __name__ == "__main__":
+#     app.run()
+
+
+
+# app = FastAPI(
+#     title="LangChain Server",
+#     version="1.0",
+#     description="A simple api server using Langchain's Runnable interfaces",
+# )
+
+# add_routes(
+#     app,
+#     rag_chain,
+#     path="/ragChain",
+# )
+
+
+# uvicorn.run(app, host="localhost", port=8000)
 
 
 ####################################### Drafts ######################################################
