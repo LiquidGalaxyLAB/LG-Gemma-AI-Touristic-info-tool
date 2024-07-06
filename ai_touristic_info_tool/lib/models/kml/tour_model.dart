@@ -35,7 +35,8 @@ class TourModel {
     return content;
   }
 
-  String flyToOnlyTag(double lat, double long, String mode, double duration) {
+  String flyToOnlyTag(double lat, double long, String mode, double duration,
+      String range, String tilt, String heading, double altitude) {
     String content = '';
     content += '''
  <gx:FlyTo>
@@ -44,14 +45,20 @@ class TourModel {
           <LookAt>
             <longitude>$long</longitude>
             <latitude>$lat</latitude>
-            <altitude>0</altitude>
-            <heading>-173.948935</heading>
-            <tilt>23.063392</tilt>
-            <range>3733.666023</range>
+            <altitude>$altitude</altitude>
+            <heading>$heading</heading>
+            <tilt>$tilt</tilt>
+            <range>$range</range>
             <altitudeMode>relativeToGround</altitudeMode>
           </LookAt>
         </gx:FlyTo>
 ''';
+/*
+          <altitude>0</altitude>
+            <heading>-173.948935</heading>
+            <tilt>23.063392</tilt>
+            <range>37333333.666023</range>
+*/
 
     return content;
   }
@@ -112,14 +119,30 @@ class TourModel {
     for (int i = 0; i < numberOfPlaces; i++) {
       if (i == 0) {
         content += flyToOnlyTag(lookAtCoordinates[i].latitude,
-            lookAtCoordinates[i].longitude, 'bounce', 5);
+            lookAtCoordinates[i].longitude, 'bounce', 5, '500', '60', '0', 0);
+        content += ballonVisibilityOnlyTag(i.toString(), 1);
+        content += waitOnlyTag;
+        content += ballonVisibilityOnlyTag(i.toString(), 0);
+        content += flyToOnlyTag(
+            lookAtCoordinates[i].latitude,
+            lookAtCoordinates[i].longitude,
+            'smooth',
+            3,
+            '10000',
+            '23.063392',
+            '-173.948935',
+            0);
       } else {
         content += flyToOnlyTag(lookAtCoordinates[i].latitude,
-            lookAtCoordinates[i].longitude, 'smooth', 3);
+            lookAtCoordinates[i].longitude, 'smooth', 5, '10000', '60', '0', 0);
+        content += flyToOnlyTag(lookAtCoordinates[i].latitude,
+            lookAtCoordinates[i].longitude, 'smooth', 8, '500', '60', '0', 0);
+        content += ballonVisibilityOnlyTag(i.toString(), 1);
+        content += waitOnlyTag;
+        content += ballonVisibilityOnlyTag(i.toString(), 0);
+        content += flyToOnlyTag(lookAtCoordinates[i].latitude,
+            lookAtCoordinates[i].longitude, 'smooth', 3, '10000', '60', '0', 0);
       }
-      content += ballonVisibilityOnlyTag(i.toString(), 1);
-      content += waitOnlyTag;
-      content += ballonVisibilityOnlyTag(i.toString(), 0);
     }
     content += '''
       </gx:Playlist>

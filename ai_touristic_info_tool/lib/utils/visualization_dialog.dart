@@ -502,6 +502,9 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
               elevatedButtonContent: 'Close',
               buttonColor: PrimaryAppColors.buttonColors,
               onpressed: () async {
+                SSHprovider sshData =
+                    Provider.of<SSHprovider>(context, listen: false);
+                await LgService(sshData).clearKml();
                 await buildAppBalloon(context);
                 Navigator.of(context).pop();
               },

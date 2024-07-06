@@ -32,10 +32,14 @@ buildAppBalloon(BuildContext context, {visibility = true}) async {
               font-family: Montserrat, sans-serif;
             }
             .balloon h1 {
+              font-size: 30px;
+              color: #ffff;
+            }
+             .balloon h2 {
               font-size: 24px;
               color: #ffff;
             }
-            .balloon h2 {
+            .balloon h3 {
               font-size: 20px;
               color: #ffff;
             }
@@ -57,6 +61,7 @@ buildAppBalloon(BuildContext context, {visibility = true}) async {
               padding: 10px;
               border-radius: 10px;
               margin-top: 10px;
+              text-align: left;
             }
            .container-logo {
             width: 100px; 
@@ -87,6 +92,8 @@ buildAppBalloon(BuildContext context, {visibility = true}) async {
               <div style="text-align:center;">
               <h1>Welcome to LG Gemma AI Touristic Info Tool!</h1>
               </div>
+
+              <br>
 
               <div style="text-align:justify;">
                   <pp>Prepare to be inspired by discovering the most captivating POIs tailored to your preference.</pp>
@@ -150,11 +157,25 @@ buildQueryPlacemark(
   String countryCode = countryMap[country] ?? 'None';
   String countryFlagImg;
 
+  // if (countryCode != 'None') {
+  //   String cc = countryCode.toLowerCase();
+  //   countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+  // } else {
+  //   countryFlagImg = '';
+  // }
+  String flagDiv;
   if (countryCode != 'None') {
     String cc = countryCode.toLowerCase();
     countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+
+    flagDiv = '''
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </ d iv>
+''';
   } else {
     countryFlagImg = '';
+    flagDiv = '<br>';
   }
   city ??= '';
   country ??= 'World Wide';
@@ -168,13 +189,18 @@ buildQueryPlacemark(
               font-family: Montserrat, sans-serif;
             }
             .balloon h1 {
+              font-size: 30px;
+              color: #ffff;
+            }
+             .balloon h2 {
               font-size: 24px;
               color: #ffff;
             }
-            .balloon h2 {
+            .balloon h3 {
               font-size: 20px;
               color: #ffff;
             }
+            
             
             .balloon pp{
               font-size: 18px;
@@ -192,6 +218,7 @@ buildQueryPlacemark(
               color: #000;
               padding: 10px;
               border-radius: 10px;
+              text-align: left;
               margin-top: 10px;
             }
            .container-logo {
@@ -214,24 +241,19 @@ buildQueryPlacemark(
           </style>
         
           <div class="balloon">
-              <div class="container-logo">
-                  <div class="logo">
-                    <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
-                  </div>
-              </div>
 
             <div style="text-align:center;">
               <h1>$query</h1>
             </div>
+
+            <br>
 
             <div style="text-align:center;">
               <h2>$city</h2>
               <h2>$country</h2>
             </div>
 
-            <div style="text-align:center;">
-              <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
-            </div>
+            $flagDiv
         </div>
 ''';
 
@@ -281,12 +303,20 @@ buildPlacePlacemark(
 
   String countryCode = countryMap[placeCountry] ?? 'None';
   String countryFlagImg;
+  String flagDiv;
 
   if (countryCode != 'None') {
     String cc = countryCode.toLowerCase();
     countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+
+    flagDiv = '''
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </ d iv>
+''';
   } else {
     countryFlagImg = '';
+    flagDiv = '<br>';
   }
 
   String icon =
@@ -301,13 +331,18 @@ buildPlacePlacemark(
               font-family: Montserrat, sans-serif;
             }
             .balloon h1 {
+              font-size: 30px;
+              color: #ffff;
+            }
+             .balloon h2 {
               font-size: 24px;
               color: #ffff;
             }
-            .balloon h2 {
+            .balloon h3 {
               font-size: 20px;
               color: #ffff;
             }
+            
             
             .balloon pp{
               font-size: 18px;
@@ -325,6 +360,7 @@ buildPlacePlacemark(
               color: #000;
               padding: 10px;
               border-radius: 10px;
+              text-align: left;
               margin-top: 10px;
             }
            .container-logo {
@@ -348,28 +384,22 @@ buildPlacePlacemark(
         
           <div class="balloon">
 
-              <div class="container-logo">
-                <div class="logo">
-                  <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
-                </div>
-              </div>
-
               <div style="text-align:center;">
                 <h1>$query</h1>
               </div>
 
+            <br>
+
               <div style="text-align:center;">
-                <h1> $index. $placeName</h1>
+                <h2> $index. $placeName</h2>
               </div>
 
               <div style="text-align:center;">
-                <h2>$placeCity</h2>
-                <h2>$placeCountry</h2>
+                <h3>$placeCity</h3>
+                <h3>$placeCountry</h3>
               </div>
 
-              <div style="text-align:center;">
-                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
-              </div>
+              $flagDiv
 
               <div style="text-align:justify;">
                 <pp>$placeDescription</pp>
@@ -453,11 +483,25 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
   String countryCode = countryMap[country] ?? 'None';
   String countryFlagImg;
 
+  // if (countryCode != 'None') {
+  //   String cc = countryCode.toLowerCase();
+  //   countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+  // } else {
+  //   countryFlagImg = '';
+  // }
+  String flagDiv;
   if (countryCode != 'None') {
     String cc = countryCode.toLowerCase();
     countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+
+    flagDiv = '''
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </ d iv>
+''';
   } else {
     countryFlagImg = '';
+    flagDiv = '<br>';
   }
   city ??= '';
   country ??= 'World Wide';
@@ -486,13 +530,18 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
               font-family: Montserrat, sans-serif;
             }
             .balloon h1 {
+              font-size: 30px;
+              color: #ffff;
+            }
+             .balloon h2 {
               font-size: 24px;
               color: #ffff;
             }
-            .balloon h2 {
+            .balloon h3 {
               font-size: 20px;
               color: #ffff;
             }
+            
             
             .balloon pp{
               font-size: 18px;
@@ -510,6 +559,7 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
               color: #000;
               padding: 10px;
               border-radius: 10px;
+              text-align: left;
               margin-top: 10px;
             }
            .container-logo {
@@ -533,24 +583,18 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
         
           <div class="balloon">
 
-              <div class="container-logo">
-                <div class="logo">
-                  <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
-                </div>
-              </div>
-
              <div style="text-align:center;">
                 <h1>$query</h1>
               </div>
+
+              <br>
 
               <div style="text-align:center;">
                 <h2>$city</h2>
                 <h2>$country</h2>
               </div>
 
-              <div style="text-align:center;">
-                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
-              </div>
+              $flagDiv
 
               
               <div style="text-align:center;">
@@ -671,11 +715,25 @@ buildQueryTour(
     lookAts.add(lookAt);
     String countryFlagImg;
     String countryCode = countryMap[pois[i].country] ?? 'None';
+    String flagDiv;
+    // if (countryCode != 'None') {
+    //   String cc = countryCode.toLowerCase();
+    //   countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+    // } else {
+    //   countryFlagImg = '';
+    // }
     if (countryCode != 'None') {
       String cc = countryCode.toLowerCase();
       countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+
+      flagDiv = '''
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </ d iv>
+''';
     } else {
       countryFlagImg = '';
+      flagDiv = '<br></br>';
     }
     String balloonContent = '''
  <style>
@@ -687,13 +745,18 @@ buildQueryTour(
               font-family: Montserrat, sans-serif;
             }
             .balloon h1 {
+              font-size: 30px;
+              color: #ffff;
+            }
+             .balloon h2 {
               font-size: 24px;
               color: #ffff;
             }
-            .balloon h2 {
+            .balloon h3 {
               font-size: 20px;
               color: #ffff;
             }
+            
             
             .balloon pp{
               font-size: 18px;
@@ -712,6 +775,7 @@ buildQueryTour(
               padding: 10px;
               border-radius: 10px;
               margin-top: 10px;
+              text-align: left;
             }
            .container-logo {
             width: 100px; 
@@ -734,28 +798,25 @@ buildQueryTour(
         
           <div class="balloon">
 
-              <div class="container-logo">
-                <div class="logo">
-                  <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
-                </div>
-              </div>
 
               <div style="text-align:center;">
                 <h1>$query</h1>
               </div>
 
-              <div style="text-align:center;">
-                <h1> ${i + 1}. ${escapeHtml(pois[i].name)}</h1>
-              </div>
+              <br>
 
               <div style="text-align:center;">
-                <h2>${escapeHtml(pois[i].city ?? '')}</h2>
-                <h2>${escapeHtml(pois[i].country ?? '')}</h2>
+                <h2> ${i + 1}. ${escapeHtml(pois[i].name)}</h2>
               </div>
 
+
               <div style="text-align:center;">
-                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+                <h3>${escapeHtml(pois[i].city ?? '')}</h3>
+                <h3>${escapeHtml(pois[i].country ?? '')}</h3>
               </div>
+      
+
+              $flagDiv
 
               <div style="text-align:justify;">
                 <pp>${escapeHtml(pois[i].description ?? '')}</pp>
