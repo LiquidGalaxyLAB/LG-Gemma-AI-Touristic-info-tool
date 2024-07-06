@@ -35,8 +35,15 @@ class TourModel {
     return content;
   }
 
-  String flyToOnlyTag(double lat, double long, String mode, double duration,
-      String range, String tilt, String heading, double altitude) {
+  String flyToLookAtOnlyTag(
+      double lat,
+      double long,
+      String mode,
+      double duration,
+      String range,
+      String tilt,
+      String heading,
+      double altitude) {
     String content = '';
     content += '''
  <gx:FlyTo>
@@ -59,6 +66,28 @@ class TourModel {
             <tilt>23.063392</tilt>
             <range>37333333.666023</range>
 */
+
+    return content;
+  }
+
+  String flyToCameraOnlyTag(
+    double lat,
+    double long,
+  ) {
+    String content = '';
+    content += '''
+ <gx:FlyTo>
+         <gx:duration>8.0</gx:duration>
+       <Camera>
+          <longitude>$long</longitude>
+          <latitude>$lat</latitude>
+          <altitude>18275</altitude>
+          <heading>-4.921</heading>
+          <tilt>65</tilt>
+          <altitudeMode>absolute</altitudeMode>
+        </Camera>
+</gx:FlyTo>
+''';
 
     return content;
   }
@@ -118,30 +147,102 @@ class TourModel {
 
     for (int i = 0; i < numberOfPlaces; i++) {
       if (i == 0) {
-        content += flyToOnlyTag(lookAtCoordinates[i].latitude,
+        content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
             lookAtCoordinates[i].longitude, 'bounce', 5, '500', '60', '0', 0);
         content += ballonVisibilityOnlyTag(i.toString(), 1);
         content += waitOnlyTag;
         content += ballonVisibilityOnlyTag(i.toString(), 0);
-        content += flyToOnlyTag(
-            lookAtCoordinates[i].latitude,
-            lookAtCoordinates[i].longitude,
-            'smooth',
-            3,
-            '10000',
-            '23.063392',
-            '-173.948935',
-            0);
+        // content += flyToLookAtOnlyTag(
+        //     lookAtCoordinates[i].latitude,
+        //     lookAtCoordinates[i].longitude,
+        //     'smooth',
+        //     3,
+        //     '10000',
+        //     '23.063392',
+        //     '-173.948935',
+        //     0);
       } else {
-        content += flyToOnlyTag(lookAtCoordinates[i].latitude,
-            lookAtCoordinates[i].longitude, 'smooth', 5, '10000', '60', '0', 0);
-        content += flyToOnlyTag(lookAtCoordinates[i].latitude,
-            lookAtCoordinates[i].longitude, 'smooth', 8, '500', '60', '0', 0);
+        // content += flyToLookAtOnlyTag(
+        //     lookAtCoordinates[i].latitude,
+        //     lookAtCoordinates[i].longitude,
+        //     'smooth',
+        //     8,
+        //     '10000',
+        //     '23.063392',
+        //     '-173.948935',
+        //     0);
+        // content += flyToOnlyTag(lookAtCoordinates[i].latitude,
+        //     lookAtCoordinates[i].longitude, 'smooth', 5, '10000', '60', '0', 0);
+        content += flyToCameraOnlyTag(
+            lookAtCoordinates[i].latitude, lookAtCoordinates[i].longitude);
+        content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
+            lookAtCoordinates[i].longitude, 'smooth', 2, '500', '60', '0', 0);
         content += ballonVisibilityOnlyTag(i.toString(), 1);
+        // content += flyToLookAtOnlyTag(
+        //     lookAtCoordinates[i].latitude,
+        //     lookAtCoordinates[i].longitude,
+        //     'smooth',
+        //     3,
+        //     '6811.884',
+        //     '68.065',
+        //     '112.817',
+        //     0);
+        // content += flyToLookAtOnlyTag(
+        //     lookAtCoordinates[i].latitude,
+        //     lookAtCoordinates[i].longitude,
+        //     'smooth',
+        //     3,
+        //     '4202.579',
+        //     '67.946',
+        //     '-48.463',
+        //     0);
         content += waitOnlyTag;
         content += ballonVisibilityOnlyTag(i.toString(), 0);
-        content += flyToOnlyTag(lookAtCoordinates[i].latitude,
-            lookAtCoordinates[i].longitude, 'smooth', 3, '10000', '60', '0', 0);
+        // content += flyToOnlyTag(lookAtCoordinates[i].latitude,
+        //     lookAtCoordinates[i].longitude, 'smooth', 3, '10000', '60', '0', 0);
+
+/*
+
+      <gx:FlyTo>
+        <gx:duration>6.0</gx:duration>
+        <Camera>
+          <longitude>174.063</longitude>
+          <latitude>-39.663</latitude>
+          <altitude>18275</altitude>
+          <heading>-4.921</heading>
+          <tilt>65</tilt>
+          <altitudeMode>absolute</altitudeMode>
+        </Camera>
+      </gx:FlyTo>
+
+      <gx:FlyTo>
+        <gx:duration>3.0</gx:duration>
+        <gx:flyToMode>smooth</gx:flyToMode>
+        <LookAt>
+          <longitude>174.007</longitude>
+          <latitude>-39.279</latitude>
+          <altitude>0</altitude>
+          <heading>112.817</heading>
+          <tilt>68.065</tilt>
+          <range>6811.884</range>
+          <altitudeMode>relativeToGround</altitudeMode>
+        </LookAt>
+      </gx:FlyTo>
+
+      <gx:FlyTo>
+        <gx:duration>3.0</gx:duration>
+        <gx:flyToMode>smooth</gx:flyToMode>
+        <LookAt>
+          <longitude>174.064</longitude>
+          <latitude>-39.321</latitude>
+          <altitude>0</altitude>
+          <heading>-48.463</heading>
+          <tilt>67.946</tilt>
+          <range>4202.579</range>
+          <altitudeMode>relativeToGround</altitudeMode>
+        </LookAt>
+       </gx:FlyTo>
+*/
       }
     }
     content += '''
