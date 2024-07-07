@@ -43,7 +43,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
   String _addressQuery = '';
   String _whatToDoQuery = '';
 
-
+  final _addressFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -165,91 +165,114 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                   color: PrimaryAppColors.buttonColors,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      TextFormFieldWidget(
-                        label: 'Address',
-                        fontSize: textSize,
-                        key: const ValueKey("address"),
-                        textController: _addressController,
-                        isSuffixRequired: false,
-                        isHidden: false,
-                        maxLength: 100,
-                        maxlines: 1,
-                        width: MediaQuery.sizeOf(context).width * 0.85,
-                      ),
-                      TextFormFieldWidget(
-                        label: 'City',
-                        fontSize: textSize,
-                        key: const ValueKey("city"),
-                        textController: _cityController,
-                        isSuffixRequired: true,
-                        isHidden: false,
-                        maxLength: 100,
-                        maxlines: 1,
-                        width: MediaQuery.sizeOf(context).width * 0.85,
-                      ),
-                      DropDownListWidget(
-                        key: const ValueKey("countries"),
-                        fontSize: textSize,
-                        items: countries,
-                        selectedValue: countryIndex != -1
-                            ? countries[countryIndex]
-                            : countries[0],
-                        hinttext: 'Country',
-                        onChanged: (value) {
-                          setState(() {
-                            _countryController.text = value;
-                            _chosenCountry = value;
-                          });
-                        },
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      LgElevatedButton(
-                          elevatedButtonContent: 'Save',
-                          buttonColor: PrimaryAppColors.innerBackground,
-                          fontColor: FontAppColors.primaryFont,
-                          onpressed: () async {
-                            setState(() {
-                              _city = _cityController.text;
-                              _country = _chosenCountry ?? '';
-                              _address = _addressController.text;
-
-                              _addressQuery = '$_address $_city $_country';
-                            });
-
-                            MyLatLng myLatLng = await GeocodingService()
-                                .getCoordinates(_addressQuery);
-                            double lat = myLatLng.latitude;
-                            double long = myLatLng.longitude;
-
-                            GoogleMapProvider gmp =
-                                Provider.of<GoogleMapProvider>(context,
-                                    listen: false);
-
-                            gmp.currentFullAddress = {
-                              'city': _city,
-                              'country': _country,
-                              'address': _address
-                            };
-                            gmp.flyToLocation(LatLng(lat, long));
-                            // gmp.updateCameraPosition(CameraPosition(
-                            //     target: LatLng(lat, long), zoom: 14.4746));
-                            print('Lat: $lat , long: $long');
-                          },
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          width: MediaQuery.of(context).size.width * 0.1,
+                child: Form(
+                  key: _addressFormKey,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        Text('Address Details',
+                            style: TextStyle(
+                                fontSize: textSize + 10,
+                                fontFamily: fontType,
+                                fontWeight: FontWeight.bold,
+                                color: FontAppColors.secondaryFont)),
+                        TextFormFieldWidget(
+                          hint: 'Enter address, or leave empty',
                           fontSize: textSize,
-                          isLoading: false,
-                          isBold: true,
-                          isPrefixIcon: false,
-                          isSuffixIcon: false,
-                          curvatureRadius: 10)
-                    ],
+                          key: const ValueKey("address"),
+                          textController: _addressController,
+                          isSuffixRequired: false,
+                          isHidden: false,
+                          maxLength: 100,
+                          maxlines: 1,
+                          width: MediaQuery.sizeOf(context).width * 0.85,
+                        ),
+                        Text('City',
+                            style: TextStyle(
+                                fontSize: textSize + 10,
+                                fontFamily: fontType,
+                                fontWeight: FontWeight.bold,
+                                color: FontAppColors.secondaryFont)),
+                        TextFormFieldWidget(
+                          hint: 'Enter city',
+                          fontSize: textSize,
+                          key: const ValueKey("city"),
+                          textController: _cityController,
+                          isSuffixRequired: true,
+                          isHidden: false,
+                          maxLength: 100,
+                          maxlines: 1,
+                          width: MediaQuery.sizeOf(context).width * 0.85,
+                        ),
+                        Text('Country',
+                            style: TextStyle(
+                                fontSize: textSize + 10,
+                                fontFamily: fontType,
+                                fontWeight: FontWeight.bold,
+                                color: FontAppColors.secondaryFont)),
+                        DropDownListWidget(
+                          key: const ValueKey("countries"),
+                          fontSize: textSize,
+                          items: countries,
+                          selectedValue: countryIndex != -1
+                              ? countries[countryIndex]
+                              : countries[0],
+                          hinttext: 'Country',
+                          onChanged: (value) {
+                            setState(() {
+                              _countryController.text = value;
+                              _chosenCountry = value;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        LgElevatedButton(
+                            elevatedButtonContent: 'Save',
+                            buttonColor: PrimaryAppColors.innerBackground,
+                            fontColor: FontAppColors.primaryFont,
+                            onpressed: () async {
+                              if (_addressFormKey.currentState!.validate()) {
+                                setState(() {
+                                  _city = _cityController.text;
+                                  _country = _chosenCountry ?? '';
+                                  _address = _addressController.text;
+
+                                  _addressQuery = '$_address $_city $_country';
+                                });
+
+                                MyLatLng myLatLng = await GeocodingService()
+                                    .getCoordinates(_addressQuery);
+                                double lat = myLatLng.latitude;
+                                double long = myLatLng.longitude;
+
+                                GoogleMapProvider gmp =
+                                    Provider.of<GoogleMapProvider>(context,
+                                        listen: false);
+
+                                gmp.currentFullAddress = {
+                                  'city': _city,
+                                  'country': _country,
+                                  'address': _address
+                                };
+                                gmp.flyToLocation(LatLng(lat, long));
+                                // gmp.updateCameraPosition(CameraPosition(
+                                //     target: LatLng(lat, long), zoom: 14.4746));
+                                print('Lat: $lat , long: $long');
+                              }
+                            },
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.1,
+                            fontSize: textSize,
+                            isLoading: false,
+                            isBold: true,
+                            isPrefixIcon: false,
+                            isSuffixIcon: false,
+                            curvatureRadius: 10)
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -297,11 +320,13 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
             child: Consumer<GoogleMapProvider>(
               builder: (BuildContext context, GoogleMapProvider value,
                   Widget? child) {
+                print(useMap);
                 if (useMap) {
                   _address = value.currentFullAddress['address'] ?? '';
                   _city = value.currentFullAddress['city'] ?? '';
                   _country = value.currentFullAddress['country'] ?? '';
                   _addressQuery = '$_address $_city $_country';
+                  print(_addressQuery);
                 }
 
                 return Text(

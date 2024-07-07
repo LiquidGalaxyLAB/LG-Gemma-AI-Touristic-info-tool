@@ -80,7 +80,6 @@ class TextFormFieldWidget extends StatelessWidget {
           labelStyle: TextStyle(
             fontSize: textSize + 2,
             fontFamily: fontType,
-            fontWeight: FontWeight.bold,
             color: FontAppColors.primaryFont,
           ),
           hintText: _hint,

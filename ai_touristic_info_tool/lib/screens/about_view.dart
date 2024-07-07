@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -22,8 +25,8 @@ class AboutScreen extends StatelessWidget {
       child: Column(
         children: [
           TopBarWidget(
-             height: MediaQuery.of(context).size.height * 0.1,
-      width: MediaQuery.of(context).size.width * 1,
+            height: MediaQuery.of(context).size.height * 0.1,
+            width: MediaQuery.of(context).size.width * 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -46,6 +49,55 @@ class AboutScreen extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
           ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Color.fromARGB(79, 229, 79, 62),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Center(
+                  child: RichText(
+                    textAlign: TextAlign.justify,
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Be aware of AI hallucinations !\n\n',
+                          style: TextStyle(
+                              fontSize: headingSize,
+                              color: LgAppColors.lgColor2,
+                              fontFamily: fontType,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text:
+                              'The state of the art of most AI tools as 2024 can give you sometimes incorrect answers, or even the so called Hallucinations:\n\n',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: textSize + 4,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: fontType),
+                        ),
+                        TextSpan(
+                          text:
+                              'AI hallucinations are incorrect or misleading results that AI models generate. These errors can be caused by a variety of factors, including insufficient training data, incorrect assumptions made by the model, or biases in the data used to train the model.\n\nThe Liquid Galaxy project has no control over this, and the contents responsibility is of the owners of the respective Large Language models used',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: textSize,
+                              fontFamily: fontType),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
           const AppDescriptionWidget(),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
@@ -58,8 +110,10 @@ class AboutScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               GestureDetector(
-                onTap: () => _launchUrl(Uri.parse(
-                    'https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool')),
+                onTap: () => launchUrlString(
+                    'https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool'),
+                // _launchUrl(Uri.parse(
+                //     'https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool')),
                 child: Text(
                   'Project Github',
                   style: TextStyle(
@@ -70,8 +124,8 @@ class AboutScreen extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () =>
-                    _launchUrl(Uri.parse('https://www.liquidgalaxy.eu/')),
+                onTap: () => launchUrlString('https://www.liquidgalaxy.eu/'),
+                //  _launchUrl(Uri.parse('https://www.liquidgalaxy.eu/')),
                 child: Text(
                   'Liquid Galaxy Website',
                   style: TextStyle(
@@ -82,8 +136,10 @@ class AboutScreen extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () => _launchUrl(Uri.parse(
-                    'https://www.linkedin.com/in/mahinour-elsarky-122958216/')),
+                onTap: () => launchUrlString(
+                    'https://www.linkedin.com/in/mahinour-elsarky-122958216/'),
+                // _launchUrl(Uri.parse(
+                //     'https://www.linkedin.com/in/mahinour-elsarky-122958216/')),
                 child: Text(
                   'My LinkedIn',
                   style: TextStyle(

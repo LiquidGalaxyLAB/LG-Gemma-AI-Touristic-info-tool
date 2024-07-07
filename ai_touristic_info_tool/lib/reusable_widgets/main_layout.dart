@@ -1,4 +1,6 @@
 import 'package:ai_touristic_info_tool/reusable_widgets/current_view.dart';
+import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
+import 'package:ai_touristic_info_tool/utils/show_ai_alert.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -7,10 +9,23 @@ import 'app_bar_widget.dart';
 import 'drawer.dart';
 import 'gradient_background.dart';
 
-class MainLayout extends StatelessWidget {
+class MainLayout extends StatefulWidget {
   const MainLayout({
     super.key,
   });
+
+  @override
+  State<MainLayout> createState() => _MainLayoutState();
+}
+
+class _MainLayoutState extends State<MainLayout> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      showAIAlert(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -99,7 +99,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
         mapProvider.bearing);
     if (mapProvider.center.latitude != 0 &&
         mapProvider.center.longitude != 0 &&
-        mapProvider.isWorld == true) {
+        mapProvider.isWorld == false) {
       mapProvider.currentFullAddress = await GeocodingService()
           .getAddressFromLatLng(
               mapProvider.center.latitude, mapProvider.center.longitude);
