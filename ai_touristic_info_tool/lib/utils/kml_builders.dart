@@ -13,7 +13,8 @@ import 'package:provider/provider.dart';
 
 String escapeHtml(String input) {
   return input
-      .replaceAll('&', '&amp;')
+      // .replaceAll('&', '&amp;')
+      .replaceAll('&', 'and')
       .replaceAll('<', '&lt;')
       .replaceAll('>', '&gt;')
       .replaceAll('"', '&quot;')
@@ -171,7 +172,7 @@ buildQueryPlacemark(
     flagDiv = '''
               <div style="text-align:center;">
                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
-              </ d iv>
+              </div>
 ''';
   } else {
     countryFlagImg = '';
@@ -284,19 +285,19 @@ buildQueryPlacemark(
 
 buildPlacePlacemark(
     PlacesModel place, int index, String query, BuildContext context,
-    {visibility = true, viewOrbit = true}) async {
+    {visibility = true, viewOrbit = true, double duration=1.2}) async {
   print('inside placemark');
   final sshData = Provider.of<SSHprovider>(context, listen: false);
 
   String content = '';
 
   String placeName = escapeHtml(place.name);
-  String placeDescription = place.description ?? '';
-  String placeAddress = place.address;
-  String placeCity = place.city ?? '';
-  String placeCountry = place.country ?? '';
-  String placeAmenities = place.amenities ?? '';
-  String placePrices = place.price ?? '\$\$';
+  String placeDescription = escapeHtml(place.description ?? '');
+  String placeAddress = escapeHtml(place.address);
+  String placeCity = escapeHtml(place.city ?? '');
+  String placeCountry = escapeHtml(place.country ?? '');
+  String placeAmenities = escapeHtml(place.amenities ?? '');
+  String placePrices = escapeHtml(place.price ?? '\$\$');
   double placesRating = place.ratings ?? 0;
   double placeLatitude = place.latitude;
   double placeLongitude = place.longitude;
@@ -312,7 +313,7 @@ buildPlacePlacemark(
     flagDiv = '''
               <div style="text-align:center;">
                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
-              </ d iv>
+              </div>
 ''';
   } else {
     countryFlagImg = '';
@@ -435,9 +436,9 @@ buildPlacePlacemark(
     heading: '0',
     altitudeMode: 'relativeToGround',
   );
-  String orbitContent = OrbitModel.tag(lookAtObjOrbit);
+  String orbitContent = OrbitModel.tag(lookAtObjOrbit,duration: duration);
   PlacemarkModel placemark = PlacemarkModel(
-      id: placeName,
+      id: place.id.toString(),
       name: placeName,
       styleId: 'placemark-style',
       description: placeDescription,
@@ -451,6 +452,8 @@ buildPlacePlacemark(
       orbitContent: orbitContent);
 
   content += placemark.tag;
+  print('Content: $content');
+  print('Lat: $placeLatitude ,long: $placeLongitude ');
 
   final kmlBalloon = KMLModel(
     name: '$placeName-balloon',
@@ -701,7 +704,7 @@ buildQueryTour(
   List<String> poisNames = [];
 
   for (int i = 0; i < pois.length; i++) {
-    String placeName = pois[i].name;
+    String placeName = escapeHtml(pois[i].name);
     poisNames.add(placeName);
     LookAtModel lookAt = LookAtModel(
       longitude: pois[i].longitude,

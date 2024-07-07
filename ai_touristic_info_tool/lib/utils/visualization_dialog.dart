@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_map_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/poi_expansion_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
@@ -78,7 +81,7 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   LgElevatedButton(
-                    elevatedButtonContent: 'Show\nPOIs',
+                    elevatedButtonContent: 'Show POIs',
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () async {
                       final mapProvider = Provider.of<GoogleMapProvider>(
@@ -114,7 +117,7 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                       }
                     },
                     height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.width * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.165,
                     fontSize: textSize,
                     fontColor: FontAppColors.primaryFont,
                     isLoading: false,
@@ -129,10 +132,10 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                     curvatureRadius: 10,
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.02,
+                    width: MediaQuery.of(context).size.width * 0.01,
                   ),
                   LgElevatedButton(
-                    elevatedButtonContent: 'Prepare\nTour',
+                    elevatedButtonContent: 'Prepare Tour',
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () async {
                       final sshData =
@@ -146,19 +149,19 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                       if (sshData.client != null && connection.isLgConnected) {
                         await buildQueryTour(context, query, places);
                         print('tour');
+                        // }
+                      } else {
+                        dialogBuilder(
+                            context,
+                            'NOT connected to LG !! \n Please Connect to LG',
+                            true,
+                            'OK',
+                            null,
+                            null);
                       }
-                      // } else {
-                      //   dialogBuilder(
-                      //       context,
-                      //       'NOT connected to LG !! \n Please Connect to LG',
-                      //       true,
-                      //       'OK',
-                      //       null,
-                      //       null);
-                      // }
                     },
                     height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.width * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.165,
                     fontSize: textSize,
                     fontColor: FontAppColors.primaryFont,
                     isLoading: false,
@@ -173,10 +176,10 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                     curvatureRadius: 10,
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.02,
+                    width: MediaQuery.of(context).size.width * 0.01,
                   ),
                   LgElevatedButton(
-                    elevatedButtonContent: 'Play\nTour',
+                    elevatedButtonContent: 'Play Tour',
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () async {
                       final sshData =
@@ -189,10 +192,18 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                       ///checking the connection status first
                       if (sshData.client != null && connection.isLgConnected) {
                         await LgService(sshData).startTour('App Tour');
+                      } else {
+                        dialogBuilder(
+                            context,
+                            'NOT connected to LG !! \n Please Connect to LG',
+                            true,
+                            'OK',
+                            null,
+                            null);
                       }
                     },
                     height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.width * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.165,
                     fontSize: textSize,
                     fontColor: FontAppColors.primaryFont,
                     isLoading: false,
@@ -207,10 +218,10 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                     curvatureRadius: 10,
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.02,
+                    width: MediaQuery.of(context).size.width * 0.01,
                   ),
                   LgElevatedButton(
-                    elevatedButtonContent: 'Stop\nTour',
+                    elevatedButtonContent: 'Stop Tour',
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () async {
                       final sshData =
@@ -223,10 +234,18 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                       ///checking the connection status first
                       if (sshData.client != null && connection.isLgConnected) {
                         await LgService(sshData).stopTour();
+                      } else {
+                        dialogBuilder(
+                            context,
+                            'NOT connected to LG !! \n Please Connect to LG',
+                            true,
+                            'OK',
+                            null,
+                            null);
                       }
                     },
                     height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.width * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.165,
                     fontSize: textSize,
                     fontColor: FontAppColors.primaryFont,
                     isLoading: false,
@@ -241,14 +260,14 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                     curvatureRadius: 10,
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.02,
+                    width: MediaQuery.of(context).size.width * 0.01,
                   ),
                   LgElevatedButton(
-                    elevatedButtonContent: 'Save\nFavorite',
+                    elevatedButtonContent: 'Add Favorite',
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () {},
                     height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.width * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.165,
                     fontSize: textSize,
                     fontColor: FontAppColors.primaryFont,
                     isLoading: false,
@@ -311,65 +330,6 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                           fontWeight: FontWeight.bold,
                           fontFamily: fontType),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            final sshData = Provider.of<SSHprovider>(context,
-                                listen: false);
-
-                            Connectionprovider connection =
-                                Provider.of<Connectionprovider>(context,
-                                    listen: false);
-
-                            ///checking the connection status first
-                            if (sshData.client != null &&
-                                connection.isLgConnected) {
-                              await LgService(sshData).startTour('Orbit');
-                            }
-                          },
-                          child: const Icon(Icons.loop_outlined,
-                              color: FontAppColors.primaryFont,
-                              size: textSize + 20),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            final sshData = Provider.of<SSHprovider>(context,
-                                listen: false);
-
-                            Connectionprovider connection =
-                                Provider.of<Connectionprovider>(context,
-                                    listen: false);
-
-                            ///checking the connection status first
-                            if (sshData.client != null &&
-                                connection.isLgConnected) {
-                              await LgService(sshData).stopTour();
-                            }
-                            // } else {
-                            //   dialogBuilder(
-                            //       context,
-                            //       'NOT connected to LG !! \n Please Connect to LG',
-                            //       true,
-                            //       'OK',
-                            //       null,
-                            //       null);
-                            // }
-                          },
-                          child: const Icon(Icons.stop_outlined,
-                              color: FontAppColors.primaryFont,
-                              size: textSize + 20),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
                     const Divider(
                       color: FontAppColors.primaryFont,
                       thickness: 0.5,
@@ -383,112 +343,19 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              GestureDetector(
-                                onTap: () async {
-                                  LatLng newLocation = LatLng(
-                                      placeModel.latitude,
-                                      placeModel.longitude);
-                                  final mapProvider =
-                                      Provider.of<GoogleMapProvider>(context,
-                                          listen: false);
-                                  mapProvider.setBitmapDescriptor();
-                                  mapProvider.addMarker(context, placeModel,
-                                      removeAll: true);
-                                  mapProvider.updateZoom(18.4746);
-                                  mapProvider.updateBearing(90);
-                                  mapProvider.updateTilt(45);
-                                  mapProvider.flyToLocation(newLocation);
-
-                                  mapProvider.currentlySelectedPin = placeModel;
-                                  mapProvider.pinPillPosition = 10;
-
-                                  await Future.delayed(
-                                      const Duration(seconds: 3));
-
-                                  final sshData = Provider.of<SSHprovider>(
-                                      context,
-                                      listen: false);
-
-                                  Connectionprovider connection =
-                                      Provider.of<Connectionprovider>(context,
-                                          listen: false);
-
-                                  ///checking the connection status first
-                                  if (sshData.client != null &&
-                                      connection.isLgConnected) {
-                                    await buildPlacePlacemark(
-                                        placeModel, index + 1, query, context);
-                                  }
-                                  // } else {
-                                  //   dialogBuilder(
-                                  //       context,
-                                  //       'NOT connected to LG !! \n Please Connect to LG',
-                                  //       true,
-                                  //       'OK',
-                                  //       null,
-                                  //       null);
-                                  // }
-                                },
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    // Consider setting mainAxisSize to MainAxisSize.min and using FlexFit.loose fits for the flexible children
-                                    Flexible(
-                                      fit: FlexFit.loose,
-                                      child: SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
-                                        child: Text(
-                                          placeModel.name,
-                                          softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize,
-                                            fontFamily: fontType,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    const Icon(
-                                        Icons.airplanemode_active_outlined,
-                                        color: FontAppColors.primaryFont,
-                                        size: textSize + 10),
-                                  ],
-                                ),
+                              PoiExpansionWidget(
+                                placeModel: placeModel,
+                                index: index,
+                                query: query,
                               ),
-                              const Divider(
+                              Divider(
                                 color: FontAppColors.primaryFont,
                                 thickness: 0.5,
-                              ),
+                              )
                             ],
                           );
                         },
                       ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    Center(
-                      child: Text(
-                          'You can fly to any POI while the tour is nnot running',
-                          style: TextStyle(
-                              color: LgAppColors.lgColor3,
-                              fontSize: textSize - 4,
-                              fontStyle: FontStyle.italic,
-                              fontFamily: fontType)),
                     ),
                   ],
                 ),
@@ -518,12 +385,6 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
               isSuffixIcon: false,
               curvatureRadius: 30,
             ),
-            // Text('Close',
-            //     style: TextStyle(
-            //         color: FontAppColors.primaryFont,
-            //         fontSize: textSize,
-            //         fontWeight: FontWeight.bold,
-            //         fontFamily: fontType)),
             onPressed: () {
               Navigator.of(context).pop();
             },

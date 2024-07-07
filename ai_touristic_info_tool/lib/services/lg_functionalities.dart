@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
+
 import '../models/kml/KMLModel.dart';
 import '../models/kml/look_at_model.dart';
 import '../models/kml/screen_overlay_model.dart';
@@ -350,6 +354,7 @@ fi
     final fileName = '$placemarkName.kml';
     try {
       final kmlFile = await _fileService.createFile(fileName, kml);
+    
 
       await _sshData.uploadKml(kmlFile, fileName);
 

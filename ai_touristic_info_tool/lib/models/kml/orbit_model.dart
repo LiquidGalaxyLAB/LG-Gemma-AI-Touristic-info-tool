@@ -1,14 +1,11 @@
-
-
 import 'look_at_model.dart';
 
 /// Class that defines the `orbit` entity, which contains its properties and
 /// methods.
 class OrbitModel {
   /// Generates the `orbit` tag based on the given [lookAt].
-  static String tag(LookAtModel lookAt) {
+  static String tag(LookAtModel lookAt, {double duration = 1.2}) {
     String content = '';
-
 
     double heading = double.parse(lookAt.heading);
     int orbit = 0;
@@ -20,7 +17,7 @@ class OrbitModel {
 
       content += '''
             <gx:FlyTo>
-              <gx:duration>1.2</gx:duration>
+              <gx:duration>$duration</gx:duration>
               <gx:flyToMode>smooth</gx:flyToMode>
               <LookAt>
                   <longitude>${lookAt.longitude}</longitude>

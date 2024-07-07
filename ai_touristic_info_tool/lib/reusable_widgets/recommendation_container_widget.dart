@@ -42,6 +42,9 @@ class RecommendationContainer extends StatelessWidget {
           if (value.isNotEmpty) {
             await buildQueryPlacemark(title, city, country, context);
             showVisualizationDialog(context, value, title, city, country);
+          }else{
+            //call gemma api
+            
           }
         });
       },
