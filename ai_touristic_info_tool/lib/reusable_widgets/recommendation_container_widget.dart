@@ -1,4 +1,5 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
@@ -42,9 +43,16 @@ class RecommendationContainer extends StatelessWidget {
           if (value.isNotEmpty) {
             await buildQueryPlacemark(title, city, country, context);
             showVisualizationDialog(context, value, title, city, country);
-          }else{
+          } else {
             //call gemma api
-            
+            _showStreamingDialog(context, query);
+            // await Api().postGemma(
+            //     endpoint: 'rag/stream_events', input: 'Landmarks in Edinburgh Scotland');
+            // .then((value) async {
+            // print('value: $value');
+            // await buildQueryPlacemark(title, city, country, context);
+            // showVisualizationDialog(context, value, title, city, country);
+            //});
           }
         });
       },
@@ -111,6 +119,70 @@ class RecommendationContainer extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showStreamingDialog(BuildContext context, String query) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return StreamDialog(query: query);
+      },
+    );
+  }
+}
+
+class StreamDialog extends StatefulWidget {
+  final String query;
+
+  const StreamDialog({Key? key, required this.query}) : super(key: key);
+
+  @override
+  _StreamDialogState createState() => _StreamDialogState();
+}
+
+class _StreamDialogState extends State<StreamDialog> {
+  // String _output = '';
+  Map<String, dynamic> _output = {};
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _startStreaming();
+  }
+
+  void _startStreaming() async {
+    await Api()
+        .postGemma(
+      endpoint: 'rag/stream_events',
+      input: widget.query,
+    )
+        .then((value) {
+      setState(() {
+        _output = value;
+        _isLoading = false;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Streaming Response'),
+      content: SingleChildScrollView(
+        child:
+            _isLoading ? CircularProgressIndicator() : Text('done: $_output'),
+      ),
+      actions: [
+        TextButton(
+          child: Text('Close'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 }

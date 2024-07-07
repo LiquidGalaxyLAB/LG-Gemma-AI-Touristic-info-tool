@@ -57,20 +57,16 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       TopBarWidget(
         height: MediaQuery.of(context).size.height * 0.1,
         width: MediaQuery.of(context).size.width * 1,
-        child: Row(
-          children: [
-            Center(
-              child: Text(
-                'Welcome to your Home page!',
-                style: TextStyle(
-                  fontFamily: fontType,
-                  fontSize: headingSize,
-                  color: FontAppColors.secondaryFont,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+        child: Center(
+          child: Text(
+            'Welcome to your Home page!',
+            style: TextStyle(
+              fontFamily: fontType,
+              fontSize: headingSize,
+              color: FontAppColors.secondaryFont,
+              fontWeight: FontWeight.bold,
             ),
-          ],
+          ),
         ),
       ),
       SizedBox(
