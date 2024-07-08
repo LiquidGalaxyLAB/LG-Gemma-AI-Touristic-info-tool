@@ -164,8 +164,10 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                          width: MediaQuery.of(context).size.width * 0.18,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          // height: MediaQuery.of(context).size.height * 0.05,
+                          //width: MediaQuery.of(context).size.width * 0.18,
+                          width: MediaQuery.of(context).size.width * 0.1,
                           decoration: BoxDecoration(
                             color: FontAppColors.secondaryFont,
                             borderRadius: BorderRadius.circular(10),
@@ -177,20 +179,20 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text('x/2',
-                                          style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 2,
-                                            fontFamily: fontType,
-                                          )),
-                                      const Icon(
-                                          Icons.keyboard_double_arrow_left,
-                                          color: FontAppColors.primaryFont,
-                                          size: textSize + 10),
-                                    ],
-                                  ),
+                                  // Row(
+                                  //   children: [
+                                  //     Text('x/2',
+                                  //         style: TextStyle(
+                                  //           color: FontAppColors.primaryFont,
+                                  //           fontSize: textSize - 2,
+                                  //           fontFamily: fontType,
+                                  //         )),
+                                  //     const Icon(
+                                  //         Icons.keyboard_double_arrow_left,
+                                  //         color: FontAppColors.primaryFont,
+                                  //         size: textSize + 10),
+                                  //   ],
+                                  // ),
                                   GestureDetector(
                                       onTap: () async {
                                         final sshData =
@@ -205,15 +207,15 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                         ///checking the connection status first
                                         if (sshData.client != null &&
                                             connection.isLgConnected) {
-                                          setState(() {
-                                            play = !play;
-                                          });
                                           if (play) {
                                             await LgService(sshData)
                                                 .startTour('Orbit');
                                           } else {
                                             await LgService(sshData).stopTour();
                                           }
+                                          setState(() {
+                                            play = !play;
+                                          });
                                         } else {
                                           dialogBuilder(
                                               context,
@@ -234,34 +236,42 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                               Icons.stop_circle_outlined,
                                               color: FontAppColors.primaryFont,
                                               size: textSize + 10)),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                          Icons.keyboard_double_arrow_right,
-                                          color: FontAppColors.primaryFont,
-                                          size: textSize + 10),
-                                      Text('x2',
-                                          style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 2,
-                                            fontFamily: fontType,
-                                          )),
-                                    ],
-                                  ),
+                                  // Row(
+                                  //   children: [
+                                  //     const Icon(
+                                  //         Icons.keyboard_double_arrow_right,
+                                  //         color: FontAppColors.primaryFont,
+                                  //         size: textSize + 10),
+                                  //     Text('x2',
+                                  //         style: TextStyle(
+                                  //           color: FontAppColors.primaryFont,
+                                  //           fontSize: textSize - 2,
+                                  //           fontFamily: fontType,
+                                  //         )),
+                                  //   ],
+                                  // ),
                                 ],
                               ),
-                              Slider(
-                                value: _currentProgress,
-                                max: _totalDuration,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _currentProgress = value;
-                                  });
-                                },
-                                activeColor: FontAppColors.primaryFont,
-                                inactiveColor:
-                                    FontAppColors.primaryFont.withOpacity(0.5),
-                              ),
+                              Text(
+                                'Orbit',
+                                style: TextStyle(
+                                  color: FontAppColors.primaryFont,
+                                  fontSize: textSize - 2,
+                                  fontFamily: fontType,
+                                ),
+                              )
+                              // Slider(
+                              //   value: _currentProgress,
+                              //   max: _totalDuration,
+                              //   onChanged: (value) {
+                              //     setState(() {
+                              //       _currentProgress = value;
+                              //     });
+                              //   },
+                              //   activeColor: FontAppColors.primaryFont,
+                              //   inactiveColor:
+                              //       FontAppColors.primaryFont.withOpacity(0.5),
+                              // ),
                             ],
                           ),
                         ),

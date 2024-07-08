@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
+import 'package:ai_touristic_info_tool/models/places_model.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
@@ -44,15 +48,7 @@ class RecommendationContainer extends StatelessWidget {
             await buildQueryPlacemark(title, city, country, context);
             showVisualizationDialog(context, value, title, city, country);
           } else {
-            //call gemma api
             _showStreamingDialog(context, query);
-            // await Api().postGemma(
-            //     endpoint: 'rag/stream_events', input: 'Landmarks in Edinburgh Scotland');
-            // .then((value) async {
-            // print('value: $value');
-            // await buildQueryPlacemark(title, city, country, context);
-            // showVisualizationDialog(context, value, title, city, country);
-            //});
           }
         });
       },
@@ -125,64 +121,298 @@ class RecommendationContainer extends StatelessWidget {
   void _showStreamingDialog(BuildContext context, String query) {
     showDialog(
       context: context,
-      barrierDismissible: false,
       builder: (BuildContext context) {
-        return StreamDialog(query: query);
+        return AlertDialog(
+            backgroundColor: FontAppColors.secondaryFont,
+            shadowColor: FontAppColors.secondaryFont,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            // insetPadding: EdgeInsets.zero,
+            iconPadding: EdgeInsets.zero,
+            titlePadding: const EdgeInsets.only(bottom: 20),
+            contentPadding: EdgeInsets.zero,
+            actionsPadding: const EdgeInsets.only(bottom: 10),
+            surfaceTintColor: FontAppColors.secondaryFont,
+            title: Center(
+              child: Text('Processing ...',
+                  style: TextStyle(
+                    color: FontAppColors.primaryFont,
+                    fontSize: headingSize,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: fontType,
+                  )),
+            ),
+            content: ProcessContainerWidget(
+              query: query,
+            ));
       },
     );
   }
 }
 
-class StreamDialog extends StatefulWidget {
+class ProcessContainerWidget extends StatefulWidget {
   final String query;
-
-  const StreamDialog({Key? key, required this.query}) : super(key: key);
+  final String city;
+  final String country;
+  const ProcessContainerWidget(
+      {super.key, required this.query, this.city = '', this.country = ''});
 
   @override
-  _StreamDialogState createState() => _StreamDialogState();
+  State<ProcessContainerWidget> createState() => _ProcessContainerWidgetState();
 }
 
-class _StreamDialogState extends State<StreamDialog> {
-  // String _output = '';
-  Map<String, dynamic> _output = {};
-  bool _isLoading = true;
+class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
+  late StreamController<dynamic> _messageController;
+  late StreamController<dynamic> _chunkController;
+  final List<String> _words = [];
+  final List<PlacesModel> _pois = [];
+  int _currProgress = 0;
+  bool _isFinished = false;
 
   @override
   void initState() {
     super.initState();
-    _startStreaming();
-  }
+    _messageController = StreamController();
+    _chunkController = StreamController();
 
-  void _startStreaming() async {
-    await Api()
-        .postGemma(
-      endpoint: 'rag/stream_events',
-      input: widget.query,
-    )
-        .then((value) {
+    Api().postaStreamEventsGemma(input: widget.query).listen((event) {
       setState(() {
-        _output = value;
-        _isLoading = false;
+        if (event['type'] == 'chunk') {
+          _chunkController.sink.add(event['data']);
+        } else if (event['type'] == 'message') {
+          _currProgress++;
+          _messageController.sink.add(event['data']);
+        } else if (event['type'] == 'result') {
+          _isFinished = true;
+          _pois.addAll(event['data']);
+        }
       });
     });
   }
 
+  // Api().postaStreamEventsGemma(input: query).listen((event) {
+  //   if (event['type'] == 'chunk') {
+  //     _chunkController.sink.add(event['data']);
+  //   } else if (event['type'] == 'message') {
+  //     _currProgress++;
+  //     _messageController.sink.add(event['data']);
+  //   } else if (event['type'] == 'result') {
+  //     _isFinished = true;
+  //     _pois.addAll(event['data']);
+  //   }
+  // });
+
+  @override
+  void dispose() {
+    _messageController.close();
+    _chunkController.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('Streaming Response'),
-      content: SingleChildScrollView(
-        child:
-            _isLoading ? CircularProgressIndicator() : Text('done: $_output'),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 1,
+      height: MediaQuery.of(context).size.height * 0.8,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+                top: 10.0, left: 30, right: 30, bottom: 10),
+            child: Center(
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: StreamBuilder<dynamic>(
+                  stream: _messageController.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text(
+                        'Please wait... ',
+                        style: TextStyle(
+                          color: FontAppColors.primaryFont,
+                          fontSize: textSize,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: fontType,
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text(
+                        'Error: ${snapshot.error}',
+                        style: TextStyle(
+                          color: FontAppColors.primaryFont,
+                          fontSize: textSize,
+                          fontFamily: fontType,
+                        ),
+                      );
+                    } else if (snapshot.hasData) {
+                      return Text(
+                        snapshot.data.toString(),
+                        style: TextStyle(
+                          color: FontAppColors.primaryFont,
+                          fontSize: textSize,
+                          fontFamily: fontType,
+                        ),
+                      );
+                    } else {
+                      return Text(
+                        'No data available',
+                        style: TextStyle(
+                          color: FontAppColors.primaryFont,
+                          fontSize: textSize,
+                          fontFamily: fontType,
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.05,
+              width: MediaQuery.of(context).size.width * 0.8,
+              decoration: BoxDecoration(
+                border: Border.all(color: PrimaryAppColors.gradient1, width: 2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: LinearProgressIndicator(
+                value: _currProgress / 7,
+                backgroundColor: FontAppColors.secondaryFont.withOpacity(0.5),
+                valueColor:
+                    AlwaysStoppedAnimation<Color>(PrimaryAppColors.accentColor),
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: PrimaryAppColors.gradient1, width: 4),
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color.fromARGB(111, 184, 184, 187),
+                      ),
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: StreamBuilder<dynamic>(
+                              stream: _chunkController.stream,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  //return CircularProgressIndicator();
+                                  return Text(
+                                    'Waiting for stream. Please wait... ',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: fontType,
+                                    ),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text(
+                                    'Error: ${snapshot.error}',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                    ),
+                                  );
+                                } else if (snapshot.hasData) {
+                                  _words.add(snapshot.data!.toString());
+                                  return Text(
+                                    _words.join(' '),
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                    ),
+                                  );
+                                } else {
+                                  return Text(
+                                    'No data available',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Text(
+                        textAlign: TextAlign.justify,
+                        'Please Note that the model takes on Average 10 minutes to answer.\n\nThank you for your patience!',
+                        style: TextStyle(
+                          color: LgAppColors.lgColor2,
+                          fontSize: textSize + 2,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: fontType,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/images/wait.gif', // Replace with your actual asset path
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    // You can also adjust other properties like width, height, etc.
+                  ),
+                  if (_isFinished)
+                    LgElevatedButton(
+                        elevatedButtonContent: 'Visualize now!',
+                        buttonColor: PrimaryAppColors.buttonColors,
+                        onpressed: () async {
+                          Navigator.pop(context);
+                          //need to check on city or country non-existing
+                          // await buildQueryPlacemark(
+                          //     title, city, country, context);
+                          showVisualizationDialog(context, _pois, widget.query,
+                              widget.city, widget.country);
+                        },
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        fontSize: textSize,
+                        fontColor: FontAppColors.secondaryFont,
+                        isLoading: false,
+                        isBold: true,
+                        isPrefixIcon: false,
+                        isSuffixIcon: false,
+                        curvatureRadius: 30),
+                ],
+              )
+            ],
+          ),
+        ],
       ),
-      actions: [
-        TextButton(
-          child: Text('Close'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
     );
   }
 }
