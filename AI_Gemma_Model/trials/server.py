@@ -23,7 +23,7 @@ parser = PydanticOutputParser(pydantic_object=Places)
 
 
 # Initialize embeddings and LLM
-llm = Ollama(model="gemma:7b", num_ctx=8192)
+llm = Ollama(model="gemma2:9b", num_ctx=8192)
 embeddings = OllamaEmbeddings(model='nomic-embed-text', num_ctx=8192, show_progress=True)
 
 # Web scraping function
@@ -73,7 +73,7 @@ app = FastAPI(
 
     
 # Define the LangServe handler
-def handle_request(user_query:str):
+async def handle_request(user_query:str):
         
         general_fetched_urls = scrape_urls(user_query)
 
@@ -134,13 +134,17 @@ def handle_request(user_query:str):
             {"context": retriever, "question": RunnablePassthrough()}
             | prompt
             | llm
+            | parser
         )
+        
 
-        result = rag_chain.invoke({"question": user_query})
-        parsed_result = parser.parse(result)
+        #result = rag_chain.invoke({"question": user_query})
+        result = await rag_chain.astream({"question": user_query})
+        # parsed_result = parser.parse(result)
 
         vectorstore.delete_collection()
-        return parsed_result
+       # return parsed_result
+        yield result
 
 
 # @app.post("/rag/invoke")
@@ -151,7 +155,6 @@ def handle_request(user_query:str):
 #     except Exception as e:
 #         raise HTTPException(status_code=400, detail=str(e))
     
-
 
 chain = RunnableLambda(handle_request)
 

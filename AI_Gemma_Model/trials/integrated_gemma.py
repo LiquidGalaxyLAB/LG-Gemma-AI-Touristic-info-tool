@@ -28,7 +28,7 @@ start_time = time.time()
 
 #######################################  Embeddings & Model  ######################################################
 
-llm = Ollama(model="gemma:7b", num_ctx=8192)# default is 2048
+llm = Ollama(model="gemma:7b", num_ctx=8192,temperature=1.2, repeat_penalty=1.8)# default is 2048
 embeddings= (OllamaEmbeddings(model='nomic-embed-text',num_ctx=8192, show_progress=True))   #8192 context windo like gemma 7b/2b context window
 
 
