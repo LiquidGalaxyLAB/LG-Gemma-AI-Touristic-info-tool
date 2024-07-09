@@ -8,6 +8,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
+import 'package:ai_touristic_info_tool/utils/show_stream_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -355,191 +356,226 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
             padding: const EdgeInsets.only(top: 20.0, bottom: 20),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.25,
-              child: GridView.count(
-                scrollDirection: Axis.horizontal,
-                crossAxisCount: 2,
-                childAspectRatio: 0.5,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                children: <Widget>[
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/landmarkss.jpg',
-                    title: 'Landmarks',
-                    query: 'landmarks in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/restaurants.jpeg',
-                    title: 'Restaurants and Cafes',
-                    query: 'Restaurants and Cafes in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/art.jpeg',
-                    title: 'Art and Culture',
-                    query: 'Art and Culture in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/shopping.jpeg',
-                    title: 'Shopping Malls',
-                    query: 'Shopping Malls in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/sports.jpeg',
-                    title: 'Sports and Recreation',
-                    query: 'Sports and Recreation in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/spa.webp',
-                    title: 'Spa and Wellness',
-                    query: 'Spa and Wellness in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/outdoor.jpeg',
-                    title: 'Outdoor Activities',
-                    query: 'Outdoor Activities in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/pizza.jpeg',
-                    title: 'Top Pizza Places',
-                    query: 'Top Pizza Places in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/history.jpg',
-                    title: 'Historical Sites',
-                    query: 'Historical Sites in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/parks.webp',
-                    title: 'Local Parks',
-                    query: 'Local Parks in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/cinema.jpeg',
-                    title: 'Cinemas',
-                    query: 'Cinemas in $_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/library.jpeg',
-                    title: 'Libraries',
-                    query: 'Libraries in $_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/dancing.jpeg',
-                    title: 'Dancing Studios',
-                    query: 'Dancing Studios in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/yoga.jpg',
-                    title: 'Yoga Studios',
-                    query: 'Yoga Studios in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/education.jpeg',
-                    title: 'Educational Institutions',
-                    query: 'Educational Institutions in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                  RecommendationContainer(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    imagePath: 'assets/images/salons.jpeg',
-                    title: 'Beauty Salons',
-                    query: 'Beauty Salons in$_addressQuery',
-                    city: _city,
-                    country: _country,
-                    txtSize: textSize + 2,
-                    bottomOpacity: 1,
-                  ),
-                ],
-              ),
+              child: Consumer<GoogleMapProvider>(builder: (BuildContext context,
+                  GoogleMapProvider value, Widget? child) {
+                return GridView.count(
+                  scrollDirection: Axis.horizontal,
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.5,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  children: <Widget>[
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/landmarkss.jpg',
+                      title: 'Landmarks',
+                      query: !useMap
+                          ? 'landmarks in $_addressQuery'
+                          : 'landmarks in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/restaurants.jpeg',
+                      title: 'Restaurants and Cafes',
+                      query: !useMap
+                          ? 'Restaurants and Cafes in $_addressQuery'
+                          : 'Restaurants and Cafes in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/art.jpeg',
+                      title: 'Art and Culture',
+                      query: !useMap
+                          ? 'Art and Culture in $_addressQuery'
+                          : 'Art and Culture in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/shopping.jpeg',
+                      title: 'Shopping Malls',
+                      query: !useMap
+                          ? 'Shopping Malls in $_addressQuery'
+                          : 'Shopping Malls in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/sports.jpeg',
+                      title: 'Sports and Recreation',
+                      query: !useMap
+                          ? 'Sports and Recreation in $_addressQuery'
+                          : 'Sports and Recreation in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/spa.webp',
+                      title: 'Spa and Wellness',
+                      query: !useMap
+                          ? 'Spa and Wellness in $_addressQuery'
+                          : 'Spa and Wellness in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/outdoor.jpeg',
+                      title: 'Outdoor Activities',
+                      query: !useMap
+                          ? 'Outdoor Activities in $_addressQuery'
+                          : 'Outdoor Activities in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/pizza.jpeg',
+                      title: 'Top Pizza Places',
+                      query: !useMap
+                          ? 'Top Pizza Places in $_addressQuery'
+                          : 'Top Pizza Places in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/history.jpg',
+                      title: 'Historical Sites',
+                      query: !useMap
+                          ? 'Historical Sites in $_addressQuery'
+                          : 'Historical Sites in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/parks.webp',
+                      title: 'Local Parks',
+                      query: !useMap
+                          ? 'Local Parks in $_addressQuery'
+                          : 'Local Parks in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/cinema.jpeg',
+                      title: 'Cinemas',
+                      query: !useMap
+                          ? 'Cinemas in $_addressQuery'
+                          : 'Cinemas in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/library.jpeg',
+                      title: 'Libraries',
+                      query: !useMap
+                          ? 'Libraries in $_addressQuery'
+                          : 'Libraries in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/dancing.jpeg',
+                      title: 'Dancing Studios',
+                      query: !useMap
+                          ? 'Dancing Studios in $_addressQuery'
+                          : 'Dancing Studios in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/yoga.jpg',
+                      title: 'Yoga Studios',
+                      query: !useMap
+                          ? 'Yoga Studios in $_addressQuery'
+                          : 'Yoga Studios in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/education.jpeg',
+                      title: 'Educational Institutions',
+                      query: !useMap
+                          ? 'Educational Institutions in $_addressQuery'
+                          : 'Educational Institutions in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                    RecommendationContainer(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      imagePath: 'assets/images/salons.jpeg',
+                      title: 'Beauty Salons',
+                      query: !useMap
+                          ? 'Beauty Salons in $_addressQuery'
+                          : 'Beauty Salons in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
+                      city: _city,
+                      country: _country,
+                      txtSize: textSize + 2,
+                      bottomOpacity: 1,
+                    ),
+                  ],
+                );
+              }),
             ),
           ),
           Padding(
@@ -586,9 +622,18 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     curvatureRadius: 50,
                     onpressed: () async {
                       if (widget._form2Key.currentState!.validate()) {
-                        //print(widget._prompt2Controller.text);
+                        GoogleMapProvider gmp = Provider.of<GoogleMapProvider>(
+                            context,
+                            listen: false);
                         _whatToDoQuery = widget._prompt2Controller.text;
-                        String query = '$_whatToDoQuery in$_addressQuery';
+                        String query;
+                        if (useMap) {
+                          query =
+                              '$_whatToDoQuery in ${gmp.currentFullAddress['address']}, ${gmp.currentFullAddress['city']}, ${gmp.currentFullAddress['country']}';
+                        } else {
+                          query = '$_whatToDoQuery in $_addressQuery';
+                        }
+
                         print('query: $query');
                         PromptsSharedPref.getPlaces(query).then((value) async {
                           print('value: $value');
@@ -599,6 +644,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
 
                             showVisualizationDialog(
                                 context, value, query, _city, _country);
+                          } else {
+                            showStreamingDialog(context, query);
                           }
                         });
                       }

@@ -48,6 +48,7 @@ dependencies:
   google_maps_flutter: ^2.2.8
   flutter_staggered_animations: ^1.1.1
   gif: ^2.3.0
+  async: ^2.11.0
   
 
 dev_dependencies:

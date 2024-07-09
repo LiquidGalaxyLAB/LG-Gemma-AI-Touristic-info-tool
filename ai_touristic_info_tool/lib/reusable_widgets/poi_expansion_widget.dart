@@ -26,8 +26,8 @@ class PoiExpansionWidget extends StatefulWidget {
 }
 
 class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
-  double _currentProgress = 0.0;
-  final double _totalDuration = 1.2 * 10; // Example total duration
+  // double _currentProgress = 0.0;
+  // final double _totalDuration = 1.2 * 10; // Example total duration
 
   bool play = true;
 

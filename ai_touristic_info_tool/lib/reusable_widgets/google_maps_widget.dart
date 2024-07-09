@@ -1,19 +1,15 @@
-import 'dart:math';
 
-import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/custom_balloon_gm.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/map_types_choices_widget.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
-import 'package:ai_touristic_info_tool/state_management/map_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';

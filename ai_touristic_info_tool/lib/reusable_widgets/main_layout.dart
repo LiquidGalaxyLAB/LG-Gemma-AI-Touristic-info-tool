@@ -1,5 +1,4 @@
 import 'package:ai_touristic_info_tool/reusable_widgets/current_view.dart';
-import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/show_ai_alert.dart';
 import 'package:flutter/material.dart';
 

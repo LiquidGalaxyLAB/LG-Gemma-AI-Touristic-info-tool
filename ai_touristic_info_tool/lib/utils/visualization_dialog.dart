@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/google_map_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/poi_expansion_widget.dart';
@@ -12,13 +9,10 @@ import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
-import 'package:ai_touristic_info_tool/state_management/map_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -95,8 +89,8 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                       for (int i = 0; i < places.length; i++) {
                         PlacesModel placeModel = places[i];
 
-                        LatLng newLocation =
-                            LatLng(placeModel.latitude, placeModel.longitude);
+                        // LatLng newLocation =
+                        //     LatLng(placeModel.latitude, placeModel.longitude);
                         mapProvider.addMarker(context, placeModel,
                             removeAll: false);
                       }
