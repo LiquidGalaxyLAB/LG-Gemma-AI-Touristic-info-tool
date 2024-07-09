@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:ai_touristic_info_tool/helpers/lg_connection_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
+import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
+
 import 'package:async/async.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -9,30 +12,50 @@ import 'package:http/http.dart' as http;
 ///This is the [Api] class that contains all kind of requests we might need
 
 class Api {
-  final String baseUrl = dotenv.env['GEMMA_IP_Server'] ?? 'None';
+  //final String baseUrl = dotenv.env['GEMMA_IP_Server'] ?? 'None';
 
-  // Method to check server availability
-  Future<bool> _isServerAvailable(String url) async {
+  String baseUrl =
+      'http://${LgConnectionSharedPref.getAiIp() ?? ''}:${LgConnectionSharedPref.getAiPort() ?? ''}';
+
+  Future<String> isEndpointAvailable() async {
+    final url = '$baseUrl/health';
     try {
       final response =
-          await http.get(Uri.parse(url)).timeout(Duration(seconds: 5));
+          await http.get(Uri.parse(url)).timeout(Duration(seconds: 200));
+      if (response.statusCode == 200) {
+        return 'Success';
+      } else {
+        return 'Error occurred while trying to connect to the server. Status code: ${response.statusCode}';
+      }
+    } catch (e) {
+      return 'Error occurred while trying to connect to the server: $e';
+    }
+  }
+
+  // Method to check server availability
+  Future<bool> isServerAvailable() async {
+    try {
+      final response = await http
+          .get(Uri.parse('$baseUrl/health'))
+          .timeout(Duration(seconds: 5));
       return response.statusCode == 200;
     } catch (e) {
       return false;
     }
   }
 
-  CancelableOperation? _cancelableOperation;
+  // CancelableOperation? _cancelableOperation;
 
 //Not implemented correctly
   Future<dynamic> postInvokeGemma({required String input}) async {
-    if (baseUrl == 'None') {
-      throw Exception('Gemma is not accessible through any server right now');
-    }
+    // if (baseUrl == 'None') {
+    //   throw Exception('Gemma is not accessible through any server right now');
+    // }
     //final url = Uri.parse('$baseUrl$endpoint');
-    final url = Uri.parse('http://10.0.2.2:8000/rag/invoke');
+    //final url = Uri.parse('http://10.0.2.2:8000/rag/invoke');
+    final url = Uri.parse('$baseUrl/rag/invoke');
 
-    if (!await _isServerAvailable(url.toString())) {
+    if (!await isServerAvailable()) {
       return Future.error(
           'The server is currently unavailable. Please try again later.');
     }
@@ -62,8 +85,8 @@ class Api {
 
   Stream<dynamic> postaStreamEventsGemma({required String input}) async* {
     final http.Client _client = http.Client();
-    final rag_url = Uri.parse('http://10.0.2.2:8000/rag/stream_events');
-
+    //final rag_url = Uri.parse('http://10.0.2.2:8000/rag/stream_events');
+    final rag_url = Uri.parse('$baseUrl/rag/stream_events');
     final rag_headers = {
       'Content-Type': 'application/json',
       'accept': 'text/event-stream',
@@ -73,7 +96,7 @@ class Api {
       ..headers.addAll(rag_headers)
       ..body = rag_body;
 
-    if (!await _isServerAvailable(rag_url.toString())) {
+    if (!await isServerAvailable()) {
       print('not available');
       yield {
         'type': 'error',
@@ -90,19 +113,19 @@ class Api {
 
     final rag_response = await _client.send(request);
     final stream = rag_response.stream;
-    _cancelableOperation =
-        CancelableOperation.fromFuture(_client.send(request));
+    // _cancelableOperation =
+    //     CancelableOperation.fromFuture(_client.send(request));
 
     Map<String, dynamic> outputStrJson;
     List<PlacesModel> pois = [];
     try {
       await for (var event
           in stream.transform(utf8.decoder).transform(LineSplitter())) {
-        if (_cancelableOperation!.isCanceled) {
-          _client.close();
-          yield {'type': 'error', 'data': 'Operation cancelled.'};
-          return;
-        }
+        // if (_cancelableOperation!.isCanceled) {
+        //   _client.close();
+        //   yield {'type': 'error', 'data': 'Operation cancelled.'};
+        //   return;
+        // }
 
         print('Whole Event');
         print(event);
@@ -185,8 +208,8 @@ class Api {
     }
   }
 
-  // Method to cancel the current operation
-  void cancelOperation() {
-    _cancelableOperation?.cancel();
-  }
+  // // Method to cancel the current operation
+  // void cancelOperation() {
+  //   _cancelableOperation?.cancel();
+  // }
 }

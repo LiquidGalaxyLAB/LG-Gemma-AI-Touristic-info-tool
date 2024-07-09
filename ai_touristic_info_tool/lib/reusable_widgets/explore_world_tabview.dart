@@ -1,10 +1,15 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
+import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
+import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_dialog.dart';
+import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ExploreWorldTabView extends StatelessWidget {
   const ExploreWorldTabView({
@@ -390,10 +395,26 @@ class ExploreWorldTabView extends StatelessWidget {
                     isSuffixIcon: false,
                     curvatureRadius: 50,
                     onpressed: () {
+                      ModelErrorProvider errProvider =
+                          Provider.of<ModelErrorProvider>(context,
+                              listen: false);
+                      errProvider.isError = false;
                       if (_formKey.currentState!.validate()) {
                         String query = '${_promptController.text} Worldwide';
                         print(query);
-                        showStreamingDialog(context, query);
+
+                        PromptsSharedPref.getPlaces(query).then((value) async {
+                          print('value: $value');
+                          print(value.isNotEmpty);
+                          if (value.isNotEmpty) {
+                            await buildQueryPlacemark(query, '', '', context);
+                            showVisualizationDialog(
+                                context, value, query, '', '');
+                          } else {
+                            showStreamingDialog(context, query);
+                          }
+                        });
+                        // showStreamingDialog(context, query);
                       }
                     },
                     elevatedButtonContent: 'GENERATE',

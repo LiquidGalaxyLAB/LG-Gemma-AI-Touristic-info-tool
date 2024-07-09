@@ -367,7 +367,9 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                     Provider.of<SSHprovider>(context, listen: false);
                 await LgService(sshData).clearKml();
                 await buildAppBalloon(context);
-                Navigator.of(context).pop();
+                while (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                }
               },
               height: MediaQuery.of(context).size.height * 0.035,
               width: MediaQuery.of(context).size.width * 0.1,

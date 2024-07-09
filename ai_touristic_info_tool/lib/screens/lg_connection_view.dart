@@ -1,3 +1,4 @@
+import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
@@ -391,6 +392,48 @@ class _ConnectionViewState extends State<ConnectionView> {
                                   await LgConnectionSharedPref.setAiPort(
                                       _aiPortController.text);
                                 }
+                                final stringUrl =
+                                    'http://${_aiIpAddressController.text}:${_aiPortController.text}/health';
+                                final url = Uri.parse(stringUrl);
+
+                                ///start the loading process by setting `isloading` to true
+                                setState(() {
+                                  _isLoading2 = true;
+                                });
+
+                                Connectionprovider connection =
+                                    Provider.of<Connectionprovider>(context,
+                                        listen: false);
+
+                                String result = '';
+
+                                if (!await Api().isServerAvailable()) {
+                                  result =
+                                      'The server is currently unavailable. Please try again later.';
+                                } else {
+                                  String res =
+                                      await Api().isEndpointAvailable();
+
+                                  if (res != 'Success') {
+                                    result = res;
+                                  }
+                                }
+
+                                ///checking on the connection status:
+                                if (result == '') {
+                                  connection.isAiConnected = true;
+                                } else {
+                                  connection.isAiConnected = false;
+
+                                  // ignore: use_build_context_synchronously
+                                  dialogBuilder(
+                                      context, result, true, 'OK', null, null);
+                                }
+
+                                ///stop the loading process by setting `isloading` to false
+                                setState(() {
+                                  _isLoading2 = false;
+                                });
                               },
                             ),
                             SizedBox(

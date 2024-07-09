@@ -4,6 +4,7 @@ import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
+import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
@@ -57,6 +58,12 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
               Provider.of<ModelErrorProvider>(context, listen: false);
           errProvider.isError = true;
           _errorController.sink.add(event['data']);
+          if (event['data'].toString() ==
+              'The server is currently unavailable. Please try again later.') {
+            Connectionprovider connection =
+                Provider.of<Connectionprovider>(context, listen: false);
+            connection.isAiConnected = false;
+          }
         }
       });
     });
@@ -182,7 +189,7 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: LinearProgressIndicator(
-                      value: _currProgress / 8,
+                      value: _currProgress / 6,
                       backgroundColor:
                           FontAppColors.secondaryFont.withOpacity(0.5),
                       valueColor: AlwaysStoppedAnimation<Color>(
@@ -301,8 +308,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                         buttonColor:
                                             PrimaryAppColors.buttonColors,
                                         onpressed: () async {
-                                          Navigator.pop(context);
-
                                           await buildQueryPlacemark(
                                               widget.query,
                                               widget.city,
@@ -333,26 +338,26 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.05,
                                 ),
-                                if (value.hasStarted)
-                                  LgElevatedButton(
-                                    elevatedButtonContent: 'Cancel',
-                                    buttonColor: LgAppColors.lgColor2,
-                                    onpressed: () {
-                                      Navigator.pop(context);
-                                      Api().cancelOperation();
-                                    },
-                                    height: MediaQuery.of(context).size.height *
-                                        0.05,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.15,
-                                    fontSize: textSize,
-                                    fontColor: FontAppColors.secondaryFont,
-                                    isLoading: false,
-                                    isBold: true,
-                                    isPrefixIcon: false,
-                                    isSuffixIcon: false,
-                                    curvatureRadius: 30,
-                                  ),
+                                // if (value.hasStarted)
+                                //   LgElevatedButton(
+                                //     elevatedButtonContent: 'Cancel',
+                                //     buttonColor: LgAppColors.lgColor2,
+                                //     onpressed: () {
+                                //       Navigator.pop(context);
+                                //       Api().cancelOperation();
+                                //     },
+                                //     height: MediaQuery.of(context).size.height *
+                                //         0.05,
+                                //     width: MediaQuery.of(context).size.width *
+                                //         0.15,
+                                //     fontSize: textSize,
+                                //     fontColor: FontAppColors.secondaryFont,
+                                //     isLoading: false,
+                                //     isBold: true,
+                                //     isPrefixIcon: false,
+                                //     isSuffixIcon: false,
+                                //     curvatureRadius: 30,
+                                //   ),
                               ],
                             ),
                           );

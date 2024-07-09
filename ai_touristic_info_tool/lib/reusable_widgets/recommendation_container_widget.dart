@@ -1,9 +1,11 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
+import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RecommendationContainer extends StatelessWidget {
   final String imagePath;
@@ -35,6 +37,9 @@ class RecommendationContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        ModelErrorProvider errProvider =
+            Provider.of<ModelErrorProvider>(context, listen: false);
+        errProvider.isError = false;
         print('query: $query');
 
         PromptsSharedPref.getPlaces(query).then((value) async {

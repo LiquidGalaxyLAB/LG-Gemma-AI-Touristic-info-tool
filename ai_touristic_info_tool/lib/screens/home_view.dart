@@ -3,6 +3,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/explore_location_tabview
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_world_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,10 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   _showHomeBallon() async {
     await buildAppBalloon(context);
+
+    // ModelErrorProvider errProvider =
+    //     Provider.of<ModelErrorProvider>(context, listen: false);
+    // errProvider.isError = false;
   }
 
   @override

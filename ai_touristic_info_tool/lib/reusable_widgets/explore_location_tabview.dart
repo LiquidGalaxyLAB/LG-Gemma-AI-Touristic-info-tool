@@ -7,6 +7,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
@@ -621,6 +622,10 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     isSuffixIcon: false,
                     curvatureRadius: 50,
                     onpressed: () async {
+                      ModelErrorProvider errProvider =
+                          Provider.of<ModelErrorProvider>(context,
+                              listen: false);
+                      errProvider.isError = false;
                       if (widget._form2Key.currentState!.validate()) {
                         GoogleMapProvider gmp = Provider.of<GoogleMapProvider>(
                             context,
