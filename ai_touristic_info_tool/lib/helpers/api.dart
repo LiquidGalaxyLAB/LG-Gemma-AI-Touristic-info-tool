@@ -3,9 +3,6 @@ import 'dart:convert';
 import 'package:ai_touristic_info_tool/helpers/lg_connection_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
-import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
-
-import 'package:async/async.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -208,8 +205,96 @@ class Api {
     }
   }
 
-  // // Method to cancel the current operation
-  // void cancelOperation() {
-  //   _cancelableOperation?.cancel();
-  // }
+  Future<List<String>> fetchWebUrls(String placeName) async {
+    final Uri uri = Uri.parse('$baseUrl/search?user_query=$placeName');
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      List<dynamic> jsonList = json.decode(response.body);
+      return jsonList.cast<String>();
+    } else {
+      throw Exception('Failed to fetch URLs: ${response.reasonPhrase}');
+    }
+  }
+
+  Future<List<String>> fetchYoutubeUrls({required String query}) async {
+    final String endpoint = 'https://www.googleapis.com/youtube/v3/search';
+
+    final Uri url =
+        Uri.parse('$endpoint?key=${dotenv.env['YOUTUBE_API_KEY']}&q=$query&type=video');
+
+    final response = await http.get(url);
+
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      List<String> videoUrls = [];
+
+      for (var item in data['items']) {
+        String videoId = item['id']['videoId'];
+        String videoUrl = 'https://www.youtube.com/watch?v=$videoId';
+        videoUrls.add(videoUrl);
+      }
+
+      return videoUrls;
+    } else {
+      throw Exception('Failed to load YouTube URLs');
+    }
+  }
+
+  /*
+  {
+    "kind": "youtube#searchListResponse",
+    "etag": "Zst6lwOypE4DBtSPVw6tuGyftAQ",
+    "nextPageToken": "CAUQAA",
+    "regionCode": "EG",
+    "pageInfo": {
+        "totalResults": 1000000,
+        "resultsPerPage": 5
+    },
+    "items": [
+        {
+            "kind": "youtube#searchResult",
+            "etag": "UavMxCzNwTBKvDvz6Lw4LyzqULY",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "wqslA_CKub8"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "hFNgNyr0lUJM_d0awLOrb5wR0cc",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "H3xgBS_kDNw"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "xohIkR4Y5le4a7DluNhpG_FgBjI",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "TVLYtiunWJA"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "1HI7A5_rlCvYMpz-d-XDMvgOZQE",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "inD5GnTjs_E"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "NvW-WEQ39cZWQ9tlHJaS6HiJFPQ",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "J6Jo8hHsFXA"
+            }
+        }
+    ]
+}
+  */
 }

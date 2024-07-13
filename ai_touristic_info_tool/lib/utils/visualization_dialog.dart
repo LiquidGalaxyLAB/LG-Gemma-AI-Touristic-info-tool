@@ -4,11 +4,13 @@ import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart'
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/poi_expansion_widget.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/search_results_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -287,22 +289,29 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SingleChildScrollView(
-                child: Column(
-                  children: [
-                    GoogleMapWidget(
-                      width: MediaQuery.of(context).size.width * 0.65,
-                      height: MediaQuery.of(context).size.height * 0.55,
-                      initialLatValue: lat,
-                      //places[0].latitude,
-                      initialLongValue: long,
-                      //places[0].longitude,
-                      initialTiltValue: 41.82725143432617,
-                      initialBearingValue: 61.403038024902344,
-                      initialCenterValue: LatLng(lat, long),
-                      //LatLng(places[0].latitude, places[0].longitude),
-                      query: query,
-                    ),
-                  ],
+                child: Consumer<SearchProvider>(
+                  builder: (BuildContext context, SearchProvider value,
+                      Widget? child) {
+                    if (value.showMap) {
+                      return Column(children: [
+                        GoogleMapWidget(
+                          width: MediaQuery.of(context).size.width * 0.65,
+                          height: MediaQuery.of(context).size.height * 0.55,
+                          initialLatValue: lat,
+                          //places[0].latitude,
+                          initialLongValue: long,
+                          //places[0].longitude,
+                          initialTiltValue: 41.82725143432617,
+                          initialBearingValue: 61.403038024902344,
+                          initialCenterValue: LatLng(lat, long),
+                          //LatLng(places[0].latitude, places[0].longitude),
+                          query: query,
+                        ),
+                      ]);
+                    } else {
+                      return SearchResultsContainer();
+                    }
+                  },
                 ),
               ),
               SizedBox(
@@ -359,30 +368,63 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
         ),
         actions: <Widget>[
           TextButton(
-            child: LgElevatedButton(
-              elevatedButtonContent: 'Close',
-              buttonColor: PrimaryAppColors.buttonColors,
-              onpressed: () async {
-                SSHprovider sshData =
-                    Provider.of<SSHprovider>(context, listen: false);
-                await LgService(sshData).clearKml();
-                await buildAppBalloon(context);
-                while (Navigator.of(context).canPop()) {
-                  Navigator.of(context).pop();
-                }
+            child: Consumer<SearchProvider>(
+              builder:
+                  (BuildContext context, SearchProvider value, Widget? child) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (!value.showMap)
+                      LgElevatedButton(
+                        elevatedButtonContent: 'Map',
+                        buttonColor: PrimaryAppColors.buttonColors,
+                        onpressed: () {
+                          Provider.of<SearchProvider>(context, listen: false)
+                              .showMap = true;
+                        },
+                        height: MediaQuery.of(context).size.height * 0.035,
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        fontSize: textSize,
+                        fontColor: FontAppColors.secondaryFont,
+                        isLoading: false,
+                        isBold: false,
+                        isPrefixIcon: false,
+                        isSuffixIcon: false,
+                        curvatureRadius: 30,
+                      ),
+                    if (!value.showMap)
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                    LgElevatedButton(
+                      elevatedButtonContent: 'Close',
+                      buttonColor: PrimaryAppColors.buttonColors,
+                      onpressed: () async {
+                        value.showMap = true;
+                        SSHprovider sshData =
+                            Provider.of<SSHprovider>(context, listen: false);
+                        await LgService(sshData).clearKml();
+                        await buildAppBalloon(context);
+                        while (Navigator.of(context).canPop()) {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      height: MediaQuery.of(context).size.height * 0.035,
+                      width: MediaQuery.of(context).size.width * 0.1,
+                      fontSize: textSize,
+                      fontColor: FontAppColors.secondaryFont,
+                      isLoading: false,
+                      isBold: false,
+                      isPrefixIcon: false,
+                      isSuffixIcon: false,
+                      curvatureRadius: 30,
+                    ),
+                  ],
+                );
               },
-              height: MediaQuery.of(context).size.height * 0.035,
-              width: MediaQuery.of(context).size.width * 0.1,
-              fontSize: textSize,
-              fontColor: FontAppColors.secondaryFont,
-              isLoading: false,
-              isBold: false,
-              isPrefixIcon: false,
-              isSuffixIcon: false,
-              curvatureRadius: 30,
             ),
             onPressed: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
             },
           ),
         ],

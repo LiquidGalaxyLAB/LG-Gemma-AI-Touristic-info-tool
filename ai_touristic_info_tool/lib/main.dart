@@ -9,6 +9,7 @@ import 'package:ai_touristic_info_tool/state_management/drop_down_state.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ModelErrorProvider()),
         ChangeNotifierProvider(create: (_) => GoogleMapProvider()),
         ChangeNotifierProvider(create: (_) => DropdownState()),
+        ChangeNotifierProvider(create: (_) => SearchProvider()),
       ],
       child: const AITouristicInfo(),
     ),

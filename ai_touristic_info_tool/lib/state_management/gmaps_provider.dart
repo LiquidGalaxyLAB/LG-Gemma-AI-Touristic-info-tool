@@ -32,7 +32,7 @@ class GoogleMapProvider with ChangeNotifier {
   double _zoomvalue = 591657550.500000 / pow(2, 14.4746);
   BitmapDescriptor? _iconMarker;
   bool _isWorld = true;
-  //MarkerId? _currentOpenMarkerId;
+
 
   // Getters for camera values
 
@@ -45,6 +45,8 @@ class GoogleMapProvider with ChangeNotifier {
   Set<Marker> get markers => _markers;
   double get pinPillPosition => _pinPillPosition;
   bool get isWorld => _isWorld;
+
+
 
   set isWorld(bool value) {
     _isWorld = value;

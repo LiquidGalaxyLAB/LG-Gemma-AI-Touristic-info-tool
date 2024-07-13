@@ -1,8 +1,10 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -96,70 +98,124 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: GestureDetector(
-                          onTap: () async {
-                            LatLng newLocation = LatLng(
-                                widget.placeModel.latitude,
-                                widget.placeModel.longitude);
-                            final mapProvider = Provider.of<GoogleMapProvider>(
-                                context,
-                                listen: false);
-                            mapProvider.setBitmapDescriptor();
-                            mapProvider.addMarker(context, widget.placeModel,
-                                removeAll: true);
-                            mapProvider.updateZoom(18.4746);
-                            mapProvider.updateBearing(90);
-                            mapProvider.updateTilt(45);
-                            mapProvider.flyToLocation(newLocation);
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: GestureDetector(
+                              onTap: () async {
+                                LatLng newLocation = LatLng(
+                                    widget.placeModel.latitude,
+                                    widget.placeModel.longitude);
+                                final mapProvider =
+                                    Provider.of<GoogleMapProvider>(context,
+                                        listen: false);
+                                mapProvider.setBitmapDescriptor();
+                                mapProvider.addMarker(
+                                    context, widget.placeModel,
+                                    removeAll: true);
+                                mapProvider.updateZoom(18.4746);
+                                mapProvider.updateBearing(90);
+                                mapProvider.updateTilt(45);
+                                mapProvider.flyToLocation(newLocation);
 
-                            mapProvider.currentlySelectedPin =
-                                widget.placeModel;
-                            mapProvider.pinPillPosition = 10;
+                                mapProvider.currentlySelectedPin =
+                                    widget.placeModel;
+                                mapProvider.pinPillPosition = 10;
 
-                            await Future.delayed(const Duration(seconds: 3));
+                                await Future.delayed(
+                                    const Duration(seconds: 3));
 
-                            final sshData = Provider.of<SSHprovider>(context,
-                                listen: false);
-
-                            Connectionprovider connection =
-                                Provider.of<Connectionprovider>(context,
+                                final sshData = Provider.of<SSHprovider>(
+                                    context,
                                     listen: false);
 
-                            ///checking the connection status first
-                            if (sshData.client != null &&
-                                connection.isLgConnected) {
-                              await buildPlacePlacemark(widget.placeModel,
-                                  widget.index + 1, widget.query, context);
-                            }
-                          },
-                          child: Container(
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              width: MediaQuery.of(context).size.width * 0.1,
-                              decoration: BoxDecoration(
-                                color: PrimaryAppColors.gradient1,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const Icon(Icons.airplanemode_active_outlined,
-                                      color: FontAppColors.secondaryFont,
-                                      size: textSize + 10),
-                                  Text(
-                                    'Fly to',
-                                    style: TextStyle(
-                                        color: FontAppColors.secondaryFont,
-                                        fontSize: textSize - 4,
-                                        fontFamily: fontType,
-                                        fontWeight: FontWeight.bold),
+                                Connectionprovider connection =
+                                    Provider.of<Connectionprovider>(context,
+                                        listen: false);
+
+                                ///checking the connection status first
+                                if (sshData.client != null &&
+                                    connection.isLgConnected) {
+                                  await buildPlacePlacemark(widget.placeModel,
+                                      widget.index + 1, widget.query, context);
+                                }
+                              },
+                              child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                  decoration: BoxDecoration(
+                                    color: PrimaryAppColors.gradient1,
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
-                                ],
-                              )),
-                        ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      const Icon(
+                                          Icons.airplanemode_active_outlined,
+                                          color: FontAppColors.secondaryFont,
+                                          size: textSize + 10),
+                                      Text(
+                                        'Fly to',
+                                        style: TextStyle(
+                                            color: FontAppColors.secondaryFont,
+                                            fontSize: textSize - 4,
+                                            fontFamily: fontType,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: GestureDetector(
+                              onTap: () async {
+                                final srch = Provider.of<SearchProvider>(
+                                    context,
+                                    listen: false);
+                                srch.isLoading = true;
+                                srch.showMap = false;
+                                srch.searchPoiSelected = widget.placeModel.name;
+                                List<String> _futureYoutubeUrls = await Api()
+                                    .fetchYoutubeUrls(
+                                        query: widget.placeModel.name);
+                                List<String> _futureUrls = await Api()
+                                    .fetchWebUrls(widget.placeModel.name);
+
+                                srch.webSearchResults = _futureUrls;
+                                srch.youtubeSearchResults = _futureYoutubeUrls;
+                                srch.isLoading = false;
+                              },
+                              child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.03,
+                                  decoration: BoxDecoration(
+                                    color: PrimaryAppColors.gradient1,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      const Icon(Icons.info,
+                                          color: FontAppColors.secondaryFont,
+                                          size: textSize + 10),
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
