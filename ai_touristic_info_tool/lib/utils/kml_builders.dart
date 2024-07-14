@@ -63,6 +63,7 @@ buildAppBalloon(BuildContext context, {visibility = true}) async {
               border-radius: 10px;
               margin-top: 10px;
               text-align: left;
+            
             }
            .container-logo {
             width: 100px; 
@@ -151,6 +152,457 @@ buildAppBalloon(BuildContext context, {visibility = true}) async {
   }
 }
 
+buildWebsiteLinkBallon(String placeName, String? city, String? country,
+    double lat, double long, String webLink, BuildContext context,
+    {visibility = true}) async {
+  final sshData = Provider.of<SSHprovider>(context, listen: false);
+  String countryCode = countryMap[country] ?? 'None';
+  String countryFlagImg;
+
+  String flagDiv;
+  if (countryCode != 'None') {
+    String cc = countryCode.toLowerCase();
+    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+
+    flagDiv = '''
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </div>
+''';
+  } else {
+    countryFlagImg = '';
+    flagDiv = '<br>';
+  }
+  city ??= '';
+  country ??= 'World Wide';
+
+  String balloonContent = '''
+<style>
+            .balloon {
+              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
+              color: white;
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Montserrat, sans-serif;
+            }
+            .balloon h1 {
+              font-size: 30px;
+              color: #ffff;
+            }
+             .balloon h2 {
+              font-size: 24px;
+              color: #ffff;
+            }
+            .balloon h3 {
+              font-size: 20px;
+              color: #ffff;
+            }
+            
+            .balloon pp{
+              font-size: 18px;
+              color: #ffff;
+            }
+             .balloon linkp{
+              font-size: 12px;
+              color: blue;
+              text-decoration: underline; 
+            }
+            .balloon p {
+              font-size: 14px;
+              color: #ffff;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+              text-align: left;
+                 overflow: hidden; 
+              word-wrap: break-word; 
+            }
+           .container-logo {
+            width: 100px; 
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; 
+          }
+          .logo img {
+            max-width: 100%; /* Ensure image fits within container */
+            max-height: 100%; /* Ensure image fits within container */
+            display: block;
+            margin: auto;
+            border-radius: 10px; /* Optional rounded corners for the image */
+          }
+          </style>
+        
+        <div class="balloon">
+        
+              <div style="text-align:center;">
+                <h2> ${escapeHtml(placeName)}</h2>
+              </div>
+
+              <div style="text-align:center;">
+                <h3>${escapeHtml(city)}</h3>
+                <h3>${escapeHtml(country)}</h3>
+              </div>
+
+              $flagDiv
+
+            <iframe width="800" height="600" src="$webLink" frameborder="0"></iframe>
+
+        </div>
+''';
+
+  LookAtModel lookAt = LookAtModel(
+    longitude: long,
+    latitude: lat,
+    range: '500',
+    tilt: '60',
+    altitude: 0,
+    heading: '0',
+    altitudeMode: 'relativeToGround',
+  );
+
+  PlacemarkModel placemark = PlacemarkModel(
+    id: 'links',
+    name: 'links',
+    styleId: 'placemark-style',
+    description: 'Links',
+    balloonContent: balloonContent,
+    visibility: visibility,
+    lookAt: lookAt,
+    viewOrbit: false,
+  );
+
+  final kmlBalloon = KMLModel(
+    name: 'links-balloon',
+    content: placemark.balloonOnlyTag,
+  );
+
+  try {
+    await LgService(sshData).sendKMLToSlave(
+      LgService(sshData).balloonScreen,
+      kmlBalloon.body,
+    );
+    await LgService(sshData).flyTo(lookAt);
+  } catch (e) {
+    print(e);
+  }
+}
+
+buildYoutubeLinkBallon(String placeName, String? city, String? country,
+    double lat, double long, String vidId, BuildContext context,
+    {visibility = true}) async {
+  final sshData = Provider.of<SSHprovider>(context, listen: false);
+  String countryCode = countryMap[country] ?? 'None';
+  String countryFlagImg;
+
+  String flagDiv;
+  if (countryCode != 'None') {
+    String cc = countryCode.toLowerCase();
+    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+
+    flagDiv = '''
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </div>
+''';
+  } else {
+    countryFlagImg = '';
+    flagDiv = '<br>';
+  }
+  city ??= '';
+  country ??= 'World Wide';
+
+  String balloonContent = '''
+<style>
+            .balloon {
+              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
+              color: white;
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Montserrat, sans-serif;
+            }
+            .balloon h1 {
+              font-size: 30px;
+              color: #ffff;
+            }
+             .balloon h2 {
+              font-size: 24px;
+              color: #ffff;
+            }
+            .balloon h3 {
+              font-size: 20px;
+              color: #ffff;
+            }
+            
+            .balloon pp{
+              font-size: 18px;
+              color: #ffff;
+            }
+             .balloon linkp{
+              font-size: 12px;
+              color: blue;
+              text-decoration: underline; 
+            }
+            .balloon p {
+              font-size: 14px;
+              color: #ffff;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+              text-align: left;
+                 overflow: hidden; 
+              word-wrap: break-word; 
+            }
+           .container-logo {
+            width: 100px; 
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; 
+          }
+          .logo img {
+            max-width: 100%; /* Ensure image fits within container */
+            max-height: 100%; /* Ensure image fits within container */
+            display: block;
+            margin: auto;
+            border-radius: 10px; /* Optional rounded corners for the image */
+          }
+          </style>
+        
+        <div class="balloon">
+        
+              <div style="text-align:center;">
+                <h2> ${escapeHtml(placeName)}</h2>
+              </div>
+
+              <div style="text-align:center;">
+                <h3>${escapeHtml(city)}</h3>
+                <h3>${escapeHtml(country)}</h3>
+              </div>
+
+              $flagDiv
+
+
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/$vidId?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        </div>
+''';
+
+  LookAtModel lookAt = LookAtModel(
+    longitude: long,
+    latitude: lat,
+    range: '500',
+    tilt: '60',
+    altitude: 0,
+    heading: '0',
+    altitudeMode: 'relativeToGround',
+  );
+
+  PlacemarkModel placemark = PlacemarkModel(
+    id: 'links',
+    name: 'links',
+    styleId: 'placemark-style',
+    description: 'Links',
+    balloonContent: balloonContent,
+    visibility: visibility,
+    lookAt: lookAt,
+    viewOrbit: false,
+  );
+
+  final kmlBalloon = KMLModel(
+    name: 'links-balloon',
+    content: placemark.balloonOnlyTag,
+  );
+
+  try {
+    await LgService(sshData).sendKMLToSlave(
+      LgService(sshData).balloonScreen,
+      kmlBalloon.body,
+    );
+    await LgService(sshData).flyTo(lookAt);
+  } catch (e) {
+    print(e);
+  }
+}
+
+buildAllLinksBalloon(String placeName, String? city, String? country,
+    double lat, double long, List<String> links, BuildContext context,
+    {visibility = true}) async {
+  final sshData = Provider.of<SSHprovider>(context, listen: false);
+  String countryCode = countryMap[country] ?? 'None';
+  String countryFlagImg;
+
+  String flagDiv;
+  if (countryCode != 'None') {
+    String cc = countryCode.toLowerCase();
+    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+
+    flagDiv = '''
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </div>
+''';
+  } else {
+    countryFlagImg = '';
+    flagDiv = '<br>';
+  }
+  city ??= '';
+  country ??= 'World Wide';
+  String linkDetails = '';
+  for (String link in links) {
+    linkDetails += '<p><b>Link</b></p>';
+    linkDetails += '<linkp>- $link</linkp>';
+    linkDetails += '<br>';
+  }
+  String balloonContent = '''
+<style>
+            .balloon {
+              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
+              color: white;
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Montserrat, sans-serif;
+            }
+            .balloon h1 {
+              font-size: 30px;
+              color: #ffff;
+            }
+             .balloon h2 {
+              font-size: 24px;
+              color: #ffff;
+            }
+            .balloon h3 {
+              font-size: 20px;
+              color: #ffff;
+            }
+            
+            .balloon pp{
+              font-size: 18px;
+              color: #ffff;
+            }
+             .balloon linkp{
+              font-size: 12px;
+              color: blue;
+              text-decoration: underline; 
+            }
+            .balloon p {
+              font-size: 14px;
+              color: #ffff;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+              text-align: left;
+              overflow: hidden; 
+              word-wrap: break-word; 
+            }
+           .container-logo {
+            width: 100px; 
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; 
+          }
+          .logo img {
+            max-width: 100%; /* Ensure image fits within container */
+            max-height: 100%; /* Ensure image fits within container */
+            display: block;
+            margin: auto;
+            border-radius: 10px; /* Optional rounded corners for the image */
+          }
+          </style>
+        
+        <div class="balloon">
+        
+              <div style="text-align:center;">
+                <h2> ${escapeHtml(placeName)}</h2>
+              </div>
+
+              <div style="text-align:center;">
+                <h3>${escapeHtml(city)}</h3>
+                <h3>${escapeHtml(country)}</h3>
+              </div>
+
+              $flagDiv
+
+              <div style="text-align:justify;">
+                <pp>Website & Youtube Links</pp>
+              </div>
+
+              <div class="details">
+                $linkDetails
+              </div>
+      
+           
+        </div>
+''';
+
+  LookAtModel lookAt = LookAtModel(
+    longitude: long,
+    latitude: lat,
+    range: '500',
+    tilt: '60',
+    altitude: 0,
+    heading: '0',
+    altitudeMode: 'relativeToGround',
+  );
+
+  PlacemarkModel placemark = PlacemarkModel(
+    id: 'links',
+    name: 'links',
+    styleId: 'placemark-style',
+    description: 'Links',
+    balloonContent: balloonContent,
+    visibility: visibility,
+    lookAt: lookAt,
+    viewOrbit: false,
+  );
+
+  final kmlBalloon = KMLModel(
+    name: 'links-balloon',
+    content: placemark.balloonOnlyTag,
+  );
+
+  try {
+    await LgService(sshData).sendKMLToSlave(
+      LgService(sshData).balloonScreen,
+      kmlBalloon.body,
+    );
+    await LgService(sshData).flyTo(lookAt);
+  } catch (e) {
+    print(e);
+  }
+}
+
 buildQueryPlacemark(
     String query, String? city, String? country, BuildContext context,
     {visibility = true}) async {
@@ -158,12 +610,6 @@ buildQueryPlacemark(
   String countryCode = countryMap[country] ?? 'None';
   String countryFlagImg;
 
-  // if (countryCode != 'None') {
-  //   String cc = countryCode.toLowerCase();
-  //   countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-  // } else {
-  //   countryFlagImg = '';
-  // }
   String flagDiv;
   if (countryCode != 'None') {
     String cc = countryCode.toLowerCase();
@@ -285,7 +731,7 @@ buildQueryPlacemark(
 
 buildPlacePlacemark(
     PlacesModel place, int index, String query, BuildContext context,
-    {visibility = true, viewOrbit = true, double duration=1.2}) async {
+    {visibility = true, viewOrbit = true, double duration = 1.2}) async {
   print('inside placemark');
   final sshData = Provider.of<SSHprovider>(context, listen: false);
 
@@ -436,7 +882,7 @@ buildPlacePlacemark(
     heading: '0',
     altitudeMode: 'relativeToGround',
   );
-  String orbitContent = OrbitModel.tag(lookAtObjOrbit,duration: duration);
+  String orbitContent = OrbitModel.tag(lookAtObjOrbit, duration: duration);
   PlacemarkModel placemark = PlacemarkModel(
       id: place.id.toString(),
       name: placeName,

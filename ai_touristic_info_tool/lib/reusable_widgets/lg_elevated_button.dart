@@ -33,6 +33,7 @@ class LgElevatedButton extends StatelessWidget {
   final double curvatureRadius;
   final Color? borderColor;
   final double? borderWidth;
+  final double? elevation;
 
   const LgElevatedButton({
     required this.elevatedButtonContent,
@@ -55,6 +56,7 @@ class LgElevatedButton extends StatelessWidget {
     this.suffixIconColor,
     this.suffixIconSize,
     this.borderColor,
+    this.elevation,
     super.key,
   });
 
@@ -68,6 +70,7 @@ class LgElevatedButton extends StatelessWidget {
           onpressed();
         },
         style: ElevatedButton.styleFrom(
+          elevation: elevation ?? 0,
           backgroundColor: buttonColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(curvatureRadius),

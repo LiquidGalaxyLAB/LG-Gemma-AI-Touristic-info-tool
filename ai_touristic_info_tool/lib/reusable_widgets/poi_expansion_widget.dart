@@ -189,9 +189,38 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                 List<String> _futureUrls = await Api()
                                     .fetchWebUrls(widget.placeModel.name);
 
+                                final sshData = Provider.of<SSHprovider>(
+                                    context,
+                                    listen: false);
+
+                                Connectionprovider connection =
+                                    Provider.of<Connectionprovider>(context,
+                                        listen: false);
+
+                                ///checking the connection status first
+                                if (sshData.client != null &&
+                                    connection.isLgConnected) {
+                                  List<String> links =
+                                      _futureUrls + _futureYoutubeUrls;
+                                  await buildAllLinksBalloon(
+                                      widget.placeModel.name,
+                                      widget.placeModel.city,
+                                      widget.placeModel.country,
+                                      widget.placeModel.latitude,
+                                      widget.placeModel.longitude,
+                                      links,
+                                      context);
+                                }
+
                                 srch.webSearchResults = _futureUrls;
                                 srch.youtubeSearchResults = _futureYoutubeUrls;
                                 srch.isLoading = false;
+                                srch.poiLat = widget.placeModel.latitude;
+                                srch.poiLong = widget.placeModel.longitude;
+                                srch.searchPoiCountry =
+                                    widget.placeModel.country ?? 'Worldwide';
+                                srch.searchPoiCity =
+                                    widget.placeModel.city ?? '';
                               },
                               child: Container(
                                   height:

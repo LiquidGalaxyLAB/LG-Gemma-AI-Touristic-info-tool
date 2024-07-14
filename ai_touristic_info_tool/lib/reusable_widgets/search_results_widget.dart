@@ -1,6 +1,9 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 
 import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
+import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/show_link_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,22 +47,12 @@ class SearchResultsContainer extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.65,
                       height: MediaQuery.of(context).size.height * 0.3,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(112, 180, 150, 237),
+                        color: Color.fromARGB(110, 210, 209, 209),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Center(
                         child: CircularProgressIndicator(),
-                      )
-                      //child:  Padding(
-                      //   padding: EdgeInsets.only(
-                      //       right: MediaQuery.of(context).size.width * 0.325,
-                      //       left: MediaQuery.of(context).size.width * 0.325,
-                      //       top: MediaQuery.of(context).size.height * 0.15,
-                      //       bottom:
-                      //           MediaQuery.of(context).size.height * 0.15),
-                      //   child: CircularProgressIndicator(),
-                      //  ),
-                      ),
+                      )),
                 );
               } else if (value.webSearchResults.isEmpty) {
                 return Padding(
@@ -69,7 +62,7 @@ class SearchResultsContainer extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.65,
                         height: MediaQuery.of(context).size.height * 0.3,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(112, 180, 150, 237),
+                          color: Color.fromARGB(110, 210, 209, 209),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text('No URLs found')));
@@ -81,31 +74,37 @@ class SearchResultsContainer extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.65,
                     height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(112, 180, 150, 237),
+                      color: Color.fromARGB(110, 210, 209, 209),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: value.webSearchResults.length,
                       itemBuilder: (context, index) {
+                        bool isLoading = true;
                         WebViewController webController = WebViewController()
                           ..setJavaScriptMode(JavaScriptMode.unrestricted)
                           ..setBackgroundColor(const Color(0x00000000))
                           ..setNavigationDelegate(
                             NavigationDelegate(
                               onProgress: (int progress) {
-                                // Update loading bar.
+                                if (progress == 100) {
+                                  isLoading = false;
+                                }
                               },
                               onPageStarted: (String url) {},
-                              onPageFinished: (String url) {},
-                              onHttpError: (HttpResponseError error) {},
-                              onWebResourceError: (WebResourceError error) {},
-                              // onNavigationRequest: (NavigationRequest request) {
-                              //   if (request.url.startsWith('https://www.youtube.com/')) {
-                              //     return NavigationDecision.prevent;
-                              //   }
-                              //   return NavigationDecision.navigate;
-                              // },
+                              onPageFinished: (String url) {
+                                isLoading = false;
+                              },
+                              onHttpError: (HttpResponseError error) {
+                                isLoading = false;
+                              },
+                              onWebResourceError: (WebResourceError error) {
+                                isLoading = false;
+                              },
+                              onNavigationRequest: (NavigationRequest request) {
+                                return NavigationDecision.navigate;
+                              },
                             ),
                           )
                           ..loadRequest(
@@ -114,7 +113,26 @@ class SearchResultsContainer extends StatelessWidget {
                             title: Container(
                           width: MediaQuery.of(context).size.width * 0.65,
                           child: GestureDetector(
-                            onTap: () {
+                            onTap: () async {
+                              final sshData = Provider.of<SSHprovider>(context,
+                                  listen: false);
+
+                              Connectionprovider connection =
+                                  Provider.of<Connectionprovider>(context,
+                                      listen: false);
+
+                              ///checking the connection status first
+                              if (sshData.client != null &&
+                                  connection.isLgConnected) {
+                                await buildWebsiteLinkBallon(
+                                    value.searchPoiSelected,
+                                    value.searchPoiCity,
+                                    value.searchPoiCountry,
+                                    value.poiLat,
+                                    value.poiLong,
+                                    value.youtubeSearchResults[index],
+                                    context);
+                              }
                               showLinkDialog(context,
                                   value.webSearchResults[index], webController);
                             },
@@ -177,22 +195,12 @@ class SearchResultsContainer extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.65,
                     height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(106, 246, 120, 116),
+                      color: Color.fromARGB(110, 210, 209, 209),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
                       child: CircularProgressIndicator(),
                     ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(
-                    //       right: MediaQuery.of(context).size.width * 0.325,
-                    //       left: MediaQuery.of(context).size.width * 0.325,
-                    //       top: MediaQuery.of(context).size.height * 0.15,
-                    //       bottom: MediaQuery.of(context).size.height * 0.15),
-                    //   child: CircularProgressIndicator(
-                    //     color: FontAppColors.secondaryFont,
-                    //   ),
-                    // ),
                   ),
                 );
               } else if (value.youtubeSearchResults.isEmpty) {
@@ -203,7 +211,7 @@ class SearchResultsContainer extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.65,
                         height: MediaQuery.of(context).size.height * 0.3,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(106, 246, 120, 116),
+                          color: Color.fromARGB(110, 210, 209, 209),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text('No URLs found')));
@@ -215,13 +223,14 @@ class SearchResultsContainer extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.65,
                     height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(106, 246, 120, 116),
+                      color: Color.fromARGB(110, 210, 209, 209),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: value.youtubeSearchResults.length,
                       itemBuilder: (context, index) {
+                        bool isLoading = true;
                         WebViewController youtubeController =
                             WebViewController()
                               ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -229,19 +238,24 @@ class SearchResultsContainer extends StatelessWidget {
                               ..setNavigationDelegate(
                                 NavigationDelegate(
                                   onProgress: (int progress) {
-                                    // Update loading bar.
+                                    if (progress == 100) {
+                                      isLoading = false;
+                                    }
                                   },
                                   onPageStarted: (String url) {},
-                                  onPageFinished: (String url) {},
-                                  onHttpError: (HttpResponseError error) {},
-                                  onWebResourceError:
-                                      (WebResourceError error) {},
-                                  // onNavigationRequest: (NavigationRequest request) {
-                                  //   if (request.url.startsWith('https://www.youtube.com/')) {
-                                  //     return NavigationDecision.prevent;
-                                  //   }
-                                  //   return NavigationDecision.navigate;
-                                  // },
+                                  onPageFinished: (String url) {
+                                    isLoading = false;
+                                  },
+                                  onHttpError: (HttpResponseError error) {
+                                    isLoading = false;
+                                  },
+                                  onWebResourceError: (WebResourceError error) {
+                                    isLoading = false;
+                                  },
+                                  onNavigationRequest:
+                                      (NavigationRequest request) {
+                                    return NavigationDecision.navigate;
+                                  },
                                 ),
                               )
                               ..loadRequest(
@@ -250,7 +264,28 @@ class SearchResultsContainer extends StatelessWidget {
                             title: Container(
                           width: MediaQuery.of(context).size.width * 0.65,
                           child: GestureDetector(
-                            onTap: () {
+                            onTap: () async {
+                              final sshData = Provider.of<SSHprovider>(context,
+                                  listen: false);
+
+                              Connectionprovider connection =
+                                  Provider.of<Connectionprovider>(context,
+                                      listen: false);
+
+                              ///checking the connection status first
+                              if (sshData.client != null &&
+                                  connection.isLgConnected) {
+                                await buildYoutubeLinkBallon(
+                                    value.searchPoiSelected,
+                                    value.searchPoiCity,
+                                    value.searchPoiCountry,
+                                    value.poiLat,
+                                    value.poiLong,
+                                    extractVideoId(
+                                        value.youtubeSearchResults[index]),
+                                    context);
+                              }
+
                               showLinkDialog(
                                   context,
                                   value.youtubeSearchResults[index],
@@ -293,26 +328,14 @@ class SearchResultsContainer extends StatelessWidget {
         ],
       ),
     );
-    //,
-    // Positioned(
-    //   bottom: 16,
-    //   right: 0,
-    //   child: Visibility(
-    //     visible: true,
-    //     child: FloatingActionButton(
-    //       backgroundColor: PrimaryAppColors.buttonColors,
-    //       onPressed: () {
-    //         Provider.of<SearchProvider>(context, listen: false).showMap =
-    //             true;
-    //       },
-    //       child: Icon(
-    //         Icons.map_outlined,
-    //         color: FontAppColors.secondaryFont,
-    //       ),
-    //     ),
-    //   ),
-    // ),
-    // ],
-    //  );
   }
+}
+
+String extractVideoId(String youtubeUrl) {
+  if (youtubeUrl.contains("youtube.com")) {
+    return youtubeUrl.split("v=")[1].substring(0, 11);
+  } else if (youtubeUrl.contains("youtu.be")) {
+    return youtubeUrl.split("/")[3];
+  }
+  return '';
 }

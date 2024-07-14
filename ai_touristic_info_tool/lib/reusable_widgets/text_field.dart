@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
 /// A custom [TextFormField] widget that can be used to input text with validation.
 
-class TextFormFieldWidget extends StatelessWidget {
+class TextFormFieldWidget extends StatefulWidget {
   /// Creates a new instance of [TextFormFieldWidget].
   ///
   /// * [textController] - A [TextEditingController] to display the text the user enters
@@ -26,12 +27,13 @@ class TextFormFieldWidget extends StatelessWidget {
     String? label,
     String? hint,
     required bool? isSuffixRequired,
+    required bool isPassword,
     int? maxLength,
     int? maxlines,
     bool? isPrefixIconrequired,
     Icon? prefixIcon,
     bool? enabled,
-    bool? isHidden,
+    // bool? isHidden,
     required this.width,
     this.onChanged,
     this.onEditingComplete,
@@ -46,7 +48,8 @@ class TextFormFieldWidget extends StatelessWidget {
         _isPrefixIconRequired = isPrefixIconrequired,
         _prefixIcon = prefixIcon,
         _enabled = enabled,
-        _isHidden = isHidden;
+        // _isHidden = isHidden,
+        _isPassword = isPassword;
 
   final TextEditingController _textController;
   final String? _label;
@@ -59,30 +62,36 @@ class TextFormFieldWidget extends StatelessWidget {
   final bool? _isPrefixIconRequired;
   final Icon? _prefixIcon;
   final bool? _enabled;
-  final bool? _isHidden;
   final double fontSize;
   final Color? fillColor;
   final double width;
+  final bool _isPassword;
 
+  @override
+  State<TextFormFieldWidget> createState() => _TextFormFieldWidgetState();
+}
+
+class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
+  bool _isHidden = true;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
+      width: widget.width,
       child: TextFormField(
         autofocus: true,
-        enabled: _enabled,
-        controller: _textController,
-        maxLength: _maxLength,
-        maxLines: _maxlines,
-        obscureText: _isHidden!,
+        enabled: widget._enabled,
+        controller: widget._textController,
+        maxLength: widget._maxLength,
+        maxLines: widget._maxlines,
+        obscureText: widget._isPassword && _isHidden,
         decoration: InputDecoration(
-          labelText: _label,
+          labelText: widget._label,
           labelStyle: TextStyle(
             fontSize: textSize + 2,
             fontFamily: fontType,
             color: FontAppColors.primaryFont,
           ),
-          hintText: _hint,
+          hintText: widget._hint,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
@@ -98,25 +107,57 @@ class TextFormFieldWidget extends StatelessWidget {
             ),
           ),
           filled: true,
-          fillColor: fillColor ?? PrimaryAppColors.innerBackground,
-          suffixIcon: _isSuffixRequired!
-              ? const Text(
-                  '*',
-                  style: TextStyle(
-                      color: LgAppColors.lgColor2, fontSize: textSize),
+          fillColor: widget.fillColor ?? PrimaryAppColors.innerBackground,
+          suffixIcon: (widget._isSuffixRequired! && widget._isPassword)
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        _isHidden
+                            ? CupertinoIcons.eye_slash
+                            : CupertinoIcons.eye,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isHidden = !_isHidden;
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    const Text(
+                      '*',
+                      style: TextStyle(
+                        color: LgAppColors.lgColor2,
+                        fontSize: textSize,
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.03),
+                  ],
                 )
-              : null,
-          prefixIcon: _isPrefixIconRequired ?? false ? _prefixIcon : null,
+              : (widget._isSuffixRequired! && !widget._isPassword)
+                  ? const Text(
+                      '*',
+                      style: TextStyle(
+                        color: LgAppColors.lgColor2,
+                        fontSize: textSize,
+                      ),
+                    )
+                  : null,
+          prefixIcon:
+              widget._isPrefixIconRequired ?? false ? widget._prefixIcon : null,
         ),
-        onChanged: onChanged,
+        onChanged: widget.onChanged,
         style: TextStyle(
           color: Colors.black,
           fontFamily: fontType,
-          fontSize: fontSize,
+          fontSize: widget.fontSize,
         ),
-        onEditingComplete: onEditingComplete,
+        onEditingComplete: widget.onEditingComplete,
         validator: (value) {
-          if (_isSuffixRequired == true) {
+          if (widget._isSuffixRequired == true) {
             if (value == null || value.isEmpty) {
               return 'This field is required';
             }

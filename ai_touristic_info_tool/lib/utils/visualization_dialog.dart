@@ -28,6 +28,8 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
   } else {
     myLatLng = await GeocodingService().getCoordinates('$city, $country');
   }
+  SearchProvider srch = Provider.of<SearchProvider>(context, listen: false);
+  srch.showMap = true;
 
   double lat = myLatLng.latitude;
   double long = myLatLng.longitude;
@@ -400,11 +402,11 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                       elevatedButtonContent: 'Close',
                       buttonColor: PrimaryAppColors.buttonColors,
                       onpressed: () async {
-                        value.showMap = true;
                         SSHprovider sshData =
                             Provider.of<SSHprovider>(context, listen: false);
                         await LgService(sshData).clearKml();
                         await buildAppBalloon(context);
+                        //value.showMap = true;
                         while (Navigator.of(context).canPop()) {
                           Navigator.of(context).pop();
                         }

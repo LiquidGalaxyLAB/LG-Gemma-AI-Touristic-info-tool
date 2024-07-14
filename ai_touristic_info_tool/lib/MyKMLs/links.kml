@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>YouTube Video Example</name>
+    <Placemark>
+      <name>Example Location</name>
+      <description><![CDATA[
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/gjtLQuhasb4?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      ]]></description>
+      <Point>
+        <coordinates>-122.0822035425683,37.42228990140251,0</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>
