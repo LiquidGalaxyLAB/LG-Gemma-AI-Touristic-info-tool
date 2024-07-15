@@ -240,8 +240,6 @@ add_routes(app,
         )
 
 
-# data= {"output":"{\n\"places\": [\n    {\n      \"name\": \"Walt Disney World's Magic Kingdom\",\n      \"address\": \"1180 Seven Seas Dr, Lake Buena Vista, FL 32830\",\n      \"city\": \"Lake Buena Vista\",\n      \"country\": \"United States\",\n      \"description\": \"The most magical place on Earth, featuring classic attractions, parades, fireworks, and beloved Disney characters.\",\n      \"pricing\": \"Prices vary by ticket type and date.\",\n      \"rating\": 4.8,\n      \"amenities\": \"Restaurants, shops, hotels, transportation.\",\n      \"source\": \"https://www.themeparkinsider.com/reviews/\"\n    },\n    {\n      \"name\": \"Disneyland\",\n      \"address\": \"1313 Disneyland Dr, Anaheim, CA 92803\",\n      \"city\": \"Anaheim\",\n      \"country\": \"United States\",\n      \"description\": \"The original Disney theme park, with classic attractions, charming lands, and a nostalgic atmosphere.\",\n      \"pricing\": \"Prices vary by ticket type and date.\",\n      \"rating\": 4.7,\n      \"amenities\": \"Restaurants, shops, hotels, transportation.\",\n      \"source\": \"https://www.themeparkinsider.com/reviews/\"\n    },\n    {\n      \"name\": \"Universal Studios Japan\",\n      \"address\": \"2 Chome-1-33 Sakurajima, Osaka, 554-0031, Japan\",\n      \"city\": \"Osaka\",\n      \"country\": \"Japan\",\n      \"description\": \"A world-class theme park featuring thrilling rides based on popular movies and TV shows, as well as Japanese culture attractions.\",\n      \"pricing\": \"Prices vary by ticket type and date.\",\n      \"rating\": 4.6,\n      \"amenities\": \"Restaurants, shops, hotels, transportation.\",\n      \"source\": \"https://www.themeparkinsider.com/reviews/\"\n    },\n    {\n      \"name\": \"Tokyo Disneyland\",\n      \"address\": \"1-1-83, Maihama, Urayasu, Chiba 279-0031, Japan\",\n      \"city\": \"Urayasu\",\n      \"country\": \"Japan\",\n      \"description\": \"A classic Disney theme park with beloved attractions, parades, and shows, set in a beautiful Japanese garden.\",\n      \"pricing\": \"Prices vary by ticket type and date.\",\n      \"rating\": 4.9,\n      \"amenities\": \"Restaurants, shops, hotels, transportation.\",\n      \"source\": \"https://www.themeparkinsider.com/reviews/\"\n    },\n    {\n      \"name\": \"Universal's Islands of Adventure\",\n      \"address\": \"6000 Universal Blvd, Orlando, FL 32819\",\n      \"city\": \"Orlando\",\n      \"country\": \"United States\",\n      \"description\": \"A thrilling theme park with immersive lands based on popular movies and books, featuring record-breaking roller coasters.\",\n      \"pricing\": \"Prices vary by ticket type and date.\",\n      \"rating\": 4.7,\n      \"amenities\": \"Restaurants, shops, hotels, transportation.\",\n      \"source\": \"https://www.themeparkinsider.com/reviews/\"\n    },\n    {\n      \"name\": \"Disney's Hollywood Studios\",\n      \"address\": \"1313 Disneyland Dr, Anaheim, CA 92803\",\n      \"city\": \"Anaheim\",\n      \"country\": \"United States\",\n      \"description\": \"A movie-themed park with thrilling rides, live shows, and immersive experiences, celebrating the magic of Hollywood.\",\n      \"pricing\": \"Prices vary by ticket type and date.\",\n      \"rating\": 4.6,\n      \"amenities\": \"Restaurants, shops, hotels, transportation.\",\n      \"source\": \"https://www.themeparkinsider.com/reviews/\"\n    },\n    {\n      \"name\": \"Universal Studios Florida\",\n      \"address\": \"6000 Universal Blvd, Orlando, FL 32819\",\n      \"city\": \"Orlando\",\n      \"country\": \"United States\",\n      \"description\": \"A movie-themed park with thrilling rides, live shows, and immersive experiences, celebrating the magic of Hollywood.\",\n      \"pricing\": \"Prices vary by ticket type and date.\",\n      \"rating\": 4.5,\n      \"amenities\": \"Restaurants, shops, hotels, transportation.\",\n      \"source\": \"https://www.themeparkinsider.com/reviews/\"\n    },\n    {\n      \"name\": \"Tokyo DisneySea\",\n      \"address\": \"1-1-83, Maihama, Urayasu, Chiba 279-0031, Japan\",\n      \"city\": \"Urayasu\",\n      \"country\": \"Japan\",\n      \"description\": \"A unique Disney park with nautical themes, thrilling rides, and stunning views, offering a truly immersive experience.\",\n      \"pricing\": \"Prices vary by ticket type and date.\",\n      \"rating\": 4.8,\n      \"amenities\": \"Restaurants, shops, hotels, transportation.\",\n      \"source\": \"https://www.themeparkinsider.com/reviews/\"\n    },\n    {\n      \"name\": \"EPCOT\",\n      \"address\": \"200 Epcot Dr, Lake Buena Vista, FL 32830\",\n      \"city\": \"Lake Buena Vista\",\n      \"country\": \"United States\",\n      \"description\": \"A park celebrating world cultures and technological advancements, featuring innovative attractions, international cuisine, and educational exhibits.\",\n      \"pricing\": \"Prices vary by ticket type and date.\",\n      \"rating\": 4.6,\n      \"amenities\": \"Restaurants, shops, hotels, transportation.\",\n      \"source\": \"https://www.themeparkinsider.com/reviews/\"\n    },\n    {\n      \"name\": \"Disneyland Paris\",\n      \"address\": \"Boulevard de la Marne, 77700 Marne-la-Vallée, France\",\n      \"city\": \"Marne-la-Vallée\",\n      \"country\": \"France\",\n      \"description\": \"A European Disney park with charming lands, classic attractions, and a unique blend of French and American culture.\",\n      \"pricing\": \"Prices vary by ticket type and date.\",\n      \"rating\": 4.5,\n      \"amenities\": \"Restaurants, shops, hotels, transportation.\",\n      \"source\": \"https://www.themeparkinsider.com/reviews/\"\n    }\n  ]\n} \n"}
-# data_json= json.loads(data)
 
 # api_handler = APIHandler(chain, path="/rag")
 
@@ -290,12 +288,19 @@ add_routes(app,
 async def health_check():
     return JSONResponse(status_code=200, content={"status": "OK"})
 
+
 @app.get("/search")
-async def fetch_urls(user_query:str):
-    general_urls= scrape_urls(user_query)
-    return general_urls
+async def fetch_urls(place_name: str):
+    try:
+        general_fetched_urls = scrape_urls(place_name)
+        return general_fetched_urls
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+     
+
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="localhost", port=3000)
+    uvicorn.run(app, host="0.0.0.0", port=3000)
 
