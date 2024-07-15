@@ -747,6 +747,7 @@ buildPlacePlacemark(
   double placesRating = place.ratings ?? 0;
   double placeLatitude = place.latitude;
   double placeLongitude = place.longitude;
+  String placeLink = escapeHtml(place.sourceLink ?? '');
 
   String countryCode = countryMap[placeCountry] ?? 'None';
   String countryFlagImg;
@@ -857,6 +858,7 @@ buildPlacePlacemark(
                 <p><b>Average Ratings:</b>$placesRating</p>
                 <p><b>Pricing:</b>$placePrices</p>
                 <p><b>Amenities:</b>$placeAmenities</p>
+                <p><b>Source:</b>$placeLink</p>
               </div>
           </div>
 ''';
@@ -1276,6 +1278,7 @@ buildQueryTour(
                 <p><b>Average Ratings:</b>${pois[i].ratings ?? ''}</p>
                 <p><b>Pricing:</b>${escapeHtml(pois[i].price ?? '')}</p>
                 <p><b>Amenities:</b>${escapeHtml(pois[i].amenities ?? '')}</p>
+                <p><b>Source:</b>${escapeHtml(pois[i].sourceLink ?? '')}</p>
               </div>
           </div>
 ''';

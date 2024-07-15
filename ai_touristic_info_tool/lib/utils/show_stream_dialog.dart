@@ -4,7 +4,7 @@ import 'package:ai_touristic_info_tool/state_management/model_error_provider.dar
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void showStreamingDialog(BuildContext context, String query) {
+void showStreamingDialog(BuildContext context, String query, String city, String country) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -36,6 +36,8 @@ void showStreamingDialog(BuildContext context, String query) {
           }),
           content: ProcessContainerWidget(
             query: query,
+            city: city,
+            country: country,
           ));
     },
   );

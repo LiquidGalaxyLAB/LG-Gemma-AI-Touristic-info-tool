@@ -14,7 +14,7 @@ class ButtonColors {
   static const Color photoButton = Color.fromARGB(255, 146, 240, 146);
   static const Color musicButton = Color.fromARGB(255, 180, 150, 237);
   static const Color audioButton = Color.fromARGB(255, 246, 180, 87);
-  static const Color promptButton = Color.fromARGB(148, 255, 237, 70);
+  static const Color promptButton = Color.fromARGB(151, 217, 202, 62);
   static const Color locationButton = Color.fromARGB(255, 246, 120, 116);
 }
 

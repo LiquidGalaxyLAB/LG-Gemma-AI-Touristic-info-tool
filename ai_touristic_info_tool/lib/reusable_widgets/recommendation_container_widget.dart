@@ -1,6 +1,8 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
+import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
+import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
@@ -49,7 +51,19 @@ class RecommendationContainer extends StatelessWidget {
             await buildQueryPlacemark(title, city, country, context);
             showVisualizationDialog(context, value, title, city, country);
           } else {
-            showStreamingDialog(context, query);
+            Connectionprovider connection =
+                Provider.of<Connectionprovider>(context, listen: false);
+            if (!connection.isAiConnected) {
+              dialogBuilder(
+                  context,
+                  'NOT connected to AI Server!!\nPlease Connect!',
+                  true,
+                  'OK',
+                  null,
+                  null);
+            } else {
+              showStreamingDialog(context, query, city?? '', country?? '');
+            }
           }
         });
       },

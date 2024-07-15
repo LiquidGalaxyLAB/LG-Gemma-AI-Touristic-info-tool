@@ -6,8 +6,10 @@ import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart'
 import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
+import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
+import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
@@ -185,8 +187,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                           key: const ValueKey("address"),
                           textController: _addressController,
                           isSuffixRequired: false,
-                            // isHidden: false,
-                                isPassword: false,
+                          // isHidden: false,
+                          isPassword: false,
                           maxLength: 100,
                           maxlines: 1,
                           width: MediaQuery.sizeOf(context).width * 0.85,
@@ -203,8 +205,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                           key: const ValueKey("city"),
                           textController: _cityController,
                           isSuffixRequired: true,
-                             // isHidden: false,
-                                isPassword: false,
+                          // isHidden: false,
+                          isPassword: false,
                           maxLength: 100,
                           maxlines: 1,
                           width: MediaQuery.sizeOf(context).width * 0.85,
@@ -243,28 +245,42 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                   _city = _cityController.text;
                                   _country = _chosenCountry ?? '';
                                   _address = _addressController.text;
-
                                   _addressQuery = '$_address $_city $_country';
+                                  useMap = false;
                                 });
 
                                 MyLatLng myLatLng = await GeocodingService()
                                     .getCoordinates(_addressQuery);
                                 double lat = myLatLng.latitude;
                                 double long = myLatLng.longitude;
+                                print('Lat: $lat , long: $long');
 
-                                GoogleMapProvider gmp =
+                                // GoogleMapProvider gmp =
+                                //     Provider.of<GoogleMapProvider>(context,
+                                //         listen: false);
+
+                                LatLng newLocation = LatLng(lat, long);
+                                final mapProvider =
                                     Provider.of<GoogleMapProvider>(context,
                                         listen: false);
-
-                                gmp.currentFullAddress = {
+                                mapProvider.currentFullAddress = {
                                   'city': _city,
                                   'country': _country,
                                   'address': _address
                                 };
-                                gmp.flyToLocation(LatLng(lat, long));
+
+                                mapProvider.updateZoom(18.4746);
+                                mapProvider.updateBearing(90);
+                                mapProvider.updateTilt(45);
+                                print('before fly to');
+                                mapProvider.flyToLocation(newLocation);
+
                                 // gmp.updateCameraPosition(CameraPosition(
                                 //     target: LatLng(lat, long), zoom: 14.4746));
+                                // gmp.flyToLocation(LatLng(lat, long));
+
                                 print('Lat: $lat , long: $long');
+                                print('after fly to');
                               }
                             },
                             height: MediaQuery.of(context).size.height * 0.05,
@@ -603,8 +619,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     key: const ValueKey("location-prompt"),
                     textController: widget._prompt2Controller,
                     isSuffixRequired: false,
-                      // isHidden: false,
-                                isPassword: false,
+                    // isHidden: false,
+                    isPassword: false,
                     maxLength: 100,
                     maxlines: 1,
                     width: MediaQuery.sizeOf(context).width * 0.85,
@@ -653,7 +669,20 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                             showVisualizationDialog(
                                 context, value, query, _city, _country);
                           } else {
-                            showStreamingDialog(context, query);
+                            Connectionprovider connection =
+                                Provider.of<Connectionprovider>(context,
+                                    listen: false);
+                            if (!connection.isAiConnected) {
+                              dialogBuilder(
+                                  context,
+                                  'NOT connected to AI Server!!\nPlease Connect!',
+                                  true,
+                                  'OK',
+                                  null,
+                                  null);
+                            } else {
+                              showStreamingDialog(context, query, _city, _country);
+                            }
                           }
                         });
                       }

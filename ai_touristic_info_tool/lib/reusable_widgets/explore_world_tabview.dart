@@ -3,7 +3,9 @@ import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
+import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
+import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
@@ -374,8 +376,8 @@ class ExploreWorldTabView extends StatelessWidget {
                     key: const ValueKey("world-prompt"),
                     textController: _promptController,
                     isSuffixRequired: false,
-                       // isHidden: false,
-                                isPassword: false,
+                    // isHidden: false,
+                    isPassword: false,
                     maxLength: 100,
                     maxlines: 1,
                     width: MediaQuery.sizeOf(context).width * 0.85,
@@ -412,7 +414,20 @@ class ExploreWorldTabView extends StatelessWidget {
                             showVisualizationDialog(
                                 context, value, query, '', '');
                           } else {
-                            showStreamingDialog(context, query);
+                            Connectionprovider connection =
+                                Provider.of<Connectionprovider>(context,
+                                    listen: false);
+                            if (!connection.isAiConnected) {
+                              dialogBuilder(
+                                  context,
+                                  'NOT connected to AI Server!!\nPlease Connect!',
+                                  true,
+                                  'OK',
+                                  null,
+                                  null);
+                            } else {
+                              showStreamingDialog(context, query, '', '');
+                            }
                           }
                         });
                         // showStreamingDialog(context, query);

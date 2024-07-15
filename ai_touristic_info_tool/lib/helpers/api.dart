@@ -206,7 +206,7 @@ class Api {
   }
 
   Future<List<String>> fetchWebUrls(String placeName) async {
-    final Uri uri = Uri.parse('$baseUrl/search?user_query=$placeName');
+    final Uri uri = Uri.parse('$baseUrl/search?place_name=$placeName');
     final response = await http.get(uri);
 
     if (response.statusCode == 200) {
@@ -220,8 +220,8 @@ class Api {
   Future<List<String>> fetchYoutubeUrls({required String query}) async {
     final String endpoint = 'https://www.googleapis.com/youtube/v3/search';
 
-    final Uri url =
-        Uri.parse('$endpoint?key=${dotenv.env['YOUTUBE_API_KEY']}&q=$query&type=video');
+    final Uri url = Uri.parse(
+        '$endpoint?key=${dotenv.env['YOUTUBE_API_KEY']}&q=$query&type=video');
 
     final response = await http.get(url);
 

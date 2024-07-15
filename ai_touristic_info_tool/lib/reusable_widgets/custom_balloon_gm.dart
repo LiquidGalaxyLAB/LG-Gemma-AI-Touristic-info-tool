@@ -221,7 +221,7 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: '${poi.price}',
+                                    text: '${poi.price ?? ''} ',
                                     style: TextStyle(
                                       color: FontAppColors.primaryFont,
                                       fontSize: textSize,
@@ -246,7 +246,32 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: '${poi.amenities}',
+                                    text: '${poi.amenities ?? ''}',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Source Link: ',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize,
+                                      fontFamily: fontType,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '${poi.sourceLink ?? ''}',
                                     style: TextStyle(
                                       color: FontAppColors.primaryFont,
                                       fontSize: textSize,

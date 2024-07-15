@@ -180,47 +180,62 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                 final srch = Provider.of<SearchProvider>(
                                     context,
                                     listen: false);
-                                srch.isLoading = true;
-                                srch.showMap = false;
-                                srch.searchPoiSelected = widget.placeModel.name;
-                                List<String> _futureYoutubeUrls = await Api()
-                                    .fetchYoutubeUrls(
-                                        query: widget.placeModel.name);
-                                List<String> _futureUrls = await Api()
-                                    .fetchWebUrls(widget.placeModel.name);
-
-                                final sshData = Provider.of<SSHprovider>(
-                                    context,
-                                    listen: false);
-
                                 Connectionprovider connection =
                                     Provider.of<Connectionprovider>(context,
                                         listen: false);
+                                if (!connection.isAiConnected) {
+                                  dialogBuilder(
+                                      context,
+                                      'NOT connected to AI Server!!\nPlease Connect!',
+                                      true,
+                                      'OK',
+                                      null,
+                                      null);
+                                } else {
+                                  srch.isLoading = true;
+                                  srch.showMap = false;
+                                  srch.searchPoiSelected =
+                                      widget.placeModel.name;
+                                  List<String> _futureYoutubeUrls = await Api()
+                                      .fetchYoutubeUrls(
+                                          query: widget.placeModel.name);
+                                  List<String> _futureUrls = await Api()
+                                      .fetchWebUrls(widget.placeModel.name);
 
-                                ///checking the connection status first
-                                if (sshData.client != null &&
-                                    connection.isLgConnected) {
-                                  List<String> links =
-                                      _futureUrls + _futureYoutubeUrls;
-                                  await buildAllLinksBalloon(
-                                      widget.placeModel.name,
-                                      widget.placeModel.city,
-                                      widget.placeModel.country,
-                                      widget.placeModel.latitude,
-                                      widget.placeModel.longitude,
-                                      links,
-                                      context);
+                                  final sshData = Provider.of<SSHprovider>(
+                                      context,
+                                      listen: false);
+
+                                  Connectionprovider connection =
+                                      Provider.of<Connectionprovider>(context,
+                                          listen: false);
+
+                                  ///checking the connection status first
+                                  if (sshData.client != null &&
+                                      connection.isLgConnected) {
+                                    List<String> links =
+                                        _futureUrls + _futureYoutubeUrls;
+                                    await buildAllLinksBalloon(
+                                        widget.placeModel.name,
+                                        widget.placeModel.city,
+                                        widget.placeModel.country,
+                                        widget.placeModel.latitude,
+                                        widget.placeModel.longitude,
+                                        links,
+                                        context);
+                                  }
+
+                                  srch.webSearchResults = _futureUrls;
+                                  srch.youtubeSearchResults =
+                                      _futureYoutubeUrls;
+                                  srch.isLoading = false;
+                                  srch.poiLat = widget.placeModel.latitude;
+                                  srch.poiLong = widget.placeModel.longitude;
+                                  srch.searchPoiCountry =
+                                      widget.placeModel.country ?? 'Worldwide';
+                                  srch.searchPoiCity =
+                                      widget.placeModel.city ?? '';
                                 }
-
-                                srch.webSearchResults = _futureUrls;
-                                srch.youtubeSearchResults = _futureYoutubeUrls;
-                                srch.isLoading = false;
-                                srch.poiLat = widget.placeModel.latitude;
-                                srch.poiLong = widget.placeModel.longitude;
-                                srch.searchPoiCountry =
-                                    widget.placeModel.country ?? 'Worldwide';
-                                srch.searchPoiCity =
-                                    widget.placeModel.city ?? '';
                               },
                               child: Container(
                                   height:
