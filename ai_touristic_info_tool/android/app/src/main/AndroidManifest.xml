@@ -9,7 +9,7 @@
         android:requiresSmallestWidthDp="600" />
     
     <application
-        android:label="Gemma AI Touristic tool 1.1.0+3"
+        android:label="Gemma AI Touristic tool 1.2.0+4"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
