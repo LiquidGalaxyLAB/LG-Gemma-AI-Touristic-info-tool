@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Balloon Text Overlay</name>
+    <visibility>1</visibility>
+    <ScreenOverlay>
+      <name>Balloon</name>
+      <visibility>1</visibility>
+      <overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>
+      <screenXY x="0.1" y="0.9" xunits="fraction" yunits="fraction"/>
+      <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+      <size x="0" y="0" xunits="fraction" yunits="fraction"/>
+      <description>
+        <![CDATA[
+          <div style="position: absolute; top: 10%; left: 10%; border: 2px solid black; padding: 10px; background-color: white; z-index: 1000;">
+            <h1>Balloon Title</h1>
+            <p>This is the text inside the balloon. You can include any HTML content here.</p>
+          </div>
+        ]]>
+      </description>
+    </ScreenOverlay>
+  </Document>
+</kml>

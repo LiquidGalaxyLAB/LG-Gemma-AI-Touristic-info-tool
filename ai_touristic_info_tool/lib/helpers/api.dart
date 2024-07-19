@@ -103,7 +103,7 @@ class Api {
     }
 
     /*
-       curl -X POST "http://localhost:3000/rag/stream_events" -d '{"input": "Tinputks World Wide"}'
+       curl -X GET "http://localhost:3000/health" 
       */
 
     //final response = await http.post(url, headers: headers, body: body);

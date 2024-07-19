@@ -30,7 +30,7 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
         return Align(
           alignment: Alignment.topRight,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.3,
+            width: MediaQuery.of(context).size.width * 0.2,
             height: MediaQuery.of(context).size.height * 0.05,
             decoration: BoxDecoration(
               color: PrimaryAppColors.innerBackground,
@@ -41,23 +41,25 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
               children: [
                 Text(
                   'LG Rig',
-                  style: TextStyle(fontFamily: fontType, fontSize: textSize),
+                  style:
+                      TextStyle(fontFamily: fontType, fontSize: textSize - 5),
                 ),
                 CircleAvatar(
                   backgroundColor: connection.isLgConnected
                       ? LgAppColors.lgColor4
                       : LgAppColors.lgColor2,
-                  radius: 20,
+                  radius: 10,
                 ),
                 Text(
                   'AI Server',
-                  style: TextStyle(fontFamily: fontType, fontSize: textSize),
+                  style:
+                      TextStyle(fontFamily: fontType, fontSize: textSize - 5),
                 ),
                 CircleAvatar(
                   backgroundColor: connection.isAiConnected
                       ? LgAppColors.lgColor4
                       : LgAppColors.lgColor2,
-                  radius: 20,
+                  radius: 10,
                 ),
               ],
             ),

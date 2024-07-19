@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/kml/KMLModel.dart';
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/orbit_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/placemark_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/point_model.dart';
+import 'package:ai_touristic_info_tool/models/kml/screen_overlay_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/tour_model.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
@@ -19,6 +22,138 @@ String escapeHtml(String input) {
       .replaceAll('>', '&gt;')
       .replaceAll('"', '&quot;')
       .replaceAll("'", '&#39;');
+}
+
+buildAppBalloon2(BuildContext context) async {
+  final sshData = Provider.of<SSHprovider>(context, listen: false);
+  String balloonContent = '''
+      <style>
+            .balloon {
+              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
+              color: white;
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Montserrat, sans-serif;
+            }
+            .balloon h1 {
+              font-size: 30px;
+              color: #ffff;
+            }
+             .balloon h2 {
+              font-size: 24px;
+              color: #ffff;
+            }
+            .balloon h3 {
+              font-size: 20px;
+              color: #ffff;
+            }
+            
+            .balloon pp{
+              font-size: 18px;
+              color: #ffff;
+            }
+            .balloon p {
+              font-size: 14px;
+              color: #ffff;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+              text-align: left;
+            
+            }
+           .container-logo {
+            width: 100px; 
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; 
+          }
+          .logo img {
+            max-width: 100%; /* Ensure image fits within container */
+            max-height: 100%; /* Ensure image fits within container */
+            display: block;
+            margin: auto;
+            border-radius: 10px; /* Optional rounded corners for the image */
+          }
+          </style>
+        
+          <div class="balloon">
+              <div class="container-logo">
+                  <div class="logo">
+                    <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
+                  </div>
+              </div>
+
+              <div style="text-align:center;">
+              <h1>Welcome to LG Gemma AI Touristic Info Tool!</h1>
+              </div>
+
+              <br>
+
+              <div style="text-align:justify;">
+                  <pp>Prepare to be inspired by discovering the most captivating POIs tailored to your preference.</pp>
+              </div>
+
+              <div class="details">
+                <p><b>Contributor:</b> Mahinour Elsarky</p>
+                <p><b>Organization:</b> Liquid Galaxy Project</p>
+                <p><b>Main-Mentors:</b> Claudia Diosan , Andreu Ibanez</p>
+                <p><b>Co-Mentors:</b> Emilie Ma ,  Irene</p>
+                <p><b>Listener Contributors:</b> Vertika Bajpai</p>
+              </div>
+        </div>
+    ''';
+
+  ScreenOverlayModel screenOverlay = ScreenOverlayModel(
+    name: "",
+    overlayX: 0,
+    overlayY: 1,
+    screenX: 0.1,
+    screenY: 0.9,
+    sizeX: 500,
+    sizeY: 500,
+    visibility: 1,
+    content: balloonContent,
+  );
+
+  String kmlName = 'App-Balloon';
+  String content = '<name>AppBalloon</name>';
+
+  final kmlBalloon = KMLModel(
+    name: kmlName,
+    content: content,
+    screenOverlay: screenOverlay.balloonTag,
+  );
+
+  LookAtModel lookAt = LookAtModel(
+    longitude: 0.0000101,
+    latitude: 0.0000101,
+    range: '31231212.86',
+    tilt: '0',
+    altitude: 50000.1097385,
+    heading: '0',
+    altitudeMode: 'relativeToSeaFloor',
+  );
+
+  try {
+    await LgService(sshData).sendKMLToSlave(
+      LgService(sshData).balloonScreen,
+      kmlBalloon.body,
+    );
+    await LgService(sshData).flyTo(lookAt);
+  } catch (e) {
+    print(e);
+  }
 }
 
 buildAppBalloon(BuildContext context, {visibility = true}) async {
@@ -108,10 +243,7 @@ buildAppBalloon(BuildContext context, {visibility = true}) async {
                 <p><b>Co-Mentors:</b> Emilie Ma ,  Irene</p>
                 <p><b>Listener Contributors:</b> Vertika Bajpai</p>
               </div>
-            
-
-
-           
+     
         </div>
 ''';
 
@@ -858,7 +990,7 @@ buildPlacePlacemark(
                 <p><b>Average Ratings:</b>$placesRating</p>
                 <p><b>Pricing:</b>$placePrices</p>
                 <p><b>Amenities:</b>$placeAmenities</p>
-                <p><b>Source:</b>$placeLink</p>
+                <p style="text-align: center;"><a href="$placeLink">source link</a></p>
               </div>
           </div>
 ''';
@@ -1278,7 +1410,7 @@ buildQueryTour(
                 <p><b>Average Ratings:</b>${pois[i].ratings ?? ''}</p>
                 <p><b>Pricing:</b>${escapeHtml(pois[i].price ?? '')}</p>
                 <p><b>Amenities:</b>${escapeHtml(pois[i].amenities ?? '')}</p>
-                <p><b>Source:</b>${escapeHtml(pois[i].sourceLink ?? '')}</p>
+                 <p style="text-align: center;"><a href="${escapeHtml(pois[i].sourceLink ?? '')}">source link</a></p>
               </div>
           </div>
 ''';

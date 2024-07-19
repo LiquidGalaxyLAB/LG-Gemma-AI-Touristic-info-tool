@@ -23,25 +23,55 @@ class _AppBarWidgetState extends State<AppBarWidget> {
       left: 50,
       right: 50,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
             'assets/images/appLogo.png',
             width: 80,
             height: 80,
           ),
-          Text(
-            'LG Gemma AI Touristic info tool',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontFamily: fontType,
-                fontSize: titleSize,
-                fontWeight: FontWeight.bold,
-                color: FontAppColors.secondaryFont),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.03,
+          ),
+          RichText(
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'LG Touristic info tool ',
+                  style: TextStyle(
+                      fontFamily: fontType,
+                      fontSize: titleSize,
+                      fontWeight: FontWeight.bold,
+                      color: FontAppColors.secondaryFont),
+                ),
+                TextSpan(
+                  text: 'made with',
+                  style: TextStyle(
+                      fontFamily: fontType,
+                      fontSize: titleSize - 15,
+                      fontWeight: FontWeight.bold,
+                      color: FontAppColors.secondaryFont),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.01,
+          ),
+          Image.asset(
+            'assets/images/gemma2.webp',
+            width: 120,
+            height: 80,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.05,
           ),
           Consumer<Connectionprovider>(builder: (context, connection, _) {
             return const ConnectionIndicator();
           }),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.01,
+          ),
           Container(
             decoration: BoxDecoration(
               color: FontAppColors.secondaryFont,
@@ -56,7 +86,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                 child: Icon(
                   Icons.warning_amber_outlined,
                   color: LgAppColors.lgColor3,
-                  size: 30,
+                  size: 20,
                 ),
               ),
             ),

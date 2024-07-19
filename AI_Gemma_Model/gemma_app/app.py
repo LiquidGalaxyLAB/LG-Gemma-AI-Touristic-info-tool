@@ -78,6 +78,7 @@ app = FastAPI(
 async def handle_request(user_query:str):
         
         general_fetched_urls = scrape_urls(user_query)
+        # general_fetched_urls=[]
 
         # Load Data
         loader = AsyncChromiumLoader(general_fetched_urls, user_agent="MyAppUserAgent")
