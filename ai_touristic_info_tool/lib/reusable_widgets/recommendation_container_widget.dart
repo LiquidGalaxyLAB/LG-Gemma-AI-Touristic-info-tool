@@ -1,6 +1,7 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -62,73 +63,80 @@ class RecommendationContainer extends StatelessWidget {
                   null,
                   null);
             } else {
-              showStreamingDialog(context, query, city?? '', country?? '');
+              showStreamingDialog(context, query, city ?? '', country ?? '');
             }
           }
         });
       },
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          border: Border.all(color: PrimaryAppColors.buttonColors, width: 4),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(26),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-              ),
+      child: Consumer<ColorProvider>(
+        builder: (BuildContext context, ColorProvider value, Widget? child) {
+          return Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              border: Border.all(
+                  // color: PrimaryAppColors.buttonColors,
+                  color: value.colors.buttonColors,
+                  width: 4),
+              borderRadius: BorderRadius.circular(30),
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(26),
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.black.withOpacity(bottomOpacity),
-                    Colors.black.withOpacity(0.1),
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(26),
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
                 ),
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: 10,
-              right: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: FontAppColors.secondaryFont,
-                      fontWeight: FontWeight.bold,
-                      fontSize: txtSize,
-                      fontFamily: fontType,
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(26),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.black.withOpacity(bottomOpacity),
+                        Colors.black.withOpacity(0.1),
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
                     ),
                   ),
-                  if (description != null)
-                    Text(
-                      description!,
-                      style: TextStyle(
-                        color: FontAppColors.secondaryFont,
-                        fontSize: txtSize,
-                        fontFamily: fontType,
+                ),
+                Positioned(
+                  bottom: 10,
+                  left: 10,
+                  right: 10,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: FontAppColors.secondaryFont,
+                          fontWeight: FontWeight.bold,
+                          fontSize: txtSize,
+                          fontFamily: fontType,
+                        ),
                       ),
-                    ),
-                ],
-              ),
+                      if (description != null)
+                        Text(
+                          description!,
+                          style: TextStyle(
+                            color: FontAppColors.secondaryFont,
+                            fontSize: txtSize,
+                            fontFamily: fontType,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

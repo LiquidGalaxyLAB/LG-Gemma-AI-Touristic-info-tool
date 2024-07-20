@@ -2,6 +2,7 @@ import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_location_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_world_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -43,7 +44,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   _showHomeBallon() async {
-    await buildAppBalloon2(context);
+    await buildAppBalloon(context);
 
     // ModelErrorProvider errProvider =
     //     Provider.of<ModelErrorProvider>(context, listen: false);
@@ -59,20 +60,28 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      TopBarWidget(
-        height: MediaQuery.of(context).size.height * 0.1,
-        width: MediaQuery.of(context).size.width * 1,
-        child: Center(
-          child: Text(
-            'Welcome to your Home page!',
-            style: TextStyle(
-              fontFamily: fontType,
-              fontSize: headingSize,
-              color: FontAppColors.secondaryFont,
-              fontWeight: FontWeight.bold,
+      Consumer<ColorProvider>(
+        builder: (BuildContext context, ColorProvider value, Widget? child) {
+          return TopBarWidget(
+            grad1: value.colors.gradient1,
+            grad2: value.colors.gradient2,
+            grad3: value.colors.gradient3,
+            grad4: value.colors.gradient4,
+            height: MediaQuery.of(context).size.height * 0.1,
+            width: MediaQuery.of(context).size.width * 1,
+            child: Center(
+              child: Text(
+                'Welcome to your Home page!',
+                style: TextStyle(
+                  fontFamily: fontType,
+                  fontSize: headingSize,
+                  color: FontAppColors.secondaryFont,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
       SizedBox(
         height: MediaQuery.of(context).size.height * 0.04,
@@ -81,49 +90,61 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.05,
           width: MediaQuery.of(context).size.width * 0.8,
-          child: TabBar(
-            controller: _tabController,
-            indicatorColor: PrimaryAppColors.buttonColors,
-            tabs: <Widget>[
-              Tab(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.travel_explore,
-                        color: PrimaryAppColors.buttonColors, size: 30),
-                    const SizedBox(width: 10),
-                    Text(
-                      'Explore Worldwide',
-                      style: TextStyle(
-                        fontFamily: fontType,
-                        fontSize: textSize,
-                        color: PrimaryAppColors.buttonColors,
-                        fontWeight: FontWeight.bold,
-                      ),
+          child: Consumer<ColorProvider>(
+            builder:
+                (BuildContext context, ColorProvider value, Widget? child) {
+              return TabBar(
+                controller: _tabController,
+                // indicatorColor: PrimaryAppColors.buttonColors,
+                indicatorColor: value.colors.buttonColors,
+                tabs: <Widget>[
+                  Tab(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.travel_explore,
+                            // color: PrimaryAppColors.buttonColors,
+                            color: value.colors.buttonColors,
+                            size: 30),
+                        const SizedBox(width: 10),
+                        Text(
+                          'Explore Worldwide',
+                          style: TextStyle(
+                            fontFamily: fontType,
+                            fontSize: textSize,
+                            // color: PrimaryAppColors.buttonColors,
+                            color: value.colors.buttonColors,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Tab(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.place,
-                        color: PrimaryAppColors.buttonColors, size: 30),
-                    const SizedBox(width: 10),
-                    Text(
-                      'Explore certain Location',
-                      style: TextStyle(
-                        fontFamily: fontType,
-                        fontSize: textSize,
-                        color: PrimaryAppColors.buttonColors,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ),
+                  Tab(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.place,
+                            // color: PrimaryAppColors.buttonColors,
+                            color: value.colors.buttonColors,
+                            size: 30),
+                        const SizedBox(width: 10),
+                        Text(
+                          'Explore certain Location',
+                          style: TextStyle(
+                            fontFamily: fontType,
+                            fontSize: textSize,
+                            // color: PrimaryAppColors.buttonColors,
+                            color: value.colors.buttonColors,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ],
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

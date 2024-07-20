@@ -4,6 +4,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart'
 import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -385,55 +386,64 @@ class ExploreWorldTabView extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 40.0, top: 20),
-                  child: LgElevatedButton(
-                    key: const ValueKey("world-prompt-button"),
-                    height: MediaQuery.sizeOf(context).height * 0.05,
-                    width: MediaQuery.sizeOf(context).width * 0.2,
-                    buttonColor: PrimaryAppColors.buttonColors,
-                    fontSize: textSize,
-                    fontColor: FontAppColors.secondaryFont,
-                    isBold: true,
-                    isLoading: false,
-                    isPrefixIcon: false,
-                    isSuffixIcon: false,
-                    curvatureRadius: 50,
-                    onpressed: () {
-                      ModelErrorProvider errProvider =
-                          Provider.of<ModelErrorProvider>(context,
-                              listen: false);
-                      errProvider.isError = false;
-                      if (_formKey.currentState!.validate()) {
-                        String query = '${_promptController.text} Worldwide';
-                        print(query);
+                  child: Consumer<ColorProvider>(
+                    builder: (BuildContext context, ColorProvider value,
+                        Widget? child) {
+                      return LgElevatedButton(
+                        key: const ValueKey("world-prompt-button"),
+                        height: MediaQuery.sizeOf(context).height * 0.05,
+                        width: MediaQuery.sizeOf(context).width * 0.2,
+                        // buttonColor: PrimaryAppColors.buttonColors,
+                        buttonColor: value.colors.buttonColors,
+                        fontSize: textSize,
+                        fontColor: FontAppColors.secondaryFont,
+                        isBold: true,
+                        isLoading: false,
+                        isPrefixIcon: false,
+                        isSuffixIcon: false,
+                        curvatureRadius: 50,
+                        onpressed: () {
+                          ModelErrorProvider errProvider =
+                              Provider.of<ModelErrorProvider>(context,
+                                  listen: false);
+                          errProvider.isError = false;
+                          if (_formKey.currentState!.validate()) {
+                            String query =
+                                '${_promptController.text} Worldwide';
+                            print(query);
 
-                        PromptsSharedPref.getPlaces(query).then((value) async {
-                          print('value: $value');
-                          print(value.isNotEmpty);
-                          if (value.isNotEmpty) {
-                            await buildQueryPlacemark(query, '', '', context);
-                            showVisualizationDialog(
-                                context, value, query, '', '');
-                          } else {
-                            Connectionprovider connection =
-                                Provider.of<Connectionprovider>(context,
-                                    listen: false);
-                            if (!connection.isAiConnected) {
-                              dialogBuilder(
-                                  context,
-                                  'NOT connected to AI Server!!\nPlease Connect!',
-                                  true,
-                                  'OK',
-                                  null,
-                                  null);
-                            } else {
-                              showStreamingDialog(context, query, '', '');
-                            }
+                            PromptsSharedPref.getPlaces(query)
+                                .then((value) async {
+                              print('value: $value');
+                              print(value.isNotEmpty);
+                              if (value.isNotEmpty) {
+                                await buildQueryPlacemark(
+                                    query, '', '', context);
+                                showVisualizationDialog(
+                                    context, value, query, '', '');
+                              } else {
+                                Connectionprovider connection =
+                                    Provider.of<Connectionprovider>(context,
+                                        listen: false);
+                                if (!connection.isAiConnected) {
+                                  dialogBuilder(
+                                      context,
+                                      'NOT connected to AI Server!!\nPlease Connect!',
+                                      true,
+                                      'OK',
+                                      null,
+                                      null);
+                                } else {
+                                  showStreamingDialog(context, query, '', '');
+                                }
+                              }
+                            });
+                            // showStreamingDialog(context, query);
                           }
-                        });
-                        // showStreamingDialog(context, query);
-                      }
+                        },
+                        elevatedButtonContent: 'GENERATE',
+                      );
                     },
-                    elevatedButtonContent: 'GENERATE',
                   ),
                 ),
                 SizedBox(

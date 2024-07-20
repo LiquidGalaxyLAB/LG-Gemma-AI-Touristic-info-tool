@@ -5,6 +5,7 @@ import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
@@ -98,21 +99,26 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                     fontFamily: fontType,
                   ),
                 ),
-                LgElevatedButton(
-                  elevatedButtonContent: 'OK',
-                  buttonColor: PrimaryAppColors.buttonColors,
-                  onpressed: () {
-                    Navigator.pop(context);
+                Consumer<ColorProvider>(
+                  builder: (BuildContext context, ColorProvider value, Widget? child) {  
+                 return LgElevatedButton(
+                    elevatedButtonContent: 'OK',
+                    // buttonColor: PrimaryAppColors.buttonColors,
+                    buttonColor: value.colors.buttonColors,
+                    onpressed: () {
+                      Navigator.pop(context);
+                    },
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    fontSize: textSize,
+                    fontColor: FontAppColors.secondaryFont,
+                    isLoading: false,
+                    isBold: true,
+                    isPrefixIcon: false,
+                    isSuffixIcon: false,
+                    curvatureRadius: 30,
+                  );
                   },
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  fontSize: textSize,
-                  fontColor: FontAppColors.secondaryFont,
-                  isLoading: false,
-                  isBold: true,
-                  isPrefixIcon: false,
-                  isSuffixIcon: false,
-                  curvatureRadius: 30,
                 )
               ],
             ),
@@ -180,21 +186,29 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: PrimaryAppColors.gradient1, width: 2),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: LinearProgressIndicator(
-                      value: _currProgress / 6,
-                      backgroundColor:
-                          FontAppColors.secondaryFont.withOpacity(0.5),
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                          PrimaryAppColors.accentColor),
-                    ),
+                  child: Consumer<ColorProvider>(
+                    builder: (BuildContext context, ColorProvider value, Widget? child) {  
+                    return Container(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            // color: PrimaryAppColors.gradient1, 
+                            color: value.colors.gradient1,
+                            width: 2),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: LinearProgressIndicator(
+                        value: _currProgress / 6,
+                        backgroundColor:
+                            FontAppColors.secondaryFont.withOpacity(0.5),
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            // PrimaryAppColors.accentColor,
+                            value.colors.accentColor,
+                            ),
+                      ),
+                    );
+                    },
                   ),
                 ),
                 Row(
@@ -204,69 +218,82 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.6,
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: PrimaryAppColors.gradient1, width: 4),
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color.fromARGB(111, 184, 184, 187),
-                            ),
-                            child: Scrollbar(
-                              thumbVisibility: true,
-                              child: SingleChildScrollView(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: StreamBuilder<dynamic>(
-                                    stream: _chunkController.stream,
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        //return CircularProgressIndicator();
-                                        return Text(
-                                          'Waiting for stream. Please wait... ',
-                                          style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: fontType,
-                                          ),
-                                        );
-                                      } else if (snapshot.hasError) {
-                                        return Text(
-                                          'Error: ${snapshot.error}',
-                                          style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize,
-                                            fontFamily: fontType,
-                                          ),
-                                        );
-                                      } else if (snapshot.hasData) {
-                                        _words.add(snapshot.data!.toString());
-                                        return Text(
-                                          _words.join(' '),
-                                          style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize,
-                                            fontFamily: fontType,
-                                          ),
-                                        );
-                                      } else {
-                                        return Text(
-                                          'No data available',
-                                          style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize,
-                                            fontFamily: fontType,
-                                          ),
-                                        );
-                                      }
-                                    },
+                          child: Consumer<ColorProvider>(
+                            builder: (BuildContext context, ColorProvider value,
+                                Widget? child) {
+                              return Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.6,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      // color: PrimaryAppColors.gradient1,
+                                      color: value.colors.gradient1,
+                                      width: 4),
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color.fromARGB(111, 184, 184, 187),
+                                ),
+                                child: Scrollbar(
+                                  thumbVisibility: true,
+                                  child: SingleChildScrollView(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: StreamBuilder<dynamic>(
+                                        stream: _chunkController.stream,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            //return CircularProgressIndicator();
+                                            return Text(
+                                              'Waiting for stream. Please wait... ',
+                                              style: TextStyle(
+                                                color:
+                                                    FontAppColors.primaryFont,
+                                                fontSize: textSize,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: fontType,
+                                              ),
+                                            );
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                              'Error: ${snapshot.error}',
+                                              style: TextStyle(
+                                                color:
+                                                    FontAppColors.primaryFont,
+                                                fontSize: textSize,
+                                                fontFamily: fontType,
+                                              ),
+                                            );
+                                          } else if (snapshot.hasData) {
+                                            _words
+                                                .add(snapshot.data!.toString());
+                                            return Text(
+                                              _words.join(' '),
+                                              style: TextStyle(
+                                                color:
+                                                    FontAppColors.primaryFont,
+                                                fontSize: textSize,
+                                                fontFamily: fontType,
+                                              ),
+                                            );
+                                          } else {
+                                            return Text(
+                                              'No data available',
+                                              style: TextStyle(
+                                                color:
+                                                    FontAppColors.primaryFont,
+                                                fontSize: textSize,
+                                                fontFamily: fontType,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
                         ),
                       ],
@@ -295,9 +322,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                           height: MediaQuery.of(context).size.height * 0.4,
                           // You can also adjust other properties like width, height, etc.
                         ),
-                        Consumer<ModelErrorProvider>(builder:
+                        Consumer2<ModelErrorProvider, ColorProvider>(builder:
                             (BuildContext context, ModelErrorProvider value,
-                                Widget? child) {
+                                ColorProvider colorProv, Widget? child) {
                           return Center(
                             child: Row(
                               children: [
@@ -305,8 +332,10 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                   Center(
                                     child: LgElevatedButton(
                                         elevatedButtonContent: 'Visualize now!',
+                                        // buttonColor:
+                                        //     PrimaryAppColors.buttonColors,
                                         buttonColor:
-                                            PrimaryAppColors.buttonColors,
+                                            colorProv.colors.buttonColors,
                                         onpressed: () async {
                                           await buildQueryPlacemark(
                                               widget.query,

@@ -1,4 +1,5 @@
 import 'package:ai_touristic_info_tool/state_management/drop_down_state.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,9 +57,10 @@ class DropDownListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DropdownState>(
+    return Consumer2<DropdownState, ColorProvider>(
       key: key,
-      builder: (BuildContext context, state, Widget? child) =>
+      builder: (BuildContext context, DropdownState state,
+              ColorProvider colorProv, Widget? child) =>
           DropdownButtonFormField<String>(
         decoration: InputDecoration(
           border: OutlineInputBorder(
@@ -70,8 +72,9 @@ class DropDownListWidget extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              color: PrimaryAppColors.buttonColors,
+            borderSide: BorderSide(
+              // color: PrimaryAppColors.buttonColors,
+              color: colorProv.colors.buttonColors,
               width: 5.0,
             ),
           ),
@@ -83,9 +86,10 @@ class DropDownListWidget extends StatelessWidget {
           filled: true,
         ),
         isExpanded: true,
-        icon: const Icon(
+        icon: Icon(
           Icons.arrow_drop_down,
-          color: PrimaryAppColors.buttonColors,
+          // color: PrimaryAppColors.buttonColors,
+          color: colorProv.colors.buttonColors,
           size: 36,
         ),
         items: items.map((String item) {

@@ -4,6 +4,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart'
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -57,31 +58,40 @@ class _ConnectionViewState extends State<ConnectionView> {
             children: [
               Column(
                 children: [
-                  TopBarWidget(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    width: MediaQuery.of(context).size.width * 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          "assets/images/connection.png",
-                          width: MediaQuery.of(context).size.width * 0.05,
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          color: FontAppColors.secondaryFont,
-                        ),
-                        Center(
-                          child: Text(
-                            'Liquid Galaxy Connection Manager',
-                            style: TextStyle(
-                              fontFamily: fontType,
-                              fontSize: headingSize,
+                  Consumer<ColorProvider>(
+                    builder: (BuildContext context, ColorProvider value,
+                        Widget? child) {
+                      return TopBarWidget(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 1,
+                        grad1: value.colors.gradient1,
+                        grad2: value.colors.gradient2,
+                        grad3: value.colors.gradient3,
+                        grad4: value.colors.gradient4,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/images/connection.png",
+                              width: MediaQuery.of(context).size.width * 0.05,
+                              height: MediaQuery.of(context).size.height * 0.05,
                               color: FontAppColors.secondaryFont,
-                              fontWeight: FontWeight.bold,
                             ),
-                          ),
+                            Center(
+                              child: Text(
+                                'Liquid Galaxy Connection Manager',
+                                style: TextStyle(
+                                  fontFamily: fontType,
+                                  fontSize: headingSize,
+                                  color: FontAppColors.secondaryFont,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                   // SizedBox(
                   //   height: MediaQuery.of(context).size.height * 0.05,
@@ -479,14 +489,20 @@ class _ConnectionViewState extends State<ConnectionView> {
 
                 /// Show the loading indicator if `_isLoading` is true
 
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: const CircularProgressIndicator(
-                    color: PrimaryAppColors.innerBackground,
-                    backgroundColor: PrimaryAppColors.buttonColors,
-                    semanticsLabel: 'Loading',
-                  ),
+                Consumer<ColorProvider>(
+                  builder: (BuildContext context, ColorProvider value, Widget? child) {  
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child:  CircularProgressIndicator(
+                      // color: PrimaryAppColors.innerBackground,
+                      // backgroundColor: PrimaryAppColors.buttonColors,
+                      color: value.colors.innerBackground,
+                      backgroundColor: value.colors.buttonColors,
+                      semanticsLabel: 'Loading',
+                    ),
+                  );
+                  },
                 ),
             ],
           );

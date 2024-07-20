@@ -1,6 +1,8 @@
 import 'package:ai_touristic_info_tool/reusable_widgets/current_view.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/utils/show_ai_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 
@@ -39,11 +41,18 @@ class _MainLayoutState extends State<MainLayout> {
             bottom: 30,
             left: 150,
             right: 20,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: PrimaryAppColors.innerBackground),
-              child: const CurrentView(),
+            child: Consumer<ColorProvider>(
+              builder:
+                  (BuildContext context, ColorProvider value, Widget? child) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    // color: PrimaryAppColors.innerBackground,
+                    color: value.colors.innerBackground,
+                  ),
+                  child: const CurrentView(),
+                );
+              },
             ),
           ),
         ],

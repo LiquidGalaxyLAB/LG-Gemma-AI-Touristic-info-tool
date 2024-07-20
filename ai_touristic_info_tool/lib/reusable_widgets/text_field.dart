@@ -1,5 +1,7 @@
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 
@@ -77,94 +79,102 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
-      child: TextFormField(
-        autofocus: true,
-        enabled: widget._enabled,
-        controller: widget._textController,
-        maxLength: widget._maxLength,
-        maxLines: widget._maxlines,
-        obscureText: widget._isPassword && _isHidden,
-        decoration: InputDecoration(
-          labelText: widget._label,
-          labelStyle: TextStyle(
-            fontSize: textSize + 2,
-            fontFamily: fontType,
-            color: FontAppColors.primaryFont,
-          ),
-          hintText: widget._hint,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              color: Colors.black,
-              width: 5.0,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              color: PrimaryAppColors.buttonColors,
-              width: 3.0,
-            ),
-          ),
-          filled: true,
-          fillColor: widget.fillColor ?? PrimaryAppColors.innerBackground,
-          suffixIcon: (widget._isSuffixRequired! && widget._isPassword)
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        _isHidden
-                            ? CupertinoIcons.eye_slash
-                            : CupertinoIcons.eye,
-                        color: Colors.grey,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isHidden = !_isHidden;
-                        });
-                      },
-                    ),
-                    const SizedBox(width: 10),
-                    const Text(
-                      '*',
-                      style: TextStyle(
-                        color: LgAppColors.lgColor2,
-                        fontSize: textSize,
-                      ),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.03),
-                  ],
-                )
-              : (widget._isSuffixRequired! && !widget._isPassword)
-                  ? const Text(
-                      '*',
-                      style: TextStyle(
-                        color: LgAppColors.lgColor2,
-                        fontSize: textSize,
-                      ),
+      child: Consumer<ColorProvider>(
+        builder: (BuildContext context, ColorProvider value, Widget? child) {
+          return TextFormField(
+            autofocus: true,
+            enabled: widget._enabled,
+            controller: widget._textController,
+            maxLength: widget._maxLength,
+            maxLines: widget._maxlines,
+            obscureText: widget._isPassword && _isHidden,
+            decoration: InputDecoration(
+              labelText: widget._label,
+              labelStyle: TextStyle(
+                fontSize: textSize + 2,
+                fontFamily: fontType,
+                color: FontAppColors.primaryFont,
+              ),
+              hintText: widget._hint,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(
+                  color: Colors.black,
+                  width: 5.0,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide:  BorderSide(
+                  // color: PrimaryAppColors.buttonColors,
+                  color: value.colors.buttonColors,
+                  width: 3.0,
+                ),
+              ),
+              filled: true,
+              // fillColor: widget.fillColor ?? PrimaryAppColors.innerBackground,
+              fillColor: widget.fillColor ?? value.colors.innerBackground,
+              suffixIcon: (widget._isSuffixRequired! && widget._isPassword)
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            _isHidden
+                                ? CupertinoIcons.eye_slash
+                                : CupertinoIcons.eye,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isHidden = !_isHidden;
+                            });
+                          },
+                        ),
+                        const SizedBox(width: 10),
+                        const Text(
+                          '*',
+                          style: TextStyle(
+                            color: LgAppColors.lgColor2,
+                            fontSize: textSize,
+                          ),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.03),
+                      ],
                     )
+                  : (widget._isSuffixRequired! && !widget._isPassword)
+                      ? const Text(
+                          '*',
+                          style: TextStyle(
+                            color: LgAppColors.lgColor2,
+                            fontSize: textSize,
+                          ),
+                        )
+                      : null,
+              prefixIcon: widget._isPrefixIconRequired ?? false
+                  ? widget._prefixIcon
                   : null,
-          prefixIcon:
-              widget._isPrefixIconRequired ?? false ? widget._prefixIcon : null,
-        ),
-        onChanged: widget.onChanged,
-        style: TextStyle(
-          color: Colors.black,
-          fontFamily: fontType,
-          fontSize: widget.fontSize,
-        ),
-        onEditingComplete: widget.onEditingComplete,
-        validator: (value) {
-          if (widget._isSuffixRequired == true) {
-            if (value == null || value.isEmpty) {
-              return 'This field is required';
-            }
-            return null;
-          } else {
-            return null;
-          }
+            ),
+            onChanged: widget.onChanged,
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: fontType,
+              fontSize: widget.fontSize,
+            ),
+            onEditingComplete: widget.onEditingComplete,
+            validator: (value) {
+              if (widget._isSuffixRequired == true) {
+                if (value == null || value.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              } else {
+                return null;
+              }
+            },
+          );
         },
       ),
     );

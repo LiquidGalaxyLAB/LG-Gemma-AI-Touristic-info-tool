@@ -3,6 +3,7 @@ import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
@@ -55,332 +56,358 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
             borderRadius: BorderRadius.circular(10),
           ),
           padding: const EdgeInsets.all(16.0),
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.25,
-            width: MediaQuery.of(context).size.width * 0.25,
-            decoration: BoxDecoration(
-              border: Border.all(color: FontAppColors.primaryFont, width: 3),
-              color: PrimaryAppColors.gradient4,
-              borderRadius: BorderRadius.circular(2),
-            ),
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.white.withOpacity(0.6),
-                        Colors.white.withOpacity(0.1),
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                    ),
-                  ),
+          child: Consumer<ColorProvider>(
+            builder:
+                (BuildContext context, ColorProvider value, Widget? child) {
+              return Container(
+                height: MediaQuery.of(context).size.height * 0.25,
+                width: MediaQuery.of(context).size.width * 0.25,
+                decoration: BoxDecoration(
+                  border:
+                      Border.all(color: FontAppColors.primaryFont, width: 3),
+                  // color: PrimaryAppColors.gradient4,
+                  color: value.colors.gradient4,
+                  borderRadius: BorderRadius.circular(2),
                 ),
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          textAlign: TextAlign.justify,
-                          widget.placeModel.name,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
-                          style: TextStyle(
-                              color: FontAppColors.primaryFont,
-                              fontSize: textSize,
-                              fontFamily: fontType,
-                              fontWeight: FontWeight.bold),
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white.withOpacity(0.6),
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
                         ),
                       ),
-                      Row(
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                              onTap: () async {
-                                LatLng newLocation = LatLng(
-                                    widget.placeModel.latitude,
-                                    widget.placeModel.longitude);
-                                final mapProvider =
-                                    Provider.of<GoogleMapProvider>(context,
-                                        listen: false);
-                                mapProvider.setBitmapDescriptor();
-                                mapProvider.addMarker(
-                                    context, widget.placeModel,
-                                    removeAll: true);
-                                mapProvider.updateZoom(18.4746);
-                                mapProvider.updateBearing(90);
-                                mapProvider.updateTilt(45);
-                                mapProvider.flyToLocation(newLocation);
-
-                                mapProvider.currentlySelectedPin =
-                                    widget.placeModel;
-                                mapProvider.pinPillPosition = 10;
-
-                                await Future.delayed(
-                                    const Duration(seconds: 3));
-
-                                final sshData = Provider.of<SSHprovider>(
-                                    context,
-                                    listen: false);
-
-                                Connectionprovider connection =
-                                    Provider.of<Connectionprovider>(context,
-                                        listen: false);
-
-                                ///checking the connection status first
-                                if (sshData.client != null &&
-                                    connection.isLgConnected) {
-                                  await buildPlacePlacemark(widget.placeModel,
-                                      widget.index + 1, widget.query, context);
-                                }
-                              },
-                              child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.05,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  decoration: BoxDecoration(
-                                    color: PrimaryAppColors.gradient1,
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      const Icon(
-                                          Icons.airplanemode_active_outlined,
-                                          color: FontAppColors.secondaryFont,
-                                          size: textSize + 10),
-                                      Text(
-                                        'Fly to',
-                                        style: TextStyle(
-                                            color: FontAppColors.secondaryFont,
-                                            fontSize: textSize - 4,
-                                            fontFamily: fontType,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  )),
+                            child: Text(
+                              textAlign: TextAlign.justify,
+                              widget.placeModel.name,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
+                              style: TextStyle(
+                                  color: FontAppColors.primaryFont,
+                                  fontSize: textSize,
+                                  fontFamily: fontType,
+                                  fontWeight: FontWeight.bold),
                             ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    LatLng newLocation = LatLng(
+                                        widget.placeModel.latitude,
+                                        widget.placeModel.longitude);
+                                    final mapProvider =
+                                        Provider.of<GoogleMapProvider>(context,
+                                            listen: false);
+                                    mapProvider.setBitmapDescriptor();
+                                    mapProvider.addMarker(
+                                        context, widget.placeModel,
+                                        removeAll: true);
+                                    mapProvider.updateZoom(18.4746);
+                                    mapProvider.updateBearing(90);
+                                    mapProvider.updateTilt(45);
+                                    mapProvider.flyToLocation(newLocation);
+
+                                    mapProvider.currentlySelectedPin =
+                                        widget.placeModel;
+                                    mapProvider.pinPillPosition = 10;
+
+                                    await Future.delayed(
+                                        const Duration(seconds: 3));
+
+                                    final sshData = Provider.of<SSHprovider>(
+                                        context,
+                                        listen: false);
+
+                                    Connectionprovider connection =
+                                        Provider.of<Connectionprovider>(context,
+                                            listen: false);
+
+                                    ///checking the connection status first
+                                    if (sshData.client != null &&
+                                        connection.isLgConnected) {
+                                      await buildPlacePlacemark(
+                                          widget.placeModel,
+                                          widget.index + 1,
+                                          widget.query,
+                                          context);
+                                    }
+                                  },
+                                  child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      decoration: BoxDecoration(
+                                        // color: PrimaryAppColors.gradient1,
+                                        color: value.colors.gradient1,
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          const Icon(
+                                              Icons
+                                                  .airplanemode_active_outlined,
+                                              color:
+                                                  FontAppColors.secondaryFont,
+                                              size: textSize + 10),
+                                          Text(
+                                            'Fly to',
+                                            style: TextStyle(
+                                                color:
+                                                    FontAppColors.secondaryFont,
+                                                fontSize: textSize - 4,
+                                                fontFamily: fontType,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    final srch = Provider.of<SearchProvider>(
+                                        context,
+                                        listen: false);
+                                    Connectionprovider connection =
+                                        Provider.of<Connectionprovider>(context,
+                                            listen: false);
+                                    if (!connection.isAiConnected) {
+                                      dialogBuilder(
+                                          context,
+                                          'NOT connected to AI Server!!\nPlease Connect!',
+                                          true,
+                                          'OK',
+                                          null,
+                                          null);
+                                    } else {
+                                      srch.isLoading = true;
+                                      srch.showMap = false;
+                                      srch.searchPoiSelected =
+                                          widget.placeModel.name;
+                                      List<String> _futureYoutubeUrls =
+                                          await Api().fetchYoutubeUrls(
+                                              query: widget.placeModel.name);
+                                      List<String> _futureUrls = await Api()
+                                          .fetchWebUrls(widget.placeModel.name);
+
+                                      final sshData = Provider.of<SSHprovider>(
+                                          context,
+                                          listen: false);
+
+                                      Connectionprovider connection =
+                                          Provider.of<Connectionprovider>(
+                                              context,
+                                              listen: false);
+
+                                      ///checking the connection status first
+                                      if (sshData.client != null &&
+                                          connection.isLgConnected) {
+                                        List<String> links =
+                                            _futureUrls + _futureYoutubeUrls;
+                                        await buildAllLinksBalloon(
+                                            widget.placeModel.name,
+                                            widget.placeModel.city,
+                                            widget.placeModel.country,
+                                            widget.placeModel.latitude,
+                                            widget.placeModel.longitude,
+                                            links,
+                                            context);
+                                      }
+
+                                      srch.webSearchResults = _futureUrls;
+                                      srch.youtubeSearchResults =
+                                          _futureYoutubeUrls;
+                                      srch.isLoading = false;
+                                      srch.poiLat = widget.placeModel.latitude;
+                                      srch.poiLong =
+                                          widget.placeModel.longitude;
+                                      srch.searchPoiCountry =
+                                          widget.placeModel.country ??
+                                              'Worldwide';
+                                      srch.searchPoiCity =
+                                          widget.placeModel.city ?? '';
+                                    }
+                                  },
+                                  child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.03,
+                                      decoration: BoxDecoration(
+                                        // color: PrimaryAppColors.gradient1,
+                                        color: value.colors.gradient1,
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          const Icon(Icons.info,
+                                              color:
+                                                  FontAppColors.secondaryFont,
+                                              size: textSize + 10),
+                                        ],
+                                      )),
+                                ),
+                              ),
+                            ],
                           ),
                           Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                              onTap: () async {
-                                final srch = Provider.of<SearchProvider>(
-                                    context,
-                                    listen: false);
-                                Connectionprovider connection =
-                                    Provider.of<Connectionprovider>(context,
-                                        listen: false);
-                                if (!connection.isAiConnected) {
-                                  dialogBuilder(
-                                      context,
-                                      'NOT connected to AI Server!!\nPlease Connect!',
-                                      true,
-                                      'OK',
-                                      null,
-                                      null);
-                                } else {
-                                  srch.isLoading = true;
-                                  srch.showMap = false;
-                                  srch.searchPoiSelected =
-                                      widget.placeModel.name;
-                                  List<String> _futureYoutubeUrls = await Api()
-                                      .fetchYoutubeUrls(
-                                          query: widget.placeModel.name);
-                                  List<String> _futureUrls = await Api()
-                                      .fetchWebUrls(widget.placeModel.name);
-
-                                  final sshData = Provider.of<SSHprovider>(
-                                      context,
-                                      listen: false);
-
-                                  Connectionprovider connection =
-                                      Provider.of<Connectionprovider>(context,
-                                          listen: false);
-
-                                  ///checking the connection status first
-                                  if (sshData.client != null &&
-                                      connection.isLgConnected) {
-                                    List<String> links =
-                                        _futureUrls + _futureYoutubeUrls;
-                                    await buildAllLinksBalloon(
-                                        widget.placeModel.name,
-                                        widget.placeModel.city,
-                                        widget.placeModel.country,
-                                        widget.placeModel.latitude,
-                                        widget.placeModel.longitude,
-                                        links,
-                                        context);
-                                  }
-
-                                  srch.webSearchResults = _futureUrls;
-                                  srch.youtubeSearchResults =
-                                      _futureYoutubeUrls;
-                                  srch.isLoading = false;
-                                  srch.poiLat = widget.placeModel.latitude;
-                                  srch.poiLong = widget.placeModel.longitude;
-                                  srch.searchPoiCountry =
-                                      widget.placeModel.country ?? 'Worldwide';
-                                  srch.searchPoiCity =
-                                      widget.placeModel.city ?? '';
-                                }
-                              },
-                              child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.05,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.03,
-                                  decoration: BoxDecoration(
-                                    color: PrimaryAppColors.gradient1,
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: Row(
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.08,
+                              // height: MediaQuery.of(context).size.height * 0.05,
+                              //width: MediaQuery.of(context).size.width * 0.18,
+                              width: MediaQuery.of(context).size.width * 0.1,
+                              decoration: BoxDecoration(
+                                color: FontAppColors.secondaryFont,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      const Icon(Icons.info,
-                                          color: FontAppColors.secondaryFont,
-                                          size: textSize + 10),
+                                      // Row(
+                                      //   children: [
+                                      //     Text('x/2',
+                                      //         style: TextStyle(
+                                      //           color: FontAppColors.primaryFont,
+                                      //           fontSize: textSize - 2,
+                                      //           fontFamily: fontType,
+                                      //         )),
+                                      //     const Icon(
+                                      //         Icons.keyboard_double_arrow_left,
+                                      //         color: FontAppColors.primaryFont,
+                                      //         size: textSize + 10),
+                                      //   ],
+                                      // ),
+                                      GestureDetector(
+                                          onTap: () async {
+                                            final sshData =
+                                                Provider.of<SSHprovider>(
+                                                    context,
+                                                    listen: false);
+
+                                            Connectionprovider connection =
+                                                Provider.of<Connectionprovider>(
+                                                    context,
+                                                    listen: false);
+
+                                            ///checking the connection status first
+                                            if (sshData.client != null &&
+                                                connection.isLgConnected) {
+                                              if (play) {
+                                                await LgService(sshData)
+                                                    .startTour('Orbit');
+                                              } else {
+                                                await LgService(sshData)
+                                                    .stopTour();
+                                              }
+                                              setState(() {
+                                                play = !play;
+                                              });
+                                            } else {
+                                              dialogBuilder(
+                                                  context,
+                                                  'NOT connected to LG !! \n Please Connect to LG',
+                                                  true,
+                                                  'OK',
+                                                  null,
+                                                  null);
+                                            }
+                                          },
+                                          child: play
+                                              ? const Icon(
+                                                  Icons.play_circle_outlined,
+                                                  //stop_circle_outlined
+                                                  color:
+                                                      FontAppColors.primaryFont,
+                                                  size: textSize + 10)
+                                              : const Icon(
+                                                  Icons.stop_circle_outlined,
+                                                  color:
+                                                      FontAppColors.primaryFont,
+                                                  size: textSize + 10)),
+                                      // Row(
+                                      //   children: [
+                                      //     const Icon(
+                                      //         Icons.keyboard_double_arrow_right,
+                                      //         color: FontAppColors.primaryFont,
+                                      //         size: textSize + 10),
+                                      //     Text('x2',
+                                      //         style: TextStyle(
+                                      //           color: FontAppColors.primaryFont,
+                                      //           fontSize: textSize - 2,
+                                      //           fontFamily: fontType,
+                                      //         )),
+                                      //   ],
+                                      // ),
                                     ],
-                                  )),
+                                  ),
+                                  Text(
+                                    'Orbit',
+                                    style: TextStyle(
+                                      color: FontAppColors.primaryFont,
+                                      fontSize: textSize - 2,
+                                      fontFamily: fontType,
+                                    ),
+                                  )
+                                  // Slider(
+                                  //   value: _currentProgress,
+                                  //   max: _totalDuration,
+                                  //   onChanged: (value) {
+                                  //     setState(() {
+                                  //       _currentProgress = value;
+                                  //     });
+                                  //   },
+                                  //   activeColor: FontAppColors.primaryFont,
+                                  //   inactiveColor:
+                                  //       FontAppColors.primaryFont.withOpacity(0.5),
+                                  // ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.08,
-                          // height: MediaQuery.of(context).size.height * 0.05,
-                          //width: MediaQuery.of(context).size.width * 0.18,
-                          width: MediaQuery.of(context).size.width * 0.1,
-                          decoration: BoxDecoration(
-                            color: FontAppColors.secondaryFont,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  // Row(
-                                  //   children: [
-                                  //     Text('x/2',
-                                  //         style: TextStyle(
-                                  //           color: FontAppColors.primaryFont,
-                                  //           fontSize: textSize - 2,
-                                  //           fontFamily: fontType,
-                                  //         )),
-                                  //     const Icon(
-                                  //         Icons.keyboard_double_arrow_left,
-                                  //         color: FontAppColors.primaryFont,
-                                  //         size: textSize + 10),
-                                  //   ],
-                                  // ),
-                                  GestureDetector(
-                                      onTap: () async {
-                                        final sshData =
-                                            Provider.of<SSHprovider>(context,
-                                                listen: false);
-
-                                        Connectionprovider connection =
-                                            Provider.of<Connectionprovider>(
-                                                context,
-                                                listen: false);
-
-                                        ///checking the connection status first
-                                        if (sshData.client != null &&
-                                            connection.isLgConnected) {
-                                          if (play) {
-                                            await LgService(sshData)
-                                                .startTour('Orbit');
-                                          } else {
-                                            await LgService(sshData).stopTour();
-                                          }
-                                          setState(() {
-                                            play = !play;
-                                          });
-                                        } else {
-                                          dialogBuilder(
-                                              context,
-                                              'NOT connected to LG !! \n Please Connect to LG',
-                                              true,
-                                              'OK',
-                                              null,
-                                              null);
-                                        }
-                                      },
-                                      child: play
-                                          ? const Icon(
-                                              Icons.play_circle_outlined,
-                                              //stop_circle_outlined
-                                              color: FontAppColors.primaryFont,
-                                              size: textSize + 10)
-                                          : const Icon(
-                                              Icons.stop_circle_outlined,
-                                              color: FontAppColors.primaryFont,
-                                              size: textSize + 10)),
-                                  // Row(
-                                  //   children: [
-                                  //     const Icon(
-                                  //         Icons.keyboard_double_arrow_right,
-                                  //         color: FontAppColors.primaryFont,
-                                  //         size: textSize + 10),
-                                  //     Text('x2',
-                                  //         style: TextStyle(
-                                  //           color: FontAppColors.primaryFont,
-                                  //           fontSize: textSize - 2,
-                                  //           fontFamily: fontType,
-                                  //         )),
-                                  //   ],
-                                  // ),
-                                ],
-                              ),
-                              Text(
-                                'Orbit',
-                                style: TextStyle(
-                                  color: FontAppColors.primaryFont,
-                                  fontSize: textSize - 2,
-                                  fontFamily: fontType,
-                                ),
-                              )
-                              // Slider(
-                              //   value: _currentProgress,
-                              //   max: _totalDuration,
-                              //   onChanged: (value) {
-                              //     setState(() {
-                              //       _currentProgress = value;
-                              //     });
-                              //   },
-                              //   activeColor: FontAppColors.primaryFont,
-                              //   inactiveColor:
-                              //       FontAppColors.primaryFont.withOpacity(0.5),
-                              // ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                    )
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ],

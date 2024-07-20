@@ -5,9 +5,21 @@ class TopBarWidget extends StatelessWidget {
   final Widget child;
   final double height;
   final double width;
+  final Color grad1;
+  final Color grad2;
+  final Color grad3;
+  final Color grad4;
   const TopBarWidget({
     super.key,
-    required this.child, required this.height, required this.width,
+    required this.child,
+    required this.height,
+    required this.width,
+    required this.grad1,
+    required this.grad2,
+    required this.grad3,
+    required this.grad4,
+    
+    
   });
 
   @override
@@ -19,14 +31,18 @@ class TopBarWidget extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.topLeft,
           colors: [
-            PrimaryAppColors.gradient1,
-            PrimaryAppColors.gradient2,
-            PrimaryAppColors.gradient3,
-            PrimaryAppColors.gradient4,
+            grad1,
+            grad2,
+            grad3,
+            grad4,
+            // PrimaryAppColors.gradient1,
+            // PrimaryAppColors.gradient2,
+            // PrimaryAppColors.gradient3,
+            // PrimaryAppColors.gradient4,
           ],
         ),
       ),

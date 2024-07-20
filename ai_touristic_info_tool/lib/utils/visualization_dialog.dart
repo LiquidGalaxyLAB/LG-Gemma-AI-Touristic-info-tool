@@ -9,6 +9,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
@@ -53,19 +54,28 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
           children: [
             Column(
               children: [
-                TopBarWidget(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 1,
-                  child: Center(
-                    child: Text(
-                      query,
-                      style: TextStyle(
-                          color: FontAppColors.secondaryFont,
-                          fontSize: headingSize,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: fontType),
-                    ),
-                  ),
+                Consumer<ColorProvider>(
+                  builder: (BuildContext context, ColorProvider value,
+                      Widget? child) {
+                    return TopBarWidget(
+                      grad1: value.colors.gradient1,
+                      grad2: value.colors.gradient2,
+                      grad3: value.colors.gradient3,
+                      grad4: value.colors.gradient4,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: Center(
+                        child: Text(
+                          query,
+                          style: TextStyle(
+                              color: FontAppColors.secondaryFont,
+                              fontSize: headingSize,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: fontType),
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.055,
@@ -370,16 +380,17 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
         ),
         actions: <Widget>[
           TextButton(
-            child: Consumer<SearchProvider>(
+            child: Consumer2<SearchProvider, ColorProvider>(
               builder:
-                  (BuildContext context, SearchProvider value, Widget? child) {
+                  (BuildContext context, SearchProvider value, ColorProvider colorProv, Widget? child) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     if (!value.showMap)
                       LgElevatedButton(
                         elevatedButtonContent: 'Map',
-                        buttonColor: PrimaryAppColors.buttonColors,
+                        // buttonColor: PrimaryAppColors.buttonColors,
+                        buttonColor: colorProv.colors.buttonColors,
                         onpressed: () {
                           Provider.of<SearchProvider>(context, listen: false)
                               .showMap = true;
@@ -400,7 +411,8 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                       ),
                     LgElevatedButton(
                       elevatedButtonContent: 'Close',
-                      buttonColor: PrimaryAppColors.buttonColors,
+                      // buttonColor: PrimaryAppColors.buttonColors,
+                      buttonColor: colorProv.colors.buttonColors,
                       onpressed: () async {
                         SSHprovider sshData =
                             Provider.of<SSHprovider>(context, listen: false);

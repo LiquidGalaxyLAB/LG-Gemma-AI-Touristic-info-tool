@@ -1,3 +1,4 @@
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,16 +25,17 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
   Widget build(BuildContext context) {
     // Connectionprovider connection =
     //     Provider.of<Connectionprovider>(context, listen: false);
-    return Consumer<Connectionprovider>(
-      builder:
-          (BuildContext context, Connectionprovider connection, Widget? child) {
+    return Consumer2<Connectionprovider, ColorProvider>(
+      builder: (BuildContext context, Connectionprovider connection,
+          ColorProvider colorProv, Widget? child) {
         return Align(
           alignment: Alignment.topRight,
           child: Container(
             width: MediaQuery.of(context).size.width * 0.2,
             height: MediaQuery.of(context).size.height * 0.05,
             decoration: BoxDecoration(
-              color: PrimaryAppColors.innerBackground,
+              // color: PrimaryAppColors.innerBackground,
+              color: colorProv.colors.innerBackground,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
