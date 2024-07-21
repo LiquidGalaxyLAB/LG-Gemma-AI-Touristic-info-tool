@@ -8,6 +8,7 @@ import 'package:ai_touristic_info_tool/state_management/connection_provider.dart
 import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/drop_down_state.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
@@ -47,6 +48,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => DropdownState()),
         ChangeNotifierProvider(create: (_) => SearchProvider()),
         ChangeNotifierProvider(create: (_) => ColorProvider()),
+        ChangeNotifierProvider(create: (_) => FontsProvider()),
       ],
       child: const AITouristicInfo(),
     ),

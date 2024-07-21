@@ -1,6 +1,7 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -47,9 +48,9 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                     offset: Offset.zero,
                     color: Colors.grey.withOpacity(0.5))
               ]),
-          child: Consumer<ColorProvider>(
-            builder:
-                (BuildContext context, ColorProvider value, Widget? child) {
+          child: Consumer2<ColorProvider, FontsProvider>(
+            builder: (BuildContext context, ColorProvider value,
+                FontsProvider fontsval, Widget? child) {
               return Container(
                 margin: const EdgeInsets.all(10),
                 height: MediaQuery.of(context).size.height * 0.3,
@@ -108,8 +109,10 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                         '${poi.id}. ${poi.name}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: textSize + 5,
+                          // color: Colors.white,
+                          color: fontsval.fonts.primaryFontColor,
+                          // fontSize: textSize + 5,
+                          fontSize: fontsval.fonts.textSize + 5,
                           fontWeight: FontWeight.bold,
                           fontFamily: fontType,
                         ),
@@ -120,8 +123,10 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                         '${poi.city}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: textSize + 2,
+                          // color: Colors.white,
+                          color: fontsval.fonts.primaryFontColor,
+                          // fontSize: textSize + 2,
+                          fontSize: fontsval.fonts.textSize + 2,
                           fontWeight: FontWeight.bold,
                           fontFamily: fontType,
                         ),
@@ -132,8 +137,10 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                         '${poi.country}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: textSize + 2,
+                          // color: Colors.white,
+                          color: fontsval.fonts.primaryFontColor,
+                          // fontSize: textSize + 2,
+                          fontSize: fontsval.fonts.textSize + 2,
                           fontWeight: FontWeight.bold,
                           fontFamily: fontType,
                         ),
@@ -154,8 +161,10 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                           '${poi.description}',
                           textAlign: TextAlign.justify,
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: textSize,
+                            // color: Colors.white,
+                            color: fontsval.fonts.primaryFontColor,
+                            // fontSize: textSize,
+                            fontSize: fontsval.fonts.textSize,
                             fontFamily: fontType,
                           ),
                         ),
@@ -169,7 +178,8 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 1,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(0),
-                            color: FontAppColors.secondaryFont,
+                            // color: FontAppColors.secondaryFont,
+                            color: fontsval.fonts.secondaryFontColor,
                           ),
                           child: SingleChildScrollView(
                             child: Padding(
@@ -185,8 +195,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                         TextSpan(
                                           text: 'Address: ',
                                           style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 5,
+                                            // color: FontAppColors.primaryFont,
+                                            color:
+                                                fontsval.fonts.primaryFontColor,
+                                            // fontSize: textSize - 5,
+                                            fontSize:
+                                                fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -194,8 +208,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                         TextSpan(
                                           text: poi.address,
                                           style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 5,
+                                            // color: FontAppColors.primaryFont,
+                                            color:
+                                                fontsval.fonts.primaryFontColor,
+                                            // fontSize: textSize - 5,
+                                            fontSize:
+                                                fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
                                             fontWeight: FontWeight.normal,
                                           ),
@@ -210,8 +228,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                         TextSpan(
                                           text: 'Avg. Ratings: ',
                                           style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 5,
+                                            // color: FontAppColors.primaryFont,
+                                            color:
+                                                fontsval.fonts.primaryFontColor,
+                                            // fontSize: textSize - 5,
+                                            fontSize:
+                                                fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -219,8 +241,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                         TextSpan(
                                           text: '${poi.ratings}',
                                           style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 5,
+                                            // color: FontAppColors.primaryFont,
+                                            color:
+                                                fontsval.fonts.primaryFontColor,
+                                            // fontSize: textSize - 5,
+                                            fontSize:
+                                                fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
                                             fontWeight: FontWeight.normal,
                                           ),
@@ -235,8 +261,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                         TextSpan(
                                           text: 'Pricing: ',
                                           style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 5,
+                                            // color: FontAppColors.primaryFont,
+                                            color:
+                                                fontsval.fonts.primaryFontColor,
+                                            // fontSize: textSize - 5,
+                                            fontSize:
+                                                fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -244,8 +274,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                         TextSpan(
                                           text: '${poi.price ?? ''} ',
                                           style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 5,
+                                            // color: FontAppColors.primaryFont,
+                                            // fontSize: textSize - 5,
+                                            color:
+                                                fontsval.fonts.primaryFontColor,
+                                            fontSize:
+                                                fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
                                             fontWeight: FontWeight.normal,
                                           ),
@@ -260,8 +294,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                         TextSpan(
                                           text: 'Amenities: ',
                                           style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 5,
+                                            // color: FontAppColors.primaryFont,
+                                            // fontSize: textSize - 5,
+                                            color:
+                                                fontsval.fonts.primaryFontColor,
+                                            fontSize:
+                                                fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -269,8 +307,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                         TextSpan(
                                           text: '${poi.amenities ?? ''}',
                                           style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 5,
+                                            // color: FontAppColors.primaryFont,
+                                            // fontSize: textSize - 5,
+                                            color:
+                                                fontsval.fonts.primaryFontColor,
+                                            fontSize:
+                                                fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
                                             fontWeight: FontWeight.normal,
                                           ),
@@ -285,8 +327,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                         TextSpan(
                                           text: 'Source Link: ',
                                           style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 5,
+                                            // color: FontAppColors.primaryFont,
+                                            // fontSize: textSize - 5,
+                                            color:
+                                                fontsval.fonts.primaryFontColor,
+                                            fontSize:
+                                                fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -294,8 +340,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                         TextSpan(
                                           text: '${poi.sourceLink ?? 'None'}',
                                           style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: textSize - 5,
+                                            // color: FontAppColors.primaryFont,
+                                            // fontSize: textSize - 5,
+                                            color:
+                                                fontsval.fonts.primaryFontColor,
+                                            fontSize:
+                                                fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
                                             fontWeight: FontWeight.normal,
                                           ),

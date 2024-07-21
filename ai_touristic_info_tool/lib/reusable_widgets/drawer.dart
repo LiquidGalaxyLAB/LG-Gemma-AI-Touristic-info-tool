@@ -66,7 +66,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           width: 100,
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), color: Colors.white),
+                borderRadius: BorderRadius.circular(20),
+                color: value.colors.innerBackground),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

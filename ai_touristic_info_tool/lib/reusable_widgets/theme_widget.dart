@@ -1,6 +1,8 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,7 @@ class ThemeWidget extends StatefulWidget {
 
 class _ThemeWidgetState extends State<ThemeWidget> {
   int selectedColor = -1;
+  String selectedTheme = SettingsSharedPref.getTheme() ?? 'default';
 
   Color pickerColor = Color(0xff443a49);
   // Color currentColor = Color(0xff443a49);
@@ -23,6 +26,7 @@ class _ThemeWidgetState extends State<ThemeWidget> {
     ColorProvider colorProv =
         Provider.of<ColorProvider>(context, listen: false);
     colorProv.updateButtonColor(color);
+    SettingsSharedPref.setAccentTheme(color.toHexString());
   }
 
   @override
@@ -68,22 +72,56 @@ class _ThemeWidgetState extends State<ThemeWidget> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.02,
           ),
-          Consumer<ColorProvider>(
-            builder:
-                (BuildContext context, ColorProvider value, Widget? child) {
+          Consumer2<ColorProvider, FontsProvider>(
+            builder: (BuildContext context, ColorProvider value,
+                FontsProvider fontProv, Widget? child) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        width: MediaQuery.of(context).size.width * 0.12,
+                        height: MediaQuery.of(context).size.height * 0.12,
+                        width: MediaQuery.of(context).size.width * 0.1,
                         decoration: BoxDecoration(
                           // color: PrimaryAppColors.darkShadow,
-                          color: value.colors.shadow,
+                          color: value.colors.innerBackground,
                           borderRadius: BorderRadius.circular(5),
                         ),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                selectedTheme = 'default';
+                              });
+                              SettingsSharedPref.setTheme('default');
+
+                              ColorProvider colorProv =
+                                  Provider.of<ColorProvider>(context,
+                                      listen: false);
+                              colorProv.updateButtonColor(
+                                  PrimaryAppColors.buttonColors);
+                              colorProv.updateTheme('default');
+
+                              FontsProvider fontProvv =
+                                  Provider.of<FontsProvider>(context,
+                                      listen: false);
+
+                              fontProvv.updateFont(
+                                  SettingsSharedPref.getTitleFont() ?? 40);
+                              fontProvv.fonts.updateFontColor();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              elevation: 30, // Set the elevation value here
+                              backgroundColor: selectedTheme == 'default'
+                                  ? Colors.black.withOpacity(0.5)
+                                  : value.colors.innerBackground,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    0), // Optional: Set button shape
+                              ),
+                            ),
+                            child: Image.asset(
+                                "assets/images/system-default.png")),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
@@ -100,12 +138,45 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   Column(
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        width: MediaQuery.of(context).size.width * 0.12,
+                        height: MediaQuery.of(context).size.height * 0.12,
+                        width: MediaQuery.of(context).size.width * 0.1,
                         decoration: BoxDecoration(
                           // color: PrimaryAppColors.darkShadow,
                           color: value.colors.innerBackground,
                           borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              selectedTheme = 'light';
+                            });
+                            SettingsSharedPref.setTheme('light');
+                            ColorProvider colorProv =
+                                Provider.of<ColorProvider>(context,
+                                    listen: false);
+                            colorProv.updateButtonColor(
+                                colorProv.colors.buttonColors);
+                            colorProv.updateTheme('light');
+
+                            FontsProvider fontProvv =
+                                Provider.of<FontsProvider>(context,
+                                    listen: false);
+
+                            fontProvv.updateFont(
+                                SettingsSharedPref.getTitleFont() ?? 40);
+                            fontProvv.fonts.updateFontColor();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 30, // Set the elevation value here
+                            backgroundColor: selectedTheme == 'light'
+                                ? Colors.black.withOpacity(0.5)
+                                : value.colors.innerBackground,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  0), // Optional: Set button shape
+                            ),
+                          ),
+                          child: Image.asset("assets/images/light-theme.png"),
                         ),
                       ),
                       SizedBox(
@@ -123,11 +194,44 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   Column(
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        width: MediaQuery.of(context).size.width * 0.12,
+                        height: MediaQuery.of(context).size.height * 0.12,
+                        width: MediaQuery.of(context).size.width * 0.1,
                         decoration: BoxDecoration(
-                          color: PrimaryAppColors.darkShadow,
+                          color: PrimaryAppColors.innerBackground,
                           borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              selectedTheme = 'dark';
+                            });
+                            SettingsSharedPref.setTheme('dark');
+                            ColorProvider colorProv =
+                                Provider.of<ColorProvider>(context,
+                                    listen: false);
+                            colorProv.updateButtonColor(
+                                colorProv.colors.buttonColors);
+                            colorProv.updateTheme('dark');
+
+                            FontsProvider fontProvv =
+                                Provider.of<FontsProvider>(context,
+                                    listen: false);
+
+                            fontProvv.updateFont(
+                                SettingsSharedPref.getTitleFont() ?? 40);
+                            fontProvv.fonts.updateFontColor();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 30, // Set the elevation value here
+                            backgroundColor: selectedTheme == 'dark'
+                                ? Colors.black.withOpacity(0.5)
+                                : value.colors.innerBackground,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  0), // Optional: Set button shape
+                            ),
+                          ),
+                          child: Image.asset("assets/images/dark-theme.png"),
                         ),
                       ),
                       SizedBox(
@@ -174,6 +278,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                       Provider.of<ColorProvider>(context, listen: false);
                   // colorProv.updateButtonColor(PrimaryAppColors.buttonColors);
                   colorProv.updateButtonColor(PrimaryAppColors.buttonColors);
+                  SettingsSharedPref.setAccentTheme(
+                      PrimaryAppColors.buttonColors.toHexString());
                 },
                 child: CircleAvatar(
                   radius: 20,
@@ -195,6 +301,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ColorProvider colorProv =
                       Provider.of<ColorProvider>(context, listen: false);
                   colorProv.updateButtonColor(Color(0xFFAB87C7));
+                  SettingsSharedPref.setAccentTheme(
+                      Color(0xFFAB87C7).toHexString());
                 },
                 child: CircleAvatar(
                   radius: 20,
@@ -216,6 +324,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ColorProvider colorProv =
                       Provider.of<ColorProvider>(context, listen: false);
                   colorProv.updateButtonColor(Color(0xFF1D6F9A));
+                  SettingsSharedPref.setAccentTheme(
+                      Color(0xFF1D6F9A).toHexString());
                 },
                 child: CircleAvatar(
                   radius: 20,
@@ -237,6 +347,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ColorProvider colorProv =
                       Provider.of<ColorProvider>(context, listen: false);
                   colorProv.updateButtonColor(Color(0xFF2E8B57));
+                  SettingsSharedPref.setAccentTheme(
+                      Color(0xFF2E8B57).toHexString());
                 },
                 child: CircleAvatar(
                   radius: 20,
@@ -258,6 +370,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ColorProvider colorProv =
                       Provider.of<ColorProvider>(context, listen: false);
                   colorProv.updateButtonColor(Color(0xFFAB4C4C));
+                  SettingsSharedPref.setAccentTheme(
+                      Color(0xFFAB4C4C).toHexString());
                 },
                 child: CircleAvatar(
                   radius: 20,
@@ -279,6 +393,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ColorProvider colorProv =
                       Provider.of<ColorProvider>(context, listen: false);
                   colorProv.updateButtonColor(Color(0xFFCE6C2F));
+                  SettingsSharedPref.setAccentTheme(
+                      Color(0xFFCE6C2F).toHexString());
                 },
                 child: CircleAvatar(
                   radius: 20,
@@ -300,6 +416,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ColorProvider colorProv =
                       Provider.of<ColorProvider>(context, listen: false);
                   colorProv.updateButtonColor(Color(0xFFD81B60));
+                  SettingsSharedPref.setAccentTheme(
+                      Color(0xFFD81B60).toHexString());
                 },
                 child: CircleAvatar(
                   radius: 20,
@@ -321,6 +439,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ColorProvider colorProv =
                       Provider.of<ColorProvider>(context, listen: false);
                   colorProv.updateButtonColor(Color(0xFF00796B));
+                  SettingsSharedPref.setAccentTheme(
+                      Color(0xFF00796B).toHexString());
                 },
                 child: CircleAvatar(
                   radius: 20,
@@ -384,11 +504,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
               Consumer<ColorProvider>(
                 builder:
                     (BuildContext context, ColorProvider value, Widget? child) {
-                  return LgElevatedButton(
-                    elevatedButtonContent: 'Pick a color',
-                    // buttonColor: PrimaryAppColors.buttonColors,
-                    buttonColor: value.colors.buttonColors,
-                    onpressed: () {
+                  return GestureDetector(
+                    onTap: () {
                       setState(() {
                         selectedColor = 8;
                       });
@@ -411,6 +528,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                         Provider.of<ColorProvider>(context,
                                             listen: false);
                                     colorProv.updateButtonColor(pickerColor);
+                                    SettingsSharedPref.setAccentTheme(
+                                        pickerColor.toHexString());
                                     Navigator.of(context).pop();
                                   },
                                   child: Text(
@@ -425,15 +544,10 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                             );
                           });
                     },
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    fontSize: textSize,
-                    fontColor: FontAppColors.secondaryFont,
-                    isLoading: false,
-                    isBold: false,
-                    isPrefixIcon: false,
-                    isSuffixIcon: false,
-                    curvatureRadius: 30,
+                    child: Image.asset(
+                      "assets/images/colors.png",
+                      scale: 10,
+                    ),
                   );
                 },
               )

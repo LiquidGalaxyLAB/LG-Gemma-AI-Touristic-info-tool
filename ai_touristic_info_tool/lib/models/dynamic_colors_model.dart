@@ -1,3 +1,4 @@
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:flutter/material.dart';
 
 class DynamicAppColors {
@@ -26,29 +27,99 @@ class DynamicAppColors {
   });
 
   factory DynamicAppColors.fromButtonColor(Color buttonColor) {
+    Color grad1;
+    Color grad2;
+    Color grad3;
+    Color grad4;
+    Color innerBg;
+    Color buttons;
+    if (SettingsSharedPref.getTheme() == 'dark') {
+      grad1 = Color.fromARGB(255, 34, 34, 34); // Pure Black
+      grad2 = Color.fromARGB(255, 34, 34, 34); // Dark Grey
+      grad3 = Color.fromARGB(255, 68, 68, 68); // Medium Grey
+      grad4 = Color.fromARGB(255, 102, 102, 102); // Light Grey
+      innerBg = Color.fromARGB(255, 0, 0, 0);
+      buttons = Color.fromARGB(255, 85, 85, 85);
+    } else if (SettingsSharedPref.getTheme() == 'light') {
+      grad1 = Color(0xFFF9F9F8);
+      grad2 = Color(0xFFF2F3F2);
+      grad3 = Color(0xFFECECEB);
+      grad4 = Color(0xFFE5E6E4);
+
+      // grad4 = Color.fromARGB(255, 230, 230, 230); // Pure White
+      // grad3 = Color.fromARGB(255, 204, 204, 204); // Very Light Grey
+      // grad2 = Color.fromARGB(255, 204, 204, 204); // Light Grey
+      // grad1 = Color.fromARGB(255, 179, 179, 179); // Lighter Grey
+
+      innerBg = Colors.white;
+      buttons = buttonColor;
+    } else {
+      grad1 = adjustColor(buttonColor, 0.4);
+      grad2 = adjustColor(buttonColor, 0.6);
+      grad3 = adjustColor(buttonColor, 0.8);
+      grad4 = adjustColor(buttonColor, 1.0);
+      innerBg = Colors.white;
+      buttons = buttonColor;
+    }
     return DynamicAppColors(
-      gradient4: adjustColor(buttonColor, 1.0),
-      gradient3: adjustColor(buttonColor, 0.8),
-      gradient2: adjustColor(buttonColor, 0.6),
-      gradient1: adjustColor(buttonColor, 0.4),
-      buttonColors: buttonColor,
+      gradient4: grad4,
+      gradient3: grad3,
+      gradient2: grad2,
+      gradient1: grad1,
+      buttonColors: buttons,
       accentColor: Color.fromARGB(120, 252, 171, 21),
-      innerBackground: Colors.white,
-      shadow: lightenColor(buttonColor, 0.8),
-      midShadow: lightenColor(buttonColor, 0.6),
-      darkShadow: lightenColor(buttonColor, 0.4),
+      innerBackground: innerBg,
+      shadow: lightenColor(buttons, 0.8),
+      midShadow: lightenColor(buttons, 0.6),
+      darkShadow: lightenColor(buttons, 0.4),
     );
   }
 
   void updateColors(Color buttonColor) {
-    gradient4 = adjustColor(buttonColor, 1.0);
-    gradient3 = adjustColor(buttonColor, 0.8);
-    gradient2 = adjustColor(buttonColor, 0.6);
-    gradient1 = adjustColor(buttonColor, 0.4);
-    buttonColors = buttonColor;
-    darkShadow = lightenColor(buttonColor, 0.4); // Light shadow
-    midShadow = lightenColor(buttonColor, 0.6); // Medium shadow
-    shadow = lightenColor(buttonColor, 0.8); // Dark shadow
+    Color grad1;
+    Color grad2;
+    Color grad3;
+    Color grad4;
+    Color innerBg;
+    Color buttons;
+    if (SettingsSharedPref.getTheme() == 'dark') {
+      grad1 = Color.fromARGB(255, 34, 34, 34); // Pure Black
+      grad2 = Color.fromARGB(255, 34, 34, 34); // Dark Grey
+      grad3 = Color.fromARGB(255, 68, 68, 68); // Medium Grey
+      grad4 = Color.fromARGB(255, 102, 102, 102); // Light Grey
+      innerBg = Color.fromARGB(255, 0, 0, 0);
+      buttons = Color.fromARGB(255, 85, 85, 85);
+    } else if (SettingsSharedPref.getTheme() == 'light') {
+      grad1 = Color(0xFFF9F9F8);
+      grad2 = Color(0xFFF2F3F2);
+      grad3 = Color(0xFFECECEB);
+      grad4 = Color(0xFFE5E6E4);
+
+      // grad4 = Color.fromARGB(255, 230, 230, 230); // Pure White
+      // grad3 = Color.fromARGB(255, 204, 204, 204); // Very Light Grey
+      // grad2 = Color.fromARGB(255, 204, 204, 204); // Light Grey
+      // grad1 = Color.fromARGB(255, 179, 179, 179); // Lighter Grey
+
+      innerBg = Colors.white;
+      buttons = buttonColor;
+    } else {
+      grad1 = adjustColor(buttonColor, 0.4);
+      grad2 = adjustColor(buttonColor, 0.6);
+      grad3 = adjustColor(buttonColor, 0.8);
+      grad4 = adjustColor(buttonColor, 1.0);
+      innerBg = Colors.white;
+      buttons = buttonColor;
+    }
+
+    gradient4 = grad4;
+    gradient3 = grad3;
+    gradient2 = grad2;
+    gradient1 = grad1;
+    innerBackground = innerBg;
+    buttonColors = buttons;
+    darkShadow = lightenColor(buttons, 0.4); // Light shadow
+    midShadow = lightenColor(buttons, 0.6); // Medium shadow
+    shadow = lightenColor(buttons, 0.8); // Dark shadow
   }
 }
 

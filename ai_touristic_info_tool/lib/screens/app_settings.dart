@@ -1,4 +1,5 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/api_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/font_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/help_widget.dart';
@@ -8,6 +9,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/settings_option.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/theme_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,8 +35,9 @@ class _AppSettingsViewState extends State<AppSettingsView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Consumer<ColorProvider>(
-          builder: (BuildContext context, ColorProvider value, Widget? child) {
+        Consumer2<ColorProvider, FontsProvider>(
+          builder: (BuildContext context, ColorProvider value,
+              FontsProvider fontProv, Widget? child) {
             return TopBarWidget(
               height: MediaQuery.of(context).size.height * 0.1,
               width: MediaQuery.of(context).size.width * 1,
@@ -56,8 +59,9 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                       'App Settings',
                       style: TextStyle(
                         fontFamily: fontType,
-                        fontSize: headingSize,
-                        color: FontAppColors.secondaryFont,
+                        fontSize: fontProv.fonts.headingSize,
+                        // color: FontAppColors.secondaryFont,
+                        color: fontProv.fonts.primaryFontColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -154,7 +158,46 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                         color: value.colors.shadow,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: view),
+                      child: selectedIndex == -1
+                          ? Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.settings,
+                                      size: 100,
+                                      color: value.colors.gradient1,
+                                    ),
+                                    SizedBox(height: 20),
+                                    Text(
+                                      'Welcome to the App Settings!',
+                                      style: TextStyle(
+                                        fontSize: textSize + 10,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: fontType,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    Text(
+                                      'Select an option from the left to view and modify your app settings. '
+                                      'You can change the language, appearance, font size, learn about Liquid Galaxy, manage API keys, and access help resources.',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: textSize,
+                                        fontFamily: fontType,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          : view),
                 ),
               ],
             );

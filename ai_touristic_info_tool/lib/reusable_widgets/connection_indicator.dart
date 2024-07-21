@@ -1,4 +1,6 @@
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,9 +27,9 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
   Widget build(BuildContext context) {
     // Connectionprovider connection =
     //     Provider.of<Connectionprovider>(context, listen: false);
-    return Consumer2<Connectionprovider, ColorProvider>(
+    return Consumer3<Connectionprovider, ColorProvider, FontsProvider>(
       builder: (BuildContext context, Connectionprovider connection,
-          ColorProvider colorProv, Widget? child) {
+          ColorProvider colorProv, FontsProvider fontsProv, Widget? child) {
         return Align(
           alignment: Alignment.topRight,
           child: Container(
@@ -41,10 +43,21 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  'LG Rig',
-                  style:
-                      TextStyle(fontFamily: fontType, fontSize: textSize - 5),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'LG Rig',
+                      style: TextStyle(
+                          fontFamily: fontType,
+                          // fontSize: textSize - 5,
+                          fontSize: fontsProv.fonts.textSize - 5,
+                          color: SettingsSharedPref.getTheme() == 'default'
+                              ? fontsProv.fonts.secondaryFontColor
+                              : fontsProv.fonts.primaryFontColor),
+                    ),
+                  ),
                 ),
                 CircleAvatar(
                   backgroundColor: connection.isLgConnected
@@ -52,10 +65,22 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
                       : LgAppColors.lgColor2,
                   radius: 10,
                 ),
-                Text(
-                  'AI Server',
-                  style:
-                      TextStyle(fontFamily: fontType, fontSize: textSize - 5),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'AI Server',
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize - 5
+                        fontSize: fontsProv.fonts.textSize - 5,
+                        color: SettingsSharedPref.getTheme() == 'default'
+                            ? fontsProv.fonts.secondaryFontColor
+                            : fontsProv.fonts.primaryFontColor,
+                      ),
+                    ),
+                  ),
                 ),
                 CircleAvatar(
                   backgroundColor: connection.isAiConnected

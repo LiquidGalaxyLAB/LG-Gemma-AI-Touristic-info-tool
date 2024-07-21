@@ -35,80 +35,18 @@ class PrimaryAppColors {
   // static const Color shadow1 = Color(0x9BE6ECFB); //155 230 236 251
   // static const Color shado1 = Color(0xB2CCD5ED);
   // static const Color shad1 = Color(0xBDC2D2FA);
-  
+
   static const Color midShadow = Color.fromARGB(178, 204, 213, 237);
   static const Color darkShadow = Color.fromARGB(189, 194, 210, 250);
 }
 
-class DarkAppColors {
-  static const Color gradient1 = Colors.black;
-  static const Color gradient2 = Color(0xFF1A1A1A);
-  static const Color gradient3 = Color(0xFF333333);
-  static const Color gradient4 = Color(0xFF4D4D4D);
-  static const Color buttonColors = Color(0xFF666666);
-  static const Color accentColor = Color.fromARGB(120, 252, 171, 21);
-  static const Color innerBackground = Color(0xFF1A1A1A);
-  static const Color shadow = Color.fromARGB(155, 0, 0, 0);
-  static const Color midShadow = Color.fromARGB(178, 51, 51, 51);
-  static const Color darkShadow = Color.fromARGB(189, 77, 77, 77);
-}
-
-class LilacAppColors {
-  static const Color gradient1 = Color(0xFF9647FA);
-  static const Color gradient2 = Color(0xFFBC9FE1);
-  static const Color gradient3 = Color(0xFFD3B4F9);
-  static const Color gradient4 = Color(0xFFE9D9FF);
-  static const Color buttonColors = Color(0xFF9647FA);
-  static const Color accentColor = Color.fromARGB(120, 252, 171, 21);
-  static const Color innerBackground = Colors.white;
-  static const Color shadow = Color.fromARGB(155, 230, 236, 251);
-  static const Color midShadow = Color.fromARGB(178, 204, 213, 237);
-  static const Color darkShadow = Color.fromARGB(189, 194, 210, 250);
-}
-
-class GreenAppColors {
-  static const Color gradient1 = Color(0xFF4CB15F);
-  static const Color gradient2 = Color(0xFF6ACF7F);
-  static const Color gradient3 = Color(0xFF8AE69F);
-  static const Color gradient4 = Color(0xFFA9FFBF);
-  static const Color buttonColors = Color(0xFF4CB15F);
-  static const Color accentColor = Color.fromARGB(120, 252, 171, 21);
-  static const Color innerBackground = Colors.white;
-  static const Color shadow = Color.fromARGB(155, 230, 236, 251);
-  static const Color midShadow = Color.fromARGB(178, 204, 213, 237);
-  static const Color darkShadow = Color.fromARGB(189, 194, 210, 250);
-}
-
-class OrangeAppColors {
-  static const Color gradient1 = Color(0xFFE54E3E);
-  static const Color gradient2 = Color(0xFFE76D5A);
-  static const Color gradient3 = Color(0xFFE98C77);
-  static const Color gradient4 = Color(0xFFEBAB94);
-  static const Color buttonColors = Color(0xFFE54E3E);
-  static const Color accentColor = Color.fromARGB(120, 252, 171, 21);
-  static const Color innerBackground = Colors.white;
-  static const Color shadow = Color.fromARGB(155, 230, 236, 251);
-  static const Color midShadow = Color.fromARGB(178, 204, 213, 237);
-  static const Color darkShadow = Color.fromARGB(189, 194, 210, 250);
-}
-
-class BeigeAppColors {
-  static const Color gradient1 = Color(0xFFF6B915);
-  static const Color gradient2 = Color(0xFFF8C63A);
-  static const Color gradient3 = Color(0xFFFADE5F);
-  static const Color gradient4 = Color(0xFFFCE184);
-  static const Color buttonColors = Color(0xFFF6B915);
-  static const Color accentColor = Color.fromARGB(120, 252, 171, 21);
-  static const Color innerBackground = Colors.white;
-  static const Color shadow = Color.fromARGB(155, 230, 236, 251);
-  static const Color midShadow = Color.fromARGB(178, 204, 213, 237);
-  static const Color darkShadow = Color.fromARGB(189, 194, 210, 250);
-}
-
-final fontType = GoogleFonts.montserrat().fontFamily;
+// final fontType = GoogleFonts.montserrat().fontFamily;
+final fontType = GoogleFonts.lato().fontFamily;
 const double titleSize = 40;
-const double headingSize = 35;
-const double textSize = 20;
+// const double headingSize = 35;
+const double headingSize = titleSize - 5;
+const double textSize = titleSize - 20;
+// const double textSize = 20;
 
 Map<String, List<PlacesModel>> defaultDataConst = {
   'Attractions in London, UK': [
