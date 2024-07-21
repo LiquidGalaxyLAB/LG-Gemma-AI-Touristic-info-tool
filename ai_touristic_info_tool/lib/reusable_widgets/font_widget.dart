@@ -28,7 +28,8 @@ class _FontWidgetState extends State<FontWidget> {
                   'Font Settings',
                   style: TextStyle(
                       fontFamily: fontType,
-                      fontSize: textSize + 3,
+                      // fontSize: textSize + 3,
+                      fontSize: value.fonts.textSize + 3,
                       // color: FontAppColors.primaryFont,
                       // color: value.fonts.primaryFontColor,
                       fontWeight: FontWeight.bold,
@@ -40,7 +41,8 @@ class _FontWidgetState extends State<FontWidget> {
                   'Change the font size',
                   style: TextStyle(
                       fontFamily: fontType,
-                      fontSize: textSize,
+                      // fontSize: textSize,
+                      fontSize: value.fonts.textSize,
                       // color: FontAppColors.primaryFont,
                       // color: value.fonts.primaryFontColor,
                       color: Colors.black),

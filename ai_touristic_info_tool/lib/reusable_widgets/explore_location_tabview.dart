@@ -1,5 +1,6 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/drop_down_list_component.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
@@ -8,6 +9,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
@@ -59,105 +61,94 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           //options: map, prompt, song, audio, photo, detect location
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              LgElevatedButton(
-                elevatedButtonContent: 'Use\nMap',
-                buttonColor: ButtonColors.mapButton,
-                onpressed: () {
-                  setState(() {
-                    showAddressFields = false;
-                    useMap = true;
-                  });
-                },
-                height: MediaQuery.of(context).size.height * 0.1,
-                width: MediaQuery.of(context).size.width * 0.14,
-                fontSize: textSize,
-                fontColor: FontAppColors.secondaryFont,
-                isLoading: false,
-                isBold: false,
-                isPrefixIcon: true,
-                prefixIcon: Icons.map_outlined,
-                prefixIconColor: Colors.white,
-                prefixIconSize: 30,
-                isSuffixIcon: false,
-                curvatureRadius: 10,
-              ),
-              LgElevatedButton(
-                elevatedButtonContent: 'Type\nAddress',
-                buttonColor: ButtonColors.promptButton,
-                onpressed: () {
-                  setState(() {
-                    showAddressFields = true;
-                    useMap = false;
-                  });
-                },
-                height: MediaQuery.of(context).size.height * 0.1,
-                width: MediaQuery.of(context).size.width * 0.14,
-                fontSize: textSize,
-                fontColor: FontAppColors.secondaryFont,
-                isLoading: false,
-                isBold: false,
-                isPrefixIcon: true,
-                prefixIcon: Icons.text_fields_outlined,
-                prefixIconColor: Colors.white,
-                prefixIconSize: 30,
-                isSuffixIcon: false,
-                curvatureRadius: 10,
-              ),
-              LgElevatedButton(
-                elevatedButtonContent: 'Upload\nMusic',
-                buttonColor: ButtonColors.musicButton,
-                onpressed: () {},
-                height: MediaQuery.of(context).size.height * 0.1,
-                width: MediaQuery.of(context).size.width * 0.14,
-                fontSize: textSize,
-                fontColor: FontAppColors.secondaryFont,
-                isLoading: false,
-                isBold: false,
-                isPrefixIcon: true,
-                prefixIcon: Icons.music_note_outlined,
-                prefixIconColor: Colors.white,
-                prefixIconSize: 30,
-                isSuffixIcon: false,
-                curvatureRadius: 10,
-              ),
-              LgElevatedButton(
-                elevatedButtonContent: 'Record\nAudio',
-                buttonColor: ButtonColors.audioButton,
-                onpressed: () {},
-                height: MediaQuery.of(context).size.height * 0.1,
-                width: MediaQuery.of(context).size.width * 0.14,
-                fontSize: textSize,
-                fontColor: FontAppColors.secondaryFont,
-                isLoading: false,
-                isBold: false,
-                isPrefixIcon: true,
-                prefixIcon: Icons.mic_outlined,
-                prefixIconColor: Colors.white,
-                prefixIconSize: 30,
-                isSuffixIcon: false,
-                curvatureRadius: 10,
-              ),
-              LgElevatedButton(
-                elevatedButtonContent: 'Upload\nPhoto',
-                buttonColor: ButtonColors.photoButton,
-                onpressed: () {},
-                height: MediaQuery.of(context).size.height * 0.1,
-                width: MediaQuery.of(context).size.width * 0.14,
-                fontSize: textSize,
-                fontColor: FontAppColors.secondaryFont,
-                isLoading: false,
-                isBold: false,
-                isPrefixIcon: true,
-                prefixIcon: Icons.photo_camera_outlined,
-                prefixIconColor: Colors.white,
-                prefixIconSize: 30,
-                isSuffixIcon: false,
-                curvatureRadius: 10,
-              ),
-            ],
+          Consumer<FontsProvider>(
+            builder:
+                (BuildContext context, FontsProvider value, Widget? child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: LgElevatedButton(
+                        elevatedButtonContent: 'Use Map',
+                        buttonColor: ButtonColors.mapButton,
+                        onpressed: () {
+                          setState(() {
+                            showAddressFields = false;
+                            useMap = true;
+                          });
+                        },
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        // fontSize: textSize,
+                        fontSize: value.fonts.textSize,
+                        fontColor: FontAppColors.secondaryFont,
+                        isLoading: false,
+                        isBold: false,
+                        isPrefixIcon: true,
+                        prefixIcon: Icons.map_outlined,
+                        prefixIconColor: Colors.white,
+                        prefixIconSize: 30,
+                        isSuffixIcon: false,
+                        curvatureRadius: 10,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: LgElevatedButton(
+                        elevatedButtonContent: 'Type Address',
+                        buttonColor: ButtonColors.musicButton,
+                        onpressed: () {
+                          setState(() {
+                            showAddressFields = true;
+                            useMap = false;
+                          });
+                        },
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        // fontSize: textSize,
+                        fontSize: value.fonts.textSize,
+                        fontColor: FontAppColors.secondaryFont,
+                        isLoading: false,
+                        isBold: false,
+                        isPrefixIcon: true,
+                        prefixIcon: Icons.text_fields_outlined,
+                        prefixIconColor: Colors.white,
+                        prefixIconSize: 30,
+                        isSuffixIcon: false,
+                        curvatureRadius: 10,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: LgElevatedButton(
+                        elevatedButtonContent: 'Record Audio',
+                        buttonColor: ButtonColors.audioButton,
+                        onpressed: () {},
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        // fontSize: textSize,
+                        fontSize: value.fonts.textSize,
+                        fontColor: FontAppColors.secondaryFont,
+                        isLoading: false,
+                        isBold: false,
+                        isPrefixIcon: true,
+                        prefixIcon: Icons.mic_outlined,
+                        prefixIconColor: Colors.white,
+                        prefixIconSize: 30,
+                        isSuffixIcon: false,
+                        curvatureRadius: 10,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
@@ -165,9 +156,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
           if (showAddressFields)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Consumer<ColorProvider>(
-                builder:
-                    (BuildContext context, ColorProvider value, Widget? child) {
+              child: Consumer2<ColorProvider, FontsProvider>(
+                builder: (BuildContext context, ColorProvider value,
+                    FontsProvider fontval, Widget? child) {
                   return Container(
                     decoration: BoxDecoration(
                       // color: PrimaryAppColors.buttonColors,
@@ -182,13 +173,23 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                           children: [
                             Text('Address Details',
                                 style: TextStyle(
-                                    fontSize: textSize + 10,
+                                    // fontSize: textSize + 10,
+                                    fontSize: fontval.fonts.textSize + 10,
                                     fontFamily: fontType,
                                     fontWeight: FontWeight.bold,
-                                    color: FontAppColors.secondaryFont)),
+                                    // color: FontAppColors.secondaryFont,
+                                    color: Colors.white
+                                    // SettingsSharedPref.getTheme() ==
+                                    //             'default' ||
+                                    //         SettingsSharedPref.getTheme() ==
+                                    //             'dark'
+                                    //     ? fontval.fonts.primaryFontColor
+                                    //     : fontval.fonts.secondaryFontColor,
+                                    )),
                             TextFormFieldWidget(
                               hint: 'Enter address, or leave empty',
-                              fontSize: textSize,
+                              // fontSize: textSize,
+                              fontSize: fontval.fonts.textSize,
                               key: const ValueKey("address"),
                               textController: _addressController,
                               isSuffixRequired: false,
@@ -200,13 +201,17 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                             ),
                             Text('City',
                                 style: TextStyle(
-                                    fontSize: textSize + 10,
+                                    // fontSize: textSize + 10,
+                                    fontSize: fontval.fonts.textSize + 10,
                                     fontFamily: fontType,
                                     fontWeight: FontWeight.bold,
-                                    color: FontAppColors.secondaryFont)),
+                                    // color: FontAppColors.secondaryFont,
+                                    // color: fontval.fonts.secondaryFontColor
+                                    color: Colors.white)),
                             TextFormFieldWidget(
                               hint: 'Enter city',
-                              fontSize: textSize,
+                              // fontSize: textSize,
+                              fontSize: fontval.fonts.textSize,
                               key: const ValueKey("city"),
                               textController: _cityController,
                               isSuffixRequired: true,
@@ -218,13 +223,17 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                             ),
                             Text('Country',
                                 style: TextStyle(
-                                    fontSize: textSize + 10,
+                                    // fontSize: textSize + 10,
+                                    fontSize: fontval.fonts.textSize + 10,
                                     fontFamily: fontType,
                                     fontWeight: FontWeight.bold,
-                                    color: FontAppColors.secondaryFont)),
+                                    // color: FontAppColors.secondaryFont,
+                                    // color: fontval.fonts.secondaryFontColor,
+                                    color: Colors.white)),
                             DropDownListWidget(
                               key: const ValueKey("countries"),
-                              fontSize: textSize,
+                              // fontSize: textSize,
+                              fontSize: fontval.fonts.textSize,
                               items: countries,
                               selectedValue: countryIndex != -1
                                   ? countries[countryIndex]
@@ -240,14 +249,21 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
-                            Consumer<ColorProvider>(
+                            Consumer2<ColorProvider, FontsProvider>(
                               builder: (BuildContext context,
-                                  ColorProvider value, Widget? child) {
+                                  ColorProvider value,
+                                  FontsProvider fontval,
+                                  Widget? child) {
                                 return LgElevatedButton(
                                     elevatedButtonContent: 'Save',
                                     // buttonColor: PrimaryAppColors.innerBackground,
                                     buttonColor: value.colors.innerBackground,
-                                    fontColor: FontAppColors.primaryFont,
+                                    // fontColor: FontAppColors.primaryFont,
+                                    // fontColor: fontval.fonts.primaryFontColor,
+                                    fontColor: SettingsSharedPref.getTheme() ==
+                                            'default'
+                                        ? fontval.fonts.secondaryFontColor
+                                        : fontval.fonts.primaryFontColor,
                                     onpressed: () async {
                                       if (_addressFormKey.currentState!
                                           .validate()) {
@@ -300,7 +316,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                         0.05,
                                     width:
                                         MediaQuery.of(context).size.width * 0.1,
-                                    fontSize: textSize,
+                                    // fontSize: textSize,
+                                    fontSize: fontval.fonts.textSize,
                                     isLoading: false,
                                     isBold: true,
                                     isPrefixIcon: false,
@@ -317,30 +334,49 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
               ),
             ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
+            height: MediaQuery.of(context).size.height * 0.01,
           ),
           if (useMap)
             Padding(
               padding: const EdgeInsets.only(left: 20.0, bottom: 20),
-              child: Text(
-                'Navigate till you find your desired location!',
-                style: TextStyle(
-                    fontSize: textSize + 10,
-                    fontFamily: fontType,
-                    fontWeight: FontWeight.bold,
-                    color: FontAppColors.primaryFont),
+              child: Consumer<FontsProvider>(
+                builder:
+                    (BuildContext context, FontsProvider value, Widget? child) {
+                  return Text(
+                    'Navigate till you find your desired location!',
+                    style: TextStyle(
+                        // fontSize: textSize + 10,
+                        fontSize: value.fonts.textSize + 10,
+                        fontFamily: fontType,
+                        fontWeight: FontWeight.bold,
+                        // color: FontAppColors.primaryFont,
+                        // color: value.fonts.primaryFontColor
+                        color: SettingsSharedPref.getTheme() == 'default'
+                            ? value.fonts.secondaryFontColor
+                            : value.fonts.primaryFontColor),
+                  );
+                },
               ),
             ),
           if (!useMap)
             Padding(
               padding: const EdgeInsets.only(left: 20.0, bottom: 20),
-              child: Text(
-                'Click on Use Map button to navigate if you want!',
-                style: TextStyle(
-                    fontSize: textSize + 10,
-                    fontFamily: fontType,
-                    fontWeight: FontWeight.bold,
-                    color: FontAppColors.primaryFont),
+              child: Consumer<FontsProvider>(
+                builder:
+                    (BuildContext context, FontsProvider value, Widget? child) {
+                  return Text(
+                    'Click on Use Map button to navigate if you want!',
+                    style: TextStyle(
+                        // fontSize: textSize + 10,
+                        fontSize: value.fonts.textSize + 10,
+                        fontFamily: fontType,
+                        fontWeight: FontWeight.bold,
+                        // color: FontAppColors.primaryFont
+                        color: SettingsSharedPref.getTheme() == 'default'
+                            ? value.fonts.secondaryFontColor
+                            : value.fonts.primaryFontColor),
+                  );
+                },
               ),
             ),
           GoogleMapWidget(
@@ -368,34 +404,55 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                   print(_addressQuery);
                 }
 
-                return Text(
-                  'You are in $_addressQuery',
-                  style: TextStyle(
-                    fontSize: textSize + 8,
-                    fontFamily: fontType,
-                    color: FontAppColors.primaryFont,
-                  ),
+                return Consumer<FontsProvider>(
+                  builder: (BuildContext context, FontsProvider value,
+                      Widget? child) {
+                    return Text(
+                      'You are in $_addressQuery',
+                      style: TextStyle(
+                        // fontSize: textSize + 8,
+                        fontSize: value.fonts.textSize + 8,
+                        fontFamily: fontType,
+                        // color: FontAppColors.primaryFont,
+                        // color: value.fonts.primaryFontColor,
+                        color: SettingsSharedPref.getTheme() == 'default'
+                            ? value.fonts.secondaryFontColor
+                            : value.fonts.primaryFontColor,
+                      ),
+                    );
+                  },
                 );
               },
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, top: 50, bottom: 20),
-            child: Text(
-              'AI-Recommended Things To Do nearby',
-              style: TextStyle(
-                  fontSize: textSize + 10,
-                  fontFamily: fontType,
-                  fontWeight: FontWeight.bold,
-                  color: FontAppColors.primaryFont),
+            child: Consumer<FontsProvider>(
+              builder:
+                  (BuildContext context, FontsProvider value, Widget? child) {
+                return Text(
+                  'AI-Recommended Things To Do nearby',
+                  style: TextStyle(
+                      // fontSize: textSize + 10,
+                      fontSize: value.fonts.textSize + 10,
+                      fontFamily: fontType,
+                      fontWeight: FontWeight.bold,
+                      // color: FontAppColors.primaryFont
+                      // color: value.fonts.primaryFontColor,
+                      color: SettingsSharedPref.getTheme() == 'default'
+                          ? value.fonts.secondaryFontColor
+                          : value.fonts.primaryFontColor),
+                );
+              },
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 20.0, bottom: 20),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.25,
-              child: Consumer<GoogleMapProvider>(builder: (BuildContext context,
-                  GoogleMapProvider value, Widget? child) {
+              child: Consumer2<GoogleMapProvider, FontsProvider>(builder:
+                  (BuildContext context, GoogleMapProvider value,
+                      FontsProvider fontsVal, Widget? child) {
                 return GridView.count(
                   scrollDirection: Axis.horizontal,
                   crossAxisCount: 2,
@@ -414,6 +471,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -427,6 +485,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -440,6 +499,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -453,6 +513,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -466,6 +527,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -479,6 +541,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -492,6 +555,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -505,6 +569,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -518,6 +583,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -531,6 +597,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -544,6 +611,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -557,6 +625,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -570,6 +639,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -583,6 +653,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -596,6 +667,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -609,6 +681,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
+                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                   ],
@@ -618,13 +691,23 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, top: 30, bottom: 20),
-            child: Text(
-              'Ask Gemma anything you want to know nearby:',
-              style: TextStyle(
-                  fontSize: textSize + 10,
-                  fontFamily: fontType,
-                  fontWeight: FontWeight.bold,
-                  color: FontAppColors.primaryFont),
+            child: Consumer<FontsProvider>(
+              builder:
+                  (BuildContext context, FontsProvider value, Widget? child) {
+                return Text(
+                  'Ask Gemma anything you want to know nearby:',
+                  style: TextStyle(
+                      // fontSize: textSize + 10,
+                      fontSize: value.fonts.textSize + 10,
+                      fontFamily: fontType,
+                      fontWeight: FontWeight.bold,
+                      // color: FontAppColors.primaryFont,
+                      // color: value.fonts.primaryFontColor,
+                      color: SettingsSharedPref.getTheme() == 'default'
+                          ? value.fonts.secondaryFontColor
+                          : value.fonts.primaryFontColor),
+                );
+              },
             ),
           ),
           Form(
@@ -632,32 +715,44 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Center(
-                  child: TextFormFieldWidget(
-                    fontSize: textSize,
-                    key: const ValueKey("location-prompt"),
-                    textController: widget._prompt2Controller,
-                    isSuffixRequired: false,
-                    // isHidden: false,
-                    isPassword: false,
-                    maxLength: 100,
-                    maxlines: 1,
-                    width: MediaQuery.sizeOf(context).width * 0.85,
-                  ),
+                Consumer<FontsProvider>(
+                  builder: (BuildContext context, FontsProvider value,
+                      Widget? child) {
+                    return Center(
+                      child: TextFormFieldWidget(
+                        // fontSize: textSize,
+                        fontSize: value.fonts.textSize,
+                        key: const ValueKey("location-prompt"),
+                        textController: widget._prompt2Controller,
+                        isSuffixRequired: false,
+                        // isHidden: false,
+                        isPassword: false,
+                        maxLength: 100,
+                        maxlines: 1,
+                        width: MediaQuery.sizeOf(context).width * 0.85,
+                      ),
+                    );
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 40.0, top: 20),
-                  child: Consumer<ColorProvider>(
+                  child: Consumer2<ColorProvider, FontsProvider>(
                     builder: (BuildContext context, ColorProvider value,
-                        Widget? child) {
+                        FontsProvider fontVal, Widget? child) {
                       return LgElevatedButton(
                         key: const ValueKey("location-prompt-button"),
                         height: MediaQuery.sizeOf(context).height * 0.05,
                         width: MediaQuery.sizeOf(context).width * 0.2,
                         // buttonColor: PrimaryAppColors.buttonColors,
                         buttonColor: value.colors.buttonColors,
-                        fontSize: textSize,
-                        fontColor: FontAppColors.secondaryFont,
+                        // fontSize: textSize,
+                        fontSize: fontVal.fonts.textSize,
+                        // fontColor: fontVal.fonts.secondaryFontColor,
+                        fontColor: SettingsSharedPref.getTheme() == 'dark' ||
+                                SettingsSharedPref.getTheme() == 'default'
+                            ? fontVal.fonts.primaryFontColor
+                            : fontVal.fonts.secondaryFontColor,
+                        // fontColor: FontAppColors.secondaryFont,
                         isBold: true,
                         isLoading: false,
                         isPrefixIcon: false,

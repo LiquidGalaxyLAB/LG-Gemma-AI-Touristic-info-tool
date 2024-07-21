@@ -1,4 +1,5 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
@@ -179,7 +180,8 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(0),
                             // color: FontAppColors.secondaryFont,
-                            color: fontsval.fonts.secondaryFontColor,
+                            // color: fontsval.fonts.secondaryFontColor,
+                            color: Colors.white,
                           ),
                           child: SingleChildScrollView(
                             child: Padding(
@@ -197,7 +199,15 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             color:
-                                                fontsval.fonts.primaryFontColor,
+                                                SettingsSharedPref.getTheme() ==
+                                                            'default' ||
+                                                        SettingsSharedPref
+                                                                .getTheme() ==
+                                                            'dark'
+                                                    ? fontsval.fonts
+                                                        .secondaryFontColor
+                                                    : fontsval
+                                                        .fonts.primaryFontColor,
                                             // fontSize: textSize - 5,
                                             fontSize:
                                                 fontsval.fonts.textSize - 5,
@@ -209,8 +219,18 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                           text: poi.address,
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
+                                            // color:
+                                            //     fontsval.fonts.primaryFontColor,
                                             color:
-                                                fontsval.fonts.primaryFontColor,
+                                                SettingsSharedPref.getTheme() ==
+                                                            'default' ||
+                                                        SettingsSharedPref
+                                                                .getTheme() ==
+                                                            'dark'
+                                                    ? fontsval.fonts
+                                                        .secondaryFontColor
+                                                    : fontsval
+                                                        .fonts.primaryFontColor,
                                             // fontSize: textSize - 5,
                                             fontSize:
                                                 fontsval.fonts.textSize - 5,
@@ -229,8 +249,18 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                           text: 'Avg. Ratings: ',
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
+                                            // color:
+                                            //     fontsval.fonts.primaryFontColor,
                                             color:
-                                                fontsval.fonts.primaryFontColor,
+                                                SettingsSharedPref.getTheme() ==
+                                                            'default' ||
+                                                        SettingsSharedPref
+                                                                .getTheme() ==
+                                                            'dark'
+                                                    ? fontsval.fonts
+                                                        .secondaryFontColor
+                                                    : fontsval
+                                                        .fonts.primaryFontColor,
                                             // fontSize: textSize - 5,
                                             fontSize:
                                                 fontsval.fonts.textSize - 5,
@@ -242,8 +272,18 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                           text: '${poi.ratings}',
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
+                                            // color:
+                                            //     fontsval.fonts.primaryFontColor,
                                             color:
-                                                fontsval.fonts.primaryFontColor,
+                                                SettingsSharedPref.getTheme() ==
+                                                            'default' ||
+                                                        SettingsSharedPref
+                                                                .getTheme() ==
+                                                            'dark'
+                                                    ? fontsval.fonts
+                                                        .secondaryFontColor
+                                                    : fontsval
+                                                        .fonts.primaryFontColor,
                                             // fontSize: textSize - 5,
                                             fontSize:
                                                 fontsval.fonts.textSize - 5,
@@ -262,8 +302,18 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                           text: 'Pricing: ',
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
+                                            // color:
+                                            //     fontsval.fonts.primaryFontColor,
                                             color:
-                                                fontsval.fonts.primaryFontColor,
+                                                SettingsSharedPref.getTheme() ==
+                                                            'default' ||
+                                                        SettingsSharedPref
+                                                                .getTheme() ==
+                                                            'dark'
+                                                    ? fontsval.fonts
+                                                        .secondaryFontColor
+                                                    : fontsval
+                                                        .fonts.primaryFontColor,
                                             // fontSize: textSize - 5,
                                             fontSize:
                                                 fontsval.fonts.textSize - 5,
@@ -276,8 +326,18 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             // fontSize: textSize - 5,
+                                            // color:
+                                            //     fontsval.fonts.primaryFontColor,
                                             color:
-                                                fontsval.fonts.primaryFontColor,
+                                                SettingsSharedPref.getTheme() ==
+                                                            'default' ||
+                                                        SettingsSharedPref
+                                                                .getTheme() ==
+                                                            'dark'
+                                                    ? fontsval.fonts
+                                                        .secondaryFontColor
+                                                    : fontsval
+                                                        .fonts.primaryFontColor,
                                             fontSize:
                                                 fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
@@ -296,8 +356,18 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             // fontSize: textSize - 5,
+                                            // color:
+                                            //     fontsval.fonts.primaryFontColor,
                                             color:
-                                                fontsval.fonts.primaryFontColor,
+                                                SettingsSharedPref.getTheme() ==
+                                                            'default' ||
+                                                        SettingsSharedPref
+                                                                .getTheme() ==
+                                                            'dark'
+                                                    ? fontsval.fonts
+                                                        .secondaryFontColor
+                                                    : fontsval
+                                                        .fonts.primaryFontColor,
                                             fontSize:
                                                 fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
@@ -309,8 +379,18 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             // fontSize: textSize - 5,
+                                            // color:
+                                            //     fontsval.fonts.primaryFontColor,
                                             color:
-                                                fontsval.fonts.primaryFontColor,
+                                                SettingsSharedPref.getTheme() ==
+                                                            'default' ||
+                                                        SettingsSharedPref
+                                                                .getTheme() ==
+                                                            'dark'
+                                                    ? fontsval.fonts
+                                                        .secondaryFontColor
+                                                    : fontsval
+                                                        .fonts.primaryFontColor,
                                             fontSize:
                                                 fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
@@ -329,8 +409,18 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             // fontSize: textSize - 5,
+                                            // color:
+                                            //     fontsval.fonts.primaryFontColor,
                                             color:
-                                                fontsval.fonts.primaryFontColor,
+                                                SettingsSharedPref.getTheme() ==
+                                                            'default' ||
+                                                        SettingsSharedPref
+                                                                .getTheme() ==
+                                                            'dark'
+                                                    ? fontsval.fonts
+                                                        .secondaryFontColor
+                                                    : fontsval
+                                                        .fonts.primaryFontColor,
                                             fontSize:
                                                 fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,
@@ -342,8 +432,18 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             // fontSize: textSize - 5,
+                                            // color:
+                                            //     fontsval.fonts.primaryFontColor,
                                             color:
-                                                fontsval.fonts.primaryFontColor,
+                                                SettingsSharedPref.getTheme() ==
+                                                            'default' ||
+                                                        SettingsSharedPref
+                                                                .getTheme() ==
+                                                            'dark'
+                                                    ? fontsval.fonts
+                                                        .secondaryFontColor
+                                                    : fontsval
+                                                        .fonts.primaryFontColor,
                                             fontSize:
                                                 fontsval.fonts.textSize - 5,
                                             fontFamily: fontType,

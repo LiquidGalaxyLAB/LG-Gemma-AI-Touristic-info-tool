@@ -1,5 +1,7 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +43,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     selectedText = FontAppColors.secondaryFont;
     //  unselectedButton = PrimaryAppColors.innerBackground;
     unselectedButton = colorProv.colors.innerBackground;
-    unselectedText = FontAppColors.primaryFont;
+    if (SettingsSharedPref.getTheme() == 'dark') {
+      unselectedText = FontAppColors.secondaryFont;
+    } else {
+      unselectedText = FontAppColors.primaryFont;
+    }
+    // unselectedText = FontAppColors.primaryFont;
   }
 
   @override
@@ -57,6 +64,19 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         isDefault = false;
       });
     }
+
+    // if (colorProv.theme == 'dark') {
+    //   setState(() {
+    //     selectedText = FontAppColors.secondaryFont;
+    //     unselectedText = FontAppColors.secondaryFont;
+    //   });
+    // } else {
+    //   setState(() {
+    //     selectedText = FontAppColors.secondaryFont;
+    //     unselectedText = FontAppColors.primaryFont;
+    //   });
+    // }
+
     return Consumer<ColorProvider>(
       builder: (BuildContext context, ColorProvider value, Widget? child) {
         return Positioned(
@@ -81,8 +101,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                           ? value.colors.buttonColors
                           : value.colors.innerBackground,
                       color: isDefault || selected == 'home'
-                          ? selectedText
-                          : unselectedText,
+                          ? colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.secondaryFont
+                          : colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.primaryFont,
                       onPressed: () {
                         setState(() {
                           selected = 'home';
@@ -99,9 +123,16 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       containerColor: selected == 'connection'
                           ? value.colors.buttonColors
                           : value.colors.innerBackground,
+                      // color: selected == 'connection'
+                      //     ? selectedText
+                      //     : unselectedText,
                       color: selected == 'connection'
-                          ? selectedText
-                          : unselectedText,
+                          ? colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.secondaryFont
+                          : colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.primaryFont,
                       onPressed: () {
                         setState(() {
                           selected = 'connection';
@@ -118,8 +149,15 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       containerColor: selected == 'tasks'
                           ? value.colors.buttonColors
                           : value.colors.innerBackground,
-                      color:
-                          selected == 'tasks' ? selectedText : unselectedText,
+                      // color:
+                      //     selected == 'tasks' ? selectedText : unselectedText,
+                      color: selected == 'tasks'
+                          ? colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.secondaryFont
+                          : colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.primaryFont,
                       onPressed: () {
                         setState(() {
                           selected = 'tasks';
@@ -136,7 +174,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       containerColor: selected == 'favs'
                           ? value.colors.buttonColors
                           : value.colors.innerBackground,
-                      color: selected == 'favs' ? selectedText : unselectedText,
+                      // color: selected == 'favs' ? selectedText : unselectedText,
+                      color: selected == 'favs'
+                          ? colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.secondaryFont
+                          : colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.primaryFont,
                       onPressed: () {
                         setState(() {
                           selected = 'favs';
@@ -153,9 +198,16 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       containerColor: selected == 'settings'
                           ? value.colors.buttonColors
                           : value.colors.innerBackground,
+                      // color: selected == 'settings'
+                      //     ? selectedText
+                      //     : unselectedText,
                       color: selected == 'settings'
-                          ? selectedText
-                          : unselectedText,
+                          ? colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.secondaryFont
+                          : colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.primaryFont,
                       onPressed: () {
                         setState(() {
                           selected = 'settings';
@@ -172,8 +224,15 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       containerColor: selected == 'about'
                           ? value.colors.buttonColors
                           : value.colors.innerBackground,
-                      color:
-                          selected == 'about' ? selectedText : unselectedText,
+                      // color:
+                      //     selected == 'about' ? selectedText : unselectedText,
+                      color: selected == 'about'
+                          ? colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.secondaryFont
+                          : colorProv.theme == 'dark'
+                              ? FontAppColors.secondaryFont
+                              : FontAppColors.primaryFont,
                       onPressed: () {
                         setState(() {
                           selected = 'about';

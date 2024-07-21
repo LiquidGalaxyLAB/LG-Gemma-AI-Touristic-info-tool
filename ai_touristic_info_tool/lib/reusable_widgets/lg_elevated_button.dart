@@ -98,14 +98,21 @@ class LgElevatedButton extends StatelessWidget {
                   ),
                 Align(
                   alignment: Alignment.center,
-                  child: Text(
-                    elevatedButtonContent,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: fontSize,
-                      fontFamily: fontType,
-                      color: fontColor,
-                      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+                  child: Flexible(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.center,
+                      child: Text(
+                        elevatedButtonContent,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: fontSize,
+                          fontFamily: fontType,
+                          color: fontColor,
+                          fontWeight:
+                              isBold ? FontWeight.bold : FontWeight.normal,
+                        ),
+                      ),
                     ),
                   ),
                 ),
