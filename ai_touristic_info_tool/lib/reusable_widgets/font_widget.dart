@@ -54,8 +54,8 @@ class _FontWidgetState extends State<FontWidget> {
               Slider(
                 activeColor: colorval.colors.buttonColors,
                 value: value.fonts.titleSize,
-                min: 30,
-                max: 60,
+                min: 40,
+                max: 50,
                 divisions: 20,
                 label: value.fonts.titleSize.round().toString(),
                 onChanged: (double newVal) {

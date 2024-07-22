@@ -1,5 +1,8 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 
 import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
@@ -22,13 +25,20 @@ class SearchResultsContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Consumer<SearchProvider>(
-            builder:
-                (BuildContext context, SearchProvider value, Widget? child) {
+          Consumer3<SearchProvider, ColorProvider, FontsProvider>(
+            builder: (BuildContext context,
+                SearchProvider value,
+                ColorProvider colorProv,
+                FontsProvider fontProv,
+                Widget? child) {
               return Text(
                 'Website Results for ${value.searchPoiSelected}',
                 style: TextStyle(
-                  fontSize: textSize + 4,
+                  // fontSize: textSize + 4,
+                  fontSize: fontProv.fonts.textSize + 4,
+                  color: SettingsSharedPref.getTheme() == 'default'
+                      ? fontProv.fonts.secondaryFontColor
+                      : fontProv.fonts.primaryFontColor,
                   fontWeight: FontWeight.bold,
                   fontFamily: fontType,
                 ),
@@ -36,9 +46,12 @@ class SearchResultsContainer extends StatelessWidget {
             },
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          Consumer<SearchProvider>(
-            builder:
-                (BuildContext context, SearchProvider value, Widget? child) {
+          Consumer3<SearchProvider, ColorProvider, FontsProvider>(
+            builder: (BuildContext context,
+                SearchProvider value,
+                ColorProvider colorProv,
+                FontsProvider fontProv,
+                Widget? child) {
               if (value.isLoading) {
                 return Padding(
                   padding: EdgeInsets.only(
@@ -65,7 +78,16 @@ class SearchResultsContainer extends StatelessWidget {
                           color: Color.fromARGB(110, 210, 209, 209),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Text('No URLs found')));
+                        child: Text(
+                          'No URLs found',
+                          style: TextStyle(
+                            fontSize: fontProv.fonts.textSize,
+                            color: SettingsSharedPref.getTheme() == 'default'
+                                ? fontProv.fonts.secondaryFontColor
+                                : fontProv.fonts.primaryFontColor,
+                            fontFamily: fontType,
+                          ),
+                        )));
               } else {
                 return Padding(
                   padding: EdgeInsets.only(
@@ -150,7 +172,8 @@ class SearchResultsContainer extends StatelessWidget {
                                     softWrap: true,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      fontSize: textSize,
+                                      // fontSize: textSize,
+                                      fontSize: fontProv.fonts.textSize,
                                       color: Colors.blue,
                                       decoration: TextDecoration.underline,
                                       decorationColor: Colors.blue,
@@ -170,13 +193,20 @@ class SearchResultsContainer extends StatelessWidget {
             },
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-          Consumer<SearchProvider>(
-            builder:
-                (BuildContext context, SearchProvider value, Widget? child) {
+          Consumer3<SearchProvider, ColorProvider, FontsProvider>(
+            builder: (BuildContext context,
+                SearchProvider value,
+                ColorProvider colorProv,
+                FontsProvider fontProv,
+                Widget? child) {
               return Text(
                 'Youtube Results for ${value.searchPoiSelected}',
                 style: TextStyle(
-                  fontSize: textSize + 4,
+                  // fontSize: textSize + 4,
+                  fontSize: fontProv.fonts.textSize + 4,
+                  color: SettingsSharedPref.getTheme() == 'default'
+                      ? fontProv.fonts.secondaryFontColor
+                      : fontProv.fonts.primaryFontColor,
                   fontWeight: FontWeight.bold,
                   fontFamily: fontType,
                 ),
@@ -184,9 +214,12 @@ class SearchResultsContainer extends StatelessWidget {
             },
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-          Consumer<SearchProvider>(
-            builder:
-                (BuildContext context, SearchProvider value, Widget? child) {
+          Consumer3<SearchProvider, ColorProvider, FontsProvider>(
+            builder: (BuildContext context,
+                SearchProvider value,
+                ColorProvider colorProv,
+                FontsProvider fontProv,
+                Widget? child) {
               if (value.isLoading) {
                 return Padding(
                   padding: EdgeInsets.only(
@@ -214,7 +247,16 @@ class SearchResultsContainer extends StatelessWidget {
                           color: Color.fromARGB(110, 210, 209, 209),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Text('No URLs found')));
+                        child: Text(
+                          'No URLs found',
+                          style: TextStyle(
+                            fontSize: fontProv.fonts.textSize,
+                            color: SettingsSharedPref.getTheme() == 'default'
+                                ? fontProv.fonts.secondaryFontColor
+                                : fontProv.fonts.primaryFontColor,
+                            fontFamily: fontType,
+                          ),
+                        )));
               } else {
                 return Padding(
                   padding: EdgeInsets.only(
@@ -305,7 +347,8 @@ class SearchResultsContainer extends StatelessWidget {
                                     softWrap: true,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      fontSize: textSize,
+                                      // fontSize: textSize,
+                                      fontSize: fontProv.fonts.textSize,
                                       color: Colors.blue,
                                       decoration: TextDecoration.underline,
                                       decorationColor: Colors.blue,

@@ -1,5 +1,6 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,8 +35,9 @@ class _SettingsOptionButtonState extends State<SettingsOptionButton> {
       onTap: () {
         widget.onPressed(widget.view, widget.index);
       },
-      child: Consumer<ColorProvider>(
-        builder: (BuildContext context, ColorProvider value, Widget? child) {
+      child: Consumer2<ColorProvider, FontsProvider>(
+        builder: (BuildContext context, ColorProvider value,
+            FontsProvider fontProv, Widget? child) {
           return Container(
             height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.width * 0.4,
@@ -93,7 +95,8 @@ class _SettingsOptionButtonState extends State<SettingsOptionButton> {
                       widget.buttonText,
                       style: TextStyle(
                         fontFamily: fontType,
-                        fontSize: textSize + 3,
+                        // fontSize: textSize + 3,
+                        fontSize: fontProv.fonts.textSize + 3,
                         color: FontAppColors.primaryFont,
                         fontWeight: FontWeight.bold,
                       ),

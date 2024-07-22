@@ -1,5 +1,7 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,15 +13,20 @@ class MapTypeChoicesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<MapTypeProvider, ColorProvider>(
+    return Consumer3<MapTypeProvider, ColorProvider, FontsProvider>(
       builder: (BuildContext context, MapTypeProvider value,
-          ColorProvider colorProv, Widget? child) {
+          ColorProvider colorProv, FontsProvider fontProv, Widget? child) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
               'Satellite',
-              style: TextStyle(fontFamily: fontType, fontSize: textSize),
+              style: TextStyle(
+                  fontFamily: fontType,
+                  fontSize: fontProv.fonts.textSize,
+                  color: SettingsSharedPref.getTheme() == 'default'
+                      ? fontProv.fonts.secondaryFontColor
+                      : fontProv.fonts.primaryFontColor),
             ),
             GestureDetector(
               onTap: () => value.currentView = 'satellite',
@@ -49,7 +56,12 @@ class MapTypeChoicesWidget extends StatelessWidget {
             ),
             Text(
               'Normal',
-              style: TextStyle(fontFamily: fontType, fontSize: textSize),
+              style: TextStyle(
+                  fontFamily: fontType,
+                  fontSize: fontProv.fonts.textSize,
+                  color: SettingsSharedPref.getTheme() == 'default'
+                      ? fontProv.fonts.secondaryFontColor
+                      : fontProv.fonts.primaryFontColor),
             ),
             GestureDetector(
               onTap: () => value.currentView = 'normal',
@@ -79,7 +91,12 @@ class MapTypeChoicesWidget extends StatelessWidget {
             ),
             Text(
               'Terrain',
-              style: TextStyle(fontFamily: fontType, fontSize: textSize),
+              style: TextStyle(
+                  fontFamily: fontType,
+                  fontSize: fontProv.fonts.textSize,
+                  color: SettingsSharedPref.getTheme() == 'default'
+                      ? fontProv.fonts.secondaryFontColor
+                      : fontProv.fonts.primaryFontColor),
             ),
             GestureDetector(
               onTap: () => value.currentView = 'terrain',
