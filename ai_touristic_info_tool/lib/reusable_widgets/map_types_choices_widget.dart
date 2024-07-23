@@ -24,9 +24,7 @@ class MapTypeChoicesWidget extends StatelessWidget {
               style: TextStyle(
                   fontFamily: fontType,
                   fontSize: fontProv.fonts.textSize,
-                  color: SettingsSharedPref.getTheme() == 'default'
-                      ? fontProv.fonts.secondaryFontColor
-                      : fontProv.fonts.primaryFontColor),
+                  color: fontProv.fonts.primaryFontColor),
             ),
             GestureDetector(
               onTap: () => value.currentView = 'satellite',
@@ -59,9 +57,7 @@ class MapTypeChoicesWidget extends StatelessWidget {
               style: TextStyle(
                   fontFamily: fontType,
                   fontSize: fontProv.fonts.textSize,
-                  color: SettingsSharedPref.getTheme() == 'default'
-                      ? fontProv.fonts.secondaryFontColor
-                      : fontProv.fonts.primaryFontColor),
+                  color: fontProv.fonts.primaryFontColor),
             ),
             GestureDetector(
               onTap: () => value.currentView = 'normal',
@@ -94,9 +90,7 @@ class MapTypeChoicesWidget extends StatelessWidget {
               style: TextStyle(
                   fontFamily: fontType,
                   fontSize: fontProv.fonts.textSize,
-                  color: SettingsSharedPref.getTheme() == 'default'
-                      ? fontProv.fonts.secondaryFontColor
-                      : fontProv.fonts.primaryFontColor),
+                  color: fontProv.fonts.primaryFontColor),
             ),
             GestureDetector(
               onTap: () => value.currentView = 'terrain',

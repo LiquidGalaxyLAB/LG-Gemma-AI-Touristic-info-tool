@@ -41,7 +41,7 @@ class NavigationItem extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: fontType,
                     // fontSize: textSize - 10,
-                    fontSize: textSize - 5,
+                    fontSize: textSize - 10,
                     // fontSize: value.fonts.textSize - 10,
                     color: color,
                   ),

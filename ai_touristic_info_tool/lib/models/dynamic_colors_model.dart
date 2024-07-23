@@ -33,12 +33,15 @@ class DynamicAppColors {
     Color grad4;
     Color innerBg;
     Color buttons;
+    Color shd;
+    Color medShd;
+    Color darkShd;
     if (SettingsSharedPref.getTheme() == 'dark') {
       grad1 = Color.fromARGB(255, 34, 34, 34); // Pure Black
       grad2 = Color.fromARGB(255, 34, 34, 34); // Dark Grey
       grad3 = Color.fromARGB(255, 68, 68, 68); // Medium Grey
       grad4 = Color.fromARGB(255, 102, 102, 102); // Light Grey
-      innerBg = Color.fromARGB(255, 0, 0, 0);
+      innerBg = Color.fromARGB(255, 26, 26, 26);
       buttons = Color.fromARGB(255, 85, 85, 85);
     } else if (SettingsSharedPref.getTheme() == 'light') {
       grad1 = Color(0xFFF9F9F8);
@@ -61,6 +64,16 @@ class DynamicAppColors {
       innerBg = Colors.white;
       buttons = buttonColor;
     }
+
+    if (SettingsSharedPref.getTheme() == 'light') {
+      darkShd = Colors.white;
+      medShd = Colors.white;
+      shd = Colors.white;
+    } else {
+      darkShd = lightenColor(buttons, 0.4); // Light shadow
+      medShd = lightenColor(buttons, 0.6); // Medium shadow
+      shd = lightenColor(buttons, 0.8); // Dark shadow
+    }
     return DynamicAppColors(
       gradient4: grad4,
       gradient3: grad3,
@@ -69,9 +82,12 @@ class DynamicAppColors {
       buttonColors: buttons,
       accentColor: Color.fromARGB(120, 252, 171, 21),
       innerBackground: innerBg,
-      shadow: lightenColor(buttons, 0.8),
-      midShadow: lightenColor(buttons, 0.6),
-      darkShadow: lightenColor(buttons, 0.4),
+      // shadow: lightenColor(buttons, 0.8),
+      // midShadow: lightenColor(buttons, 0.6),
+      // darkShadow: lightenColor(buttons, 0.4),
+      shadow: shd,
+      midShadow: medShd,
+      darkShadow: darkShd,
     );
   }
 
@@ -87,7 +103,7 @@ class DynamicAppColors {
       grad2 = Color.fromARGB(255, 34, 34, 34); // Dark Grey
       grad3 = Color.fromARGB(255, 68, 68, 68); // Medium Grey
       grad4 = Color.fromARGB(255, 102, 102, 102); // Light Grey
-      innerBg = Color.fromARGB(255, 0, 0, 0);
+      innerBg = Color.fromARGB(255, 26, 26, 26);
       buttons = Color.fromARGB(255, 85, 85, 85);
     } else if (SettingsSharedPref.getTheme() == 'light') {
       grad1 = Color(0xFFF9F9F8);
@@ -117,9 +133,16 @@ class DynamicAppColors {
     gradient1 = grad1;
     innerBackground = innerBg;
     buttonColors = buttons;
-    darkShadow = lightenColor(buttons, 0.4); // Light shadow
-    midShadow = lightenColor(buttons, 0.6); // Medium shadow
-    shadow = lightenColor(buttons, 0.8); // Dark shadow
+
+    if (SettingsSharedPref.getTheme() == 'light') {
+      darkShadow = Colors.white;
+      midShadow = Colors.white;
+      shadow = Colors.white;
+    } else {
+      darkShadow = lightenColor(buttons, 0.4); // Light shadow
+      midShadow = lightenColor(buttons, 0.6); // Medium shadow
+      shadow = lightenColor(buttons, 0.8); // Dark shadow
+    }
   }
 }
 

@@ -36,9 +36,7 @@ class SearchResultsContainer extends StatelessWidget {
                 style: TextStyle(
                   // fontSize: textSize + 4,
                   fontSize: fontProv.fonts.textSize + 4,
-                  color: SettingsSharedPref.getTheme() == 'default'
-                      ? fontProv.fonts.secondaryFontColor
-                      : fontProv.fonts.primaryFontColor,
+                  color: fontProv.fonts.primaryFontColor,
                   fontWeight: FontWeight.bold,
                   fontFamily: fontType,
                 ),
@@ -82,9 +80,7 @@ class SearchResultsContainer extends StatelessWidget {
                           'No URLs found',
                           style: TextStyle(
                             fontSize: fontProv.fonts.textSize,
-                            color: SettingsSharedPref.getTheme() == 'default'
-                                ? fontProv.fonts.secondaryFontColor
-                                : fontProv.fonts.primaryFontColor,
+                            color: FontAppColors.primaryFont,
                             fontFamily: fontType,
                           ),
                         )));
@@ -204,9 +200,7 @@ class SearchResultsContainer extends StatelessWidget {
                 style: TextStyle(
                   // fontSize: textSize + 4,
                   fontSize: fontProv.fonts.textSize + 4,
-                  color: SettingsSharedPref.getTheme() == 'default'
-                      ? fontProv.fonts.secondaryFontColor
-                      : fontProv.fonts.primaryFontColor,
+                  color: fontProv.fonts.primaryFontColor,
                   fontWeight: FontWeight.bold,
                   fontFamily: fontType,
                 ),
@@ -251,9 +245,7 @@ class SearchResultsContainer extends StatelessWidget {
                           'No URLs found',
                           style: TextStyle(
                             fontSize: fontProv.fonts.textSize,
-                            color: SettingsSharedPref.getTheme() == 'default'
-                                ? fontProv.fonts.secondaryFontColor
-                                : fontProv.fonts.primaryFontColor,
+                            color: FontAppColors.primaryFont,
                             fontFamily: fontType,
                           ),
                         )));

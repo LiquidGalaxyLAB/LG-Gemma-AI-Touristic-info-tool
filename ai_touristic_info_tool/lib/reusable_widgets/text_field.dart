@@ -1,4 +1,5 @@
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -79,8 +80,9 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
-      child: Consumer<ColorProvider>(
-        builder: (BuildContext context, ColorProvider value, Widget? child) {
+      child: Consumer2<ColorProvider, FontsProvider>(
+        builder: (BuildContext context, ColorProvider value,
+            FontsProvider fontProv, Widget? child) {
           return TextFormField(
             autofocus: true,
             enabled: widget._enabled,
@@ -91,21 +93,31 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
             decoration: InputDecoration(
               labelText: widget._label,
               labelStyle: TextStyle(
-                fontSize: textSize + 2,
+                // fontSize: textSize + 2,
+                fontSize: fontProv.fonts.textSize + 2,
                 fontFamily: fontType,
-                color: FontAppColors.primaryFont,
+                // color: FontAppColors.primaryFont,
+                color: fontProv.fonts.primaryFontColor,
               ),
               hintText: widget._hint,
+              hintStyle: TextStyle(
+                // fontSize: textSize,
+                fontSize: fontProv.fonts.textSize,
+                fontFamily: fontType,
+                // color: FontAppColors.secondaryFont,
+                color: fontProv.fonts.primaryFontColor,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(
-                  color: Colors.black,
+                borderSide: BorderSide(
+                  // color: Colors.black,
+                  color: fontProv.fonts.primaryFontColor,
                   width: 5.0,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide:  BorderSide(
+                borderSide: BorderSide(
                   // color: PrimaryAppColors.buttonColors,
                   color: value.colors.buttonColors,
                   width: 3.0,
@@ -159,7 +171,8 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
             ),
             onChanged: widget.onChanged,
             style: TextStyle(
-              color: Colors.black,
+              // color: Colors.black,
+              color: fontProv.fonts.primaryFontColor,
               fontFamily: fontType,
               fontSize: widget.fontSize,
             ),

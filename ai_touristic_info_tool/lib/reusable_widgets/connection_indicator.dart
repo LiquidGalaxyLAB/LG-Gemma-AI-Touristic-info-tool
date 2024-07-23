@@ -53,9 +53,7 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
                           fontFamily: fontType,
                           // fontSize: textSize - 5,
                           fontSize: fontsProv.fonts.textSize - 5,
-                          color: SettingsSharedPref.getTheme() == 'default'
-                              ? fontsProv.fonts.secondaryFontColor
-                              : fontsProv.fonts.primaryFontColor),
+                          color: fontsProv.fonts.primaryFontColor),
                     ),
                   ),
                 ),
@@ -72,13 +70,10 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
                     child: Text(
                       'AI Server',
                       style: TextStyle(
-                        fontFamily: fontType,
-                        // fontSize: textSize - 5
-                        fontSize: fontsProv.fonts.textSize - 5,
-                        color: SettingsSharedPref.getTheme() == 'default'
-                            ? fontsProv.fonts.secondaryFontColor
-                            : fontsProv.fonts.primaryFontColor,
-                      ),
+                          fontFamily: fontType,
+                          // fontSize: textSize - 5
+                          fontSize: fontsProv.fonts.textSize - 5,
+                          color: fontsProv.fonts.primaryFontColor),
                     ),
                   ),
                 ),

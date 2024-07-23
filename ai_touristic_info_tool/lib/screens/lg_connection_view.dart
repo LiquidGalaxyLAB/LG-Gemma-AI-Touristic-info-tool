@@ -1,10 +1,12 @@
 import 'package:ai_touristic_info_tool/helpers/api.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -58,16 +60,24 @@ class _ConnectionViewState extends State<ConnectionView> {
             children: [
               Column(
                 children: [
-                  Consumer<ColorProvider>(
+                  Consumer2<ColorProvider, FontsProvider>(
                     builder: (BuildContext context, ColorProvider value,
-                        Widget? child) {
+                        FontsProvider fontProv, Widget? child) {
                       return TopBarWidget(
                         height: MediaQuery.of(context).size.height * 0.1,
                         width: MediaQuery.of(context).size.width * 1,
-                        grad1: value.colors.gradient1,
-                        grad2: value.colors.gradient2,
-                        grad3: value.colors.gradient3,
-                        grad4: value.colors.gradient4,
+                        grad1: SettingsSharedPref.getTheme() == 'light'
+                            ? value.colors.buttonColors
+                            : value.colors.gradient1,
+                        grad2: SettingsSharedPref.getTheme() == 'light'
+                            ? value.colors.buttonColors
+                            : value.colors.gradient2,
+                        grad3: SettingsSharedPref.getTheme() == 'light'
+                            ? value.colors.buttonColors
+                            : value.colors.gradient3,
+                        grad4: SettingsSharedPref.getTheme() == 'light'
+                            ? value.colors.buttonColors
+                            : value.colors.gradient4,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -82,8 +92,12 @@ class _ConnectionViewState extends State<ConnectionView> {
                                 'Liquid Galaxy Connection Manager',
                                 style: TextStyle(
                                   fontFamily: fontType,
-                                  fontSize: headingSize,
-                                  color: FontAppColors.secondaryFont,
+                                  // fontSize: headingSize,
+                                  fontSize: fontProv.fonts.headingSize,
+                                  // color: FontAppColors.secondaryFont,
+                                  color: SettingsSharedPref.getTheme() == 'dark'
+                                      ? fontProv.fonts.primaryFontColor
+                                      : fontProv.fonts.secondaryFontColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -96,388 +110,439 @@ class _ConnectionViewState extends State<ConnectionView> {
                   // SizedBox(
                   //   height: MediaQuery.of(context).size.height * 0.05,
                   // ),
-                  Text(
-                    'LG Connection',
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      fontSize: headingSize - 8,
-                      color: FontAppColors.primaryFont,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Consumer<FontsProvider>(
+                    builder: (BuildContext context, FontsProvider value,
+                        Widget? child) {
+                      return Text(
+                        'LG Connection',
+                        style: TextStyle(
+                          fontFamily: fontType,
+                          // fontSize: headingSize - 8,
+                          fontSize: value.fonts.headingSize - 8,
+                          // color: FontAppColors.primaryFont,
+                          color: value.fonts.primaryFontColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    },
                   ),
                   // SizedBox(
                   //   height: MediaQuery.of(context).size.height * 0.05,
                   // ),
-                  Form(
-                    key: _form1Key,
-                    child: Row(
-                      children: [
-                        Column(
+                  Consumer<FontsProvider>(
+                    builder: (BuildContext context, FontsProvider value,
+                        Widget? child) {
+                      return Form(
+                        key: _form1Key,
+                        child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: TextFormFieldWidget(
-                                fontSize: textSize,
-                                label: 'LG User Name',
-                                key: const ValueKey("username"),
-                                textController: _userNameController,
-                                isSuffixRequired: true,
-                                // isHidden: false,
-                                isPassword: false,
-                                maxLength: 50,
-                                maxlines: 1,
-                                width: MediaQuery.sizeOf(context).width * 0.5,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: TextFormFieldWidget(
-                                isPassword: true,
-                                fontSize: textSize,
-                                label: 'LG Password',
-                                key: const ValueKey("lgpass"),
-                                textController: _passwordController,
-                                isSuffixRequired: true,
-                                // isHidden: true,
-                                maxLength: 50,
-                                maxlines: 1,
-                                width: MediaQuery.sizeOf(context).width * 0.5,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: TextFormFieldWidget(
-                                fontSize: textSize,
-                                label: 'LG Master IP Address',
-                                key: const ValueKey("ip"),
-                                textController: _ipController,
-                                isSuffixRequired: true,
-                                // isHidden: false,
-                                isPassword: false,
-                                maxLength: 50,
-                                maxlines: 1,
-                                width: MediaQuery.sizeOf(context).width * 0.5,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: TextFormFieldWidget(
-                                fontSize: textSize,
-                                label: 'LG Port Number',
-                                key: const ValueKey("port"),
-                                textController: _portController,
-                                isSuffixRequired: true,
-                                // isHidden: false,
-                                isPassword: false,
-                                maxLength: 50,
-                                maxlines: 1,
-                                width: MediaQuery.sizeOf(context).width * 0.5,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: TextFormFieldWidget(
-                                fontSize: textSize,
-                                label: 'Number of LG screens',
-                                key: const ValueKey("lgscreens"),
-                                textController: _screenAmountController,
-                                isSuffixRequired: true,
-                                // isHidden: false,
-                                isPassword: false,
-                                maxLength: 50,
-                                maxlines: 1,
-                                width: MediaQuery.sizeOf(context).width * 0.5,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.05,
-                        ),
-                        AppDividerWidget(
-                          height: MediaQuery.of(context).size.height * 0.5,
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.05,
-                        ),
-                        Column(
-                          children: [
-                            LgElevatedButton(
-                              elevatedButtonContent: 'CONNECT LG',
-                              buttonColor: LgAppColors.lgColor4,
-                              fontColor: FontAppColors.secondaryFont,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              fontSize: textSize + 2,
-                              isLoading: false,
-                              isBold: true,
-                              isPrefixIcon: true,
-                              prefixIcon: Icons.cast_connected,
-                              prefixIconColor: FontAppColors.secondaryFont,
-                              prefixIconSize: 30,
-                              isSuffixIcon: false,
-                              curvatureRadius: 50,
-                              onpressed: () async {
-                                /// checking first if form is valid
-                                if (_form1Key.currentState!.validate()) {
-                                  //saving date in shared pref
-                                  await LgConnectionSharedPref.setUserName(
-                                      _userNameController.text);
-                                  await LgConnectionSharedPref.setIP(
-                                      _ipController.text);
-                                  await LgConnectionSharedPref.setPassword(
-                                      _passwordController.text);
-                                  await LgConnectionSharedPref.setPort(
-                                      _portController.text);
-                                  await LgConnectionSharedPref.setScreenAmount(
-                                      int.parse(_screenAmountController.text));
-                                }
-
-                                final sshData = Provider.of<SSHprovider>(
-                                    context,
-                                    listen: false);
-
-                                ///start the loading process by setting `isloading` to true
-                                setState(() {
-                                  _isLoading1 = true;
-                                });
-
-                                /// Call the init function to set up the SSH client with the connection data
-                                String? result = await sshData.init(context);
-
-                                Connectionprovider connection =
-                                    Provider.of<Connectionprovider>(context,
-                                        listen: false);
-
-                                ///checking on the connection status:
-                                if (result == '') {
-                                  connection.isLgConnected = true;
-
-                                  ///If connected, the logos should appear by calling `setLogos` from the `LGService` calss
-                                  await LgService(sshData).setLogos();
-                                  await buildAppBalloon(context);
-                                } else {
-                                  connection.isLgConnected = false;
-
-                                  // ignore: use_build_context_synchronously
-                                  dialogBuilder(
-                                      context, result!, true, 'OK', null, null);
-                                }
-
-                                ///stop the loading process by setting `isloading` to false
-                                setState(() {
-                                  _isLoading1 = false;
-                                });
-                              },
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: TextFormFieldWidget(
+                                    // fontSize: textSize,
+                                    fontSize: value.fonts.textSize,
+                                    label: 'LG User Name',
+                                    key: const ValueKey("username"),
+                                    textController: _userNameController,
+                                    isSuffixRequired: true,
+                                    // isHidden: false,
+                                    isPassword: false,
+                                    maxLength: 50,
+                                    maxlines: 1,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.5,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: TextFormFieldWidget(
+                                    isPassword: true,
+                                    // fontSize: textSize,
+                                    fontSize: value.fonts.textSize,
+                                    label: 'LG Password',
+                                    key: const ValueKey("lgpass"),
+                                    textController: _passwordController,
+                                    isSuffixRequired: true,
+                                    // isHidden: true,
+                                    maxLength: 50,
+                                    maxlines: 1,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.5,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: TextFormFieldWidget(
+                                    // fontSize: textSize,
+                                    fontSize: value.fonts.textSize,
+                                    label: 'LG Master IP Address',
+                                    key: const ValueKey("ip"),
+                                    textController: _ipController,
+                                    isSuffixRequired: true,
+                                    // isHidden: false,
+                                    isPassword: false,
+                                    maxLength: 50,
+                                    maxlines: 1,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.5,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: TextFormFieldWidget(
+                                    // fontSize: textSize,
+                                    fontSize: value.fonts.textSize,
+                                    label: 'LG Port Number',
+                                    key: const ValueKey("port"),
+                                    textController: _portController,
+                                    isSuffixRequired: true,
+                                    // isHidden: false,
+                                    isPassword: false,
+                                    maxLength: 50,
+                                    maxlines: 1,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.5,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: TextFormFieldWidget(
+                                    // fontSize: textSize,
+                                    fontSize: value.fonts.textSize,
+                                    label: 'Number of LG screens',
+                                    key: const ValueKey("lgscreens"),
+                                    textController: _screenAmountController,
+                                    isSuffixRequired: true,
+                                    // isHidden: false,
+                                    isPassword: false,
+                                    maxLength: 50,
+                                    maxlines: 1,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.5,
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.15,
+                              width: MediaQuery.of(context).size.width * 0.05,
                             ),
-                            LgElevatedButton(
-                              elevatedButtonContent: 'DISCONNECT LG',
-                              buttonColor: LgAppColors.lgColor2,
-                              fontColor: FontAppColors.secondaryFont,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              fontSize: textSize + 2,
-                              isLoading: false,
-                              isBold: true,
-                              isPrefixIcon: true,
-                              prefixIcon:
-                                  Icons.signal_wifi_connected_no_internet_4,
-                              prefixIconColor: FontAppColors.secondaryFont,
-                              prefixIconSize: 30,
-                              isSuffixIcon: false,
-                              curvatureRadius: 50,
-                              onpressed: () async {
-                                final sshData = Provider.of<SSHprovider>(
-                                    context,
-                                    listen: false);
-                                Connectionprovider connection =
-                                    Provider.of<Connectionprovider>(context,
+                            AppDividerWidget(
+                              height: MediaQuery.of(context).size.height * 0.5,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.05,
+                            ),
+                            Column(
+                              children: [
+                                LgElevatedButton(
+                                  elevatedButtonContent: 'CONNECT LG',
+                                  buttonColor: LgAppColors.lgColor4,
+                                  fontColor: FontAppColors.secondaryFont,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.25,
+                                  // fontSize: textSize + 2,
+                                  fontSize: value.fonts.textSize + 2,
+                                  isLoading: false,
+                                  isBold: true,
+                                  isPrefixIcon: true,
+                                  prefixIcon: Icons.cast_connected,
+                                  prefixIconColor: FontAppColors.secondaryFont,
+                                  prefixIconSize: 30,
+                                  isSuffixIcon: false,
+                                  curvatureRadius: 50,
+                                  onpressed: () async {
+                                    /// checking first if form is valid
+                                    if (_form1Key.currentState!.validate()) {
+                                      //saving date in shared pref
+                                      await LgConnectionSharedPref.setUserName(
+                                          _userNameController.text);
+                                      await LgConnectionSharedPref.setIP(
+                                          _ipController.text);
+                                      await LgConnectionSharedPref.setPassword(
+                                          _passwordController.text);
+                                      await LgConnectionSharedPref.setPort(
+                                          _portController.text);
+                                      await LgConnectionSharedPref
+                                          .setScreenAmount(int.parse(
+                                              _screenAmountController.text));
+                                    }
+
+                                    final sshData = Provider.of<SSHprovider>(
+                                        context,
                                         listen: false);
-                                dialogBuilder(
-                                    context,
-                                    'Are you sure you want to disconnect?',
-                                    false,
-                                    'YES', () {
-                                  if (connection.isLgConnected) {
-                                    sshData.disconnect();
-                                    connection.isLgConnected = false;
-                                  } else {
+
+                                    ///start the loading process by setting `isloading` to true
+                                    setState(() {
+                                      _isLoading1 = true;
+                                    });
+
+                                    /// Call the init function to set up the SSH client with the connection data
+                                    String? result =
+                                        await sshData.init(context);
+
+                                    Connectionprovider connection =
+                                        Provider.of<Connectionprovider>(context,
+                                            listen: false);
+
+                                    ///checking on the connection status:
+                                    if (result == '') {
+                                      connection.isLgConnected = true;
+
+                                      ///If connected, the logos should appear by calling `setLogos` from the `LGService` calss
+                                      await LgService(sshData).setLogos();
+                                      await buildAppBalloon(context);
+                                    } else {
+                                      connection.isLgConnected = false;
+
+                                      // ignore: use_build_context_synchronously
+                                      dialogBuilder(context, result!, true,
+                                          'OK', null, null);
+                                    }
+
+                                    ///stop the loading process by setting `isloading` to false
+                                    setState(() {
+                                      _isLoading1 = false;
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.15,
+                                ),
+                                LgElevatedButton(
+                                  elevatedButtonContent: 'DISCONNECT LG',
+                                  buttonColor: LgAppColors.lgColor2,
+                                  fontColor: FontAppColors.secondaryFont,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.25,
+                                  // fontSize: textSize + 2,
+                                  fontSize: value.fonts.textSize + 2,
+                                  isLoading: false,
+                                  isBold: true,
+                                  isPrefixIcon: true,
+                                  prefixIcon:
+                                      Icons.signal_wifi_connected_no_internet_4,
+                                  prefixIconColor: FontAppColors.secondaryFont,
+                                  prefixIconSize: 30,
+                                  isSuffixIcon: false,
+                                  curvatureRadius: 50,
+                                  onpressed: () async {
+                                    final sshData = Provider.of<SSHprovider>(
+                                        context,
+                                        listen: false);
+                                    Connectionprovider connection =
+                                        Provider.of<Connectionprovider>(context,
+                                            listen: false);
                                     dialogBuilder(
                                         context,
-                                        'You are already disconnected!',
-                                        true,
-                                        'OK',
-                                        null,
-                                        null);
-                                  }
-                                }, null);
-                              },
+                                        'Are you sure you want to disconnect?',
+                                        false,
+                                        'YES', () {
+                                      if (connection.isLgConnected) {
+                                        sshData.disconnect();
+                                        connection.isLgConnected = false;
+                                      } else {
+                                        dialogBuilder(
+                                            context,
+                                            'You are already disconnected!',
+                                            true,
+                                            'OK',
+                                            null,
+                                            null);
+                                      }
+                                    }, null);
+                                  },
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                   // SizedBox(
                   //   height: MediaQuery.of(context).size.height * 0.05,
                   // ),
-                  Text(
-                    'AI Server Connection',
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      fontSize: headingSize - 8,
-                      color: FontAppColors.primaryFont,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Consumer<FontsProvider>(
+                    builder: (BuildContext context, FontsProvider value,
+                        Widget? child) {
+                      return Text(
+                        'AI Server Connection',
+                        style: TextStyle(
+                          fontFamily: fontType,
+                          // fontSize: headingSize - 8,
+                          fontSize: value.fonts.headingSize - 8,
+                          // color: FontAppColors.primaryFont,
+                          color: value.fonts.primaryFontColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    },
                   ),
                   // SizedBox(
                   //   height: MediaQuery.of(context).size.height * 0.05,
                   // ),
-                  Form(
-                    key: _form2Key,
-                    child: Row(
-                      children: [
-                        Column(
+                  Consumer<FontsProvider>(
+                    builder: (BuildContext context, FontsProvider value,
+                        Widget? child) {
+                      return Form(
+                        key: _form2Key,
+                        child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: TextFormFieldWidget(
-                                fontSize: textSize,
-                                label: 'AI IP Address',
-                                key: const ValueKey("aiIP"),
-                                textController: _aiIpAddressController,
-                                isSuffixRequired: true,
-                                // isHidden: false,
-                                isPassword: false,
-                                maxLength: 50,
-                                maxlines: 1,
-                                width: MediaQuery.sizeOf(context).width * 0.5,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: TextFormFieldWidget(
-                                fontSize: textSize,
-                                label: 'AI Port',
-                                key: const ValueKey("aiPort"),
-                                textController: _aiPortController,
-                                isSuffixRequired: true,
-                                // isHidden: false,
-                                isPassword: false,
-                                maxLength: 50,
-                                maxlines: 1,
-                                width: MediaQuery.sizeOf(context).width * 0.5,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.05,
-                        ),
-                        AppDividerWidget(
-                          height: MediaQuery.of(context).size.height * 0.2,
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.05,
-                        ),
-                        Column(
-                          children: [
-                            LgElevatedButton(
-                              elevatedButtonContent: 'CONNECT AI',
-                              buttonColor: LgAppColors.lgColor4,
-                              fontColor: FontAppColors.secondaryFont,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              fontSize: textSize + 2,
-                              isLoading: false,
-                              isBold: true,
-                              isPrefixIcon: true,
-                              prefixIcon: Icons.cast_connected,
-                              prefixIconColor: FontAppColors.secondaryFont,
-                              prefixIconSize: 30,
-                              isSuffixIcon: false,
-                              curvatureRadius: 50,
-                              onpressed: () async {
-                                /// checking first if form is valid
-                                if (_form2Key.currentState!.validate()) {
-                                  //saving date in shared pref
-                                  await LgConnectionSharedPref.setAiIp(
-                                      _aiIpAddressController.text);
-                                  await LgConnectionSharedPref.setAiPort(
-                                      _aiPortController.text);
-                                }
-                                final stringUrl =
-                                    'http://${_aiIpAddressController.text}:${_aiPortController.text}/health';
-                                final url = Uri.parse(stringUrl);
-
-                                ///start the loading process by setting `isloading` to true
-                                setState(() {
-                                  _isLoading2 = true;
-                                });
-
-                                Connectionprovider connection =
-                                    Provider.of<Connectionprovider>(context,
-                                        listen: false);
-
-                                String result = '';
-
-                                if (!await Api().isServerAvailable()) {
-                                  result =
-                                      'The server is currently unavailable. Please try again later.';
-                                } else {
-                                  String res =
-                                      await Api().isEndpointAvailable();
-
-                                  if (res != 'Success') {
-                                    result = res;
-                                  }
-                                }
-
-                                ///checking on the connection status:
-                                if (result == '') {
-                                  connection.isAiConnected = true;
-                                } else {
-                                  connection.isAiConnected = false;
-
-                                  // ignore: use_build_context_synchronously
-                                  dialogBuilder(
-                                      context, result, true, 'OK', null, null);
-                                }
-
-                                ///stop the loading process by setting `isloading` to false
-                                setState(() {
-                                  _isLoading2 = false;
-                                });
-                              },
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: TextFormFieldWidget(
+                                    // fontSize: textSize,
+                                    fontSize: value.fonts.textSize,
+                                    label: 'AI IP Address',
+                                    key: const ValueKey("aiIP"),
+                                    textController: _aiIpAddressController,
+                                    isSuffixRequired: true,
+                                    // isHidden: false,
+                                    isPassword: false,
+                                    maxLength: 50,
+                                    maxlines: 1,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.5,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: TextFormFieldWidget(
+                                    // fontSize: textSize,
+                                    fontSize: value.fonts.textSize,
+                                    label: 'AI Port',
+                                    key: const ValueKey("aiPort"),
+                                    textController: _aiPortController,
+                                    isSuffixRequired: true,
+                                    // isHidden: false,
+                                    isPassword: false,
+                                    maxLength: 50,
+                                    maxlines: 1,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.5,
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.05,
+                              width: MediaQuery.of(context).size.width * 0.05,
                             ),
-                            LgElevatedButton(
-                              elevatedButtonContent: 'DISCONNECT AI',
-                              buttonColor: LgAppColors.lgColor2,
-                              fontColor: FontAppColors.secondaryFont,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              fontSize: textSize + 2,
-                              isLoading: false,
-                              isBold: true,
-                              isPrefixIcon: true,
-                              curvatureRadius: 50,
-                              prefixIcon:
-                                  Icons.signal_wifi_connected_no_internet_4,
-                              prefixIconColor: FontAppColors.secondaryFont,
-                              prefixIconSize: 30,
-                              isSuffixIcon: false,
-                              onpressed: () async {},
+                            AppDividerWidget(
+                              height: MediaQuery.of(context).size.height * 0.2,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.05,
+                            ),
+                            Column(
+                              children: [
+                                LgElevatedButton(
+                                  elevatedButtonContent: 'CONNECT AI',
+                                  buttonColor: LgAppColors.lgColor4,
+                                  fontColor: FontAppColors.secondaryFont,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.25,
+                                  // fontSize: textSize + 2,
+                                  fontSize: value.fonts.textSize + 2,
+                                  isLoading: false,
+                                  isBold: true,
+                                  isPrefixIcon: true,
+                                  prefixIcon: Icons.cast_connected,
+                                  prefixIconColor: FontAppColors.secondaryFont,
+                                  prefixIconSize: 30,
+                                  isSuffixIcon: false,
+                                  curvatureRadius: 50,
+                                  onpressed: () async {
+                                    /// checking first if form is valid
+                                    if (_form2Key.currentState!.validate()) {
+                                      //saving date in shared pref
+                                      await LgConnectionSharedPref.setAiIp(
+                                          _aiIpAddressController.text);
+                                      await LgConnectionSharedPref.setAiPort(
+                                          _aiPortController.text);
+                                    }
+                                    final stringUrl =
+                                        'http://${_aiIpAddressController.text}:${_aiPortController.text}/health';
+                                    final url = Uri.parse(stringUrl);
+
+                                    ///start the loading process by setting `isloading` to true
+                                    setState(() {
+                                      _isLoading2 = true;
+                                    });
+
+                                    Connectionprovider connection =
+                                        Provider.of<Connectionprovider>(context,
+                                            listen: false);
+
+                                    String result = '';
+
+                                    if (!await Api().isServerAvailable()) {
+                                      result =
+                                          'The server is currently unavailable. Please try again later.';
+                                    } else {
+                                      String res =
+                                          await Api().isEndpointAvailable();
+
+                                      if (res != 'Success') {
+                                        result = res;
+                                      }
+                                    }
+
+                                    ///checking on the connection status:
+                                    if (result == '') {
+                                      connection.isAiConnected = true;
+                                    } else {
+                                      connection.isAiConnected = false;
+
+                                      // ignore: use_build_context_synchronously
+                                      dialogBuilder(context, result, true, 'OK',
+                                          null, null);
+                                    }
+
+                                    ///stop the loading process by setting `isloading` to false
+                                    setState(() {
+                                      _isLoading2 = false;
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                ),
+                                // LgElevatedButton(
+                                //   elevatedButtonContent: 'DISCONNECT AI',
+                                //   buttonColor: LgAppColors.lgColor2,
+                                //   fontColor: FontAppColors.secondaryFont,
+                                //   height: MediaQuery.of(context).size.height * 0.05,
+                                //   width: MediaQuery.of(context).size.width * 0.25,
+                                //   fontSize: textSize + 2,
+                                //   isLoading: false,
+                                //   isBold: true,
+                                //   isPrefixIcon: true,
+                                //   curvatureRadius: 50,
+                                //   prefixIcon:
+                                //       Icons.signal_wifi_connected_no_internet_4,
+                                //   prefixIconColor: FontAppColors.secondaryFont,
+                                //   prefixIconSize: 30,
+                                //   isSuffixIcon: false,
+                                //   onpressed: () async {},
+                                // ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.05,
@@ -490,18 +555,19 @@ class _ConnectionViewState extends State<ConnectionView> {
                 /// Show the loading indicator if `_isLoading` is true
 
                 Consumer<ColorProvider>(
-                  builder: (BuildContext context, ColorProvider value, Widget? child) {  
-                  return SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    child:  CircularProgressIndicator(
-                      // color: PrimaryAppColors.innerBackground,
-                      // backgroundColor: PrimaryAppColors.buttonColors,
-                      color: value.colors.innerBackground,
-                      backgroundColor: value.colors.buttonColors,
-                      semanticsLabel: 'Loading',
-                    ),
-                  );
+                  builder: (BuildContext context, ColorProvider value,
+                      Widget? child) {
+                    return SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: CircularProgressIndicator(
+                        // color: PrimaryAppColors.innerBackground,
+                        // backgroundColor: PrimaryAppColors.buttonColors,
+                        color: value.colors.innerBackground,
+                        backgroundColor: value.colors.buttonColors,
+                        semanticsLabel: 'Loading',
+                      ),
+                    );
                   },
                 ),
             ],

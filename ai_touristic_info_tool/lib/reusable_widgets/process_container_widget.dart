@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/api.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
@@ -94,37 +95,40 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(
-                    errorSnapshot.data.toString(),
-                    style: TextStyle(
-                      color: FontAppColors.primaryFont,
-                      fontSize: textSize,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: fontType,
+                  Expanded(
+                    child: Text(
+                      errorSnapshot.data.toString(),
+                      style: TextStyle(
+                        // color: FontAppColors.primaryFont,
+                        color: fontsProv.fonts.primaryFontColor,
+                        // fontSize: textSize,
+                        fontSize: fontsProv.fonts.textSize,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: fontType,
+                      ),
                     ),
                   ),
-                  Consumer<ColorProvider>(
-                    builder: (BuildContext context, ColorProvider value,
-                        Widget? child) {
-                      return LgElevatedButton(
-                        elevatedButtonContent: 'OK',
-                        // buttonColor: PrimaryAppColors.buttonColors,
-                        buttonColor: value.colors.buttonColors,
-                        onpressed: () {
-                          Navigator.pop(context);
-                        },
-                        height: MediaQuery.of(context).size.height * 0.05,
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        fontSize: textSize,
-                        fontColor: FontAppColors.secondaryFont,
-                        isLoading: false,
-                        isBold: true,
-                        isPrefixIcon: false,
-                        isSuffixIcon: false,
-                        curvatureRadius: 30,
-                      );
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                  ),
+                  LgElevatedButton(
+                    elevatedButtonContent: 'OK',
+                    // buttonColor: PrimaryAppColors.buttonColors,
+                    buttonColor: colorProv.colors.buttonColors,
+                    onpressed: () {
+                      Navigator.pop(context);
                     },
-                  )
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    // fontSize: textSize,
+                    fontSize: fontsProv.fonts.textSize,
+                    fontColor: FontAppColors.secondaryFont,
+                    isLoading: false,
+                    isBold: true,
+                    isPrefixIcon: false,
+                    isSuffixIcon: false,
+                    curvatureRadius: 30,
+                  ),
                 ],
               );
             }),
@@ -154,8 +158,10 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                 return Text(
                                   'Please wait... ',
                                   style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
+                                    // color: FontAppColors.primaryFont,
+                                    color: fontProv.fonts.primaryFontColor,
+                                    // fontSize: textSize,
+                                    fontSize: fontProv.fonts.textSize,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: fontType,
                                   ),
@@ -164,8 +170,10 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                 return Text(
                                   'Error: ${snapshot.error}',
                                   style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
+                                    // color: FontAppColors.primaryFont,
+                                    color: fontProv.fonts.primaryFontColor,
+                                    // fontSize: textSize,
+                                    fontSize: fontProv.fonts.textSize,
                                     fontFamily: fontType,
                                   ),
                                 );
@@ -173,8 +181,10 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                 return Text(
                                   snapshot.data.toString(),
                                   style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
+                                    // color: FontAppColors.primaryFont,
+                                    // fontSize: textSize,
+                                    color: fontProv.fonts.primaryFontColor,
+                                    fontSize: fontProv.fonts.textSize,
                                     fontFamily: fontType,
                                   ),
                                 );
@@ -182,8 +192,10 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                 return Text(
                                   'No data available',
                                   style: TextStyle(
-                                    color: FontAppColors.primaryFont,
-                                    fontSize: textSize,
+                                    // color: FontAppColors.primaryFont,
+                                    // fontSize: textSize,
+                                    color: fontProv.fonts.primaryFontColor,
+                                    fontSize: fontProv.fonts.textSize,
                                     fontFamily: fontType,
                                   ),
                                 );
@@ -195,30 +207,25 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Consumer<ColorProvider>(
-                        builder: (BuildContext context, ColorProvider value,
-                            Widget? child) {
-                          return Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  // color: PrimaryAppColors.gradient1,
-                                  color: value.colors.gradient1,
-                                  width: 2),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: LinearProgressIndicator(
-                              value: _currProgress / 6,
-                              backgroundColor:
-                                  FontAppColors.secondaryFont.withOpacity(0.5),
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                // PrimaryAppColors.accentColor,
-                                value.colors.accentColor,
-                              ),
-                            ),
-                          );
-                        },
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              // color: PrimaryAppColors.gradient1,
+                              color: colorProv.colors.gradient1,
+                              width: 2),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: LinearProgressIndicator(
+                          value: _currProgress / 12, //was 6
+                          backgroundColor:
+                              FontAppColors.secondaryFont.withOpacity(0.5),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            // PrimaryAppColors.accentColor,
+                            colorProv.colors.accentColor,
+                          ),
+                        ),
                       ),
                     ),
                     Row(
@@ -228,89 +235,90 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Consumer<ColorProvider>(
-                                builder: (BuildContext context,
-                                    ColorProvider value, Widget? child) {
-                                  return Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.6,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.5,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          // color: PrimaryAppColors.gradient1,
-                                          color: value.colors.gradient1,
-                                          width: 4),
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Color.fromARGB(111, 184, 184, 187),
-                                    ),
-                                    child: Scrollbar(
-                                      thumbVisibility: true,
-                                      child: SingleChildScrollView(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: StreamBuilder<dynamic>(
-                                            stream: _chunkController.stream,
-                                            builder: (context, snapshot) {
-                                              if (snapshot.connectionState ==
-                                                  ConnectionState.waiting) {
-                                                //return CircularProgressIndicator();
-                                                return Text(
-                                                  'Waiting for stream. Please wait... ',
-                                                  style: TextStyle(
-                                                    color: FontAppColors
-                                                        .primaryFont,
-                                                    fontSize: textSize,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: fontType,
-                                                  ),
-                                                );
-                                              } else if (snapshot.hasError) {
-                                                return Text(
-                                                  'Error: ${snapshot.error}',
-                                                  style: TextStyle(
-                                                    color: FontAppColors
-                                                        .primaryFont,
-                                                    fontSize: textSize,
-                                                    fontFamily: fontType,
-                                                  ),
-                                                );
-                                              } else if (snapshot.hasData) {
-                                                _words.add(
-                                                    snapshot.data!.toString());
-                                                return Text(
-                                                  _words.join(' '),
-                                                  style: TextStyle(
-                                                    color: FontAppColors
-                                                        .primaryFont,
-                                                    fontSize: textSize,
-                                                    fontFamily: fontType,
-                                                  ),
-                                                );
-                                              } else {
-                                                return Text(
-                                                  'No data available',
-                                                  style: TextStyle(
-                                                    color: FontAppColors
-                                                        .primaryFont,
-                                                    fontSize: textSize,
-                                                    fontFamily: fontType,
-                                                  ),
-                                                );
-                                              }
-                                            },
-                                          ),
-                                        ),
+                              child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.6,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      // color: PrimaryAppColors.gradient1,
+                                      color: colorProv.colors.gradient1,
+                                      width: 4),
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color.fromARGB(111, 184, 184, 187),
+                                ),
+                                child: Scrollbar(
+                                  thumbVisibility: true,
+                                  child: SingleChildScrollView(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: StreamBuilder<dynamic>(
+                                        stream: _chunkController.stream,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            //return CircularProgressIndicator();
+                                            return Text(
+                                              'Waiting for stream. Please wait... ',
+                                              style: TextStyle(
+                                                color:
+                                                    FontAppColors.primaryFont,
+                                                // fontSize: textSize,
+                                                fontSize:
+                                                    fontProv.fonts.textSize,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: fontType,
+                                              ),
+                                            );
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                              'Error: ${snapshot.error}',
+                                              style: TextStyle(
+                                                color:
+                                                    FontAppColors.primaryFont,
+                                                // fontSize: textSize,
+                                                fontSize:
+                                                    fontProv.fonts.textSize,
+                                                fontFamily: fontType,
+                                              ),
+                                            );
+                                          } else if (snapshot.hasData) {
+                                            _words
+                                                .add(snapshot.data!.toString());
+                                            return Text(
+                                              _words.join(' '),
+                                              style: TextStyle(
+                                                color:
+                                                    FontAppColors.primaryFont,
+                                                // fontSize: textSize,
+                                                fontSize:
+                                                    fontProv.fonts.textSize,
+                                                fontFamily: fontType,
+                                              ),
+                                            );
+                                          } else {
+                                            return Text(
+                                              'No data available',
+                                              style: TextStyle(
+                                                color:
+                                                    FontAppColors.primaryFont,
+                                                // fontSize: textSize,
+                                                fontSize:
+                                                    fontProv.fonts.textSize,
+                                                fontFamily: fontType,
+                                              ),
+                                            );
+                                          }
+                                        },
                                       ),
                                     ),
-                                  );
-                                },
+                                  ),
+                                ),
                               ),
                             ),
                           ],
                         ),
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Center(
                               child: SizedBox(
@@ -320,92 +328,106 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                   'Please Note that the model takes on Average 10 minutes to answer.\n\nThank you for your patience!',
                                   style: TextStyle(
                                     color: LgAppColors.lgColor2,
-                                    fontSize: textSize + 2,
+                                    // fontSize: textSize + 2,
+                                    fontSize: fontProv.fonts.textSize + 2,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: fontType,
                                   ),
                                 ),
                               ),
                             ),
-                            Image.asset(
-                              'assets/images/wait.gif', // Replace with your actual asset path
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              height: MediaQuery.of(context).size.height * 0.4,
-                              // You can also adjust other properties like width, height, etc.
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.05,
                             ),
-                            Consumer2<ModelErrorProvider, ColorProvider>(
-                                builder: (BuildContext context,
-                                    ModelErrorProvider value,
-                                    ColorProvider colorProv,
+                            if (fontProv.fonts.titleSize > 40)
+                              Image.asset(
+                                'assets/images/wait2.gif', // Replace with your actual asset path
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
+
+                                // You can also adjust other properties like width, height, etc.
+                              ),
+                            if (fontProv.fonts.titleSize == 40)
+                              Image.asset(
+                                'assets/images/wait2.gif', // Replace with your actual asset path
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.4,
+                                color: SettingsSharedPref.getTheme() == 'dark'
+                                    ? Colors.black
+                                    : Colors.white,
+                                // You can also adjust other properties like width, height, etc.
+                              ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.05,
+                            ),
+                            Consumer<ModelErrorProvider>(builder:
+                                (BuildContext context, ModelErrorProvider value,
                                     Widget? child) {
-                              return Center(
-                                child: Row(
-                                  children: [
-                                    if (_isFinished)
-                                      Center(
-                                        child: LgElevatedButton(
-                                            elevatedButtonContent:
-                                                'Visualize now!',
-                                            // buttonColor:
-                                            //     PrimaryAppColors.buttonColors,
-                                            buttonColor:
-                                                colorProv.colors.buttonColors,
-                                            onpressed: () async {
-                                              await buildQueryPlacemark(
-                                                  widget.query,
-                                                  widget.city,
-                                                  widget.country,
-                                                  context);
-                                              showVisualizationDialog(
-                                                  context,
-                                                  _pois,
-                                                  widget.query,
-                                                  widget.city,
-                                                  widget.country);
-                                            },
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  if (_isFinished)
+                                    LgElevatedButton(
+                                        elevatedButtonContent: 'Visualize now!',
+                                        // buttonColor:
+                                        //     PrimaryAppColors.buttonColors,
+                                        buttonColor:
+                                            colorProv.colors.buttonColors,
+                                        onpressed: () async {
+                                          await buildQueryPlacemark(
+                                              widget.query,
+                                              widget.city,
+                                              widget.country,
+                                              context);
+                                          showVisualizationDialog(
+                                              context,
+                                              _pois,
+                                              widget.query,
+                                              widget.city,
+                                              widget.country);
+                                        },
+                                        height:
+                                            MediaQuery.of(context).size.height *
                                                 0.05,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                        width:
+                                            MediaQuery.of(context).size.width *
                                                 0.15,
-                                            fontSize: textSize,
-                                            fontColor:
-                                                FontAppColors.secondaryFont,
-                                            isLoading: false,
-                                            isBold: true,
-                                            isPrefixIcon: false,
-                                            isSuffixIcon: false,
-                                            curvatureRadius: 30),
-                                      ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.05,
-                                    ),
-                                    // if (value.hasStarted)
-                                    //   LgElevatedButton(
-                                    //     elevatedButtonContent: 'Cancel',
-                                    //     buttonColor: LgAppColors.lgColor2,
-                                    //     onpressed: () {
-                                    //       Navigator.pop(context);
-                                    //       Api().cancelOperation();
-                                    //     },
-                                    //     height: MediaQuery.of(context).size.height *
-                                    //         0.05,
-                                    //     width: MediaQuery.of(context).size.width *
-                                    //         0.15,
-                                    //     fontSize: textSize,
-                                    //     fontColor: FontAppColors.secondaryFont,
-                                    //     isLoading: false,
-                                    //     isBold: true,
-                                    //     isPrefixIcon: false,
-                                    //     isSuffixIcon: false,
-                                    //     curvatureRadius: 30,
-                                    //   ),
-                                  ],
-                                ),
+                                        // fontSize: textSize,
+                                        fontSize: fontProv.fonts.textSize,
+                                        fontColor: FontAppColors.secondaryFont,
+                                        isLoading: false,
+                                        isBold: true,
+                                        isPrefixIcon: false,
+                                        isSuffixIcon: false,
+                                        curvatureRadius: 30),
+
+                                  // SizedBox(
+                                  //   width: MediaQuery.of(context).size.width *
+                                  //       0.05,
+                                  // ),
+                                  // if (value.hasStarted)
+                                  //   LgElevatedButton(
+                                  //     elevatedButtonContent: 'Cancel',
+                                  //     buttonColor: LgAppColors.lgColor2,
+                                  //     onpressed: () {
+                                  //       Navigator.pop(context);
+                                  //       Api().cancelOperation();
+                                  //     },
+                                  //     height: MediaQuery.of(context).size.height *
+                                  //         0.05,
+                                  //     width: MediaQuery.of(context).size.width *
+                                  //         0.15,
+                                  //     fontSize: textSize,
+                                  //     fontColor: FontAppColors.secondaryFont,
+                                  //     isLoading: false,
+                                  //     isBold: true,
+                                  //     isPrefixIcon: false,
+                                  //     isSuffixIcon: false,
+                                  //     curvatureRadius: 30,
+                                  //   ),
+                                ],
                               );
                             }),
                           ],

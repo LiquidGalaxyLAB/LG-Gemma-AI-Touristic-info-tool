@@ -41,10 +41,23 @@ class _AppSettingsViewState extends State<AppSettingsView> {
             return TopBarWidget(
               height: MediaQuery.of(context).size.height * 0.1,
               width: MediaQuery.of(context).size.width * 1,
-              grad1: value.colors.gradient1,
-              grad2: value.colors.gradient2,
-              grad3: value.colors.gradient3,
-              grad4: value.colors.gradient4,
+              // grad1: value.colors.gradient1,
+              // grad2: value.colors.gradient2,
+              // grad3: value.colors.gradient3,
+              // grad4: value.colors.gradient4,
+              grad1: SettingsSharedPref.getTheme() == 'light'
+                  ? value.colors.buttonColors
+                  : value.colors.gradient1,
+              grad2: SettingsSharedPref.getTheme() == 'light'
+                  ? value.colors.buttonColors
+                  : value.colors.gradient2,
+              grad3: SettingsSharedPref.getTheme() == 'light'
+                  ? value.colors.buttonColors
+                  : value.colors.gradient3,
+              grad4: SettingsSharedPref.getTheme() == 'light'
+                  ? value.colors.buttonColors
+                  : value.colors.gradient4,
+
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -61,7 +74,9 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                         fontFamily: fontType,
                         fontSize: fontProv.fonts.headingSize,
                         // color: FontAppColors.secondaryFont,
-                        color: fontProv.fonts.primaryFontColor,
+                        color: SettingsSharedPref.getTheme() == 'dark'
+                            ? fontProv.fonts.primaryFontColor
+                            : fontProv.fonts.secondaryFontColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -71,8 +86,9 @@ class _AppSettingsViewState extends State<AppSettingsView> {
             );
           },
         ),
-        Consumer<ColorProvider>(
-          builder: (BuildContext context, ColorProvider value, Widget? child) {
+        Consumer2<ColorProvider, FontsProvider>(
+          builder: (BuildContext context, ColorProvider value,
+              FontsProvider fontProv, Widget? child) {
             return Row(
               children: [
                 Padding(
@@ -171,12 +187,17 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                       color: value.colors.gradient1,
                                     ),
                                     SizedBox(height: 20),
-                                    Text(
-                                      'Welcome to the App Settings!',
-                                      style: TextStyle(
-                                        fontSize: textSize + 10,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: fontType,
+                                    Center(
+                                      child: Text(
+                                        'Welcome to the App Settings!',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          // fontSize: textSize + 10,
+                                          fontSize:
+                                              fontProv.fonts.textSize + 10,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: fontType,
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
@@ -188,7 +209,8 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                       'You can change the language, appearance, font size, learn about Liquid Galaxy, manage API keys, and access help resources.',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        fontSize: textSize,
+                                        // fontSize: textSize,
+                                        fontSize: fontProv.fonts.textSize,
                                         fontFamily: fontType,
                                         color: Colors.grey,
                                       ),

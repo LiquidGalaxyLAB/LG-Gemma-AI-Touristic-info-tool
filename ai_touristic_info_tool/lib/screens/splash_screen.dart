@@ -1,3 +1,4 @@
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(child: Image.asset('assets/images/Logos_Screen.jpg')));
+        backgroundColor: SettingsSharedPref.getTheme() == 'dark'
+            ? Colors.black
+            : Colors.white,
+        body: Center(
+            child: SettingsSharedPref.getTheme() == 'dark'
+                ? Image.asset('assets/images/dark-logos.jpg')
+                : Image.asset('assets/images/Logos_Screen.jpg')));
   }
 }

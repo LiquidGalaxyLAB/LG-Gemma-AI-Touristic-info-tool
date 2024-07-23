@@ -63,7 +63,9 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                               fontSize: value.fonts.titleSize,
                               fontWeight: FontWeight.bold,
                               // color: FontAppColors.secondaryFont
-                              color: value.fonts.primaryFontColor,
+                              color: SettingsSharedPref.getTheme() == 'default'
+                                  ? value.fonts.secondaryFontColor
+                                  : value.fonts.primaryFontColor,
                             ),
                           ),
                           TextSpan(
@@ -75,7 +77,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                 fontWeight: FontWeight.bold,
                                 // color: FontAppColors.secondaryFont,
                                 // color: value.fonts.secondaryFontColor,
-                                color: value.fonts.primaryFontColor),
+                                color:
+                                    SettingsSharedPref.getTheme() == 'default'
+                                        ? value.fonts.secondaryFontColor
+                                        : value.fonts.primaryFontColor),
                           ),
                         ],
                       ),

@@ -272,331 +272,342 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                 );
               },
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.07,
-            ),
-            Consumer<FontsProvider>(
-              builder:
-                  (BuildContext context, FontsProvider value, Widget? child) {
-                return Text(
-                  'Accent Color',
-                  style: TextStyle(
-                    fontFamily: fontType,
-                    // fontSize: textSize,
-                    fontSize: value.fonts.textSize,
-                    color: FontAppColors.primaryFont,
-                    fontWeight: FontWeight.bold,
-                  ),
-                );
-              },
-            ),
+            if (SettingsSharedPref.getTheme() != 'dark')
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.07,
+              ),
+            if (SettingsSharedPref.getTheme() != 'dark')
+              Consumer<FontsProvider>(
+                builder:
+                    (BuildContext context, FontsProvider value, Widget? child) {
+                  return Text(
+                    'Accent Color',
+                    style: TextStyle(
+                      fontFamily: fontType,
+                      // fontSize: textSize,
+                      fontSize: value.fonts.textSize,
+                      color: FontAppColors.primaryFont,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                },
+              ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedColor = 0;
-                      // currentColor = PrimaryAppColors.buttonColors;
-                    });
-                    ColorProvider colorProv =
-                        Provider.of<ColorProvider>(context, listen: false);
-                    // colorProv.updateButtonColor(PrimaryAppColors.buttonColors);
-                    colorProv.updateButtonColor(PrimaryAppColors.buttonColors);
-                    SettingsSharedPref.setAccentTheme(
-                        PrimaryAppColors.buttonColors.toHexString());
-                  },
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: selectedColor == 0
-                        ? PrimaryAppColors.buttonColors.withOpacity(0.5)
-                        : Colors.transparent,
+            if (SettingsSharedPref.getTheme() != 'dark')
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = 0;
+                        // currentColor = PrimaryAppColors.buttonColors;
+                      });
+                      ColorProvider colorProv =
+                          Provider.of<ColorProvider>(context, listen: false);
+                      // colorProv.updateButtonColor(PrimaryAppColors.buttonColors);
+                      colorProv
+                          .updateButtonColor(PrimaryAppColors.buttonColors);
+                      SettingsSharedPref.setAccentTheme(
+                          PrimaryAppColors.buttonColors.toHexString());
+                    },
                     child: CircleAvatar(
-                      radius: selectedColor == 0 ? 15 : 20,
-                      backgroundColor: PrimaryAppColors.buttonColors,
+                      radius: 20,
+                      backgroundColor: selectedColor == 0
+                          ? PrimaryAppColors.buttonColors.withOpacity(0.5)
+                          : Colors.transparent,
+                      child: CircleAvatar(
+                        radius: selectedColor == 0 ? 15 : 20,
+                        backgroundColor: PrimaryAppColors.buttonColors,
+                      ),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedColor = 1;
-                      // currentColor = Color(0xFFAB87C7);
-                    });
-                    ColorProvider colorProv =
-                        Provider.of<ColorProvider>(context, listen: false);
-                    colorProv.updateButtonColor(Color(0xFFAB87C7));
-                    SettingsSharedPref.setAccentTheme(
-                        Color(0xFFAB87C7).toHexString());
-                  },
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: selectedColor == 1
-                        ? Color(0xFFAB87C7).withOpacity(0.5)
-                        : Colors.transparent,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = 1;
+                        // currentColor = Color(0xFFAB87C7);
+                      });
+                      ColorProvider colorProv =
+                          Provider.of<ColorProvider>(context, listen: false);
+                      colorProv.updateButtonColor(Color(0xFFAB87C7));
+                      SettingsSharedPref.setAccentTheme(
+                          Color(0xFFAB87C7).toHexString());
+                    },
                     child: CircleAvatar(
-                      radius: selectedColor == 1 ? 15 : 20,
-                      backgroundColor: Color(0xFFAB87C7),
+                      radius: 20,
+                      backgroundColor: selectedColor == 1
+                          ? Color(0xFFAB87C7).withOpacity(0.5)
+                          : Colors.transparent,
+                      child: CircleAvatar(
+                        radius: selectedColor == 1 ? 15 : 20,
+                        backgroundColor: Color(0xFFAB87C7),
+                      ),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedColor = 2;
-                      // currentColor = Color(0xFF1D6F9A);
-                    });
-                    ColorProvider colorProv =
-                        Provider.of<ColorProvider>(context, listen: false);
-                    colorProv.updateButtonColor(Color(0xFF1D6F9A));
-                    SettingsSharedPref.setAccentTheme(
-                        Color(0xFF1D6F9A).toHexString());
-                  },
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: selectedColor == 2
-                        ? Color(0xFF1D6F9A).withOpacity(0.5)
-                        : Colors.transparent,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = 2;
+                        // currentColor = Color(0xFF1D6F9A);
+                      });
+                      ColorProvider colorProv =
+                          Provider.of<ColorProvider>(context, listen: false);
+                      colorProv.updateButtonColor(Color(0xFF1D6F9A));
+                      SettingsSharedPref.setAccentTheme(
+                          Color(0xFF1D6F9A).toHexString());
+                    },
                     child: CircleAvatar(
-                      radius: selectedColor == 2 ? 15 : 20,
-                      backgroundColor: Color(0xFF1D6F9A),
+                      radius: 20,
+                      backgroundColor: selectedColor == 2
+                          ? Color(0xFF1D6F9A).withOpacity(0.5)
+                          : Colors.transparent,
+                      child: CircleAvatar(
+                        radius: selectedColor == 2 ? 15 : 20,
+                        backgroundColor: Color(0xFF1D6F9A),
+                      ),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedColor = 3;
-                      // currentColor = Color(0xFF2E8B57);
-                    });
-                    ColorProvider colorProv =
-                        Provider.of<ColorProvider>(context, listen: false);
-                    colorProv.updateButtonColor(Color(0xFF2E8B57));
-                    SettingsSharedPref.setAccentTheme(
-                        Color(0xFF2E8B57).toHexString());
-                  },
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: selectedColor == 3
-                        ? Color(0xFF2E8B57).withOpacity(0.5)
-                        : Colors.transparent,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = 3;
+                        // currentColor = Color(0xFF2E8B57);
+                      });
+                      ColorProvider colorProv =
+                          Provider.of<ColorProvider>(context, listen: false);
+                      colorProv.updateButtonColor(Color(0xFF2E8B57));
+                      SettingsSharedPref.setAccentTheme(
+                          Color(0xFF2E8B57).toHexString());
+                    },
                     child: CircleAvatar(
-                      radius: selectedColor == 3 ? 15 : 20,
-                      backgroundColor: Color(0xFF2E8B57),
+                      radius: 20,
+                      backgroundColor: selectedColor == 3
+                          ? Color(0xFF2E8B57).withOpacity(0.5)
+                          : Colors.transparent,
+                      child: CircleAvatar(
+                        radius: selectedColor == 3 ? 15 : 20,
+                        backgroundColor: Color(0xFF2E8B57),
+                      ),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedColor = 4;
-                      // currentColor = Color(0xFFAB4C4C);
-                    });
-                    ColorProvider colorProv =
-                        Provider.of<ColorProvider>(context, listen: false);
-                    colorProv.updateButtonColor(Color(0xFFAB4C4C));
-                    SettingsSharedPref.setAccentTheme(
-                        Color(0xFFAB4C4C).toHexString());
-                  },
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: selectedColor == 4
-                        ? Color(0xFFAB4C4C).withOpacity(0.5)
-                        : Colors.transparent,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = 4;
+                        // currentColor = Color(0xFFAB4C4C);
+                      });
+                      ColorProvider colorProv =
+                          Provider.of<ColorProvider>(context, listen: false);
+                      colorProv.updateButtonColor(Color(0xFFAB4C4C));
+                      SettingsSharedPref.setAccentTheme(
+                          Color(0xFFAB4C4C).toHexString());
+                    },
                     child: CircleAvatar(
-                      radius: selectedColor == 4 ? 15 : 20,
-                      backgroundColor: Color(0xFFB03A2E),
+                      radius: 20,
+                      backgroundColor: selectedColor == 4
+                          ? Color(0xFFAB4C4C).withOpacity(0.5)
+                          : Colors.transparent,
+                      child: CircleAvatar(
+                        radius: selectedColor == 4 ? 15 : 20,
+                        backgroundColor: Color(0xFFB03A2E),
+                      ),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedColor = 5;
-                      // currentColor = Color(0xFFCE6C2F);
-                    });
-                    ColorProvider colorProv =
-                        Provider.of<ColorProvider>(context, listen: false);
-                    colorProv.updateButtonColor(Color(0xFFCE6C2F));
-                    SettingsSharedPref.setAccentTheme(
-                        Color(0xFFCE6C2F).toHexString());
-                  },
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: selectedColor == 5
-                        ? Color(0xFFCE6C2F).withOpacity(0.5)
-                        : Colors.transparent,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = 5;
+                        // currentColor = Color(0xFFCE6C2F);
+                      });
+                      ColorProvider colorProv =
+                          Provider.of<ColorProvider>(context, listen: false);
+                      colorProv.updateButtonColor(Color(0xFFCE6C2F));
+                      SettingsSharedPref.setAccentTheme(
+                          Color(0xFFCE6C2F).toHexString());
+                    },
                     child: CircleAvatar(
-                      radius: selectedColor == 5 ? 15 : 20,
-                      backgroundColor: Color(0xFFCE6C2F),
+                      radius: 20,
+                      backgroundColor: selectedColor == 5
+                          ? Color(0xFFCE6C2F).withOpacity(0.5)
+                          : Colors.transparent,
+                      child: CircleAvatar(
+                        radius: selectedColor == 5 ? 15 : 20,
+                        backgroundColor: Color(0xFFCE6C2F),
+                      ),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedColor = 6;
-                      // currentColor = Color(0xFFD81B60);
-                    });
-                    ColorProvider colorProv =
-                        Provider.of<ColorProvider>(context, listen: false);
-                    colorProv.updateButtonColor(Color(0xFFD81B60));
-                    SettingsSharedPref.setAccentTheme(
-                        Color(0xFFD81B60).toHexString());
-                  },
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: selectedColor == 6
-                        ? Color(0xFFD81B60).withOpacity(0.5)
-                        : Colors.transparent,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = 6;
+                        // currentColor = Color(0xFFD81B60);
+                      });
+                      ColorProvider colorProv =
+                          Provider.of<ColorProvider>(context, listen: false);
+                      colorProv.updateButtonColor(Color(0xFFD81B60));
+                      SettingsSharedPref.setAccentTheme(
+                          Color(0xFFD81B60).toHexString());
+                    },
                     child: CircleAvatar(
-                      radius: selectedColor == 6 ? 15 : 20,
-                      backgroundColor: Color(0xFFD81B60),
+                      radius: 20,
+                      backgroundColor: selectedColor == 6
+                          ? Color(0xFFD81B60).withOpacity(0.5)
+                          : Colors.transparent,
+                      child: CircleAvatar(
+                        radius: selectedColor == 6 ? 15 : 20,
+                        backgroundColor: Color(0xFFD81B60),
+                      ),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedColor = 7;
-                      // currentColor = Color(0xFF00796B);
-                    });
-                    ColorProvider colorProv =
-                        Provider.of<ColorProvider>(context, listen: false);
-                    colorProv.updateButtonColor(Color(0xFF00796B));
-                    SettingsSharedPref.setAccentTheme(
-                        Color(0xFF00796B).toHexString());
-                  },
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: selectedColor == 7
-                        ? Color(0xFF00796B).withOpacity(0.5)
-                        : Colors.transparent,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = 7;
+                        // currentColor = Color(0xFF00796B);
+                      });
+                      ColorProvider colorProv =
+                          Provider.of<ColorProvider>(context, listen: false);
+                      colorProv.updateButtonColor(Color(0xFF00796B));
+                      SettingsSharedPref.setAccentTheme(
+                          Color(0xFF00796B).toHexString());
+                    },
                     child: CircleAvatar(
-                      radius: selectedColor == 7 ? 15 : 20,
-                      backgroundColor: Color(0xFF00796B),
+                      radius: 20,
+                      backgroundColor: selectedColor == 7
+                          ? Color(0xFF00796B).withOpacity(0.5)
+                          : Colors.transparent,
+                      child: CircleAvatar(
+                        radius: selectedColor == 7 ? 15 : 20,
+                        backgroundColor: Color(0xFF00796B),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Consumer<ColorProvider>(
-                  builder: (BuildContext context, ColorProvider value,
-                      Widget? child) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        // color: PrimaryAppColors.innerBackground,
-                        color: value.colors.innerBackground,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Consumer<FontsProvider>(
-                              builder: (BuildContext context,
-                                  FontsProvider value, Widget? child) {
-                                return Text(
-                                  'Current Color',
-                                  style: TextStyle(
-                                    fontFamily: fontType,
-                                    // fontSize: textSize,
-                                    fontSize: value.fonts.textSize,
-                                    color: FontAppColors.primaryFont,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                );
-                              },
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.02,
-                            ),
-                            Consumer<ColorProvider>(
-                              builder: (BuildContext context,
-                                  ColorProvider value, Widget? child) {
-                                return CircleAvatar(
-                                  radius: 10,
-                                  backgroundColor: value.colors.buttonColors,
-                                );
-                              },
-                            ),
-                          ],
+            if (SettingsSharedPref.getTheme() != 'dark')
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Consumer<ColorProvider>(
+                    builder: (BuildContext context, ColorProvider value,
+                        Widget? child) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          // color: PrimaryAppColors.innerBackground,
+                          color: value.colors.innerBackground,
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                      ),
-                    );
-                  },
-                ),
-                Consumer2<ColorProvider, FontsProvider>(
-                  builder: (BuildContext context, ColorProvider value,
-                      FontsProvider fontProv, Widget? child) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedColor = 8;
-                        });
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text(
-                                  'Pick a color!',
-                                  style: TextStyle(
-                                    fontFamily: fontType,
-                                    // fontSize: textSize,
-                                    fontSize: fontProv.fonts.textSize,
-                                    color: FontAppColors.primaryFont,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                content: SingleChildScrollView(
-                                  child: ColorPicker(
-                                    pickerColor: pickerColor,
-                                    onColorChanged: changeColor,
-                                  ),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      // setState(() => currentColor = pickerColor);
-                                      ColorProvider colorProv =
-                                          Provider.of<ColorProvider>(context,
-                                              listen: false);
-                                      colorProv.updateButtonColor(pickerColor);
-                                      SettingsSharedPref.setAccentTheme(
-                                          pickerColor.toHexString());
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'Done',
-                                      style: TextStyle(
-                                          color: FontAppColors.primaryFont,
-                                          fontFamily: fontType,
-                                          // fontSize: textSize,
-                                          fontSize: fontProv.fonts.textSize),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Consumer<FontsProvider>(
+                                builder: (BuildContext context,
+                                    FontsProvider value, Widget? child) {
+                                  return Text(
+                                    'Current Color',
+                                    style: TextStyle(
+                                      fontFamily: fontType,
+                                      // fontSize: textSize,
+                                      fontSize: value.fonts.textSize,
+                                      // color: FontAppColors.primaryFont,
+                                      color: value.fonts.primaryFontColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                },
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.02,
+                              ),
+                              Consumer<ColorProvider>(
+                                builder: (BuildContext context,
+                                    ColorProvider value, Widget? child) {
+                                  return CircleAvatar(
+                                    radius: 10,
+                                    backgroundColor: value.colors.buttonColors,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Consumer2<ColorProvider, FontsProvider>(
+                    builder: (BuildContext context, ColorProvider value,
+                        FontsProvider fontProv, Widget? child) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedColor = 8;
+                          });
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor: value.colors.innerBackground,
+                                  title: Text(
+                                    'Pick a color!',
+                                    style: TextStyle(
+                                      fontFamily: fontType,
+                                      // fontSize: textSize,
+                                      fontSize: fontProv.fonts.textSize,
+                                      // color: FontAppColors.primaryFont,
+                                      color: fontProv.fonts.primaryFontColor,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                ],
-                              );
-                            });
-                      },
-                      child: Image.asset(
-                        "assets/images/colors.png",
-                        scale: 10,
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
+                                  content: SingleChildScrollView(
+                                    child: ColorPicker(
+                                      pickerColor: pickerColor,
+                                      onColorChanged: changeColor,
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        // setState(() => currentColor = pickerColor);
+                                        ColorProvider colorProv =
+                                            Provider.of<ColorProvider>(context,
+                                                listen: false);
+                                        colorProv
+                                            .updateButtonColor(pickerColor);
+                                        SettingsSharedPref.setAccentTheme(
+                                            pickerColor.toHexString());
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text(
+                                        'Done',
+                                        style: TextStyle(
+                                            // color: FontAppColors.primaryFont,
+                                            color:
+                                                fontProv.fonts.primaryFontColor,
+                                            fontFamily: fontType,
+                                            // fontSize: textSize,
+                                            fontSize: fontProv.fonts.textSize),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                        child: Image.asset(
+                          "assets/images/colors.png",
+                          scale: 10,
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
           ],
         ),
       ),

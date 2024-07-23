@@ -49,9 +49,7 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
             maxLines: 1,
             style: TextStyle(
                 // color: FontAppColors.primaryFont,
-                color: SettingsSharedPref.getTheme() == 'default'
-                    ? fontVal.fonts.secondaryFontColor
-                    : fontVal.fonts.primaryFontColor,
+                color: fontVal.fonts.primaryFontColor,
                 // fontSize: textSize,
                 fontSize: fontVal.fonts.textSize,
                 fontFamily: fontType,
@@ -207,8 +205,13 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                                         fontSize: fontVal.fonts
                                                                 .textSize -
                                                             4,
-                                                        color: fontVal.fonts
-                                                            .primaryFontColor,
+                                                        color: SettingsSharedPref
+                                                                    .getTheme() ==
+                                                                'default'
+                                                            ? fontVal.fonts
+                                                                .secondaryFontColor
+                                                            : fontVal.fonts
+                                                                .primaryFontColor,
                                                         fontFamily: fontType,
                                                         fontWeight:
                                                             FontWeight.bold),

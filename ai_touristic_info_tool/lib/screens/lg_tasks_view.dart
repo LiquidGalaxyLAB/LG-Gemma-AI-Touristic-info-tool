@@ -1,7 +1,9 @@
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +21,25 @@ class LGTasksView extends StatefulWidget {
 class _LGTasksViewState extends State<LGTasksView> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ColorProvider>(
-        builder: (BuildContext context, ColorProvider value, Widget? child) {
+    return Consumer2<ColorProvider, FontsProvider>(builder:
+        (BuildContext context, ColorProvider value, FontsProvider fontProv,
+            Widget? child) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           TopBarWidget(
-            grad1: value.colors.gradient1,
-            grad2: value.colors.gradient2,
-            grad3: value.colors.gradient3,
-            grad4: value.colors.gradient4,
+            grad1: SettingsSharedPref.getTheme() == 'light'
+                ? value.colors.buttonColors
+                : value.colors.gradient1,
+            grad2: SettingsSharedPref.getTheme() == 'light'
+                ? value.colors.buttonColors
+                : value.colors.gradient2,
+            grad3: SettingsSharedPref.getTheme() == 'light'
+                ? value.colors.buttonColors
+                : value.colors.gradient3,
+            grad4: SettingsSharedPref.getTheme() == 'light'
+                ? value.colors.buttonColors
+                : value.colors.gradient4,
             height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.width * 1,
             child: Row(
@@ -45,8 +56,12 @@ class _LGTasksViewState extends State<LGTasksView> {
                     'LG Tasks',
                     style: TextStyle(
                       fontFamily: fontType,
-                      fontSize: headingSize,
-                      color: FontAppColors.secondaryFont,
+                      // fontSize: headingSize,
+                      fontSize: fontProv.fonts.headingSize,
+                      color: SettingsSharedPref.getTheme() == 'dark'
+                          ? fontProv.fonts.primaryFontColor
+                          : fontProv.fonts.secondaryFontColor,
+                      // color: FontAppColors.secondaryFont,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -65,7 +80,8 @@ class _LGTasksViewState extends State<LGTasksView> {
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
-                  fontSize: textSize + 4,
+                  // fontSize: textSize + 4,
+                  fontSize: fontProv.fonts.textSize + 4,
                   isLoading: false,
                   isBold: false,
                   isSuffixIcon: false,
@@ -110,7 +126,8 @@ class _LGTasksViewState extends State<LGTasksView> {
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
-                  fontSize: textSize + 4,
+                  // fontSize: textSize + 4,
+                  fontSize: fontProv.fonts.textSize + 4,
                   isLoading: false,
                   isBold: false,
                   isSuffixIcon: false,
@@ -154,7 +171,8 @@ class _LGTasksViewState extends State<LGTasksView> {
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
-                  fontSize: textSize + 4,
+                  // fontSize: textSize + 4,
+                  fontSize: fontProv.fonts.textSize + 4,
                   isLoading: false,
                   isBold: false,
                   isSuffixIcon: false,
@@ -214,7 +232,8 @@ class _LGTasksViewState extends State<LGTasksView> {
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
-                  fontSize: textSize + 4,
+                  // fontSize: textSize + 4,
+                  fontSize: fontProv.fonts.textSize + 4,
                   isLoading: false,
                   isBold: false,
                   isSuffixIcon: false,
@@ -266,7 +285,8 @@ class _LGTasksViewState extends State<LGTasksView> {
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
-                  fontSize: textSize + 4,
+                  // fontSize: textSize + 4,
+                  fontSize: fontProv.fonts.textSize + 4,
                   isLoading: false,
                   isBold: false,
                   isSuffixIcon: false,
@@ -326,7 +346,8 @@ class _LGTasksViewState extends State<LGTasksView> {
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
-                  fontSize: textSize + 4,
+                  // fontSize: textSize + 4,
+                  fontSize: fontProv.fonts.textSize + 4,
                   isLoading: false,
                   isBold: false,
                   isSuffixIcon: false,
@@ -363,7 +384,8 @@ class _LGTasksViewState extends State<LGTasksView> {
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
-                  fontSize: textSize + 4,
+                  // fontSize: textSize + 4,
+                  fontSize: fontProv.fonts.textSize + 4,
                   isLoading: false,
                   isBold: false,
                   isSuffixIcon: false,
@@ -400,7 +422,8 @@ class _LGTasksViewState extends State<LGTasksView> {
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
-                  fontSize: textSize + 4,
+                  // fontSize: textSize + 4,
+                  fontSize: fontProv.fonts.textSize + 4,
                   isLoading: false,
                   isBold: false,
                   isSuffixIcon: false,

@@ -260,10 +260,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                     buttonColor: value.colors.innerBackground,
                                     // fontColor: FontAppColors.primaryFont,
                                     // fontColor: fontval.fonts.primaryFontColor,
-                                    fontColor: SettingsSharedPref.getTheme() ==
-                                            'default'
-                                        ? fontval.fonts.secondaryFontColor
-                                        : fontval.fonts.primaryFontColor,
+                                    fontColor: fontval.fonts.primaryFontColor,
                                     onpressed: () async {
                                       if (_addressFormKey.currentState!
                                           .validate()) {
@@ -351,9 +348,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         fontWeight: FontWeight.bold,
                         // color: FontAppColors.primaryFont,
                         // color: value.fonts.primaryFontColor
-                        color: SettingsSharedPref.getTheme() == 'default'
-                            ? value.fonts.secondaryFontColor
-                            : value.fonts.primaryFontColor),
+                        color: value.fonts.primaryFontColor),
                   );
                 },
               ),
@@ -372,9 +367,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         fontFamily: fontType,
                         fontWeight: FontWeight.bold,
                         // color: FontAppColors.primaryFont
-                        color: SettingsSharedPref.getTheme() == 'default'
-                            ? value.fonts.secondaryFontColor
-                            : value.fonts.primaryFontColor),
+                        color: value.fonts.primaryFontColor),
                   );
                 },
               ),
@@ -415,9 +408,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         fontFamily: fontType,
                         // color: FontAppColors.primaryFont,
                         // color: value.fonts.primaryFontColor,
-                        color: SettingsSharedPref.getTheme() == 'default'
-                            ? value.fonts.secondaryFontColor
-                            : value.fonts.primaryFontColor,
+                        color: value.fonts.primaryFontColor,
                       ),
                     );
                   },
@@ -439,9 +430,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       fontWeight: FontWeight.bold,
                       // color: FontAppColors.primaryFont
                       // color: value.fonts.primaryFontColor,
-                      color: SettingsSharedPref.getTheme() == 'default'
-                          ? value.fonts.secondaryFontColor
-                          : value.fonts.primaryFontColor),
+                      color: value.fonts.primaryFontColor),
                 );
               },
             ),
@@ -703,9 +692,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       fontWeight: FontWeight.bold,
                       // color: FontAppColors.primaryFont,
                       // color: value.fonts.primaryFontColor,
-                      color: SettingsSharedPref.getTheme() == 'default'
-                          ? value.fonts.secondaryFontColor
-                          : value.fonts.primaryFontColor),
+                      color: value.fonts.primaryFontColor),
                 );
               },
             ),
@@ -748,10 +735,10 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         // fontSize: textSize,
                         fontSize: fontVal.fonts.textSize,
                         // fontColor: fontVal.fonts.secondaryFontColor,
-                        fontColor: SettingsSharedPref.getTheme() == 'dark' ||
-                                SettingsSharedPref.getTheme() == 'default'
-                            ? fontVal.fonts.primaryFontColor
-                            : fontVal.fonts.secondaryFontColor,
+                        fontColor: SettingsSharedPref.getTheme() == 'default' ||
+                                SettingsSharedPref.getTheme() == 'light'
+                            ? fontVal.fonts.secondaryFontColor
+                            : fontVal.fonts.primaryFontColor,
                         // fontColor: FontAppColors.secondaryFont,
                         isBold: true,
                         isLoading: false,

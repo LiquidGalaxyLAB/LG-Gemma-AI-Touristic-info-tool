@@ -25,8 +25,10 @@ class DynamicFontsModel {
     // primFntColor = Colors.black;
     // secFntColor = Colors.white;
 
-    if (SettingsSharedPref.getTheme() == 'dark' ||
-        SettingsSharedPref.getTheme() == 'default') {
+    if (SettingsSharedPref.getTheme() == 'dark'
+        // ||
+        // SettingsSharedPref.getTheme() == 'default'
+        ) {
       primFntColor = Colors.white;
       secFntColor = Colors.black;
     } else {
@@ -46,8 +48,10 @@ class DynamicFontsModel {
     Color primFntColor;
     Color secFntColor;
 
-    if (SettingsSharedPref.getTheme() == 'dark' ||
-        SettingsSharedPref.getTheme() == 'default') {
+    if (SettingsSharedPref.getTheme() == 'dark'
+        // ||
+        //     SettingsSharedPref.getTheme() == 'default'
+        ) {
       primFntColor = Colors.white;
       secFntColor = Colors.black;
     } else {
@@ -68,8 +72,10 @@ class DynamicFontsModel {
     // primFntColor = Colors.black;
     // secFntColor = Colors.white;
 
-    if (SettingsSharedPref.getTheme() == 'dark' ||
-        SettingsSharedPref.getTheme() == 'default') {
+    if (SettingsSharedPref.getTheme() == 'dark'
+        // ||
+        //     SettingsSharedPref.getTheme() == 'default'
+        ) {
       primFntColor = Colors.white;
       secFntColor = Colors.black;
     } else {

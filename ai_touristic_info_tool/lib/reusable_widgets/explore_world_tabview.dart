@@ -47,9 +47,7 @@ class ExploreWorldTabView extends StatelessWidget {
                     fontFamily: fontType,
                     fontWeight: FontWeight.bold,
                     // color: FontAppColors.primaryFont,
-                    color: SettingsSharedPref.getTheme() == 'default'
-                        ? fontsProv.fonts.secondaryFontColor
-                        : fontsProv.fonts.primaryFontColor,
+                    color: fontsProv.fonts.primaryFontColor,
                   ),
                 ),
               ),
@@ -248,9 +246,7 @@ class ExploreWorldTabView extends StatelessWidget {
                     fontFamily: fontType,
                     fontWeight: FontWeight.bold,
                     // color: FontAppColors.primaryFont
-                    color: SettingsSharedPref.getTheme() == 'default'
-                        ? fontsProv.fonts.secondaryFontColor
-                        : fontsProv.fonts.primaryFontColor,
+                    color: fontsProv.fonts.primaryFontColor,
                   ),
                 ),
               ),
@@ -406,9 +402,7 @@ class ExploreWorldTabView extends StatelessWidget {
                     fontFamily: fontType,
                     fontWeight: FontWeight.bold,
                     // color: FontAppColors.primaryFont
-                    color: SettingsSharedPref.getTheme() == 'default'
-                        ? fontsProv.fonts.secondaryFontColor
-                        : fontsProv.fonts.primaryFontColor,
+                    color: fontsProv.fonts.primaryFontColor,
                   ),
                 ),
               ),

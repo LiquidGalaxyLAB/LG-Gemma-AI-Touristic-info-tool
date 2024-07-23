@@ -1,8 +1,10 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_location_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_world_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -60,13 +62,22 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Consumer<ColorProvider>(
-        builder: (BuildContext context, ColorProvider value, Widget? child) {
+      Consumer2<ColorProvider, FontsProvider>(
+        builder: (BuildContext context, ColorProvider value,
+            FontsProvider fontProv, Widget? child) {
           return TopBarWidget(
-            grad1: value.colors.gradient1,
-            grad2: value.colors.gradient2,
-            grad3: value.colors.gradient3,
-            grad4: value.colors.gradient4,
+            grad1: SettingsSharedPref.getTheme() == 'light'
+                ? value.colors.buttonColors
+                : value.colors.gradient1,
+            grad2: SettingsSharedPref.getTheme() == 'light'
+                ? value.colors.buttonColors
+                : value.colors.gradient2,
+            grad3: SettingsSharedPref.getTheme() == 'light'
+                ? value.colors.buttonColors
+                : value.colors.gradient3,
+            grad4: SettingsSharedPref.getTheme() == 'light'
+                ? value.colors.buttonColors
+                : value.colors.gradient4,
             height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.width * 1,
             child: Center(
@@ -74,8 +85,12 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 'Welcome to your Home page!',
                 style: TextStyle(
                   fontFamily: fontType,
-                  fontSize: headingSize,
-                  color: FontAppColors.secondaryFont,
+                  // fontSize: headingSize,
+                  fontSize: fontProv.fonts.headingSize,
+                  // color: FontAppColors.secondaryFont,
+                  color: SettingsSharedPref.getTheme() == 'dark'
+                      ? fontProv.fonts.primaryFontColor
+                      : fontProv.fonts.secondaryFontColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -90,9 +105,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.05,
           width: MediaQuery.of(context).size.width * 0.8,
-          child: Consumer<ColorProvider>(
-            builder:
-                (BuildContext context, ColorProvider value, Widget? child) {
+          child: Consumer2<ColorProvider, FontsProvider>(
+            builder: (BuildContext context, ColorProvider value,
+                FontsProvider fontProv, Widget? child) {
               return TabBar(
                 controller: _tabController,
                 // indicatorColor: PrimaryAppColors.buttonColors,
@@ -104,6 +119,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                       children: [
                         Icon(Icons.travel_explore,
                             // color: PrimaryAppColors.buttonColors,
+                            // color: value.colors.buttonColors,
                             color: value.colors.buttonColors,
                             size: 30),
                         const SizedBox(width: 10),
@@ -111,9 +127,11 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                           'Explore Worldwide',
                           style: TextStyle(
                             fontFamily: fontType,
-                            fontSize: textSize,
+                            // fontSize: textSize,
+                            fontSize: fontProv.fonts.textSize,
                             // color: PrimaryAppColors.buttonColors,
-                            color: value.colors.buttonColors,
+                            // color: value.colors.buttonColors,
+                            color: fontProv.fonts.primaryFontColor,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -133,9 +151,11 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                           'Explore certain Location',
                           style: TextStyle(
                             fontFamily: fontType,
-                            fontSize: textSize,
+                            // fontSize: textSize,
+                            fontSize: fontProv.fonts.textSize,
                             // color: PrimaryAppColors.buttonColors,
-                            color: value.colors.buttonColors,
+                            // color: value.colors.buttonColors,
+                            color: fontProv.fonts.primaryFontColor,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
