@@ -294,7 +294,7 @@ class _ConnectionViewState extends State<ConnectionView> {
 
                                       ///If connected, the logos should appear by calling `setLogos` from the `LGService` calss
                                       await LgService(sshData).setLogos();
-                                      await buildAppBalloon(context);
+                                      await buildAppBalloonOverlay(context);
                                     } else {
                                       connection.isLgConnected = false;
 

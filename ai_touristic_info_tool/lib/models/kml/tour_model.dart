@@ -1,21 +1,223 @@
+// import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
+
+// class TourModel {
+//   String name;
+//   int numberOfPlaces;
+//   List<LookAtModel> lookAtCoordinates;
+//   List<String> ballonContentOfPlacemarks;
+//   List<String> poisNames;
+
+//   TourModel({
+//     required this.name,
+//     required this.numberOfPlaces,
+//     required this.lookAtCoordinates,
+//     required this.ballonContentOfPlacemarks,
+//     required this.poisNames,
+//   });
+
+//   String styleOnlyTag(String balloonContent, String placemarkIndex) {
+//     String content = '';
+//     content += '''
+//       <Style id="placemark-$placemarkIndex-style">
+//       <IconStyle>
+//         <Icon>
+//           <href>https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true</href>
+//         </Icon>
+//       </IconStyle>
+//       <BalloonStyle>
+//         <bgColor>ffffffff</bgColor>
+//         <text><![CDATA[
+//         $balloonContent
+//         ]]></text>
+//       </BalloonStyle>
+//     </Style>
+// ''';
+//     return content;
+//   }
+
+//   String flyToLookAtOnlyTag(
+//       double lat,
+//       double long,
+//       String mode,
+//       double duration,
+//       String range,
+//       String tilt,
+//       String heading,
+//       double altitude) {
+//     String content = '';
+//     content += '''
+//  <gx:FlyTo>
+//           <gx:duration>$duration</gx:duration>
+//           <gx:flyToMode>$mode</gx:flyToMode>
+//           <LookAt>
+//             <longitude>$long</longitude>
+//             <latitude>$lat</latitude>
+//             <altitude>$altitude</altitude>
+//             <heading>$heading</heading>
+//             <tilt>$tilt</tilt>
+//             <range>$range</range>
+//             <altitudeMode>relativeToGround</altitudeMode>
+//           </LookAt>
+//         </gx:FlyTo>
+// ''';
+
+//     return content;
+//   }
+
+//   String flyToCameraOnlyTag(
+//     double lat,
+//     double long,
+//   ) {
+//     String content = '';
+//     content += '''
+//  <gx:FlyTo>
+//          <gx:duration>8.0</gx:duration>
+//        <Camera>
+//           <longitude>$long</longitude>
+//           <latitude>$lat</latitude>
+//           <altitude>18275</altitude>
+//           <heading>-4.921</heading>
+//           <tilt>65</tilt>
+//           <altitudeMode>absolute</altitudeMode>
+//         </Camera>
+// </gx:FlyTo>
+// ''';
+
+//     return content;
+//   }
+
+//   String ballonVisibilityOnlyTag(String placemarkIndex, int visibility) {
+//     String content = '';
+//     content += '''
+//         <gx:AnimatedUpdate>
+//           <Update>
+//             <targetHref/>
+//             <Change>
+//               <Placemark targetId="placemark-$placemarkIndex-Id">
+//                 <gx:balloonVisibility>$visibility</gx:balloonVisibility>
+//               </Placemark>
+//             </Change>
+//           </Update>
+//         </gx:AnimatedUpdate>
+// ''';
+//     return content;
+//   }
+
+//   String get waitOnlyTag => '''
+//  <gx:Wait>
+//     <gx:duration>6.0</gx:duration>
+//   </gx:Wait>
+// ''';
+
+//   String placemarkOnlyTag(
+//       String placemarkIndex, String placemarkName, double lat, double long) {
+//     String content = '';
+//     content += '''
+// <Placemark id="placemark-$placemarkIndex-Id">
+//       <name>$placemarkName</name>
+//       <styleUrl>#placemark-$placemarkIndex-style</styleUrl>
+//       <Point>
+//         <coordinates>$long,$lat,0</coordinates>
+//       </Point>
+//     </Placemark>
+// ''';
+//     return content;
+//   }
+
+//   String tourTag() {
+//     String content = '';
+
+//     //1. Style
+//     for (int i = 0; i < numberOfPlaces; i++) {
+//       content += styleOnlyTag(ballonContentOfPlacemarks[i], i.toString());
+//     }
+
+//     //2. Tour
+//     content += '''
+//     <gx:Tour>
+//         <name>App Tour</name>
+//         <gx:Playlist>
+// ''';
+
+//     for (int i = 0; i < numberOfPlaces; i++) {
+//       if (i == 0) {
+//         content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
+//             lookAtCoordinates[i].longitude, 'bounce', 5, '500', '60', '0', 0);
+//         content += ballonVisibilityOnlyTag(i.toString(), 1);
+//         content += waitOnlyTag;
+//         content += ballonVisibilityOnlyTag(i.toString(), 0);
+//       } else {
+
+//         content += flyToCameraOnlyTag(
+//             lookAtCoordinates[i].latitude, lookAtCoordinates[i].longitude);
+//         content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
+//             lookAtCoordinates[i].longitude, 'smooth', 2, '500', '60', '0', 0);
+//         content += ballonVisibilityOnlyTag(i.toString(), 1);
+
+//         content += waitOnlyTag;
+//         content += ballonVisibilityOnlyTag(i.toString(), 0);
+
+//       }
+//     }
+//     content += '''
+//       </gx:Playlist>
+//     </gx:Tour>
+// ''';
+
+//     // 3. Placemarks
+//     for (int i = 0; i < numberOfPlaces; i++) {
+//       content += placemarkOnlyTag(i.toString(), poisNames[i],
+//           lookAtCoordinates[i].latitude, lookAtCoordinates[i].longitude);
+//     }
+
+//     return content;
+//   }
+
+//   /// Returns a [Map] from the current [TourModel].
+//   Map<String, dynamic> toMap() {
+//     return {
+//       'name': name,
+//       'numberOfPlaces': numberOfPlaces,
+//       'lookAtCoordinates': lookAtCoordinates.map((e) => e.toMap()).toList(),
+//       'ballonContentOfPlacemarks': ballonContentOfPlacemarks,
+//       'poisNames': poisNames,
+//     };
+//   }
+
+//   /// Returns a [TourModel] from the given [map].
+//   factory TourModel.fromMap(Map<String, dynamic> map) {
+//     return TourModel(
+//       name: map['name'],
+//       numberOfPlaces: map['numberOfPlaces'],
+//       lookAtCoordinates: List<LookAtModel>.from(
+//           map['lookAtCoordinates']?.map((x) => LookAtModel.fromMap(x))),
+//       ballonContentOfPlacemarks:
+//           List<String>.from(map['ballonContentOfPlacemarks']),
+//       poisNames: List<String>.from(map['poisNames']),
+//     );
+//   }
+// }
+
+
+
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
 
 class TourModel {
   String name;
   int numberOfPlaces;
   List<LookAtModel> lookAtCoordinates;
-  List<String> ballonContentOfPlacemarks;
+  // List<String> ballonContentOfPlacemarks;
   List<String> poisNames;
 
   TourModel({
     required this.name,
     required this.numberOfPlaces,
     required this.lookAtCoordinates,
-    required this.ballonContentOfPlacemarks,
+    // required this.ballonContentOfPlacemarks,
     required this.poisNames,
   });
 
-  String styleOnlyTag(String balloonContent, String placemarkIndex) {
+  String styleOnlyTag( String placemarkIndex) {
     String content = '';
     content += '''
       <Style id="placemark-$placemarkIndex-style">
@@ -24,12 +226,6 @@ class TourModel {
           <href>https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true</href>
         </Icon>
       </IconStyle>
-      <BalloonStyle>
-        <bgColor>ffffffff</bgColor>
-        <text><![CDATA[
-        $balloonContent
-        ]]></text>
-      </BalloonStyle>
     </Style>
 ''';
     return content;
@@ -60,12 +256,6 @@ class TourModel {
           </LookAt>
         </gx:FlyTo>
 ''';
-/*
-          <altitude>0</altitude>
-            <heading>-173.948935</heading>
-            <tilt>23.063392</tilt>
-            <range>37333333.666023</range>
-*/
 
     return content;
   }
@@ -96,12 +286,13 @@ class TourModel {
     String content = '';
     content += '''
         <gx:AnimatedUpdate>
+          <gx:duration>0.5</gx:duration>
           <Update>
             <targetHref/>
             <Change>
-              <Placemark targetId="placemark-$placemarkIndex-Id">
-                <gx:balloonVisibility>$visibility</gx:balloonVisibility>
-              </Placemark>
+              <ScreenOverlay targetId="overlay-$placemarkIndex">
+                <visibility>$visibility</visibility>
+              </ScreenOverlay>
             </Change>
           </Update>
         </gx:AnimatedUpdate>
@@ -135,7 +326,7 @@ class TourModel {
 
     //1. Style
     for (int i = 0; i < numberOfPlaces; i++) {
-      content += styleOnlyTag(ballonContentOfPlacemarks[i], i.toString());
+      content += styleOnlyTag(i.toString());
     }
 
     //2. Tour
@@ -152,97 +343,17 @@ class TourModel {
         content += ballonVisibilityOnlyTag(i.toString(), 1);
         content += waitOnlyTag;
         content += ballonVisibilityOnlyTag(i.toString(), 0);
-        // content += flyToLookAtOnlyTag(
-        //     lookAtCoordinates[i].latitude,
-        //     lookAtCoordinates[i].longitude,
-        //     'smooth',
-        //     3,
-        //     '10000',
-        //     '23.063392',
-        //     '-173.948935',
-        //     0);
       } else {
-        // content += flyToLookAtOnlyTag(
-        //     lookAtCoordinates[i].latitude,
-        //     lookAtCoordinates[i].longitude,
-        //     'smooth',
-        //     8,
-        //     '10000',
-        //     '23.063392',
-        //     '-173.948935',
-        //     0);
-        // content += flyToOnlyTag(lookAtCoordinates[i].latitude,
-        //     lookAtCoordinates[i].longitude, 'smooth', 5, '10000', '60', '0', 0);
+
         content += flyToCameraOnlyTag(
             lookAtCoordinates[i].latitude, lookAtCoordinates[i].longitude);
         content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
             lookAtCoordinates[i].longitude, 'smooth', 2, '500', '60', '0', 0);
         content += ballonVisibilityOnlyTag(i.toString(), 1);
-        // content += flyToLookAtOnlyTag(
-        //     lookAtCoordinates[i].latitude,
-        //     lookAtCoordinates[i].longitude,
-        //     'smooth',
-        //     3,
-        //     '6811.884',
-        //     '68.065',
-        //     '112.817',
-        //     0);
-        // content += flyToLookAtOnlyTag(
-        //     lookAtCoordinates[i].latitude,
-        //     lookAtCoordinates[i].longitude,
-        //     'smooth',
-        //     3,
-        //     '4202.579',
-        //     '67.946',
-        //     '-48.463',
-        //     0);
+
         content += waitOnlyTag;
         content += ballonVisibilityOnlyTag(i.toString(), 0);
-        // content += flyToOnlyTag(lookAtCoordinates[i].latitude,
-        //     lookAtCoordinates[i].longitude, 'smooth', 3, '10000', '60', '0', 0);
 
-/*
-
-      <gx:FlyTo>
-        <gx:duration>6.0</gx:duration>
-        <Camera>
-          <longitude>174.063</longitude>
-          <latitude>-39.663</latitude>
-          <altitude>18275</altitude>
-          <heading>-4.921</heading>
-          <tilt>65</tilt>
-          <altitudeMode>absolute</altitudeMode>
-        </Camera>
-      </gx:FlyTo>
-
-      <gx:FlyTo>
-        <gx:duration>3.0</gx:duration>
-        <gx:flyToMode>smooth</gx:flyToMode>
-        <LookAt>
-          <longitude>174.007</longitude>
-          <latitude>-39.279</latitude>
-          <altitude>0</altitude>
-          <heading>112.817</heading>
-          <tilt>68.065</tilt>
-          <range>6811.884</range>
-          <altitudeMode>relativeToGround</altitudeMode>
-        </LookAt>
-      </gx:FlyTo>
-
-      <gx:FlyTo>
-        <gx:duration>3.0</gx:duration>
-        <gx:flyToMode>smooth</gx:flyToMode>
-        <LookAt>
-          <longitude>174.064</longitude>
-          <latitude>-39.321</latitude>
-          <altitude>0</altitude>
-          <heading>-48.463</heading>
-          <tilt>67.946</tilt>
-          <range>4202.579</range>
-          <altitudeMode>relativeToGround</altitudeMode>
-        </LookAt>
-       </gx:FlyTo>
-*/
       }
     }
     content += '''
@@ -265,7 +376,7 @@ class TourModel {
       'name': name,
       'numberOfPlaces': numberOfPlaces,
       'lookAtCoordinates': lookAtCoordinates.map((e) => e.toMap()).toList(),
-      'ballonContentOfPlacemarks': ballonContentOfPlacemarks,
+      // 'ballonContentOfPlacemarks': ballonContentOfPlacemarks,
       'poisNames': poisNames,
     };
   }
@@ -277,8 +388,8 @@ class TourModel {
       numberOfPlaces: map['numberOfPlaces'],
       lookAtCoordinates: List<LookAtModel>.from(
           map['lookAtCoordinates']?.map((x) => LookAtModel.fromMap(x))),
-      ballonContentOfPlacemarks:
-          List<String>.from(map['ballonContentOfPlacemarks']),
+      // ballonContentOfPlacemarks:
+      //     List<String>.from(map['ballonContentOfPlacemarks']),
       poisNames: List<String>.from(map['poisNames']),
     );
   }

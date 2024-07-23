@@ -85,7 +85,7 @@ class AITouristicInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final sshData = Provider.of<SSHprovider>(context, listen: false);
     LgService(sshData).setLogos();
-    buildAppBalloon(context);
+    buildAppBalloonOverlay(context);
 
     return MaterialApp(
       title: 'AI Touristic Info Tool',

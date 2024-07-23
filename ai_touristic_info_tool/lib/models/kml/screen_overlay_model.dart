@@ -3,6 +3,9 @@
 library;
 
 class ScreenOverlayModel {
+  /// Property that defines the screen overlay `id`.
+  String overlayID;
+
   /// Property that defines the screen overlay `name`.
   String name;
 
@@ -28,15 +31,16 @@ class ScreenOverlayModel {
   double sizeY;
 
   /// Property that defines the screen overlay `visibility`.
-  int visibility;
+  // int visibility;
 
   /// Property that defines the screen overlay `color`.
-  String color;
+  // String color;
 
   /// Property that defines the screen overlay `content`.
   String content;
 
   ScreenOverlayModel({
+    this.overlayID = 'overlay',
     required this.name,
     this.icon = '',
     required this.overlayX,
@@ -45,8 +49,8 @@ class ScreenOverlayModel {
     required this.screenY,
     required this.sizeX,
     required this.sizeY,
-    this.visibility = 1,
-    this.color = 'ffffffff',
+    // this.visibility = 1,
+    // this.color = 'ffffffff',
     this.content = '',
   });
 
@@ -85,24 +89,22 @@ class ScreenOverlayModel {
         <Icon>
           <href>$icon</href>
         </Icon>
-        <visibility>$visibility</visibility>
-        <color>$color</color>
         <overlayXY x="$overlayX" y="$overlayY" xunits="fraction" yunits="fraction"/>
         <screenXY x="$screenX" y="$screenY" xunits="fraction" yunits="fraction"/>
         <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
         <size x="$sizeX" y="$sizeY" xunits="pixels" yunits="pixels"/>
-        <description>
+    v    <description>
         <![CDATA[
           $content
         ]]>
         </description>
+        <gx:balloonVisibility>1</gx:balloonVisibility>
       </ScreenOverlay>
     ''';
 
   String get balloonTag => '''
-      <ScreenOverlay>
+      <ScreenOverlay id="$overlayID">
         <name>$name</name>
-        <visibility>1</visibility>
         <overlayXY x="$overlayX" y="$overlayY" xunits="fraction" yunits="fraction"/>
         <screenXY x="$screenX" y="$screenY" xunits="fraction" yunits="fraction"/>
         <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
@@ -112,9 +114,26 @@ class ScreenOverlayModel {
           $content
         ]]>
         </description>
+        <gx:balloonVisibility>1</gx:balloonVisibility>
       </ScreenOverlay>
     ''';
 
+  String get balloonTourTag => '''
+      <ScreenOverlay id="$overlayID">
+        <name>$name</name>
+        <overlayXY x="$overlayX" y="$overlayY" xunits="fraction" yunits="fraction"/>
+        <screenXY x="$screenX" y="$screenY" xunits="fraction" yunits="fraction"/>
+        <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+        <size x="$sizeX" y="$sizeY" xunits="pixels" yunits="pixels"/>
+        <visibility>0</visibility>
+        <description>
+        <![CDATA[
+          $content
+        ]]>
+        </description>
+        <gx:balloonVisibility>0</gx:balloonVisibility>
+      </ScreenOverlay>
+    ''';
 
   /// Generates a [ScreenOverlayModel] with the logos data in it.
   factory ScreenOverlayModel.logos() {

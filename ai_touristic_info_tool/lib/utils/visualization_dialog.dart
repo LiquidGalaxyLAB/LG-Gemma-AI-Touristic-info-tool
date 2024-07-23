@@ -461,7 +461,7 @@ void showVisualizationDialog(BuildContext context, List<PlacesModel> places,
                                 context,
                                 listen: false);
                             await LgService(sshData).clearKml();
-                            await buildAppBalloon(context);
+                            await buildAppBalloonOverlay(context);
                             //value.showMap = true;
                             while (Navigator.of(context).canPop()) {
                               Navigator.of(context).pop();

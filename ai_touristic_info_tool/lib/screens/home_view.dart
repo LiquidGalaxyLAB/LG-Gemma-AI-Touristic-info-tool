@@ -46,7 +46,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   _showHomeBallon() async {
-    await buildAppBalloon(context);
+    await buildAppBalloonOverlay(context);
 
     // ModelErrorProvider errProvider =
     //     Provider.of<ModelErrorProvider>(context, listen: false);
