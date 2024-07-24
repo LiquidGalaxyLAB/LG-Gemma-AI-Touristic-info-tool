@@ -386,7 +386,8 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                               _pois,
                                               widget.query,
                                               widget.city,
-                                              widget.country);
+                                              widget.country,
+                                              () {}, false);
                                         },
                                         height:
                                             MediaQuery.of(context).size.height *

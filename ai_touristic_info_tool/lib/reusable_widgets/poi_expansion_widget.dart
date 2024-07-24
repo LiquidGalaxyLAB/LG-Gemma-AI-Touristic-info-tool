@@ -1,5 +1,6 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/api.dart';
+import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
@@ -11,6 +12,7 @@ import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +37,7 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
   // final double _totalDuration = 1.2 * 10; // Example total duration
 
   bool play = true;
+  bool isFav = false;
 
   @override
   Widget build(BuildContext context) {
@@ -330,136 +333,140 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.08,
-                                  // height: MediaQuery.of(context).size.height * 0.05,
-                                  //width: MediaQuery.of(context).size.width * 0.18,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  decoration: BoxDecoration(
-                                    color: FontAppColors.secondaryFont,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.08,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      decoration: BoxDecoration(
+                                        color: FontAppColors.secondaryFont,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
                                         children: [
-                                          // Row(
-                                          //   children: [
-                                          //     Text('x/2',
-                                          //         style: TextStyle(
-                                          //           color: FontAppColors.primaryFont,
-                                          //           fontSize: textSize - 2,
-                                          //           fontFamily: fontType,
-                                          //         )),
-                                          //     const Icon(
-                                          //         Icons.keyboard_double_arrow_left,
-                                          //         color: FontAppColors.primaryFont,
-                                          //         size: textSize + 10),
-                                          //   ],
-                                          // ),
-                                          GestureDetector(
-                                              onTap: () async {
-                                                final sshData =
-                                                    Provider.of<SSHprovider>(
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              GestureDetector(
+                                                  onTap: () async {
+                                                    final sshData = Provider.of<
+                                                            SSHprovider>(
                                                         context,
                                                         listen: false);
 
-                                                Connectionprovider connection =
-                                                    Provider.of<
-                                                            Connectionprovider>(
-                                                        context,
-                                                        listen: false);
+                                                    Connectionprovider
+                                                        connection = Provider
+                                                            .of<Connectionprovider>(
+                                                                context,
+                                                                listen: false);
 
-                                                ///checking the connection status first
-                                                if (sshData.client != null &&
-                                                    connection.isLgConnected) {
-                                                  if (play) {
-                                                    await LgService(sshData)
-                                                        .startTour('Orbit');
-                                                  } else {
-                                                    await LgService(sshData)
-                                                        .stopTour();
-                                                  }
-                                                  setState(() {
-                                                    play = !play;
-                                                  });
-                                                } else {
-                                                  dialogBuilder(
-                                                      context,
-                                                      'NOT connected to LG !! \n Please Connect to LG',
-                                                      true,
-                                                      'OK',
-                                                      null,
-                                                      null);
-                                                }
-                                              },
-                                              child: play
-                                                  ? const Icon(
-                                                      Icons
-                                                          .play_circle_outlined,
-                                                      //stop_circle_outlined
-                                                      color: FontAppColors
-                                                          .primaryFont,
-                                                      size: textSize + 10)
-                                                  : const Icon(
-                                                      Icons
-                                                          .stop_circle_outlined,
-                                                      color: FontAppColors
-                                                          .primaryFont,
-                                                      size: textSize + 10)),
-                                          // Row(
-                                          //   children: [
-                                          //     const Icon(
-                                          //         Icons.keyboard_double_arrow_right,
-                                          //         color: FontAppColors.primaryFont,
-                                          //         size: textSize + 10),
-                                          //     Text('x2',
-                                          //         style: TextStyle(
-                                          //           color: FontAppColors.primaryFont,
-                                          //           fontSize: textSize - 2,
-                                          //           fontFamily: fontType,
-                                          //         )),
-                                          //   ],
-                                          // ),
+                                                    ///checking the connection status first
+                                                    if (sshData.client !=
+                                                            null &&
+                                                        connection
+                                                            .isLgConnected) {
+                                                      if (play) {
+                                                        await LgService(sshData)
+                                                            .startTour('Orbit');
+                                                      } else {
+                                                        await LgService(sshData)
+                                                            .stopTour();
+                                                      }
+                                                      setState(() {
+                                                        play = !play;
+                                                      });
+                                                    } else {
+                                                      dialogBuilder(
+                                                          context,
+                                                          'NOT connected to LG !! \n Please Connect to LG',
+                                                          true,
+                                                          'OK',
+                                                          null,
+                                                          null);
+                                                    }
+                                                  },
+                                                  child: play
+                                                      ? const Icon(
+                                                          Icons
+                                                              .play_circle_outlined,
+                                                          //stop_circle_outlined
+                                                          color: FontAppColors
+                                                              .primaryFont,
+                                                          size: textSize + 10)
+                                                      : const Icon(
+                                                          Icons
+                                                              .stop_circle_outlined,
+                                                          color: FontAppColors
+                                                              .primaryFont,
+                                                          size: textSize + 10)),
+                                            ],
+                                          ),
+                                          Flexible(
+                                            child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                'Orbit',
+                                                style: TextStyle(
+                                                  color:
+                                                      FontAppColors.primaryFont,
+
+                                                  // fontSize: textSize - 2,
+                                                  fontSize:
+                                                      fontVal.fonts.textSize -
+                                                          2,
+                                                  fontFamily: fontType,
+                                                ),
+                                              ),
+                                            ),
+                                          )
                                         ],
                                       ),
-                                      Flexible(
-                                        child: FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Orbit',
-                                            style: TextStyle(
-                                              color: FontAppColors.primaryFont,
-
-                                              // fontSize: textSize - 2,
-                                              fontSize:
-                                                  fontVal.fonts.textSize - 2,
-                                              fontFamily: fontType,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                      // Slider(
-                                      //   value: _currentProgress,
-                                      //   max: _totalDuration,
-                                      //   onChanged: (value) {
-                                      //     setState(() {
-                                      //       _currentProgress = value;
-                                      //     });
-                                      //   },
-                                      //   activeColor: FontAppColors.primaryFont,
-                                      //   inactiveColor:
-                                      //       FontAppColors.primaryFont.withOpacity(0.5),
-                                      // ),
-                                    ],
-                                  ),
+                                    ),
+                                    Tooltip(
+                                      message: isFav
+                                          ? 'Added to favorites'
+                                          : 'Removed from favorites',
+                                      triggerMode: TooltipTriggerMode.tap,
+                                      onTriggered: () async {
+                                        if (await FavoritesSharedPref()
+                                            .isPlaceExist(
+                                                widget.placeModel.name,
+                                                widget.placeModel.country ??
+                                                    '')) {
+                                          await FavoritesSharedPref()
+                                              .removePlace(
+                                                  widget.placeModel.name,
+                                                  widget.placeModel.country ??
+                                                      '');
+                                          setState(() {
+                                            isFav = false;
+                                          });
+                                        } else {
+                                          await FavoritesSharedPref()
+                                              .addPlace(widget.placeModel);
+                                          setState(() {
+                                            isFav = true;
+                                          });
+                                        }
+                                      },
+                                      child: Icon(
+                                        isFav
+                                            ? CupertinoIcons.heart_fill
+                                            : CupertinoIcons.heart,
+                                        color: LgAppColors.lgColor2,
+                                        size: fontVal.fonts.textSize + 20,
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ],

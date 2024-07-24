@@ -50,7 +50,8 @@ class RecommendationContainer extends StatelessWidget {
           print(value.isNotEmpty);
           if (value.isNotEmpty) {
             await buildQueryPlacemark(title, city, country, context);
-            showVisualizationDialog(context, value, title, city, country);
+            showVisualizationDialog(
+                context, value, title, city, country, () {}, false);
           } else {
             Connectionprovider connection =
                 Provider.of<Connectionprovider>(context, listen: false);

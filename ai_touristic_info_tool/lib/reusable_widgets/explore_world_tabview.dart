@@ -463,7 +463,7 @@ class ExploreWorldTabView extends StatelessWidget {
                                     await buildQueryPlacemark(
                                         query, '', '', context);
                                     showVisualizationDialog(
-                                        context, value, query, '', '');
+                                        context, value, query, '', '', (){}, false);
                                   } else {
                                     Connectionprovider connection =
                                         Provider.of<Connectionprovider>(context,

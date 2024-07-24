@@ -1,5 +1,6 @@
 import 'package:ai_touristic_info_tool/screens/about_view.dart';
 import 'package:ai_touristic_info_tool/screens/app_settings.dart';
+import 'package:ai_touristic_info_tool/screens/favorites_view.dart';
 import 'package:ai_touristic_info_tool/screens/home_view.dart';
 import 'package:ai_touristic_info_tool/screens/lg_connection_view.dart';
 import 'package:ai_touristic_info_tool/screens/lg_tasks_view.dart';
@@ -22,7 +23,7 @@ class _CurrentViewState extends State<CurrentView> {
       if (viewProvider.currentView == 'home') {
         return const HomeView();
       } else if (viewProvider.currentView == 'favs') {
-        return const Placeholder();
+        return const FavoritesView();
       } else if (viewProvider.currentView == 'connection') {
         return const ConnectionView();
       } else if (viewProvider.currentView == 'tasks') {

@@ -773,7 +773,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                     query, _city, _country, context);
 
                                 showVisualizationDialog(
-                                    context, value, query, _city, _country);
+                                    context, value, query, _city, _country, (){}, false);
                               } else {
                                 Connectionprovider connection =
                                     Provider.of<Connectionprovider>(context,
