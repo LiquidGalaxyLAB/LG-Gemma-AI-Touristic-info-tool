@@ -37,7 +37,27 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
   // final double _totalDuration = 1.2 * 10; // Example total duration
 
   bool play = true;
-  bool isFav = false;
+  bool _isFav = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIsFav();
+  }
+
+  Future<void> _checkIsFav() async {
+    bool doesExist = await FavoritesSharedPref()
+        .isPlaceExist(widget.placeModel.name, widget.placeModel.country ?? '');
+    if (doesExist) {
+      setState(() {
+        _isFav = true;
+      });
+    } else {
+      setState(() {
+        _isFav = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -432,7 +452,7 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                       ),
                                     ),
                                     Tooltip(
-                                      message: isFav
+                                      message: _isFav
                                           ? 'Added to favorites'
                                           : 'Removed from favorites',
                                       triggerMode: TooltipTriggerMode.tap,
@@ -448,18 +468,18 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                                   widget.placeModel.country ??
                                                       '');
                                           setState(() {
-                                            isFav = false;
+                                            _isFav = false;
                                           });
                                         } else {
                                           await FavoritesSharedPref()
                                               .addPlace(widget.placeModel);
                                           setState(() {
-                                            isFav = true;
+                                            _isFav = true;
                                           });
                                         }
                                       },
                                       child: Icon(
-                                        isFav
+                                        _isFav
                                             ? CupertinoIcons.heart_fill
                                             : CupertinoIcons.heart,
                                         color: LgAppColors.lgColor2,
