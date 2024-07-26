@@ -1,0 +1,28 @@
+
+# Start with Python base image
+FROM 3.10.14-slim
+
+# Set working directory
+WORKDIR /app
+
+# Set up a virtual environment
+ENV VIRTUAL_ENV=/opt/venvgi
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# Upgrade pip
+RUN pip install --upgrade pip
+
+# Install Python dependencies in the virtual environment
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy Python script
+COPY test.py .
+
+# Create a startup script
+RUN echo '#!/bin/bash\nsource python3 test.py' > /app/start.sh \
+    && chmod +x /app/start.sh
+
+# Set the startup script as the entry point
+CMD ["/app/start.sh"]

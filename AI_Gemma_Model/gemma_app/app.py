@@ -24,47 +24,62 @@ parser = PydanticOutputParser(pydantic_object=Places)
 
 
 # Initialize embeddings and LLM
-llm = Ollama(model="gemma2:9b-instruct-q4_K_M", num_ctx=8192)
+llm = Ollama(model="gemma:7b", num_ctx=8192)
 #temperature=1.2, repeat_penalty=1.8
-embeddings = OllamaEmbeddings(model='nomic-embed-text:v1.5', num_ctx=8192, show_progress=True)
+embeddings = OllamaEmbeddings(model='nomic-embed-text:latest', num_ctx=8192, show_progress=True)
 
 # Web scraping function
 def scrape_urls(user_query):
-    words = user_query.split()
-    url_search = '+'.join(words)
-    seed_url = f'https://www.google.com/search?q={url_search}'
-
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Referer": "https://www.google.com/",
-    }
-
-    response = requests.get(seed_url, headers=headers)
-    general_fetched_urls = []
-
-    if response.status_code == 200:
-        page_content = response.text
-        sp = soup(page_content, 'html.parser')
-        for a_tag in sp.find_all('a', href=True):
-            link = a_tag['href']
-            if 'url=' in link and '&ved=' in link:
-                url_part = link.split('url=')[1]
-                url = url_part.split('&ved=')[0]
-                decoded_url = urllib.parse.unquote(url)
-                if decoded_url.startswith('https://') and 'tripadvisor' not in decoded_url:
-                    try:
-                        r = requests.get(decoded_url, headers=headers, verify=True, timeout=20)
-                        if r.status_code == 200 or r.status_code == 520:
-                            general_fetched_urls.append(decoded_url)
-                            if len(general_fetched_urls) >= 10:
-                                break
-                    except requests.exceptions.SSLError:
-                        print(f"SSL Error for URL: {link}")
-                    except requests.exceptions.RequestException as e:
-                        print(f"Request Exception for URL: {link}, Error: {e}")
-
+    general_fetched_urls=[]
+    try:
+        from googlesearch import search
+    except ImportError: 
+        print("No module named 'google' found")
+    
+    for url in search(user_query,num_results=10, ssl_verify=True, safe="active", lang="en"):
+        if('tripadvisor' not in url):
+            general_fetched_urls.append(url)
+            print(url)
+            if len(general_fetched_urls) >= 10:
+               print('Fetched 10 URLs')
+               break
     return general_fetched_urls
+# def scrape_urls(user_query):
+#     words = user_query.split()
+#     url_search = '+'.join(words)
+#     seed_url = f'https://www.google.com/search?q={url_search}'
+
+#     headers = {
+#         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+#         "Accept-Language": "en-US,en;q=0.5",
+#         "Referer": "https://www.google.com/",
+#     }
+
+#     response = requests.get(seed_url, headers=headers)
+#     general_fetched_urls = []
+
+#     if response.status_code == 200:
+#         page_content = response.text
+#         sp = soup(page_content, 'html.parser')
+#         for a_tag in sp.find_all('a', href=True):
+#             link = a_tag['href']
+#             if 'url=' in link and '&ved=' in link:
+#                 url_part = link.split('url=')[1]
+#                 url = url_part.split('&ved=')[0]
+#                 decoded_url = urllib.parse.unquote(url)
+#                 if decoded_url.startswith('https://') and 'tripadvisor' not in decoded_url:
+#                     try:
+#                         r = requests.get(decoded_url, headers=headers, verify=True, timeout=20)
+#                         if r.status_code == 200 or r.status_code == 520:
+#                             general_fetched_urls.append(decoded_url)
+#                             if len(general_fetched_urls) >= 10:
+#                                 break
+#                     except requests.exceptions.SSLError:
+#                         print(f"SSL Error for URL: {link}")
+#                     except requests.exceptions.RequestException as e:
+#                         print(f"Request Exception for URL: {link}, Error: {e}")
+
+#     return general_fetched_urls
 
 
 app = FastAPI(
@@ -135,7 +150,7 @@ async def handle_request(user_query:str):
 
         prompt = PromptTemplate(
             template=prompt_template,
-            input_variables=["question",],
+            input_variables=["question"],
         )
 
         rag_chain = (
@@ -144,69 +159,14 @@ async def handle_request(user_query:str):
             | llm
             | parser
         )
-        # result = await rag_chain.invoke({"question": user_query})
-        # parsed_result = parser.parse(result)
-        # return parsed_result
+
 
         return rag_chain
-        # for chunk in rag_chain.stream({"question": user_query}):
-        #     print(chunk)
 
-        #return rag_chain.stream("question " "Theme Parks World Wide")
-        #return rag_chain
-
-        # #result = await rag_chain.astream({"question": user_query})
-        # result = []
-        # async for item in rag_chain.astream({"question": user_query}):
-        #     yield item  # Stream the item
-        #     result.append(item)  # Collect the item
-        #     print(item)
-            
-        # Return the collected results after streaming
-
-        #vectorstore.delete_collection()
-        #return result
-        
-        #result = rag_chain.invoke({"question": user_query})
-        #parsed_result = parser.parse(result)
-
-        
-        #yield result
-        #return parsed_result
 
 
 
     
-# Define the LangServe handler
-def parse_result(unparsed_res:str):
-
-        # Prompt template
-        prompt_template='''
-        You are an advanced AI model that formats any unformatted string input into a well-structured JSON format.
-        Your answer must be in a Well-defined JSON format, with correct curly braces, commas, and quotes. Only user double quotes for strings in your JSON format.
-        Each Place should include the following details: name (string), address (string), city (string), country (string), description (string), pricing (string), rating (float), amenities (string), source (string). 
-        The response should be in UTF-8 JSON format, all places enclosed in the 'places' field of the JSON to be returned without any extra comments or quote wrappers.
-
-        INPUT: {input}
-
-        YOUR ANSWER:"""
-        '''
-
-        prompt = PromptTemplate(
-            template=prompt_template,
-            input_variables=["input",],
-        )
-
-        rag_chain = (
-            {"input": RunnablePassthrough()}
-            | prompt
-            | llm
-        
-        )
-        result = rag_chain.invoke({"input": unparsed_res})
-        parsed_result = parser.parse(result)
-        return parsed_result
-        
 
 
 
@@ -222,7 +182,7 @@ def parse_result(unparsed_res:str):
 
 chain = RunnableLambda(handle_request)
 
-parse_chain= RunnableLambda(parse_result)
+
 
 add_routes(app,
            runnable= chain, 
@@ -232,13 +192,6 @@ add_routes(app,
             playground_type="default"
         )
 
-add_routes(app,
-           runnable= parse_chain, 
-           path="/parse", 
-           enable_feedback_endpoint=True,
-            enable_public_trace_link_endpoint=True,
-            playground_type="default"
-        )
 
 
 
@@ -303,5 +256,5 @@ async def fetch_urls(place_name: str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8089)
+    uvicorn.run(app, host="0.0.0.0", port=8085)
 
