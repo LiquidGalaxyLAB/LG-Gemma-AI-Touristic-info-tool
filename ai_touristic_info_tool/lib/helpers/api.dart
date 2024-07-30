@@ -41,45 +41,6 @@ class Api {
     }
   }
 
-  // CancelableOperation? _cancelableOperation;
-
-//Not implemented correctly
-  Future<dynamic> postInvokeGemma({required String input}) async {
-    // if (baseUrl == 'None') {
-    //   throw Exception('Gemma is not accessible through any server right now');
-    // }
-    //final url = Uri.parse('$baseUrl$endpoint');
-    //final url = Uri.parse('http://10.0.2.2:8000/rag/invoke');
-    final url = Uri.parse('$baseUrl/rag/invoke');
-
-    if (!await isServerAvailable()) {
-      return Future.error(
-          'The server is currently unavailable. Please try again later.');
-    }
-
-    final body = json.encode({'input': input});
-    try {
-      final response = await http.post(url,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: body);
-      if (response.statusCode == 200) {
-        Map<String, dynamic> data = jsonDecode(response.body);
-        final responseJson = data;
-        print('inside invoke gemma');
-        print(responseJson);
-        print(responseJson['output']['places'][0]['name']); //should be a list
-        return {'response': responseJson};
-      } else {
-        return Future.error(
-            'There is a problem with status code ${response.statusCode}.');
-      }
-    } catch (e) {
-      return Future.error('An error occurred: $e');
-    }
-  }
-
   Stream<dynamic> postaStreamEventsGemma({required String input}) async* {
     final http.Client _client = http.Client();
     //final rag_url = Uri.parse('http://10.0.2.2:8000/rag/stream_events');
@@ -110,20 +71,12 @@ class Api {
 
     final rag_response = await _client.send(request);
     final stream = rag_response.stream;
-    // _cancelableOperation =
-    //     CancelableOperation.fromFuture(_client.send(request));
 
     Map<String, dynamic> outputStrJson;
     List<PlacesModel> pois = [];
     try {
       await for (var event
           in stream.transform(utf8.decoder).transform(LineSplitter())) {
-        // if (_cancelableOperation!.isCanceled) {
-        //   _client.close();
-        //   yield {'type': 'error', 'data': 'Operation cancelled.'};
-        //   return;
-        // }
-
         print('Whole Event');
         print(event);
         if (event.startsWith('data: ')) {
@@ -241,6 +194,17 @@ class Api {
     } else {
       throw Exception('Failed to load YouTube URLs');
     }
+  }
+
+  Future<void> cancelOperation() async {
+    final url = Uri.parse('$baseUrl/cancel_task');
+
+    if (!await isServerAvailable()) {
+      print('not available');
+      return;
+    }
+    var response = await http.post(url);
+    print(response.body);
   }
 
   /*
