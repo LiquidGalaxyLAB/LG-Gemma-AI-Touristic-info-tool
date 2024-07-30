@@ -1,11 +1,9 @@
-
 # Start with Ubuntu base image
 FROM ubuntu:22.04
 
 # Set working directory
 WORKDIR /app
 
-# Install necessary packages
 RUN apt-get update \
     && apt-get install --no-install-recommends -y python3 python3-pip python3-venv curl \
     && apt-get autoremove -y \
@@ -13,35 +11,42 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Ollama
-RUN curl https://ollama.com/install.sh | sh
+RUN apt-get update \
+    && curl https://ollama.com/install.sh | sh \
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set up a virtual environment
 ENV VIRTUAL_ENV=/opt/venvgi
-RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
-# Upgrade pip
-RUN pip install --upgrade pip
+RUN python3 -m venv $VIRTUAL_ENV
 
 # Install Python dependencies in the virtual environment
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
 # Install Playwright
-RUN playwright install-deps \
-    && playwright install
+RUN apt-get update \
+    && playwright install --with-deps chromium \
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Python script
+COPY app.py .
+COPY helpers.py .
+
 
 # Setting ollama dir
 ENV OLLAMA_MODELS=/root/.ollama
 
-# Copy Python script
-COPY . .
-
 # Expose Ollama port and FastAPI port
-EXPOSE 8089
+EXPOSE 8085
 
 # Create a startup script
-RUN echo '#!/bin/bash\nsource /app/.env\nollama serve &\nsleep 10\nollama pull gemma2:9b-instruct-q4_K_M\nollama pull nomic-embed-text:v1.5\nuvicorn app:app --host 0.0.0.0 --port 8089' > /app/start.sh \
+RUN echo '#!/bin/bash\nollama serve &\nsleep 5\nollama pull gemma2:9b-instruct-q4_K_M\nollama pull nomic-embed-text:v1.5\npython3 /app/app.py' > /app/start.sh \
     && chmod +x /app/start.sh
 
 # Set the startup script as the entry point

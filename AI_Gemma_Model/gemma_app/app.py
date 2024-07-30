@@ -1,5 +1,3 @@
-
-
 from helpers import *
 
 set_debug(True)
@@ -24,9 +22,9 @@ parser = PydanticOutputParser(pydantic_object=Places)
 
 
 # Initialize embeddings and LLM
-llm = Ollama(model="gemma:7b", num_ctx=8192)
+llm = Ollama(model="gemma2:9b-instruct-q4_K_M", num_ctx=8192)
 #temperature=1.2, repeat_penalty=1.8
-embeddings = OllamaEmbeddings(model='nomic-embed-text:latest', num_ctx=8192, show_progress=True)
+embeddings = OllamaEmbeddings(model='nomic-embed-text:v1.5', num_ctx=8192, show_progress=True)
 
 # Web scraping function
 def scrape_urls(user_query):
