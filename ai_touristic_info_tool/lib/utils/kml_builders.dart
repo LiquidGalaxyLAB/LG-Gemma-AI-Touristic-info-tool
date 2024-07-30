@@ -1450,12 +1450,6 @@ buildQueryTour(
     String countryFlagImg;
     String countryCode = countryMap[pois[i].country] ?? 'None';
     String flagDiv;
-    // if (countryCode != 'None') {
-    //   String cc = countryCode.toLowerCase();
-    //   countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-    // } else {
-    //   countryFlagImg = '';
-    // }
     if (countryCode != 'None') {
       String cc = countryCode.toLowerCase();
       countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
@@ -1577,6 +1571,7 @@ buildQueryTour(
   }
 
   List<ScreenOverlayModel> screenOverlays = [];
+  List<KMLModel> kmlBallonsList = [];
   for (int i = 0; i < pois.length; i++) {
     int index = i;
     ScreenOverlayModel screenOverlay = ScreenOverlayModel(
@@ -1591,6 +1586,15 @@ buildQueryTour(
       content: ballonContents[i],
     );
     screenOverlays.add(screenOverlay);
+    String kmlName = 'place-Balloon';
+    String ballooncontent = '<name>placeBalloon</name>';
+
+    final kmlBalloon = KMLModel(
+      name: kmlName,
+      content: ballooncontent,
+      screenOverlay: screenOverlay.balloonTag,
+    );
+    kmlBallonsList.add(kmlBalloon);
   }
 
   // String kmlName = 'App-Balloon';
@@ -1620,8 +1624,16 @@ buildQueryTour(
 
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   final kmlPlacemark = KMLModel(name: 'app-tour', content: kmlContent);
+
   try {
     await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'app-tour');
+    for (int i = 0; i < kmlBallonsList.length; i++) {
+      await LgService(sshData).sendKMLToSlave(
+        LgService(sshData).balloonScreen,
+        kmlBallonsList[i].body,
+      );
+      await Future.delayed(Duration(seconds: 60));
+    }
   } catch (e) {
     print(e);
   }

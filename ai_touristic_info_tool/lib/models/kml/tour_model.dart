@@ -198,9 +198,8 @@
 //   }
 // }
 
-
-
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
+import 'package:ai_touristic_info_tool/models/kml/orbit_model.dart';
 
 class TourModel {
   String name;
@@ -217,7 +216,7 @@ class TourModel {
     required this.poisNames,
   });
 
-  String styleOnlyTag( String placemarkIndex) {
+  String styleOnlyTag(String placemarkIndex) {
     String content = '';
     content += '''
       <Style id="placemark-$placemarkIndex-style">
@@ -267,7 +266,7 @@ class TourModel {
     String content = '';
     content += '''
  <gx:FlyTo>
-         <gx:duration>8.0</gx:duration>
+         <gx:duration>3.0</gx:duration>
        <Camera>
           <longitude>$long</longitude>
           <latitude>$lat</latitude>
@@ -337,23 +336,38 @@ class TourModel {
 ''';
 
     for (int i = 0; i < numberOfPlaces; i++) {
+      // OrbitModel orbitModelForPOI=OrbitModel();
+      LookAtModel lookAtObjOrbit = LookAtModel(
+        longitude: lookAtCoordinates[i].longitude,
+        latitude: lookAtCoordinates[i].latitude,
+        range: '200',
+        tilt: '90',
+        altitude: 0,
+        heading: '0',
+        altitudeMode: 'relativeToGround',
+      );
+
       if (i == 0) {
         content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
             lookAtCoordinates[i].longitude, 'bounce', 5, '500', '60', '0', 0);
-        content += ballonVisibilityOnlyTag(i.toString(), 1);
-        content += waitOnlyTag;
-        content += ballonVisibilityOnlyTag(i.toString(), 0);
-      } else {
-
-        content += flyToCameraOnlyTag(
-            lookAtCoordinates[i].latitude, lookAtCoordinates[i].longitude);
         content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
-            lookAtCoordinates[i].longitude, 'smooth', 2, '500', '60', '0', 0);
-        content += ballonVisibilityOnlyTag(i.toString(), 1);
+            lookAtCoordinates[i].longitude, 'smooth', 3, '200', '60', '0', 0);
+        content += OrbitModel.tag(lookAtObjOrbit, duration: 1);
+        // content += ballonVisibilityOnlyTag(i.toString(), 1);
+        // content += waitOnlyTag;
+        // content += ballonVisibilityOnlyTag(i.toString(), 0);
+      } else {
+        // content += flyToCameraOnlyTag(
+        //     lookAtCoordinates[i].latitude, lookAtCoordinates[i].longitude);
+        content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
+            lookAtCoordinates[i].longitude, 'bounce', 8, '500', '60', '0', 0);
+        content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
+            lookAtCoordinates[i].longitude, 'smooth', 3, '200', '60', '0', 0);
+        content += OrbitModel.tag(lookAtObjOrbit, duration: 1);
+        // content += ballonVisibilityOnlyTag(i.toString(), 1);
 
-        content += waitOnlyTag;
-        content += ballonVisibilityOnlyTag(i.toString(), 0);
-
+        // content += waitOnlyTag;
+        // content += ballonVisibilityOnlyTag(i.toString(), 0);
       }
     }
     content += '''
