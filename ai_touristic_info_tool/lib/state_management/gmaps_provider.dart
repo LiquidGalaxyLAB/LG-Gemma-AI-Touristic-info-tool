@@ -33,7 +33,6 @@ class GoogleMapProvider with ChangeNotifier {
   BitmapDescriptor? _iconMarker;
   bool _isWorld = true;
 
-
   // Getters for camera values
 
   Map<String, String?> get currentFullAddress => _currentFullAddress;
@@ -45,8 +44,6 @@ class GoogleMapProvider with ChangeNotifier {
   Set<Marker> get markers => _markers;
   double get pinPillPosition => _pinPillPosition;
   bool get isWorld => _isWorld;
-
-
 
   set isWorld(bool value) {
     _isWorld = value;
@@ -125,7 +122,8 @@ class GoogleMapProvider with ChangeNotifier {
       _markers.clear(); // Remove all existing markers
     }
 
-    final String markerId = 'marker_${_markers.length}';
+    // final String markerId = 'marker_${_markers.length}';
+    final String markerId = 'marker_${poi.id}.${poi.name}';
 
     final Marker marker = Marker(
       markerId: MarkerId(markerId),

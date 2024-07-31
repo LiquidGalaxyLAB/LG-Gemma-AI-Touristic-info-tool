@@ -1,4 +1,3 @@
-
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/custom_balloon_gm.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/map_types_choices_widget.dart';
@@ -23,6 +22,7 @@ class GoogleMapWidget extends StatefulWidget {
   final double initialBearingValue;
   final LatLng initialCenterValue;
   final String? query;
+  final double zoomValue;
   const GoogleMapWidget({
     super.key,
     required this.width,
@@ -32,6 +32,7 @@ class GoogleMapWidget extends StatefulWidget {
     required this.initialTiltValue,
     required this.initialBearingValue,
     required this.initialCenterValue,
+    this.zoomValue=14.4746,
     this.query,
   });
 
@@ -51,7 +52,8 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     gmp.updateCameraPosition(
       CameraPosition(
         target: widget.initialCenterValue,
-        zoom: 14.4746,
+        // zoom: 14.4746,
+        zoom: widget.zoomValue,
         bearing: widget.initialBearingValue,
         tilt: widget.initialTiltValue,
       ),
@@ -147,7 +149,8 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                             initialCameraPosition: CameraPosition(
                               //target: mapProvider.center,
                               target: widget.initialCenterValue,
-                              zoom: 14.4746,
+                              // zoom: 14.4746,
+                              zoom: widget.zoomValue,
                               bearing: widget.initialBearingValue,
                               tilt: widget.initialTiltValue,
                             ),

@@ -1,11 +1,10 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
+import 'package:ai_touristic_info_tool/utils/show_customization_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 class FavPlacesWidget extends StatefulWidget {
@@ -17,8 +16,8 @@ class FavPlacesWidget extends StatefulWidget {
 
 class _FavPlacesWidgetState extends State<FavPlacesWidget> {
   List<PlacesModel> _favPlaces = [];
-  List<Marker> _markers = [];
-  PlacesModel? _draggedPlace;
+  List<PlacesModel> _selectedPlaces = [];
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -45,218 +44,184 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
     return groupedPlaces;
   }
 
-  void _onPlaceDropped(LatLng position) {
-    if (_draggedPlace != null) {
-      setState(() {
-        _markers.add(
-          Marker(
-            markerId: MarkerId(_draggedPlace!.name),
-            position: position,
-            infoWindow: InfoWindow(
-              title: _draggedPlace!.name,
-            ),
-          ),
-        );
-        _draggedPlace = null;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Consumer2<FontsProvider, ColorProvider>(
-      builder: (BuildContext context, FontsProvider fontVal,
-          ColorProvider colorVal, Widget? child) {
-        var groupedPlaces = _groupPlacesByCountry();
+    return Consumer2<FontsProvider, ColorProvider>(builder:
+        (BuildContext context, FontsProvider fontVal, ColorProvider colorVal,
+            Widget? child) {
+      var groupedPlaces = _groupPlacesByCountry();
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+      return Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 20.0,
-                bottom: 20,
-                left: 20,
+            Center(
+              child: Text(
+                'All your favorite places worldwide in one place!',
+                style: TextStyle(
+                  fontSize: fontVal.fonts.textSize + 5,
+                  fontWeight: FontWeight.bold,
+                  color: fontVal.fonts.primaryFontColor,
+                  fontFamily: fontType,
+                ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SingleChildScrollView(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.4,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: colorVal.colors.buttonColors.withOpacity(0.5),
-                      ),
-                      child: Column(
-                        children: [
-                          Center(
-                            child: Text(
-                              'Drag and drop your favorite places to the map',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: fontVal.fonts.textSize + 5,
-                                color: Colors.white,
-                                fontFamily: fontType,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.26,
-                            width: MediaQuery.of(context).size.width * 0.38,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color:
-                                  colorVal.colors.buttonColors.withOpacity(0.5),
-                            ),
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: groupedPlaces.keys.map((country) {
-                                    return Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 20.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            country,
-                                            style: TextStyle(
-                                              fontSize: fontVal.fonts.textSize,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              fontFamily: fontType,
-                                            ),
-                                          ),
-                                          Wrap(
-                                            spacing: 8.0,
-                                            runSpacing: 8.0,
-                                            children: groupedPlaces[country]!
-                                                .map((place) {
-                                              return Draggable<PlacesModel>(
-                                                data: place,
-                                                feedback: Material(
-                                                  child: Chip(
-                                                    label: Text(
-                                                      place.name,
-                                                      style: TextStyle(
-                                                        fontSize: fontVal.fonts
-                                                                .textSize -
-                                                            5,
-                                                        color: Colors.black,
-                                                        fontFamily: fontType,
-                                                      ),
-                                                    ),
-                                                    backgroundColor: colorVal
-                                                        .colors.accentColor,
-                                                  ),
-                                                ),
-                                                childWhenDragging: Opacity(
-                                                  opacity: 0.5,
-                                                  child: Chip(
-                                                    label: Text(
-                                                      place.name,
-                                                      style: TextStyle(
-                                                        fontSize: fontVal.fonts
-                                                                .textSize -
-                                                            5,
-                                                        color: Colors.black,
-                                                        fontFamily: fontType,
-                                                      ),
-                                                    ),
-                                                    backgroundColor: colorVal
-                                                        .colors.accentColor,
-                                                  ),
-                                                ),
-                                                onDragStarted: () {
-                                                  setState(() {
-                                                    _draggedPlace = place;
-                                                  });
-                                                },
-                                                onDragEnd: (details) {
-                                                  setState(() {
-                                                    _draggedPlace = null;
-                                                  });
-                                                },
-                                                child: Chip(
-                                                  label: Text(
-                                                    place.name,
-                                                    style: TextStyle(
-                                                      fontSize: fontVal
-                                                              .fonts.textSize -
-                                                          5,
-                                                      color: Colors.black,
-                                                      fontFamily: fontType,
-                                                    ),
-                                                  ),
-                                                  backgroundColor: colorVal
-                                                      .colors.accentColor,
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: colorVal.colors.buttonColors.withOpacity(0.2),
-                    ),
-                  ),
-                ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, top: 20),
+              child: Text(
+                'To customize a tour, please select at least 2 places',
+                style: TextStyle(
+                  fontSize: fontVal.fonts.textSize,
+                  color: fontVal.fonts.primaryFontColor,
+                  fontFamily: fontType,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: DragTarget<PlacesModel>(
-                onAcceptWithDetails: (details) {
-                  RenderBox renderBox = context.findRenderObject() as RenderBox;
-                  Offset offset = renderBox.globalToLocal(details.offset);
-                  LatLng latLng = LatLng(
-                    // Convert the offset to latitude and longitude
-                    // This is a placeholder conversion, replace with your actual map's conversion logic
-                    40.416775, -3.703790,
-                  );
-                  _onPlaceDropped(latLng);
-                },
-                builder: (
-                  BuildContext context,
-                  List<PlacesModel?> candidateData,
-                  List<dynamic> rejectedData,
-                ) {
-                  return GoogleMapWidget(
-                    height: MediaQuery.of(context).size.height * 0.45,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    initialLatValue: 40.416775,
-                    initialLongValue: -3.703790,
-                    initialTiltValue: 41.82725143432617,
-                    initialBearingValue: 61.403038024902344,
-                    initialCenterValue: const LatLng(40.416775, -3.703790),
-                    // markers: Set<Marker>.of(_markers),
-                  );
-                },
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.4,
+                width: MediaQuery.of(context).size.width * 1,
+                decoration: BoxDecoration(
+                  color: colorVal.colors.shadow.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: RawScrollbar(
+                    controller: _scrollController,
+                    trackVisibility: true,
+                    thumbVisibility: true,
+                    thickness: 10,
+                    trackColor: colorVal.colors.buttonColors,
+                    thumbColor: Colors.white,
+                    radius: const Radius.circular(10),
+                    child: SingleChildScrollView(
+                      controller: _scrollController,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: groupedPlaces.keys.map((country) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  country,
+                                  style: TextStyle(
+                                    fontSize: fontVal.fonts.textSize,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontFamily: fontType,
+                                  ),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  decoration: BoxDecoration(
+                                    color: colorVal.colors.darkShadow,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Wrap(
+                                      spacing: 8.0,
+                                      runSpacing: 8.0,
+                                      children:
+                                          groupedPlaces[country]!.map((place) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              if (_selectedPlaces
+                                                  .contains(place)) {
+                                                _selectedPlaces.remove(place);
+                                              } else {
+                                                _selectedPlaces.add(place);
+                                              }
+                                            });
+                                          },
+                                          child: Chip(
+                                            label: Text(
+                                              place.name,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    fontVal.fonts.textSize - 5,
+                                                color: _selectedPlaces
+                                                        .contains(place)
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontFamily: fontType,
+                                              ),
+                                            ),
+                                            backgroundColor: _selectedPlaces
+                                                    .contains(place)
+                                                ? colorVal.colors.buttonColors
+                                                : colorVal.colors.accentColor,
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
-        );
-      },
-    );
+        ),
+        floatingActionButton: Stack(
+          children: [
+            Positioned(
+              bottom: MediaQuery.of(context).size.height * 0.0,
+              right: MediaQuery.of(context).size.width * 0.02,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FloatingActionButton(
+                    backgroundColor: colorVal.colors.buttonColors,
+                    onPressed: () {
+                      if (_selectedPlaces.length < 2) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(
+                                'Please select at least 2 places to customize a tour',
+                                style: TextStyle(
+                                  fontSize: fontVal.fonts.textSize - 5,
+                                  color: Colors.white,
+                                  fontFamily: fontType,
+                                ),
+                              ),
+                              backgroundColor: LgAppColors.lgColor2),
+                        );
+                      } else {
+                        print(_selectedPlaces);
+                        showCustomizationDialog(context, _selectedPlaces);
+                      }
+                    },
+                    child: Image.asset(
+                      'assets/images/custom.png',
+                    ),
+                  ),
+                  Text(
+                    'Customize',
+                    style: TextStyle(
+                        fontSize: fontVal.fonts.textSize - 5,
+                        color: fontVal.fonts.primaryFontColor,
+                        fontFamily: fontType),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
