@@ -63,7 +63,11 @@ void showCustomizationDialog(
               ),
             ],
           ),
-          content: CustomizationWidget(chosenPlaces: selectedPlaces),
+          content: CustomizationWidget(
+            chosenPlaces: selectedPlaces,
+            firstLat: selectedPlaces[0].latitude,
+            firstLong: selectedPlaces[0].longitude,
+          ),
         );
       });
     },

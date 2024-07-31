@@ -1,9 +1,14 @@
 import 'dart:math';
+import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
+import 'package:ai_touristic_info_tool/state_management/displayed_fav_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/services.dart' show Uint8List;
 import 'package:ai_touristic_info_tool/services/map_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 class GoogleMapProvider with ChangeNotifier {
   final MapService _mapService = MapService();
@@ -117,7 +122,7 @@ class GoogleMapProvider with ChangeNotifier {
 
   // Add a marker
   Future<void> addMarker(BuildContext context, PlacesModel poi,
-      {bool removeAll = true}) async {
+      {bool removeAll = true, bool isFromFav = false}) async {
     if (removeAll) {
       _markers.clear(); // Remove all existing markers
     }
@@ -125,7 +130,11 @@ class GoogleMapProvider with ChangeNotifier {
     // final String markerId = 'marker_${_markers.length}';
     final String markerId = 'marker_${poi.id}.${poi.name}';
 
+    DisplayedListProvider dlp =
+        Provider.of<DisplayedListProvider>(context, listen: false);
+
     final Marker marker = Marker(
+      draggable: true,
       markerId: MarkerId(markerId),
       position: LatLng(poi.latitude, poi.longitude),
       consumeTapEvents: true,
@@ -140,13 +149,73 @@ class GoogleMapProvider with ChangeNotifier {
       ),
       icon: _iconMarker ?? BitmapDescriptor.defaultMarker,
       onTap: () {
-        print('Marker tapped: ${poi.name}');
-        pinPillPosition = 10;
-        currentlySelectedPin = poi;
+        if (isFromFav) {
+          showDialog(
+              context: context,
+              builder: (context) => Consumer2<FontsProvider, ColorProvider>(
+                    builder: (BuildContext context, FontsProvider value,
+                        ColorProvider value2, Widget? child) {
+                      return AlertDialog(
+                        backgroundColor: value2.colors.innerBackground,
+                        title: Text('Remove from favorites?',
+                            style: TextStyle(
+                              color: value.fonts.primaryFontColor,
+                              fontFamily: fontType,
+                              fontSize: value.fonts.textSize,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        content: Text(
+                          'Do you want to remove ${poi.name} from tour?',
+                          style: TextStyle(
+                            color: value.fonts.primaryFontColor,
+                            fontFamily: fontType,
+                            fontSize: value.fonts.textSize,
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('Cancel',
+                                style: TextStyle(
+                                  color: LgAppColors.lgColor2,
+                                  fontFamily: fontType,
+                                  fontSize: value.fonts.textSize,
+                                )),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              removeMarker(markerId);
+
+                              dlp.addPlace(poi);
+                              dlp.removeTourPlace(poi);
+                            },
+                            child: Text('Remove',
+                                style: TextStyle(
+                                  color: value.fonts.primaryFontColor,
+                                  fontFamily: fontType,
+                                  fontSize: value.fonts.textSize,
+                                )),
+                          ),
+                        ],
+                      );
+                    },
+                  ));
+        } else {
+          print('Marker tapped: ${poi.name}');
+          pinPillPosition = 10;
+          currentlySelectedPin = poi;
+        }
       },
+      onDragEnd: (LatLng newPosition) {},
     );
 
     _markers.add(marker);
+    dlp.removePlace(poi);
+    dlp.addTourPlace(poi);
+    print(dlp.displayedList);
 
     notifyListeners();
   }

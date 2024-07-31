@@ -2,6 +2,7 @@ import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
+import 'package:ai_touristic_info_tool/state_management/displayed_fav_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
@@ -12,7 +13,13 @@ import 'package:provider/provider.dart';
 
 class CustomizationWidget extends StatefulWidget {
   final List<PlacesModel> chosenPlaces;
-  const CustomizationWidget({super.key, required this.chosenPlaces});
+  final double firstLat;
+  final double firstLong;
+  const CustomizationWidget(
+      {super.key,
+      required this.chosenPlaces,
+      required this.firstLat,
+      required this.firstLong});
 
   @override
   State<CustomizationWidget> createState() => _CustomizationWidgetState();
@@ -21,40 +28,44 @@ class CustomizationWidget extends StatefulWidget {
 class _CustomizationWidgetState extends State<CustomizationWidget> {
   PlacesModel? _draggedPlace;
   final ScrollController _scrollController = ScrollController();
-  List<PlacesModel> _tourPlaces = [];
-  List<PlacesModel> displayedPlaces = [];
+  // List<PlacesModel> _tourPlaces = [];
+  // List<PlacesModel> displayedPlaces = [];
 
-  @override
-  void initState() {
-    super.initState();
-    displayedPlaces = List.from(widget.chosenPlaces);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   displayedPlaces = List.from(widget.chosenPlaces);
+  // }
 
   void _onPlaceDropped() {
     GoogleMapProvider gmp =
         Provider.of<GoogleMapProvider>(context, listen: false);
+    DisplayedListProvider dlp =
+        Provider.of<DisplayedListProvider>(context, listen: false);
+    dlp.removePlace(_draggedPlace!);
     gmp.flyToLocation(
         LatLng(_draggedPlace!.latitude, _draggedPlace!.longitude));
     if (_draggedPlace != null) {
-      gmp.addMarker(context, _draggedPlace!, removeAll: false);
+      gmp.addMarker(context, _draggedPlace!, removeAll: false, isFromFav: true);
       setState(() {
-        displayedPlaces.remove(_draggedPlace);
+        // displayedPlaces.remove(_draggedPlace);
+        // _tourPlaces.add(_draggedPlace!);
         _draggedPlace = null;
       });
     }
   }
 
-  void _onPlaceReturned() {
-    String markerId = 'marker_${_draggedPlace!.id}.${_draggedPlace!.name}';
-    GoogleMapProvider gmp =
-        Provider.of<GoogleMapProvider>(context, listen: false);
-    gmp.removeMarker(markerId);
-    setState(() {
-      displayedPlaces.add(_draggedPlace!);
-
-      _draggedPlace = null;
-    });
-  }
+  // void _onPlaceReturned() {
+  //   String markerId = 'marker_${_draggedPlace!.id}.${_draggedPlace!.name}';
+  //   GoogleMapProvider gmp =
+  //       Provider.of<GoogleMapProvider>(context, listen: false);
+  //   gmp.removeMarker(markerId);
+  //   setState(() {
+  //     displayedPlaces.add(_draggedPlace!);
+  //     _tourPlaces.remove(_draggedPlace);
+  //     _draggedPlace = null;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -99,14 +110,16 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                         return GoogleMapWidget(
                           height: MediaQuery.of(context).size.height * 0.45,
                           width: MediaQuery.of(context).size.width * 0.65,
-                          initialLatValue: widget.chosenPlaces[0].latitude,
-                          initialLongValue: widget.chosenPlaces[0].longitude,
+                          // initialLatValue: widget.chosenPlaces[0].latitude,
+                          // initialLongValue: widget.chosenPlaces[0].longitude,
+                          initialLatValue: widget.firstLat,
+                          initialLongValue: widget.firstLong,
                           initialTiltValue: 41.82725143432617,
                           initialBearingValue: 61.403038024902344,
-                          initialCenterValue: LatLng(
-                              widget.chosenPlaces[0].latitude,
-                              widget.chosenPlaces[0].longitude),
+                          initialCenterValue:
+                              LatLng(widget.firstLat, widget.firstLong),
                           zoomValue: 10,
+                          showCleaner: false,
                         );
                       },
                     ),
@@ -138,71 +151,78 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                   Padding(
                                     padding:
                                         const EdgeInsets.only(bottom: 20.0),
-                                    child: Wrap(
-                                      spacing: 8.0,
-                                      runSpacing: 8.0,
-                                      children:
-                                          widget.chosenPlaces.map((place) {
-                                        return Draggable<PlacesModel>(
-                                          data: place,
-                                          feedback: Material(
-                                            child: Chip(
-                                              label: Text(
-                                                place.name,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      fontVal.fonts.textSize -
+                                    child: Consumer<DisplayedListProvider>(
+                                      builder: (BuildContext context,
+                                          DisplayedListProvider dlp,
+                                          Widget? child) {
+                                        return Wrap(
+                                          spacing: 8.0,
+                                          runSpacing: 8.0,
+                                          children:
+                                              dlp.displayedList.map((place) {
+                                            return Draggable<PlacesModel>(
+                                              data: place,
+                                              feedback: Material(
+                                                child: Chip(
+                                                  label: Text(
+                                                    place.name,
+                                                    style: TextStyle(
+                                                      fontSize: fontVal
+                                                              .fonts.textSize -
                                                           5,
-                                                  color: Colors.black,
-                                                  fontFamily: fontType,
+                                                      color: Colors.black,
+                                                      fontFamily: fontType,
+                                                    ),
+                                                  ),
+                                                  backgroundColor: colorVal
+                                                      .colors.accentColor,
                                                 ),
                                               ),
-                                              backgroundColor:
-                                                  colorVal.colors.accentColor,
-                                            ),
-                                          ),
-                                          childWhenDragging: Opacity(
-                                            opacity: 0.5,
-                                            child: Chip(
-                                              label: Text(
-                                                place.name,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      fontVal.fonts.textSize -
+                                              childWhenDragging: Opacity(
+                                                opacity: 0.5,
+                                                child: Chip(
+                                                  label: Text(
+                                                    place.name,
+                                                    style: TextStyle(
+                                                      fontSize: fontVal
+                                                              .fonts.textSize -
                                                           5,
-                                                  color: Colors.black,
-                                                  fontFamily: fontType,
+                                                      color: Colors.black,
+                                                      fontFamily: fontType,
+                                                    ),
+                                                  ),
+                                                  backgroundColor: colorVal
+                                                      .colors.accentColor,
                                                 ),
                                               ),
-                                              backgroundColor:
-                                                  colorVal.colors.accentColor,
-                                            ),
-                                          ),
-                                          onDragStarted: () {
-                                            setState(() {
-                                              _draggedPlace = place;
-                                            });
-                                          },
-                                          onDragEnd: (details) {
-                                            setState(() {
-                                              _draggedPlace = null;
-                                            });
-                                          },
-                                          child: Chip(
-                                            label: Text(
-                                              place.name,
-                                              style: TextStyle(
-                                                fontSize:
-                                                    fontVal.fonts.textSize - 5,
-                                                color: Colors.black,
-                                                fontFamily: fontType,
+                                              onDragStarted: () {
+                                                setState(() {
+                                                  _draggedPlace = place;
+                                                });
+                                              },
+                                              onDragEnd: (details) {
+                                                setState(() {
+                                                  _draggedPlace = null;
+                                                });
+                                              },
+                                              child: Chip(
+                                                label: Text(
+                                                  place.name,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        fontVal.fonts.textSize -
+                                                            5,
+                                                    color: Colors.black,
+                                                    fontFamily: fontType,
+                                                  ),
+                                                ),
+                                                backgroundColor:
+                                                    colorVal.colors.accentColor,
                                               ),
-                                            ),
-                                            backgroundColor:
-                                                colorVal.colors.accentColor,
-                                          ),
+                                            );
+                                          }).toList(),
                                         );
-                                      }).toList(),
+                                      },
                                     ),
                                   ),
                                 ],
@@ -242,9 +262,14 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                           padding: const EdgeInsets.all(20.0),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: TourRow(),
+                            child: Consumer<DisplayedListProvider>(
+                              builder: (BuildContext context,
+                                  DisplayedListProvider value, Widget? child) {
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: TourRow(value.tourPlaces),
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -255,7 +280,19 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                           LgElevatedButton(
                             elevatedButtonContent: 'Reset',
                             buttonColor: colorVal.colors.buttonColors,
-                            onpressed: () {},
+                            onpressed: () {
+                              DisplayedListProvider dlp =
+                                  Provider.of<DisplayedListProvider>(context,
+                                      listen: false);
+                              print('checking chosen places');
+                              print(widget.chosenPlaces);
+                              dlp.setDisplayedList(widget.chosenPlaces);
+                              dlp.setTourPlaces([]);
+                              GoogleMapProvider gmp =
+                                  Provider.of<GoogleMapProvider>(context,
+                                      listen: false);
+                              gmp.clearMarkers();
+                            },
                             height: MediaQuery.of(context).size.height * 0.05,
                             width: MediaQuery.of(context).size.width * 0.1,
                             fontSize: fontVal.fonts.textSize,
@@ -296,9 +333,20 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
     );
   }
 
-  List<Widget> TourRow() {
+  List<Widget> TourRow(List<PlacesModel> places) {
+    // print('inside tour');
+    // print(displayed);
     List<Widget> widgets = [];
-    List<PlacesModel> places = _tourPlaces;
+    // // List<PlacesModel> places = _tourPlaces;
+
+    // Set<PlacesModel> set2 = displayed.toSet();
+    // Set<PlacesModel> set1 = widget.chosenPlaces.toSet();
+
+    // Set<PlacesModel> difference = set1.difference(set2);
+
+    // // Convert the set back to a list
+    // List<PlacesModel> places = difference.toList();
+    // print(places);
 
     for (int i = 0; i < places.length; i++) {
       widgets.add(

@@ -23,6 +23,7 @@ class GoogleMapWidget extends StatefulWidget {
   final LatLng initialCenterValue;
   final String? query;
   final double zoomValue;
+  final bool showCleaner;
   const GoogleMapWidget({
     super.key,
     required this.width,
@@ -32,7 +33,8 @@ class GoogleMapWidget extends StatefulWidget {
     required this.initialTiltValue,
     required this.initialBearingValue,
     required this.initialCenterValue,
-    this.zoomValue=14.4746,
+    this.zoomValue = 14.4746,
+    this.showCleaner=true,
     this.query,
   });
 
@@ -176,6 +178,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                           poi: mapProvider.currentlySelectedPin,
                           query: widget.query ?? '',
                         ),
+                        if(widget.showCleaner)
                         GestureDetector(
                           onTap: () {
                             print(mapProvider.markers);

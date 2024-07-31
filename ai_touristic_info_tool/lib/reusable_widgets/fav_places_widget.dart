@@ -1,6 +1,7 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
+import 'package:ai_touristic_info_tool/state_management/displayed_fav_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/utils/show_customization_dialog.dart';
@@ -202,6 +203,10 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                         );
                       } else {
                         print(_selectedPlaces);
+                        DisplayedListProvider dlp =
+                            Provider.of<DisplayedListProvider>(context,
+                                listen: false);
+                        dlp.setDisplayedList(_selectedPlaces);
                         showCustomizationDialog(context, _selectedPlaces);
                       }
                     },
