@@ -1,7 +1,10 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
+import 'package:ai_touristic_info_tool/models/saved_tours_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/state_management/displayed_fav_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
@@ -30,6 +33,10 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
   late List<PlacesModel> _originalList;
   final ScrollController _scrollController = ScrollController();
   bool _isvisualizing = false;
+  bool _isFav = false;
+  String _queryName = 'Custom Tour';
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _queryNameController = TextEditingController();
 
   @override
   void initState() {
@@ -54,21 +61,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
         _draggedPlace = null;
       });
     }
-  }
-
-  void _update(old, ew) {
-    DisplayedListProvider dlp =
-        Provider.of<DisplayedListProvider>(context, listen: false);
-    var array = dlp.tourPlaces;
-    setState(() {
-      var el = array[old];
-      if (old < ew) {
-        ew = ew - 1;
-      }
-      array.removeAt(old);
-      array.insert(ew, el);
-      dlp.setTourPlaces(array);
-    });
   }
 
   @override
@@ -406,7 +398,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.1,
-                        width: MediaQuery.of(context).size.width * 0.8,
+                        width: MediaQuery.of(context).size.width * 0.7,
                         decoration: BoxDecoration(
                           color: colorVal.colors.shadow,
                           borderRadius: BorderRadius.circular(20),
@@ -427,56 +419,148 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                           ),
                         ),
                       ),
-                      // Column(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     LgElevatedButton(
-                      //       elevatedButtonContent: 'Reset',
-                      //       buttonColor: colorVal.colors.buttonColors,
-                      //       onpressed: () {
-                      //         DisplayedListProvider dlp =
-                      //             Provider.of<DisplayedListProvider>(context,
-                      //                 listen: false);
-                      //         // print('checking chosen places');
-                      //         // print(dlp.selectedPlaces.length);
-                      //         // print(widget.chosenPlaces);
-                      //         dlp.setDisplayedList(
-                      //             List<PlacesModel>.from(_originalList));
-                      //         dlp.setTourPlaces([]);
-                      //         GoogleMapProvider gmp =
-                      //             Provider.of<GoogleMapProvider>(context,
-                      //                 listen: false);
-                      //         gmp.clearMarkers();
-                      //       },
-                      //       height: MediaQuery.of(context).size.height * 0.05,
-                      //       width: MediaQuery.of(context).size.width * 0.1,
-                      //       fontSize: fontVal.fonts.textSize,
-                      //       fontColor: Colors.white,
-                      //       isLoading: false,
-                      //       isBold: false,
-                      //       isPrefixIcon: false,
-                      //       isSuffixIcon: false,
-                      //       curvatureRadius: 30,
-                      //     ),
-                      //     SizedBox(
-                      //       height: MediaQuery.of(context).size.height * 0.01,
-                      //     ),
-                      //     LgElevatedButton(
-                      //       elevatedButtonContent: 'Create',
-                      //       buttonColor: colorVal.colors.buttonColors,
-                      //       onpressed: () {},
-                      //       height: MediaQuery.of(context).size.height * 0.05,
-                      //       width: MediaQuery.of(context).size.width * 0.1,
-                      //       fontSize: fontVal.fonts.textSize,
-                      //       fontColor: Colors.white,
-                      //       isLoading: false,
-                      //       isBold: false,
-                      //       isPrefixIcon: false,
-                      //       isSuffixIcon: false,
-                      //       curvatureRadius: 30,
-                      //     ),
-                      //   ],
-                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Tooltip(
+                          message: _isFav
+                              ? 'Added to favorites'
+                              : 'Removed from favorites',
+                          triggerMode: TooltipTriggerMode.tap,
+                          onTriggered: () async {
+                            if (await FavoritesSharedPref()
+                                .isTourExist(_queryName)) {
+                              await FavoritesSharedPref()
+                                  .removeTour(_queryName);
+                              setState(() {
+                                _isFav = false;
+                              });
+                            } else {
+                              DisplayedListProvider dlp =
+                                  Provider.of<DisplayedListProvider>(context,
+                                      listen: false);
+                              if (dlp.tourPlaces.length == 0) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor:
+                                          colorVal.colors.innerBackground,
+                                      content: Text(
+                                          'Please add places to create a tour.',
+                                          style: TextStyle(
+                                              color: fontVal
+                                                  .fonts.primaryFontColor,
+                                              fontSize: fontVal.fonts.textSize,
+                                              fontFamily: fontType)),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('OK',
+                                              style: TextStyle(
+                                                  color: LgAppColors.lgColor4,
+                                                  fontSize:
+                                                      fontVal.fonts.textSize,
+                                                  fontFamily: fontType)),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor:
+                                          colorVal.colors.innerBackground,
+                                      content: Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.3,
+                                        child: Form(
+                                          key: _formKey,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text(
+                                                  'Choose a name for your tour:',
+                                                  style: TextStyle(
+                                                      color: fontVal.fonts
+                                                          .primaryFontColor,
+                                                      fontSize: fontVal
+                                                          .fonts.textSize,
+                                                      fontFamily: fontType)),
+                                              Center(
+                                                child: TextFormFieldWidget(
+                                                  // fontSize: textSize,
+                                                  fontSize:
+                                                      fontVal.fonts.textSize,
+                                                  key: const ValueKey(
+                                                      "custom-tour-name"),
+                                                  textController:
+                                                      _queryNameController,
+                                                  isSuffixRequired: true,
+
+                                                  isPassword: false,
+                                                  maxLength: 100,
+                                                  maxlines: 1,
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.85,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () async {
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              await FavoritesSharedPref()
+                                                  .addTour(SavedToursModel(
+                                                query:
+                                                    _queryNameController.text,
+                                                places: dlp.tourPlaces,
+                                                city: '',
+                                                country: '',
+                                                isGenerated: false,
+                                              ));
+                                              setState(() {
+                                                _isFav = true;
+                                                _queryName =
+                                                    _queryNameController.text;
+                                              });
+                                              Navigator.of(context).pop();
+                                            }
+                                          },
+                                          child: Text('Done',
+                                              style: TextStyle(
+                                                  color: LgAppColors.lgColor4,
+                                                  fontSize:
+                                                      fontVal.fonts.textSize,
+                                                  fontFamily: fontType)),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            }
+                          },
+                          child: Icon(
+                              _isFav
+                                  ? CupertinoIcons.heart_fill
+                                  : CupertinoIcons.heart,
+                              color: LgAppColors.lgColor2,
+                              size: fontVal.fonts.titleSize),
+                        ),
+                      ),
                     ],
                   ),
                 )
