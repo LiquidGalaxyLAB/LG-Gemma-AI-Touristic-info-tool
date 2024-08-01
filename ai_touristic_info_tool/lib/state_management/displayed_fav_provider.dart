@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class DisplayedListProvider extends ChangeNotifier {
   List<PlacesModel> _displayedList = [];
   List<PlacesModel> _tourPlaces = [];
+  // List<PlacesModel> _selectedPlaces = [];
 
   List<PlacesModel> get displayedList => _displayedList;
   List<PlacesModel> get tourPlaces => _tourPlaces;
@@ -13,16 +14,17 @@ class DisplayedListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addPlace(PlacesModel place) {
+  void addDisplayedPlace(PlacesModel place) {
     _displayedList.add(place);
     notifyListeners();
   }
 
-  void removePlace(PlacesModel place) {
+  void removeDisplayedPlace(PlacesModel place) {
     _displayedList.remove(place);
     notifyListeners();
   }
 
+//_tours
   void setTourPlaces(List<PlacesModel> list) {
     _tourPlaces = list;
     notifyListeners();

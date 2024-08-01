@@ -633,7 +633,7 @@ void showVisualizationDialog(
                           final mapProvider = Provider.of<GoogleMapProvider>(
                               context,
                               listen: false);
-                          mapProvider.setBitmapDescriptor();
+                          mapProvider.setBitmapDescriptor("assets/images/placemark_pin.png");
                           mapProvider.updateZoom(12.4746);
                           mapProvider.flyToLocation(
                               LatLng(myLatLng.latitude, myLatLng.longitude));

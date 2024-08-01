@@ -34,7 +34,7 @@ class GoogleMapWidget extends StatefulWidget {
     required this.initialBearingValue,
     required this.initialCenterValue,
     this.zoomValue = 14.4746,
-    this.showCleaner=true,
+    this.showCleaner = true,
     this.query,
   });
 
@@ -137,6 +137,9 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                   child: Consumer2<MapTypeProvider, GoogleMapProvider>(builder:
                       (BuildContext context, MapTypeProvider value,
                           GoogleMapProvider mapProvider, Widget? child) {
+                    print('google maps');
+                    print(mapProvider.markers);
+                    print(mapProvider.polylines);
                     return Stack(
                       children: [
                         GoogleMap(
@@ -166,6 +169,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                             onCameraMove: _onCameraMove,
                             onCameraIdle: _onCameraIdle,
                             markers: mapProvider.markers,
+                            polylines: mapProvider.polylines,
                             onMapCreated: _onMapCreated,
                             onTap: (LatLng location) {
                               setState(() {
@@ -178,29 +182,29 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                           poi: mapProvider.currentlySelectedPin,
                           query: widget.query ?? '',
                         ),
-                        if(widget.showCleaner)
-                        GestureDetector(
-                          onTap: () {
-                            print(mapProvider.markers);
-                            setState(() {
-                              mapProvider.clearMarkers();
-                              mapProvider.pinPillPosition =
-                                  MediaQuery.of(context).size.height * 1;
-                            });
+                        if (widget.showCleaner)
+                          GestureDetector(
+                            onTap: () {
+                              print(mapProvider.markers);
+                              setState(() {
+                                mapProvider.clearMarkers();
+                                mapProvider.pinPillPosition =
+                                    MediaQuery.of(context).size.height * 1;
+                              });
 
-                            print(mapProvider.markers);
-                            print('cleared');
-                          },
-                          child: Container(
-                            alignment: Alignment.topRight,
-                            margin: const EdgeInsets.only(top: 10, right: 10),
-                            child: const Icon(
-                              Icons.cleaning_services,
-                              color: Colors.white,
-                              size: 50,
+                              print(mapProvider.markers);
+                              print('cleared');
+                            },
+                            child: Container(
+                              alignment: Alignment.topRight,
+                              margin: const EdgeInsets.only(top: 10, right: 10),
+                              child: const Icon(
+                                Icons.cleaning_services,
+                                color: Colors.white,
+                                size: 50,
+                              ),
                             ),
                           ),
-                        ),
                       ],
                     );
                   }),

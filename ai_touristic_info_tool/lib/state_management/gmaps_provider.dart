@@ -7,6 +7,8 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:flutter/services.dart' show Uint8List;
 import 'package:ai_touristic_info_tool/services/map_services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +32,9 @@ class GoogleMapProvider with ChangeNotifier {
   double _pinPillPosition = -1000;
   GoogleMapController? _mapController;
   final Set<Marker> _markers = {};
+  final Set<Marker> _customTourMainMarkers = {};
+  final Set<Polyline> _polylines = {};
+  final Map<Polyline, List<Marker>> _polylineMarkers = {};
   LatLng _center = const LatLng(0, 0); // Initial center
   double _zoom = 14.4746; // Initial zoom
   double _tilt = 0;
@@ -37,6 +42,7 @@ class GoogleMapProvider with ChangeNotifier {
   double _zoomvalue = 591657550.500000 / pow(2, 14.4746);
   BitmapDescriptor? _iconMarker;
   bool _isWorld = true;
+  bool _isTourOn = false;
 
   // Getters for camera values
 
@@ -47,8 +53,18 @@ class GoogleMapProvider with ChangeNotifier {
   double get bearing => _bearing;
   double get zoomvalue => _zoomvalue;
   Set<Marker> get markers => _markers;
+  Set<Marker> get customTourMainMarkers => _customTourMainMarkers;
+  Set<Polyline> get polylines => _polylines;
+  Map<Polyline, List<Marker>> get polylineMarkers => _polylineMarkers;
+  // PolylinePoints get polylinePoints => _polylinePoints;
   double get pinPillPosition => _pinPillPosition;
   bool get isWorld => _isWorld;
+  bool get isTourOn => _isTourOn;
+
+  set isTourOn(bool value) {
+    _isTourOn = value;
+    notifyListeners();
+  }
 
   set isWorld(bool value) {
     _isWorld = value;
@@ -114,9 +130,9 @@ class GoogleMapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setBitmapDescriptor() async {
-    final Uint8List unselected = await _mapService.getBytesFromAsset(
-        width: 100, path: "assets/images/placemark_pin.png");
+  Future<void> setBitmapDescriptor(String imagePath) async {
+    final Uint8List unselected =
+        await _mapService.getBytesFromAsset(width: 50, path: imagePath);
     _iconMarker = BitmapDescriptor.fromBytes(unselected);
   }
 
@@ -189,7 +205,7 @@ class GoogleMapProvider with ChangeNotifier {
                               Navigator.pop(context);
                               removeMarker(markerId);
 
-                              dlp.addPlace(poi);
+                              dlp.addDisplayedPlace(poi);
                               dlp.removeTourPlace(poi);
                             },
                             child: Text('Remove',
@@ -213,17 +229,197 @@ class GoogleMapProvider with ChangeNotifier {
     );
 
     _markers.add(marker);
-    dlp.removePlace(poi);
+    _customTourMainMarkers.add(marker);
+    dlp.removeDisplayedPlace(poi);
     dlp.addTourPlace(poi);
     print(dlp.displayedList);
 
     notifyListeners();
   }
 
+  // // Add a polyline
+  // void addPolyline(List<LatLng> polylineCoordinates) {
+  //   PolylineId id = PolylineId("poly");
+  //   _polylines.add(Polyline(
+  //     polylineId: id,
+  //     color: Colors.blue,
+  //     points: polylineCoordinates,
+  //     width: 4,
+  //   ));
+  //   notifyListeners();
+  // }
+
+  void addPolylinesBetweenMarkers() {
+    List<Marker> markers = _markers.toList();
+    if (markers.length < 2) return;
+
+    _polylines.clear();
+
+    for (int i = 0; i < markers.length - 1; i++) {
+      LatLng start = markers[i].position;
+      LatLng end = markers[i + 1].position;
+
+      List<LatLng> polylineCoordinates = [start, end];
+
+      PolylineId id = PolylineId("poly_${i}_${i + 1}");
+      _polylines.add(Polyline(
+        polylineId: id,
+        color: LgAppColors.lgColor2,
+        points: polylineCoordinates,
+        width: 4,
+        visible: true,
+      ));
+    }
+
+    notifyListeners();
+  }
+
+  // interpolation between 2 points to get rest of straight line
+  List<LatLng> interpolatePoints(LatLng start, LatLng end, int numPoints) {
+    List<LatLng> points = [];
+    double latStep = (end.latitude - start.latitude) / (numPoints - 1);
+    double lngStep = (end.longitude - start.longitude) / (numPoints - 1);
+
+    for (int i = 0; i < numPoints; i++) {
+      double lat = start.latitude + i * latStep;
+      double lng = start.longitude + i * lngStep;
+      points.add(LatLng(lat, lng));
+    }
+
+    return points;
+  }
+
+  // add polyline markers for each polyline:
+  void addMarkersForPolylines() {
+    for (Polyline polyline in _polylines) {
+      List<LatLng> polylinePoints = polyline.points;
+
+      // Check if polyline has exactly 2 points
+      if (polylinePoints.length == 2) {
+        LatLng start = polylinePoints[0];
+        LatLng end = polylinePoints[1];
+
+        // Interpolate points
+        List<LatLng> intermediatePoints = interpolatePoints(start, end, 5);
+
+        // Create markers for each interpolated point
+        for (LatLng point in intermediatePoints) {
+          final markerId = 'marker_${point.latitude}_${point.longitude}';
+          final marker = Marker(
+            markerId: MarkerId(markerId),
+            position: point,
+            icon: _iconMarker ?? BitmapDescriptor.defaultMarker,
+          );
+
+          _markers.add(marker);
+          if (_polylineMarkers[polyline] == null) {
+            _polylineMarkers[polyline] = [marker];
+          } else {
+            _polylineMarkers[polyline]!.add(marker);
+          }
+        }
+      }
+    }
+
+    notifyListeners();
+  }
+
+  // Clear all polylines
+  void clearPolylines() {
+    _polylines.clear();
+    notifyListeners();
+  }
+
+  //clear custom markers
+  void clearCustomMarkers() {
+    _customTourMainMarkers.clear();
+    notifyListeners();
+  }
+
+  //clear map
+  void clearPolylinesMap() {
+    _markers.clear();
+    _customTourMainMarkers.clear();
+    _polylines.clear();
+    notifyListeners();
+  }
+
   // Remove a marker
   void removeMarker(String markerId) {
-    _markers.removeWhere((marker) => marker.markerId.value == markerId);
+    Marker? markerToRemove;
+    for (Marker marker in _markers) {
+      if (marker.markerId.value == markerId) {
+        markerToRemove = marker;
+        break;
+      }
+    }
+    if (markerToRemove == null) {
+      print('Marker not found');
+      return;
+    }
+
+    _markers.remove(markerToRemove);
+
+    for (Marker marker in _customTourMainMarkers) {
+      if (marker.markerId.value == markerId) {
+        _customTourMainMarkers.remove(marker);
+        break;
+      }
+    }
+
+    List<Marker> polyLineMarkersToRemove = [];
+
+    // _markers.removeWhere((marker) => marker.markerId.value == markerId);
+    List<PolylineId> polylinesToRemove = [];
+    for (Polyline polyline in _polylines) {
+      LatLng start = polyline.points.first;
+      LatLng end = polyline.points.last;
+
+      if ((start.latitude == markerToRemove.position.latitude &&
+              start.longitude == markerToRemove.position.longitude) ||
+          (end.latitude == markerToRemove.position.latitude &&
+              end.longitude == markerToRemove.position.longitude)) {
+        polylinesToRemove.add(polyline.polylineId);
+        if (polylineMarkers[polyline] == null) continue;
+
+        for (Marker mrkr in polylineMarkers[polyline]!) {
+          polyLineMarkersToRemove.add(mrkr);
+        }
+      }
+    }
+
+    for (PolylineId polylineId in polylinesToRemove) {
+      _polylines.removeWhere((polyline) => polyline.polylineId == polylineId);
+    }
+
+    for (Marker mrkr in polyLineMarkersToRemove) {
+      _markers.remove(mrkr);
+    }
+    addPolylinesBetweenMarkers();
+
     notifyListeners();
+  }
+
+  //make a small tour-like :
+  Future<void> googleMapCustomTour() async {
+    List<LatLng> points = [];
+    for (Marker marker in _customTourMainMarkers) {
+      points.add(marker.position);
+      if (_isTourOn) {
+        continue;
+      } else {
+        break;
+      }
+    }
+    for (LatLng point in points) {
+      flyToLocation(point);
+      await Future.delayed(Duration(seconds: 3));
+      if (_isTourOn) {
+        continue;
+      } else {
+        break;
+      }
+    }
   }
 
   // Clear all markers

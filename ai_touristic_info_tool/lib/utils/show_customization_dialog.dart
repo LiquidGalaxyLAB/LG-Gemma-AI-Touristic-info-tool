@@ -3,15 +3,17 @@ import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/customization_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
+import 'package:ai_touristic_info_tool/state_management/displayed_fav_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void showCustomizationDialog(
-  BuildContext context,
-  List<PlacesModel> selectedPlaces,
-) async {
+    BuildContext context, final List<PlacesModel> selectedPlaces) async {
+  Provider.of<DisplayedListProvider>(context, listen: false)
+      .setDisplayedList(List<PlacesModel>.from(selectedPlaces));
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -49,15 +51,37 @@ void showCustomizationDialog(
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 1,
                 child: Center(
-                  child: Text(
-                    'Customize your own tour!',
-                    style: TextStyle(
-                        color: SettingsSharedPref.getTheme() == 'dark'
-                            ? fontVal.fonts.primaryFontColor
-                            : fontVal.fonts.secondaryFontColor,
-                        fontSize: fontVal.fonts.headingSize,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: fontType),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Customize your own tour!',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: SettingsSharedPref.getTheme() == 'dark'
+                                    ? fontVal.fonts.primaryFontColor
+                                    : fontVal.fonts.secondaryFontColor,
+                                fontSize: fontVal.fonts.headingSize,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: fontType),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        alignment: Alignment.centerRight,
+                        icon: Icon(CupertinoIcons.xmark_circle_fill),
+                        color: LgAppColors.lgColor2,
+                        iconSize: fontVal.fonts.headingSize,
+                        onPressed: () {
+                          DisplayedListProvider dlp =
+                              Provider.of<DisplayedListProvider>(context,
+                                  listen: false);
+                          dlp.setTourPlaces([]);
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
                   ),
                 ),
               ),

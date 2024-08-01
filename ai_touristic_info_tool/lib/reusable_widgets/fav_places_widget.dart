@@ -1,7 +1,6 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
-import 'package:ai_touristic_info_tool/state_management/displayed_fav_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/utils/show_customization_dialog.dart';
@@ -129,10 +128,12 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                                     child: Wrap(
                                       spacing: 8.0,
                                       runSpacing: 8.0,
-                                      children:
-                                          groupedPlaces[country]!.map((place) {
+                                      children: groupedPlaces[country]!
+                                          .map((place) {
                                         return GestureDetector(
                                           onTap: () {
+                                           
+                                         
                                             setState(() {
                                               if (_selectedPlaces
                                                   .contains(place)) {
@@ -147,8 +148,9 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                                               place.name,
                                               style: TextStyle(
                                                 fontSize:
-                                                    fontVal.fonts.textSize - 5,
-                                                color: _selectedPlaces
+                                                    fontVal.fonts.textSize -
+                                                        5,
+                                                color:_selectedPlaces
                                                         .contains(place)
                                                     ? Colors.white
                                                     : Colors.black,
@@ -156,9 +158,12 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                                               ),
                                             ),
                                             backgroundColor: _selectedPlaces
+                                                    
                                                     .contains(place)
-                                                ? colorVal.colors.buttonColors
-                                                : colorVal.colors.accentColor,
+                                                ? colorVal
+                                                    .colors.buttonColors
+                                                : colorVal
+                                                    .colors.accentColor,
                                           ),
                                         );
                                       }).toList(),
@@ -185,34 +190,36 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  FloatingActionButton(
-                    backgroundColor: colorVal.colors.buttonColors,
-                    onPressed: () {
-                      if (_selectedPlaces.length < 2) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(
-                                'Please select at least 2 places to customize a tour',
-                                style: TextStyle(
-                                  fontSize: fontVal.fonts.textSize - 5,
-                                  color: Colors.white,
-                                  fontFamily: fontType,
-                                ),
-                              ),
-                              backgroundColor: LgAppColors.lgColor2),
-                        );
-                      } else {
-                        print(_selectedPlaces);
-                        DisplayedListProvider dlp =
-                            Provider.of<DisplayedListProvider>(context,
-                                listen: false);
-                        dlp.setDisplayedList(_selectedPlaces);
-                        showCustomizationDialog(context, _selectedPlaces);
-                      }
-                    },
-                    child: Image.asset(
-                      'assets/images/custom.png',
-                    ),
+            
+                    FloatingActionButton(
+                        backgroundColor: colorVal.colors.buttonColors,
+                        onPressed: () {
+                          if (_selectedPlaces.length < 2) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                    'Please select at least 2 places to customize a tour',
+                                    style: TextStyle(
+                                      fontSize: fontVal.fonts.textSize - 5,
+                                      color: Colors.white,
+                                      fontFamily: fontType,
+                                    ),
+                                  ),
+                                  backgroundColor: LgAppColors.lgColor2),
+                            );
+                          } else {
+                            print(_selectedPlaces.length);
+
+                            final List<PlacesModel> places = _selectedPlaces;
+                          
+                            showCustomizationDialog(context, places);
+                          }
+                        },
+                        child: Image.asset(
+                          'assets/images/custom.png',
+                        ),
+                   
+                  
                   ),
                   Text(
                     'Customize',

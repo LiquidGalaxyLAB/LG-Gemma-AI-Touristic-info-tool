@@ -149,7 +149,7 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                             Provider.of<GoogleMapProvider>(
                                                 context,
                                                 listen: false);
-                                        mapProvider.setBitmapDescriptor();
+                                        mapProvider.setBitmapDescriptor("assets/images/placemark_pin.png");
                                         mapProvider.addMarker(
                                             context, widget.placeModel,
                                             removeAll: true);

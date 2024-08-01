@@ -27,22 +27,23 @@ class CustomizationWidget extends StatefulWidget {
 
 class _CustomizationWidgetState extends State<CustomizationWidget> {
   PlacesModel? _draggedPlace;
+  late List<PlacesModel> _originalList;
   final ScrollController _scrollController = ScrollController();
-  // List<PlacesModel> _tourPlaces = [];
-  // List<PlacesModel> displayedPlaces = [];
+  bool _isvisualizing = false;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   displayedPlaces = List.from(widget.chosenPlaces);
-  // }
+  @override
+  void initState() {
+    super.initState();
+    // Create a copy of chosenPlaces
+    _originalList = List<PlacesModel>.from(widget.chosenPlaces);
+  }
 
   void _onPlaceDropped() {
     GoogleMapProvider gmp =
         Provider.of<GoogleMapProvider>(context, listen: false);
     DisplayedListProvider dlp =
         Provider.of<DisplayedListProvider>(context, listen: false);
-    dlp.removePlace(_draggedPlace!);
+    dlp.removeDisplayedPlace(_draggedPlace!);
     gmp.flyToLocation(
         LatLng(_draggedPlace!.latitude, _draggedPlace!.longitude));
     if (_draggedPlace != null) {
@@ -55,17 +56,20 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
     }
   }
 
-  // void _onPlaceReturned() {
-  //   String markerId = 'marker_${_draggedPlace!.id}.${_draggedPlace!.name}';
-  //   GoogleMapProvider gmp =
-  //       Provider.of<GoogleMapProvider>(context, listen: false);
-  //   gmp.removeMarker(markerId);
-  //   setState(() {
-  //     displayedPlaces.add(_draggedPlace!);
-  //     _tourPlaces.remove(_draggedPlace);
-  //     _draggedPlace = null;
-  //   });
-  // }
+  void _update(old, ew) {
+    DisplayedListProvider dlp =
+        Provider.of<DisplayedListProvider>(context, listen: false);
+    var array = dlp.tourPlaces;
+    setState(() {
+      var el = array[old];
+      if (old < ew) {
+        ew = ew - 1;
+      }
+      array.removeAt(old);
+      array.insert(ew, el);
+      dlp.setTourPlaces(array);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,13 +88,162 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                     left: 20.0,
                     bottom: 20,
                   ),
-                  child: Text(
-                    'Drag and Drop places to and from map!',
-                    style: TextStyle(
-                        color: fontVal.fonts.primaryFontColor,
-                        fontSize: fontVal.fonts.textSize + 5,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: fontType),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Drag and Drop places to the map!',
+                        style: TextStyle(
+                            color: fontVal.fonts.primaryFontColor,
+                            fontSize: fontVal.fonts.textSize + 5,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: fontType),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: Row(
+                          children: [
+                            LgElevatedButton(
+                              elevatedButtonContent: 'Reset',
+                              buttonColor: colorVal.colors.buttonColors,
+                              onpressed: () {
+                                DisplayedListProvider dlp =
+                                    Provider.of<DisplayedListProvider>(context,
+                                        listen: false);
+                                // print('checking chosen places');
+                                // print(dlp.selectedPlaces.length);
+                                // print(widget.chosenPlaces);
+                                dlp.setDisplayedList(
+                                    List<PlacesModel>.from(_originalList));
+                                dlp.setTourPlaces([]);
+                                GoogleMapProvider gmp =
+                                    Provider.of<GoogleMapProvider>(context,
+                                        listen: false);
+                                gmp.clearMarkers();
+                                gmp.clearPolylines();
+                                gmp.clearCustomMarkers();
+                                gmp.clearPolylinesMap();
+                              },
+                              height: MediaQuery.of(context).size.height * 0.05,
+                              width: MediaQuery.of(context).size.width * 0.1,
+                              fontSize: fontVal.fonts.textSize,
+                              fontColor: Colors.white,
+                              isLoading: false,
+                              isBold: false,
+                              isPrefixIcon: false,
+                              isSuffixIcon: false,
+                              curvatureRadius: 30,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.02,
+                            ),
+                            LgElevatedButton(
+                              elevatedButtonContent: 'Create',
+                              buttonColor: colorVal.colors.buttonColors,
+                              onpressed: () {
+                                GoogleMapProvider gmp =
+                                    Provider.of<GoogleMapProvider>(context,
+                                        listen: false);
+                                if (gmp.markers.length < 2) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        backgroundColor:
+                                            colorVal.colors.innerBackground,
+                                        content: Text(
+                                            'Please add more than one place to create a route.',
+                                            style: TextStyle(
+                                                color: fontVal
+                                                    .fonts.primaryFontColor,
+                                                fontSize:
+                                                    fontVal.fonts.textSize,
+                                                fontFamily: fontType)),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('OK',
+                                                style: TextStyle(
+                                                    color: LgAppColors.lgColor4,
+                                                    fontSize:
+                                                        fontVal.fonts.textSize,
+                                                    fontFamily: fontType)),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  gmp.addPolylinesBetweenMarkers();
+                                  gmp.setBitmapDescriptor(
+                                      "assets/images/airplane.png");
+                                  gmp.addMarkersForPolylines();
+                                }
+                              },
+                              height: MediaQuery.of(context).size.height * 0.05,
+                              width: MediaQuery.of(context).size.width * 0.1,
+                              fontSize: fontVal.fonts.textSize,
+                              fontColor: Colors.white,
+                              isLoading: false,
+                              isBold: false,
+                              isPrefixIcon: false,
+                              isSuffixIcon: false,
+                              curvatureRadius: 30,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.02,
+                            ),
+                            LgElevatedButton(
+                              elevatedButtonContent:
+                                  _isvisualizing ? 'Stop' : 'Visualize',
+                              buttonColor: colorVal.colors.buttonColors,
+                              onpressed: () async {
+                                if (_isvisualizing) {
+                                  GoogleMapProvider gmp =
+                                      Provider.of<GoogleMapProvider>(context,
+                                          listen: false);
+                                  gmp.isTourOn = false;
+                                  setState(() {
+                                    _isvisualizing = false;
+                                  });
+                                } else {
+                                  setState(() {
+                                    _isvisualizing = true;
+                                  });
+                                  GoogleMapProvider gmp =
+                                      Provider.of<GoogleMapProvider>(context,
+                                          listen: false);
+                                  gmp.isTourOn = true;
+                                  await gmp.googleMapCustomTour().then(
+                                    (value) {
+                                      gmp.isTourOn = false;
+                                      setState(() {
+                                        _isvisualizing = false;
+                                      });
+                                    },
+                                  );
+                                }
+                              },
+                              height: MediaQuery.of(context).size.height * 0.05,
+                              width: MediaQuery.of(context).size.width * 0.14,
+                              fontSize: fontVal.fonts.textSize,
+                              fontColor: Colors.white,
+                              isLoading: false,
+                              isBold: false,
+                              isPrefixIcon: false,
+                              isSuffixIcon: true,
+                              suffixIcon:
+                                  _isvisualizing ? Icons.stop : Icons.flight,
+                              suffixIconSize: fontVal.fonts.textSize,
+                              suffixIconColor: Colors.white,
+                              curvatureRadius: 30,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Row(
@@ -253,7 +406,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.1,
-                        width: MediaQuery.of(context).size.width * 0.65,
+                        width: MediaQuery.of(context).size.width * 0.8,
                         decoration: BoxDecoration(
                           color: colorVal.colors.shadow,
                           borderRadius: BorderRadius.circular(20),
@@ -274,54 +427,56 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                           ),
                         ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          LgElevatedButton(
-                            elevatedButtonContent: 'Reset',
-                            buttonColor: colorVal.colors.buttonColors,
-                            onpressed: () {
-                              DisplayedListProvider dlp =
-                                  Provider.of<DisplayedListProvider>(context,
-                                      listen: false);
-                              print('checking chosen places');
-                              print(widget.chosenPlaces);
-                              dlp.setDisplayedList(widget.chosenPlaces);
-                              dlp.setTourPlaces([]);
-                              GoogleMapProvider gmp =
-                                  Provider.of<GoogleMapProvider>(context,
-                                      listen: false);
-                              gmp.clearMarkers();
-                            },
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.1,
-                            fontSize: fontVal.fonts.textSize,
-                            fontColor: Colors.white,
-                            isLoading: false,
-                            isBold: false,
-                            isPrefixIcon: false,
-                            isSuffixIcon: false,
-                            curvatureRadius: 30,
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01,
-                          ),
-                          LgElevatedButton(
-                            elevatedButtonContent: 'Create',
-                            buttonColor: colorVal.colors.buttonColors,
-                            onpressed: () {},
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.1,
-                            fontSize: fontVal.fonts.textSize,
-                            fontColor: Colors.white,
-                            isLoading: false,
-                            isBold: false,
-                            isPrefixIcon: false,
-                            isSuffixIcon: false,
-                            curvatureRadius: 30,
-                          ),
-                        ],
-                      ),
+                      // Column(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     LgElevatedButton(
+                      //       elevatedButtonContent: 'Reset',
+                      //       buttonColor: colorVal.colors.buttonColors,
+                      //       onpressed: () {
+                      //         DisplayedListProvider dlp =
+                      //             Provider.of<DisplayedListProvider>(context,
+                      //                 listen: false);
+                      //         // print('checking chosen places');
+                      //         // print(dlp.selectedPlaces.length);
+                      //         // print(widget.chosenPlaces);
+                      //         dlp.setDisplayedList(
+                      //             List<PlacesModel>.from(_originalList));
+                      //         dlp.setTourPlaces([]);
+                      //         GoogleMapProvider gmp =
+                      //             Provider.of<GoogleMapProvider>(context,
+                      //                 listen: false);
+                      //         gmp.clearMarkers();
+                      //       },
+                      //       height: MediaQuery.of(context).size.height * 0.05,
+                      //       width: MediaQuery.of(context).size.width * 0.1,
+                      //       fontSize: fontVal.fonts.textSize,
+                      //       fontColor: Colors.white,
+                      //       isLoading: false,
+                      //       isBold: false,
+                      //       isPrefixIcon: false,
+                      //       isSuffixIcon: false,
+                      //       curvatureRadius: 30,
+                      //     ),
+                      //     SizedBox(
+                      //       height: MediaQuery.of(context).size.height * 0.01,
+                      //     ),
+                      //     LgElevatedButton(
+                      //       elevatedButtonContent: 'Create',
+                      //       buttonColor: colorVal.colors.buttonColors,
+                      //       onpressed: () {},
+                      //       height: MediaQuery.of(context).size.height * 0.05,
+                      //       width: MediaQuery.of(context).size.width * 0.1,
+                      //       fontSize: fontVal.fonts.textSize,
+                      //       fontColor: Colors.white,
+                      //       isLoading: false,
+                      //       isBold: false,
+                      //       isPrefixIcon: false,
+                      //       isSuffixIcon: false,
+                      //       curvatureRadius: 30,
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 )
@@ -334,19 +489,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
   }
 
   List<Widget> TourRow(List<PlacesModel> places) {
-    // print('inside tour');
-    // print(displayed);
     List<Widget> widgets = [];
-    // // List<PlacesModel> places = _tourPlaces;
-
-    // Set<PlacesModel> set2 = displayed.toSet();
-    // Set<PlacesModel> set1 = widget.chosenPlaces.toSet();
-
-    // Set<PlacesModel> difference = set1.difference(set2);
-
-    // // Convert the set back to a list
-    // List<PlacesModel> places = difference.toList();
-    // print(places);
 
     for (int i = 0; i < places.length; i++) {
       widgets.add(
