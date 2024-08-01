@@ -257,12 +257,14 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                   });
 
                                   gmp.isTourOn = true;
-                                  gmp.googleMapCustomTour();
 
                                   if (sshData.client != null &&
                                       connection.isLgConnected) {
+                                    gmp.googleMapCustomTour();
                                     await LgService(sshData)
                                         .startTour('App Tour');
+                                  } else {
+                                    await gmp.googleMapCustomTour();
                                   }
                                   gmp.isTourOn = false;
 

@@ -408,7 +408,7 @@ class GoogleMapProvider with ChangeNotifier {
   }
 
   //make a small tour-like :
-  void googleMapCustomTour() async {
+  Future<void> googleMapCustomTour() async {
     List<LatLng> points = [];
     for (Marker marker in _customTourMainMarkers) {
       points.add(marker.position);
