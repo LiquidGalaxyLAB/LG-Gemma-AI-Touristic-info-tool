@@ -91,18 +91,20 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     String rigcountString = LgService(sshData).getScreenAmount() ?? '5';
     int rigcount = int.parse(rigcountString);
     final mapProvider = Provider.of<GoogleMapProvider>(context, listen: false);
-    motionControls(
-        mapProvider.center.latitude,
-        mapProvider.center.longitude,
-        mapProvider.zoomvalue / rigcount,
-        mapProvider.tilt,
-        mapProvider.bearing);
-    if (mapProvider.center.latitude != 0 &&
-        mapProvider.center.longitude != 0 &&
-        mapProvider.isWorld == false) {
-      mapProvider.currentFullAddress = await GeocodingService()
-          .getAddressFromLatLng(
-              mapProvider.center.latitude, mapProvider.center.longitude);
+    if (mapProvider.allowSync == true) {
+      motionControls(
+          mapProvider.center.latitude,
+          mapProvider.center.longitude,
+          mapProvider.zoomvalue / rigcount,
+          mapProvider.tilt,
+          mapProvider.bearing);
+      if (mapProvider.center.latitude != 0 &&
+          mapProvider.center.longitude != 0 &&
+          mapProvider.isWorld == false) {
+        mapProvider.currentFullAddress = await GeocodingService()
+            .getAddressFromLatLng(
+                mapProvider.center.latitude, mapProvider.center.longitude);
+      }
     }
   }
 

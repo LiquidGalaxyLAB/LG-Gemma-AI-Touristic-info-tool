@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/kml/KMLModel.dart';
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
@@ -806,6 +804,10 @@ buildPlacePlacemark(
     PlacesModel place, int index, String query, BuildContext context,
     {visibility = true, viewOrbit = true, double duration = 1.2}) async {
   print('inside placemark');
+  String indx = '';
+  if (index != -1) {
+    indx = index.toString();
+  }
   final sshData = Provider.of<SSHprovider>(context, listen: false);
 
   String content = '';
@@ -919,7 +921,7 @@ buildPlacePlacemark(
             <br>
 
               <div style="text-align:center;">
-                <h2> $index. $placeName</h2>
+                <h2> $indx. $placeName</h2>
               </div>
 
               <div style="text-align:center;">
@@ -1272,162 +1274,6 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
   }
 }
 
-// buildQueryTour(
-//     BuildContext context, String query, List<PlacesModel> pois) async {
-//   List<LookAtModel> lookAts = [];
-//   List<String> ballonContents = [];
-//   List<String> poisNames = [];
-
-//   for (int i = 0; i < pois.length; i++) {
-//     String placeName = escapeHtml(pois[i].name);
-//     poisNames.add(placeName);
-//     LookAtModel lookAt = LookAtModel(
-//       longitude: pois[i].longitude,
-//       latitude: pois[i].latitude,
-//       range: '10000',
-//       tilt: '45',
-//       altitude: 0,
-//       heading: '0',
-//       altitudeMode: 'relativeToGround',
-//     );
-//     lookAts.add(lookAt);
-//     String countryFlagImg;
-//     String countryCode = countryMap[pois[i].country] ?? 'None';
-//     String flagDiv;
-//     // if (countryCode != 'None') {
-//     //   String cc = countryCode.toLowerCase();
-//     //   countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-//     // } else {
-//     //   countryFlagImg = '';
-//     // }
-//     if (countryCode != 'None') {
-//       String cc = countryCode.toLowerCase();
-//       countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-
-//       flagDiv = '''
-//               <div style="text-align:center;">
-//                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
-//               </ d iv>
-// ''';
-//     } else {
-//       countryFlagImg = '';
-//       flagDiv = '<br></br>';
-//     }
-//     String balloonContent = '''
-//  <style>
-//             .balloon {
-//               background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
-//               color: white;
-//               padding: 10px;
-//               border-radius: 20px;
-//               font-family: Montserrat, sans-serif;
-//             }
-//             .balloon h1 {
-//               font-size: 30px;
-//               color: #ffff;
-//             }
-//              .balloon h2 {
-//               font-size: 24px;
-//               color: #ffff;
-//             }
-//             .balloon h3 {
-//               font-size: 20px;
-//               color: #ffff;
-//             }
-
-//             .balloon pp{
-//               font-size: 18px;
-//               color: #ffff;
-//             }
-//             .balloon p {
-//               font-size: 14px;
-//               color: #ffff;
-//             }
-//             .balloon b {
-//               color: #ffff;
-//             }
-//             .details {
-//               background-color: rgba(255, 255, 255, 1);
-//               color: #000;
-//               padding: 10px;
-//               border-radius: 10px;
-//               margin-top: 10px;
-//               text-align: left;
-//             }
-//            .container-logo {
-//             width: 100px;
-//             height: 50px;
-//             background-color: white;
-//             padding: 20px;
-//             border-radius: 10px;
-//             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-//             text-align: center;
-//             margin: auto;
-//           }
-//           .logo img {
-//             max-width: 100%; /* Ensure image fits within container */
-//             max-height: 100%; /* Ensure image fits within container */
-//             display: block;
-//             margin: auto;
-//             border-radius: 10px; /* Optional rounded corners for the image */
-//           }
-//   </style>
-
-//           <div class="balloon">
-
-//               <div style="text-align:center;">
-//                 <h1>$query</h1>
-//               </div>
-
-//               <br>
-
-//               <div style="text-align:center;">
-//                 <h2> ${i + 1}. ${escapeHtml(pois[i].name)}</h2>
-//               </div>
-
-//               <div style="text-align:center;">
-//                 <h3>${escapeHtml(pois[i].city ?? '')}</h3>
-//                 <h3>${escapeHtml(pois[i].country ?? '')}</h3>
-//               </div>
-
-//               $flagDiv
-
-//               <div style="text-align:justify;">
-//                 <pp>${escapeHtml(pois[i].description ?? '')}</pp>
-//               </div>
-
-//               <div class="details">
-//                 <p><b>Address:</b>${escapeHtml(pois[i].address)}</p>
-//                 <p><b>Average Ratings:</b>${pois[i].ratings ?? ''}</p>
-//                 <p><b>Pricing:</b>${escapeHtml(pois[i].price ?? '')}</p>
-//                 <p><b>Amenities:</b>${escapeHtml(pois[i].amenities ?? '')}</p>
-//                  <p style="text-align: center;"><a href="${escapeHtml(pois[i].sourceLink ?? '')}">source link</a></p>
-//               </div>
-//           </div>
-// ''';
-//     ballonContents.add(balloonContent);
-//   }
-
-//   TourModel tour = TourModel(
-//     name: 'app-tour',
-//     numberOfPlaces: pois.length,
-//     lookAtCoordinates: lookAts,
-//     ballonContentOfPlacemarks: ballonContents,
-//     poisNames: poisNames,
-//   );
-
-//   final sshData = Provider.of<SSHprovider>(context, listen: false);
-//   final kmlPlacemark = KMLModel(
-//     name: 'app-tour',
-//     content: tour.tourTag(),
-//   );
-//   try {
-//     await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'app-tour');
-//   } catch (e) {
-//     print(e);
-//   }
-// }
-
 buildQueryTour(
     BuildContext context, String query, List<PlacesModel> pois) async {
   List<LookAtModel> lookAts = [];
@@ -1634,6 +1480,152 @@ buildQueryTour(
       );
       await Future.delayed(Duration(seconds: 60));
     }
+  } catch (e) {
+    print(e);
+  }
+}
+
+buildCustomTour(BuildContext context, List<PlacesModel> pois) async {
+  List<LookAtModel> lookAts = [];
+  List<String> poisNames = [];
+  String placesData = '';
+
+  for (int i = 0; i < pois.length; i++) {
+    String placeName = escapeHtml(pois[i].name);
+    poisNames.add(placeName);
+    LookAtModel lookAt = LookAtModel(
+      longitude: pois[i].longitude,
+      latitude: pois[i].latitude,
+      range: '500',
+      tilt: '45',
+      altitude: 0,
+      heading: '300',
+      altitudeMode: 'relativeToGround',
+    );
+    lookAts.add(lookAt);
+    placesData += '<p>${i + 1}. ${escapeHtml(pois[i].name)}</p>';
+  }
+
+  String balloonContent = '''
+    <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LG Gemma AI Touristic Info Tool</title>
+    <style>
+            .balloon {
+              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
+              color: white;
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Montserrat, sans-serif;
+            }
+            .balloon h1 {
+              font-size: 30px;
+              color: #ffff;
+            }
+             .balloon h2 {
+              font-size: 24px;
+              color: #ffff;
+            }
+            .balloon h3 {
+              font-size: 20px;
+              color: #ffff;
+            }
+            
+            
+            .balloon pp{
+              font-size: 18px;
+              color: #ffff;
+            }
+            .balloon p {
+              font-size: 14px;
+              color: #ffff;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+              text-align: left;
+            }
+           .container-logo {
+            width: 100px; 
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto; 
+          }
+          .logo img {
+            max-width: 100%; /* Ensure image fits within container */
+            max-height: 100%; /* Ensure image fits within container */
+            display: block;
+            margin: auto;
+            border-radius: 10px; /* Optional rounded corners for the image */
+          }
+  </style>
+</head>
+<body>
+          <div class="balloon">
+              <div style="text-align:center;">
+                <h1>Your Custom Tour Pathway</h1>
+              </div>
+
+              <br>
+
+
+              <div class="details">
+               $placesData
+              </div>
+          </div>
+</body>
+</html>
+''';
+
+  ScreenOverlayModel screenOverlay = ScreenOverlayModel(
+    overlayID: 'custom-overlay',
+    name: "",
+    overlayX: 0,
+    overlayY: 1,
+    screenX: 2,
+    screenY: 2,
+    sizeX: 0,
+    sizeY: 0,
+    content: balloonContent,
+  );
+
+  String kmlName = 'custom-tour-Balloon';
+  String ballooncontent = '<name>customTourBalloon</name>';
+
+  final kmlBalloon = KMLModel(
+    name: kmlName,
+    content: ballooncontent,
+    screenOverlay: screenOverlay.balloonTag,
+  );
+
+  TourModel tour = TourModel(
+    name: 'app-tour',
+    numberOfPlaces: pois.length,
+    lookAtCoordinates: lookAts,
+    poisNames: poisNames,
+  );
+
+  final sshData = Provider.of<SSHprovider>(context, listen: false);
+  final kmlPlacemark = KMLModel(name: 'app-tour', content: tour.lineTourTag());
+
+  try {
+    await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'app-tour');
+    await LgService(sshData).sendKMLToSlave(
+      LgService(sshData).balloonScreen,
+      kmlBalloon.body,
+    );
   } catch (e) {
     print(e);
   }

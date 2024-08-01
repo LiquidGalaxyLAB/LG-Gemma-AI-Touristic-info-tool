@@ -3,10 +3,13 @@ import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/customization_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
+import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
+import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/displayed_fav_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -74,7 +77,7 @@ void showCustomizationDialog(
                         icon: Icon(CupertinoIcons.xmark_circle_fill),
                         color: LgAppColors.lgColor2,
                         iconSize: fontVal.fonts.headingSize,
-                        onPressed: () {
+                        onPressed: () async {
                           DisplayedListProvider dlp =
                               Provider.of<DisplayedListProvider>(context,
                                   listen: false);
@@ -86,10 +89,24 @@ void showCustomizationDialog(
                           GoogleMapProvider gmp =
                               Provider.of<GoogleMapProvider>(context,
                                   listen: false);
+                          gmp.allowSync = true;
                           gmp.clearMarkers();
                           gmp.clearPolylines();
                           gmp.clearCustomMarkers();
                           gmp.clearPolylinesMap();
+
+                          final sshData =
+                              Provider.of<SSHprovider>(context, listen: false);
+
+                          Connectionprovider connection =
+                              Provider.of<Connectionprovider>(context,
+                                  listen: false);
+
+                          if (sshData.client != null &&
+                              connection.isLgConnected) {
+                            await LgService(sshData).clearKml();
+                          }
+
                           Navigator.pop(context);
                         },
                       )

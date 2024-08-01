@@ -43,6 +43,7 @@ class GoogleMapProvider with ChangeNotifier {
   BitmapDescriptor? _iconMarker;
   bool _isWorld = true;
   bool _isTourOn = false;
+  bool _allowSync = true;
 
   // Getters for camera values
 
@@ -60,6 +61,12 @@ class GoogleMapProvider with ChangeNotifier {
   double get pinPillPosition => _pinPillPosition;
   bool get isWorld => _isWorld;
   bool get isTourOn => _isTourOn;
+  bool get allowSync => _allowSync;
+
+  set allowSync(bool value) {
+    _allowSync = value;
+    notifyListeners();
+  }
 
   set isTourOn(bool value) {
     _isTourOn = value;
@@ -401,7 +408,7 @@ class GoogleMapProvider with ChangeNotifier {
   }
 
   //make a small tour-like :
-  Future<void> googleMapCustomTour() async {
+  void googleMapCustomTour() async {
     List<LatLng> points = [];
     for (Marker marker in _customTourMainMarkers) {
       points.add(marker.position);

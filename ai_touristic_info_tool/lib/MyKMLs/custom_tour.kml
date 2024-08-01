@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+  <Document>
+    <name>Custom Tour with Airplane Icons</name>
+
+    <!-- Define Styles for Icons -->
+    <Style id="pointIcon">
+      <IconStyle>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/shapes/airports.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="lineIcon">
+      <LineStyle>
+        <color>ff0000ff</color> <!-- Line color (optional) -->
+        <width>2</width> <!-- Line width (optional) -->
+      </LineStyle>
+    </Style>
+
+    <!-- Define Tour -->
+    <gx:Tour>
+      <name>Custom Tour</name>
+      <gx:Playlist>
+        <!-- First point on the line -->
+        <gx:FlyTo>
+          <gx:duration>5.0</gx:duration>
+          <gx:flyToMode>smooth</gx:flyToMode>
+          <LookAt>
+            <longitude>-122.0822035425683</longitude>
+            <latitude>37.42228990140251</latitude>
+            <altitude>0</altitude>
+            <heading>300</heading>
+            <tilt>45</tilt>
+            <range>500</range>
+          </LookAt>
+        </gx:FlyTo>
+
+        <!-- Second point on the line -->
+        <gx:FlyTo>
+          <gx:duration>5.0</gx:duration>
+          <gx:flyToMode>smooth</gx:flyToMode>
+          <LookAt>
+            <longitude>-122.0832035425683</longitude>
+            <latitude>37.42278990140251</latitude>
+            <altitude>0</altitude>
+            <heading>300</heading>
+            <tilt>45</tilt>
+            <range>500</range>
+          </LookAt>
+        </gx:FlyTo>
+
+        <!-- Third point on the line -->
+        <gx:FlyTo>
+          <gx:duration>5.0</gx:duration>
+          <gx:flyToMode>smooth</gx:flyToMode>
+          <LookAt>
+            <longitude>-122.0842035425683</longitude>
+            <latitude>37.42308990140251</latitude>
+            <altitude>0</altitude>
+            <heading>300</heading>
+            <tilt>45</tilt>
+            <range>500</range>
+          </LookAt>
+        </gx:FlyTo>
+
+        <!-- Fourth point on the line -->
+        <gx:FlyTo>
+          <gx:duration>5.0</gx:duration>
+          <gx:flyToMode>smooth</gx:flyToMode>
+          <LookAt>
+            <longitude>-122.0852035425683</longitude>
+            <latitude>37.42328990140251</latitude>
+            <altitude>0</altitude>
+            <heading>300</heading>
+            <tilt>45</tilt>
+            <range>500</range>
+          </LookAt>
+        </gx:FlyTo>
+      </gx:Playlist>
+    </gx:Tour>
+
+        <!-- Define Placemarks -->
+    <Placemark>
+      <name>Point 1</name>
+      <styleUrl>#pointIcon</styleUrl>
+      <Point>
+        <coordinates>-122.0822035425683,37.42228990140251,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Point 2</name>
+      <styleUrl>#pointIcon</styleUrl>
+      <Point>
+        <coordinates>-122.0852035425683,37.42328990140251,0</coordinates>
+      </Point>
+    </Placemark>
+
+    <!-- Airplane icons along the path -->
+    <Placemark>
+      <styleUrl>#pointIcon</styleUrl>
+      <Point>
+        <coordinates>-122.0822035425683,37.42228990140251,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <styleUrl>#pointIcon</styleUrl>
+      <Point>
+        <coordinates>-122.0832035425683,37.42278990140251,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <styleUrl>#pointIcon</styleUrl>
+      <Point>
+        <coordinates>-122.0842035425683,37.42308990140251,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <styleUrl>#pointIcon</styleUrl>
+      <Point>
+        <coordinates>-122.0852035425683,37.42328990140251,0</coordinates>
+      </Point>
+    </Placemark>
+
+
+     <!-- Path represented by airplane icons -->
+    <Placemark>
+      <name>Path</name>
+      <styleUrl>#lineIcon</styleUrl>
+      <LineString>
+        <coordinates>
+          -122.0822035425683,37.42228990140251,0
+          -122.0832035425683,37.42278990140251,0
+          -122.0842035425683,37.42308990140251,0
+          -122.0852035425683,37.42328990140251,0
+        </coordinates>
+      </LineString>
+    </Placemark>
+
+  </Document>
+</kml>
