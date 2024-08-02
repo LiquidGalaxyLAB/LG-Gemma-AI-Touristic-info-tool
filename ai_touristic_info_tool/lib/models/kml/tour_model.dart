@@ -8,6 +8,8 @@ class TourModel {
   List<LookAtModel> lookAtCoordinates;
   // List<String> ballonContentOfPlacemarks;
   List<String> poisNames;
+  List<LatLng> allPathPoints = [];
+  List<LatLng> interpolatedPoints = [];
 
   TourModel({
     required this.name,
@@ -17,12 +19,26 @@ class TourModel {
     required this.poisNames,
   });
 
-  String iconStyleOnlyTag(String hrefIcon) {
+  String styleOnlyTag(String placemarkIndex) {
+    String content = '';
+    content += '''
+      <Style id="placemark-$placemarkIndex-style">
+      <IconStyle>
+        <Icon>
+          <href>https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+''';
+    return content;
+  }
+
+  String iconStyleOnlyTag(String hrefIcon, String styleID) {
     String content = '';
     //String placemarkIndex
     //<Style id="placemark-$placemarkIndex-style">
     content += '''
-      <Style id="pointIcon">
+      <Style id="$styleID">
       <IconStyle>
         <Icon>
           <href>$hrefIcon</href>
@@ -36,7 +52,7 @@ class TourModel {
   String lineStyleOnlyTag() {
     String content = '';
     content += '''
- <Style id="lineIcon">
+ <Style id="lineID">
       <LineStyle>
         <color>ff0000ff</color> 
         <width>3</width> 
@@ -121,14 +137,43 @@ class TourModel {
   </gx:Wait>
 ''';
 
-  String pointPlacemarkOnlyTag(
+  String placemarkOnlyTag(
       String placemarkIndex, String placemarkName, double lat, double long) {
     String content = '';
-    //  <styleUrl>#placemark-$placemarkIndex-style</styleUrl>
     content += '''
 <Placemark id="placemark-$placemarkIndex-Id">
       <name>$placemarkName</name>
-      <styleUrl>#pointIcon</styleUrl>
+      <styleUrl>#placemark-$placemarkIndex-style</styleUrl>
+      <Point>
+        <coordinates>$long,$lat,0</coordinates>
+      </Point>
+    </Placemark>
+''';
+    return content;
+  }
+
+  String pointPlacemarkOnlyTag(
+      String placemarkName, double lat, double long, String styleID) {
+    String content = '';
+    //  <styleUrl>#placemark-$placemarkIndex-style</styleUrl>
+    content += '''
+<Placemark>
+      <name>$placemarkName</name>
+      <styleUrl>#$styleID</styleUrl>
+      <Point>
+        <coordinates>$long,$lat,0</coordinates>
+      </Point>
+    </Placemark>
+''';
+    return content;
+  }
+
+  String midPointPlacemarkOnlyTag(double lat, double long, String styleID) {
+    String content = '';
+    //  <styleUrl>#placemark-$placemarkIndex-style</styleUrl>
+    content += '''
+<Placemark>
+      <styleUrl>#$styleID</styleUrl>
       <Point>
         <coordinates>$long,$lat,0</coordinates>
       </Point>
@@ -139,18 +184,20 @@ class TourModel {
 
   String linePlacemarkOnlyTag(List<LatLng> coordinates) {
     String content = '';
-    List<String> coordinatesString = [];
+    String coordinatesString = '';
     for (int i = 0; i < coordinates.length; i++) {
-      coordinatesString
-          .add('${coordinates[i].longitude},${coordinates[i].latitude},0');
+      coordinatesString +=
+          '${coordinates[i].longitude},${coordinates[i].latitude},0';
+      coordinatesString += '\n';
     }
+    print(coordinatesString);
     content += '''
-<Placemark id="=line-string-Id">
-      <name>Line Path</name>
-      <styleUrl>#lineIcon</styleUrl>
+<Placemark>
+      <name>Path</name>
+      <styleUrl>#lineID</styleUrl>
      <LineString>
         <coordinates>
-        $coordinates
+        $coordinatesString
           </coordinates>
       </LineString>
     </Placemark>
@@ -172,8 +219,8 @@ class TourModel {
     return interpolatedPoints;
   }
 
-  List<LatLng> getInterpolatedPath() {
-    List<LatLng> allPoints = [];
+  setInterpolatedPath() {
+    //List<LatLng> allPoints = [];
 
     for (int i = 0; i < numberOfPlaces - 1; i++) {
       LatLng main_coords_i =
@@ -181,15 +228,15 @@ class TourModel {
       LatLng main_coords_i1 = LatLng(lookAtCoordinates[i + 1].latitude,
           lookAtCoordinates[i + 1].longitude);
 
-      allPoints.add(main_coords_i);
-      allPoints.addAll(interpolatePoints(main_coords_i, main_coords_i1));
+      allPathPoints.add(main_coords_i);
+      allPathPoints.addAll(interpolatePoints(main_coords_i, main_coords_i1));
+      interpolatedPoints
+          .addAll(interpolatePoints(main_coords_i, main_coords_i1));
     }
 
     // Add the last place
-    allPoints.add(LatLng(lookAtCoordinates[numberOfPlaces - 1].latitude,
+    allPathPoints.add(LatLng(lookAtCoordinates[numberOfPlaces - 1].latitude,
         lookAtCoordinates[numberOfPlaces - 1].longitude));
-
-    return allPoints;
   }
 
   String tourTag() {
@@ -197,9 +244,7 @@ class TourModel {
 
     //1. Style
     for (int i = 0; i < numberOfPlaces; i++) {
-      // content += iconStyleOnlyTag(i.toString());
-      content += iconStyleOnlyTag(
-          "https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true");
+      content += styleOnlyTag(i.toString());
     }
 
     //2. Tour
@@ -251,7 +296,7 @@ class TourModel {
 
     // 3. Placemarks
     for (int i = 0; i < numberOfPlaces; i++) {
-      content += pointPlacemarkOnlyTag(i.toString(), poisNames[i],
+      content += placemarkOnlyTag(i.toString(), poisNames[i],
           lookAtCoordinates[i].latitude, lookAtCoordinates[i].longitude);
     }
 
@@ -260,16 +305,23 @@ class TourModel {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
   String lineTourTag() {
+    setInterpolatedPath();
     String content = '';
 
     //1. Style
-    for (int i = 0; i < numberOfPlaces; i++) {
-      content += iconStyleOnlyTag(
-          "https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true");
-    }
-    for (int i = 0; i < numberOfPlaces; i++) {
-      content += lineStyleOnlyTag();
-    }
+
+    content += iconStyleOnlyTag(
+        "https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/airplane.png?raw=true",
+        "lineIcon");
+
+    content += iconStyleOnlyTag(
+        "https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/placemark_pin.png?raw=true",
+        "pointIcon");
+
+    content += lineStyleOnlyTag();
+
+    // // get interpolated points
+    // List<List<LatLng>> allPoints = getInterpolatedPath();
 
     //2. Tour
     content += '''
@@ -278,9 +330,9 @@ class TourModel {
         <gx:Playlist>
 ''';
 
-    for (int i = 0; i < numberOfPlaces; i++) {
-      content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
-          lookAtCoordinates[i].longitude, 'smooth', 5.0, '500', '45', '300', 0);
+    for (int i = 0; i < allPathPoints.length; i++) {
+      content += flyToLookAtOnlyTag(allPathPoints[i].latitude,
+          allPathPoints[i].longitude, 'smooth', 5.0, '500', '45', '300', 0);
     }
 
     content += '''
@@ -289,13 +341,22 @@ class TourModel {
 ''';
 
     // 3. Places Placemarks
+    // all points
     for (int i = 0; i < numberOfPlaces; i++) {
-      content += pointPlacemarkOnlyTag(i.toString(), poisNames[i],
-          lookAtCoordinates[i].latitude, lookAtCoordinates[i].longitude);
+      content += pointPlacemarkOnlyTag(
+          poisNames[i],
+          lookAtCoordinates[i].latitude,
+          lookAtCoordinates[i].longitude,
+          'pointIcon');
+    }
+    // interpolated
+    for (int i = 0; i < interpolatedPoints.length; i++) {
+      content += midPointPlacemarkOnlyTag(
+          allPathPoints[i].latitude, allPathPoints[i].longitude, 'lineIcon');
     }
 
     // 4. Line Placemarks
-    content += linePlacemarkOnlyTag(getInterpolatedPath());
+    content += linePlacemarkOnlyTag(allPathPoints);
 
     return content;
   }

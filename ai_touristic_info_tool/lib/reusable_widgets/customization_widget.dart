@@ -260,17 +260,36 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
 
                                   if (sshData.client != null &&
                                       connection.isLgConnected) {
-                                    gmp.googleMapCustomTour();
-                                    await LgService(sshData)
-                                        .startTour('App Tour');
-                                  } else {
-                                    await gmp.googleMapCustomTour();
-                                  }
-                                  gmp.isTourOn = false;
+                                    await Future.wait([
+                                      gmp.googleMapCustomTour(),
+                                      LgService(sshData).startTour('App Tour')
+                                    ]);
 
-                                  setState(() {
-                                    _isvisualizing = false;
-                                  });
+                                    gmp.isTourOn = false;
+                                    setState(() {
+                                      _isvisualizing = false;
+                                    });
+                                    // await gmp.googleMapCustomTour();
+                                    // await LgService(sshData)
+                                    //     .startTour('App Tour')
+                                    //     .then((value) {
+                                    //   gmp.isTourOn = false;
+
+                                    //   setState(() {
+                                    //     _isvisualizing = false;
+                                    //   });
+                                    // });
+                                  } else {
+                                    await gmp
+                                        .googleMapCustomTour()
+                                        .then((value) {
+                                      gmp.isTourOn = false;
+
+                                      setState(() {
+                                        _isvisualizing = false;
+                                      });
+                                    });
+                                  }
                                 }
                                 gmp.allowSync = true;
                               },

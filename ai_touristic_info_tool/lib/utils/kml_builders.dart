@@ -1620,8 +1620,11 @@ buildCustomTour(BuildContext context, List<PlacesModel> pois) async {
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   final kmlPlacemark = KMLModel(name: 'app-tour', content: tour.lineTourTag());
 
+  print(kmlPlacemark.body);
+
   try {
     await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'app-tour');
+    // await LgService(sshData).sendKmlPlacemarks(kmlTemp, 'app-tour');
     await LgService(sshData).sendKMLToSlave(
       LgService(sshData).balloonScreen,
       kmlBalloon.body,
