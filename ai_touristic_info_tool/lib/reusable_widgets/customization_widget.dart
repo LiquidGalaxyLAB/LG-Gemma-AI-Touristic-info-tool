@@ -232,7 +232,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                 final sshData = Provider.of<SSHprovider>(
                                     context,
                                     listen: false);
-
                                 Connectionprovider connection =
                                     Provider.of<Connectionprovider>(context,
                                         listen: false);
@@ -264,34 +263,80 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                       gmp.googleMapCustomTour(),
                                       LgService(sshData).startTour('App Tour')
                                     ]);
-
-                                    gmp.isTourOn = false;
-                                    setState(() {
-                                      _isvisualizing = false;
-                                    });
-                                    // await gmp.googleMapCustomTour();
-                                    // await LgService(sshData)
-                                    //     .startTour('App Tour')
-                                    //     .then((value) {
-                                    //   gmp.isTourOn = false;
-
-                                    //   setState(() {
-                                    //     _isvisualizing = false;
-                                    //   });
-                                    // });
                                   } else {
-                                    await gmp
-                                        .googleMapCustomTour()
-                                        .then((value) {
-                                      gmp.isTourOn = false;
-
-                                      setState(() {
-                                        _isvisualizing = false;
-                                      });
-                                    });
+                                    await gmp.googleMapCustomTour();
                                   }
+
+                                  gmp.isTourOn = false;
+                                  setState(() {
+                                    _isvisualizing = false;
+                                  });
                                 }
+
                                 gmp.allowSync = true;
+                                // final sshData = Provider.of<SSHprovider>(
+                                //     context,
+                                //     listen: false);
+
+                                // Connectionprovider connection =
+                                //     Provider.of<Connectionprovider>(context,
+                                //         listen: false);
+                                // GoogleMapProvider gmp =
+                                //     Provider.of<GoogleMapProvider>(context,
+                                //         listen: false);
+                                // gmp.allowSync = false;
+
+                                // if (_isvisualizing) {
+                                //   gmp.isTourOn = false;
+                                //   setState(() {
+                                //     _isvisualizing = false;
+                                //   });
+
+                                //   if (sshData.client != null &&
+                                //       connection.isLgConnected) {
+                                //     await LgService(sshData).stopTour();
+                                //   }
+                                // } else {
+                                //   setState(() {
+                                //     _isvisualizing = true;
+                                //   });
+
+                                //   gmp.isTourOn = true;
+
+                                //   if (sshData.client != null &&
+                                //       connection.isLgConnected) {
+                                //     await Future.wait([
+                                //       gmp.googleMapCustomTour(),
+                                //       LgService(sshData).startTour('App Tour')
+                                //     ]);
+
+                                //     gmp.isTourOn = false;
+                                //     setState(() {
+                                //       _isvisualizing = false;
+                                //     });
+                                //     // await gmp.googleMapCustomTour();
+                                //     // await LgService(sshData)
+                                //     //     .startTour('App Tour')
+                                //     //     .then((value) {
+                                //     //   gmp.isTourOn = false;
+
+                                //     //   setState(() {
+                                //     //     _isvisualizing = false;
+                                //     //   });
+                                //     // });
+                                //   } else {
+                                //     await gmp
+                                //         .googleMapCustomTour()
+                                //         .then((value) {
+                                //       gmp.isTourOn = false;
+
+                                //       setState(() {
+                                //         _isvisualizing = false;
+                                //       });
+                                //     });
+                                //   }
+                                // }
+                                // gmp.allowSync = true;
                               },
                               height: MediaQuery.of(context).size.height * 0.05,
                               width: MediaQuery.of(context).size.width * 0.14,

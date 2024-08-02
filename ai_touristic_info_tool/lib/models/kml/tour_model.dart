@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/orbit_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -205,12 +207,49 @@ class TourModel {
     return content;
   }
 
-  List<LatLng> interpolatePoints(LatLng start, LatLng end) {
-    List<LatLng> interpolatedPoints = [];
-    double dLat = (end.latitude - start.latitude) / (20 + 1);
-    double dLng = (end.longitude - start.longitude) / (20 + 1);
+  double calculateDistance(LatLng start, LatLng end) {
+    const double earthRadius = 6371000; // Earth's radius in meters
 
-    for (int i = 1; i <= 20; i++) {
+    double dLat = _toRadians(end.latitude - start.latitude);
+    double dLng = _toRadians(end.longitude - start.longitude);
+
+    double a = sin(dLat / 2) * sin(dLat / 2) +
+        cos(_toRadians(start.latitude)) *
+            cos(_toRadians(end.latitude)) *
+            sin(dLng / 2) *
+            sin(dLng / 2);
+
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    return earthRadius * c; // Distance in meters
+  }
+
+  double _toRadians(double degree) {
+    return degree * pi / 180;
+  }
+
+  int determineNumPoints(double distance) {
+    print('distance:');
+    //15 718 508.08362816    2 037 454.8680823362
+    print(distance);
+    if (distance < 2037454) {
+      return 5;
+    } else if (distance < 15718508) {
+      return 10;
+    } else {
+      return 20;
+    }
+  }
+
+  List<LatLng> interpolatePoints(LatLng start, LatLng end) {
+    double distance = calculateDistance(start, end);
+    int numPoints = determineNumPoints(distance);
+
+    List<LatLng> interpolatedPoints = [];
+    double dLat = (end.latitude - start.latitude) / (numPoints + 1);
+    double dLng = (end.longitude - start.longitude) / (numPoints + 1);
+
+    for (int i = 1; i <= numPoints; i++) {
       double lat = start.latitude + dLat * i;
       double lng = start.longitude + dLng * i;
       interpolatedPoints.add(LatLng(lat, lng));
@@ -330,9 +369,47 @@ class TourModel {
         <gx:Playlist>
 ''';
 
+    content += flyToLookAtOnlyTag(
+        lookAtCoordinates[0].latitude,
+        lookAtCoordinates[0].longitude,
+        'bounce',
+        1.0,
+        '3000000',
+        '30',
+        '90',
+        1000);
+
     for (int i = 0; i < allPathPoints.length; i++) {
-      content += flyToLookAtOnlyTag(allPathPoints[i].latitude,
-          allPathPoints[i].longitude, 'smooth', 5.0, '500', '45', '300', 0);
+      // content += flyToLookAtOnlyTag(
+      //     allPathPoints[i].latitude,
+      //     allPathPoints[i].longitude,
+      //     'smooth',
+      //     2.0,
+      //     '3000000',
+      //     '15',
+      //     '270',
+      //     1000);
+      double heading = 90; // Default heading
+
+      if (i > 0) {
+        // Calculate heading based on movement direction
+        if (allPathPoints[i].longitude < allPathPoints[i - 1].longitude) {
+          heading = 270; // Moving west
+        } else {
+          heading = 90; // Moving noth
+        }
+      }
+
+      content += flyToLookAtOnlyTag(
+        allPathPoints[i].latitude,
+        allPathPoints[i].longitude,
+        'smooth',
+        2.0,
+        '3000000',
+        '30',
+        heading.toString(),
+        1000,
+      );
     }
 
     content += '''
