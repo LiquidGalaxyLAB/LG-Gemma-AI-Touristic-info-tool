@@ -108,7 +108,7 @@ class ScreenOverlayModel {
         <overlayXY x="$overlayX" y="$overlayY" xunits="fraction" yunits="fraction"/>
         <screenXY x="$screenX" y="$screenY" xunits="fraction" yunits="fraction"/>
         <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
-        <size x="$sizeX" y="$sizeY" xunits="pixels" yunits="pixels"/>
+        <size x="$sizeX" y="$sizeY" xunits="fraction" yunits="fraction"/>
         <description>
         <![CDATA[
           $content
@@ -124,7 +124,7 @@ class ScreenOverlayModel {
         <overlayXY x="$overlayX" y="$overlayY" xunits="fraction" yunits="fraction"/>
         <screenXY x="$screenX" y="$screenY" xunits="fraction" yunits="fraction"/>
         <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
-        <size x="$sizeX" y="$sizeY" xunits="pixels" yunits="pixels"/>
+        <size x="$sizeX" y="$sizeY" xunits="fraction" yunits="fraction"/>
         <visibility>0</visibility>
         <description>
         <![CDATA[

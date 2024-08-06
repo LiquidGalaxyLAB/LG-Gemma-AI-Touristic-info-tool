@@ -162,8 +162,8 @@ buildAppBalloonOverlay(BuildContext context) async {
     overlayY: 1,
     screenX: 1,
     screenY: 1,
-    sizeX: 0,
-    sizeY: 0,
+    sizeX: 0.5,
+    sizeY: 0.5,
     content: balloonContent,
   );
   /*
@@ -358,8 +358,8 @@ buildWebsiteLinkBallon(String placeName, String? city, String? country,
     overlayY: 1,
     screenX: 1,
     screenY: 1,
-    sizeX: 0,
-    sizeY: 0,
+    sizeX: 0.5,
+    sizeY: 0.5,
     content: balloonContent,
   );
 
@@ -549,8 +549,8 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
     overlayY: 1,
     screenX: 1,
     screenY: 1,
-    sizeX: 0,
-    sizeY: 0,
+    sizeX: 0.5,
+    sizeY: 0.5,
     content: balloonContent,
   );
 
@@ -761,8 +761,8 @@ buildAllLinksBalloon(String placeName, String? city, String? country,
     overlayY: 1,
     screenX: 1,
     screenY: 1,
-    sizeX: 0,
-    sizeY: 0,
+    sizeX: 0.5,
+    sizeY: 0.5,
     content: balloonContent,
   );
   /*
@@ -937,8 +937,8 @@ buildQueryPlacemark(
     overlayY: 1,
     screenX: 1,
     screenY: 1,
-    sizeX: 0,
-    sizeY: 0,
+    sizeX: 0.5,
+    sizeY: 0.5,
     content: balloonContent,
   );
   String kmlName = 'query-Balloon';
@@ -1193,8 +1193,8 @@ buildPlacePlacemark(
     overlayY: 1,
     screenX: 1,
     screenY: 1,
-    sizeX: 0,
-    sizeY: 0,
+    sizeX: 0.5,
+    sizeY: 0.5,
     content: balloonContent,
   );
 
@@ -1469,8 +1469,8 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
     overlayY: 1,
     screenX: 1,
     screenY: 1,
-    sizeX: 0,
-    sizeY: 0,
+    sizeX: 0.5,
+    sizeY: 0.5,
     content: balloonContent,
   );
 
@@ -1675,8 +1675,8 @@ buildQueryTour(
       overlayY: 1,
       screenX: 2,
       screenY: 2,
-      sizeX: 0,
-      sizeY: 0,
+      sizeX: 0.5,
+      sizeY: 0.5,
       content: ballonContents[i],
     );
     screenOverlays.add(screenOverlay);
@@ -1902,8 +1902,8 @@ Future<double> buildCustomTour(
     overlayY: 1,
     screenX: 2,
     screenY: 2,
-    sizeX: 0,
-    sizeY: 0,
+    sizeX: 0.5,
+    sizeY: 0.5,
     content: balloonContent,
   );
 
