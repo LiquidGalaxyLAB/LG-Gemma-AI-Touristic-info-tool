@@ -1,4 +1,5 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/kml/KMLModel.dart';
 import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/orbit_model.dart';
@@ -8,8 +9,11 @@ import 'package:ai_touristic_info_tool/models/kml/screen_overlay_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/tour_model.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
 
 String escapeHtml(String input) {
@@ -23,6 +27,35 @@ String escapeHtml(String input) {
 }
 
 buildAppBalloonOverlay(BuildContext context) async {
+  FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
+  ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
+  double textSize = fonts.fonts.textSize;
+  double titleSize = fonts.fonts.titleSize;
+  double headSize = fonts.fonts.headingSize;
+
+  String primaryColor;
+
+  if (SettingsSharedPref.getTheme() == 'light') {
+    print('light');
+    primaryColor = 'black';
+  } else {
+    print('dark');
+    primaryColor = 'white';
+  }
+
+  print('primaryColor');
+  print(primaryColor);
+  String buttonColor =
+      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  String grad1 =
+      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+  String grad2 =
+      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+  String grad3 =
+      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+  String grad4 =
+      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   String balloonContent = '''
     <html lang="en">
@@ -31,44 +64,49 @@ buildAppBalloonOverlay(BuildContext context) async {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LG Gemma AI Touristic Info Tool</title>
     <style>
-        .balloon {
-            background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
-            color: white;
-            padding: 10px;
-            border-radius: 20px;
-            font-family: Montserrat, sans-serif;
-        }
-        .balloon h1 {
-            font-size: 30px;
-            color: #ffff;
-        }
-        .balloon h2 {
-            font-size: 24px;
-            color: #ffff;
-        }
-        .balloon h3 {
-            font-size: 20px;
-            color: #ffff;
-        }
-        .balloon pp {
-            font-size: 18px;
-            color: #ffff;
-        }
-        .balloon p {
-            font-size: 14px;
-            color: #ffff;
-        }
+      .balloon {
+               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Lato, sans-serif;
+            }
+            .balloon h1 {
+              font-size: ${titleSize}px;
+              color: $primaryColor;
+            }
+             .balloon h2 {
+              font-size: ${headSize}px;
+              color: $primaryColor;
+            }
+            .balloon h3 {
+              font-size: ${headSize - 10}px;
+              color: $primaryColor;
+            }
+          
+            .balloon pp{
+              font-size: ${textSize}px;
+              color: $primaryColor;
+            }
+            .balloon p {
+              font-size:  ${textSize}px;
+              color: #ffff;
+            }
+
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+              text-align: left;
+              font-size: ${textSize}px;
+            }    
+        
+      
         .balloon b {
             color: #ffff;
         }
-        .details {
-            background-color: rgba(255, 255, 255, 1);
-            color: #000;
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 10px;
-            text-align: left;
-        }
+
         .container-logo {
             width: 100px;
             height: 50px;
@@ -169,6 +207,35 @@ buildAppBalloonOverlay(BuildContext context) async {
 buildWebsiteLinkBallon(String placeName, String? city, String? country,
     double lat, double long, String webLink, BuildContext context,
     {visibility = true}) async {
+  FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
+  ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
+  double textSize = fonts.fonts.textSize;
+  double titleSize = fonts.fonts.titleSize;
+  double headSize = fonts.fonts.headingSize;
+
+  String primaryColor;
+
+  if (SettingsSharedPref.getTheme() == 'light') {
+    print('light');
+    primaryColor = 'black';
+  } else {
+    print('dark');
+    primaryColor = 'white';
+  }
+
+  print('primaryColor');
+  print(primaryColor);
+  String buttonColor =
+      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  String grad1 =
+      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+  String grad2 =
+      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+  String grad3 =
+      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+  String grad4 =
+      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   String countryCode = countryMap[country] ?? 'None';
   String countryFlagImg;
@@ -198,41 +265,33 @@ buildWebsiteLinkBallon(String placeName, String? city, String? country,
     <title>LG Gemma AI Touristic Info Tool</title>
     <style>
             .balloon {
-              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
-              color: white;
+               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
               padding: 10px;
               border-radius: 20px;
-              font-family: Montserrat, sans-serif;
+              font-family: Lato, sans-serif;
             }
             .balloon h1 {
-              font-size: 30px;
-              color: #ffff;
+              font-size: ${titleSize}px;
+              color: $primaryColor;
             }
              .balloon h2 {
-              font-size: 24px;
-              color: #ffff;
+              font-size: ${headSize}px;
+              color: $primaryColor;
             }
             .balloon h3 {
-              font-size: 20px;
-              color: #ffff;
+              font-size: ${headSize - 10}px;
+              color: $primaryColor;
             }
-            
+          
             .balloon pp{
-              font-size: 18px;
-              color: #ffff;
-            }
-             .balloon linkp{
-              font-size: 12px;
-              color: blue;
-              text-decoration: underline; 
+              font-size: ${textSize}px;
+              color: $primaryColor;
             }
             .balloon p {
-              font-size: 14px;
+              font-size:  ${textSize}px;
               color: #ffff;
             }
-            .balloon b {
-              color: #ffff;
-            }
+
             .details {
               background-color: rgba(255, 255, 255, 1);
               color: #000;
@@ -240,9 +299,18 @@ buildWebsiteLinkBallon(String placeName, String? city, String? country,
               border-radius: 10px;
               margin-top: 10px;
               text-align: left;
-                 overflow: hidden; 
-              word-wrap: break-word; 
+              font-size: ${textSize}px;
+            }    
+             .balloon linkp{
+              font-size:  ${textSize}px;
+              color: blue;
+              text-decoration: underline; 
             }
+           
+            .balloon b {
+              color: #ffff;
+            }
+            
            .container-logo {
             width: 100px; 
             height: 50px;
@@ -328,6 +396,35 @@ buildWebsiteLinkBallon(String placeName, String? city, String? country,
 buildYoutubeLinkBallon(String placeName, String? city, String? country,
     double lat, double long, String vidId, BuildContext context,
     {visibility = true}) async {
+  FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
+  ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
+  double textSize = fonts.fonts.textSize;
+  double titleSize = fonts.fonts.titleSize;
+  double headSize = fonts.fonts.headingSize;
+
+  String primaryColor;
+
+  if (SettingsSharedPref.getTheme() == 'light') {
+    print('light');
+    primaryColor = 'black';
+  } else {
+    print('dark');
+    primaryColor = 'white';
+  }
+
+  print('primaryColor');
+  print(primaryColor);
+  String buttonColor =
+      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  String grad1 =
+      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+  String grad2 =
+      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+  String grad3 =
+      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+  String grad4 =
+      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   String countryCode = countryMap[country] ?? 'None';
   String countryFlagImg;
@@ -355,43 +452,35 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LG Gemma AI Touristic Info Tool</title>
-    <style>
-            .balloon {
-              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
-              color: white;
+    <style> 
+         .balloon {
+               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
               padding: 10px;
               border-radius: 20px;
-              font-family: Montserrat, sans-serif;
+              font-family: Lato, sans-serif;
             }
             .balloon h1 {
-              font-size: 30px;
-              color: #ffff;
+              font-size: ${titleSize}px;
+              color: $primaryColor;
             }
              .balloon h2 {
-              font-size: 24px;
-              color: #ffff;
+              font-size: ${headSize}px;
+              color: $primaryColor;
             }
             .balloon h3 {
-              font-size: 20px;
-              color: #ffff;
+              font-size: ${headSize - 10}px;
+              color: $primaryColor;
             }
-            
+          
             .balloon pp{
-              font-size: 18px;
-              color: #ffff;
-            }
-             .balloon linkp{
-              font-size: 12px;
-              color: blue;
-              text-decoration: underline; 
+              font-size: ${textSize}px;
+              color: $primaryColor;
             }
             .balloon p {
-              font-size: 14px;
+              font-size:  ${textSize}px;
               color: #ffff;
             }
-            .balloon b {
-              color: #ffff;
-            }
+
             .details {
               background-color: rgba(255, 255, 255, 1);
               color: #000;
@@ -399,9 +488,19 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
               border-radius: 10px;
               margin-top: 10px;
               text-align: left;
-                 overflow: hidden; 
-              word-wrap: break-word; 
+              font-size: ${textSize}px;
+            }    
+           
+             .balloon linkp{
+             font-size:  ${textSize}px;
+              color: blue;
+              text-decoration: underline; 
             }
+          
+            .balloon b {
+              color: #ffff;
+            }
+           
            .container-logo {
             width: 100px; 
             height: 50px;
@@ -488,6 +587,35 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
 buildAllLinksBalloon(String placeName, String? city, String? country,
     double lat, double long, List<String> links, BuildContext context,
     {visibility = true}) async {
+  FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
+  ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
+  double textSize = fonts.fonts.textSize;
+  double titleSize = fonts.fonts.titleSize;
+  double headSize = fonts.fonts.headingSize;
+
+  String primaryColor;
+
+  if (SettingsSharedPref.getTheme() == 'light') {
+    print('light');
+    primaryColor = 'black';
+  } else {
+    print('dark');
+    primaryColor = 'white';
+  }
+
+  print('primaryColor');
+  print(primaryColor);
+  String buttonColor =
+      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  String grad1 =
+      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+  String grad2 =
+      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+  String grad3 =
+      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+  String grad4 =
+      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   String countryCode = countryMap[country] ?? 'None';
   String countryFlagImg;
@@ -521,42 +649,34 @@ buildAllLinksBalloon(String placeName, String? city, String? country,
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LG Gemma AI Touristic Info Tool</title>
     <style>
-            .balloon {
-              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
-              color: white;
+             .balloon {
+               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
               padding: 10px;
               border-radius: 20px;
-              font-family: Montserrat, sans-serif;
+              font-family: Lato, sans-serif;
             }
             .balloon h1 {
-              font-size: 30px;
-              color: #ffff;
+              font-size: ${titleSize}px;
+              color: $primaryColor;
             }
              .balloon h2 {
-              font-size: 24px;
-              color: #ffff;
+              font-size: ${headSize}px;
+              color: $primaryColor;
             }
             .balloon h3 {
-              font-size: 20px;
-              color: #ffff;
+              font-size: ${headSize - 10}px;
+              color: $primaryColor;
             }
-            
+          
             .balloon pp{
-              font-size: 18px;
-              color: #ffff;
-            }
-             .balloon linkp{
-              font-size: 12px;
-              color: blue;
-              text-decoration: underline; 
+              font-size: ${textSize}px;
+              color: $primaryColor;
             }
             .balloon p {
-              font-size: 14px;
+              font-size:  ${textSize}px;
               color: #ffff;
             }
-            .balloon b {
-              color: #ffff;
-            }
+
             .details {
               background-color: rgba(255, 255, 255, 1);
               color: #000;
@@ -564,9 +684,19 @@ buildAllLinksBalloon(String placeName, String? city, String? country,
               border-radius: 10px;
               margin-top: 10px;
               text-align: left;
-              overflow: hidden; 
-              word-wrap: break-word; 
+              font-size: ${textSize}px;
+            }    
+        
+             .balloon linkp{
+               font-size:  ${textSize}px;
+              color: blue;
+              text-decoration: underline; 
             }
+          
+            .balloon b {
+              color: #ffff;
+            }
+          
            .container-logo {
             width: 100px; 
             height: 50px;
@@ -665,6 +795,35 @@ buildAllLinksBalloon(String placeName, String? city, String? country,
 buildQueryPlacemark(
     String query, String? city, String? country, BuildContext context,
     {visibility = true}) async {
+  FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
+  ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
+  double textSize = fonts.fonts.textSize;
+  double titleSize = fonts.fonts.titleSize;
+  double headSize = fonts.fonts.headingSize;
+
+  String primaryColor;
+
+  if (SettingsSharedPref.getTheme() == 'light') {
+    print('light');
+    primaryColor = 'black';
+  } else {
+    print('dark');
+    primaryColor = 'white';
+  }
+
+  print('primaryColor');
+  print(primaryColor);
+  String buttonColor =
+      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  String grad1 =
+      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+  String grad2 =
+      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+  String grad3 =
+      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+  String grad4 =
+      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   String countryCode = countryMap[country] ?? 'None';
   String countryFlagImg;
@@ -692,46 +851,47 @@ buildQueryPlacemark(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LG Gemma AI Touristic Info Tool</title>
     <style>
-            .balloon {
-              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
-              color: white;
+             .balloon {
+               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
               padding: 10px;
               border-radius: 20px;
-              font-family: Montserrat, sans-serif;
+              font-family: Lato, sans-serif;
             }
             .balloon h1 {
-              font-size: 30px;
-              color: #ffff;
+              font-size: ${titleSize}px;
+              color: $primaryColor;
             }
              .balloon h2 {
-              font-size: 24px;
-              color: #ffff;
+              font-size: ${headSize}px;
+              color: $primaryColor;
             }
             .balloon h3 {
-              font-size: 20px;
-              color: #ffff;
+              font-size: ${headSize - 10}px;
+              color: $primaryColor;
             }
-            
-            
+          
             .balloon pp{
-              font-size: 18px;
-              color: #ffff;
+              font-size: ${textSize}px;
+             color: $primaryColor;
             }
             .balloon p {
-              font-size: 14px;
+              font-size:  ${textSize}px;
               color: #ffff;
             }
-            .balloon b {
-              color: #ffff;
-            }
+
             .details {
               background-color: rgba(255, 255, 255, 1);
               color: #000;
               padding: 10px;
               border-radius: 10px;
-              text-align: left;
               margin-top: 10px;
+              text-align: left;
+              font-size: ${textSize}px;
+            }    
+            .balloon b {
+              color: #ffff;
             }
+           
            .container-logo {
             width: 100px; 
             height: 50px;
@@ -803,6 +963,35 @@ buildQueryPlacemark(
 buildPlacePlacemark(
     PlacesModel place, int index, String query, BuildContext context,
     {visibility = true, viewOrbit = true, double duration = 1.2}) async {
+  FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
+  ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
+  double textSize = fonts.fonts.textSize;
+  double titleSize = fonts.fonts.titleSize;
+  double headSize = fonts.fonts.headingSize;
+
+  String primaryColor;
+
+  if (SettingsSharedPref.getTheme() == 'light') {
+    print('light');
+    primaryColor = 'black';
+  } else {
+    print('dark');
+    primaryColor = 'white';
+  }
+
+  print('primaryColor');
+  print(primaryColor);
+  String buttonColor =
+      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  String grad1 =
+      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+  String grad2 =
+      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+  String grad3 =
+      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+  String grad4 =
+      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+
   print('inside placemark');
   String indx = '';
   if (index != -1) {
@@ -851,46 +1040,47 @@ buildPlacePlacemark(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LG Gemma AI Touristic Info Tool</title>
     <style>
-            .balloon {
-              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
-              color: white;
+             .balloon {
+               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
               padding: 10px;
               border-radius: 20px;
-              font-family: Montserrat, sans-serif;
+              font-family: Lato, sans-serif;
             }
             .balloon h1 {
-              font-size: 30px;
-              color: #ffff;
+              font-size: ${titleSize}px;
+              color: $primaryColor;
             }
              .balloon h2 {
-              font-size: 24px;
-              color: #ffff;
+              font-size: ${headSize}px;
+              color: $primaryColor;
             }
             .balloon h3 {
-              font-size: 20px;
-              color: #ffff;
+              font-size: ${headSize - 10}px;
+              color: $primaryColor;
             }
-            
-            
+          
             .balloon pp{
-              font-size: 18px;
-              color: #ffff;
+              font-size: ${textSize}px;
+              color: $primaryColor;
             }
             .balloon p {
-              font-size: 14px;
+              font-size:  ${textSize}px;
               color: #ffff;
             }
-            .balloon b {
-              color: #ffff;
-            }
+
             .details {
               background-color: rgba(255, 255, 255, 1);
               color: #000;
               padding: 10px;
               border-radius: 10px;
-              text-align: left;
               margin-top: 10px;
+              text-align: left;
+              font-size: ${textSize}px;
+            }    
+            .balloon b {
+              color: #ffff;
             }
+          
            .container-logo {
             width: 100px; 
             height: 50px;
@@ -1031,6 +1221,35 @@ buildPlacePlacemark(
 
 buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
     double long, String? city, String? country, String query) async {
+  FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
+  ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
+  double textSize = fonts.fonts.textSize;
+  double titleSize = fonts.fonts.titleSize;
+  double headSize = fonts.fonts.headingSize;
+
+  String primaryColor;
+
+  if (SettingsSharedPref.getTheme() == 'light') {
+    print('light');
+    primaryColor = 'black';
+  } else {
+    print('dark');
+    primaryColor = 'white';
+  }
+
+  print('primaryColor');
+  print(primaryColor);
+  String buttonColor =
+      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  String grad1 =
+      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+  String grad2 =
+      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+  String grad3 =
+      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+  String grad4 =
+      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   String content = '';
   String icon =
@@ -1076,46 +1295,48 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LG Gemma AI Touristic Info Tool</title>
     <style>
-            .balloon {
-              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
-              color: white;
+              .balloon {
+               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
               padding: 10px;
               border-radius: 20px;
-              font-family: Montserrat, sans-serif;
+              font-family: Lato, sans-serif;
             }
             .balloon h1 {
-              font-size: 30px;
-              color: #ffff;
+              font-size: ${titleSize}px;
+              color: $primaryColor;
             }
              .balloon h2 {
-              font-size: 24px;
-              color: #ffff;
+              font-size: ${headSize}px;
+              color: $primaryColor;
             }
             .balloon h3 {
-              font-size: 20px;
-              color: #ffff;
+              font-size: ${headSize - 10}px;
+              color: $primaryColor;
             }
-            
-            
+          
             .balloon pp{
-              font-size: 18px;
-              color: #ffff;
+              font-size: ${textSize}px;
+              color: $primaryColor;
             }
             .balloon p {
-              font-size: 14px;
+              font-size:  ${textSize}px;
               color: #ffff;
             }
-            .balloon b {
-              color: #ffff;
-            }
+
             .details {
               background-color: rgba(255, 255, 255, 1);
               color: #000;
               padding: 10px;
               border-radius: 10px;
-              text-align: left;
               margin-top: 10px;
+              text-align: left;
+              font-size: ${textSize}px;
+            }    
+            .balloon b {
+              color: #ffff;
             }
+          
+          
            .container-logo {
             width: 100px; 
             height: 50px;
@@ -1276,6 +1497,35 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
 
 buildQueryTour(
     BuildContext context, String query, List<PlacesModel> pois) async {
+  FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
+  ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
+  double textSize = fonts.fonts.textSize;
+  double titleSize = fonts.fonts.titleSize;
+  double headSize = fonts.fonts.headingSize;
+
+  String primaryColor;
+
+  if (SettingsSharedPref.getTheme() == 'light') {
+    print('light');
+    primaryColor = 'black';
+  } else {
+    print('dark');
+    primaryColor = 'white';
+  }
+
+  print('primaryColor');
+  print(primaryColor);
+  String buttonColor =
+      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  String grad1 =
+      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+  String grad2 =
+      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+  String grad3 =
+      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+  String grad4 =
+      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+
   List<LookAtModel> lookAts = [];
   List<String> ballonContents = [];
   List<String> poisNames = [];
@@ -1317,37 +1567,33 @@ buildQueryTour(
     <title>LG Gemma AI Touristic Info Tool</title>
     <style>
             .balloon {
-              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
-              color: white;
+               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
               padding: 10px;
               border-radius: 20px;
-              font-family: Montserrat, sans-serif;
+              font-family: Lato, sans-serif;
             }
             .balloon h1 {
-              font-size: 30px;
-              color: #ffff;
+              font-size: ${titleSize}px;
+              color: $primaryColor;
             }
              .balloon h2 {
-              font-size: 24px;
-              color: #ffff;
+              font-size: ${headSize}px;
+              color: $primaryColor;
             }
             .balloon h3 {
-              font-size: 20px;
-              color: #ffff;
+              font-size: ${headSize - 10}px;
+              color: $primaryColor;
             }
-            
-            
+          
             .balloon pp{
-              font-size: 18px;
-              color: #ffff;
+              font-size: ${textSize}px;
+              color: $primaryColor;
             }
             .balloon p {
-              font-size: 14px;
+              font-size:  ${textSize}px;
               color: #ffff;
             }
-            .balloon b {
-              color: #ffff;
-            }
+
             .details {
               background-color: rgba(255, 255, 255, 1);
               color: #000;
@@ -1355,7 +1601,9 @@ buildQueryTour(
               border-radius: 10px;
               margin-top: 10px;
               text-align: left;
-            }
+              font-size: ${textSize}px;
+            }    
+
            .container-logo {
             width: 100px; 
             height: 50px;
@@ -1485,10 +1733,42 @@ buildQueryTour(
   }
 }
 
-buildCustomTour(BuildContext context, List<PlacesModel> pois) async {
+Future<double> buildCustomTour(
+    BuildContext context, List<PlacesModel> pois) async {
+  FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
+  ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
+  double textSize = fonts.fonts.textSize;
+  double titleSize = fonts.fonts.titleSize;
+  double headSize = fonts.fonts.headingSize;
+
+  String primaryColor;
+
+  if (SettingsSharedPref.getTheme() == 'light') {
+    print('light');
+    primaryColor = 'black';
+  } else {
+    print('dark');
+    primaryColor = 'white';
+  }
+
+  print('primaryColor');
+  print(primaryColor);
+  String buttonColor =
+      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  String grad1 =
+      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+  String grad2 =
+      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+  String grad3 =
+      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+  String grad4 =
+      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+
   List<LookAtModel> lookAts = [];
   List<String> poisNames = [];
   String placesData = '';
+  // List<String> placesDataList=[];
+  // List<String> flags = [];
 
   for (int i = 0; i < pois.length; i++) {
     String placeName = escapeHtml(pois[i].name);
@@ -1503,8 +1783,39 @@ buildCustomTour(BuildContext context, List<PlacesModel> pois) async {
       altitudeMode: 'relativeToGround',
     );
     lookAts.add(lookAt);
-    placesData += '<p>${i + 1}. ${escapeHtml(pois[i].name)}</p>';
+    // placesData += '<p>${i + 1}. ${escapeHtml(pois[i].name)}</p>';
+    // placesDataList.add(escapeHtml(pois[i].name));
+    String countryFlagImg;
+    String countryCode = countryMap[pois[i].country] ?? 'None';
+    String flagDiv;
+    if (countryCode != 'None') {
+      String cc = countryCode.toLowerCase();
+      countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+
+      flagDiv = '''
+              <div style="text-align:center;">
+                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+              </div>
+''';
+    } else {
+      countryFlagImg = '';
+      flagDiv = '<br></br>';
+    }
+    // flags.add(countryFlagImg);
+    placesData += '''
+             <div class="details" style="text-align: center; font-weight: bold;">
+                $flagDiv
+                <p>${i + 1}</p>
+                <p>${escapeHtml(pois[i].name)}</p>
+              </div>
+              ''';
   }
+
+  // <div class="details">
+  //  $placesData
+  // </div>
+  print('button color:');
+  print(buttonColor);
 
   String balloonContent = '''
     <html lang="en">
@@ -1514,35 +1825,31 @@ buildCustomTour(BuildContext context, List<PlacesModel> pois) async {
     <title>LG Gemma AI Touristic Info Tool</title>
     <style>
             .balloon {
-              background: linear-gradient(135deg, #243558 5%, #4F73BF 15%, #6988C9 60%, #8096C5 100%);
-              color: white;
+               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
               padding: 10px;
               border-radius: 20px;
-              font-family: Montserrat, sans-serif;
+              font-family: Lato, sans-serif;
             }
             .balloon h1 {
-              font-size: 30px;
-              color: #ffff;
+              font-size: ${titleSize}px;
+              color: $primaryColor;
             }
              .balloon h2 {
-              font-size: 24px;
-              color: #ffff;
+              font-size: ${headSize}px;
+              color: $primaryColor;
             }
             .balloon h3 {
-              font-size: 20px;
-              color: #ffff;
+              font-size: ${headSize - 10}px;
+              color: $primaryColor;
             }
             
             
             .balloon pp{
-              font-size: 18px;
-              color: #ffff;
+              font-size: ${textSize}px;
+             color: $primaryColor;
             }
             .balloon p {
-              font-size: 14px;
-              color: #ffff;
-            }
-            .balloon b {
+              font-size:  ${textSize}px;
               color: #ffff;
             }
             .details {
@@ -1552,6 +1859,7 @@ buildCustomTour(BuildContext context, List<PlacesModel> pois) async {
               border-radius: 10px;
               margin-top: 10px;
               text-align: left;
+              font-size: ${textSize}px;
             }
            .container-logo {
             width: 100px; 
@@ -1580,10 +1888,8 @@ buildCustomTour(BuildContext context, List<PlacesModel> pois) async {
 
               <br>
 
+              $placesData
 
-              <div class="details">
-               $placesData
-              </div>
           </div>
 </body>
 </html>
@@ -1616,9 +1922,12 @@ buildCustomTour(BuildContext context, List<PlacesModel> pois) async {
     lookAtCoordinates: lookAts,
     poisNames: poisNames,
   );
+  List<dynamic> tourTag = tour.lineTourTag();
+  String tourTagContent = tourTag[0];
+  double tourTagDuration = tourTag[1];
 
   final sshData = Provider.of<SSHprovider>(context, listen: false);
-  final kmlPlacemark = KMLModel(name: 'app-tour', content: tour.lineTourTag());
+  final kmlPlacemark = KMLModel(name: 'app-tour', content: tourTagContent);
 
   print(kmlPlacemark.body);
 
@@ -1632,4 +1941,5 @@ buildCustomTour(BuildContext context, List<PlacesModel> pois) async {
   } catch (e) {
     print(e);
   }
+  return tourTagDuration;
 }

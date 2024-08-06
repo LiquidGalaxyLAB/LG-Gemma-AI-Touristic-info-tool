@@ -230,14 +230,20 @@ class TourModel {
 
   int determineNumPoints(double distance) {
     print('distance:');
-    //15 718 508.08362816    2 037 454.8680823362
-    print(distance);
-    if (distance < 2037454) {
-      return 5;
-    } else if (distance < 15718508) {
+    //15 718 508.08362816    2 037 454 .8680823362
+    //9 285 328.213744583
+    // Calculate the ratio of points to distance
+    double ratio = 10 / 16000000;
+    if (distance > 10000000) {
       return 10;
+    } else if (distance > 5000000) {
+      return 5;
     } else {
-      return 20;
+      return 2;
+      // Calculate the number of points for the given distance
+      // int points = (distance * ratio).floor();
+
+      // return points;
     }
   }
 
@@ -343,7 +349,8 @@ class TourModel {
   }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  String lineTourTag() {
+  List<dynamic> lineTourTag() {
+    double tourDuration = 0;
     setInterpolatedPath();
     String content = '';
 
@@ -378,17 +385,9 @@ class TourModel {
         '30',
         '90',
         1000);
+    tourDuration += 1;
 
     for (int i = 0; i < allPathPoints.length; i++) {
-      // content += flyToLookAtOnlyTag(
-      //     allPathPoints[i].latitude,
-      //     allPathPoints[i].longitude,
-      //     'smooth',
-      //     2.0,
-      //     '3000000',
-      //     '15',
-      //     '270',
-      //     1000);
       double heading = 90; // Default heading
 
       if (i > 0) {
@@ -410,12 +409,15 @@ class TourModel {
         heading.toString(),
         1000,
       );
+      tourDuration += 2;
     }
 
     content += '''
       </gx:Playlist>
     </gx:Tour>
 ''';
+    print('inside tour model');
+    print(tourDuration);
 
     // 3. Places Placemarks
     // all points
@@ -435,7 +437,7 @@ class TourModel {
     // 4. Line Placemarks
     content += linePlacemarkOnlyTag(allPathPoints);
 
-    return content;
+    return [content, tourDuration];
   }
 
   /// Returns a [Map] from the current [TourModel].

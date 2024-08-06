@@ -42,6 +42,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
   String _queryName = 'Custom Tour';
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _queryNameController = TextEditingController();
+  double _tourDuration = 0;
 
   @override
   void initState() {
@@ -206,8 +207,14 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
 
                                   if (sshData.client != null &&
                                       connection.isLgConnected) {
-                                    await buildCustomTour(
+                                    double dur = await buildCustomTour(
                                         context, dlp.tourPlaces);
+
+                                    setState(() {
+                                      _tourDuration = dur;
+                                    });
+                                    print('tour');
+                                    print(_tourDuration);
                                   }
                                 }
                               },
@@ -261,7 +268,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                       connection.isLgConnected) {
                                     await Future.wait([
                                       gmp.googleMapCustomTour(),
-                                      LgService(sshData).startTour('App Tour')
+                                      LgService(sshData).startTour('App Tour'),
+                                      Future.delayed(Duration(
+                                          seconds: _tourDuration.toInt()))
                                     ]);
                                   } else {
                                     await gmp.googleMapCustomTour();
@@ -274,69 +283,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                 }
 
                                 gmp.allowSync = true;
-                                // final sshData = Provider.of<SSHprovider>(
-                                //     context,
-                                //     listen: false);
-
-                                // Connectionprovider connection =
-                                //     Provider.of<Connectionprovider>(context,
-                                //         listen: false);
-                                // GoogleMapProvider gmp =
-                                //     Provider.of<GoogleMapProvider>(context,
-                                //         listen: false);
-                                // gmp.allowSync = false;
-
-                                // if (_isvisualizing) {
-                                //   gmp.isTourOn = false;
-                                //   setState(() {
-                                //     _isvisualizing = false;
-                                //   });
-
-                                //   if (sshData.client != null &&
-                                //       connection.isLgConnected) {
-                                //     await LgService(sshData).stopTour();
-                                //   }
-                                // } else {
-                                //   setState(() {
-                                //     _isvisualizing = true;
-                                //   });
-
-                                //   gmp.isTourOn = true;
-
-                                //   if (sshData.client != null &&
-                                //       connection.isLgConnected) {
-                                //     await Future.wait([
-                                //       gmp.googleMapCustomTour(),
-                                //       LgService(sshData).startTour('App Tour')
-                                //     ]);
-
-                                //     gmp.isTourOn = false;
-                                //     setState(() {
-                                //       _isvisualizing = false;
-                                //     });
-                                //     // await gmp.googleMapCustomTour();
-                                //     // await LgService(sshData)
-                                //     //     .startTour('App Tour')
-                                //     //     .then((value) {
-                                //     //   gmp.isTourOn = false;
-
-                                //     //   setState(() {
-                                //     //     _isvisualizing = false;
-                                //     //   });
-                                //     // });
-                                //   } else {
-                                //     await gmp
-                                //         .googleMapCustomTour()
-                                //         .then((value) {
-                                //       gmp.isTourOn = false;
-
-                                //       setState(() {
-                                //         _isvisualizing = false;
-                                //       });
-                                //     });
-                                //   }
-                                // }
-                                // gmp.allowSync = true;
                               },
                               height: MediaQuery.of(context).size.height * 0.05,
                               width: MediaQuery.of(context).size.width * 0.14,

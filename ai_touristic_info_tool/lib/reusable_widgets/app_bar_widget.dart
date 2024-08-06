@@ -90,9 +90,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                     width: MediaQuery.of(context).size.width * 0.01,
                   ),
                   Image.asset(
-                    'assets/images/gemma2.webp',
-                    width: 120,
-                    height: 80,
+                    'assets/images/gemma.png',
+                    width: 100,
+                    height: 60,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.05,
                   ),
                 ],
               ),
