@@ -1,11 +1,13 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
+import 'package:ai_touristic_info_tool/services/langchain_service.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
-import 'package:ai_touristic_info_tool/utils/show_stream_dialog.dart';
+import 'package:ai_touristic_info_tool/utils/show_stream_gemini_dialog.dart';
+import 'package:ai_touristic_info_tool/utils/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -55,17 +57,25 @@ class RecommendationContainer extends StatelessWidget {
           } else {
             Connectionprovider connection =
                 Provider.of<Connectionprovider>(context, listen: false);
-            if (!connection.isAiConnected) {
-              dialogBuilder(
-                  context,
-                  'NOT connected to AI Server!!\nPlease Connect!',
-                  true,
-                  'OK',
-                  null,
-                  null);
-            } else {
-              showStreamingDialog(context, query, city ?? '', country ?? '');
-            }
+            //Locally:
+            // if (!connection.isAiConnected) {
+            //   dialogBuilder(
+            //       context,
+            //       'NOT connected to AI Server!!\nPlease Connect!',
+            //       true,
+            //       'OK',
+            //       null,
+            //       null);
+            // } else {
+            // showStreamingDialog(context, query, city ?? '', country ?? '');
+            // }
+            // With Gemini:
+            //  Map<String, dynamic> result =
+            //   await LangchainService().generateAnswer(query);
+            // print(result);
+            //result["places"][i]["name"]
+            // name address city country description pricing rating amenities source
+            showStreamingGeminiDialog(context, query, city ?? '', country?? '');
           }
         });
       },

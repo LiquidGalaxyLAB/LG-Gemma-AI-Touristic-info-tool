@@ -52,6 +52,9 @@ dependencies:
   webview_flutter: ^4.8.0
   flutter_colorpicker: ^1.1.0
   flutter_polyline_points: ^2.1.0
+  langchain: ^0.7.4
+  langchain_google: ^0.6.1
+  chromadb: ^0.2.0+1
   
 
 dev_dependencies:
