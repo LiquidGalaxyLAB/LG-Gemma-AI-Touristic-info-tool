@@ -14,6 +14,7 @@ import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
+import 'package:ai_touristic_info_tool/utils/show_stream_gemini_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
@@ -772,24 +773,28 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                 await buildQueryPlacemark(
                                     query, _city, _country, context);
 
-                                showVisualizationDialog(
-                                    context, value, query, _city, _country, (){}, false);
+                                showVisualizationDialog(context, value, query,
+                                    _city, _country, () {}, false);
                               } else {
-                                Connectionprovider connection =
-                                    Provider.of<Connectionprovider>(context,
-                                        listen: false);
-                                if (!connection.isAiConnected) {
-                                  dialogBuilder(
-                                      context,
-                                      'NOT connected to AI Server!!\nPlease Connect!',
-                                      true,
-                                      'OK',
-                                      null,
-                                      null);
-                                } else {
-                                  showStreamingDialog(
-                                      context, query, _city, _country);
-                                }
+                                //Local:
+                                // Connectionprovider connection =
+                                //     Provider.of<Connectionprovider>(context,
+                                //         listen: false);
+                                // if (!connection.isAiConnected) {
+                                //   dialogBuilder(
+                                //       context,
+                                //       'NOT connected to AI Server!!\nPlease Connect!',
+                                //       true,
+                                //       'OK',
+                                //       null,
+                                //       null);
+                                // } else {
+                                //   showStreamingDialog(
+                                //       context, query, _city, _country);
+                                // }
+                                //Gemini:
+                                showStreamingGeminiDialog(
+                                    context, query, _city, _country);
                               }
                             });
                           }

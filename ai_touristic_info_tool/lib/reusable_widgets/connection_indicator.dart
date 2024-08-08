@@ -33,7 +33,12 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
         return Align(
           alignment: Alignment.topRight,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.2,
+            //Local:
+
+            // width: MediaQuery.of(context).size.width * 0.2,
+            // height: MediaQuery.of(context).size.height * 0.05,
+            //Gemini:
+            width: MediaQuery.of(context).size.width * 0.1,
             height: MediaQuery.of(context).size.height * 0.05,
             decoration: BoxDecoration(
               // color: PrimaryAppColors.innerBackground,
@@ -63,26 +68,27 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
                       : LgAppColors.lgColor2,
                   radius: 10,
                 ),
-                Flexible(
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'AI Server',
-                      style: TextStyle(
-                          fontFamily: fontType,
-                          // fontSize: textSize - 5
-                          fontSize: fontsProv.fonts.textSize - 5,
-                          color: fontsProv.fonts.primaryFontColor),
-                    ),
-                  ),
-                ),
-                CircleAvatar(
-                  backgroundColor: connection.isAiConnected
-                      ? LgAppColors.lgColor4
-                      : LgAppColors.lgColor2,
-                  radius: 10,
-                ),
+                //Localllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+                // Flexible(
+                //   child: FittedBox(
+                //     fit: BoxFit.scaleDown,
+                //     alignment: Alignment.centerLeft,
+                //     child: Text(
+                //       'AI Server',
+                //       style: TextStyle(
+                //           fontFamily: fontType,
+                //           // fontSize: textSize - 5
+                //           fontSize: fontsProv.fonts.textSize - 5,
+                //           color: fontsProv.fonts.primaryFontColor),
+                //     ),
+                //   ),
+                // ),
+                // CircleAvatar(
+                //   backgroundColor: connection.isAiConnected
+                //       ? LgAppColors.lgColor4
+                //       : LgAppColors.lgColor2,
+                //   radius: 10,
+                // ),
               ],
             ),
           ),

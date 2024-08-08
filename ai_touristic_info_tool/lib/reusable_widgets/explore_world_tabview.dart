@@ -10,6 +10,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
+import 'package:ai_touristic_info_tool/utils/show_stream_gemini_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -462,27 +463,30 @@ class ExploreWorldTabView extends StatelessWidget {
                                   if (value.isNotEmpty) {
                                     await buildQueryPlacemark(
                                         query, '', '', context);
-                                    showVisualizationDialog(
-                                        context, value, query, '', '', (){}, false);
+                                    showVisualizationDialog(context, value,
+                                        query, '', '', () {}, false);
                                   } else {
-                                    Connectionprovider connection =
-                                        Provider.of<Connectionprovider>(context,
-                                            listen: false);
-                                    if (!connection.isAiConnected) {
-                                      dialogBuilder(
-                                          context,
-                                          'NOT connected to AI Server!!\nPlease Connect!',
-                                          true,
-                                          'OK',
-                                          null,
-                                          null);
-                                    } else {
-                                      showStreamingDialog(
-                                          context, query, '', '');
-                                    }
+                                    //Local
+                                    // Connectionprovider connection =
+                                    //     Provider.of<Connectionprovider>(context,
+                                    //         listen: false);
+                                    // if (!connection.isAiConnected) {
+                                    //   dialogBuilder(
+                                    //       context,
+                                    //       'NOT connected to AI Server!!\nPlease Connect!',
+                                    //       true,
+                                    //       'OK',
+                                    //       null,
+                                    //       null);
+                                    // } else {
+                                    //   showStreamingDialog(
+                                    //       context, query, '', '');
+                                    // }
+                                    //Gemini:
+                                    showStreamingGeminiDialog(
+                                        context, query, '', '');
                                   }
                                 });
-                                // showStreamingDialog(context, query);
                               }
                             },
                             elevatedButtonContent: 'GENERATE',

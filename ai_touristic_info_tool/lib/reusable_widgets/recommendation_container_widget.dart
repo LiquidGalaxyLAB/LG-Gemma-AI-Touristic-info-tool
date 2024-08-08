@@ -57,7 +57,7 @@ class RecommendationContainer extends StatelessWidget {
           } else {
             Connectionprovider connection =
                 Provider.of<Connectionprovider>(context, listen: false);
-            //Locally:
+            //Local:
             // if (!connection.isAiConnected) {
             //   dialogBuilder(
             //       context,

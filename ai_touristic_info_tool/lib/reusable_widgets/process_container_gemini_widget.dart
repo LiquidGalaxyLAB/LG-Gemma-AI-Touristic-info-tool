@@ -39,6 +39,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
   final ScrollController _scrollController = ScrollController();
   final ScrollController _scrollController2 = ScrollController();
   final LangchainService _langchainService = LangchainService();
+  late StreamSubscription _subscription;
 
   @override
   void initState() {
@@ -46,7 +47,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
     _streamController = StreamController<dynamic>();
     _messageController = StreamController<dynamic>();
     //  _fullResultController = StreamController<Map<String, dynamic>>();
-    _langchainService
+    _subscription = _langchainService
         .generateStreamAnswer(widget.query)
         // .timeout(
         // Duration(seconds: 30), // Set your timeout duration here
@@ -56,25 +57,54 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         // )
         .listen((event) {
       if (event['type'] == 'stream') {
-        setState(() {
-          _currProgress += 1;
-          _streamController.add(event['data']);
-        });
+        print('TYPE STREAM');
+        if (mounted) {
+          setState(() {
+            // _currProgress += 1;
+            print(_currProgress);
+            _streamController.add(event['data']);
+          });
+        }
       } else if (event['type'] == 'result') {
-        setState(() {
-          print('here');
-          _initializePlaces(event['data']);
-          print('after here');
-        });
+        if (mounted) {
+          setState(() {
+            print('here');
+            _initializePlaces(event['data']);
+            print('after here');
+          });
+        }
       } else if (event['type'] == 'message') {
-        _messageController.add(event['data']);
+        if (event['data'] == 'Preparing visualizations') {
+          if (mounted) {
+            setState(() {
+              _currProgress = 11;
+              _messageController.add(event['data']);
+            });
+          }
+        } else if (event['data'] == 'Almost Done! Please wait few seconds...') {
+          if (mounted) {
+            setState(() {
+              _currProgress = 12;
+              _messageController.add(event['data']);
+            });
+          }
+        } else if (event['data'] == 'Streaming') {
+          if (mounted) {
+            setState(() {
+              _currProgress += 1;
+              _messageController.add(event['data']);
+            });
+          }
+        }
       }
     }, onError: (error) {
-      setState(() {
-        _isError = true;
-        _streamController.addError(error);
-        _messageController.addError(error);
-      });
+      if (mounted) {
+        setState(() {
+          _isError = true;
+          _streamController.addError(error);
+          _messageController.addError(error);
+        });
+      }
     });
   }
 
@@ -92,36 +122,44 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         String location =
             '${poi['name']}, ${poi['address']}, ${poi['city']}, ${poi['country']}';
         MyLatLng latlng = await GeocodingService().getCoordinates(location);
+        if (mounted) {
+          setState(() {
+            _pois.add(PlacesModel(
+              id: i + 1,
+              name: poi["name"],
+              address: poi["address"],
+              city: poi["city"],
+              country: poi["country"],
+              description: poi["description"],
+              price: poi["pricing"],
+              ratings: poi["rating"],
+              amenities: poi["amenities"],
+              latitude: latlng.latitude,
+              longitude: latlng.longitude,
+              sourceLink: poi["source"],
+            ));
+          });
+        }
+      }
+      if (mounted) {
         setState(() {
-          _pois.add(PlacesModel(
-            id: i + 1,
-            name: poi["name"],
-            address: poi["address"],
-            city: poi["city"],
-            country: poi["country"],
-            description: poi["description"],
-            price: poi["pricing"],
-            ratings: poi["rating"],
-            amenities: poi["amenities"],
-            latitude: latlng.latitude,
-            longitude: latlng.longitude,
-            sourceLink: poi["source"],
-          ));
+          _currProgress = 13;
+          _isFinished = true;
         });
       }
-      setState(() {
-        _isFinished = true;
-      });
     } catch (e) {
-      setState(() {
-        _isError = true;
-      });
-      rethrow;
+      if (mounted) {
+        setState(() {
+          _isError = true;
+        });
+      }
+      // rethrow;
     }
   }
 
   @override
   void dispose() {
+    _subscription.cancel();
     _streamController.close();
     _messageController.close();
     _scrollController.dispose();
@@ -145,27 +183,122 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    'Error: ${snapshot.error}',
-                    style: TextStyle(
-                      color: FontAppColors.primaryFont,
-                      fontSize: fontProv.fonts.textSize,
-                      fontFamily: fontType,
-                    ),
-                  ),
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: Consumer2<ColorProvider, FontsProvider>(builder:
+                      (BuildContext context, ColorProvider colorProv,
+                          FontsProvider fontsProv, Widget? child) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Error: ${snapshot.error}\nPlease try again later...',
+                              style: TextStyle(
+                                // color: FontAppColors.primaryFont,
+                                color: fontsProv.fonts.primaryFontColor,
+                                // fontSize: textSize,
+                                fontSize: fontsProv.fonts.textSize,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: fontType,
+                              ),
+                            ),
+                          ),
+                        ),
+                        LgElevatedButton(
+                          elevatedButtonContent: 'OK',
+                          // buttonColor: PrimaryAppColors.buttonColors,
+                          buttonColor: colorProv.colors.buttonColors,
+                          onpressed: () {
+                            Navigator.pop(context);
+                          },
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          // fontSize: textSize,
+                          fontSize: fontsProv.fonts.textSize,
+                          fontColor: FontAppColors.secondaryFont,
+                          isLoading: false,
+                          isBold: true,
+                          isPrefixIcon: false,
+                          isSuffixIcon: false,
+                          curvatureRadius: 30,
+                        ),
+                      ],
+                    );
+                  }),
                 );
+                // return Center(
+                //   child: Text(
+                //     'Error: ${snapshot.error}',
+                //     style: TextStyle(
+                //       color: fontProv.fonts.primaryFontColor,
+                //       fontSize: fontProv.fonts.textSize,
+                //       fontFamily: fontType,
+                //     ),
+                //   ),
+                // );
               } else if (!snapshot.hasData) {
-                return Center(
-                  child: Text(
-                    'No data available',
-                    style: TextStyle(
-                      color: FontAppColors.primaryFont,
-                      fontSize: fontProv.fonts.textSize,
-                      fontFamily: fontType,
-                    ),
-                  ),
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: Consumer2<ColorProvider, FontsProvider>(builder:
+                      (BuildContext context, ColorProvider colorProv,
+                          FontsProvider fontsProv, Widget? child) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'No data available\nPlease try again later...',
+                              style: TextStyle(
+                                // color: FontAppColors.primaryFont,
+                                color: fontsProv.fonts.primaryFontColor,
+                                // fontSize: textSize,
+                                fontSize: fontsProv.fonts.textSize,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: fontType,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.05,
+                        ),
+                        LgElevatedButton(
+                          elevatedButtonContent: 'OK',
+                          // buttonColor: PrimaryAppColors.buttonColors,
+                          buttonColor: colorProv.colors.buttonColors,
+                          onpressed: () {
+                            Navigator.pop(context);
+                          },
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          // fontSize: textSize,
+                          fontSize: fontsProv.fonts.textSize,
+                          fontColor: FontAppColors.secondaryFont,
+                          isLoading: false,
+                          isBold: true,
+                          isPrefixIcon: false,
+                          isSuffixIcon: false,
+                          curvatureRadius: 30,
+                        ),
+                      ],
+                    );
+                  }),
                 );
+                // return Center(
+                //   child: Text(
+                //     'No data available',
+                //     style: TextStyle(
+                //       color: fontProv.fonts.primaryFontColor,
+                //       fontSize: fontProv.fonts.textSize,
+                //       fontFamily: fontType,
+                //     ),
+                //   ),
+                // );
               } else {
                 return Scrollbar(
                   thumbVisibility: true,
@@ -175,7 +308,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.only(
+                              left: 10.0, right: 10, top: 10),
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.4,
                             width: MediaQuery.of(context).size.width * 0.9,
@@ -206,7 +340,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          // padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          padding: const EdgeInsets.only(left: 30, right: 30),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -277,7 +412,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                     );
                                   } else if (snapshot.hasData) {
                                     return Text(
-                                      snapshot.data.toString(),
+                                      _isFinished
+                                          ? 'Generation completed successfully!'
+                                          : snapshot.data.toString(),
                                       style: TextStyle(
                                         // color: FontAppColors.primaryFont,
                                         // fontSize: textSize,
@@ -314,7 +451,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: LinearProgressIndicator(
-                              value: _isFinished ? 1.0 : _currProgress / 10,
+                              value: _isFinished ? 1.0 : _currProgress / 13.0,
                               borderRadius: BorderRadius.circular(30),
                               backgroundColor:
                                   FontAppColors.secondaryFont.withOpacity(0.5),
@@ -323,6 +460,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                               ),
                             ),
                           ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
                         ),
                         Consumer<ModelErrorProvider>(
                           builder: (BuildContext context,
@@ -368,9 +508,34 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                         isSuffixIcon: false,
                                         curvatureRadius: 30),
                                   ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                ),
+                                LgElevatedButton(
+                                  elevatedButtonContent: 'Cancel',
+                                  buttonColor: LgAppColors.lgColor2,
+                                  onpressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.15,
+                                  fontSize: textSize,
+                                  fontColor: FontAppColors.secondaryFont,
+                                  isLoading: false,
+                                  isBold: true,
+                                  isPrefixIcon: false,
+                                  isSuffixIcon: false,
+                                  curvatureRadius: 30,
+                                ),
                               ],
                             );
                           },
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
                         ),
                       ],
                     ),

@@ -3,6 +3,7 @@ import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
+import 'package:ai_touristic_info_tool/services/langchain_service.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
@@ -149,7 +150,8 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                             Provider.of<GoogleMapProvider>(
                                                 context,
                                                 listen: false);
-                                        mapProvider.setBitmapDescriptor("assets/images/placemark_pin.png");
+                                        mapProvider.setBitmapDescriptor(
+                                            "assets/images/placemark_pin.png");
                                         mapProvider.addMarker(
                                             context, widget.placeModel,
                                             removeAll: true);
@@ -256,65 +258,75 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                             Provider.of<Connectionprovider>(
                                                 context,
                                                 listen: false);
-                                        if (!connection.isAiConnected) {
-                                          dialogBuilder(
-                                              context,
-                                              'NOT connected to AI Server!!\nPlease Connect!',
-                                              true,
-                                              'OK',
-                                              null,
-                                              null);
-                                        } else {
-                                          srch.isLoading = true;
-                                          srch.showMap = false;
-                                          srch.searchPoiSelected =
-                                              widget.placeModel.name;
-                                          List<String> _futureYoutubeUrls =
-                                              await Api().fetchYoutubeUrls(
-                                                  query:
-                                                      widget.placeModel.name);
-                                          List<String> _futureUrls = await Api()
-                                              .fetchWebUrls(
-                                                  widget.placeModel.name);
+                                        //Local:
+                                        // if (!connection.isAiConnected) {
+                                        //   dialogBuilder(
+                                        //       context,
+                                        //       'NOT connected to AI Server!!\nPlease Connect!',
+                                        //       true,
+                                        //       'OK',
+                                        //       null,
+                                        //       null);
+                                        // } else {
+                                        srch.isLoading = true;
+                                        srch.showMap = false;
+                                        srch.searchPoiSelected =
+                                            widget.placeModel.name;
+                                        List<String> _futureYoutubeUrls =
+                                            await Api().fetchYoutubeUrls(
+                                                query: widget.placeModel.name);
 
-                                          final sshData =
-                                              Provider.of<SSHprovider>(context,
-                                                  listen: false);
+                                        //Local:
+                                        // List<String> _futureUrls = await Api()
+                                        //     .fetchWebUrls(
+                                        //         widget.placeModel.name);
 
-                                          Connectionprovider connection =
-                                              Provider.of<Connectionprovider>(
-                                                  context,
-                                                  listen: false);
-
-                                          ///checking the connection status first
-                                          if (sshData.client != null &&
-                                              connection.isLgConnected) {
-                                            List<String> links = _futureUrls +
-                                                _futureYoutubeUrls;
-                                            await buildAllLinksBalloon(
-                                                widget.placeModel.name,
-                                                widget.placeModel.city,
-                                                widget.placeModel.country,
-                                                widget.placeModel.latitude,
-                                                widget.placeModel.longitude,
-                                                links,
-                                                context);
-                                          }
-
-                                          srch.webSearchResults = _futureUrls;
-                                          srch.youtubeSearchResults =
-                                              _futureYoutubeUrls;
-                                          srch.isLoading = false;
-                                          srch.poiLat =
-                                              widget.placeModel.latitude;
-                                          srch.poiLong =
-                                              widget.placeModel.longitude;
-                                          srch.searchPoiCountry =
-                                              widget.placeModel.country ??
-                                                  'Worldwide';
-                                          srch.searchPoiCity =
-                                              widget.placeModel.city ?? '';
+                                        //Gemini:
+                                        Map<String, dynamic> _geminiWebResults =
+                                            await LangchainService()
+                                                .generatewebLinks(
+                                                    widget.placeModel.name);
+                                        List<dynamic> _futureUrlsDynamic =
+                                            _geminiWebResults['links'];
+                                        List<String> _futureUrls = [];
+                                        for (var link in _futureUrlsDynamic) {
+                                          _futureUrls.add(link.toString());
                                         }
+                                        /////////////////////////////////////////
+
+                                        final sshData =
+                                            Provider.of<SSHprovider>(context,
+                                                listen: false);
+
+                                        ///checking the connection status first
+                                        if (sshData.client != null &&
+                                            connection.isLgConnected) {
+                                          List<String> links =
+                                              _futureUrls + _futureYoutubeUrls;
+                                          await buildAllLinksBalloon(
+                                              widget.placeModel.name,
+                                              widget.placeModel.city,
+                                              widget.placeModel.country,
+                                              widget.placeModel.latitude,
+                                              widget.placeModel.longitude,
+                                              links,
+                                              context);
+                                        }
+
+                                        srch.webSearchResults = _futureUrls;
+                                        srch.youtubeSearchResults =
+                                            _futureYoutubeUrls;
+                                        srch.isLoading = false;
+                                        srch.poiLat =
+                                            widget.placeModel.latitude;
+                                        srch.poiLong =
+                                            widget.placeModel.longitude;
+                                        srch.searchPoiCountry =
+                                            widget.placeModel.country ??
+                                                'Worldwide';
+                                        srch.searchPoiCity =
+                                            widget.placeModel.city ?? '';
+                                        //Local: }
                                       },
                                       child: Container(
                                           height: MediaQuery.of(context)
