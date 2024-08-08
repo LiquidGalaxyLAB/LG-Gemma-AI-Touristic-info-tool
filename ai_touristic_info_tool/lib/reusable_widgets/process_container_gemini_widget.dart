@@ -135,7 +135,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         // try{
         MyLatLng latlng = await GeocodingService().getCoordinates(location);
         // }
-         
+
         print('hereeeeee after geo');
         if (mounted) {
           setState(() {
@@ -371,25 +371,24 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                   fontFamily: fontType,
                                 ),
                               ),
-                              if (fontProv.fonts.titleSize > 40)
-                                Image.asset(
-                                  'assets/images/wait2.gif',
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.2,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.2,
-                                ),
-                              if (fontProv.fonts.titleSize == 40)
-                                Image.asset(
-                                  'assets/images/wait2.gif',
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.4,
-                                  color: SettingsSharedPref.getTheme() == 'dark'
-                                      ? Colors.black
-                                      : Colors.white,
-                                ),
+                              // if (fontProv.fonts.titleSize > 40)
+                              Image.asset(
+                                'assets/images/wait2.gif',
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
+                              ),
+                              // if (fontProv.fonts.titleSize == 40)
+                              //   Image.asset(
+                              //     'assets/images/wait2.gif',
+                              //     width:
+                              //         MediaQuery.of(context).size.width * 0.4,
+                              //     height:
+                              //         MediaQuery.of(context).size.height * 0.4,
+                              //     color: SettingsSharedPref.getTheme() == 'dark'
+                              //         ? Colors.black
+                              //         : Colors.white,
+                              //   ),
                             ],
                           ),
                         ),

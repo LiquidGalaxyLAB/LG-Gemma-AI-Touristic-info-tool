@@ -56,7 +56,10 @@ class AboutScreen extends StatelessWidget {
                     scale: 0.5,
                   ),
                   Text(
-                    "LG Gemma AI Touristic Info Tool",
+                    //Local:
+                    // "LG Gemma AI Touristic Info Tool",
+                    //Gemini:
+                    "LG Gemini AI Touristic Info Tool",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         // fontSize: titleSize,
@@ -295,7 +298,10 @@ class AppDescriptionWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                "Leveraging GEMMA, one of the latest open-source generative text AI models, our app generates personalized POIs, running locally on the AI server at Lleida Lab using Docker technology.",
+                //Local:
+                // "Leveraging GEMMA, one of the latest open-source generative text AI models, our app generates personalized POIs, running locally on the AI server at Lleida Lab using Docker technology.",
+                //Gemini:
+                "Leveraging Gemini, one of the latest open-source generative text AI models, our app generates personalized POIs, running locally on the AI server at Lleida Lab using Docker technology.",
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontFamily: fontType,

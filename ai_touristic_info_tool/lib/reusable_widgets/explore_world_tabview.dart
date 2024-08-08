@@ -396,7 +396,10 @@ class ExploreWorldTabView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, top: 50, bottom: 20),
                 child: Text(
-                  'Explore anything worldwide with Gemma. Ask away! ',
+                  //Local:
+                  // 'Explore anything worldwide with Gemma. Ask away! ',
+                  //Gemini
+                  'Explore anything worldwide with Gemini. Ask away! ',
                   style: TextStyle(
                     // fontSize: textSize + 10,
                     fontSize: fontsProv.fonts.textSize + 10,

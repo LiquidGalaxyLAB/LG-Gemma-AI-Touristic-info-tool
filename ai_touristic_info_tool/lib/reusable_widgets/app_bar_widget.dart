@@ -89,10 +89,17 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.01,
                   ),
+                  //Local:
+                  // Image.asset(
+                  //   'assets/images/gemma.png',
+                  //   width: 100,
+                  //   height: 60,
+                  // ),
+                  //Gemini
                   Image.asset(
-                    'assets/images/gemma.png',
-                    width: 100,
-                    height: 60,
+                    'assets/images/gemini.png',
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    height: MediaQuery.of(context).size.height * 0.11,
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.05,

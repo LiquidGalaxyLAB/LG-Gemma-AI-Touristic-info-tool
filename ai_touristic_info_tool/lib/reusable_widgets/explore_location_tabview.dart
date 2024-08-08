@@ -685,7 +685,10 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
               builder:
                   (BuildContext context, FontsProvider value, Widget? child) {
                 return Text(
-                  'Ask Gemma anything you want to know nearby:',
+                  //Local:
+                  // 'Ask Gemma anything you want to know nearby:',
+                  //Gemini:
+                  'Ask Gemini anything you want to know nearby:',
                   style: TextStyle(
                       // fontSize: textSize + 10,
                       fontSize: value.fonts.textSize + 10,
