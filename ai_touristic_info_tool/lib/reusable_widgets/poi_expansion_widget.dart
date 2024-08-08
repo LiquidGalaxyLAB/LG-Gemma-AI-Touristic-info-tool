@@ -282,16 +282,20 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                         //         widget.placeModel.name);
 
                                         //Gemini:
-                                        Map<String, dynamic> _geminiWebResults =
-                                            await LangchainService()
-                                                .generatewebLinks(
-                                                    widget.placeModel.name);
-                                        List<dynamic> _futureUrlsDynamic =
-                                            _geminiWebResults['links'];
-                                        List<String> _futureUrls = [];
-                                        for (var link in _futureUrlsDynamic) {
-                                          _futureUrls.add(link.toString());
-                                        }
+                                        // Map<String, dynamic> _geminiWebResults =
+                                        //     await LangchainService()
+                                        //         .generatewebLinks(
+                                        //             widget.placeModel.name);
+                                        // List<dynamic> _futureUrlsDynamic =
+                                        //     _geminiWebResults['links'];
+                                        // List<String> _futureUrls = [];
+                                        // for (var link in _futureUrlsDynamic) {
+                                        //   _futureUrls.add(link.toString());
+                                        // }
+                                        List<String> _futureUrls =
+                                            await LangchainService().fetchUrls(
+                                                widget.placeModel.name,
+                                                urlNum: 10);
                                         /////////////////////////////////////////
 
                                         final sshData =

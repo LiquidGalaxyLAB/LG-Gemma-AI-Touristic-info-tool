@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/services/langchain_service.dart';
-import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
@@ -40,6 +38,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
   final ScrollController _scrollController2 = ScrollController();
   final LangchainService _langchainService = LangchainService();
   late StreamSubscription _subscription;
+  late dynamic lastResult;
 
   @override
   void initState() {
@@ -62,33 +61,39 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
           setState(() {
             // _currProgress += 1;
             print(_currProgress);
+            lastResult = event['data'];
             _streamController.add(event['data']);
           });
         }
-      } else if (event['type'] == 'result') {
-        if (mounted) {
-          setState(() {
-            print('here');
-            _initializePlaces(event['data']);
-            print('after here');
-          });
-        }
-      } else if (event['type'] == 'message') {
+      }
+      // else if (event['type'] == 'result') {
+      //   if (mounted) {
+      //     setState(() {
+      //       print('here');
+      //       _initializePlaces(event['data']);
+      //       print('after here');
+      //     });
+      //   }
+      // }
+      else if (event['type'] == 'message') {
         if (event['data'] == 'Preparing visualizations') {
           if (mounted) {
             setState(() {
-              _currProgress = 11;
-              _messageController.add(event['data']);
-            });
-          }
-        } else if (event['data'] == 'Almost Done! Please wait few seconds...') {
-          if (mounted) {
-            setState(() {
+              // _currProgress = 11;
               _currProgress = 12;
               _messageController.add(event['data']);
             });
           }
-        } else if (event['data'] == 'Streaming') {
+        }
+        // else if (event['data'] == 'Almost Done! Please wait few seconds...') {
+        //   if (mounted) {
+        //     setState(() {
+        //       _currProgress = 12;
+        //       _messageController.add(event['data']);
+        //     });
+        //   }
+        // }
+        else if (event['data'] == 'Streaming') {
           if (mounted) {
             setState(() {
               _currProgress += 1;
@@ -97,6 +102,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
           }
         }
       }
+    }, onDone: () {
+      print('ondone');
+      _initializePlaces(lastResult);
     }, onError: (error) {
       if (mounted) {
         setState(() {
@@ -108,9 +116,10 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
     });
   }
 
-  _initializePlaces(Future<Map<String, dynamic>> futureResult) async {
+  _initializePlaces(dynamic futureResult) async {
     try {
-      Map<String, dynamic> result = await futureResult;
+      Map<String, dynamic> result = futureResult;
+      print(result);
 
       List<dynamic> places = result["places"] ?? [];
       print('places length:');
@@ -118,10 +127,16 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
       print(places[0]['name']);
 
       for (int i = 0; i < places.length; i++) {
+        print('hereeeeeee');
         final poi = places[i];
         String location =
             '${poi['name']}, ${poi['address']}, ${poi['city']}, ${poi['country']}';
+        print(location);
+        // try{
         MyLatLng latlng = await GeocodingService().getCoordinates(location);
+        // }
+         
+        print('hereeeeee after geo');
         if (mounted) {
           setState(() {
             _pois.add(PlacesModel(
@@ -142,9 +157,11 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         }
       }
       if (mounted) {
+        print('hereeeeeee');
         setState(() {
           _currProgress = 13;
           _isFinished = true;
+          print('finished');
         });
       }
     } catch (e) {

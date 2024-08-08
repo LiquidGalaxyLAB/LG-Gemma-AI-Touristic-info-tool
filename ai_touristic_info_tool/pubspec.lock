@@ -42,7 +42,7 @@ packages:
     source: hosted
     version: "2.11.0"
   beautiful_soup_dart:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: beautiful_soup_dart
       sha256: "57e23946c85776dd9515a4e9a14263fff37dbedbd559bc4412bf565886e12b10"
