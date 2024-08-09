@@ -292,10 +292,15 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                         // for (var link in _futureUrlsDynamic) {
                                         //   _futureUrls.add(link.toString());
                                         // }
+                                        // List<String> _futureUrls =
+                                        //     await LangchainService().fetchUrls(
+                                        //         widget.placeModel.name,
+                                        //         urlNum: 10);
                                         List<String> _futureUrls =
-                                            await LangchainService().fetchUrls(
-                                                widget.placeModel.name,
-                                                urlNum: 10);
+                                            await LangchainService()
+                                                .fetchUrlsTemp(
+                                                    widget.placeModel.name,
+                                                    numResults: 10);
                                         /////////////////////////////////////////
 
                                         final sshData =

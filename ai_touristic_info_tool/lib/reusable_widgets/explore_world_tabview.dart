@@ -6,6 +6,7 @@ import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
+import 'package:ai_touristic_info_tool/services/langchain_service.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
@@ -517,8 +518,35 @@ class ExploreWorldTabView extends StatelessWidget {
                                       );
                                     } else {
                                       apiKey = apiKeyModel.key;
-                                      showStreamingGeminiDialog(
-                                          context, query, '', '', apiKey);
+
+                                      String res = await LangchainService()
+                                          .checkAPIValidity(apiKey);
+                                      if (res == '') {
+                                        showStreamingGeminiDialog(
+                                            context, query, '', '', apiKey);
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              backgroundColor:
+                                                  LgAppColors.lgColor2,
+                                              content: Consumer<FontsProvider>(
+                                                builder: (BuildContext context,
+                                                    FontsProvider value,
+                                                    Widget? child) {
+                                                  return Text(
+                                                    res,
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          value.fonts.textSize,
+                                                      color: Colors.white,
+                                                      fontFamily: fontType,
+                                                    ),
+                                                  );
+                                                },
+                                              )),
+                                        );
+                                      }
                                     }
                                   }
                                 });

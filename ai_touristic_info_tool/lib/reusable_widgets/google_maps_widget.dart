@@ -190,9 +190,11 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                               print(mapProvider.markers);
                               setState(() {
                                 mapProvider.clearMarkers();
+                                mapProvider.clearCustomMarkers();
                                 mapProvider.pinPillPosition =
                                     MediaQuery.of(context).size.height * 1;
                               });
+                              setState(() {});
 
                               print(mapProvider.markers);
                               print('cleared');
@@ -200,10 +202,19 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                             child: Container(
                               alignment: Alignment.topRight,
                               margin: const EdgeInsets.only(top: 10, right: 10),
-                              child: const Icon(
-                                Icons.cleaning_services,
-                                color: Colors.white,
-                                size: 50,
+                              child: Column(
+                                children: [
+                                  const Icon(
+                                    Icons.cleaning_services,
+                                    color: Colors.white,
+                                    size: 50,
+                                  ),
+                                  Text('Clear data',
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold)),
+                                ],
                               ),
                             ),
                           ),

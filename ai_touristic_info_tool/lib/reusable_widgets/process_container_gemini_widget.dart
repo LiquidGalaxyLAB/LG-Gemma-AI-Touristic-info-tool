@@ -48,7 +48,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
 
   late StreamSubscription _subscription;
   // late dynamic lastResult;
-  Map<String, dynamic> lastResult = {};
+  late Map<String, dynamic> lastResult;
 
   @override
   void initState() {
@@ -57,6 +57,19 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
     _messageController = StreamController<dynamic>();
     _errorController = StreamController<dynamic>();
     //  _fullResultController = StreamController<Map<String, dynamic>>();
+    // Timer to check if _isFinished is false after 2 minutes
+    Timer(Duration(seconds: 90), () {
+      if (!_isFinished) {
+        if (mounted) {
+          setState(() {
+            _isError = true;
+            _errorController
+                .addError('Process timed out. Please try again later.');
+          });
+        }
+      }
+    });
+
     _subscription = _langchainService
         .generateStreamAnswer(widget.query, widget.apiKey)
         // .timeout(
@@ -113,13 +126,16 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
       }
     }, onDone: () {
       print('ondone');
-      _initializePlaces(lastResult);
+      if (!_isError) {
+        _initializePlaces(lastResult);
+      }
     }, onError: (error) {
       if (mounted) {
         setState(() {
           _isError = true;
           _streamController.addError(error);
           _messageController.addError(error);
+          _errorController.addError(error);
         });
       }
     });
@@ -141,9 +157,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         String location =
             '${poi['name']}, ${poi['address']}, ${poi['city']}, ${poi['country']}';
         print(location);
-        // try{
+        // try {
         MyLatLng latlng = await GeocodingService().getCoordinates(location);
-        // }
 
         print('hereeeeee after geo');
         if (mounted) {
@@ -200,10 +215,13 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
     return StreamBuilder<dynamic>(
       stream: _errorController.stream,
       builder: (context, errorSnapshot) {
-        if (_isError && errorSnapshot.hasData) {
+        print('Check is error');
+        print(_isError);
+        print(errorSnapshot.hasData);
+        if (_isError || errorSnapshot.hasData) {
           print('error found UI');
           return SizedBox(
-            width: MediaQuery.of(context).size.width * 0.5,
+            width: MediaQuery.of(context).size.width * 0.8,
             height: MediaQuery.of(context).size.height * 0.2,
             child: Consumer2<ColorProvider, FontsProvider>(builder:
                 (BuildContext context, ColorProvider colorProv,
@@ -213,7 +231,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                 children: [
                   Expanded(
                     child: Text(
-                      errorSnapshot.data.toString(),
+                      errorSnapshot.hasData
+                          ? errorSnapshot.data.toString()
+                          : 'An error occurred. Please try again later...\n',
                       style: TextStyle(
                         // color: FontAppColors.primaryFont,
                         color: fontsProv.fonts.primaryFontColor,
@@ -245,6 +265,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                     isSuffixIcon: false,
                     curvatureRadius: 30,
                   ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                  )
                 ],
               );
             }),
@@ -261,7 +284,36 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Center(
+                              child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  child: CircularProgressIndicator(
+                                    color: colorProv.colors.buttonColors,
+                                  )),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.05,
+                            ),
+                            Center(
+                              child: Text(
+                                'Please hold on while the model collects information from the web to provide a unique, accurate, and up-to-date experience!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: fontProv.fonts.primaryFontColor,
+                                  fontSize: fontProv.fonts.textSize,
+                                  fontFamily: fontType,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       );
                     } else if (snapshot.hasError) {
                       return SizedBox(

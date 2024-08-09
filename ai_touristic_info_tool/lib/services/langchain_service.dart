@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
 
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
@@ -73,6 +75,26 @@ class LangchainService {
     // return {'stream': stream, 'full_result': full_result};
   }
 
+  Future<String> checkAPIValidity(String apiKey) async {
+    final testQuery = 'Hello';
+
+    try {
+      final llm = ChatGoogleGenerativeAI(
+        apiKey: apiKey,
+        defaultOptions: ChatGoogleGenerativeAIOptions(
+          model: 'gemini-1.0-pro',
+        ),
+      );
+
+      final response = await llm.invoke(PromptValue.string(testQuery));
+      return '';
+    } catch (e) {
+      // Handle exceptions that indicate invalid API key
+      print('An Error Occured: ${e.toString()}');
+      return 'An Error Occured: ${e.toString()}';
+    }
+  }
+
   Stream<dynamic> generateStreamAnswer(String userQuery, String apiKey) async* {
     // Getting API key from env
     // final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
@@ -81,7 +103,8 @@ class LangchainService {
     //   throw Exception('GEMINI_API_KEY is not set in .env file');
     // }
     try {
-      List<String> links = await fetchUrls(userQuery);
+      // List<String> links = await fetchUrls(userQuery);
+      List<String> links = await fetchUrlsTemp(userQuery);
       print(links);
 
       final embeddings = GoogleGenerativeAIEmbeddings(
@@ -117,8 +140,8 @@ class LangchainService {
       ChatGoogleGenerativeAI llm = ChatGoogleGenerativeAI(
         apiKey: apiKey,
         defaultOptions: ChatGoogleGenerativeAIOptions(
-          // model: "gemini-1.5-pro",
-          model: "gemini-1.0-pro",
+          model: "gemini-1.5-pro",
+          // model: "gemini-1.0-pro",
         ),
       );
 
@@ -295,5 +318,98 @@ class LangchainService {
     } else {
       throw Exception('Failed to load Google search results');
     }
+  }
+
+  Future<List<String>> fetchUrlsTemp(
+    String term, {
+    int numResults = 40,
+    String lang = 'en',
+    Duration? sleepInterval,
+    Duration? timeout,
+    String? safe = 'active',
+    String? region,
+  }) async {
+    const _userAgentList = [
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+      'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.62',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0'
+    ];
+
+    final results = <String>[];
+    int start = 0;
+    int fetchedResults = 0;
+
+    final client = http.Client();
+    final random = Random();
+
+    while (fetchedResults < numResults) {
+      final uri = Uri.https(
+        'www.google.com',
+        '/search',
+        {
+          'q':
+              '$term -tripadvisor -inurl:http', // Exclude TripAdvisor and URLs containing "http" in the path
+          'num':
+              '${numResults + 2}', // Request slightly more results to handle potential duplicates
+          'hl': lang,
+          'start': '$start',
+          'safe': safe,
+          'gl': region,
+        },
+      );
+
+      final response = await client.get(
+        // Uri.parse('https://www.google.com/search'),
+        uri,
+        headers: {
+          'User-Agent': _userAgentList[random.nextInt(_userAgentList.length)],
+        },
+      ).timeout(timeout ?? const Duration(seconds: 5));
+
+      if (response.statusCode != 200) {
+        throw HttpException(
+            'Failed to fetch search results. Status code: ${response.statusCode}');
+      }
+
+      final soup = BeautifulSoup(response.body);
+      // soup.findAll('style').forEach((final element) => element.extract());
+      // soup.findAll('script').forEach((final element) => element.extract());
+      final resultElements = soup.findAll('div', class_: 'g');
+      int newResults = 0;
+
+      for (final resultElement in resultElements) {
+        final linkElement = resultElement.find('a', attrs: {'href': true});
+        final link = linkElement?['href'];
+
+        if (link != null && link.isNotEmpty) {
+          final uri = Uri.tryParse(link);
+          if (uri != null && uri.scheme == 'https') {
+            results.add(link);
+            fetchedResults++;
+            newResults++;
+          }
+        }
+
+        if (fetchedResults >= numResults) {
+          break;
+        }
+      }
+
+      if (newResults == 0) {
+        // No more results on this page, stop searching
+        break;
+      }
+
+      start +=
+          numResults; // Move to the next page of results (e.g., if numResults = 10, then start=10, 20, 30...)
+      await Future.delayed(sleepInterval ?? Duration.zero);
+    }
+
+    client.close();
+    return results;
   }
 }
