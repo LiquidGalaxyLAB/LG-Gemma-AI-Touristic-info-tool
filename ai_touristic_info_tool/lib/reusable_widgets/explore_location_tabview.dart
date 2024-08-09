@@ -55,6 +55,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
   String _whatToDoQuery = '';
 
   final _addressFormKey = GlobalKey<FormState>();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -825,9 +826,14 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                   );
                                 } else {
                                   apiKey = apiKeyModel.key;
-
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
                                   String res = await LangchainService()
                                       .checkAPIValidity(apiKey);
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
                                   if (res == '') {
                                     showStreamingGeminiDialog(context, query,
                                         _city, _country, apiKey);
@@ -857,7 +863,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                             });
                           }
                         },
-                        elevatedButtonContent: 'GENERATE',
+                        elevatedButtonContent:
+                            _isLoading ? 'Loading..' : 'GENERATE',
                       );
                     },
                   ),

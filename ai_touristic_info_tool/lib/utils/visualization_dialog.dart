@@ -597,6 +597,7 @@ void showVisualizationDialog(
                       child: Center(
                         child: Text(
                           query,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               // color: FontAppColors.secondaryFont,
                               // color: SettingsSharedPref.getTheme() == 'default'

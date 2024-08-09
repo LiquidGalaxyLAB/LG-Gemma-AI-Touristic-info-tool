@@ -58,7 +58,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
     _errorController = StreamController<dynamic>();
     //  _fullResultController = StreamController<Map<String, dynamic>>();
     // Timer to check if _isFinished is false after 2 minutes
-    Timer(Duration(seconds: 90), () {
+    Timer(Duration(seconds: 200), () {
       if (!_isFinished) {
         if (mounted) {
           setState(() {

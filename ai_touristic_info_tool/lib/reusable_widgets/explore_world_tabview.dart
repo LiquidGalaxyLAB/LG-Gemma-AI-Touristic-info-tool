@@ -20,7 +20,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ExploreWorldTabView extends StatelessWidget {
+class ExploreWorldTabView extends StatefulWidget {
   const ExploreWorldTabView({
     super.key,
     required GlobalKey<FormState> formKey,
@@ -31,6 +31,12 @@ class ExploreWorldTabView extends StatelessWidget {
   final GlobalKey<FormState> _formKey;
   final TextEditingController _promptController;
 
+  @override
+  State<ExploreWorldTabView> createState() => _ExploreWorldTabViewState();
+}
+
+class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
+  bool _isLoading = false;
   //init:
   @override
   Widget build(BuildContext context) {
@@ -414,7 +420,7 @@ class ExploreWorldTabView extends StatelessWidget {
                 ),
               ),
               Form(
-                key: _formKey,
+                key: widget._formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -423,7 +429,7 @@ class ExploreWorldTabView extends StatelessWidget {
                         // fontSize: textSize,
                         fontSize: fontsProv.fonts.textSize,
                         key: const ValueKey("world-prompt"),
-                        textController: _promptController,
+                        textController: widget._promptController,
                         isSuffixRequired: false,
                         // isHidden: false,
                         isPassword: false,
@@ -457,9 +463,9 @@ class ExploreWorldTabView extends StatelessWidget {
                                   Provider.of<ModelErrorProvider>(context,
                                       listen: false);
                               errProvider.isError = false;
-                              if (_formKey.currentState!.validate()) {
+                              if (widget._formKey.currentState!.validate()) {
                                 String query =
-                                    '${_promptController.text} Worldwide';
+                                    '${widget._promptController.text} Worldwide';
                                 print(query);
 
                                 PromptsSharedPref.getPlaces(query)
@@ -518,9 +524,15 @@ class ExploreWorldTabView extends StatelessWidget {
                                       );
                                     } else {
                                       apiKey = apiKeyModel.key;
-
+                                      setState(() {
+                                        _isLoading = true;
+                                      });
                                       String res = await LangchainService()
                                           .checkAPIValidity(apiKey);
+
+                                      setState(() {
+                                        _isLoading = false;
+                                      });
                                       if (res == '') {
                                         showStreamingGeminiDialog(
                                             context, query, '', '', apiKey);
@@ -552,7 +564,8 @@ class ExploreWorldTabView extends StatelessWidget {
                                 });
                               }
                             },
-                            elevatedButtonContent: 'GENERATE',
+                            elevatedButtonContent:
+                                _isLoading ? 'Loading..' : ' GENERATE',
                           );
                         },
                       ),

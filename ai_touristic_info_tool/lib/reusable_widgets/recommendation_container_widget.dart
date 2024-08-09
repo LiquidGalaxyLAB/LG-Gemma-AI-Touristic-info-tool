@@ -16,7 +16,7 @@ import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class RecommendationContainer extends StatelessWidget {
+class RecommendationContainer extends StatefulWidget {
   final String imagePath;
   final String title; //query
   final String? country; //query
@@ -43,21 +43,29 @@ class RecommendationContainer extends StatelessWidget {
       required this.bottomOpacity});
 
   @override
+  State<RecommendationContainer> createState() =>
+      _RecommendationContainerState();
+}
+
+class _RecommendationContainerState extends State<RecommendationContainer> {
+  bool _isLoading = false;
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         ModelErrorProvider errProvider =
             Provider.of<ModelErrorProvider>(context, listen: false);
         errProvider.isError = false;
-        print('query: $query');
+        print('query: ${widget.query}');
 
-        PromptsSharedPref.getPlaces(query).then((value) async {
+        PromptsSharedPref.getPlaces(widget.query).then((value) async {
           print('value: $value');
           print(value.isNotEmpty);
           if (value.isNotEmpty) {
-            await buildQueryPlacemark(title, city, country, context);
-            showVisualizationDialog(
-                context, value, title, city, country, () {}, false);
+            await buildQueryPlacemark(
+                widget.title, widget.city, widget.country, context);
+            showVisualizationDialog(context, value, widget.title, widget.city,
+                widget.country, () {}, false);
           } else {
             Connectionprovider connection =
                 Provider.of<Connectionprovider>(context, listen: false);
@@ -79,8 +87,10 @@ class RecommendationContainer extends StatelessWidget {
             // print(result);
             //result["places"][i]["name"]
             // name address city country description pricing rating amenities source
+
             ApiKeyModel? apiKeyModel =
                 await APIKeySharedPref.getDefaultApiKey('Gemini');
+
             String apiKey;
             if (apiKeyModel == null) {
               //snackbar:
@@ -103,10 +113,16 @@ class RecommendationContainer extends StatelessWidget {
               );
             } else {
               apiKey = apiKeyModel.key;
+              setState(() {
+                _isLoading = true;
+              });
               String res = await LangchainService().checkAPIValidity(apiKey);
+              setState(() {
+                _isLoading = false;
+              });
               if (res == '') {
-                showStreamingGeminiDialog(
-                    context, query, city ?? '', country ?? '', apiKey);
+                showStreamingGeminiDialog(context, widget.query,
+                    widget.city ?? '', widget.country ?? '', apiKey);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -133,8 +149,8 @@ class RecommendationContainer extends StatelessWidget {
       child: Consumer<ColorProvider>(
         builder: (BuildContext context, ColorProvider value, Widget? child) {
           return Container(
-            width: width,
-            height: height,
+            width: widget.width,
+            height: widget.height,
             decoration: BoxDecoration(
               border: Border.all(
                   // color: PrimaryAppColors.buttonColors,
@@ -147,7 +163,7 @@ class RecommendationContainer extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(26),
                   child: Image.asset(
-                    imagePath,
+                    widget.imagePath,
                     fit: BoxFit.cover,
                     width: double.infinity,
                     height: double.infinity,
@@ -158,7 +174,7 @@ class RecommendationContainer extends StatelessWidget {
                     borderRadius: BorderRadius.circular(26),
                     gradient: LinearGradient(
                       colors: [
-                        Colors.black.withOpacity(bottomOpacity),
+                        Colors.black.withOpacity(widget.bottomOpacity),
                         Colors.black.withOpacity(0.1),
                       ],
                       begin: Alignment.bottomCenter,
@@ -175,26 +191,48 @@ class RecommendationContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        widget.title,
                         style: TextStyle(
                           color: FontAppColors.secondaryFont,
                           fontWeight: FontWeight.bold,
-                          fontSize: txtSize,
+                          fontSize: widget.txtSize,
                           fontFamily: fontType,
                         ),
                       ),
-                      if (description != null)
+                      if (widget.description != null)
                         Text(
-                          description!,
+                          widget.description!,
                           style: TextStyle(
                             color: FontAppColors.secondaryFont,
-                            fontSize: txtSize,
+                            fontSize: widget.txtSize,
                             fontFamily: fontType,
                           ),
                         ),
                     ],
                   ),
                 ),
+                if (_isLoading)
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          color: Colors.white,
+
+                          // valueColor: AlwaysStoppedAnimation<Color>(
+                          //   value.colors.buttonColors,
+                          // ),
+                        ),
+                        Text('Loading...',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: fontType,
+                            ))
+                      ],
+                    ),
+                  ),
               ],
             ),
           );

@@ -122,6 +122,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                 gmp.clearPolylines();
                                 gmp.clearCustomMarkers();
                                 gmp.clearPolylinesMap();
+                                setState(() {});
 
                                 final sshData = Provider.of<SSHprovider>(
                                     context,
