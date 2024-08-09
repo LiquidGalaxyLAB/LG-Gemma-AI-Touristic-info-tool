@@ -66,7 +66,7 @@ buildAppBalloonOverlay(BuildContext context) async {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Gemma AI Touristic Info Tool</title>
+    <title>LG Gemini AI Touristic Info Tool</title>
     <style>
       .balloon {
                background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
@@ -139,7 +139,7 @@ buildAppBalloonOverlay(BuildContext context) async {
         </div>
 
         <div style="text-align:center;">
-            <h1>Welcome to LG Gemma AI Touristic Info Tool!</h1>
+            <h1>Welcome to LG Gemini AI Touristic Info Tool!</h1>
         </div>
 
         <br>
@@ -266,7 +266,7 @@ buildWebsiteLinkBallon(String placeName, String? city, String? country,
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Gemma AI Touristic Info Tool</title>
+    <title>LG Gemini AI Touristic Info Tool</title>
     <style>
             .balloon {
                background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
@@ -455,7 +455,7 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Gemma AI Touristic Info Tool</title>
+    <title>LG Gemini AI Touristic Info Tool</title>
     <style> 
          .balloon {
                background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
@@ -651,7 +651,7 @@ buildAllLinksBalloon(String placeName, String? city, String? country,
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Gemma AI Touristic Info Tool</title>
+    <title>LG Gemini AI Touristic Info Tool</title>
     <style>
              .balloon {
                background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
@@ -853,7 +853,7 @@ buildQueryPlacemark(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Gemma AI Touristic Info Tool</title>
+    <title>LG Gemini AI Touristic Info Tool</title>
     <style>
              .balloon {
                background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
@@ -1042,7 +1042,7 @@ buildPlacePlacemark(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Gemma AI Touristic Info Tool</title>
+    <title>LG Gemini AI Touristic Info Tool</title>
     <style>
              .balloon {
                background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
@@ -1297,7 +1297,7 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Gemma AI Touristic Info Tool</title>
+    <title>LG Gemini AI Touristic Info Tool</title>
     <style>
               .balloon {
                background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
@@ -1568,7 +1568,7 @@ buildQueryTour(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Gemma AI Touristic Info Tool</title>
+    <title>LG Gemini AI Touristic Info Tool</title>
     <style>
             .balloon {
                background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
@@ -1826,7 +1826,7 @@ Future<double> buildCustomTour(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Gemma AI Touristic Info Tool</title>
+    <title>LG Gemini AI Touristic Info Tool</title>
     <style>
             .balloon {
                background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
