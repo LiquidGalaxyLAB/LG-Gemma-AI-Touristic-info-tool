@@ -1,4 +1,11 @@
+import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
+import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class LGWidget extends StatefulWidget {
   const LGWidget({super.key});
@@ -10,6 +17,129 @@ class LGWidget extends StatefulWidget {
 class _LGWidgetState extends State<LGWidget> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    CurrentViewProvider currViewProvider =
+        Provider.of<CurrentViewProvider>(context, listen: true);
+
+    return Consumer2<FontsProvider, ColorProvider>(
+      builder: (BuildContext context, FontsProvider fontProv,
+          ColorProvider colorProv, Widget? child) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Text(
+                'About Liquid Galaxy',
+                style: TextStyle(
+                  fontSize: fontProv.fonts.headingSize,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: fontType,
+                ),
+              ),
+              Image.asset(
+                "assets/images/lg-trans.png",
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.width * 0.2,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Liquid Galaxy is a multi-screen, immersive system that offers panoramic views by syncing multiple displays. Originally a Google project, it allows users to explore locations in a seamless, 360-degree experience',
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    fontSize: fontProv.fonts.textSize,
+                    color: Colors.black,
+                    fontFamily: fontType,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  LgElevatedButton(
+                    elevatedButtonContent: 'Learn about LG',
+                    buttonColor: colorProv.colors.buttonColors,
+                    onpressed: () {
+                      launchUrlString('https://www.liquidgalaxy.eu/');
+                    },
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.18,
+                    fontSize: fontProv.fonts.textSize,
+                    fontColor: Colors.white,
+                    isLoading: false,
+                    isBold: false,
+                    isPrefixIcon: false,
+                    isSuffixIcon: false,
+                    curvatureRadius: 10,
+                  ),
+                  LgElevatedButton(
+                    elevatedButtonContent: 'Set up an LG Rig',
+                    buttonColor: colorProv.colors.buttonColors,
+                    onpressed: () {
+                      launchUrlString(
+                          'https://youtu.be/jz-QZi__10c?si=vmzgAclLC6Almkaj');
+                    },
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.18,
+                    fontSize: fontProv.fonts.textSize,
+                    fontColor: Colors.white,
+                    isLoading: false,
+                    isBold: false,
+                    isPrefixIcon: false,
+                    isSuffixIcon: false,
+                    curvatureRadius: 10,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  LgElevatedButton(
+                    elevatedButtonContent: 'Connec to LG',
+                    buttonColor: colorProv.colors.buttonColors,
+                    onpressed: () {
+                      currViewProvider.currentView = 'connection';
+                    },
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.18,
+                    fontSize: fontProv.fonts.textSize,
+                    fontColor: Colors.white,
+                    isLoading: false,
+                    isBold: false,
+                    isPrefixIcon: false,
+                    isSuffixIcon: false,
+                    curvatureRadius: 10,
+                  ),
+                  LgElevatedButton(
+                    elevatedButtonContent: 'Control the LG',
+                    buttonColor: colorProv.colors.buttonColors,
+                    onpressed: () {
+                      currViewProvider.currentView = 'tasks';
+                    },
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.18,
+                    fontSize: fontProv.fonts.textSize,
+                    fontColor: Colors.white,
+                    isLoading: false,
+                    isBold: false,
+                    isPrefixIcon: false,
+                    isSuffixIcon: false,
+                    curvatureRadius: 10,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

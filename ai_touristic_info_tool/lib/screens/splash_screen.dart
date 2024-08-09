@@ -35,7 +35,16 @@ class _SplashScreenState extends State<SplashScreen> {
             : Colors.white,
         body: Center(
             child: SettingsSharedPref.getTheme() == 'dark'
-                ? Image.asset('assets/images/dark-logos.jpg')
-                : Image.asset('assets/images/Logos_Screen.jpg')));
+                ? 
+                //Local
+                // Image.asset('assets/images/dark-logos-gemma.jpg')
+                //Gemini
+                Image.asset('assets/images/dark-logos-gemini.jpg')
+                : 
+                //Local
+                // Image.asset('assets/images/Logos_Screen-gemma.jpg')
+                //Gemini
+                 Image.asset('assets/images/Logos_Screen-gemini.jpg')
+                ));
   }
 }

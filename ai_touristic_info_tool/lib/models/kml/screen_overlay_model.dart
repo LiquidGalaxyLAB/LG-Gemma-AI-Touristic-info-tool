@@ -140,7 +140,11 @@ class ScreenOverlayModel {
     return ScreenOverlayModel(
       name: 'LogoSO',
       icon:
-          'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/Logos_Screen.jpg?raw=true',
+          //Local:
+          // 'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/Logos_Screen-gemma.jpg?raw=true',
+          //Gemini:
+          'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/Logos_Screen-gemini.jpg?raw=true',
+
 //1980 × 1080 px  710 × 387 px
       overlayX: 0,
       overlayY: 1,

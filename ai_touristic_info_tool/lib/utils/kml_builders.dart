@@ -57,6 +57,10 @@ buildAppBalloonOverlay(BuildContext context) async {
       colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
 
   final sshData = Provider.of<SSHprovider>(context, listen: false);
+  String appLogoGemma =
+      'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo-Gemma.png?raw=true';
+  String appLogoGemini =
+      'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo-Gemini.png?raw=true';
   String balloonContent = '''
     <html lang="en">
 <head>
@@ -130,7 +134,7 @@ buildAppBalloonOverlay(BuildContext context) async {
     <div class="balloon">
         <div class="container-logo">
             <div class="logo">
-                <img src="https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo.png?raw=true" alt="Logo Image"/>
+                <img src="$appLogoGemini" alt="Logo Image"/>
             </div>
         </div>
 

@@ -81,28 +81,7 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Padding(
-                      //   padding: const EdgeInsets.only(top: 20.0),
-                      //   child: Container(
-                      //     height: MediaQuery.of(context).size.height * 0.08,
-                      //     width: MediaQuery.of(context).size.width * 0.1,
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(20),
-                      //       color: FontAppColors.secondaryFont,
-                      //       image: const DecorationImage(
-                      //         image: AssetImage('assets/images/appLogo.png'),
-                      //         fit: BoxFit.scaleDown,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // Text(query,
-                      //     textAlign: TextAlign.center,
-                      //     style: TextStyle(
-                      //         color: Colors.white,
-                      //         fontSize: textSize + 8,
-                      //         fontWeight: FontWeight.bold,
-                      //         fontFamily: fontType)),
+                    
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02),
                       Text(

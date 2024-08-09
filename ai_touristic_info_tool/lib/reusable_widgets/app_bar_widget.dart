@@ -27,14 +27,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Image.asset(
-          //   'assets/images/appLogo.png',
-          //   width: 80,
-          //   height: 80,
-          // ),
-          // SizedBox(
-          //   width: MediaQuery.of(context).size.width * 0.03,
-          // ),
           Flexible(
             child: FittedBox(
               fit: BoxFit.scaleDown,
@@ -42,7 +34,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               child: Row(
                 children: [
                   Image.asset(
-                    'assets/images/appLogo.png',
+                    //Local:
+                    // 'assets/images/appLogo-Gemma.png',
+                    //Gemini:
+                    'assets/images/appLogo-Gemini.png',
                     width: 80,
                     height: 80,
                   ),

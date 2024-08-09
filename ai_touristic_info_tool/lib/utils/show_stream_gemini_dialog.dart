@@ -1,4 +1,6 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
+import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/process_container_gemini_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/process_container_local_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
@@ -8,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void showStreamingGeminiDialog(
-    BuildContext context, String query, String city, String country) {
+    BuildContext context, String query, String city, String country, String apiKey) {
+
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -49,6 +52,7 @@ void showStreamingGeminiDialog(
                 query: query,
                 city: city,
                 country: country,
+                apiKey: apiKey,
               ));
         },
       );

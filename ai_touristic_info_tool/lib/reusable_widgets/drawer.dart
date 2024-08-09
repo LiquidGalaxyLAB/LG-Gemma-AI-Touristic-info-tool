@@ -64,6 +64,18 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         isDefault = false;
       });
     }
+    if (currViewProvider.currentView == 'connection') {
+      setState(() {
+        selected = 'connection';
+        isDefault = false;
+      });
+    }
+    if (currViewProvider.currentView == 'tasks') {
+      setState(() {
+        selected = 'tasks';
+        isDefault = false;
+      });
+    }
 
     // if (colorProv.theme == 'dark') {
     //   setState(() {

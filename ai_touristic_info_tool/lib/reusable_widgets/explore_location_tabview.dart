@@ -1,6 +1,8 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
+import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/drop_down_list_component.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
@@ -124,29 +126,29 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: LgElevatedButton(
-                        elevatedButtonContent: 'Record Audio',
-                        buttonColor: ButtonColors.audioButton,
-                        onpressed: () {},
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        // fontSize: textSize,
-                        fontSize: value.fonts.textSize,
-                        fontColor: FontAppColors.secondaryFont,
-                        isLoading: false,
-                        isBold: false,
-                        isPrefixIcon: true,
-                        prefixIcon: Icons.mic_outlined,
-                        prefixIconColor: Colors.white,
-                        prefixIconSize: 30,
-                        isSuffixIcon: false,
-                        curvatureRadius: 10,
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(20.0),
+                  //     child: LgElevatedButton(
+                  //       elevatedButtonContent: 'Record Audio',
+                  //       buttonColor: ButtonColors.audioButton,
+                  //       onpressed: () {},
+                  //       height: MediaQuery.of(context).size.height * 0.1,
+                  //       width: MediaQuery.of(context).size.width * 0.2,
+                  //       // fontSize: textSize,
+                  //       fontSize: value.fonts.textSize,
+                  //       fontColor: FontAppColors.secondaryFont,
+                  //       isLoading: false,
+                  //       isBold: false,
+                  //       isPrefixIcon: true,
+                  //       prefixIcon: Icons.mic_outlined,
+                  //       prefixIconColor: Colors.white,
+                  //       prefixIconSize: 30,
+                  //       isSuffixIcon: false,
+                  //       curvatureRadius: 10,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               );
             },
@@ -796,8 +798,35 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                 //       context, query, _city, _country);
                                 // }
                                 //Gemini:
-                                showStreamingGeminiDialog(
-                                    context, query, _city, _country);
+                                ApiKeyModel? apiKeyModel =
+                                    await APIKeySharedPref.getDefaultApiKey(
+                                        'Gemini');
+                                String apiKey;
+                                if (apiKeyModel == null) {
+                                  //snackbar:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        backgroundColor: LgAppColors.lgColor2,
+                                        content: Consumer<FontsProvider>(
+                                          builder: (BuildContext context,
+                                              FontsProvider value,
+                                              Widget? child) {
+                                            return Text(
+                                              'Please add a default API Key for Gemini in the settings!',
+                                              style: TextStyle(
+                                                fontSize: value.fonts.textSize,
+                                                color: Colors.white,
+                                                fontFamily: fontType,
+                                              ),
+                                            );
+                                          },
+                                        )),
+                                  );
+                                } else {
+                                  apiKey = apiKeyModel.key;
+                                  showStreamingGeminiDialog(
+                                      context, query, _city, _country, apiKey);
+                                }
                               }
                             });
                           }

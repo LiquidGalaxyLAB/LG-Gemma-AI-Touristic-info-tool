@@ -46,6 +46,7 @@ const double titleSize = 40;
 // const double headingSize = 35;
 const double headingSize = titleSize - 5;
 const double textSize = titleSize - 20;
+const List<String> keyServicesAPI = ['Gemini'];
 // const double textSize = 20;
 
 Map<String, List<PlacesModel>> defaultDataConst = {

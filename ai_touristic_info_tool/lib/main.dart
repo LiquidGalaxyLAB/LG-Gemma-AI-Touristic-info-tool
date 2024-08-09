@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
@@ -34,6 +35,8 @@ void main() async {
   await SettingsSharedPref.init();
 
   await FavoritesSharedPref.init();
+
+  await APIKeySharedPref.init();
 
   //clear:
   // await FavoritesSharedPref().clearToursList();

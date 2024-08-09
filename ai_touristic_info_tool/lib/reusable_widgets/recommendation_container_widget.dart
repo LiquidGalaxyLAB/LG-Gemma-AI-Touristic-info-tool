@@ -1,8 +1,12 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
+import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 import 'package:ai_touristic_info_tool/services/langchain_service.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
@@ -75,7 +79,33 @@ class RecommendationContainer extends StatelessWidget {
             // print(result);
             //result["places"][i]["name"]
             // name address city country description pricing rating amenities source
-            showStreamingGeminiDialog(context, query, city ?? '', country?? '');
+            ApiKeyModel? apiKeyModel =
+                await APIKeySharedPref.getDefaultApiKey('Gemini');
+            String apiKey;
+            if (apiKeyModel == null) {
+              //snackbar:
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    backgroundColor: LgAppColors.lgColor2,
+                    content: Consumer<FontsProvider>(
+                      builder: (BuildContext context, FontsProvider value,
+                          Widget? child) {
+                        return Text(
+                          'Please add a default API Key for Gemini in the settings!',
+                          style: TextStyle(
+                            fontSize: value.fonts.textSize,
+                            color: Colors.white,
+                            fontFamily: fontType,
+                          ),
+                        );
+                      },
+                    )),
+              );
+            } else {
+              apiKey = apiKeyModel.key;
+              showStreamingGeminiDialog(
+                  context, query, city ?? '', country ?? '', apiKey);
+            }
           }
         });
       },

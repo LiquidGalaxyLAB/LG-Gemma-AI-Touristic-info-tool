@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +57,12 @@ class DynamicAppColors {
       // grad1 = Color.fromARGB(255, 179, 179, 179); // Lighter Grey
 
       innerBg = Colors.white;
-      buttons = buttonColor;
+      if (isNearWhite(buttonColor)) {
+        buttons = Color.fromARGB(255, 210, 208, 208);
+      } else {
+        buttons = buttonColor;
+      }
+      // buttons = buttonColor;
     } else {
       grad1 = adjustColor(buttonColor, 0.4);
       grad2 = adjustColor(buttonColor, 0.6);
@@ -117,7 +124,12 @@ class DynamicAppColors {
       // grad1 = Color.fromARGB(255, 179, 179, 179); // Lighter Grey
 
       innerBg = Colors.white;
-      buttons = buttonColor;
+      if (isNearWhite(buttonColor)) {
+        buttons = Color.fromARGB(255, 210, 208, 208);
+      } else {
+        buttons = buttonColor;
+      }
+      // buttons = buttonColor;
     } else {
       grad1 = adjustColor(buttonColor, 0.4);
       grad2 = adjustColor(buttonColor, 0.6);
@@ -165,4 +177,14 @@ Color adjustColor(Color color, double factor) {
     (color.blue * factor).clamp(0, 255).toInt(),
     color.opacity,
   );
+}
+
+bool isNearWhite(Color color, {double threshold = 100.0}) {
+  // Calculate the Euclidean distance from white
+  double distance = sqrt(
+    pow(color.red - 255, 2) +
+        pow(color.green - 255, 2) +
+        pow(color.blue - 255, 2),
+  );
+  return distance < threshold;
 }

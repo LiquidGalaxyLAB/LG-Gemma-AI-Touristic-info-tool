@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
+import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:langchain/langchain.dart';
 import 'package:langchain_community/langchain_community.dart';
@@ -8,13 +10,23 @@ import 'package:http/http.dart' as http;
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 
 class LangchainService {
-  Future<Map<String, dynamic>> generateAnswer(String userQuery) async {
+  Future<Map<String, dynamic>> generateAnswer(
+      String userQuery, String apiKey) async {
     // Getting API key from env
-    final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
+    // final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
 
-    if (apiKey.isEmpty) {
-      throw Exception('GEMINI_API_KEY is not set in .env file');
-    }
+    // ApiKeyModel? apiKeyModel =
+    //     await APIKeySharedPref.getDefaultApiKey('Gemini');
+    // String apiKey;
+    // if (apiKeyModel == null) {
+    //   throw Exception('Gemini Key is not set.');
+    // } else {
+    //   apiKey = apiKeyModel.key;
+    // }
+
+    // if (apiKey.isEmpty) {
+    //   throw Exception('GEMINI_API_KEY is not set.');
+    // }
 
     ChatGoogleGenerativeAI llm = ChatGoogleGenerativeAI(
       apiKey: apiKey,
@@ -61,55 +73,56 @@ class LangchainService {
     // return {'stream': stream, 'full_result': full_result};
   }
 
-  Stream<dynamic> generateStreamAnswer(String userQuery) async* {
+  Stream<dynamic> generateStreamAnswer(String userQuery, String apiKey) async* {
     // Getting API key from env
-    final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
+    // final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
 
-    if (apiKey.isEmpty) {
-      throw Exception('GEMINI_API_KEY is not set in .env file');
-    }
+    // if (apiKey.isEmpty) {
+    //   throw Exception('GEMINI_API_KEY is not set in .env file');
+    // }
+    try {
+      List<String> links = await fetchUrls(userQuery);
+      print(links);
 
-    List<String> links = await fetchUrls(userQuery);
-    print(links);
+      final embeddings = GoogleGenerativeAIEmbeddings(
+        apiKey: apiKey,
+      );
 
-    final embeddings = GoogleGenerativeAIEmbeddings(
-      apiKey: apiKey,
-    );
+      // final loader = WebBaseLoader(links);
+      // final documents = await loader.load();
+      // const textSplitter = RecursiveCharacterTextSplitter(
+      //   chunkSize: 1000,
+      //   chunkOverlap: 200,
+      // );
+      // final splits = textSplitter.splitDocuments(documents);
+      final vectorStore = MemoryVectorStore(embeddings: embeddings);
+      await vectorStore.addDocuments(
+        // documents: splits
+        documents: [
+          Document(pageContent: 'LangChain was created by Harrison'),
+          Document(
+              pageContent: 'David ported LangChain to Dart in LangChain.dart'),
+        ],
+      );
 
-    // final loader = WebBaseLoader(links);
-    // final documents = await loader.load();
-    // const textSplitter = RecursiveCharacterTextSplitter(
-    //   chunkSize: 1000,
-    //   chunkOverlap: 200,
-    // );
-    // final splits = textSplitter.splitDocuments(documents);
-    final vectorStore = MemoryVectorStore(embeddings: embeddings);
-    await vectorStore.addDocuments(
-      // documents: splits
-      documents: [
-        Document(pageContent: 'LangChain was created by Harrison'),
-        Document(
-            pageContent: 'David ported LangChain to Dart in LangChain.dart'),
-      ],
-    );
+      final retriever = vectorStore.asRetriever();
+      final setupAndRetrieval = Runnable.fromMap<String>({
+        'context': retriever.pipe(
+          Runnable.mapInput(
+              (docs) => docs.map((d) => d.pageContent).join('\n')),
+        ),
+        'question': Runnable.passthrough(),
+      });
 
-    final retriever = vectorStore.asRetriever();
-    final setupAndRetrieval = Runnable.fromMap<String>({
-      'context': retriever.pipe(
-        Runnable.mapInput((docs) => docs.map((d) => d.pageContent).join('\n')),
-      ),
-      'question': Runnable.passthrough(),
-    });
+      ChatGoogleGenerativeAI llm = ChatGoogleGenerativeAI(
+        apiKey: apiKey,
+        defaultOptions: ChatGoogleGenerativeAIOptions(
+          // model: "gemini-1.5-pro",
+          model: "gemini-1.0-pro",
+        ),
+      );
 
-    ChatGoogleGenerativeAI llm = ChatGoogleGenerativeAI(
-      apiKey: apiKey,
-      defaultOptions: ChatGoogleGenerativeAIOptions(
-        // model: "gemini-1.5-pro",
-        model: "gemini-1.0-pro",
-      ),
-    );
-
-    String prompt = '''
+      String prompt = '''
         You are an advanced AI model acting as a touristic guide with extensive knowledge of various travel destinations and touristic information. 
         Use your internal knowledge to generate a comprehensive and accurate response.
         Your answer must include Top 10 places, not more not less, with a brief description of each place, and what makes it unique.
@@ -136,112 +149,118 @@ class LangchainService {
         YOUR ANSWER:
     ''';
 
-    // QUESTION: $userQuery
-    //QUESTION: {question}
+      // QUESTION: $userQuery
+      //QUESTION: {question}
 
-    final outputParser = JsonOutputParser<ChatResult>();
-    // final chain = llm.pipe(outputParser);
+      final outputParser = JsonOutputParser<ChatResult>();
+      // final chain = llm.pipe(outputParser);
 
-    ///
-    Set<String> inputVariables = {};
-    inputVariables.add('question');
-    final chain = setupAndRetrieval
-        .pipe(PromptTemplate(inputVariables: inputVariables, template: prompt))
-        .pipe(llm)
-        .pipe(outputParser);
+      ///
+      Set<String> inputVariables = {};
+      inputVariables.add('question');
+      final chain = setupAndRetrieval
+          .pipe(
+              PromptTemplate(inputVariables: inputVariables, template: prompt))
+          .pipe(llm)
+          .pipe(outputParser);
 
-    yield {'type': 'message', 'data': 'Starting...'};
+      yield {'type': 'message', 'data': 'Starting...'};
 
-    int currPlaceCount = 0;
+      int currPlaceCount = 0;
 
-    // final stream = chain.stream(PromptValue.string(prompt));
-    // .map((result) => result.toString());
-    final stream = chain.stream(userQuery);
-    print('start stream');
-    yield {'type': 'message', 'data': 'Streaming'};
-    // print(await stream.isEmpty);
-    await for (var result in stream) {
-      final placeCount = RegExp(r'name').allMatches(result.toString()).length;
-      if (result.toString().contains('name:')) {
-        print('results contains name');
-        if (currPlaceCount < placeCount) {
-          currPlaceCount = placeCount;
-          print('increment');
-          print(placeCount);
-          print(currPlaceCount);
-          yield {
-            'type': 'message',
-            'data': 'Streaming',
-          };
+      // final stream = chain.stream(PromptValue.string(prompt));
+      // .map((result) => result.toString());
+      final stream = chain.stream(userQuery);
+      print('start stream');
+      yield {'type': 'message', 'data': 'Streaming'};
+      // print(await stream.isEmpty);
+      await for (var result in stream) {
+        final placeCount = RegExp(r'name').allMatches(result.toString()).length;
+        if (result.toString().contains('name:')) {
+          print('results contains name');
+          if (currPlaceCount < placeCount) {
+            currPlaceCount = placeCount;
+            print('increment');
+            print(placeCount);
+            print(currPlaceCount);
+            yield {
+              'type': 'message',
+              'data': 'Streaming',
+            };
+          }
         }
+        print(await result);
+        yield {
+          'type': 'stream',
+          'data': result,
+        };
       }
-      print(await result);
-      yield {
-        'type': 'stream',
-        'data': result,
-      };
+      // print('done with stream');
+
+      // final full_result = chain.invoke(PromptValue.string(prompt));
+      // final full_result = chain.invoke(userQuery);
+      yield {'type': 'message', 'data': 'Preparing visualizations'};
+      // bool isDone = false;
+      // await full_result.then((value) {
+      //   isDone = true;
+      // });
+
+      // yield {
+      //   'type': 'result',
+      //   'data': full_result,
+      // };
+      // if (isDone) {
+      //   yield {
+      //     'type': 'message',
+      //     'data': 'Almost Done! Please wait few seconds...'
+      //   };
+      // }
+
+      print('full result');
+    } catch (e) {
+      print('exception');
+      // Handle exceptions and provide user-friendly error messages
+      yield {'type': 'error', 'data': 'An error occurred: ${e.toString()}'};
     }
-    // print('done with stream');
-
-    // final full_result = chain.invoke(PromptValue.string(prompt));
-    // final full_result = chain.invoke(userQuery);
-    yield {'type': 'message', 'data': 'Preparing visualizations'};
-    // bool isDone = false;
-    // await full_result.then((value) {
-    //   isDone = true;
-    // });
-
-    // yield {
-    //   'type': 'result',
-    //   'data': full_result,
-    // };
-    // if (isDone) {
-    //   yield {
-    //     'type': 'message',
-    //     'data': 'Almost Done! Please wait few seconds...'
-    //   };
-    // }
-
-    print('full result');
   }
 
-  Future<Map<String, dynamic>> generatewebLinks(String placeName) async {
-    // Getting API key from env
-    final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
+  // Future<Map<String, dynamic>> generatewebLinks(String placeName) async {
+  //   // Getting API key from env
+  //   final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
 
-    if (apiKey.isEmpty) {
-      throw Exception('GEMINI_API_KEY is not set in .env file');
-    }
+  //   if (apiKey.isEmpty) {
+  //     throw Exception('GEMINI_API_KEY is not set in .env file');
+  //   }
 
-    ChatGoogleGenerativeAI llm = ChatGoogleGenerativeAI(
-      apiKey: apiKey,
-      defaultOptions: ChatGoogleGenerativeAIOptions(
-        model: "gemini-1.5-pro",
-      ),
-    );
+  //   ChatGoogleGenerativeAI llm = ChatGoogleGenerativeAI(
+  //     apiKey: apiKey,
+  //     defaultOptions: ChatGoogleGenerativeAIOptions(
+  //       model: "gemini-1.5-pro",
+  //     ),
+  //   );
 
-    String prompt = '''
-      You are an advanced AI model with access to extensive knowledge about travel destinations and online sources.
-      Your task is to find exactly 10 relevant URLs related to a specific place name. 
-      Provide only the URLs, without any additional descriptions or comments. 
-      Each URL should be accessible and provide information related to the given place name.
-      Your answer must be in a well-defined JSON format, with correct curly braces, commas, and quotes. Only use double quotes for strings in your JSON format.
-      The response should be in UTF-8 JSON format, all links enclosed in the 'links' field of the JSON to be returned without any extra comments or quote wrappers.
-      The value is the list of URLs
-      The response should not be enclosed in a code section.
-      
-      QUESTION: Find 10 URLs related to "$placeName".
+  //   String prompt = '''
+  //     You are an advanced AI model with access to extensive knowledge about travel destinations and online sources.
+  //     Your task is to find exactly 10 relevant URLs related to a specific place name.
+  //     Provide only the URLs, without any additional descriptions or comments.
+  //     Each URL should be accessible and provide information related to the given place name.
+  //     Your answer must be in a well-defined JSON format, with correct curly braces, commas, and quotes. Only use double quotes for strings in your JSON format.
+  //     The response should be in UTF-8 JSON format, all links enclosed in the 'links' field of the JSON to be returned without any extra comments or quote wrappers.
+  //     The value is the list of URLs
+  //     The response should not be enclosed in a code section.
 
-      YOUR ANSWER:
-  ''';
+  //     QUESTION: Find 10 URLs related to "$placeName".
 
-    final outputParser = JsonOutputParser<ChatResult>();
-    final chain = llm.pipe(outputParser);
+  //     YOUR ANSWER:
+  // ''';
 
-    final links = chain.invoke(PromptValue.string(prompt));
+  //   final outputParser = JsonOutputParser<ChatResult>();
+  //   final chain = llm.pipe(outputParser);
 
-    return links;
-  }
+  //   final links = chain.invoke(PromptValue.string(prompt));
+
+  //   return links;
+  // }
 
   Future<List<String>> fetchUrls(String userQuery, {int urlNum = 20}) async {
     final searchUrl =
