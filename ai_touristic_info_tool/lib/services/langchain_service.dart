@@ -368,7 +368,7 @@ class LangchainService {
         headers: {
           'User-Agent': _userAgentList[random.nextInt(_userAgentList.length)],
         },
-      ).timeout(timeout ?? const Duration(seconds: 5));
+      ).timeout(timeout ?? const Duration(seconds: 60));
 
       if (response.statusCode != 200) {
         throw HttpException(
@@ -376,8 +376,8 @@ class LangchainService {
       }
 
       final soup = BeautifulSoup(response.body);
-      // soup.findAll('style').forEach((final element) => element.extract());
-      // soup.findAll('script').forEach((final element) => element.extract());
+      soup.findAll('style').forEach((final element) => element.extract());
+      soup.findAll('script').forEach((final element) => element.extract());
       final resultElements = soup.findAll('div', class_: 'g');
       int newResults = 0;
 
@@ -388,6 +388,10 @@ class LangchainService {
         if (link != null && link.isNotEmpty) {
           final uri = Uri.tryParse(link);
           if (uri != null && uri.scheme == 'https') {
+            if (link.startsWith("https://www.google") ||
+                link.startsWith("https://accounts")) {
+              continue;
+            }
             results.add(link);
             fetchedResults++;
             newResults++;
