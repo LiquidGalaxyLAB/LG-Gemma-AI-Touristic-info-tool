@@ -31,7 +31,7 @@ void showStreamingDialog(
                   (BuildContext context, ModelErrorProvider value,
                       Widget? child) {
                 return Center(
-                  child: Text(!value.isError ? 'Processing ...' : 'Error !',
+                  child: Text(!value.isError ? 'AI Generation' : 'Error !',
                       style: TextStyle(
                         color: !value.isError
                             // ? FontAppColors.primaryFont

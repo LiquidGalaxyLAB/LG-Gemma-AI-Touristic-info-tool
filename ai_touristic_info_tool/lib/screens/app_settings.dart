@@ -1,11 +1,13 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/api_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/font_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/help_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/language_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/settings_option.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/show_case_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/theme_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
@@ -109,16 +111,146 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // SettingsOptionButton(
-                              //   buttonText: 'Language',
-                              //   buttonDescription:
-                              //       'Change the language of the app',
-                              //   icon: Icons.translate,
-                              //   view: LanguageWidget(),
-                              //   index: 0,
-                              //   selectedIndex: selectedIndex,
-                              //   onPressed: updateView,
+                              // LGShowCaseWidget(
+                              //   showCaseKey: GlobalKeys.showcaseKeyLanguages,
+                              //   height:
+                              //       MediaQuery.of(context).size.height * 0.1,
+                              //   width: MediaQuery.of(context).size.width * 0.2,
+                              //   targetShape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(40.0)),
+                              //   showCaseWidget: SettingsOptionButton(
+                              //     buttonText: 'Language',
+                              //     buttonDescription:
+                              //         'Change the language of the app',
+                              //     icon: Icons.translate,
+                              //     view: LanguageWidget(),
+                              //     index: 0,
+                              //     selectedIndex: selectedIndex,
+                              //     onPressed: updateView,
+                              //   ),
+                              //   title: 'Languages',
+                              //   description:
+                              //       'Click to change the language of the app',
                               // ),
+
+                              // LGShowCaseWidget(
+                              //   showCaseKey: GlobalKeys.showcaseKeyAppearance,
+                              //   height:
+                              //       MediaQuery.of(context).size.height * 0.1,
+                              //   width: MediaQuery.of(context).size.width * 0.2,
+                              //   targetShape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(40.0)),
+                              //   showCaseWidget: SettingsOptionButton(
+                              //     buttonText: 'Appearance',
+                              //     buttonDescription:
+                              //         'Change the theme of the app',
+                              //     icon: Icons.palette,
+                              //     view: ThemeWidget(),
+                              //     index: 1,
+                              //     selectedIndex: selectedIndex,
+                              //     onPressed: updateView,
+                              //   ),
+                              //   title: 'Appearance',
+                              //   description:
+                              //       'Click to change the theme of the app',
+                              // ),
+
+                              // LGShowCaseWidget(
+                              //   showCaseKey: GlobalKeys.showcaseKeyFontSize,
+                              //   height:
+                              //       MediaQuery.of(context).size.height * 0.1,
+                              //   width: MediaQuery.of(context).size.width * 0.2,
+                              //   targetShape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(40.0)),
+                              //   showCaseWidget: SettingsOptionButton(
+                              //     buttonText: 'Font Size',
+                              //     buttonDescription:
+                              //         'Change the font size of the app',
+                              //     icon: Icons.format_size,
+                              //     view: FontWidget(),
+                              //     index: 2,
+                              //     selectedIndex: selectedIndex,
+                              //     onPressed: updateView,
+                              //   ),
+                              //   title: 'Fonts',
+                              //   description:
+                              //       'Click to change the font size of the app',
+                              // ),
+
+                              // LGShowCaseWidget(
+                              //   showCaseKey: GlobalKeys.showcaseKeyLiquidGalaxy,
+                              //   height:
+                              //       MediaQuery.of(context).size.height * 0.1,
+                              //   width: MediaQuery.of(context).size.width * 0.2,
+                              //   targetShape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(40.0)),
+                              //   showCaseWidget: SettingsOptionButton(
+                              //     buttonText: 'Liquid Galaxy',
+                              //     buttonDescription:
+                              //         'Learn about Liquid Galaxy',
+                              //     icon: Icons.view_column_rounded,
+                              //     view: LGWidget(),
+                              //     index: 3,
+                              //     selectedIndex: selectedIndex,
+                              //     onPressed: updateView,
+                              //   ),
+                              //   title: 'Liquid Galaxy',
+                              //   description:
+                              //       'Click to learn about Liquid Galaxy',
+                              // ),
+
+                              // LGShowCaseWidget(
+                              //   showCaseKey: GlobalKeys.showcaseKeyAPIKeys,
+                              //   height:
+                              //       MediaQuery.of(context).size.height * 0.1,
+                              //   width: MediaQuery.of(context).size.width * 0.2,
+                              //   targetShape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(40.0)),
+                              //   showCaseWidget: SettingsOptionButton(
+                              //     buttonText: 'API Keys',
+                              //     buttonDescription:
+                              //         'Manage the API keys of the app',
+                              //     icon: Icons.vpn_key,
+                              //     view: APIWidget(),
+                              //     index: 4,
+                              //     selectedIndex: selectedIndex,
+                              //     onPressed: updateView,
+                              //   ),
+                              //   title: 'API Keys',
+                              //   description:
+                              //       'Click to manage the API keys of the app',
+                              // ),
+
+                              // LGShowCaseWidget(
+                              //   showCaseKey: GlobalKeys.showcaseKeyHelp,
+                              //   height:
+                              //       MediaQuery.of(context).size.height * 0.1,
+                              //   width: MediaQuery.of(context).size.width * 0.2,
+                              //   targetShape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(40.0)),
+                              //   showCaseWidget: SettingsOptionButton(
+                              //     buttonText: 'Help',
+                              //     buttonDescription: 'Learn how to use the app',
+                              //     icon: Icons.help,
+                              //     view: HelpWidget(),
+                              //     index: 5,
+                              //     selectedIndex: selectedIndex,
+                              //     onPressed: updateView,
+                              //   ),
+                              //   title: 'Help',
+                              //   description:
+                              //       'Click to learn how to use the app',
+                              // ),
+                              SettingsOptionButton(
+                                buttonText: 'Language',
+                                buttonDescription:
+                                    'Change the language of the app',
+                                icon: Icons.translate,
+                                view: LanguageWidget(),
+                                index: 0,
+                                selectedIndex: selectedIndex,
+                                onPressed: updateView,
+                              ),
                               SettingsOptionButton(
                                 buttonText: 'Appearance',
                                 buttonDescription:
@@ -158,15 +290,15 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 selectedIndex: selectedIndex,
                                 onPressed: updateView,
                               ),
-                              // SettingsOptionButton(
-                              //   buttonText: 'Help',
-                              //   buttonDescription: 'Learn how to use the app',
-                              //   icon: Icons.help,
-                              //   view: HelpWidget(),
-                              //   index: 5,
-                              //   selectedIndex: selectedIndex,
-                              //   onPressed: updateView,
-                              // ),
+                              SettingsOptionButton(
+                                buttonText: 'Help',
+                                buttonDescription: 'Learn how to use the app',
+                                icon: Icons.help,
+                                view: HelpWidget(),
+                                index: 5,
+                                selectedIndex: selectedIndex,
+                                onPressed: updateView,
+                              ),
                             ],
                           ),
                         ),

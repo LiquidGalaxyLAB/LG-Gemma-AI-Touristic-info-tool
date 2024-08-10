@@ -1,0 +1,293 @@
+{
+    "settings.apiKeySettings": "API Key Settings",
+    "settings.apiKeySavedAPIKey": "Your Saved API Keys:",
+    "settings.Refresh": "Refresh",
+    "settings.AddKey": "Add Key",
+    "settings.noApiKeyFound": "No API Keys Found",
+    "settings.errorSnapshot": "Error: {snapshotError}",
+    "settings.serviceType": "{serviceType}",
+    "settings.apiKeyName": "{apiKeyName}",
+    "settings.apiKeyNotSetDefaultError": "Please add a default API Key for Gemini in the settings!",
+    "settings.apiKeyDeleteNotification": "API Key deleted. Please refresh your API keys",
+    "settings.apiKeySetDefaultNotification": "API Key is set as default. Please refresh your API keys",
+    "settings.addApiKeyName": "Choose a name for your Key:",
+    "settings.nameExist": "Name already exists",
+    "settings.enterKey": "Enter your Key:",
+    "settings.chooseServiceAPI": "Choose the API Key service type",
+    "settings.apiKeyAddedNotification": "API Key added. Please refresh your API keys",
+    "settings.apiKeyEditedNotification": "API Key edited. Please refresh your API keys",
+    "settings.title": "App Settings",
+    "settings.languageTitle": "Language",
+    "settings.languageDesc" :"Change the language of the app",
+    "settings.themeTitle": "Appearance",
+    "settings.themeDesc": "Change the theme of the app",
+    "settings.fontSizeTitle": "Font Size",
+    "settings.fontSizeDesc": "Change the font size of the app",
+    "settings.LgTitle": "Liquid Galaxy",
+    "settings.LgDesc": "Learn about Liquid Galaxy",
+    "settings.apiKeyTitle": "API Keys",
+    "settings.apiKeyDesc": "Manage the API keys of the app",
+    "settings.helpTitle": "Help",
+    "settings.helpDesc": "Learn how to use the app",
+    "settings.welcomeSettings": "Welcome to the App Settings!",
+    "settings.desc1": "Select an option from the left to view and modify your app settings.",
+    "settings.desc2": "You can change the language, appearance, font size, learn about Liquid Galaxy, manage API keys, and access help resources.",
+
+
+
+    
+
+
+
+    "aiGenerationAPIGemma.successresponse": "Success",
+    "aiGenerationAPIGemma.errorresponse1": "Error occurred while trying to connect to the server. Status code: {responseStatusCode}",
+    "aiGenerationAPIGemma.errorresponse2": "Error occurred while trying to connect to the server: {responseError}",
+    "aiGenerationAPIGemma.serverNotAvailable": "The server is currently unavailable. Please try again later.",
+    "aiGenerationAPIGemma.progressMessages1": "RAG (Retrieval Augmented Generation) Chain Starting ...",
+    "aiGenerationAPIGemma.progressMessages2": "Getting Retrieval ready...",
+    "aiGenerationAPIGemma.progressMessages3": "Retrieval Initialized ...",
+    "aiGenerationAPIGemma.progressMessages4": "Preparing Prompt ...",
+    "aiGenerationAPIGemma.progressMessages5": "Prompt Ready ...",
+    "aiGenerationAPIGemma.progressMessages6": "Getting Gemma LLM Model ready...",
+    "aiGenerationAPIGemma.progressMessages7": "End of Chain ...",
+    "aiGenerationAPIGemma.errorresponsegeneration": "An error occurred while generating the response: {e}",
+    "aiGenerationAPIGemma.errorFetchURLs": "Failed to fetch URLs: {response.reasonPhrase}",
+    "aiGenerationAPIGemma.errorFetchYoutube": "Failed to load YouTube URLs",
+
+
+    "aiGenerationAPIGemini.error":"An Error Occured: {e}",
+    "aiGenerationAPIGemini.progressMessage1": "Streaming",
+    "aiGenerationAPIGemini.progressMessage2": "Preparing visualizations",
+    "aiGenerationAPIGemini.errorFetchUrLs": "Failed to load Google search results",
+
+    "aiGeneration.generationScreenTitle": "AI Generation",
+  
+
+    "link.open": "Open in Browser",
+
+    "aiHallucination.text1": "Be aware of AI hallucinations !",
+    "aiHallucination.text2": "The state of the art of most AI tools as 2024 can give you sometimes incorrect answers, or even the so called Hallucinations:\n\n",
+    "aiHallucination.text3": "AI hallucinations are incorrect or misleading results that AI models generate. These errors can be caused by a variety of factors, including insufficient training data, incorrect assumptions made by the model, or biases in the data used to train the model.\n\nThe Liquid Galaxy project has no control over this, and the contents responsibility is of the owners of the respective Large Language models used",
+
+    "visualizationDialog.Showpois": "Show POIs",
+    "visualizationDialog.PrepTour": "Prepare Tour",
+    "visualizationDialog.playTour": "Play Tour",
+    "visualizationDialog.stopTour": "Stop Tour",
+    "visualizationDialog.listofPois": "List of POIs",
+    "visualizationDialog.mapButton": "Map",
+
+
+    "about.title": "LG Gemini AI Touristic Info Tool",
+    "about.projGit": "Project Github",
+    "about.linkedin": "My LinkedIn",
+    "about.lgWebsite": "Liquid Galaxy Website",
+    "about.appDesc1": "🌍 Escape the Everyday",
+    "about.appDesc2": "In the hustle and bustle of daily life, many seek an escape through travel—a means of relaxation, renewal, and exploration. However, the sheer abundance of information available online can make trip planning overwhelming. Navigating multiple websites, guidebooks, and apps to research destinations, attractions, and experiences can be daunting.",
+    "about.appDesc3": "✨ Simplify Your Journey",
+    "about.appDesc4": "Our application aims to simplify the travel planning process and inspire users to embark on memorable journeys. Discovering the most captivating points of interest (POIs) tailored to your preferences has never been easier.",
+    "about.appDesc5": "🤖 Smart AI Recommendations",
+    "about.appDesc6Gemma": "Leveraging Gemma, one of the latest open-source generative text AI models, our app generates personalized POIs, running locally on the AI server at Lleida Lab using Docker technology..",
+    "about.appDesc6Gemini": "Leveraging Gemini, a generative Google model available through API inference, our app provides advanced language capabilities and intelligent responses.",
+    "about.appDesc7": "🌐 Immersive Visualizations",
+    "about.appDesc8": "Through the innovative Liquid Galaxy technology, users can visualize their entire trip on an LG rig with three or more screens. The tours and their information are presented via KML (Keyhole Markup Language), creating stunning and unique visualizations on the LG rig.",
+    "about.appDesc9": "📱 Seamless Experience",
+    "about.appDesc10": "Even without an LG rig, users will enjoy a captivating experience through our app, enhanced by integrated Google Maps. Simplify your travel planning and set out to discover the world with confidence and ease.",
+    "about.contributor": "Contributor:",
+    "about.organization": "Organization:",
+    "about.mentors": "Main-Mentors:",
+    "about.admin": "Organization Admin:",
+    "about.coMentor": "Co-Mentors:",
+    "about.listenerContributor": "Listener Contributors:",
+    "about.testers": "Liquid Galaxy LAB testers:",
+
+
+    "favs.addtofavsmessage": "Added to Favourites",
+    "favs.removefromfavsmessage": "Removed from Favourites",
+    "favs.title": "All your favorite tours and POIs in one place",
+    "favs.savedTours": "All Saved Tours",
+    "favs.savedPlaces": "Favorite Places",
+
+
+
+    "lgConnection.title": "Liquid Galaxy Connection Manager",
+    "lgConnection.subtitle": "LG Connection",
+    "lgConnection.userName": "LG User Name",
+    "lgConnection.password": "LG Password",
+    "lgConnection.ip": "LG Master IP Address",
+    "lgConnection.port": "LG Port Number",
+    "lgConnection.numScreens": "Number of LG Screens",
+    "lgConnection.connect": "CONNECT LG",
+    "lgConnection.disconnect": "DISCONNECT LG",
+    "lgConnection.confirmDisconnect": "Are you sure you want to disconnect?",
+    "lgConnection.errorDisconnect": "You are already disconnected!",
+
+ 
+    "lgTasks.title": "Liquid Galaxy Tasks",
+    "lgTasks.relaunch": "Relaunch LG",
+    "lgTasks.reboot": "Reboot LG",
+    "lgTasks.shutdown": "Shutdown LG",
+    "lgTasks.confirmRelaunch": "Are you sure you want to relaunch LG?",
+    "lgTasks.confirmReboot": "Are you sure you want to reboot LG?",
+    "lgTasks.confirmShutdown": "Are you sure you want to shutdown LG?",
+    "lgTasks.notConnectedError": "NOT connected to LG !! \n Please Connect to LG",
+    "lgTasks.setRefresh": "Set Refresh",
+    "lgTasks.confirmRefresh": "Are you sure you want to set refresh?",
+    "lgTasks.resetRefresh": "Reset Refresh",
+    "lgTasks.confirmResetRefresh": "Are you sure you want to reset refresh?",
+    "lgTasks.showLogos": "Show Logos on LG",
+    "lgTasks.hideLogos": "Hide Logos on LG",
+    "lgTasks.cleanKMLs": "Clean KMLs on LG",
+
+
+
+
+
+    "home.title": "Welcome to your Home Page!",
+    "home.exploreWorld": "Explore Worldwide",
+    "home.explorelocation": "Explore certain Location",
+
+
+
+
+    "customapptour.removeFavs": "Remove from Favourites?",
+    "customapptour.checkMessage": "Do you want to remove {point} from tour?",
+    "customapptour.title": "Customize your own tour!",
+    "customapptour.queryNameTemp": "Custom Tour",
+    "customapptour.dragdrop": "Drag and Drop places to the map!",
+    "customapptour.WarningToCreateRoute": "Please add more than one place to create a route.",
+    "customapptour.CurrTour": "Current\nTour:",
+    "customapptour.missingPlaces": "Please add places to create a tour.",
+    "customapptour.chooseName": "Choose a name for your tour:",
+
+
+
+
+
+    "mapTypes.terrain": "Terrain",
+    "mapTypes.satellite": "Satellite",
+    "mapTypes.hybrid": "Hybrid",
+
+    "sshLG.authError": "SSH authentication failed",
+    "sshLG.error": "Failed to connect to the SSH server: {e}",
+
+
+    "exploreLocation.mapButton":"Use Map",
+    "exploreLocation.typeAdd": "Type Address",
+    "exploreLocation.recordAudio": "Record Audio",
+    "exploreLocation.address": "Address Details",
+    "exploreLocation.addressHint": "Enter address, or leave empty",
+    "exploreLocation.city": "City",
+    "exploreLocation.cityHint": "Enter City",
+    "exploreLocation.country": "Country",
+    "exploreLocation.countryHint": "Enter Country",
+    "exploreLocation.navigate": "Navigate till you find your desired location!",
+    "exploreLocation.useMap": "Click on Use Map button to navigate if you want!",
+    "exploreLocation.youarein": "You are in {location}",
+    "exploreLocation.ai-recommendation": "AI-Recommended Things To Do nearby",
+    "exploreLocation.landmarks": "Landmarks",
+    "exploreLocation.restaurants": "Restaurants and Cafes",
+    "exploreLocation.art": "Art and Culture",
+    "exploreLocation.shopping": "Shopping Malls",
+    "exploreLocation.sports": "Sports and Recreation",
+    "exploreLocation.spa": "Spa and Wellness",
+    "exploreLocation.outdoor": "Outdoor Activities",
+    "exploreLocation.pizza": "Top Pizza Places",
+    "exploreLocation.history": "Historical Sites",
+    "exploreLocation.parks": "Local Parks",
+    "exploreLocation.cinemas": "Cinemas",
+    "exploreLocation.libraries": "Libraries",
+    "exploreLocation.dance": "Dancing Studios",
+    "exploreLocation.yoga": "Yoga Studios",
+    "exploreLocation.edu": "Educational Institutions",
+    "exploreLocation.salons": "Beauty Salons",
+    "exploreLocation.askGemini": "Ask Gemini anything you want to know nearby:",
+    "exploreLocation.askGemma": "Ask Gemma anything you want to know nearby:",
+
+
+    "exploreWorld.ai-recommendation":"AI Touristic Recommendations WorldWide",
+    "exploreWorld.londonTitle": "Attractions in London, UK",
+    "exploreWorld.londonDesc": "Visit iconic sites such as the Tower of London, Buckingham Palace, and the British Museum.",
+    "exploreWorld.nileEgyptTitle": "Nile River Cruise in Egypt",
+    "exploreWorld.nileEgyptDesc": "Sail along the historic Nile River, visiting ancient temples and monuments",
+    "exploreWorld.redSeaEgyptTitle": "Dive the Pristine Coral Reefs of the Red Sea, Egypt",
+    "exploreWorld.redSeaEgyptDesc": "Experience world-class diving with vibrant marine life and stunning coral reefs.",
+    "exploreWorld.scotlandTitle": "Highland Adventure in the Scottish Highlands",
+    "exploreWorld.scotlandDesc": "Explore rugged landscapes, historic castles, and scenic lochs in Scotland.",
+    "exploreWorld.spainTitle": "Art and Architecture Tour in Spain",
+    "exploreWorld.spainDesc": "Discover Spain's rich artistic heritage and architectural marvels, including Gaudí's works.",
+    "exploreWorld.icelandTitle": "Volcano Trekking in Iceland",
+    "exploreWorld.icelandDesc": "Trek across lava fields, hot springs, and stunning volcanic landscapes.",
+    "exploreWorld.europeTitle": "Cycling Tour in Europe",
+    "exploreWorld.europeDesc": "Enjoy a cycling adventure through picturesque landscapes and historic towns in Europe.",
+    "exploreWorld.uaeTitle": "Desert Safari in UAE",
+    "exploreWorld.uaeDesc": "Experience thrilling dune bashing, camel rides, and a taste of Bedouin culture.",
+    "exploreWorld.parisTitle": "City Tour in Paris, France",
+    "exploreWorld.parisDesc": "Explore iconic landmarks like the Eiffel Tower, Louvre Museum, and Notre-Dame Cathedral.",
+    "exploreWorld.norwayTitle": "Aurora Borealis Viewing in Norway",
+    "exploreWorld.norwayDesc": "Witness the stunning Northern Lights in one of the best viewing spots on Earth.",
+    "exploreWorld.japanTitle": "Cultural Tour in Kyoto, Japan",
+    "exploreWorld.japanDesc": "Discover ancient temples, traditional tea houses, and the serene beauty of Kyoto's gardens.",
+    "exploreWorld.indiaTitle": "Yoga and Wellness Retreats in India",
+    "exploreWorld.indiaDesc": "Engage in rejuvenating yoga sessions and meditation practices in serene settings.",
+    "exploreWorld.popular": "Most Popular Activities WorldWide",
+    "exploreWorld.landmarks": "Visting Major Landmarks",
+    "exploreWorld.beach": "Beach Holidays",
+    "exploreWorld.sightseeing": "City Sightseeing Tours",
+    "exploreWorld.museums": "Museums and Historical Sites",
+    "exploreWorld.nature": "Nature and Wildlife Tours",
+    "exploreWorld.adventure": "Adventure Sports",
+    "exploreWorld.theme": "Theme Parks",
+    "exploreWorld.food": "Food and Culinary Tours",
+    "exploreWorld.hike": "Hiking and Trekking",
+    "exploreWorld.kayak": "Kayaking",
+    "exploreWorld.cycle": "Cycling Tours",
+    "exploreWorld.football": "Football Stadium Tours and Matches",
+    "exploreWorld.askGemini": "Explore anything worldwide with Gemini. Ask away!",
+    "exploreWorld.askGemma": "Explore anything worldwide with Gemma. Ask away!",
+
+
+
+    "defaults.cancel": "Cancel",
+    "defaults.save": "Save",
+    "defaults.delete": "Delete",
+    "defaults.ok": "OK",
+    "defaults.yes": "Yes",
+    "defaults.no": "No",
+    "defaults.confirm": "Confirm",
+    "defaults.error": "Error",  
+    "defaults.success": "Success",
+    "defaults.warning": "Warning",
+    "defaults.info": "Info",
+    "defaults.remove": "Remove",
+    "defaults.done": "Done",
+    "defaults.alert": "Alert",
+    "defaults.understand": "I understand",
+    "defaults.reset": "Reset",
+    "defaults.create": "Create",
+    "defaults.stop": "Stop",
+    "defaults.visualize": "Visualize",
+    "defaults.loading": "Loading...",
+    "defaults.generate": "GENERATE",
+
+
+
+
+
+    "AppBar.title": "'LG Touristic info tool",
+    "AppBar.made": "made with",
+    "AppBar.Lgrig": "LG Rig",
+
+
+    "AppDrawer.home":"Home",
+    "AppDrawer.connection":"Connection Manager",
+    "AppDrawer.tasks":"LG Tasks",
+    "AppDrawer.settings":"Settings",
+    "AppDrawer.about":"About",
+    "AppDrawer.favs":"Favourites"
+
+
+
+
+
+}
+
