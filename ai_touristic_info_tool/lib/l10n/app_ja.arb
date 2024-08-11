@@ -1,0 +1,358 @@
+{
+    "@@locale": "ja",
+    "settings.apiKeySettings": "APIキー設定",
+    "settings.apiKeySavedAPIKey": "保存されたAPIキー:",
+    "settings.Refresh": "更新",
+    "settings.AddKey": "キーを追加",
+    "settings.noApiKeyFound": "APIキーが見つかりません",
+    "settings.errorSnapshot": "エラー: {snapshotError}",
+    "settings.serviceType": "{serviceType}",
+    "settings.apiKeyName": "{apiKeyName}",
+    "settings.apiKeyNotSetDefaultError": "設定でGeminiのデフォルトAPIキーを追加してください！",
+    "settings.apiKeyDeleteNotification": "APIキーが削除されました。APIキーを更新してください",
+    "settings.apiKeySetDefaultNotification": "APIキーがデフォルトとして設定されました。APIキーを更新してください",
+    "settings.addApiKeyName": "キーの名前を選択してください:",
+    "settings.nameExist": "名前はすでに存在します",
+    "settings.enterKey": "キーを入力してください:",
+    "settings.chooseServiceAPI": "APIキーサービスの種類を選択してください",
+    "settings.apiKeyAddedNotification": "APIキーが追加されました。APIキーを更新してください",
+    "settings.apiKeyEditedNotification": "APIキーが編集されました。APIキーを更新してください",
+    "settings.title": "アプリ設定",
+    "settings.languageTitle": "言語",
+    "settings.languageDesc": "アプリの言語を変更する",
+    "settings.themeTitle": "外観",
+    "settings.themeDesc": "アプリのテーマを変更する",
+    "settings.fontSizeTitle": "フォントサイズ",
+    "settings.fontSizeDesc": "アプリのフォントサイズを変更する",
+    "settings.LgTitle": "Liquid Galaxy",
+    "settings.LgDesc": "Liquid Galaxyについて学ぶ",
+    "settings.apiKeyTitle": "APIキー",
+    "settings.apiKeyDesc": "アプリのAPIキーを管理する",
+    "settings.helpTitle": "ヘルプ",
+    "settings.helpDesc": "アプリの使い方を学ぶ",
+    "settings.welcomeSettings": "アプリ設定へようこそ！",
+    "settings.desc1": "左からオプションを選択して、アプリ設定を表示および変更してください。",
+    "settings.desc2": "言語、外観、フォントサイズを変更したり、Liquid Galaxyについて学んだり、APIキーを管理したり、ヘルプリソースにアクセスしたりできます。",
+
+
+    "settingsFont.title": "フォント設定",
+    "settingsFont.subtitle": "フォントサイズを変更",
+    "settingsFont.trial": "Aa",
+
+
+    "settingsHelp.title": "ヘルプページ",
+    "settingsHelp.subtitle": "以下のボタンをタップして、アプリのチュートリアルをご覧ください！",
+
+
+    "settingsLG.title": "Liquid Galaxyについて",
+    "settingsLG.desc": "Liquid Galaxyは、複数のディスプレイを同期してパノラマビューを提供するマルチスクリーンの没入型システムです。元々はGoogleのプロジェクトで、ユーザーはシームレスな360度体験で場所を探索できます。",
+    "settingsLG.learnButton": "LGについて学ぶ",
+    "settingsLG.setupRigButton": "LGリグの設定",
+    "settingsLG.connectButton": "LGに接続",
+    "settingsLG.controlLG": "LGを操作",
+
+
+    "settingsTheme.title": "外観",
+    "settingsTheme.subtitle": "UIの見た目と感じを変更",
+    "settingsTheme.interface": "インターフェーステーマ",
+    "settingsTheme.default": "システムデフォルト",
+    "settingsTheme.dark": "ダークテーマ",
+    "settingsTheme.light": "ライトテーマ",
+    "settingsTheme.accent": "アクセントカラー",
+    "settingsTheme.current": "現在のカラー",
+    "settingsTheme.pick": "色を選んでください！",
+
+
+
+
+
+
+
+    "aiGenerationAPIGemma.successresponse": "成功",
+    "aiGenerationAPIGemma.errorresponse1": "サーバーへの接続中にエラーが発生しました。ステータスコード: {responseStatusCode}",
+    "aiGenerationAPIGemma.errorresponse2": "サーバーへの接続中にエラーが発生しました: {responseError}",
+    "aiGenerationAPIGemma.serverNotAvailable": "サーバーが現在利用できません。後でもう一度お試しください。",
+    "aiGenerationAPIGemma.progressMessages1": "RAG（Retrieval Augmented Generation）チェーン開始中...",
+    "aiGenerationAPIGemma.progressMessages2": "Retrievalの準備中...",
+    "aiGenerationAPIGemma.progressMessages3": "Retrieval初期化中...",
+    "aiGenerationAPIGemma.progressMessages4": "プロンプト準備中...",
+    "aiGenerationAPIGemma.progressMessages5": "プロンプト準備完了...",
+    "aiGenerationAPIGemma.progressMessages6": "Gemma LLMモデルの準備中...",
+    "aiGenerationAPIGemma.progressMessages7": "チェーン終了...",
+    "aiGenerationAPIGemma.errorresponsegeneration": "レスポンスの生成中にエラーが発生しました: {e}",
+    "aiGenerationAPIGemma.errorFetchURLs": "URLの取得に失敗しました: {reasonPhrase}",
+    "aiGenerationAPIGemma.errorFetchYoutube": "YouTube URLの読み込みに失敗しました",
+    "aiGenerationAPIGemma.streamWaitMessg": "ストリームを待っています。しばらくお待ちください...",
+    "aiGenerationAPIGemma.snapShotError": "エラー: {snapshotError}",
+    "aiGenerationAPIGemma.noDataError": "データが利用できません",
+    "aiGenerationAPIGemma.responseTimeMessg": "平均応答時間は10分です。\nご辛抱いただきありがとうございます！",
+    "aiGenerationAPIGemma.waitMessg": "しばらくお待ちください...",
+
+
+
+
+    "aiGenerationAPIGemini.error1": "エラーが発生しました: {e}",
+    "aiGenerationAPIGemini.error2": "エラーが発生しました。後でもう一度お試しください...",
+    "aiGenerationAPIGemini.progressMessage1": "ストリーミング中",
+    "aiGenerationAPIGemini.progressMessage2": "視覚化の準備中",
+    "aiGenerationAPIGemini.errorFetchUrLs": "Google検索結果の読み込みに失敗しました",
+    "aiGenerationAPIGemini.timeOutMessg": "プロセスがタイムアウトしました。後でもう一度お試しください。",
+    "aiGenerationAPIGemini.webLoadingMessage": "モデルがウェブから情報を収集してユニークで正確な最新の体験を提供する間、少々お待ちください！",
+    "aiGenerationAPIGemini.snapShotError": "エラー: {snapshotError}\n後でもう一度お試しください...",
+    "aiGenerationAPIGemini.noDataError": "データが利用できません\n後でもう一度お試しください...",
+    "aiGenerationAPIGemini.responseTimeMessg": "平均応答時間は1分です。\nご辛抱いただきありがとうございます！",
+    "aiGenerationAPIGemini.waitMessg": "しばらくお待ちください...",
+    "aiGenerationAPIGemini.successGeneration": "生成が成功しました！",
+
+
+
+
+
+
+
+
+
+    "aiGeneration.generationScreenTitle": "AI生成",
+
+
+    "link.open": "ブラウザで開く",
+
+    "aiHallucination.text1": "AIの幻覚に注意してください！",
+    "aiHallucination.text2": "2024年のほとんどのAIツールの最先端技術は、時には不正確な回答やいわゆる幻覚を生成することがあります:\n\n",
+    "aiHallucination.text3": "AIの幻覚は、AIモデルが生成する不正確または誤解を招く結果です。これらのエラーは、不十分なトレーニングデータ、モデルによる誤った仮定、またはモデルをトレーニングするために使用されたデータのバイアスなど、さまざまな要因によって引き起こされる可能性があります。\n\nLiquid Galaxyプロジェクトはこれを制御できず、内容の責任は使用されているそれぞれの大型言語モデルの所有者にあります",
+
+    "visualizationDialog.Showpois": "POIを表示",
+    "visualizationDialog.PrepTour": "ツアーの準備",
+    "visualizationDialog.playTour": "ツアーを再生",
+    "visualizationDialog.stopTour": "ツアーを停止",
+    "visualizationDialog.listofPois": "POIのリスト",
+    "visualizationDialog.mapButton": "地図",
+
+
+    "about.title": "LG Gemini AI 観光情報ツール",
+    "about.projGit": "プロジェクト GitHub",
+    "about.linkedin": "私の LinkedIn",
+    "about.lgWebsite": "Liquid Galaxy ウェブサイト",
+    "about.appDesc1": "🌍 日常を脱出",
+    "about.appDesc2": "日々の忙しさの中で、多くの人が旅行を通じてリラックスし、リニューアルし、探検しようとしています。しかし、オンラインで利用できる情報の膨大さは、旅行計画を圧倒するものにする可能性があります。複数のウェブサイト、ガイドブック、アプリをナビゲートして目的地、アトラクション、体験を調べることは、圧倒されることがあります。",
+    "about.appDesc3": "✨ 旅を簡素化",
+    "about.appDesc4": "私たちのアプリケーションは、旅行計画プロセスを簡素化し、ユーザーが記憶に残る旅を始めるインスピレーションを提供することを目指しています。あなたの好みに合わせた最も魅力的なポイント・オブ・インタレスト (POI) を発見することは、これまでにないほど簡単です。",
+    "about.appDesc5": "🤖 スマートAIおすすめ",
+    "about.appDesc6Gemma": "最新のオープンソース生成テキストAIモデルの1つであるGemmaを活用し、私たちのアプリはパーソナライズされたPOIを生成し、Docker技術を使用してLleida LabのAIサーバーでローカルに実行されます。",
+    "about.appDesc6Gemini": "API推論を通じて利用可能な生成型GoogleモデルであるGeminiを活用し、私たちのアプリは高度な言語能力とインテリジェントな応答を提供します。",
+    "about.appDesc7": "🌐 没入型ビジュアライゼーション",
+    "about.appDesc8": "革新的なLiquid Galaxy技術を通じて、ユーザーは3つ以上のスクリーンを備えたLGリグで旅行全体を視覚化できます。ツアーとその情報はKML（Keyhole Markup Language）を介して提示され、LGリグ上で美しくユニークなビジュアライゼーションを作成します。",
+    "about.appDesc9": "📱 シームレスな体験",
+    "about.appDesc10": "LGリグがなくても、統合されたGoogleマップによってアプリを通じて魅力的な体験を楽しむことができます。旅行計画を簡素化し、自信と安心感を持って世界を発見しましょう。",
+    "about.contributor": "貢献者:",
+    "about.organization": "組織:",
+    "about.mentors": "主要メンター:",
+    "about.admin": "組織管理者:",
+    "about.coMentor": "共同メンター:",
+    "about.listenerContributor": "リスナー貢献者:",
+    "about.testers": "Liquid Galaxy LABテスター:",
+
+    
+    "favs.addtofavsmessage": "お気に入りに追加しました",
+    "favs.removefromfavsmessage": "お気に入りから削除しました",
+    "favs.title": "お気に入りのツアーとPOIをすべて1つの場所に",
+    "favs.savedTours": "保存済みツアー",
+    "favs.savedPlaces": "お気に入りの場所",
+
+    "favPlaces.title": "お気に入りの場所を世界中の1つの場所に！",
+    "favPlaces.customizeSubhead": "ツアーをカスタマイズするには、少なくとも2つの場所を選択してください",
+    "favPlaces.customizeError": "ツアーをカスタマイズするには、少なくとも2つの場所を選択してください",
+
+
+    "favTours.generatedByGemini": "Geminiによって生成されました",
+    "favTours.generatedByGemma": "Gemmaによって生成されました",
+    "favTours.customized": "カスタマイズされたツアー",
+
+
+    "textfield.error": "このフィールドは必須です",
+
+    "lgConnection.title": "Liquid Galaxy 接続マネージャ",
+    "lgConnection.subtitle": "LG接続",
+    "lgConnection.userName": "LG ユーザー名",
+    "lgConnection.password": "LG パスワード",
+    "lgConnection.ip": "LG マスター IP アドレス",
+    "lgConnection.port": "LG ポート番号",
+    "lgConnection.numScreens": "LG スクリーンの数",
+    "lgConnection.connect": "LG 接続",
+    "lgConnection.disconnect": "LG 切断",
+    "lgConnection.confirmDisconnect": "本当に切断しますか？",
+    "lgConnection.errorDisconnect": "すでに切断されています！",
+
+
+    "lgTasks.title": "Liquid Galaxy タスク",
+    "lgTasks.relaunch": "LG を再起動",
+    "lgTasks.reboot": "LG を再起動",
+    "lgTasks.shutdown": "LG をシャットダウン",
+    "lgTasks.confirmRelaunch": "本当に再起動しますか？",
+    "lgTasks.confirmReboot": "本当に再起動しますか？",
+    "lgTasks.confirmShutdown": "本当にシャットダウンしますか？",
+    "lgTasks.notConnectedError": "LGに接続されていません！！\n LGに接続してください",
+    "lgTasks.setRefresh": "リフレッシュを設定",
+    "lgTasks.confirmRefresh": "リフレッシュを設定してもよろしいですか？",
+    "lgTasks.resetRefresh": "リフレッシュをリセット",
+    "lgTasks.confirmResetRefresh": "リフレッシュをリセットしてもよろしいですか？",
+    "lgTasks.showLogos": "LGにロゴを表示",
+    "lgTasks.hideLogos": "LGのロゴを非表示",
+    "lgTasks.cleanKMLs": "LGのKMLをクリア",
+
+
+
+
+
+    "home.title": "ホームページへようこそ！",
+    "home.exploreWorld": "世界中を探索",
+    "home.explorelocation": "特定の場所を探索",
+
+
+
+
+    "customapptour.removeFavs": "お気に入りから削除しますか？",
+    "customapptour.checkMessage": "{point}をツアーから削除しますか？",
+    "customapptour.title": "自分だけのツアーをカスタマイズ！",
+    "customapptour.queryNameTemp": "カスタムツアー",
+    "customapptour.dragdrop": "地図に場所をドラッグ＆ドロップ！",
+    "customapptour.WarningToCreateRoute": "ルートを作成するには、1つ以上の場所を追加してください。",
+    "customapptour.CurrTour": "現在の\nツアー:",
+    "customapptour.missingPlaces": "ツアーを作成するために場所を追加してください。",
+    "customapptour.chooseName": "ツアーの名前を選んでください:",
+
+    
+    "poiExpansion.flyTo": "飛ぶ",
+    "poiExpansion.orbit": "軌道",
+
+
+    "mapTypes.terrain": "地形",
+    "mapTypes.satellite": "衛星",
+    "mapTypes.normal": "通常",
+
+
+    "map.clear": "データをクリア",
+
+    "sshLG.authError": "SSH 認証に失敗しました",
+    "sshLG.error": "SSH サーバーへの接続に失敗しました: {e}",
+
+
+    "exploreLocation.mapButton": "地図を使用",
+    "exploreLocation.typeAdd": "住所を入力",
+    "exploreLocation.recordAudio": "音声録音",
+    "exploreLocation.address": "住所詳細",
+    "exploreLocation.addressHint": "住所を入力するか、空のままにしてください",
+    "exploreLocation.city": "市",
+    "exploreLocation.cityHint": "市を入力",
+    "exploreLocation.country": "国",
+    "exploreLocation.countryHint": "国を入力",
+    "exploreLocation.navigate": "目的の場所を見つけるまでナビゲートしてください！",
+    "exploreLocation.useMap": "ナビゲートするには「地図を使用」ボタンをクリックしてください！",
+    "exploreLocation.youarein": "{location} にいます",
+    "exploreLocation.ai-recommendation": "AIおすすめの近くにあること",
+    "exploreLocation.landmarks": "ランドマーク",
+    "exploreLocation.restaurants": "レストランとカフェ",
+    "exploreLocation.art": "アートと文化",
+    "exploreLocation.shopping": "ショッピングモール",
+    "exploreLocation.sports": "スポーツとレクリエーション",
+    "exploreLocation.spa": "スパとウェルネス",
+    "exploreLocation.outdoor": "アウトドアアクティビティ",
+    "exploreLocation.pizza": "トップピザスポット",
+    "exploreLocation.history": "歴史的なサイト",
+    "exploreLocation.parks": "ローカルパーク",
+    "exploreLocation.cinemas": "映画館",
+    "exploreLocation.libraries": "図書館",
+    "exploreLocation.dance": "ダンススタジオ",
+    "exploreLocation.yoga": "ヨガスタジオ",
+    "exploreLocation.edu": "教育機関",
+    "exploreLocation.salons": "美容サロン",
+    "exploreLocation.askGemini": "Geminiに近くの情報を尋ねてください:",
+    "exploreLocation.askGemma": "Gemmaに近くの情報を尋ねてください:",
+
+
+    "exploreWorld.ai-recommendation": "AI観光推薦 世界中",
+    "exploreWorld.londonTitle": "ロンドン、イギリスの観光名所",
+    "exploreWorld.londonDesc": "ロンドン塔、バッキンガム宮殿、ブリティッシュ・ミュージアムなどのアイコニックな場所を訪れてみてください。",
+    "exploreWorld.nileEgyptTitle": "エジプトのナイル川クルーズ",
+    "exploreWorld.nileEgyptDesc": "歴史的なナイル川に沿って航行し、古代の寺院や記念碑を訪れてください。",
+    "exploreWorld.redSeaEgyptTitle": "エジプトの紅海の美しいサンゴ礁でダイビング",
+    "exploreWorld.redSeaEgyptDesc": "色とりどりの海洋生物と素晴らしいサンゴ礁を楽しむ世界クラスのダイビングを体験してください。",
+    "exploreWorld.scotlandTitle": "スコットランド高地の冒険",
+    "exploreWorld.scotlandDesc": "スコットランドの険しい風景、歴史的な城、そして風光明媚な湖を探索してください。",
+    "exploreWorld.spainTitle": "スペインのアートと建築ツアー",
+    "exploreWorld.spainDesc": "ガウディの作品を含む、スペインの豊かな芸術遺産と建築の驚異を発見してください。",
+    "exploreWorld.icelandTitle": "アイスランドの火山トレッキング",
+    "exploreWorld.icelandDesc": "溶岩原、温泉、そして素晴らしい火山の風景を歩いてください。",
+    "exploreWorld.europeTitle": "ヨーロッパのサイクリングツアー",
+    "exploreWorld.europeDesc": "ヨーロッパの絵のような風景と歴史的な町をサイクリングで冒険してください。",
+    "exploreWorld.uaeTitle": "UAEの砂漠サファリ",
+    "exploreWorld.uaeDesc": "スリリングな砂丘バッシング、ラクダ乗り、ベドウィン文化を体験してください。",
+    "exploreWorld.parisTitle": "フランス、パリのシティツアー",
+    "exploreWorld.parisDesc": "エッフェル塔、ルーブル美術館、ノートルダム大聖堂などのアイコニックなランドマークを探索してください。",
+    "exploreWorld.norwayTitle": "ノルウェーのオーロラ鑑賞",
+    "exploreWorld.norwayDesc": "地球上で最も良い場所で驚くべき北極光を目撃してください。",
+    "exploreWorld.japanTitle": "日本、京都の文化ツアー",
+    "exploreWorld.japanDesc": "古代の寺院、伝統的な茶室、そして京都の庭園の静かな美しさを発見してください。",
+    "exploreWorld.indiaTitle": "インドのヨガとウェルネスリトリート",
+    "exploreWorld.indiaDesc": "静かな環境でリフレッシュするヨガセッションと瞑想を体験してください。",
+    "exploreWorld.popular": "世界中の最も人気のアクティビティ",
+    "exploreWorld.landmarks": "主要ランドマークの訪問",
+    "exploreWorld.beach": "ビーチホリデー",
+    "exploreWorld.sightseeing": "シティ観光ツアー",
+    "exploreWorld.museums": "博物館と歴史的な場所",
+    "exploreWorld.nature": "自然と野生動物ツアー",
+    "exploreWorld.adventure": "アドベンチャースポーツ",
+    "exploreWorld.theme": "テーマパーク",
+    "exploreWorld.food": "食事と料理ツアー",
+    "exploreWorld.hike": "ハイキングとトレッキング",
+    "exploreWorld.kayak": "カヤック",
+    "exploreWorld.cycle": "サイクリングツアー",
+    "exploreWorld.football": "サッカースタジアムツアーと試合",
+    "exploreWorld.askGemini": "Geminiで世界中のことを探検してください。質問してみてください！",
+    "exploreWorld.askGemma": "Gemmaで世界中のことを探検してください。質問してみてください！",
+
+
+
+    "defaults.cancel": "キャンセル",
+    "defaults.save": "保存",
+    "defaults.delete": "削除",
+    "defaults.ok": "OK",
+    "defaults.yes": "はい",
+    "defaults.no": "いいえ",
+    "defaults.confirm": "確認",
+    "defaults.error": "エラー",
+    "defaults.success": "成功",
+    "defaults.warning": "警告",
+    "defaults.info": "情報",
+    "defaults.remove": "削除",
+    "defaults.done": "完了",
+    "defaults.alert": "アラート",
+    "defaults.understand": "理解しました",
+    "defaults.reset": "リセット",
+    "defaults.create": "作成",
+    "defaults.stop": "停止",
+    "defaults.visualize": "視覚化",
+    "defaults.visualizeNow": "今すぐ視覚化！",
+    "defaults.loading": "読み込み中...",
+    "defaults.generate": "生成",
+    "defaults.customize": "カスタマイズ",
+
+
+    "SearchResults.web": "{query} のウェブ結果",
+    "SearchResults.youtube": "{query} のYouTube結果",
+    "SearchResults.noneFound": "URLが見つかりません",
+
+
+
+    "AppBar.title": "LG観光情報ツール",
+    "AppBar.made": "で作成",
+    "AppBar.Lgrig": "LG Rig",
+
+    
+    "AppDrawer.home": "ホーム",
+    "AppDrawer.connection": "接続マネージャー",
+    "AppDrawer.tasks": "LGタスク",
+    "AppDrawer.settings": "設定",
+    "AppDrawer.about": "情報",
+    "AppDrawer.favs": "お気に入り"
+}

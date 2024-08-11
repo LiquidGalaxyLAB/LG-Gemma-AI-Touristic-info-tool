@@ -1,0 +1,359 @@
+{
+    "@@locale": "it",
+    "settings.apiKeySettings": "Impostazioni Chiave API",
+    "settings.apiKeySavedAPIKey": "Le Tue Chiavi API Salvate:",
+    "settings.Refresh": "Aggiorna",
+    "settings.AddKey": "Aggiungi Chiave",
+    "settings.noApiKeyFound": "Nessuna Chiave API Trovata",
+    "settings.errorSnapshot": "Errore: {snapshotError}",
+    "settings.serviceType": "{serviceType}",
+    "settings.apiKeyName": "{apiKeyName}",
+    "settings.apiKeyNotSetDefaultError": "Per favore aggiungi una chiave API predefinita per Gemini nelle impostazioni!",
+    "settings.apiKeyDeleteNotification": "Chiave API eliminata. Si prega di aggiornare le chiavi API",
+    "settings.apiKeySetDefaultNotification": "La Chiave API è impostata come predefinita. Si prega di aggiornare le chiavi API",
+    "settings.addApiKeyName": "Scegli un nome per la tua Chiave:",
+    "settings.nameExist": "Nome già esistente",
+    "settings.enterKey": "Inserisci la tua Chiave:",
+    "settings.chooseServiceAPI": "Scegli il tipo di servizio Chiave API",
+    "settings.apiKeyAddedNotification": "Chiave API aggiunta. Si prega di aggiornare le chiavi API",
+    "settings.apiKeyEditedNotification": "Chiave API modificata. Si prega di aggiornare le chiavi API",
+    "settings.title": "Impostazioni App",
+    "settings.languageTitle": "Lingua",
+    "settings.languageDesc" :"Cambia la lingua dell'app",
+    "settings.themeTitle": "Aspetto",
+    "settings.themeDesc": "Cambia il tema dell'app",
+    "settings.fontSizeTitle": "Dimensione del Carattere",
+    "settings.fontSizeDesc": "Cambia la dimensione del carattere dell'app",
+    "settings.LgTitle": "Liquid Galaxy",
+    "settings.LgDesc": "Scopri Liquid Galaxy",
+    "settings.apiKeyTitle": "Chiavi API",
+    "settings.apiKeyDesc": "Gestisci le chiavi API dell'app",
+    "settings.helpTitle": "Aiuto",
+    "settings.helpDesc": "Scopri come utilizzare l'app",
+    "settings.welcomeSettings": "Benvenuto nelle Impostazioni App!",
+    "settings.desc1": "Seleziona un'opzione a sinistra per visualizzare e modificare le impostazioni dell'app.",
+    "settings.desc2": "Puoi cambiare la lingua, l'aspetto, la dimensione del carattere, imparare a conoscere Liquid Galaxy, gestire le chiavi API e accedere alle risorse di aiuto.",
+
+
+    "settingsFont.title": "Impostazioni Carattere",
+    "settingsFont.subtitle": "Cambia la dimensione del carattere",
+    "settingsFont.trial": "Aa",
+
+
+    "settingsHelp.title": "Pagina di Aiuto",
+    "settingsHelp.subtitle": "Tocca il pulsante qui sotto per visualizzare il tutorial dell'app!",
+
+
+    "settingsLG.title": "Informazioni su Liquid Galaxy",
+    "settingsLG.desc": "Liquid Galaxy è un sistema immersivo multi-schermo che offre viste panoramiche sincronizzando più display. Originariamente un progetto di Google, consente agli utenti di esplorare luoghi in un'esperienza senza interruzioni a 360 gradi",
+    "settingsLG.learnButton": "Scopri LG",
+    "settingsLG.setupRigButton": "Imposta LG Rig",
+    "settingsLG.connectButton": "Connetti a LG",
+    "settingsLG.controlLG": "Controlla LG",
+
+
+    "settingsTheme.title": "Aspetto",
+    "settingsTheme.subtitle": "Cambia l'aspetto e la sensazione dell'interfaccia utente",
+    "settingsTheme.interface": "Tema dell'interfaccia",
+    "settingsTheme.default": "Predefinito del sistema",
+    "settingsTheme.dark": "Tema Scuro",
+    "settingsTheme.light": "Tema Chiaro",
+    "settingsTheme.accent": "Colore Accento",
+    "settingsTheme.current": "Colore Attuale",
+    "settingsTheme.pick": "Scegli un colore!",
+
+
+
+
+
+
+
+    "aiGenerationAPIGemma.successresponse": "Successo",
+    "aiGenerationAPIGemma.errorresponse1": "Si è verificato un errore durante il tentativo di connettersi al server. Codice di stato: {responseStatusCode}",
+    "aiGenerationAPIGemma.errorresponse2": "Si è verificato un errore durante il tentativo di connettersi al server: {responseError}",
+    "aiGenerationAPIGemma.serverNotAvailable": "Il server è attualmente non disponibile. Si prega di riprovare più tardi.",
+    "aiGenerationAPIGemma.progressMessages1": "Avvio della catena RAG (Retrieval Augmented Generation)...",
+    "aiGenerationAPIGemma.progressMessages2": "Preparazione del recupero...",
+    "aiGenerationAPIGemma.progressMessages3": "Recupero inizializzato...",
+    "aiGenerationAPIGemma.progressMessages4": "Preparazione del prompt...",
+    "aiGenerationAPIGemma.progressMessages5": "Prompt pronto...",
+    "aiGenerationAPIGemma.progressMessages6": "Preparazione del modello Gemma LLM...",
+    "aiGenerationAPIGemma.progressMessages7": "Fine della catena...",
+    "aiGenerationAPIGemma.errorresponsegeneration": "Si è verificato un errore durante la generazione della risposta: {e}",
+    "aiGenerationAPIGemma.errorFetchURLs": "Impossibile recuperare gli URL: {reasonPhrase}",
+    "aiGenerationAPIGemma.errorFetchYoutube": "Impossibile caricare gli URL di YouTube",
+    "aiGenerationAPIGemma.streamWaitMessg": "In attesa del flusso. Attendere prego...",
+    "aiGenerationAPIGemma.snapShotError": "Errore: {snapshotError}",
+    "aiGenerationAPIGemma.noDataError": "Nessun dato disponibile",
+    "aiGenerationAPIGemma.responseTimeMessg": "Il tempo medio di risposta è di 10 minuti.\nGrazie per la pazienza!",
+    "aiGenerationAPIGemma.waitMessg": "Attendere prego...",
+
+
+
+
+    "aiGenerationAPIGemini.error1":"Si è verificato un errore: {e}",
+    "aiGenerationAPIGemini.error2":"Si è verificato un errore. Si prega di riprovare più tardi...\n",
+    "aiGenerationAPIGemini.progressMessage1": "Streaming",
+    "aiGenerationAPIGemini.progressMessage2": "Preparazione delle visualizzazioni",
+    "aiGenerationAPIGemini.errorFetchUrLs": "Impossibile caricare i risultati di ricerca Google",
+    "aiGenerationAPIGemini.timeOutMessg": "Il processo è scaduto. Si prega di riprovare più tardi.",
+    "aiGenerationAPIGemini.webLoadingMessage": "Attendere mentre il modello raccoglie informazioni dal web per fornire un'esperienza unica, accurata e aggiornata!",
+    "aiGenerationAPIGemini.snapShotError": "Errore: {snapshotError}\nSi prega di riprovare più tardi...",
+    "aiGenerationAPIGemini.noDataError": "Nessun dato disponibile\nSi prega di riprovare più tardi...",
+    "aiGenerationAPIGemini.responseTimeMessg": "Il tempo medio di risposta è di 1 minuto.\nGrazie per la pazienza!",
+    "aiGenerationAPIGemini.waitMessg": "Attendere prego...",
+    "aiGenerationAPIGemini.successGeneration": "Generazione completata con successo!",
+
+
+
+
+
+
+
+
+
+    "aiGeneration.generationScreenTitle": "Generazione AI",
+  
+
+    "link.open": "Apri nel Browser",
+
+    "aiHallucination.text1": "Fai attenzione alle allucinazioni dell'IA!",
+    "aiHallucination.text2": "Lo stato dell'arte della maggior parte degli strumenti AI nel 2024 può a volte fornire risposte errate, o anche le cosiddette Allucinazioni:\n\n",
+    "aiHallucination.text3": "Le allucinazioni dell'IA sono risultati errati o fuorvianti che i modelli AI generano. Questi errori possono essere causati da una varietà di fattori, tra cui dati di addestramento insufficienti, assunzioni errate fatte dal modello o pregiudizi nei dati utilizzati per addestrare il modello.\n\nIl progetto Liquid Galaxy non ha alcun controllo su questo, e la responsabilità del contenuto è dei proprietari dei rispettivi modelli di linguaggio di grandi dimensioni utilizzati.",
+
+    "visualizationDialog.Showpois": "Mostra POI",
+    "visualizationDialog.PrepTour": "Prepara Tour",
+    "visualizationDialog.playTour": "Avvia Tour",
+    "visualizationDialog.stopTour": "Ferma Tour",
+    "visualizationDialog.listofPois": "Elenco dei POI",
+    "visualizationDialog.mapButton": "Mappa",
+
+
+    "about.title": "LG Gemini AI Strumento di Informazioni Turistiche",
+    "about.projGit": "Progetto Github",
+    "about.linkedin": "Il Mio LinkedIn",
+    "about.lgWebsite": "Sito Web di Liquid Galaxy",
+    "about.appDesc1": "🌍 Fuggi dalla Routine",
+    "about.appDesc2": "Nel trambusto della vita quotidiana, molti cercano una fuga attraverso i viaggi, un mezzo di relax, rinnovamento e esplorazione. Tuttavia, l'abbondanza di informazioni disponibili online può rendere la pianificazione di un viaggio travolgente. Navigare tra più siti web, guide e app per ricercare destinazioni, attrazioni e esperienze può essere difficile.",
+    "about.appDesc3": "✨ Semplifica il Tuo Viaggio",
+    "about.appDesc4": "La nostra applicazione mira a semplificare il processo di pianificazione dei viaggi e ispirare gli utenti a intraprendere viaggi memorabili. Scoprire i punti di interesse (POI) più affascinanti e personalizzati in base alle tue preferenze non è mai stato così facile.",
+    "about.appDesc5": "🤖 Raccomandazioni AI Intelligenti",
+    "about.appDesc6Gemma": "Sfruttando Gemma, uno degli ultimi modelli AI di generazione di testo open-source, la nostra app genera POI personalizzati, eseguiti localmente sul server AI presso il Lleida Lab utilizzando la tecnologia Docker.",
+    "about.appDesc6Gemini": "Sfruttando Gemini, un modello generativo di Google disponibile tramite inferenza API, la nostra app offre capacità linguistiche avanzate e risposte intelligenti.",
+    "about.appDesc7": "🌐 Visualizzazioni Immersive",
+    "about.appDesc8": "Attraverso l'innovativa tecnologia Liquid Galaxy, gli utenti possono visualizzare l'intero viaggio su un rig LG con tre o più schermi. I tour e le loro informazioni sono presentati tramite KML (Keyhole Markup Language), creando visualizzazioni sorprendenti e uniche sul rig LG.",
+    "about.appDesc9": "📱 Esperienza Senza Soluzione di Continuità",
+    "about.appDesc10": "Anche senza un rig LG, gli utenti godranno di un'esperienza coinvolgente attraverso la nostra app, migliorata dall'integrazione di Google Maps. Semplifica la tua pianificazione di viaggio e parti alla scoperta del mondo con fiducia e facilità.",
+    "about.contributor": "Contributore:",
+    "about.organization": "Organizzazione:",
+    "about.mentors": "Mentori Principali:",
+    "about.admin": "Amministratore dell'Organizzazione:",
+    "about.coMentor": "Co-Mentori:",
+    "about.listenerContributor": "Contributori Ascoltatori:",
+    "about.testers": "Tester del Laboratorio Liquid Galaxy:",
+
+
+    "favs.addtofavsmessage": "Aggiunto ai Preferiti",
+    "favs.removefromfavsmessage": "Rimosso dai Preferiti",
+    "favs.title": "Tutti i tuoi tour e POI preferiti in un unico posto",
+    "favs.savedTours": "Tutti i Tour Salvati",
+    "favs.savedPlaces": "Luoghi Preferiti",
+
+    "favPlaces.title": "Tutti i tuoi luoghi preferiti nel mondo in un unico posto!",
+    "favPlaces.customizeSubhead": "Per personalizzare un tour, seleziona almeno 2 luoghi",
+    "favPlaces.customizeError": "Seleziona almeno 2 luoghi per personalizzare un tour",
+    
+
+    "favTours.generatedByGemini": "Generato da Gemini",
+    "favTours.generatedByGemma": "Generato da Gemma",
+    "favTours.customized": "Tour Personalizzato",
+
+
+    "textfield.error":"Il campo è obbligatorio",
+
+    "lgConnection.title": "Gestore di Connessione Liquid Galaxy",
+    "lgConnection.subtitle": "Connessione LG",
+    "lgConnection.userName": "Nome Utente LG",
+    "lgConnection.password": "Password LG",
+    "lgConnection.ip": "Indirizzo IP del Master LG",
+    "lgConnection.port": "Numero di Porta LG",
+    "lgConnection.numScreens": "Numero di Schermi LG",
+    "lgConnection.connect": "CONNETTI LG",
+    "lgConnection.disconnect": "DISCONNETTI LG",
+    "lgConnection.confirmDisconnect": "Sei sicuro di voler disconnetterti?",
+    "lgConnection.errorDisconnect": "Sei già disconnesso!",
+
+ 
+    "lgTasks.title": "Attività di Liquid Galaxy",
+    "lgTasks.relaunch": "Rilancia LG",
+    "lgTasks.reboot": "Riavvia LG",
+    "lgTasks.shutdown": "Spegni LG",
+    "lgTasks.confirmRelaunch": "Sei sicuro di voler rilanciare LG?",
+    "lgTasks.confirmReboot": "Sei sicuro di voler riavviare LG?",
+    "lgTasks.confirmShutdown": "Sei sicuro di voler spegnere LG?",
+    "lgTasks.notConnectedError": "NON sei connesso a LG !! \n Per favore, connettiti a LG",
+    "lgTasks.setRefresh": "Imposta Aggiornamento",
+    "lgTasks.confirmRefresh": "Sei sicuro di voler impostare l'aggiornamento?",
+    "lgTasks.resetRefresh": "Reimposta Aggiornamento",
+    "lgTasks.confirmResetRefresh": "Sei sicuro di voler reimpostare l'aggiornamento?",
+    "lgTasks.showLogos": "Mostra Loghi su LG",
+    "lgTasks.hideLogos": "Nascondi Loghi su LG",
+    "lgTasks.cleanKMLs": "Pulisci KML su LG",
+
+
+
+
+
+    "home.title": "Benvenuto nella tua Home Page!",
+    "home.exploreWorld": "Esplora il Mondo",
+    "home.explorelocation": "Esplora una Posizione Specifica",
+
+
+
+
+    "customapptour.removeFavs": "Rimuovi dai Preferiti?",
+    "customapptour.checkMessage": "Vuoi rimuovere {point} dal tour?",
+    "customapptour.title": "Personalizza il tuo tour!",
+    "customapptour.queryNameTemp": "Tour Personalizzato",
+    "customapptour.dragdrop": "Trascina e Rilascia i luoghi sulla mappa!",
+    "customapptour.WarningToCreateRoute": "Per favore, aggiungi più di un luogo per creare un percorso.",
+    "customapptour.CurrTour": "Tour\nCorrente:",
+    "customapptour.missingPlaces": "Per favore, aggiungi luoghi per creare un tour.",
+    "customapptour.chooseName": "Scegli un nome per il tuo tour:",
+
+
+   "poiExpansion.flyTo": "Vola a",
+   "poiExpansion.orbit": "Orbita",
+
+
+    "mapTypes.terrain": "Terreno",
+    "mapTypes.satellite": "Satellitare",
+    "mapTypes.normal": "Normale",
+
+
+    "map.clear": "Cancella dati",
+
+    "sshLG.authError": "Autenticazione SSH fallita",
+    "sshLG.error": "Connessione al server SSH fallita: {e}",
+
+
+    "exploreLocation.mapButton":"Usa Mappa",
+    "exploreLocation.typeAdd": "Digita Indirizzo",
+    "exploreLocation.recordAudio": "Registra Audio",
+    "exploreLocation.address": "Dettagli Indirizzo",
+    "exploreLocation.addressHint": "Inserisci indirizzo, o lascia vuoto",
+    "exploreLocation.city": "Città",
+    "exploreLocation.cityHint": "Inserisci Città",
+    "exploreLocation.country": "Paese",
+    "exploreLocation.countryHint": "Inserisci Paese",
+    "exploreLocation.navigate": "Naviga finché non trovi la tua posizione desiderata!",
+    "exploreLocation.useMap": "Clicca sul pulsante Usa Mappa per navigare se lo desideri!",
+    "exploreLocation.youarein": "Sei in {location}",
+    "exploreLocation.ai-recommendation": "Cose da fare consigliate dall'AI nelle vicinanze",
+    "exploreLocation.landmarks": "Punti di Riferimento",
+    "exploreLocation.restaurants": "Ristoranti e Caffè",
+    "exploreLocation.art": "Arte e Cultura",
+    "exploreLocation.shopping": "Centri Commerciali",
+    "exploreLocation.sports": "Sport e Ricreazione",
+    "exploreLocation.spa": "Spa e Benessere",
+    "exploreLocation.outdoor": "Attività all'Aperto",
+    "exploreLocation.pizza": "Migliori Pizzerie",
+    "exploreLocation.history": "Siti Storici",
+    "exploreLocation.parks": "Parchi Locali",
+    "exploreLocation.cinemas": "Cinema",
+    "exploreLocation.libraries": "Biblioteche",
+    "exploreLocation.dance": "Scuole di Ballo",
+    "exploreLocation.yoga": "Studi di Yoga",
+    "exploreLocation.edu": "Istituzioni Educative",
+    "exploreLocation.salons": "Saloni di Bellezza",
+    "exploreLocation.askGemini": "Chiedi a Gemini tutto ciò che vuoi sapere nelle vicinanze:",
+    "exploreLocation.askGemma": "Chiedi a Gemma tutto ciò che vuoi sapere nelle vicinanze:",
+
+
+    "exploreWorld.ai-recommendation":"Raccomandazioni Turistiche AI a Livello Mondiale",
+    "exploreWorld.londonTitle": "Attrazioni a Londra, Regno Unito",
+    "exploreWorld.londonDesc": "Visita luoghi iconici come la Torre di Londra, Buckingham Palace e il British Museum.",
+    "exploreWorld.nileEgyptTitle": "Crociera sul Nilo in Egitto",
+    "exploreWorld.nileEgyptDesc": "Naviga lungo il Nilo storico, visitando antichi templi e monumenti.",
+    "exploreWorld.redSeaEgyptTitle": "Immersioni nelle Barriere Coralline del Mar Rosso, Egitto",
+    "exploreWorld.redSeaEgyptDesc": "Vivi un'esperienza di immersioni di classe mondiale con una vibrante vita marina e splendide barriere coralline.",
+    "exploreWorld.scotlandTitle": "Avventura nelle Highlands scozzesi",
+    "exploreWorld.scotlandDesc": "Esplora paesaggi aspri, castelli storici e laghi scenografici in Scozia.",
+    "exploreWorld.spainTitle": "Tour di Arte e Architettura in Spagna",
+    "exploreWorld.spainDesc": "Scopri l'eredità artistica e le meraviglie architettoniche della Spagna, inclusi i lavori di Gaudí.",
+    "exploreWorld.icelandTitle": "Trekking sui Vulcani in Islanda",
+    "exploreWorld.icelandDesc": "Cammina attraverso campi di lava, sorgenti termali e paesaggi vulcanici mozzafiato.",
+    "exploreWorld.europeTitle": "Tour in Bicicletta in Europa",
+    "exploreWorld.europeDesc": "Goditi un'avventura in bicicletta attraverso paesaggi pittoreschi e città storiche in Europa.",
+    "exploreWorld.uaeTitle": "Safari nel Deserto negli EAU",
+    "exploreWorld.uaeDesc": "Prova l'emozione del dune bashing, passeggiate a dorso di cammello e un assaggio della cultura beduina.",
+    "exploreWorld.parisTitle": "Tour della Città di Parigi, Francia",
+    "exploreWorld.parisDesc": "Esplora monumenti iconici come la Torre Eiffel, il Museo del Louvre e la Cattedrale di Notre-Dame.",
+    "exploreWorld.norwayTitle": "Osservazione dell'Aurora Boreale in Norvegia",
+    "exploreWorld.norwayDesc": "Assisti allo spettacolo mozzafiato delle Luci del Nord in uno dei migliori punti di osservazione del pianeta.",
+    "exploreWorld.japanTitle": "Tour Culturale a Kyoto, Giappone",
+    "exploreWorld.japanDesc": "Scopri antichi templi, tradizionali case da tè e la bellezza serena dei giardini di Kyoto.",
+    "exploreWorld.indiaTitle": "Ritiri di Yoga e Benessere in India",
+    "exploreWorld.indiaDesc": "Partecipa a sessioni di yoga rigenerante e pratiche di meditazione in ambienti sereni.",
+    "exploreWorld.popular": "Attività più Popolari a Livello Mondiale",
+    "exploreWorld.landmarks": "Visita ai Principali Monumenti",
+    "exploreWorld.beach": "Vacanze al Mare",
+    "exploreWorld.sightseeing": "Tour delle Città",
+    "exploreWorld.museums": "Musei e Siti Storici",
+    "exploreWorld.nature": "Tour nella Natura e Fauna Selvatica",
+    "exploreWorld.adventure": "Sport Avventura",
+    "exploreWorld.theme": "Parchi a Tema",
+    "exploreWorld.food": "Tour Gastronomici",
+    "exploreWorld.hike": "Escursioni e Trekking",
+    "exploreWorld.kayak": "Kayak",
+    "exploreWorld.cycle": "Tour in Bicicletta",
+    "exploreWorld.football": "Tour e Partite di Calcio",
+    "exploreWorld.askGemini": "Esplora qualsiasi cosa nel mondo con Gemini. Chiedi pure!",
+    "exploreWorld.askGemma": "Esplora qualsiasi cosa nel mondo con Gemma. Chiedi pure!",
+
+
+
+    "defaults.cancel": "Annulla",
+    "defaults.save": "Salva",
+    "defaults.delete": "Elimina",
+    "defaults.ok": "OK",
+    "defaults.yes": "Sì",
+    "defaults.no": "No",
+    "defaults.confirm": "Conferma",
+    "defaults.error": "Errore",  
+    "defaults.success": "Successo",
+    "defaults.warning": "Avviso",
+    "defaults.info": "Informazione",
+    "defaults.remove": "Rimuovi",
+    "defaults.done": "Fatto",
+    "defaults.alert": "Avviso",
+    "defaults.understand": "Ho capito",
+    "defaults.reset": "Ripristina",
+    "defaults.create": "Crea",
+    "defaults.stop": "Ferma",
+    "defaults.visualize": "Visualizza",
+    "defaults.visualizeNow": "Visualizza Ora!",
+    "defaults.loading": "Caricamento in corso...",
+    "defaults.generate": "GENERA",
+    "defaults.customize": "Personalizza",
+
+
+    "SearchResults.web": "Risultati Web per {query}",
+    "SearchResults.youtube": "Risultati YouTube per {query}",
+    "SearchResults.noneFound": "Nessun URL trovato",
+
+
+
+    "AppBar.title": "Strumento di informazioni turistiche LG",
+    "AppBar.made": "realizzato con",
+    "AppBar.Lgrig": "LG Rig",
+
+
+    "AppDrawer.home":"Home",
+    "AppDrawer.connection":"Gestore di Connessione",
+    "AppDrawer.tasks":"Compiti LG",
+    "AppDrawer.settings":"Impostazioni",
+    "AppDrawer.about":"Informazioni",
+    "AppDrawer.favs":"Preferiti"
+
+}
