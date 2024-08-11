@@ -45,9 +45,9 @@
 
 
     "settingsLG.title": "About Liquid Galaxy",
-    "settingsLG.desc": "'Liquid Galaxy is a multi-screen, immersive system that offers panoramic views by syncing multiple displays. Originally a Google project, it allows users to explore locations in a seamless, 360-degree experience",
+    "settingsLG.desc": "Liquid Galaxy is a multi-screen, immersive system that offers panoramic views by syncing multiple displays. Originally a Google project, it allows users to explore locations in a seamless, 360-degree experience",
     "settingsLG.learnButton": "Learn about LG",
-    "settingsLG.setupRigButton": "`Set up LG Rig",
+    "settingsLG.setupRigButton": "Set up LG Rig",
     "settingsLG.connectButton": "Connect to LG",
     "settingsLG.controlLG": "Control the LG",
 
@@ -80,7 +80,7 @@
     "aiGenerationAPIGemma.progressMessages6": "Getting Gemma LLM Model ready...",
     "aiGenerationAPIGemma.progressMessages7": "End of Chain ...",
     "aiGenerationAPIGemma.errorresponsegeneration": "An error occurred while generating the response: {e}",
-    "aiGenerationAPIGemma.errorFetchURLs": "Failed to fetch URLs: {response.reasonPhrase}",
+    "aiGenerationAPIGemma.errorFetchURLs": "Failed to fetch URLs: {reasonPhrase}",
     "aiGenerationAPIGemma.errorFetchYoutube": "Failed to load YouTube URLs",
     "aiGenerationAPIGemma.streamWaitMessg": "Waiting for stream. Please wait...",
     "aiGenerationAPIGemma.snapShotError": "Error: {snapshotError}",
@@ -344,7 +344,7 @@
 
 
 
-    "AppBar.title": "'LG Touristic info tool",
+    "AppBar.title": "LG Touristic info tool",
     "AppBar.made": "made with",
     "AppBar.Lgrig": "LG Rig",
 
@@ -355,9 +355,6 @@
     "AppDrawer.settings":"Settings",
     "AppDrawer.about":"About",
     "AppDrawer.favs":"Favourites"
-
-
-
 
 
 }
