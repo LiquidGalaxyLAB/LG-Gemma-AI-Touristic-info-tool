@@ -100,7 +100,7 @@ class _LGWidgetState extends State<LGWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   LgElevatedButton(
-                    elevatedButtonContent: 'Connec to LG',
+                    elevatedButtonContent: 'Connet to LG',
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
                       currViewProvider.currentView = 'connection';
