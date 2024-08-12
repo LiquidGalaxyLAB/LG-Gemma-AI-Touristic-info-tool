@@ -27,14 +27,17 @@ class _LGWidgetState extends State<LGWidget> {
         return SingleChildScrollView(
           child: Column(
             children: [
-              Text(
-                // 'About Liquid Galaxy',
-                AppLocalizations.of(context)!.settingsLG_title,
-                style: TextStyle(
-                  fontSize: fontProv.fonts.headingSize,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: fontType,
+              Center(
+                child: Text(
+                  // 'About Liquid Galaxy',
+                  textAlign: TextAlign.center,
+                  AppLocalizations.of(context)!.settingsLG_title,
+                  style: TextStyle(
+                    fontSize: fontProv.fonts.headingSize,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: fontType,
+                  ),
                 ),
               ),
               Image.asset(
@@ -63,7 +66,8 @@ class _LGWidgetState extends State<LGWidget> {
                 children: [
                   LgElevatedButton(
                     // elevatedButtonContent: 'Learn about LG',
-                    elevatedButtonContent: AppLocalizations.of(context)!.settingsLG_learnButton,
+                    elevatedButtonContent:
+                        AppLocalizations.of(context)!.settingsLG_learnButton,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
                       launchUrlString('https://www.liquidgalaxy.eu/');
@@ -80,7 +84,8 @@ class _LGWidgetState extends State<LGWidget> {
                   ),
                   LgElevatedButton(
                     // elevatedButtonContent: 'Set up an LG Rig',
-                    elevatedButtonContent: AppLocalizations.of(context)!.settingsLG_setupRigButton,
+                    elevatedButtonContent:
+                        AppLocalizations.of(context)!.settingsLG_setupRigButton,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
                       launchUrlString(
@@ -106,7 +111,8 @@ class _LGWidgetState extends State<LGWidget> {
                 children: [
                   LgElevatedButton(
                     // elevatedButtonContent: 'Connet to LG',
-                    elevatedButtonContent: AppLocalizations.of(context)!.settingsLG_connectButton,
+                    elevatedButtonContent:
+                        AppLocalizations.of(context)!.settingsLG_connectButton,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
                       currViewProvider.currentView = 'connection';
@@ -123,7 +129,8 @@ class _LGWidgetState extends State<LGWidget> {
                   ),
                   LgElevatedButton(
                     // elevatedButtonContent: 'Control the LG',
-                    elevatedButtonContent: AppLocalizations.of(context)!.settingsLG_controlLG,
+                    elevatedButtonContent:
+                        AppLocalizations.of(context)!.settingsLG_controlLG,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
                       currViewProvider.currentView = 'tasks';

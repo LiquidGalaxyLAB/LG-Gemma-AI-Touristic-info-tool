@@ -1,11 +1,13 @@
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/tasks_container.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
@@ -71,438 +73,366 @@ class _LGTasksViewState extends State<LGTasksView> {
               ],
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.08,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              LgElevatedButton(
-                  // elevatedButtonContent: 'RELAUNCH',
-                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_relaunch,
-                  // buttonColor: PrimaryAppColors.buttonColors,
-                  buttonColor: value.colors.buttonColors,
-                  fontColor: FontAppColors.secondaryFont,
-                  // fontSize: textSize + 4,
-                  fontSize: fontProv.fonts.textSize + 4,
-                  isLoading: false,
-                  isBold: false,
-                  isSuffixIcon: false,
-                  isPrefixIcon: true,
-                  prefixIcon: Icons.launch_rounded,
-                  prefixIconSize: 30,
-                  prefixIconColor: FontAppColors.secondaryFont,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  curvatureRadius: 50,
-                  onpressed: () async {
-                    /// retrieving the ssh data from the `ssh provider`
-                    final sshData =
-                        Provider.of<SSHprovider>(context, listen: false);
+          Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LgTasksButton(
+                    buttonColor: value.colors.shadow,
+                    borderColor: value.colors.buttonColors,
+                    fontSize: fontProv.fonts.textSize,
+                    text: AppLocalizations.of(context)!.lgTasks_relaunch,
+                    imgPath: "assets/images/relaunch.png",
+                    onTap: () {
+                      /// retrieving the ssh data from the `ssh provider`
+                      final sshData =
+                          Provider.of<SSHprovider>(context, listen: false);
 
-                    Connectionprovider connection =
-                        Provider.of<Connectionprovider>(context, listen: false);
+                      Connectionprovider connection =
+                          Provider.of<Connectionprovider>(context,
+                              listen: false);
 
-                    ///checking the connection status first
-                    if (sshData.client != null && connection.isLgConnected) {
-                      /// calling `reboot` from `LGService`
+                      ///checking the connection status first
+                      if (sshData.client != null && connection.isLgConnected) {
+                        /// calling `reboot` from `LGService`
 
-                      dialogBuilder(
-                          context,
-                          // 'Are you sure you want to Relaunch?',
-                          AppLocalizations.of(context)!.lgTasks_confirmRelaunch,
-                          false,
-                          // 'YES', 
-                          AppLocalizations.of(context)!.defaults_yes,
-                          () {
-                        LgService(sshData).relaunch();
-                      }, () {});
-                    } else {
-                      dialogBuilder(
-                          context,
-                          // 'NOT connected to LG !! \n Please Connect to LG',
-                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
-                          true,
-                          // 'OK',
-                          AppLocalizations.of(context)!.defaults_ok,
-                          null,
-                          null);
-                    }
-                  }),
-              LgElevatedButton(
-                  // elevatedButtonContent: 'REBOOT',
-                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_reboot,
-                  // buttonColor: PrimaryAppColors.buttonColors,
-                  buttonColor: value.colors.buttonColors,
-                  fontColor: FontAppColors.secondaryFont,
-                  // fontSize: textSize + 4,
-                  fontSize: fontProv.fonts.textSize + 4,
-                  isLoading: false,
-                  isBold: false,
-                  isSuffixIcon: false,
-                  isPrefixIcon: true,
-                  prefixIcon: Icons.replay_rounded,
-                  prefixIconSize: 30,
-                  prefixIconColor: FontAppColors.secondaryFont,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  curvatureRadius: 50,
-                  onpressed: () {
-                    /// retrieving the ssh data from the `ssh provider`
-                    final sshData =
-                        Provider.of<SSHprovider>(context, listen: false);
+                        dialogBuilder(
+                            context,
+                            // 'Are you sure you want to Relaunch?',
+                            AppLocalizations.of(context)!
+                                .lgTasks_confirmRelaunch,
+                            false,
+                            // 'YES',
+                            AppLocalizations.of(context)!.defaults_yes, () {
+                          LgService(sshData).relaunch();
+                        }, () {});
+                      } else {
+                        dialogBuilder(
+                            context,
+                            // 'NOT connected to LG !! \n Please Connect to LG',
+                            AppLocalizations.of(context)!
+                                .lgTasks_notConnectedError,
+                            true,
+                            // 'OK',
+                            AppLocalizations.of(context)!.defaults_ok,
+                            null,
+                            null);
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  LgTasksButton(
+                    buttonColor: value.colors.shadow,
+                    borderColor: value.colors.buttonColors,
+                    fontSize: fontProv.fonts.textSize,
+                    text: AppLocalizations.of(context)!.lgTasks_reboot,
+                    imgPath: "assets/images/reboot.png",
+                    onTap: () {
+                      /// retrieving the ssh data from the `ssh provider`
+                      final sshData =
+                          Provider.of<SSHprovider>(context, listen: false);
 
-                    Connectionprovider connection =
-                        Provider.of<Connectionprovider>(context, listen: false);
+                      Connectionprovider connection =
+                          Provider.of<Connectionprovider>(context,
+                              listen: false);
 
-                    ///checking the connection status first
-                    if (sshData.client != null && connection.isLgConnected) {
-                      /// calling `reboot` from `LGService`
+                      ///checking the connection status first
+                      if (sshData.client != null && connection.isLgConnected) {
+                        /// calling `reboot` from `LGService`
 
-                      dialogBuilder(context, 
-                      // 'Are you sure you want to Reboot?',
-                      AppLocalizations.of(context)!.lgTasks_confirmReboot,
-                          false, 
-                          // 'YES'
-                          AppLocalizations.of(context)!.defaults_yes, 
-                          
-                           () {
-                        LgService(sshData).reboot();
-                      }, () {});
-                    } else {
-                      ///Showing error message
+                        dialogBuilder(
+                            context,
+                            // 'Are you sure you want to Reboot?',
+                            AppLocalizations.of(context)!.lgTasks_confirmReboot,
+                            false,
+                            // 'YES'
+                            AppLocalizations.of(context)!.defaults_yes, () {
+                          LgService(sshData).reboot();
+                        }, () {});
+                      } else {
+                        ///Showing error message
 
-                      dialogBuilder(
-                          context,
-                          // 'NOT connected to LG !! \n Please Connect to LG',
-                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
-                          true,
-                          // 'OK',
-                          AppLocalizations.of(context)!.defaults_ok,
-                          null,
-                          null);
-                    }
-                  }),
-              LgElevatedButton(
-                  // elevatedButtonContent: 'SHUT DOWN',
-                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_shutdown,
-                  // buttonColor: PrimaryAppColors.buttonColors,
-                  buttonColor: value.colors.buttonColors,
-                  fontColor: FontAppColors.secondaryFont,
-                  // fontSize: textSize + 4,
-                  fontSize: fontProv.fonts.textSize + 4,
-                  isLoading: false,
-                  isBold: false,
-                  isSuffixIcon: false,
-                  isPrefixIcon: true,
-                  prefixIcon: Icons.power_settings_new_rounded,
-                  prefixIconSize: 30,
-                  prefixIconColor: FontAppColors.secondaryFont,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  curvatureRadius: 50,
-                  onpressed: () async {
-                    /// retrieving the ssh data from the `ssh provider`
-                    final sshData =
-                        Provider.of<SSHprovider>(context, listen: false);
+                        dialogBuilder(
+                            context,
+                            // 'NOT connected to LG !! \n Please Connect to LG',
+                            AppLocalizations.of(context)!
+                                .lgTasks_notConnectedError,
+                            true,
+                            // 'OK',
+                            AppLocalizations.of(context)!.defaults_ok,
+                            null,
+                            null);
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  LgTasksButton(
+                    buttonColor: value.colors.shadow,
+                    borderColor: value.colors.buttonColors,
+                    fontSize: fontProv.fonts.textSize,
+                    text: AppLocalizations.of(context)!.lgTasks_shutdown,
+                    imgPath: "assets/images/shutdown.png",
+                    onTap: () {
+                      /// retrieving the ssh data from the `ssh provider`
+                      final sshData =
+                          Provider.of<SSHprovider>(context, listen: false);
 
-                    Connectionprovider connection =
-                        Provider.of<Connectionprovider>(context, listen: false);
+                      Connectionprovider connection =
+                          Provider.of<Connectionprovider>(context,
+                              listen: false);
 
-                    ///checking the connection status first
-                    if (sshData.client != null && connection.isLgConnected) {
-                      //warning message first
+                      ///checking the connection status first
+                      if (sshData.client != null && connection.isLgConnected) {
+                        //warning message first
 
-                      dialogBuilder(
-                          context,
-                          // 'Are you sure you want to Shut Down?',
-                          AppLocalizations.of(context)!.lgTasks_confirmShutdown,
-                          false,
-                          // 'YES',
-                          AppLocalizations.of(context)!.defaults_yes,
-                           () {
-                        try {
-                          LgService(sshData).shutdown();
-                        } catch (e) {
-                          // ignore: avoid_print
-                          print(e);
+                        dialogBuilder(
+                            context,
+                            // 'Are you sure you want to Shut Down?',
+                            AppLocalizations.of(context)!
+                                .lgTasks_confirmShutdown,
+                            false,
+                            // 'YES',
+                            AppLocalizations.of(context)!.defaults_yes, () {
+                          try {
+                            LgService(sshData).shutdown();
+                          } catch (e) {
+                            // ignore: avoid_print
+                            print(e);
+                          }
+                        }, () {});
+                      } else {
+                        ///Showing error message
+
+                        dialogBuilder(
+                            context,
+                            // 'NOT connected to LG !! \n Please Connect to LG',
+                            AppLocalizations.of(context)!
+                                .lgTasks_notConnectedError,
+                            true,
+                            // 'OK',
+                            AppLocalizations.of(context)!.defaults_ok,
+                            null,
+                            null);
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  // LgTasksButton(
+                  //     buttonColor: value.colors.shadow,
+                  //     borderColor: value.colors.buttonColors,
+                  //     fontSize: fontProv.fonts.textSize,
+                  //     text: AppLocalizations.of(context)!.lgTasks_setRefresh,
+                  //     onTap: () {
+                  //       /// retrieving the ssh data from the `ssh provider`
+                  //       final sshData =
+                  //           Provider.of<SSHprovider>(context, listen: false);
+
+                  //       Connectionprovider connection =
+                  //           Provider.of<Connectionprovider>(context,
+                  //               listen: false);
+
+                  //       ///checking the connection status first
+                  //       if (sshData.client != null &&
+                  //           connection.isLgConnected) {
+                  //         //warning message first
+
+                  //         dialogBuilder(
+                  //             context,
+                  //             // 'Are you sure you want to set Refresh?',
+                  //             AppLocalizations.of(context)!
+                  //                 .lgTasks_confirmRefresh,
+                  //             false,
+                  //             // 'YES',
+                  //             AppLocalizations.of(context)!.defaults_yes, () {
+                  //           try {
+                  //             LgService(sshData).setRefresh();
+                  //           } catch (e) {
+                  //             // ignore: avoid_print
+                  //             print(e);
+                  //           }
+                  //         }, () {});
+                  //       } else {
+                  //         ///Showing error message
+
+                  //         dialogBuilder(
+                  //             context,
+                  //             // 'NOT connected to LG !! \n Please Connect to LG',
+                  //             AppLocalizations.of(context)!
+                  //                 .lgTasks_notConnectedError,
+                  //             true,
+                  //             // 'OK',
+                  //             AppLocalizations.of(context)!.defaults_ok,
+                  //             null,
+                  //             null);
+                  //       }
+                  //     }),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height *0.01,
+                  // ),
+                  // LgTasksButton(
+                  //     buttonColor: value.colors.shadow,
+                  //     borderColor: value.colors.buttonColors,
+                  //     fontSize: fontProv.fonts.textSize,
+                  //     text: AppLocalizations.of(context)!.lgTasks_resetRefresh,
+                  //     onTap: () {
+                  //       /// retrieving the ssh data from the `ssh provider`
+                  //       final sshData =
+                  //           Provider.of<SSHprovider>(context, listen: false);
+
+                  //       Connectionprovider connection =
+                  //           Provider.of<Connectionprovider>(context,
+                  //               listen: false);
+
+                  //       ///checking the connection status first
+                  //       if (sshData.client != null &&
+                  //           connection.isLgConnected) {
+                  //         //warning message first
+
+                  //         dialogBuilder(
+                  //             context,
+                  //             // 'Are you sure you want to Reset Refresh?',
+                  //             AppLocalizations.of(context)!
+                  //                 .lgTasks_confirmResetRefresh,
+                  //             false,
+                  //             // 'YES',
+                  //             AppLocalizations.of(context)!.defaults_yes, () {
+                  //           try {
+                  //             LgService(sshData).resetRefresh();
+                  //           } catch (e) {
+                  //             // ignore: avoid_print
+                  //             print(e);
+                  //           }
+                  //         }, () {});
+                  //       } else {
+                  //         ///Showing error message
+
+                  //         dialogBuilder(
+                  //             context,
+                  //             // 'NOT connected to LG !! \n Please Connect to LG',
+                  //             AppLocalizations.of(context)!
+                  //                 .lgTasks_notConnectedError,
+                  //             true,
+                  //             // 'OK',
+                  //             AppLocalizations.of(context)!.defaults_ok,
+                  //             null,
+                  //             null);
+                  //       }
+                  //     }),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height *0.01,
+                  // ),
+                  LgTasksButton(
+                      buttonColor: value.colors.shadow,
+                      borderColor: value.colors.buttonColors,
+                      fontSize: fontProv.fonts.textSize,
+                      text: AppLocalizations.of(context)!.lgTasks_showLogos,
+                      imgPath: "assets/images/show.png",
+                      onTap: () {
+                        /// retrieving the ssh data from the `ssh provider`
+                        final sshData =
+                            Provider.of<SSHprovider>(context, listen: false);
+
+                        Connectionprovider connection =
+                            Provider.of<Connectionprovider>(context,
+                                listen: false);
+
+                        ///checking the connection status first
+                        if (sshData.client != null &&
+                            connection.isLgConnected) {
+                          LgService(sshData).setLogos();
+                        } else {
+                          dialogBuilder(
+                              context,
+                              // 'NOT connected to LG !! \n Please Connect to LG',
+                              AppLocalizations.of(context)!
+                                  .lgTasks_notConnectedError,
+                              true,
+                              // 'OK',
+                              AppLocalizations.of(context)!.defaults_ok,
+                              null,
+                              null);
                         }
-                      }, () {});
-                    } else {
-                      ///Showing error message
+                      }),
+                  LgTasksButton(
+                      buttonColor: value.colors.shadow,
+                      borderColor: value.colors.buttonColors,
+                      fontSize: fontProv.fonts.textSize,
+                      text: AppLocalizations.of(context)!.lgTasks_hideLogos,
+                      imgPath: "assets/images/hide.png",
+                      onTap: () {
+                        /// retrieving the ssh data from the `ssh provider`
+                        final sshData =
+                            Provider.of<SSHprovider>(context, listen: false);
 
-                      dialogBuilder(
-                          context,
-                          // 'NOT connected to LG !! \n Please Connect to LG',
-                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
-                          true,
-                          // 'OK',
-                          AppLocalizations.of(context)!.defaults_ok,
-                          null,
-                          null);
-                    }
-                  }),
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.08,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              LgElevatedButton(
-                  // elevatedButtonContent: 'SET REFRESH',
-                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_setRefresh,
-                  // buttonColor: PrimaryAppColors.buttonColors,
-                  buttonColor: value.colors.buttonColors,
-                  fontColor: FontAppColors.secondaryFont,
-                  // fontSize: textSize + 4,
-                  fontSize: fontProv.fonts.textSize + 4,
-                  isLoading: false,
-                  isBold: false,
-                  isSuffixIcon: false,
-                  isPrefixIcon: true,
-                  prefixIcon: Icons.refresh,
-                  prefixIconSize: 30,
-                  prefixIconColor: FontAppColors.secondaryFont,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  curvatureRadius: 50,
-                  onpressed: () async {
-                    /// retrieving the ssh data from the `ssh provider`
-                    final sshData =
-                        Provider.of<SSHprovider>(context, listen: false);
+                        Connectionprovider connection =
+                            Provider.of<Connectionprovider>(context,
+                                listen: false);
 
-                    Connectionprovider connection =
-                        Provider.of<Connectionprovider>(context, listen: false);
-
-                    ///checking the connection status first
-                    if (sshData.client != null && connection.isLgConnected) {
-                      //warning message first
-
-                      dialogBuilder(
-                          context,
-                          // 'Are you sure you want to set Refresh?',
-                          AppLocalizations.of(context)!.lgTasks_confirmRefresh,
-                          false,
-                          // 'YES',
-                          AppLocalizations.of(context)!.defaults_yes,
-                           () {
-                        try {
-                          LgService(sshData).setRefresh();
-                        } catch (e) {
-                          // ignore: avoid_print
-                          print(e);
+                        ///checking the connection status first
+                        if (sshData.client != null &&
+                            connection.isLgConnected) {
+                          LgService(sshData).clearKml(keepLogos: false);
+                        } else {
+                          dialogBuilder(
+                              context,
+                              // 'NOT connected to LG !! \n Please Connect to LG',
+                              AppLocalizations.of(context)!
+                                  .lgTasks_notConnectedError,
+                              true,
+                              // 'OK',
+                              AppLocalizations.of(context)!.defaults_ok,
+                              null,
+                              null);
                         }
-                      }, () {});
-                    } else {
-                      ///Showing error message
+                      }),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  LgTasksButton(
+                      buttonColor: value.colors.shadow,
+                      borderColor: value.colors.buttonColors,
+                      fontSize: fontProv.fonts.textSize,
+                      text: AppLocalizations.of(context)!.lgTasks_cleanKMLs,
+                      imgPath: "assets/images/clear.png",
+                      onTap: () {
+                        /// retrieving the ssh data from the `ssh provider`
+                        final sshData =
+                            Provider.of<SSHprovider>(context, listen: false);
 
-                      dialogBuilder(
-                          context,
-                          // 'NOT connected to LG !! \n Please Connect to LG',
-                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
-                          true,
-                          // 'OK',
-                          AppLocalizations.of(context)!.defaults_ok,
-                          null,
-                          null);
-                    }
-                  }),
-              LgElevatedButton(
-                  // elevatedButtonContent: 'RESET REFRESH',
-                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_resetRefresh,
-                  // buttonColor: PrimaryAppColors.buttonColors,
-                  buttonColor: value.colors.buttonColors,
-                  fontColor: FontAppColors.secondaryFont,
-                  // fontSize: textSize + 4,
-                  fontSize: fontProv.fonts.textSize + 4,
-                  isLoading: false,
-                  isBold: false,
-                  isSuffixIcon: false,
-                  isPrefixIcon: true,
-                  prefixIcon: Icons.settings_backup_restore,
-                  prefixIconSize: 30,
-                  prefixIconColor: FontAppColors.secondaryFont,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.26,
-                  curvatureRadius: 50,
-                  onpressed: () async {
-                    /// retrieving the ssh data from the `ssh provider`
-                    final sshData =
-                        Provider.of<SSHprovider>(context, listen: false);
+                        Connectionprovider connection =
+                            Provider.of<Connectionprovider>(context,
+                                listen: false);
 
-                    Connectionprovider connection =
-                        Provider.of<Connectionprovider>(context, listen: false);
-
-                    ///checking the connection status first
-                    if (sshData.client != null && connection.isLgConnected) {
-                      //warning message first
-
-                      dialogBuilder(
-                          context,
-                          // 'Are you sure you want to Reset Refresh?',
-                          AppLocalizations.of(context)!.lgTasks_confirmResetRefresh,
-                          false,
-                          // 'YES',
-                          AppLocalizations.of(context)!.defaults_yes,
-                           () {
-                        try {
-                          LgService(sshData).resetRefresh();
-                        } catch (e) {
-                          // ignore: avoid_print
-                          print(e);
+                        ///checking the connection status first
+                        if (sshData.client != null &&
+                            connection.isLgConnected) {
+                          LgService(sshData).clearKml();
+                        } else {
+                          dialogBuilder(
+                              context,
+                              // 'NOT connected to LG !! \n Please Connect to LG',
+                              AppLocalizations.of(context)!
+                                  .lgTasks_notConnectedError,
+                              true,
+                              // 'OK',
+                              AppLocalizations.of(context)!.defaults_ok,
+                              null,
+                              null);
                         }
-                      }, () {});
-                    } else {
-                      ///Showing error message
-
-                      dialogBuilder(
-                          context,
-                          // 'NOT connected to LG !! \n Please Connect to LG',
-                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
-                          true,
-                          // 'OK',
-                          AppLocalizations.of(context)!.defaults_ok,
-                          null,
-                          null);
-                    }
-                  }),
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.08,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              LgElevatedButton(
-                  // elevatedButtonContent: 'SHOW LOGOS',
-                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_showLogos,
-                  // buttonColor: PrimaryAppColors.buttonColors,
-                  buttonColor: value.colors.buttonColors,
-                  fontColor: FontAppColors.secondaryFont,
-                  // fontSize: textSize + 4,
-                  fontSize: fontProv.fonts.textSize + 4,
-                  isLoading: false,
-                  isBold: false,
-                  isSuffixIcon: false,
-                  isPrefixIcon: true,
-                  prefixIcon: Icons.visibility,
-                  prefixIconSize: 30,
-                  prefixIconColor: FontAppColors.secondaryFont,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  curvatureRadius: 50,
-                  onpressed: () async {
-                    /// retrieving the ssh data from the `ssh provider`
-                    final sshData =
-                        Provider.of<SSHprovider>(context, listen: false);
-
-                    Connectionprovider connection =
-                        Provider.of<Connectionprovider>(context, listen: false);
-
-                    ///checking the connection status first
-                    if (sshData.client != null && connection.isLgConnected) {
-                      LgService(sshData).setLogos();
-                    } else {
-                      dialogBuilder(
-                          context,
-                          // 'NOT connected to LG !! \n Please Connect to LG',
-                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
-                          true,
-                          // 'OK',
-                          AppLocalizations.of(context)!.defaults_ok,
-                          null,
-                          null);
-                    }
-                  }),
-              LgElevatedButton(
-                  // elevatedButtonContent: 'HIDE LOGOS',
-                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_hideLogos,
-                  // buttonColor: PrimaryAppColors.buttonColors,
-                  buttonColor: value.colors.buttonColors,
-                  fontColor: FontAppColors.secondaryFont,
-                  // fontSize: textSize + 4,
-                  fontSize: fontProv.fonts.textSize + 4,
-                  isLoading: false,
-                  isBold: false,
-                  isSuffixIcon: false,
-                  isPrefixIcon: true,
-                  prefixIcon: Icons.visibility_off,
-                  prefixIconSize: 30,
-                  prefixIconColor: FontAppColors.secondaryFont,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  curvatureRadius: 50,
-                  onpressed: () async {
-                    /// retrieving the ssh data from the `ssh provider`
-                    final sshData =
-                        Provider.of<SSHprovider>(context, listen: false);
-
-                    Connectionprovider connection =
-                        Provider.of<Connectionprovider>(context, listen: false);
-
-                    ///checking the connection status first
-                    if (sshData.client != null && connection.isLgConnected) {
-                      LgService(sshData).clearKml(keepLogos: false);
-                    } else {
-                      dialogBuilder(
-                          context,
-                          // 'NOT connected to LG !! \n Please Connect to LG',
-                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
-                          true,
-                          // 'OK',
-                          AppLocalizations.of(context)!.defaults_ok,
-                          null,
-                          null);
-                    }
-                  }),
-              LgElevatedButton(
-                  // elevatedButtonContent: 'CLEAN KMLS',
-                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_cleanKMLs,
-                  // buttonColor: PrimaryAppColors.buttonColors,
-                  buttonColor: value.colors.buttonColors,
-                  fontColor: FontAppColors.secondaryFont,
-                  // fontSize: textSize + 4,
-                  fontSize: fontProv.fonts.textSize + 4,
-                  isLoading: false,
-                  isBold: false,
-                  isSuffixIcon: false,
-                  isPrefixIcon: true,
-                  prefixIcon: Icons.cleaning_services,
-                  prefixIconSize: 30,
-                  prefixIconColor: FontAppColors.secondaryFont,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  curvatureRadius: 50,
-                  onpressed: () async {
-                    /// retrieving the ssh data from the `ssh provider`
-                    final sshData =
-                        Provider.of<SSHprovider>(context, listen: false);
-
-                    Connectionprovider connection =
-                        Provider.of<Connectionprovider>(context, listen: false);
-
-                    ///checking the connection status first
-                    if (sshData.client != null && connection.isLgConnected) {
-                      LgService(sshData).clearKml();
-                    } else {
-                      dialogBuilder(
-                          context,
-                          // 'NOT connected to LG !! \n Please Connect to LG',
-                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
-                          true,
-                          // 'OK',
-                          AppLocalizations.of(context)!.defaults_ok,
-                          null,
-                          null);
-                    }
-                  }),
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.08,
+                      }),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       );

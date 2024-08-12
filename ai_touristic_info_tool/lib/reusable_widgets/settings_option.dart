@@ -39,7 +39,7 @@ class _SettingsOptionButtonState extends State<SettingsOptionButton> {
         builder: (BuildContext context, ColorProvider value,
             FontsProvider fontProv, Widget? child) {
           return Container(
-            height: MediaQuery.of(context).size.height * 0.1,
+            // height: MediaQuery.of(context).size.height * 0.11,
             width: MediaQuery.of(context).size.width * 0.4,
             decoration: BoxDecoration(
               // color: isPressed
@@ -91,22 +91,32 @@ class _SettingsOptionButtonState extends State<SettingsOptionButton> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      widget.buttonText,
-                      style: TextStyle(
-                        fontFamily: fontType,
-                        // fontSize: textSize + 3,
-                        fontSize: fontProv.fonts.textSize + 3,
-                        color: FontAppColors.primaryFont,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      child: Text(
+                        widget.buttonText,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontFamily: fontType,
+                          // fontSize: textSize + 3,
+                          fontSize: fontProv.fonts.textSize + 3,
+                          color: FontAppColors.primaryFont,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    Text(
-                      widget.buttonDescription,
-                      style: TextStyle(
-                        fontFamily: fontType,
-                        fontSize: textSize,
-                        color: FontAppColors.primaryFont,
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      child: Text(
+                        widget.buttonDescription,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontFamily: fontType,
+                          fontSize: textSize,
+                          color: FontAppColors.primaryFont,
+                        ),
                       ),
                     ),
                   ],

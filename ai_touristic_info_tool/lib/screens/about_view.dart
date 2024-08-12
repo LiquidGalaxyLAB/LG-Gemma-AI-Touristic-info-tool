@@ -58,7 +58,7 @@ class AboutScreen extends StatelessWidget {
                   //   scale: 0.5,
                   // ),
                   //Gemini:
-                     Image.asset(
+                  Image.asset(
                     "assets/images/appLogo-Gemini.png",
                     scale: 0.5,
                   ),
@@ -102,7 +102,8 @@ class AboutScreen extends StatelessWidget {
                         children: [
                           TextSpan(
                             // text: 'Be aware of AI hallucinations !\n\n',
-                            text: AppLocalizations.of(context)!.aiHallucination_text1,
+                            text: AppLocalizations.of(context)!
+                                .aiHallucination_text1,
                             style: TextStyle(
                                 // fontSize: headingSize,
                                 fontSize: font.fonts.headingSize,
@@ -113,7 +114,8 @@ class AboutScreen extends StatelessWidget {
                           TextSpan(
                             text:
                                 // 'The state of the art of most AI tools as 2024 can give you sometimes incorrect answers, or even the so called Hallucinations:\n\n',
-                                AppLocalizations.of(context)!.aiHallucination_text2,
+                                AppLocalizations.of(context)!
+                                    .aiHallucination_text2,
                             style: TextStyle(
                                 // color: Colors.black,
                                 // fontSize: textSize + 4,
@@ -125,7 +127,8 @@ class AboutScreen extends StatelessWidget {
                           TextSpan(
                             text:
                                 // 'AI hallucinations are incorrect or misleading results that AI models generate. These errors can be caused by a variety of factors, including insufficient training data, incorrect assumptions made by the model, or biases in the data used to train the model.\n\nThe Liquid Galaxy project has no control over this, and the contents responsibility is of the owners of the respective Large Language models used',
-                                AppLocalizations.of(context)!.aiHallucination_text3,
+                                AppLocalizations.of(context)!
+                                    .aiHallucination_text3,
                             style: TextStyle(
                                 // color: Colors.black,
                                 // fontSize: textSize,
@@ -416,166 +419,176 @@ class DevelopersInfoWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    // "Contributor:",
-                    AppLocalizations.of(context)!.about_contributor,
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      // "Contributor:",
+                      AppLocalizations.of(context)!.about_contributor,
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    // "Organization:",
-                    AppLocalizations.of(context)!.about_organization,
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      // "Organization:",
+                      AppLocalizations.of(context)!.about_organization,
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    // "Main-Mentors:",
-                    AppLocalizations.of(context)!.about_mentors,
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      // "Main-Mentors:",
+                      AppLocalizations.of(context)!.about_mentors,
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    // "Organization Admin:",
-                    AppLocalizations.of(context)!.about_admin,
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      // "Organization Admin:",
+                      AppLocalizations.of(context)!.about_admin,
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    // "Co-Mentors:",
-                    AppLocalizations.of(context)!.about_coMentor,
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      // "Co-Mentors:",
+                      AppLocalizations.of(context)!.about_coMentor,
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    // "Listener Contributors:",
-                    AppLocalizations.of(context)!.about_listenerContributor,
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      // "Listener Contributors:",
+                      AppLocalizations.of(context)!.about_listenerContributor,
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    // "Liquid Galaxy LAB testers:",
-                    AppLocalizations.of(context)!.about_testers,
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      // "Liquid Galaxy LAB testers:",
+                      AppLocalizations.of(context)!.about_testers,
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.01,
               ),
               AppDividerWidget(
-                height: MediaQuery.of(context).size.height * 0.2,
+                height: MediaQuery.of(context).size.height * 0.4,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Mahinour Elsarky",
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.01,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Mahinour Elsarky",
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Liquid Galaxy Project",
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      "Liquid Galaxy Project",
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Claudia Diosan , Andreu Ibañez, Laura Morillo",
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      "Claudia Diosan , Andreu Ibañez, Laura Morillo",
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Andreu Ibañez",
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      "Andreu Ibañez",
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Emilie Ma , Irene",
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      "Emilie Ma , Irene",
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Vertika Bajpai",
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      "Vertika Bajpai",
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Liquid Galaxy LAB testers:",
-                    style: TextStyle(
-                      fontFamily: fontType,
-                      // fontSize: textSize,
-                      // color: FontAppColors.primaryFont
-                      fontSize: font.fonts.textSize,
-                      color: font.fonts.primaryFontColor,
+                    Text(
+                      "Liquid Galaxy LAB testers:",
+                      style: TextStyle(
+                        fontFamily: fontType,
+                        // fontSize: textSize,
+                        // color: FontAppColors.primaryFont
+                        fontSize: font.fonts.textSize,
+                        color: font.fonts.primaryFontColor,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

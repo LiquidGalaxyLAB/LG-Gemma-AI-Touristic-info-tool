@@ -195,7 +195,7 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.1,
+                                              0.12,
                                           decoration: BoxDecoration(
                                             // color: PrimaryAppColors.gradient1,
                                             color: value.colors.gradient1,
@@ -224,7 +224,8 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                                   alignment: Alignment.center,
                                                   child: Text(
                                                     // 'Fly to',
-                                                    AppLocalizations.of(context)!
+                                                    AppLocalizations.of(
+                                                            context)!
                                                         .poiExpansion_flyTo,
                                                     style: TextStyle(
                                                         // color: FontAppColors
@@ -277,7 +278,8 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                             widget.placeModel.name;
                                         List<String> _futureYoutubeUrls =
                                             await Api().fetchYoutubeUrls(
-                                                query: widget.placeModel.name, context);
+                                                query: widget.placeModel.name,
+                                                context);
 
                                         //Local:
                                         // List<String> _futureUrls = await Api()
@@ -301,8 +303,8 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                         //         urlNum: 10);
                                         List<String> _futureUrls =
                                             await LangchainService()
-                                                .fetchUrlsTemp(
-                                                   context, widget.placeModel.name,
+                                                .fetchUrlsTemp(context,
+                                                    widget.placeModel.name,
                                                     numResults: 10);
                                         /////////////////////////////////////////
 
@@ -430,9 +432,15 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                                     } else {
                                                       dialogBuilder(
                                                           context,
-                                                          'NOT connected to LG !! \n Please Connect to LG',
+                                                          // 'NOT connected to LG !! \n Please Connect to LG',
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .lgTasks_notConnectedError,
                                                           true,
-                                                          'OK',
+                                                          // 'OK',
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .defaults_ok,
                                                           null,
                                                           null);
                                                     }

@@ -32,16 +32,19 @@ class SearchResultsContainer extends StatelessWidget {
                 ColorProvider colorProv,
                 FontsProvider fontProv,
                 Widget? child) {
-              return Text(
-                // 'Website Results for ${value.searchPoiSelected}',
-                AppLocalizations.of(context)!.searchResults_web(value.searchPoiSelected) ,
-                
-                style: TextStyle(
-                  // fontSize: textSize + 4,
-                  fontSize: fontProv.fonts.textSize + 4,
-                  color: fontProv.fonts.primaryFontColor,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: fontType,
+              return Center(
+                child: Text(
+                  // 'Website Results for ${value.searchPoiSelected}',
+                  AppLocalizations.of(context)!
+                      .searchResults_web(value.searchPoiSelected),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    // fontSize: textSize + 4,
+                    fontSize: fontProv.fonts.textSize + 4,
+                    color: fontProv.fonts.primaryFontColor,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: fontType,
+                  ),
                 ),
               );
             },
@@ -199,15 +202,19 @@ class SearchResultsContainer extends StatelessWidget {
                 ColorProvider colorProv,
                 FontsProvider fontProv,
                 Widget? child) {
-              return Text(
-                // 'Youtube Results for ${value.searchPoiSelected}',
-                AppLocalizations.of(context)!.searchResults_youtube(value.searchPoiSelected),
-                style: TextStyle(
-                  // fontSize: textSize + 4,
-                  fontSize: fontProv.fonts.textSize + 4,
-                  color: fontProv.fonts.primaryFontColor,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: fontType,
+              return Center(
+                child: Text(
+                  // 'Youtube Results for ${value.searchPoiSelected}',
+                  AppLocalizations.of(context)!
+                      .searchResults_youtube(value.searchPoiSelected),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    // fontSize: textSize + 4,
+                    fontSize: fontProv.fonts.textSize + 4,
+                    color: fontProv.fonts.primaryFontColor,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: fontType,
+                  ),
                 ),
               );
             },

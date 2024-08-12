@@ -108,7 +108,8 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Center(
-                        child: SingleChildScrollView(
+                        child: FittedBox(
+                          fit: BoxFit.contain,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -257,6 +258,10 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 selectedIndex: selectedIndex,
                                 onPressed: updateView,
                               ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01,
+                              ),
                               SettingsOptionButton(
                                 // buttonText: 'Appearance',
                                 buttonText: AppLocalizations.of(context)!
@@ -270,6 +275,10 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 index: 1,
                                 selectedIndex: selectedIndex,
                                 onPressed: updateView,
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01,
                               ),
                               SettingsOptionButton(
                                 // buttonText: 'Font Size',
@@ -285,6 +294,10 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 selectedIndex: selectedIndex,
                                 onPressed: updateView,
                               ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01,
+                              ),
                               SettingsOptionButton(
                                 // buttonText: 'Liquid Galaxy',
                                 buttonText: AppLocalizations.of(context)!
@@ -297,6 +310,10 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 index: 3,
                                 selectedIndex: selectedIndex,
                                 onPressed: updateView,
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01,
                               ),
                               SettingsOptionButton(
                                 // buttonText: 'API Keys',
@@ -312,6 +329,10 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 selectedIndex: selectedIndex,
                                 onPressed: updateView,
                               ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01,
+                              ),
                               SettingsOptionButton(
                                 // buttonText: 'Help',
                                 buttonText: AppLocalizations.of(context)!
@@ -324,6 +345,10 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 index: 5,
                                 selectedIndex: selectedIndex,
                                 onPressed: updateView,
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01,
                               ),
                             ],
                           ),

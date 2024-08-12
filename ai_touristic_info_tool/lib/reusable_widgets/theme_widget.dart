@@ -43,7 +43,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                 builder:
                     (BuildContext context, FontsProvider value, Widget? child) {
                   return Text(
-
                     // 'Appearance',
                     AppLocalizations.of(context)!.settingsTheme_title,
                     style: TextStyle(
@@ -101,6 +100,7 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   FontsProvider fontProv, Widget? child) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
                       children: [
@@ -150,14 +150,19 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.01,
                         ),
-                        Text(
-                          // 'System Default',
-                          AppLocalizations.of(context)!.settingsTheme_default,
-                          style: TextStyle(
-                              fontFamily: fontType,
-                              // fontSize: textSize - 4,
-                              fontSize: fontProv.fonts.textSize - 4,
-                              color: FontAppColors.primaryFont),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.1,
+                          child: Text(
+                            // 'System Default',
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            AppLocalizations.of(context)!.settingsTheme_default,
+                            style: TextStyle(
+                                fontFamily: fontType,
+                                // fontSize: textSize - 4,
+                                fontSize: fontProv.fonts.textSize - 4,
+                                color: FontAppColors.primaryFont),
+                          ),
                         ),
                       ],
                     ),
@@ -521,7 +526,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                     FontsProvider value, Widget? child) {
                                   return Text(
                                     // 'Current Color',
-                                    AppLocalizations.of(context)!.settingsTheme_current,
+                                    AppLocalizations.of(context)!
+                                        .settingsTheme_current,
                                     style: TextStyle(
                                       fontFamily: fontType,
                                       // fontSize: textSize,
@@ -566,7 +572,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                   backgroundColor: value.colors.innerBackground,
                                   title: Text(
                                     // 'Pick a color!',
-                                    AppLocalizations.of(context)!.settingsTheme_pick,
+                                    AppLocalizations.of(context)!
+                                        .settingsTheme_pick,
                                     style: TextStyle(
                                       fontFamily: fontType,
                                       // fontSize: textSize,
@@ -597,7 +604,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                       },
                                       child: Text(
                                         // 'Done',
-                                        AppLocalizations.of(context)!.defaults_done,
+                                        AppLocalizations.of(context)!
+                                            .defaults_done,
                                         style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             color:
