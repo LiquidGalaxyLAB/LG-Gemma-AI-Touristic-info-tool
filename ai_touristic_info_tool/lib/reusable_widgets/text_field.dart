@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// A custom [TextFormField] widget that can be used to input text with validation.
 
@@ -180,7 +181,8 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
             validator: (value) {
               if (widget._isSuffixRequired == true) {
                 if (value == null || value.isEmpty) {
-                  return 'This field is required';
+                  // return 'This field is required';
+                  return AppLocalizations.of(context)!.textfield_error;
                 }
                 return null;
               } else {

@@ -17,6 +17,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PoiExpansionWidget extends StatefulWidget {
   const PoiExpansionWidget(
@@ -222,7 +223,9 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                                   fit: BoxFit.scaleDown,
                                                   alignment: Alignment.center,
                                                   child: Text(
-                                                    'Fly to',
+                                                    // 'Fly to',
+                                                    AppLocalizations.of(context)!
+                                                        .poiExpansion_flyTo,
                                                     style: TextStyle(
                                                         // color: FontAppColors
                                                         //     .secondaryFont,
@@ -274,7 +277,7 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                             widget.placeModel.name;
                                         List<String> _futureYoutubeUrls =
                                             await Api().fetchYoutubeUrls(
-                                                query: widget.placeModel.name);
+                                                query: widget.placeModel.name, context);
 
                                         //Local:
                                         // List<String> _futureUrls = await Api()
@@ -299,7 +302,7 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                         List<String> _futureUrls =
                                             await LangchainService()
                                                 .fetchUrlsTemp(
-                                                    widget.placeModel.name,
+                                                   context, widget.placeModel.name,
                                                     numResults: 10);
                                         /////////////////////////////////////////
 
@@ -455,7 +458,9 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                               fit: BoxFit.scaleDown,
                                               alignment: Alignment.center,
                                               child: Text(
-                                                'Orbit',
+                                                // 'Orbit',
+                                                AppLocalizations.of(context)!
+                                                    .poiExpansion_orbit,
                                                 style: TextStyle(
                                                   color:
                                                       FontAppColors.primaryFont,
@@ -474,8 +479,12 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                     ),
                                     Tooltip(
                                       message: _isFav
-                                          ? 'Added to favorites'
-                                          : 'Removed from favorites',
+                                          // ? 'Added to favorites'
+                                          ? AppLocalizations.of(context)!
+                                              .favs_addtofavsmessage
+                                          // : 'Removed from favorites',
+                                          : AppLocalizations.of(context)!
+                                              .favs_removefromfavsmessage,
                                       triggerMode: TooltipTriggerMode.tap,
                                       onTriggered: () async {
                                         if (await FavoritesSharedPref()

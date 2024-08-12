@@ -4,6 +4,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart'
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void showLinkDialog(
     BuildContext context, String url, WebViewController webController) {
@@ -36,7 +37,8 @@ void showLinkDialog(
                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   LgElevatedButton(
-                    elevatedButtonContent: 'Open in Browser',
+                    // elevatedButtonContent: 'Open in Browser',
+                      elevatedButtonContent: AppLocalizations.of(context)!.link_open,
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () async {
                       launchUrlString(url);
@@ -53,7 +55,8 @@ void showLinkDialog(
                     elevation: 5,
                   ),
                   LgElevatedButton(
-                    elevatedButtonContent: 'Close',
+                    // elevatedButtonContent: 'Close',
+                    elevatedButtonContent: AppLocalizations.of(context)!.defaults_close,
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () async {
                       Navigator.of(context).pop();

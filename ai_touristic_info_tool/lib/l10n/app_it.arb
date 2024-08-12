@@ -31,8 +31,8 @@
     "settings_helpTitle": "Aiuto",
     "settings_helpDesc": "Scopri come utilizzare l'app",
     "settings_welcomeSettings": "Benvenuto nelle Impostazioni App!",
-    "settings_desc1": "Seleziona un'opzione a sinistra per visualizzare e modificare le impostazioni dell'app.",
-    "settings_desc2": "Puoi cambiare la lingua, l'aspetto, la dimensione del carattere, imparare a conoscere Liquid Galaxy, gestire le chiavi API e accedere alle risorse di aiuto.",
+    "settings_desc1": "Seleziona un'opzione a sinistra per visualizzare e modificare le impostazioni dell'app.\nPuoi cambiare la lingua, l'aspetto, la dimensione del carattere, imparare a conoscere Liquid Galaxy, gestire le chiavi API e accedere alle risorse di aiuto.",
+
 
 
     "settingsFont_title": "Impostazioni Carattere",
@@ -128,7 +128,7 @@
 
     "link_open": "Apri nel Browser",
 
-    "aiHallucination_text1": "Fai attenzione alle allucinazioni dell'IA!",
+    "aiHallucination_text1": "Fai attenzione alle allucinazioni dell'IA!\n",
     "aiHallucination_text2": "Lo stato dell'arte della maggior parte degli strumenti AI nel 2024 può a volte fornire risposte errate, o anche le cosiddette Allucinazioni:\n\n",
     "aiHallucination_text3": "Le allucinazioni dell'IA sono risultati errati o fuorvianti che i modelli AI generano. Questi errori possono essere causati da una varietà di fattori, tra cui dati di addestramento insufficienti, assunzioni errate fatte dal modello o pregiudizi nei dati utilizzati per addestrare il modello.\n\nIl progetto Liquid Galaxy non ha alcun controllo su questo, e la responsabilità del contenuto è dei proprietari dei rispettivi modelli di linguaggio di grandi dimensioni utilizzati.",
 
@@ -325,6 +325,7 @@
 
 
     "defaults_cancel": "Annulla",
+    "defaults_close": "Chiudi",
     "defaults_save": "Salva",
     "defaults_delete": "Elimina",
     "defaults_ok": "OK",

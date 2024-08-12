@@ -6,6 +6,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:ai_touristic_info_tool/utils/show_customization_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FavPlacesWidget extends StatefulWidget {
   const FavPlacesWidget({super.key});
@@ -58,7 +59,8 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
           children: [
             Center(
               child: Text(
-                'All your favorite places worldwide in one place!',
+                // 'All your favorite places worldwide in one place!',
+                AppLocalizations.of(context)!.favPlaces_title,
                 style: TextStyle(
                   fontSize: fontVal.fonts.textSize + 5,
                   fontWeight: FontWeight.bold,
@@ -70,7 +72,8 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, top: 20),
               child: Text(
-                'To customize a tour, please select at least 2 places',
+                // 'To customize a tour, please select at least 2 places',
+                AppLocalizations.of(context)!.favPlaces_customizeSubhead,
                 style: TextStyle(
                   fontSize: fontVal.fonts.textSize,
                   color: fontVal.fonts.primaryFontColor,
@@ -198,7 +201,9 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                   content: Text(
-                                    'Please select at least 2 places to customize a tour',
+                                    // 'Please select at least 2 places to customize a tour',
+                                    AppLocalizations.of(context)!
+                                        .favPlaces_customizeError,
                                     style: TextStyle(
                                       fontSize: fontVal.fonts.textSize - 5,
                                       color: Colors.white,
@@ -222,7 +227,8 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                   
                   ),
                   Text(
-                    'Customize',
+                    // 'Customize',
+                    AppLocalizations.of(context)!.defaults_customize,
                     style: TextStyle(
                         fontSize: fontVal.fonts.textSize - 5,
                         color: fontVal.fonts.primaryFontColor,

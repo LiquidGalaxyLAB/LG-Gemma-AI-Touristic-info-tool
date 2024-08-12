@@ -3,6 +3,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> dialogBuilder(
     BuildContext context,
@@ -21,7 +22,8 @@ Future<void> dialogBuilder(
             // backgroundColor: FontAppColors.secondaryFont,
             backgroundColor: colorVal.colors.innerBackground,
             title: Text(
-              'Alert!',
+              // 'Alert!',
+              AppLocalizations.of(context)!.defaults_alert,
               style: TextStyle(
                   // fontSize: textSize,
                   fontSize: fontVal.fonts.textSize,
@@ -34,7 +36,9 @@ Future<void> dialogBuilder(
             actions: <Widget>[
               if (isOne == false)
                 TextButton(
-                  child: Text('CANCEL',
+                  child: Text(
+                    // 'CANCEL',
+                    AppLocalizations.of(context)!.defaults_cancel,
                       style: TextStyle(
                           // fontSize: textSize,
                           fontSize: fontVal.fonts.textSize,

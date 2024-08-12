@@ -6,6 +6,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ThemeWidget extends StatefulWidget {
   const ThemeWidget({super.key});
@@ -42,7 +43,9 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                 builder:
                     (BuildContext context, FontsProvider value, Widget? child) {
                   return Text(
-                    'Appearance',
+
+                    // 'Appearance',
+                    AppLocalizations.of(context)!.settingsTheme_title,
                     style: TextStyle(
                       fontFamily: fontType,
                       // fontSize: textSize + 3,
@@ -59,7 +62,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                 builder:
                     (BuildContext context, FontsProvider value, Widget? child) {
                   return Text(
-                    'Change how UI looks and feels',
+                    // 'Change how UI looks and feels',
+                    AppLocalizations.of(context)!.settingsTheme_subtitle,
                     style: TextStyle(
                       fontFamily: fontType,
                       // fontSize: textSize,
@@ -77,7 +81,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
               builder:
                   (BuildContext context, FontsProvider value, Widget? child) {
                 return Text(
-                  'Interface theme',
+                  // 'Interface theme',
+                  AppLocalizations.of(context)!.settingsTheme_interface,
                   style: TextStyle(
                     fontFamily: fontType,
                     // fontSize: textSize,
@@ -146,7 +151,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                           height: MediaQuery.of(context).size.height * 0.01,
                         ),
                         Text(
-                          'System Default',
+                          // 'System Default',
+                          AppLocalizations.of(context)!.settingsTheme_default,
                           style: TextStyle(
                               fontFamily: fontType,
                               // fontSize: textSize - 4,
@@ -203,7 +209,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                           height: MediaQuery.of(context).size.height * 0.01,
                         ),
                         Text(
-                          'Light Theme',
+                          // 'Light Theme',
+                          AppLocalizations.of(context)!.settingsTheme_light,
                           style: TextStyle(
                               fontFamily: fontType,
                               // fontSize: textSize - 4,
@@ -259,7 +266,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                           height: MediaQuery.of(context).size.height * 0.01,
                         ),
                         Text(
-                          'Dark Theme',
+                          // 'Dark Theme',
+                          AppLocalizations.of(context)!.settingsTheme_dark,
                           style: TextStyle(
                               fontFamily: fontType,
                               // fontSize: textSize - 4,
@@ -281,7 +289,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                 builder:
                     (BuildContext context, FontsProvider value, Widget? child) {
                   return Text(
-                    'Accent Color',
+                    // 'Accent Color',
+                    AppLocalizations.of(context)!.settingsTheme_accent,
                     style: TextStyle(
                       fontFamily: fontType,
                       // fontSize: textSize,
@@ -511,7 +520,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                 builder: (BuildContext context,
                                     FontsProvider value, Widget? child) {
                                   return Text(
-                                    'Current Color',
+                                    // 'Current Color',
+                                    AppLocalizations.of(context)!.settingsTheme_current,
                                     style: TextStyle(
                                       fontFamily: fontType,
                                       // fontSize: textSize,
@@ -555,7 +565,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                 return AlertDialog(
                                   backgroundColor: value.colors.innerBackground,
                                   title: Text(
-                                    'Pick a color!',
+                                    // 'Pick a color!',
+                                    AppLocalizations.of(context)!.settingsTheme_pick,
                                     style: TextStyle(
                                       fontFamily: fontType,
                                       // fontSize: textSize,
@@ -585,7 +596,8 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                         Navigator.of(context).pop();
                                       },
                                       child: Text(
-                                        'Done',
+                                        // 'Done',
+                                        AppLocalizations.of(context)!.defaults_done,
                                         style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             color:

@@ -527,6 +527,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void showVisualizationDialog(
   BuildContext context,
@@ -626,7 +627,8 @@ void showVisualizationDialog(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       LgElevatedButton(
-                        elevatedButtonContent: 'Show POIs',
+                        // elevatedButtonContent: 'Show POIs',
+                        elevatedButtonContent: AppLocalizations.of(context)!.visualizationDialog_Showpois,
                         buttonColor: SettingsSharedPref.getTheme() == 'dark'
                             ? colorVal.colors.midShadow
                             : FontAppColors.secondaryFont,
@@ -685,7 +687,8 @@ void showVisualizationDialog(
                         width: MediaQuery.of(context).size.width * 0.01,
                       ),
                       LgElevatedButton(
-                        elevatedButtonContent: 'Prepare Tour',
+                        // elevatedButtonContent: 'Prepare Tour',
+                        elevatedButtonContent: AppLocalizations.of(context)!.visualizationDialog_PrepTour,
                         buttonColor: SettingsSharedPref.getTheme() == 'dark'
                             ? colorVal.colors.midShadow
                             : FontAppColors.secondaryFont,
@@ -706,9 +709,11 @@ void showVisualizationDialog(
                           } else {
                             dialogBuilder(
                                 context,
-                                'NOT connected to LG !! \n Please Connect to LG',
+                                // 'NOT connected to LG !! \n Please Connect to LG',
+                                AppLocalizations.of(context)!.lgTasks_notConnectedError,
                                 true,
-                                'OK',
+                                // 'OK',
+                                AppLocalizations.of(context)!.defaults_ok,
                                 null,
                                 null);
                           }
@@ -733,7 +738,8 @@ void showVisualizationDialog(
                         width: MediaQuery.of(context).size.width * 0.01,
                       ),
                       LgElevatedButton(
-                        elevatedButtonContent: 'Play Tour',
+                        // elevatedButtonContent: 'Play Tour',
+                        elevatedButtonContent: AppLocalizations.of(context)!.visualizationDialog_playTour,
                         buttonColor: SettingsSharedPref.getTheme() == 'dark'
                             ? colorVal.colors.midShadow
                             : FontAppColors.secondaryFont,
@@ -752,9 +758,11 @@ void showVisualizationDialog(
                           } else {
                             dialogBuilder(
                                 context,
-                                'NOT connected to LG !! \n Please Connect to LG',
+                                // 'NOT connected to LG !! \n Please Connect to LG',
+                                AppLocalizations.of(context)!.lgTasks_notConnectedError,
                                 true,
-                                'OK',
+                                // 'OK',
+                                AppLocalizations.of(context)!.defaults_ok,
                                 null,
                                 null);
                           }
@@ -779,7 +787,8 @@ void showVisualizationDialog(
                         width: MediaQuery.of(context).size.width * 0.01,
                       ),
                       LgElevatedButton(
-                        elevatedButtonContent: 'Stop Tour',
+                        // elevatedButtonContent: 'Stop Tour',
+                        elevatedButtonContent: AppLocalizations.of(context)!.visualizationDialog_stopTour,
                         buttonColor: SettingsSharedPref.getTheme() == 'dark'
                             ? colorVal.colors.midShadow
                             : FontAppColors.secondaryFont,
@@ -798,9 +807,11 @@ void showVisualizationDialog(
                           } else {
                             dialogBuilder(
                                 context,
-                                'NOT connected to LG !! \n Please Connect to LG',
+                                // 'NOT connected to LG !! \n Please Connect to LG',
+                                AppLocalizations.of(context)!.lgTasks_notConnectedError,
                                 true,
-                                'OK',
+                                // 'OK',
+                                AppLocalizations.of(context)!.defaults_ok,
                                 null,
                                 null);
                           }
@@ -914,7 +925,8 @@ void showVisualizationDialog(
                           builder: (BuildContext context, FontsProvider value,
                               Widget? child) {
                             return Text(
-                              'List of POIs',
+                              // 'List of POIs',
+                              AppLocalizations.of(context)!.visualizationDialog_listofPois,
                               style: TextStyle(
                                   // color: FontAppColors.primaryFont,
                                   color: value.fonts.primaryFontColor,
@@ -969,7 +981,8 @@ void showVisualizationDialog(
                       children: [
                         if (!value.showMap)
                           LgElevatedButton(
-                            elevatedButtonContent: 'Map',
+                            // elevatedButtonContent: 'Map',
+                            elevatedButtonContent: AppLocalizations.of(context)!.exploreLocation_mapButton,
                             // buttonColor: PrimaryAppColors.buttonColors,
                             buttonColor: colorProv.colors.buttonColors,
                             onpressed: () {
@@ -993,7 +1006,8 @@ void showVisualizationDialog(
                             width: MediaQuery.of(context).size.width * 0.02,
                           ),
                         LgElevatedButton(
-                          elevatedButtonContent: 'Close',
+                          // elevatedButtonContent: 'Close',
+                          elevatedButtonContent: AppLocalizations.of(context)!.defaults_close,
                           // buttonColor: PrimaryAppColors.buttonColors,
                           buttonColor: colorProv.colors.buttonColors,
                           onpressed: () async {
@@ -1082,7 +1096,10 @@ class _FavIconState extends State<FavIcon> {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: _isFav ? 'Added to favorites' : 'Removed from favorites',
+      // message: _isFav ? 'Added to favorites' : 'Removed from favorites',
+      message: _isFav
+          ? AppLocalizations.of(context)!.favs_addtofavsmessage
+          : AppLocalizations.of(context)!.favs_removefromfavsmessage,
       triggerMode: TooltipTriggerMode.tap,
       onTriggered: () async {
         if (await FavoritesSharedPref().isTourExist(widget.query)) {

@@ -6,6 +6,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<dynamic> addAPIKeyDialog(
     BuildContext context,
@@ -34,7 +35,9 @@ Future<dynamic> addAPIKeyDialog(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text('Choose a name for your Key:',
+                      Text(
+                        // 'Choose a name for your Key:',
+                        AppLocalizations.of(context)!.settings_addApiKeyName,
                           style: TextStyle(
                               color: fontProv.fonts.primaryFontColor,
                               fontSize: fontProv.fonts.textSize,
@@ -59,7 +62,9 @@ Future<dynamic> addAPIKeyDialog(
                         ),
                       ),
                       if (nameExists)
-                        Text('Name already exists',
+                        Text(
+                          // 'Name already exists',
+                          AppLocalizations.of(context)!.settings_nameExist,
                             style: TextStyle(
                                 color: LgAppColors.lgColor2,
                                 fontSize: fontProv.fonts.textSize,
@@ -67,7 +72,9 @@ Future<dynamic> addAPIKeyDialog(
                       // SizedBox(
                       //   height: MediaQuery.of(context).size.height * 0.05,
                       // ),
-                      Text('Enter your key:',
+                      Text(
+                        // 'Enter your key:',
+                        AppLocalizations.of(context)!.settings_enterKey,
                           style: TextStyle(
                               color: fontProv.fonts.primaryFontColor,
                               fontSize: fontProv.fonts.textSize,
@@ -85,7 +92,9 @@ Future<dynamic> addAPIKeyDialog(
                           width: MediaQuery.sizeOf(context).width * 0.85,
                         ),
                       ),
-                      Text('Choose the API Key service type',
+                      Text(
+                        // 'Choose the API Key service type',
+                        AppLocalizations.of(context)!.settings_chooseServiceAPI,
                           style: TextStyle(
                               color: fontProv.fonts.primaryFontColor,
                               fontSize: fontProv.fonts.textSize,
@@ -153,7 +162,8 @@ Future<dynamic> addAPIKeyDialog(
                         SnackBar(
                             backgroundColor: LgAppColors.lgColor4,
                             content: Text(
-                              'API Key added. Please refresh your API keys',
+                              // 'API Key added. Please refresh your API keys',
+                              AppLocalizations.of(context)!.settings_apiKeyAddedNotification,
                               style: TextStyle(
                                 fontSize: fontProv.fonts.textSize,
                                 color: Colors.white,
@@ -165,7 +175,9 @@ Future<dynamic> addAPIKeyDialog(
                     }
                   }
                 },
-                child: Text('DONE',
+                child: Text(
+                  // 'DONE',
+                  AppLocalizations.of(context)!.defaults_done,
                     style: TextStyle(
                         color: LgAppColors.lgColor4,
                         fontSize: fontProv.fonts.textSize,
@@ -175,7 +187,9 @@ Future<dynamic> addAPIKeyDialog(
                 onPressed: () async {
                   Navigator.of(context).pop();
                 },
-                child: Text('CANCEL',
+                child: Text(
+                  // 'CANCEL',
+                  AppLocalizations.of(context)!.defaults_cancel,
                     style: TextStyle(
                         color: LgAppColors.lgColor2,
                         fontSize: fontProv.fonts.textSize,

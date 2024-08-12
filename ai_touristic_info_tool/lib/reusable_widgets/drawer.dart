@@ -4,7 +4,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../state_management/current_view_provider.dart';
 import 'navigation_item_drawer.dart';
 
@@ -105,7 +105,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 children: [
                   NavigationItem(
                       imagePath: 'assets/images/home.png',
-                      title: 'Home',
+                      // title: 'Home',
+                      title: AppLocalizations.of(context)!.appDrawer_home,
                       // containerColor: isDefault || selected == 'home'
                       //     ? selectedButton
                       //     : unselectedButton,
@@ -128,7 +129,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       }),
                   NavigationItem(
                       imagePath: 'assets/images/connection.png',
-                      title: 'Connection Manager',
+                      // title: 'Connection Manager',
+                      title: AppLocalizations.of(context)!.appDrawer_connection,
                       // containerColor: selected == 'connection'
                       //     ? selectedButton
                       //     : unselectedButton,
@@ -154,7 +156,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       }),
                   NavigationItem(
                       imagePath: 'assets/images/lgTasks.png',
-                      title: 'LG Tasks',
+                      // title: 'LG Tasks',
+                      title: AppLocalizations.of(context)!.appDrawer_tasks,
                       // containerColor: selected == 'tasks'
                       //     ? selectedButton
                       //     : unselectedButton,
@@ -179,7 +182,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       }),
                   NavigationItem(
                       imagePath: 'assets/images/fav.png',
-                      title: 'Favorites',
+                      // title: 'Favorites',
+                      title: AppLocalizations.of(context)!.appDrawer_favs,
                       // containerColor: selected == 'favs'
                       //     ? selectedButton
                       //     : unselectedButton,
@@ -203,7 +207,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       }),
                   NavigationItem(
                       imagePath: 'assets/images/settings.png',
-                      title: 'Settings',
+                      // title: 'Settings',
+                      title: AppLocalizations.of(context)!.appDrawer_settings,
                       // containerColor: selected == 'settings'
                       //     ? selectedButton
                       //     : unselectedButton,
@@ -229,6 +234,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       }),
                   NavigationItem(
                       imagePath: 'assets/images/about.png',
+                      // title: 'About',
                       title: 'About',
                       // containerColor: selected == 'about'
                       //     ? selectedButton

@@ -13,6 +13,7 @@ import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void showCustomizationDialog(
     BuildContext context, final List<PlacesModel> selectedPlaces) async {
@@ -60,7 +61,8 @@ void showCustomizationDialog(
                       Expanded(
                         child: Center(
                           child: Text(
-                            'Customize your own tour!',
+                            // 'Customize your own tour!',
+                            AppLocalizations.of(context)!.customapptour_title,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: SettingsSharedPref.getTheme() == 'dark'

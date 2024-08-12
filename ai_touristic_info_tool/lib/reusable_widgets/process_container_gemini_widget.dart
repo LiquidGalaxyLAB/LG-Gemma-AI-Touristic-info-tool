@@ -13,6 +13,7 @@ import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProcessContainerGemini extends StatefulWidget {
   final String query;
@@ -63,15 +64,17 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         if (mounted) {
           setState(() {
             _isError = true;
-            _errorController
-                .addError('Process timed out. Please try again later.');
+            // _errorController
+            //     .addError('Process timed out. Please try again later.');
+            _errorController.addError(AppLocalizations.of(context)!
+                .aiGenerationAPIGemini_timeOutMessg);
           });
         }
       }
     });
 
     _subscription = _langchainService
-        .generateStreamAnswer(widget.query, widget.apiKey)
+        .generateStreamAnswer(widget.query, widget.apiKey, context)
         // .timeout(
         // Duration(seconds: 30), // Set your timeout duration here
         // onTimeout: (sink) {
@@ -233,7 +236,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                     child: Text(
                       errorSnapshot.hasData
                           ? errorSnapshot.data.toString()
-                          : 'An error occurred. Please try again later...\n',
+                          // : 'An error occurred. Please try again later...\n',
+                          : AppLocalizations.of(context)!
+                              .aiGenerationAPIGemini_error2,
                       style: TextStyle(
                         // color: FontAppColors.primaryFont,
                         color: fontsProv.fonts.primaryFontColor,
@@ -248,7 +253,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                     height: MediaQuery.of(context).size.height * 0.05,
                   ),
                   LgElevatedButton(
-                    elevatedButtonContent: 'OK',
+                    // elevatedButtonContent: 'OK',
+                    elevatedButtonContent: AppLocalizations.of(context)!.defaults_ok,
                     // buttonColor: PrimaryAppColors.buttonColors,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
@@ -303,7 +309,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                             ),
                             Center(
                               child: Text(
-                                'Please hold on while the model collects information from the web to provide a unique, accurate, and up-to-date experience!',
+                                // 'Please hold on while the model collects information from the web to provide a unique, accurate, and up-to-date experience!',
+                                AppLocalizations.of(context)!
+                                    .aiGenerationAPIGemini_webLoadingMessage,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: fontProv.fonts.primaryFontColor,
@@ -328,7 +336,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    'Error: ${snapshot.error}\nPlease try again later...',
+                                    // 'Error: ${snapshot.error}\nPlease try again later...',
+                                    AppLocalizations.of(context)!
+                                        .aiGenerationAPIGemini_snapShotError(snapshot.error.toString()),
                                     style: TextStyle(
                                       // color: FontAppColors.primaryFont,
                                       color: fontsProv.fonts.primaryFontColor,
@@ -341,7 +351,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                 ),
                               ),
                               LgElevatedButton(
-                                elevatedButtonContent: 'OK',
+                                // elevatedButtonContent: 'OK',
+                                elevatedButtonContent: AppLocalizations.of(context)!.defaults_ok,
                                 // buttonColor: PrimaryAppColors.buttonColors,
                                 buttonColor: colorProv.colors.buttonColors,
                                 onpressed: () {
@@ -386,7 +397,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    'No data available\nPlease try again later...',
+                                    // 'No data available\nPlease try again later...',
+                                    AppLocalizations.of(context)!
+                                        .aiGenerationAPIGemini_noDataError,
                                     style: TextStyle(
                                       // color: FontAppColors.primaryFont,
                                       color: fontsProv.fonts.primaryFontColor,
@@ -403,7 +416,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                     MediaQuery.of(context).size.height * 0.05,
                               ),
                               LgElevatedButton(
-                                elevatedButtonContent: 'OK',
+                                // elevatedButtonContent: 'OK',
+                                elevatedButtonContent: AppLocalizations.of(context)!.defaults_ok,
                                 // buttonColor: PrimaryAppColors.buttonColors,
                                 buttonColor: colorProv.colors.buttonColors,
                                 onpressed: () {
@@ -488,7 +502,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Average response time is 1 minute.\nThank you for your patience!',
+                                      // 'Average response time is 1 minute.\nThank you for your patience!',
+                                      AppLocalizations.of(context)!
+                                          .aiGenerationAPIGemini_responseTimeMessg,
                                       style: TextStyle(
                                         color: LgAppColors.lgColor2,
                                         fontSize: fontProv.fonts.textSize + 2,
@@ -533,7 +549,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
                                           return Text(
-                                            'Please wait... ',
+                                            // 'Please wait... ',
+                                            AppLocalizations.of(context)!
+                                                .aiGenerationAPIGemini_waitMessg,
                                             style: TextStyle(
                                               // color: FontAppColors.primaryFont,
                                               color: fontProv
@@ -546,7 +564,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                           );
                                         } else if (snapshot.hasError) {
                                           return Text(
-                                            'Error: ${snapshot.error}',
+                                            // 'Error: ${snapshot.error}',
+                                            AppLocalizations.of(context)!
+                                                .aiGenerationAPIGemini_snapShotError(snapshot.error.toString()),
                                             style: TextStyle(
                                               // color: FontAppColors.primaryFont,
                                               color: fontProv
@@ -559,7 +579,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                         } else if (snapshot.hasData) {
                                           return Text(
                                             _isFinished
-                                                ? 'Generation completed successfully!'
+                                                // ? 'Generation completed successfully!'
+                                                ? AppLocalizations.of(context)!
+                                                    .aiGenerationAPIGemini_successGeneration
                                                 : snapshot.data.toString(),
                                             style: TextStyle(
                                               // color: FontAppColors.primaryFont,
@@ -572,7 +594,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                           );
                                         } else {
                                           return Text(
-                                            'No data available',
+                                            // 'No data available',
+                                            AppLocalizations.of(context)!
+                                                .aiGenerationAPIGemini_noDataError,
                                             style: TextStyle(
                                               // color: FontAppColors.primaryFont,
                                               // fontSize: textSize,
@@ -631,7 +655,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                               right: 30.0, top: 10, bottom: 10),
                                           child: LgElevatedButton(
                                               elevatedButtonContent:
-                                                  'Visualize now!',
+                                                  // 'Visualize now!',
+                                                  AppLocalizations.of(context)!
+                                                      .defaults_visualizeNow,
                                               buttonColor:
                                                   colorProv.colors.buttonColors,
                                               onpressed: () async {
@@ -673,7 +699,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                                 0.1,
                                       ),
                                       LgElevatedButton(
-                                        elevatedButtonContent: 'Cancel',
+                                        // elevatedButtonContent: 'Cancel',
+                                        elevatedButtonContent: AppLocalizations.of(context)!.defaults_cancel,
                                         buttonColor: LgAppColors.lgColor2,
                                         onpressed: () {
                                           Navigator.pop(context);

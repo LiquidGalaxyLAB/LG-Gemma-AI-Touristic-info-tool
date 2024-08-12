@@ -4,12 +4,14 @@ import 'dart:math';
 
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:langchain/langchain.dart';
 import 'package:langchain_community/langchain_community.dart';
 import 'package:langchain_google/langchain_google.dart';
 import 'package:http/http.dart' as http;
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LangchainService {
   Future<Map<String, dynamic>> generateAnswer(
@@ -75,7 +77,7 @@ class LangchainService {
     // return {'stream': stream, 'full_result': full_result};
   }
 
-  Future<String> checkAPIValidity(String apiKey) async {
+  Future<String> checkAPIValidity(String apiKey, BuildContext context) async {
     final testQuery = 'Hello';
 
     try {
@@ -90,12 +92,14 @@ class LangchainService {
       return '';
     } catch (e) {
       // Handle exceptions that indicate invalid API key
-      print('An Error Occured: ${e.toString()}');
-      return 'An Error Occured: ${e.toString()}';
+      // print('An Error Occured: ${e.toString()}');
+      // return 'An Error Occured: ${e.toString()}';
+      return AppLocalizations.of(context)!
+          .aiGenerationAPIGemini_error1(e.toString());
     }
   }
 
-  Stream<dynamic> generateStreamAnswer(String userQuery, String apiKey) async* {
+  Stream<dynamic> generateStreamAnswer(String userQuery, String apiKey, BuildContext context) async* {
     // Getting API key from env
     // final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
 
@@ -104,7 +108,7 @@ class LangchainService {
     // }
     try {
       // List<String> links = await fetchUrls(userQuery);
-      List<String> links = await fetchUrlsTemp(userQuery);
+      List<String> links = await fetchUrlsTemp(context, userQuery);
       print(links);
 
       final embeddings = GoogleGenerativeAIEmbeddings(
@@ -195,7 +199,10 @@ class LangchainService {
       // .map((result) => result.toString());
       final stream = chain.stream(userQuery);
       print('start stream');
-      yield {'type': 'message', 'data': 'Streaming'};
+      yield {'type': 'message', 
+      // 'data': 'Streaming'
+      'data': AppLocalizations.of(context)!.aiGenerationAPIGemini_progressMessage1
+      };
       // print(await stream.isEmpty);
       await for (var result in stream) {
         final placeCount = RegExp(r'name').allMatches(result.toString()).length;
@@ -208,7 +215,8 @@ class LangchainService {
             print(currPlaceCount);
             yield {
               'type': 'message',
-              'data': 'Streaming',
+              // 'data': 'Streaming',
+              'data': AppLocalizations.of(context)!.aiGenerationAPIGemini_progressMessage1
             };
           }
         }
@@ -222,7 +230,10 @@ class LangchainService {
 
       // final full_result = chain.invoke(PromptValue.string(prompt));
       // final full_result = chain.invoke(userQuery);
-      yield {'type': 'message', 'data': 'Preparing visualizations'};
+      yield {'type': 'message', 
+      // 'data': 'Preparing visualizations'
+      'data': AppLocalizations.of(context)!.aiGenerationAPIGemini_progressMessage2
+      };
       // bool isDone = false;
       // await full_result.then((value) {
       //   isDone = true;
@@ -243,7 +254,10 @@ class LangchainService {
     } catch (e) {
       print('exception');
       // Handle exceptions and provide user-friendly error messages
-      yield {'type': 'error', 'data': 'An error occurred: ${e.toString()}'};
+      yield {'type': 'error', 
+      // 'data': 'An error occurred: ${e.toString()}'
+      'data': AppLocalizations.of(context)!.aiGenerationAPIGemini_error1(e.toString())
+      };
     }
   }
 
@@ -285,7 +299,7 @@ class LangchainService {
   //   return links;
   // }
 
-  Future<List<String>> fetchUrls(String userQuery, {int urlNum = 20}) async {
+  Future<List<String>> fetchUrls(String userQuery, BuildContext context, {int urlNum = 20}) async {
     final searchUrl =
         'https://www.google.com/search?q=${Uri.encodeComponent(userQuery)}';
     final response = await http.get(Uri.parse(searchUrl));
@@ -316,11 +330,13 @@ class LangchainService {
       print(links[0]);
       return links;
     } else {
-      throw Exception('Failed to load Google search results');
+      // throw Exception('Failed to load Google search results');
+      throw Exception(AppLocalizations.of(context)!.aiGenerationAPIGemini_errorFetchUrLs);
     }
   }
 
   Future<List<String>> fetchUrlsTemp(
+    BuildContext context,
     String term, {
     int numResults = 40,
     String lang = 'en',
@@ -372,7 +388,9 @@ class LangchainService {
 
       if (response.statusCode != 200) {
         throw HttpException(
-            'Failed to fetch search results. Status code: ${response.statusCode}');
+            // 'Failed to fetch search results. Status code: ${response.statusCode}'
+            AppLocalizations.of(context)!.aiGenerationAPIGemini_errorFetchUrLs
+            );
       }
 
       final soup = BeautifulSoup(response.body);

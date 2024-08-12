@@ -14,6 +14,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppSettingsView extends StatefulWidget {
   const AppSettingsView({super.key});
@@ -72,7 +73,8 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                     ),
                     Center(
                       child: Text(
-                        'App Settings',
+                        // 'App Settings',
+                        AppLocalizations.of(context)!.settings_title,
                         style: TextStyle(
                           fontFamily: fontType,
                           fontSize: fontProv.fonts.headingSize,
@@ -242,9 +244,13 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                               //       'Click to learn how to use the app',
                               // ),
                               SettingsOptionButton(
-                                buttonText: 'Language',
+                                // buttonText: 'Language',
+                                buttonText: AppLocalizations.of(context)!
+                                    .settingsLanguage_title,
                                 buttonDescription:
-                                    'Change the language of the app',
+                                    // 'Change the language of the app',
+                                    AppLocalizations.of(context)!
+                                        .settings_languageDesc,
                                 icon: Icons.translate,
                                 view: LanguageWidget(),
                                 index: 0,
@@ -252,9 +258,13 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 onPressed: updateView,
                               ),
                               SettingsOptionButton(
-                                buttonText: 'Appearance',
+                                // buttonText: 'Appearance',
+                                buttonText: AppLocalizations.of(context)!
+                                    .settings_themeTitle,
                                 buttonDescription:
-                                    'Change the theme of the app',
+                                    // 'Change the theme of the app',
+                                    AppLocalizations.of(context)!
+                                        .settings_themeDesc,
                                 icon: Icons.palette,
                                 view: ThemeWidget(),
                                 index: 1,
@@ -262,9 +272,13 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 onPressed: updateView,
                               ),
                               SettingsOptionButton(
-                                buttonText: 'Font Size',
+                                // buttonText: 'Font Size',
+                                buttonText: AppLocalizations.of(context)!
+                                    .settings_fontSizeTitle,
                                 buttonDescription:
-                                    'Change the font size of the app',
+                                    // 'Change the font size of the app',
+                                    AppLocalizations.of(context)!
+                                        .settings_fontSizeDesc,
                                 icon: Icons.format_size,
                                 view: FontWidget(),
                                 index: 2,
@@ -272,8 +286,12 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 onPressed: updateView,
                               ),
                               SettingsOptionButton(
-                                buttonText: 'Liquid Galaxy',
-                                buttonDescription: 'Learn about Liquid Galaxy',
+                                // buttonText: 'Liquid Galaxy',
+                                buttonText: AppLocalizations.of(context)!
+                                    .settings_LgTitle,
+                                // buttonDescription: 'Learn about Liquid Galaxy',
+                                buttonDescription: AppLocalizations.of(context)!
+                                    .settings_LgDesc,
                                 icon: Icons.view_column_rounded,
                                 view: LGWidget(),
                                 index: 3,
@@ -281,9 +299,13 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 onPressed: updateView,
                               ),
                               SettingsOptionButton(
-                                buttonText: 'API Keys',
+                                // buttonText: 'API Keys',
+                                buttonText: AppLocalizations.of(context)!
+                                    .settings_apiKeyTitle,
                                 buttonDescription:
-                                    'Manage the API keys of the app',
+                                    // 'Manage the API keys of the app',
+                                    AppLocalizations.of(context)!
+                                        .settings_apiKeyDesc,
                                 icon: Icons.vpn_key,
                                 view: APIWidget(),
                                 index: 4,
@@ -291,8 +313,12 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                 onPressed: updateView,
                               ),
                               SettingsOptionButton(
-                                buttonText: 'Help',
-                                buttonDescription: 'Learn how to use the app',
+                                // buttonText: 'Help',
+                                buttonText: AppLocalizations.of(context)!
+                                    .settings_helpTitle,
+                                // buttonDescription: 'Learn how to use the app',
+                                buttonDescription: AppLocalizations.of(context)!
+                                    .settings_helpDesc,
                                 icon: Icons.help,
                                 view: HelpWidget(),
                                 index: 5,
@@ -333,7 +359,9 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                         SizedBox(height: 20),
                                         Center(
                                           child: Text(
-                                            'Welcome to the App Settings!',
+                                            // 'Welcome to the App Settings!',
+                                            AppLocalizations.of(context)!
+                                                .settings_welcomeSettings,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               // fontSize: textSize + 10,
@@ -350,8 +378,10 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                                     .height *
                                                 0.02),
                                         Text(
-                                          'Select an option from the left to view and modify your app settings. '
-                                          'You can change the language, appearance, font size, learn about Liquid Galaxy, manage API keys, and access help resources.',
+                                          // 'Select an option from the left to view and modify your app settings. '
+                                          AppLocalizations.of(context)!
+                                              .settings_desc1,
+                                          // 'You can change the language, appearance, font size, learn about Liquid Galaxy, manage API keys, and access help resources.',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             // fontSize: textSize,

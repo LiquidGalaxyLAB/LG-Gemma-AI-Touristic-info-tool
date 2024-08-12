@@ -42,7 +42,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
   bool _isFav = false;
   // String _queryName = 'Custom Tour';
   // String _queryName= AppLocalizations.of(context)!.customapptour_queryNameTemp;
-  late String _queryName = 'Custom Tour';
+  String _queryName = 'Custom Tour';
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _queryNameController = TextEditingController();
   double _tourDuration = 0;
@@ -52,7 +52,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
     super.initState();
     // Create a copy of chosenPlaces
     _originalList = List<PlacesModel>.from(widget.chosenPlaces);
-    _queryName= AppLocalizations.of(context)!.customapptour_queryNameTemp;
   }
 
   void _onPlaceDropped() async {

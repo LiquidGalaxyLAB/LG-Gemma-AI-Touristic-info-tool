@@ -13,6 +13,7 @@ import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProcessContainerWidget extends StatefulWidget {
   final String query;
@@ -44,7 +45,7 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
     _chunkController = StreamController();
     _errorController = StreamController();
 
-    Api().postaStreamEventsGemma(input: widget.query).listen((event) {
+    Api().postaStreamEventsGemma(input: widget.query, context).listen((event) {
       setState(() {
         if (event['type'] == 'chunk') {
           _chunkController.sink.add(event['data']);
@@ -114,7 +115,8 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
                     LgElevatedButton(
-                      elevatedButtonContent: 'OK',
+                      // elevatedButtonContent: 'OK',
+                      elevatedButtonContent: AppLocalizations.of(context)!.defaults_ok,
                       // buttonColor: PrimaryAppColors.buttonColors,
                       buttonColor: colorProv.colors.buttonColors,
                       onpressed: () {
@@ -179,7 +181,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                               ConnectionState.waiting) {
                                             //return CircularProgressIndicator();
                                             return Text(
-                                              'Waiting for stream. Please wait... ',
+                                              // 'Waiting for stream. Please wait... ',
+                                              AppLocalizations.of(context)!
+                                                  .aiGenerationAPIGemma_streamWaitMessg,
                                               style: TextStyle(
                                                 color:
                                                     FontAppColors.primaryFont,
@@ -192,7 +196,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                             );
                                           } else if (snapshot.hasError) {
                                             return Text(
-                                              'Error: ${snapshot.error}',
+                                              // 'Error: ${snapshot.error}',
+                                              AppLocalizations.of(context)!
+                                                  .aiGenerationAPIGemma_snapShotError(snapshot.error.toString()),
                                               style: TextStyle(
                                                 color:
                                                     FontAppColors.primaryFont,
@@ -218,7 +224,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                             );
                                           } else {
                                             return Text(
-                                              'No data available',
+                                              // 'No data available',
+                                              AppLocalizations.of(context)!
+                                                  .aiGenerationAPIGemma_noDataError,
                                               style: TextStyle(
                                                 color:
                                                     FontAppColors.primaryFont,
@@ -245,7 +253,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                 children: [
                                   Text(
                                     textAlign: TextAlign.justify,
-                                    'Average response time is 10 minutes.\nThank you for your patience!',
+                                    // 'Average response time is 10 minutes.\nThank you for your patience!',
+                                    AppLocalizations.of(context)!
+                                        .aiGenerationAPIGemma_responseTimeMessg,
                                     style: TextStyle(
                                       color: LgAppColors.lgColor2,
                                       // fontSize: textSize + 2,
@@ -296,7 +306,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
                                         return Text(
-                                          'Please wait... ',
+                                          // 'Please wait... ',
+                                          AppLocalizations.of(context)!
+                                              .aiGenerationAPIGemma_waitMessg,
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             color:
@@ -309,7 +321,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                         );
                                       } else if (snapshot.hasError) {
                                         return Text(
-                                          'Error: ${snapshot.error}',
+                                          // 'Error: ${snapshot.error}',
+                                          AppLocalizations.of(context)!
+                                              .aiGenerationAPIGemma_snapShotError(snapshot.error.toString()),
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             color:
@@ -333,7 +347,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                         );
                                       } else {
                                         return Text(
-                                          'No data available',
+                                          // 'No data available',
+                                          AppLocalizations.of(context)!
+                                              .aiGenerationAPIGemma_noDataError,
                                           style: TextStyle(
                                             // color: FontAppColors.primaryFont,
                                             // fontSize: textSize,
@@ -387,7 +403,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                           right: 30.0, top: 10, bottom: 10),
                                       child: LgElevatedButton(
                                           elevatedButtonContent:
-                                              'Visualize now!',
+                                              // 'Visualize now!',
+                                              AppLocalizations.of(context)!
+                                                  .defaults_visualizeNow,
                                           // buttonColor:
                                           //     PrimaryAppColors.buttonColors,
                                           buttonColor:

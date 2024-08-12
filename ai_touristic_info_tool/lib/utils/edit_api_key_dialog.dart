@@ -5,6 +5,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<dynamic> editAPIKeyDialog(
   BuildContext context,
@@ -69,7 +70,8 @@ Future<dynamic> editAPIKeyDialog(
                       SnackBar(
                           backgroundColor: LgAppColors.lgColor4,
                           content: Text(
-                            'API Key edited. Please refresh your API keys',
+                            // 'API Key edited. Please refresh your API keys',
+                            AppLocalizations.of(context)!.settings_apiKeyEditedNotification,
                             style: TextStyle(
                               fontSize: fontProv.fonts.textSize,
                               color: Colors.white,
@@ -81,7 +83,9 @@ Future<dynamic> editAPIKeyDialog(
                     Navigator.of(context).pop();
                   }
                 },
-                child: Text('DONE',
+                child: Text(
+                  // 'DONE',
+                  AppLocalizations.of(context)!.defaults_done,
                     style: TextStyle(
                         color: LgAppColors.lgColor4,
                         fontSize: fontProv.fonts.textSize,
@@ -91,7 +95,9 @@ Future<dynamic> editAPIKeyDialog(
                 onPressed: () async {
                   Navigator.of(context).pop();
                 },
-                child: Text('CANCEL',
+                child: Text(
+                  // 'CANCEL',
+                  AppLocalizations.of(context)!.defaults_cancel,
                     style: TextStyle(
                         color: LgAppColors.lgColor2,
                         fontSize: fontProv.fonts.textSize,

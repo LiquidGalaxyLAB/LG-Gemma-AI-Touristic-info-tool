@@ -31,8 +31,8 @@
     "settings_helpTitle": "ヘルプ",
     "settings_helpDesc": "アプリの使い方を学ぶ",
     "settings_welcomeSettings": "アプリ設定へようこそ！",
-    "settings_desc1": "左からオプションを選択して、アプリ設定を表示および変更してください。",
-    "settings_desc2": "言語、外観、フォントサイズを変更したり、Liquid Galaxyについて学んだり、APIキーを管理したり、ヘルプリソースにアクセスしたりできます。",
+    "settings_desc1": "左からオプションを選択して、アプリ設定を表示および変更してください。\n言語、外観、フォントサイズを変更したり、Liquid Galaxyについて学んだり、APIキーを管理したり、ヘルプリソースにアクセスしたりできます。",
+
 
 
     "settingsFont_title": "フォント設定",
@@ -129,7 +129,7 @@
 
     "link_open": "ブラウザで開く",
 
-    "aiHallucination_text1": "AIの幻覚に注意してください！",
+    "aiHallucination_text1": "AIの幻覚に注意してください！\n",
     "aiHallucination_text2": "2024年のほとんどのAIツールの最先端技術は、時には不正確な回答やいわゆる幻覚を生成することがあります:\n\n",
     "aiHallucination_text3": "AIの幻覚は、AIモデルが生成する不正確または誤解を招く結果です。これらのエラーは、不十分なトレーニングデータ、モデルによる誤った仮定、またはモデルをトレーニングするために使用されたデータのバイアスなど、さまざまな要因によって引き起こされる可能性があります。\n\nLiquid Galaxyプロジェクトはこれを制御できず、内容の責任は使用されているそれぞれの大型言語モデルの所有者にあります",
 
@@ -326,6 +326,7 @@
 
 
     "defaults_cancel": "キャンセル",
+    "defaults_close": "閉じる",
     "defaults_save": "保存",
     "defaults_delete": "削除",
     "defaults_ok": "OK",

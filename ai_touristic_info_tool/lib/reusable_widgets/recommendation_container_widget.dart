@@ -15,6 +15,7 @@ import 'package:ai_touristic_info_tool/utils/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RecommendationContainer extends StatefulWidget {
   final String imagePath;
@@ -101,7 +102,8 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                       builder: (BuildContext context, FontsProvider value,
                           Widget? child) {
                         return Text(
-                          'Please add a default API Key for Gemini in the settings!',
+                          // 'Please add a default API Key for Gemini in the settings!',
+                          AppLocalizations.of(context)!.settings_apiKeyNotSetDefaultError,
                           style: TextStyle(
                             fontSize: value.fonts.textSize,
                             color: Colors.white,
@@ -116,7 +118,7 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
               setState(() {
                 _isLoading = true;
               });
-              String res = await LangchainService().checkAPIValidity(apiKey);
+              String res = await LangchainService().checkAPIValidity(apiKey, context);
               setState(() {
                 _isLoading = false;
               });
@@ -224,7 +226,9 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                           //   value.colors.buttonColors,
                           // ),
                         ),
-                        Text('Loading...',
+                        Text(
+                          // 'Loading...',
+                          AppLocalizations.of(context)!.defaults_loading,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,

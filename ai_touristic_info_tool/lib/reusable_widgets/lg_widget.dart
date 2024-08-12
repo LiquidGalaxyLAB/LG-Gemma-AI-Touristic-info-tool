@@ -6,6 +6,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LGWidget extends StatefulWidget {
   const LGWidget({super.key});
@@ -27,7 +28,8 @@ class _LGWidgetState extends State<LGWidget> {
           child: Column(
             children: [
               Text(
-                'About Liquid Galaxy',
+                // 'About Liquid Galaxy',
+                AppLocalizations.of(context)!.settingsLG_title,
                 style: TextStyle(
                   fontSize: fontProv.fonts.headingSize,
                   color: Colors.black,
@@ -43,7 +45,8 @@ class _LGWidgetState extends State<LGWidget> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Liquid Galaxy is a multi-screen, immersive system that offers panoramic views by syncing multiple displays. Originally a Google project, it allows users to explore locations in a seamless, 360-degree experience',
+                  // 'Liquid Galaxy is a multi-screen, immersive system that offers panoramic views by syncing multiple displays. Originally a Google project, it allows users to explore locations in a seamless, 360-degree experience',
+                  AppLocalizations.of(context)!.settingsLG_desc,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: fontProv.fonts.textSize,
@@ -59,7 +62,8 @@ class _LGWidgetState extends State<LGWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   LgElevatedButton(
-                    elevatedButtonContent: 'Learn about LG',
+                    // elevatedButtonContent: 'Learn about LG',
+                    elevatedButtonContent: AppLocalizations.of(context)!.settingsLG_learnButton,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
                       launchUrlString('https://www.liquidgalaxy.eu/');
@@ -75,7 +79,8 @@ class _LGWidgetState extends State<LGWidget> {
                     curvatureRadius: 10,
                   ),
                   LgElevatedButton(
-                    elevatedButtonContent: 'Set up an LG Rig',
+                    // elevatedButtonContent: 'Set up an LG Rig',
+                    elevatedButtonContent: AppLocalizations.of(context)!.settingsLG_setupRigButton,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
                       launchUrlString(
@@ -100,7 +105,8 @@ class _LGWidgetState extends State<LGWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   LgElevatedButton(
-                    elevatedButtonContent: 'Connet to LG',
+                    // elevatedButtonContent: 'Connet to LG',
+                    elevatedButtonContent: AppLocalizations.of(context)!.settingsLG_connectButton,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
                       currViewProvider.currentView = 'connection';
@@ -116,7 +122,8 @@ class _LGWidgetState extends State<LGWidget> {
                     curvatureRadius: 10,
                   ),
                   LgElevatedButton(
-                    elevatedButtonContent: 'Control the LG',
+                    // elevatedButtonContent: 'Control the LG',
+                    elevatedButtonContent: AppLocalizations.of(context)!.settingsLG_controlLG,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
                       currViewProvider.currentView = 'tasks';

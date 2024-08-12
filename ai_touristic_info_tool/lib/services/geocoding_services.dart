@@ -36,6 +36,7 @@ class GeocodingService {
       }
     } catch (e) {
       throw Exception('Failed to get address: $e');
+      // print('Failed to get address: $e');
     }
   }
 

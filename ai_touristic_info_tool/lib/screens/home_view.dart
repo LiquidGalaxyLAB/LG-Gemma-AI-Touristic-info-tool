@@ -126,7 +126,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                             size: 30),
                         const SizedBox(width: 10),
                         Text(
-                          'Explore Worldwide',
+                          // 'Explore Worldwide',
+                          AppLocalizations.of(context)!.home_exploreWorld,
                           style: TextStyle(
                             fontFamily: fontType,
                             // fontSize: textSize,
@@ -150,7 +151,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                             size: 30),
                         const SizedBox(width: 10),
                         Text(
-                          'Explore certain Location',
+                          // 'Explore certain Location',
+                          AppLocalizations.of(context)!.home_explorelocation,
                           style: TextStyle(
                             fontFamily: fontType,
                             // fontSize: textSize,

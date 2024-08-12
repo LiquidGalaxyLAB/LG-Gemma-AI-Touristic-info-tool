@@ -6,6 +6,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HelpWidget extends StatefulWidget {
   const HelpWidget({super.key});
@@ -24,7 +25,8 @@ class _HelpWidgetState extends State<HelpWidget> {
           child: Column(
             children: [
               Text(
-                'Help Page',
+                // 'Help Page',
+                AppLocalizations.of(context)!.settingsHelp_title,
                 style: TextStyle(
                   fontSize: fontProv.fonts.headingSize,
                   color: Colors.black,
@@ -38,7 +40,8 @@ class _HelpWidgetState extends State<HelpWidget> {
               Padding(
                 padding: const EdgeInsets.only(left: 10.0, right: 10),
                 child: Text(
-                  'Tap the button below to view the app tutorial!',
+                  // 'Tap the button below to view the app tutorial!',
+                  AppLocalizations.of(context)!.settingsHelp_subtitle,
                   style: TextStyle(
                     fontSize: fontProv.fonts.textSize,
                     color: Colors.black,

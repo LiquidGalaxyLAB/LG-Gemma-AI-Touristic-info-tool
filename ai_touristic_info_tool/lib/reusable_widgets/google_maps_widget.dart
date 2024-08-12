@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GoogleMapWidget extends StatefulWidget {
   final double width;
@@ -209,7 +210,9 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                                     color: Colors.white,
                                     size: 50,
                                   ),
-                                  Text('Clear data',
+                                  Text(
+                                    // 'Clear data',
+                                    AppLocalizations.of(context)!.map_clear,
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,

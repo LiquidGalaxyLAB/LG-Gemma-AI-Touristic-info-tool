@@ -5,6 +5,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void showStreamingDialog(
     BuildContext context, String query, String city, String country) {
@@ -31,7 +32,9 @@ void showStreamingDialog(
                   (BuildContext context, ModelErrorProvider value,
                       Widget? child) {
                 return Center(
-                  child: Text(!value.isError ? 'AI Generation' : 'Error !',
+                  child: Text(!value.isError ?
+                  //  'AI Generation' : 'Error !',
+                  AppLocalizations.of(context)!.aiGeneration_generationScreenTitle : AppLocalizations.of(context)!.defaults_error,
                       style: TextStyle(
                         color: !value.isError
                             // ? FontAppColors.primaryFont

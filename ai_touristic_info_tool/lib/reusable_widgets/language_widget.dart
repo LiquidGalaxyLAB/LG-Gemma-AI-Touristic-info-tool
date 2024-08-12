@@ -135,8 +135,8 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       print("Button value: $value");
                     });
                     await SettingsSharedPref.setLocale(Locale('en'));
-                    Phoenix.rebirth(context);
-                    Restart.restartApp();
+                    // Phoenix.rebirth(context);
+                    // Restart.restartApp();
                   }, () {
                     // Navigator.of(context).pop();
                   });
@@ -162,7 +162,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     });
                     await SettingsSharedPref.setLocale(Locale('es'));
                     // Phoenix.rebirth(context);
-                    Restart.restartApp();
+                    // Restart.restartApp();
                   }, () {
                     // Navigator.of(context).pop();
                   });
@@ -188,7 +188,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     });
                     await SettingsSharedPref.setLocale(Locale('de'));
                     // Phoenix.rebirth(context);
-                    Restart.restartApp();
+                    // Restart.restartApp();
                   }, () {
                     // Navigator.of(context).pop();
                   });
@@ -214,7 +214,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     });
                     await SettingsSharedPref.setLocale(Locale('fr'));
                     // Phoenix.rebirth(context);
-                    Restart.restartApp();
+                    // Restart.restartApp();
                   }, () {
                     // Navigator.of(context).pop();
                   });
@@ -240,7 +240,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     });
                     await SettingsSharedPref.setLocale(Locale('it'));
                     // Phoenix.rebirth(context);
-                    Restart.restartApp();
+                    // Restart.restartApp();
                   }, () {
                     // Navigator.of(context).pop();
                   });
@@ -267,7 +267,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     await SettingsSharedPref.setLocale(Locale('ja'));
                     print('restart');
                     // Phoenix.rebirth(context);
-                    Restart.restartApp();
+                    // Restart.restartApp();
                   }, () {
                     // Navigator.of(context).pop();
                   });
@@ -293,7 +293,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     });
                     await SettingsSharedPref.setLocale(Locale('hi'));
                     // Phoenix.rebirth(context);
-                    Restart.restartApp();
+                    // Restart.restartApp();
                   }, () {
                     // Navigator.of(context).pop();
                   });
@@ -319,7 +319,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                     });
                     await SettingsSharedPref.setLocale(Locale('ar'));
                     // Phoenix.rebirth(context);
-                    Restart.restartApp();
+                    // Restart.restartApp();
                   }, () {
                     // Navigator.of(context).pop();
                   });

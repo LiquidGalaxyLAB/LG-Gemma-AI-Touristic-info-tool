@@ -11,6 +11,7 @@ import 'package:ai_touristic_info_tool/utils/show_link_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchResultsContainer extends StatelessWidget {
   const SearchResultsContainer({Key? key}) : super(key: key);
@@ -32,7 +33,9 @@ class SearchResultsContainer extends StatelessWidget {
                 FontsProvider fontProv,
                 Widget? child) {
               return Text(
-                'Website Results for ${value.searchPoiSelected}',
+                // 'Website Results for ${value.searchPoiSelected}',
+                AppLocalizations.of(context)!.searchResults_web(value.searchPoiSelected) ,
+                
                 style: TextStyle(
                   // fontSize: textSize + 4,
                   fontSize: fontProv.fonts.textSize + 4,
@@ -77,7 +80,8 @@ class SearchResultsContainer extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          'No URLs found',
+                          // 'No URLs found',
+                          AppLocalizations.of(context)!.searchResults_noneFound,
                           style: TextStyle(
                             fontSize: fontProv.fonts.textSize,
                             color: FontAppColors.primaryFont,
@@ -196,7 +200,8 @@ class SearchResultsContainer extends StatelessWidget {
                 FontsProvider fontProv,
                 Widget? child) {
               return Text(
-                'Youtube Results for ${value.searchPoiSelected}',
+                // 'Youtube Results for ${value.searchPoiSelected}',
+                AppLocalizations.of(context)!.searchResults_youtube(value.searchPoiSelected),
                 style: TextStyle(
                   // fontSize: textSize + 4,
                   fontSize: fontProv.fonts.textSize + 4,
@@ -242,7 +247,8 @@ class SearchResultsContainer extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          'No URLs found',
+                          // 'No URLs found',
+                          AppLocalizations.of(context)!.searchResults_noneFound,
                           style: TextStyle(
                             fontSize: fontProv.fonts.textSize,
                             color: FontAppColors.primaryFont,

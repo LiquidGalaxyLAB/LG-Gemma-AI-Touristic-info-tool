@@ -5,6 +5,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MapTypeChoicesWidget extends StatelessWidget {
   const MapTypeChoicesWidget({
@@ -20,7 +21,8 @@ class MapTypeChoicesWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              'Satellite',
+              // 'Satellite',
+              AppLocalizations.of(context)!.mapTypes_satellite,
               style: TextStyle(
                   fontFamily: fontType,
                   fontSize: fontProv.fonts.textSize,
@@ -53,7 +55,8 @@ class MapTypeChoicesWidget extends StatelessWidget {
               ),
             ),
             Text(
-              'Normal',
+              // 'Normal',
+              AppLocalizations.of(context)!.mapTypes_normal,
               style: TextStyle(
                   fontFamily: fontType,
                   fontSize: fontProv.fonts.textSize,
@@ -86,7 +89,8 @@ class MapTypeChoicesWidget extends StatelessWidget {
               ),
             ),
             Text(
-              'Terrain',
+              // 'Terrain',
+              AppLocalizations.of(context)!.mapTypes_terrain,
               style: TextStyle(
                   fontFamily: fontType,
                   fontSize: fontProv.fonts.textSize,

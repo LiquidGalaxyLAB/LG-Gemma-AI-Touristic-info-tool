@@ -23,6 +23,7 @@ import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExploreLocationTabView extends StatefulWidget {
   const ExploreLocationTabView({
@@ -76,7 +77,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: LgElevatedButton(
-                        elevatedButtonContent: 'Use Map',
+                        // elevatedButtonContent: 'Use Map',
+                        elevatedButtonContent: AppLocalizations.of(context)!
+                            .exploreLocation_mapButton,
                         buttonColor: ButtonColors.mapButton,
                         onpressed: () {
                           setState(() {
@@ -104,7 +107,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: LgElevatedButton(
-                        elevatedButtonContent: 'Type Address',
+                        // elevatedButtonContent: 'Type Address',
+                        elevatedButtonContent: AppLocalizations.of(context)!
+                            .exploreLocation_typeAdd,
                         buttonColor: ButtonColors.musicButton,
                         onpressed: () {
                           setState(() {
@@ -132,7 +137,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                   //   child: Padding(
                   //     padding: const EdgeInsets.all(20.0),
                   //     child: LgElevatedButton(
-                  //       elevatedButtonContent: 'Record Audio',
+                  ////       elevatedButtonContent: 'Record Audio',
+                  // elevatedButtonContent:  AppLocalizations.of(context)!.exploreLocation_recordAudio,
                   //       buttonColor: ButtonColors.audioButton,
                   //       onpressed: () {},
                   //       height: MediaQuery.of(context).size.height * 0.1,
@@ -176,7 +182,10 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
                           children: [
-                            Text('Address Details',
+                            Text(
+                                // 'Address Details',
+                                AppLocalizations.of(context)!
+                                    .exploreLocation_address,
                                 style: TextStyle(
                                     // fontSize: textSize + 10,
                                     fontSize: fontval.fonts.textSize + 10,
@@ -192,7 +201,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                     //     : fontval.fonts.secondaryFontColor,
                                     )),
                             TextFormFieldWidget(
-                              hint: 'Enter address, or leave empty',
+                              // hint: 'Enter address, or leave empty',
+                              hint: AppLocalizations.of(context)!
+                                  .exploreLocation_addressHint,
                               // fontSize: textSize,
                               fontSize: fontval.fonts.textSize,
                               key: const ValueKey("address"),
@@ -204,7 +215,10 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                               maxlines: 1,
                               width: MediaQuery.sizeOf(context).width * 0.85,
                             ),
-                            Text('City',
+                            Text(
+                                // 'City',
+                                AppLocalizations.of(context)!
+                                    .exploreLocation_city,
                                 style: TextStyle(
                                     // fontSize: textSize + 10,
                                     fontSize: fontval.fonts.textSize + 10,
@@ -214,7 +228,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                     // color: fontval.fonts.secondaryFontColor
                                     color: Colors.white)),
                             TextFormFieldWidget(
-                              hint: 'Enter city',
+                              // hint: 'Enter city',
+                              hint: AppLocalizations.of(context)!
+                                  .exploreLocation_cityHint,
                               // fontSize: textSize,
                               fontSize: fontval.fonts.textSize,
                               key: const ValueKey("city"),
@@ -226,7 +242,10 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                               maxlines: 1,
                               width: MediaQuery.sizeOf(context).width * 0.85,
                             ),
-                            Text('Country',
+                            Text(
+                                // 'Country',
+                                AppLocalizations.of(context)!
+                                    .exploreLocation_country,
                                 style: TextStyle(
                                     // fontSize: textSize + 10,
                                     fontSize: fontval.fonts.textSize + 10,
@@ -243,7 +262,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                               selectedValue: countryIndex != -1
                                   ? countries[countryIndex]
                                   : countries[0],
-                              hinttext: 'Country',
+                              // hinttext: 'Country',
+                              hinttext: AppLocalizations.of(context)!
+                                  .exploreLocation_countryHint,
                               onChanged: (value) {
                                 setState(() {
                                   _countryController.text = value;
@@ -260,7 +281,10 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                   FontsProvider fontval,
                                   Widget? child) {
                                 return LgElevatedButton(
-                                    elevatedButtonContent: 'Save',
+                                    // elevatedButtonContent: 'Save',
+                                    elevatedButtonContent:
+                                        AppLocalizations.of(context)!
+                                            .defaults_save,
                                     // buttonColor: PrimaryAppColors.innerBackground,
                                     buttonColor: value.colors.innerBackground,
                                     // fontColor: FontAppColors.primaryFont,
@@ -345,7 +369,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                 builder:
                     (BuildContext context, FontsProvider value, Widget? child) {
                   return Text(
-                    'Navigate till you find your desired location!',
+                    // 'Navigate till you find your desired location!',
+                    AppLocalizations.of(context)!.exploreLocation_navigate,
                     style: TextStyle(
                         // fontSize: textSize + 10,
                         fontSize: value.fonts.textSize + 10,
@@ -365,7 +390,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                 builder:
                     (BuildContext context, FontsProvider value, Widget? child) {
                   return Text(
-                    'Click on Use Map button to navigate if you want!',
+                    // 'Click on Use Map button to navigate if you want!',
+                    AppLocalizations.of(context)!.exploreLocation_useMap,
                     style: TextStyle(
                         // fontSize: textSize + 10,
                         fontSize: value.fonts.textSize + 10,
@@ -406,7 +432,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                   builder: (BuildContext context, FontsProvider value,
                       Widget? child) {
                     return Text(
-                      'You are in $_addressQuery',
+                      // 'You are in $_addressQuery',
+                      AppLocalizations.of(context)!
+                          .exploreLocation_youarein(_addressQuery),
                       style: TextStyle(
                         // fontSize: textSize + 8,
                         fontSize: value.fonts.textSize + 8,
@@ -427,7 +455,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
               builder:
                   (BuildContext context, FontsProvider value, Widget? child) {
                 return Text(
-                  'AI-Recommended Things To Do nearby',
+                  // 'AI-Recommended Things To Do nearby',
+                  AppLocalizations.of(context)!
+                      .exploreLocation_aiRecommendation,
                   style: TextStyle(
                       // fontSize: textSize + 10,
                       fontSize: value.fonts.textSize + 10,
@@ -458,7 +488,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/landmarkss.jpg',
-                      title: 'Landmarks',
+                      // title: 'Landmarks',
+                      title: AppLocalizations.of(context)!
+                          .exploreLocation_landmarks,
                       query: !useMap
                           ? 'landmarks in $_addressQuery'
                           : 'landmarks in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -472,7 +504,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/restaurants.jpeg',
-                      title: 'Restaurants and Cafes',
+                      // title: 'Restaurants and Cafes',
+                      title: AppLocalizations.of(context)!
+                          .exploreLocation_restaurants,
                       query: !useMap
                           ? 'Restaurants and Cafes in $_addressQuery'
                           : 'Restaurants and Cafes in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -486,7 +520,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/art.jpeg',
-                      title: 'Art and Culture',
+                      // title: 'Art and Culture',
+                      title: AppLocalizations.of(context)!.exploreLocation_art,
                       query: !useMap
                           ? 'Art and Culture in $_addressQuery'
                           : 'Art and Culture in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -500,7 +535,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/shopping.jpeg',
-                      title: 'Shopping Malls',
+                      // title: 'Shopping Malls',
+                      title: AppLocalizations.of(context)!
+                          .exploreLocation_shopping,
                       query: !useMap
                           ? 'Shopping Malls in $_addressQuery'
                           : 'Shopping Malls in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -514,7 +551,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/sports.jpeg',
-                      title: 'Sports and Recreation',
+                      // title: 'Sports and Recreation',
+                      title:
+                          AppLocalizations.of(context)!.exploreLocation_sports,
                       query: !useMap
                           ? 'Sports and Recreation in $_addressQuery'
                           : 'Sports and Recreation in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -528,7 +567,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/spa.webp',
-                      title: 'Spa and Wellness',
+                      // title: 'Spa and Wellness',
+                      title: AppLocalizations.of(context)!.exploreLocation_spa,
                       query: !useMap
                           ? 'Spa and Wellness in $_addressQuery'
                           : 'Spa and Wellness in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -542,7 +582,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/outdoor.jpeg',
-                      title: 'Outdoor Activities',
+                      // title: 'Outdoor Activities',
+                      title:
+                          AppLocalizations.of(context)!.exploreLocation_outdoor,
                       query: !useMap
                           ? 'Outdoor Activities in $_addressQuery'
                           : 'Outdoor Activities in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -556,7 +598,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/pizza.jpeg',
-                      title: 'Top Pizza Places',
+                      // title: 'Top Pizza Places',
+                      title:
+                          AppLocalizations.of(context)!.exploreLocation_pizza,
                       query: !useMap
                           ? 'Top Pizza Places in $_addressQuery'
                           : 'Top Pizza Places in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -570,7 +614,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/history.jpg',
-                      title: 'Historical Sites',
+                      // title: 'Historical Sites',
+                      title:
+                          AppLocalizations.of(context)!.exploreLocation_history,
                       query: !useMap
                           ? 'Historical Sites in $_addressQuery'
                           : 'Historical Sites in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -584,7 +630,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/parks.webp',
-                      title: 'Local Parks',
+                      // title: 'Local Parks',
+                      title:
+                          AppLocalizations.of(context)!.exploreLocation_parks,
                       query: !useMap
                           ? 'Local Parks in $_addressQuery'
                           : 'Local Parks in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -598,7 +646,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/cinema.jpeg',
-                      title: 'Cinemas',
+                      // title: 'Cinemas',
+                      title:
+                          AppLocalizations.of(context)!.exploreLocation_cinemas,
                       query: !useMap
                           ? 'Cinemas in $_addressQuery'
                           : 'Cinemas in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -612,7 +662,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/library.jpeg',
-                      title: 'Libraries',
+                      // title: 'Libraries',
+                      title: AppLocalizations.of(context)!
+                          .exploreLocation_libraries,
                       query: !useMap
                           ? 'Libraries in $_addressQuery'
                           : 'Libraries in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -626,7 +678,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/dancing.jpeg',
-                      title: 'Dancing Studios',
+                      // title: 'Dancing Studios',
+                      title:
+                          AppLocalizations.of(context)!.exploreLocation_dance,
                       query: !useMap
                           ? 'Dancing Studios in $_addressQuery'
                           : 'Dancing Studios in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -640,7 +694,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/yoga.jpg',
-                      title: 'Yoga Studios',
+                      // title: 'Yoga Studios',
+                      title: AppLocalizations.of(context)!.exploreLocation_yoga,
                       query: !useMap
                           ? 'Yoga Studios in $_addressQuery'
                           : 'Yoga Studios in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -654,7 +709,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/education.jpeg',
-                      title: 'Educational Institutions',
+                      // title: 'Educational Institutions',
+                      title: AppLocalizations.of(context)!.exploreLocation_edu,
                       query: !useMap
                           ? 'Educational Institutions in $_addressQuery'
                           : 'Educational Institutions in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -668,7 +724,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.1,
                       imagePath: 'assets/images/salons.jpeg',
-                      title: 'Beauty Salons',
+                      // title: 'Beauty Salons',
+                      title:
+                          AppLocalizations.of(context)!.exploreLocation_salons,
                       query: !useMap
                           ? 'Beauty Salons in $_addressQuery'
                           : 'Beauty Salons in ${value.currentFullAddress['address'] ?? ''}, ${value.currentFullAddress['city'] ?? ''}, ${value.currentFullAddress['country'] ?? ''}',
@@ -692,7 +750,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                   //Local:
                   // 'Ask Gemma anything you want to know nearby:',
                   //Gemini:
-                  'Ask Gemini anything you want to know nearby:',
+                  // 'Ask Gemini anything you want to know nearby:',
+                  AppLocalizations.of(context)!.exploreLocation_askGemini,
                   style: TextStyle(
                       // fontSize: textSize + 10,
                       fontSize: value.fonts.textSize + 10,
@@ -814,7 +873,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                               FontsProvider value,
                                               Widget? child) {
                                             return Text(
-                                              'Please add a default API Key for Gemini in the settings!',
+                                              // 'Please add a default API Key for Gemini in the settings!',
+                                              AppLocalizations.of(context)!
+                                                  .settings_apiKeyNotSetDefaultError,
                                               style: TextStyle(
                                                 fontSize: value.fonts.textSize,
                                                 color: Colors.white,
@@ -830,7 +891,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                     _isLoading = true;
                                   });
                                   String res = await LangchainService()
-                                      .checkAPIValidity(apiKey);
+                                      .checkAPIValidity(apiKey, context);
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -864,7 +925,11 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                           }
                         },
                         elevatedButtonContent:
-                            _isLoading ? 'Loading..' : 'GENERATE',
+                            // _isLoading ? 'Loading..' : 'GENERATE',
+                            _isLoading
+                                ? AppLocalizations.of(context)!.defaults_loading
+                                : AppLocalizations.of(context)!
+                                    .defaults_generate,
                       );
                     },
                   ),

@@ -31,8 +31,8 @@
     "settings_helpTitle": "Help",
     "settings_helpDesc": "Learn how to use the app",
     "settings_welcomeSettings": "Welcome to the App Settings!",
-    "settings_desc1": "Select an option from the left to view and modify your app settings.",
-    "settings_desc2": "You can change the language, appearance, font size, learn about Liquid Galaxy, manage API keys, and access help resources.",
+    "settings_desc1": "Select an option from the left to view and modify your app settings.\nYou can change the language, appearance, font size, learn about Liquid Galaxy, manage API keys, and access help resources.",
+
 
 
     "settingsFont_title": "Font Settings",
@@ -126,7 +126,7 @@
 
     "link_open": "Open in Browser",
 
-    "aiHallucination_text1": "Be aware of AI hallucinations !",
+    "aiHallucination_text1": "Be aware of AI hallucinations !\n",
     "aiHallucination_text2": "The state of the art of most AI tools as 2024 can give you sometimes incorrect answers, or even the so called Hallucinations:\n\n",
     "aiHallucination_text3": "AI hallucinations are incorrect or misleading results that AI models generate. These errors can be caused by a variety of factors, including insufficient training data, incorrect assumptions made by the model, or biases in the data used to train the model.\n\nThe Liquid Galaxy project has no control over this, and the contents responsibility is of the owners of the respective Large Language models used",
 
@@ -323,6 +323,7 @@
 
 
     "defaults_cancel": "Cancel",
+    "defaults_close": "Close",
     "defaults_save": "Save",
     "defaults_delete": "Delete",
     "defaults_ok": "OK",

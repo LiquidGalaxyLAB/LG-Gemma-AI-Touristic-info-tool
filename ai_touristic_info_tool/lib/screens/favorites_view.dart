@@ -8,6 +8,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FavoritesView extends StatefulWidget {
   const FavoritesView({super.key});
@@ -62,7 +63,8 @@ class _FavoritesViewState extends State<FavoritesView>
                       size: fontProv.fonts.headingSize),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   Text(
-                    'All your favorite tours and POIs in one place',
+                    // 'All your favorite tours and POIs in one place',
+                    AppLocalizations.of(context)!.favs_title,
                     style: TextStyle(
                       fontFamily: fontType,
                       fontSize: fontProv.fonts.headingSize,
@@ -104,7 +106,8 @@ class _FavoritesViewState extends State<FavoritesView>
                             size: 30),
                         const SizedBox(width: 10),
                         Text(
-                          'All Saved Tours',
+                          // 'All Saved Tours',
+                          AppLocalizations.of(context)!.favs_savedTours,
                           style: TextStyle(
                             fontFamily: fontType,
                             // fontSize: textSize,
@@ -128,7 +131,8 @@ class _FavoritesViewState extends State<FavoritesView>
                             size: 30),
                         const SizedBox(width: 10),
                         Text(
-                          'Favorite places',
+                          // 'Favorite places',
+                          AppLocalizations.of(context)!.favs_savedPlaces,
                           style: TextStyle(
                             fontFamily: fontType,
                             // fontSize: textSize,

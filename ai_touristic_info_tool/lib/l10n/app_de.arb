@@ -31,8 +31,7 @@
     "settings_helpTitle": "Hilfe",
     "settings_helpDesc": "Erfahren Sie, wie Sie die App verwenden",
     "settings_welcomeSettings": "Willkommen in den App-Einstellungen!",
-    "settings_desc1": "Wählen Sie eine Option links aus, um Ihre App-Einstellungen anzuzeigen und zu ändern.",
-    "settings_desc2": "Sie können die Sprache, Darstellung, Schriftgröße ändern, mehr über Liquid Galaxy erfahren, API-Schlüssel verwalten und auf Hilfsressourcen zugreifen.",
+    "settings_desc1": "Wählen Sie eine Option links aus, um Ihre App-Einstellungen anzuzeigen und zu ändern.\nSie können die Sprache, Darstellung, Schriftgröße ändern, mehr über Liquid Galaxy erfahren, API-Schlüssel verwalten und auf Hilfsressourcen zugreifen.",
 
 
     "settingsFont_title": "Schriftarteinstellungen",
@@ -128,7 +127,7 @@
 
     "link_open": "Im Browser öffnen",
 
-    "aiHallucination_text1": "Achten Sie auf KI-Halluzinationen!",
+    "aiHallucination_text1": "Achten Sie auf KI-Halluzinationen!\n",
     "aiHallucination_text2": "Der aktuelle Stand der Technik der meisten KI-Tools im Jahr 2024 kann Ihnen manchmal falsche Antworten oder sogenannte Halluzinationen liefern:\n\n",
     "aiHallucination_text3": "KI-Halluzinationen sind falsche oder irreführende Ergebnisse, die von KI-Modellen generiert werden. Diese Fehler können durch eine Vielzahl von Faktoren verursacht werden, einschließlich unzureichender Trainingsdaten, falscher Annahmen des Modells oder Vorurteile in den zur Modellierung verwendeten Daten.\n\nDas Liquid Galaxy-Projekt hat keine Kontrolle darüber, und die Verantwortung für die Inhalte liegt bei den Eigentümern der jeweiligen großen Sprachmodelle, die verwendet werden.",
 
@@ -251,7 +250,7 @@
     "exploreLocation_mapButton":"Karte verwenden",
     "exploreLocation_typeAdd": "Adresse eingeben",
     "exploreLocation_recordAudio": "Audio aufnehmen",
-    "exploreLocation_address": "Adressdetails",
+    "exploreLocation_address": "Adresse",
     "exploreLocation_addressHint": "Adresse eingeben oder leer lassen",
     "exploreLocation_city": "Stadt",
     "exploreLocation_cityHint": "Stadt eingeben",
@@ -325,6 +324,7 @@
 
 
     "defaults_cancel": "Abbrechen",
+    "defaults_close": "Schließen",
     "defaults_save": "Speichern",
     "defaults_delete": "Löschen",
     "defaults_ok": "OK",

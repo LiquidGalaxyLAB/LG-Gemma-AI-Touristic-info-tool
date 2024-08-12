@@ -4,7 +4,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class FontWidget extends StatefulWidget {
   const FontWidget({super.key});
 
@@ -25,7 +25,8 @@ class _FontWidgetState extends State<FontWidget> {
             children: [
               Center(
                 child: Text(
-                  'Font Settings',
+                  // 'Font Settings',
+                  AppLocalizations.of(context)!.settingsFont_title,
                   style: TextStyle(
                       fontFamily: fontType,
                       // fontSize: textSize + 3,
@@ -38,7 +39,8 @@ class _FontWidgetState extends State<FontWidget> {
               ),
               Center(
                 child: Text(
-                  'Change the font size',
+                  // 'Change the font size',
+                  AppLocalizations.of(context)!.settingsFont_subtitle,
                   style: TextStyle(
                       fontFamily: fontType,
                       // fontSize: textSize,
@@ -70,7 +72,8 @@ class _FontWidgetState extends State<FontWidget> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               Center(
                 child: Text(
-                  'Aa',
+                  // 'Aa',
+                  AppLocalizations.of(context)!.settingsFont_trial,
                   style: TextStyle(
                       fontSize: value.fonts.titleSize,
                       fontFamily: fontType,

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../services/lg_functionalities.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LGTasksView extends StatefulWidget {
   const LGTasksView({super.key});
@@ -53,7 +54,8 @@ class _LGTasksViewState extends State<LGTasksView> {
                 ),
                 Center(
                   child: Text(
-                    'LG Tasks',
+                    // 'LG Tasks',
+                    AppLocalizations.of(context)!.lgTasks_title,
                     style: TextStyle(
                       fontFamily: fontType,
                       // fontSize: headingSize,
@@ -76,7 +78,8 @@ class _LGTasksViewState extends State<LGTasksView> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               LgElevatedButton(
-                  elevatedButtonContent: 'RELAUNCH',
+                  // elevatedButtonContent: 'RELAUNCH',
+                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_relaunch,
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
@@ -106,23 +109,29 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                       dialogBuilder(
                           context,
-                          'Are you sure you want to Relaunch?',
+                          // 'Are you sure you want to Relaunch?',
+                          AppLocalizations.of(context)!.lgTasks_confirmRelaunch,
                           false,
-                          'YES', () {
+                          // 'YES', 
+                          AppLocalizations.of(context)!.defaults_yes,
+                          () {
                         LgService(sshData).relaunch();
                       }, () {});
                     } else {
                       dialogBuilder(
                           context,
-                          'NOT connected to LG !! \n Please Connect to LG',
+                          // 'NOT connected to LG !! \n Please Connect to LG',
+                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
                           true,
-                          'OK',
+                          // 'OK',
+                          AppLocalizations.of(context)!.defaults_ok,
                           null,
                           null);
                     }
                   }),
               LgElevatedButton(
-                  elevatedButtonContent: 'REBOOT',
+                  // elevatedButtonContent: 'REBOOT',
+                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_reboot,
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
@@ -150,8 +159,14 @@ class _LGTasksViewState extends State<LGTasksView> {
                     if (sshData.client != null && connection.isLgConnected) {
                       /// calling `reboot` from `LGService`
 
-                      dialogBuilder(context, 'Are you sure you want to Reboot?',
-                          false, 'YES', () {
+                      dialogBuilder(context, 
+                      // 'Are you sure you want to Reboot?',
+                      AppLocalizations.of(context)!.lgTasks_confirmReboot,
+                          false, 
+                          // 'YES'
+                          AppLocalizations.of(context)!.defaults_yes, 
+                          
+                           () {
                         LgService(sshData).reboot();
                       }, () {});
                     } else {
@@ -159,15 +174,18 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                       dialogBuilder(
                           context,
-                          'NOT connected to LG !! \n Please Connect to LG',
+                          // 'NOT connected to LG !! \n Please Connect to LG',
+                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
                           true,
-                          'OK',
+                          // 'OK',
+                          AppLocalizations.of(context)!.defaults_ok,
                           null,
                           null);
                     }
                   }),
               LgElevatedButton(
-                  elevatedButtonContent: 'SHUT DOWN',
+                  // elevatedButtonContent: 'SHUT DOWN',
+                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_shutdown,
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
@@ -197,9 +215,12 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                       dialogBuilder(
                           context,
-                          'Are you sure you want to Shut Down?',
+                          // 'Are you sure you want to Shut Down?',
+                          AppLocalizations.of(context)!.lgTasks_confirmShutdown,
                           false,
-                          'YES', () {
+                          // 'YES',
+                          AppLocalizations.of(context)!.defaults_yes,
+                           () {
                         try {
                           LgService(sshData).shutdown();
                         } catch (e) {
@@ -212,9 +233,11 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                       dialogBuilder(
                           context,
-                          'NOT connected to LG !! \n Please Connect to LG',
+                          // 'NOT connected to LG !! \n Please Connect to LG',
+                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
                           true,
-                          'OK',
+                          // 'OK',
+                          AppLocalizations.of(context)!.defaults_ok,
                           null,
                           null);
                     }
@@ -228,7 +251,8 @@ class _LGTasksViewState extends State<LGTasksView> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               LgElevatedButton(
-                  elevatedButtonContent: 'SET REFRESH',
+                  // elevatedButtonContent: 'SET REFRESH',
+                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_setRefresh,
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
@@ -258,9 +282,12 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                       dialogBuilder(
                           context,
-                          'Are you sure you want to set Refresh?',
+                          // 'Are you sure you want to set Refresh?',
+                          AppLocalizations.of(context)!.lgTasks_confirmRefresh,
                           false,
-                          'YES', () {
+                          // 'YES',
+                          AppLocalizations.of(context)!.defaults_yes,
+                           () {
                         try {
                           LgService(sshData).setRefresh();
                         } catch (e) {
@@ -273,15 +300,18 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                       dialogBuilder(
                           context,
-                          'NOT connected to LG !! \n Please Connect to LG',
+                          // 'NOT connected to LG !! \n Please Connect to LG',
+                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
                           true,
-                          'OK',
+                          // 'OK',
+                          AppLocalizations.of(context)!.defaults_ok,
                           null,
                           null);
                     }
                   }),
               LgElevatedButton(
-                  elevatedButtonContent: 'RESET REFRESH',
+                  // elevatedButtonContent: 'RESET REFRESH',
+                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_resetRefresh,
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
@@ -311,9 +341,12 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                       dialogBuilder(
                           context,
-                          'Are you sure you want to Reset Refresh?',
+                          // 'Are you sure you want to Reset Refresh?',
+                          AppLocalizations.of(context)!.lgTasks_confirmResetRefresh,
                           false,
-                          'YES', () {
+                          // 'YES',
+                          AppLocalizations.of(context)!.defaults_yes,
+                           () {
                         try {
                           LgService(sshData).resetRefresh();
                         } catch (e) {
@@ -326,9 +359,11 @@ class _LGTasksViewState extends State<LGTasksView> {
 
                       dialogBuilder(
                           context,
-                          'NOT connected to LG !! \n Please Connect to LG',
+                          // 'NOT connected to LG !! \n Please Connect to LG',
+                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
                           true,
-                          'OK',
+                          // 'OK',
+                          AppLocalizations.of(context)!.defaults_ok,
                           null,
                           null);
                     }
@@ -342,7 +377,8 @@ class _LGTasksViewState extends State<LGTasksView> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               LgElevatedButton(
-                  elevatedButtonContent: 'SHOW LOGOS',
+                  // elevatedButtonContent: 'SHOW LOGOS',
+                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_showLogos,
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
@@ -372,15 +408,18 @@ class _LGTasksViewState extends State<LGTasksView> {
                     } else {
                       dialogBuilder(
                           context,
-                          'NOT connected to LG !! \n Please Connect to LG',
+                          // 'NOT connected to LG !! \n Please Connect to LG',
+                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
                           true,
-                          'OK',
+                          // 'OK',
+                          AppLocalizations.of(context)!.defaults_ok,
                           null,
                           null);
                     }
                   }),
               LgElevatedButton(
-                  elevatedButtonContent: 'HIDE LOGOS',
+                  // elevatedButtonContent: 'HIDE LOGOS',
+                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_hideLogos,
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
@@ -410,15 +449,18 @@ class _LGTasksViewState extends State<LGTasksView> {
                     } else {
                       dialogBuilder(
                           context,
-                          'NOT connected to LG !! \n Please Connect to LG',
+                          // 'NOT connected to LG !! \n Please Connect to LG',
+                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
                           true,
-                          'OK',
+                          // 'OK',
+                          AppLocalizations.of(context)!.defaults_ok,
                           null,
                           null);
                     }
                   }),
               LgElevatedButton(
-                  elevatedButtonContent: 'CLEAN KMLS',
+                  // elevatedButtonContent: 'CLEAN KMLS',
+                  elevatedButtonContent: AppLocalizations.of(context)!.lgTasks_cleanKMLs,
                   // buttonColor: PrimaryAppColors.buttonColors,
                   buttonColor: value.colors.buttonColors,
                   fontColor: FontAppColors.secondaryFont,
@@ -448,9 +490,11 @@ class _LGTasksViewState extends State<LGTasksView> {
                     } else {
                       dialogBuilder(
                           context,
-                          'NOT connected to LG !! \n Please Connect to LG',
+                          // 'NOT connected to LG !! \n Please Connect to LG',
+                          AppLocalizations.of(context)!.lgTasks_notConnectedError,
                           true,
-                          'OK',
+                          // 'OK',
+                          AppLocalizations.of(context)!.defaults_ok,
                           null,
                           null);
                     }
