@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../state_management/connection_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// A widget that displays an indicator to show the connection status.
 class ConnectionIndicator extends StatefulWidget {
@@ -53,7 +54,8 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'LG Rig',
+                      // 'LG Rig',
+                      AppLocalizations.of(context)!.appBar_Lgrig,
                       style: TextStyle(
                           fontFamily: fontType,
                           // fontSize: textSize - 5,

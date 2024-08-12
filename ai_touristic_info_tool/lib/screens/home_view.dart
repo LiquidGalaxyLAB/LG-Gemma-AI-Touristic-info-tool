@@ -10,6 +10,7 @@ import 'package:ai_touristic_info_tool/state_management/model_error_provider.dar
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -82,7 +83,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             width: MediaQuery.of(context).size.width * 1,
             child: Center(
               child: Text(
-                'Welcome to your Home page!',
+                //'Welcome to your Home page!',
+                AppLocalizations.of(context)!.home_title,
                 style: TextStyle(
                   fontFamily: fontType,
                   // fontSize: headingSize,

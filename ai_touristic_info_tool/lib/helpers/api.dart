@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:ai_touristic_info_tool/helpers/lg_connection_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 ///This is the [Api] class that contains all kind of requests we might need
 
@@ -14,18 +16,23 @@ class Api {
   String baseUrl =
       'http://${LgConnectionSharedPref.getAiIp() ?? ''}:${LgConnectionSharedPref.getAiPort() ?? ''}';
 
-  Future<String> isEndpointAvailable() async {
+  Future<String> isEndpointAvailable(BuildContext context) async {
     final url = '$baseUrl/health';
     try {
       final response =
           await http.get(Uri.parse(url)).timeout(Duration(seconds: 200));
       if (response.statusCode == 200) {
-        return 'Success';
+        // return 'Success';
+        return AppLocalizations.of(context)!.defaults_success;
       } else {
-        return 'Error occurred while trying to connect to the server. Status code: ${response.statusCode}';
+        // return 'Error occurred while trying to connect to the server. Status code: ${response.statusCode}';
+        return AppLocalizations.of(context)!
+            .aiGenerationAPIGemma_errorresponse1(response.statusCode);
       }
     } catch (e) {
-      return 'Error occurred while trying to connect to the server: $e';
+      // return 'Error occurred while trying to connect to the server: $e';
+      return AppLocalizations.of(context)!
+          .aiGenerationAPIGemma_errorresponse2(e.toString());
     }
   }
 
@@ -41,7 +48,7 @@ class Api {
     }
   }
 
-  Stream<dynamic> postaStreamEventsGemma({required String input}) async* {
+  Stream<dynamic> postaStreamEventsGemma(BuildContext context,{required String input}) async* {
     final http.Client _client = http.Client();
     //final rag_url = Uri.parse('http://10.0.2.2:8000/rag/stream_events');
     final rag_url = Uri.parse('$baseUrl/rag/stream_events');
@@ -58,7 +65,8 @@ class Api {
       print('not available');
       yield {
         'type': 'error',
-        'data': 'The server is currently unavailable. Please try again later.'
+        // 'data': 'The server is currently unavailable. Please try again later.'
+        'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_serverNotAvailable
       };
       return;
     }
@@ -89,25 +97,39 @@ class Api {
               jsonMap['event'] == 'on_chain_start') {
             yield {
               'type': 'message',
-              'data': "RAG (Retrieval Augmented Generation) Chain Starting ..."
+              // 'data': "RAG (Retrieval Augmented Generation) Chain Starting ..."
+              'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages1
             };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_retriever_start') {
-            yield {'type': 'message', 'data': "Getting Retrieval ready..."};
+            yield {'type': 'message', 
+            // 'data': "Getting Retrieval ready..."
+            'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages2
+            };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_retriever_end') {
-            yield {'type': 'message', 'data': "Retrieval Initialized ..."};
+            yield {'type': 'message', 
+            // 'data': "Retrieval Initialized ..."
+            'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages3
+            };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_prompt_start') {
-            yield {'type': 'message', 'data': "Preparing Prompt ..."};
+            yield {'type': 'message', 
+            // 'data': "Preparing Prompt ..."
+            'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages4
+            };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_prompt_end') {
-            yield {'type': 'message', 'data': "Prompt Ready ..."};
+            yield {'type': 'message',
+            //  'data': "Prompt Ready ..."
+            'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages5
+             };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_llm_start') {
             yield {
               'type': 'message',
-              'data': "Getting Gemma LLM Model ready..."
+              // 'data': "Getting Gemma LLM Model ready..."
+              'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages6
             };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_llm_stream') {
@@ -115,7 +137,10 @@ class Api {
             yield {'type': 'chunk', 'data': chunk};
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_llm_end') {
-            yield {'type': 'message', 'data': "End of Chain ..."};
+            yield {'type': 'message', 
+            // 'data': "End of Chain ..."
+            'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages7
+            };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_chain_end' &&
               jsonMap['name'] == '/rag') {
@@ -151,14 +176,15 @@ class Api {
     } catch (e) {
       yield {
         'type': 'error',
-        'data': 'An error occurred while generating the response: $e'
+        // 'data': 'An error occurred while generating the response: $e'
+        'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_errorresponsegeneration(e.toString())
       };
     } finally {
       _client.close();
     }
   }
 
-  Future<List<String>> fetchWebUrls(String placeName) async {
+  Future<List<String>> fetchWebUrls(String placeName, BuildContext context) async {
     final Uri uri = Uri.parse('$baseUrl/search?place_name=$placeName');
     final response = await http.get(uri);
 
@@ -166,11 +192,12 @@ class Api {
       List<dynamic> jsonList = json.decode(response.body);
       return jsonList.cast<String>();
     } else {
-      throw Exception('Failed to fetch URLs: ${response.reasonPhrase}');
+      // throw Exception('Failed to fetch URLs: ${response.reasonPhrase}');
+      throw Exception(AppLocalizations.of(context)!.aiGenerationAPIGemma_errorFetchURLs(response.reasonPhrase.toString()));
     }
   }
 
-  Future<List<String>> fetchYoutubeUrls({required String query}) async {
+  Future<List<String>> fetchYoutubeUrls(BuildContext context,{required String query}) async {
     final String endpoint = 'https://www.googleapis.com/youtube/v3/search';
 
     final Uri url = Uri.parse(
@@ -192,7 +219,8 @@ class Api {
 
       return videoUrls;
     } else {
-      throw Exception('Failed to load YouTube URLs');
+      // throw Exception('Failed to load YouTube URLs');
+      throw Exception(AppLocalizations.of(context)!.aiGenerationAPIGemma_errorFetchYoutube);
     }
   }
 

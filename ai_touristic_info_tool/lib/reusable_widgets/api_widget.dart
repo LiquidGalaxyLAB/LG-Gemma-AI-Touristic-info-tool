@@ -10,6 +10,8 @@ import 'package:ai_touristic_info_tool/utils/edit_api_key_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class APIWidget extends StatefulWidget {
   const APIWidget({super.key});
@@ -35,7 +37,8 @@ class _APIWidgetState extends State<APIWidget> {
             children: [
               Center(
                 child: Text(
-                  'API Keys Settings',
+                  // 'API Keys Settings',
+                  AppLocalizations.of(context)!.settings_apiKeySettings,
                   style: TextStyle(
                     fontSize: fontProv.fonts.headingSize,
                     color: Colors.black,
@@ -53,7 +56,8 @@ class _APIWidgetState extends State<APIWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Your Saved API Keys:',
+                      // 'Your Saved API Keys:',
+                      AppLocalizations.of(context)!.settings_apiKeySavedAPIKey,
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontSize: fontProv.fonts.textSize,
@@ -76,7 +80,8 @@ class _APIWidgetState extends State<APIWidget> {
                               color: Colors.white,
                             ),
                           ),
-                          Text('refresh')
+                          // Text('refresh')
+                          Text(AppLocalizations.of(context)!.settings_Refresh)
                         ],
                       ),
                     )
@@ -119,7 +124,8 @@ class _APIWidgetState extends State<APIWidget> {
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: LgElevatedButton(
-                    elevatedButtonContent: 'Add Key',
+                    // elevatedButtonContent: 'Add Key',
+                    elevatedButtonContent: AppLocalizations.of(context)!.settings_AddKey,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () async {
                       await addAPIKeyDialog(context, colorProv, _formKeyAddKey,
@@ -164,7 +170,8 @@ Widget getSavedAPIKeysWidget(
           } else if (snapshot.hasError) {
             return Center(
                 child: Text(
-              'Error: ${snapshot.error}',
+              // 'Error: ${snapshot.error}',
+              AppLocalizations.of(context)!.settings_errorSnapshot(snapshot.error.toString()),
               style: TextStyle(
                 fontSize: fontProv.fonts.textSize,
                 color: Colors.black,
@@ -174,7 +181,8 @@ Widget getSavedAPIKeysWidget(
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(
                 child: Text(
-              'No API Keys Found',
+              // 'No API Keys Found',
+              AppLocalizations.of(context)!.settings_noApiKeyFound,
               style: TextStyle(
                 fontSize: fontProv.fonts.textSize,
                 color: Colors.black,
@@ -264,7 +272,8 @@ Widget getSavedAPIKeysWidget(
                                       SnackBar(
                                           backgroundColor: LgAppColors.lgColor4,
                                           content: Text(
-                                            'API Key deleted. Please refresh your API keys',
+                                            // 'API Key deleted. Please refresh your API keys',
+                                            AppLocalizations.of(context)!.settings_apiKeyDeleteNotification,
                                             style: TextStyle(
                                               fontSize: fontProv.fonts.textSize,
                                               color: Colors.white,
@@ -290,7 +299,8 @@ Widget getSavedAPIKeysWidget(
                                       SnackBar(
                                           backgroundColor: LgAppColors.lgColor4,
                                           content: Text(
-                                            'API Key is set as default. Please refresh your API keys',
+                                            // 'API Key is set as default. Please refresh your API keys',
+                                            AppLocalizations.of(context)!.settings_apiKeySetDefaultNotification,
                                             style: TextStyle(
                                               fontSize: fontProv.fonts.textSize,
                                               color: Colors.white,

@@ -6,14 +6,21 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:ai_touristic_info_tool/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  // Mock shared preferences
+  SharedPreferences.setMockInitialValues({});
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+
+    final locale = Locale('en', '');
+
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const AITouristicInfo());
+    await tester.pumpWidget(Phoenix(child: AITouristicInfo(locale: locale,)));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

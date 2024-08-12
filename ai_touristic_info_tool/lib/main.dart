@@ -21,6 +21,7 @@ import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:features_tour/features_tour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -41,6 +42,8 @@ void main() async {
   await FavoritesSharedPref.init();
 
   await APIKeySharedPref.init();
+
+  Locale locale = await SettingsSharedPref.getLocale();
 
   //clear:
   // await FavoritesSharedPref().clearToursList();
@@ -92,7 +95,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => FontsProvider()),
         ChangeNotifierProvider(create: (_) => DisplayedListProvider()),
       ],
-      child: const AITouristicInfo(),
+      child: Phoenix(child: AITouristicInfo(locale: locale)),
       // child: ShowCaseWidget(
       //   builder: (context) => const AITouristicInfo(),
       // ),
@@ -124,7 +127,8 @@ void main() async {
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class AITouristicInfo extends StatelessWidget {
-  const AITouristicInfo({super.key});
+  final Locale locale;
+  const AITouristicInfo({super.key, required this.locale});
 
   @override
   Widget build(BuildContext context) {
@@ -135,24 +139,8 @@ class AITouristicInfo extends StatelessWidget {
     return MaterialApp(
       title: 'AI Touristic Info Tool',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
-  supportedLocales: AppLocalizations.supportedLocales,
-      // localizationsDelegates: [
-      //   GlobalMaterialLocalizations.delegate,
-      //   GlobalWidgetsLocalizations.delegate,
-      //   GlobalCupertinoLocalizations.delegate,
-      // ],
-      // supportedLocales: [
-      //   Locale('en'),
-      //   Locale('es'),
-      //   Locale('ar'),
-      //   Locale('fr'),
-      //   Locale('de'),
-      //   Locale('it'),
-      //   Locale('hi'),
-      //   Locale('ja'),
-
-      //   //spanish, arabic, english, french, german, italian, indian, japanese
-      // ],
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: locale,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

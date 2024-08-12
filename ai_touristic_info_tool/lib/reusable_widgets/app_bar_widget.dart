@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../state_management/connection_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppBarWidget extends StatefulWidget {
   const AppBarWidget({
@@ -51,7 +52,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: 'LG Touristic info tool ',
+                            // text: 'LG Touristic info tool ',
+                            text: AppLocalizations.of(context)!.appBar_title,
                             style: TextStyle(
                               fontFamily: fontType,
                               // fontSize: titleSize,
@@ -64,7 +66,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                             ),
                           ),
                           TextSpan(
-                            text: 'made with',
+                            // text: 'made with',
+                            text: AppLocalizations.of(context)!.appBar_made,
                             style: TextStyle(
                                 fontFamily: fontType,
                                 // fontSize: titleSize - 15,

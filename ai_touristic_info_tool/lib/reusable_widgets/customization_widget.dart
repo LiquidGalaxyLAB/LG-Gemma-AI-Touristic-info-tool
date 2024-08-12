@@ -18,6 +18,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomizationWidget extends StatefulWidget {
   final List<PlacesModel> chosenPlaces;
@@ -39,7 +40,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
   final ScrollController _scrollController = ScrollController();
   bool _isvisualizing = false;
   bool _isFav = false;
-  String _queryName = 'Custom Tour';
+  // String _queryName = 'Custom Tour';
+  // String _queryName= AppLocalizations.of(context)!.customapptour_queryNameTemp;
+  late String _queryName = 'Custom Tour';
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _queryNameController = TextEditingController();
   double _tourDuration = 0;
@@ -49,6 +52,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
     super.initState();
     // Create a copy of chosenPlaces
     _originalList = List<PlacesModel>.from(widget.chosenPlaces);
+    _queryName= AppLocalizations.of(context)!.customapptour_queryNameTemp;
   }
 
   void _onPlaceDropped() async {
@@ -61,7 +65,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
         LatLng(_draggedPlace!.latitude, _draggedPlace!.longitude));
     if (_draggedPlace != null) {
       gmp.addMarker(context, _draggedPlace!, removeAll: false, isFromFav: true);
-      await buildPlacePlacemark(_draggedPlace!, -1, 'Custom Tour', context);
+      // await buildPlacePlacemark(_draggedPlace!, -1, 'Custom Tour', context);
+      await buildPlacePlacemark(_draggedPlace!, -1, _queryName, context);
       setState(() {
         // displayedPlaces.remove(_draggedPlace);
         // _tourPlaces.add(_draggedPlace!);
@@ -91,7 +96,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Drag and Drop places to the map!',
+                        // 'Drag and Drop places to the map!',
+                        AppLocalizations.of(context)!.customapptour_dragdrop,
                         style: TextStyle(
                             color: fontVal.fonts.primaryFontColor,
                             fontSize: fontVal.fonts.textSize + 5,
@@ -103,7 +109,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                         child: Row(
                           children: [
                             LgElevatedButton(
-                              elevatedButtonContent: 'Reset',
+                              // elevatedButtonContent: 'Reset',
+                              elevatedButtonContent: AppLocalizations.of(context)!.defaults_reset,
                               buttonColor: colorVal.colors.buttonColors,
                               onpressed: () async {
                                 DisplayedListProvider dlp =
@@ -151,7 +158,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                               width: MediaQuery.of(context).size.width * 0.02,
                             ),
                             LgElevatedButton(
-                              elevatedButtonContent: 'Create',
+                              // elevatedButtonContent: 'Create',
+                              elevatedButtonContent: AppLocalizations.of(context)!.defaults_create,
                               buttonColor: colorVal.colors.buttonColors,
                               onpressed: () async {
                                 final sshData = Provider.of<SSHprovider>(
@@ -177,7 +185,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                         backgroundColor:
                                             colorVal.colors.innerBackground,
                                         content: Text(
-                                            'Please add more than one place to create a route.',
+                                            // 'Please add more than one place to create a route.',
+                                            AppLocalizations.of(context)!.customapptour_WarningToCreateRoute,
                                             style: TextStyle(
                                                 color: fontVal
                                                     .fonts.primaryFontColor,
@@ -189,7 +198,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text('OK',
+                                            child: Text(
+                                              // 'OK',
+                                              AppLocalizations.of(context)!.defaults_ok,
                                                 style: TextStyle(
                                                     color: LgAppColors.lgColor4,
                                                     fontSize:
@@ -234,7 +245,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                             ),
                             LgElevatedButton(
                               elevatedButtonContent:
-                                  _isvisualizing ? 'Stop' : 'Visualize',
+                                  // _isvisualizing ? 'Stop' : 'Visualize',
+                                  _isvisualizing ? AppLocalizations.of(context)!.defaults_stop : AppLocalizations.of(context)!.defaults_visualize,
                               buttonColor: colorVal.colors.buttonColors,
                               onpressed: () async {
                                 final sshData = Provider.of<SSHprovider>(
@@ -454,7 +466,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Current\nTour:',
+                        // 'Current\nTour:',
+                        AppLocalizations.of(context)!.customapptour_CurrTour,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: fontVal.fonts.textSize,
@@ -490,8 +503,10 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                         padding: const EdgeInsets.only(right: 20),
                         child: Tooltip(
                           message: _isFav
-                              ? 'Added to favorites'
-                              : 'Removed from favorites',
+                              // ? 'Added to favorites'
+                              ?  AppLocalizations.of(context)!.favs_addtofavsmessage
+                              // : 'Removed from favorites',
+                              :  AppLocalizations.of(context)!.favs_removefromfavsmessage,
                           triggerMode: TooltipTriggerMode.tap,
                           onTriggered: () async {
                             if (await FavoritesSharedPref()
@@ -513,7 +528,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                       backgroundColor:
                                           colorVal.colors.innerBackground,
                                       content: Text(
-                                          'Please add places to create a tour.',
+                                          // 'Please add places to create a tour.',
+                                          AppLocalizations.of(context)!.customapptour_missingPlaces,
                                           style: TextStyle(
                                               color: fontVal
                                                   .fonts.primaryFontColor,
@@ -524,7 +540,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
-                                          child: Text('OK',
+                                          child: Text(
+                                            // 'OK',
+                                            AppLocalizations.of(context)!.defaults_ok,
                                               style: TextStyle(
                                                   color: LgAppColors.lgColor4,
                                                   fontSize:
@@ -553,7 +571,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                                 MainAxisAlignment.spaceAround,
                                             children: [
                                               Text(
-                                                  'Choose a name for your tour:',
+                                                  // 'Choose a name for your tour:',
+                                                  AppLocalizations.of(context)!.customapptour_chooseName,
                                                   style: TextStyle(
                                                       color: fontVal.fonts
                                                           .primaryFontColor,
@@ -606,7 +625,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                               Navigator.of(context).pop();
                                             }
                                           },
-                                          child: Text('Done',
+                                          child: Text(
+                                            // 'Done',
+                                            AppLocalizations.of(context)!.defaults_done,
                                               style: TextStyle(
                                                   color: LgAppColors.lgColor4,
                                                   fontSize:
