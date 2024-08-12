@@ -360,6 +360,9 @@ class _LGTasksViewState extends State<LGTasksView> {
                               null);
                         }
                       }),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
                   LgTasksButton(
                       buttonColor: value.colors.shadow,
                       borderColor: value.colors.buttonColors,

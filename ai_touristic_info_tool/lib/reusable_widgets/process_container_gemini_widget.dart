@@ -118,7 +118,11 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         //     });
         //   }
         // }
-        else if (event['data'] == 'Streaming') {
+        else if (event['data'] == 'Streaming' ||
+            event['data'] == "بث" ||
+            event['data'] == 'Transmitiendo' ||
+            event['data'] == 'स्ट्रीमिंग' ||
+            event['data'] == 'ストリーミング中') {
           if (mounted) {
             setState(() {
               _currProgress += 1;
@@ -204,11 +208,19 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
   @override
   void dispose() {
     _subscription.cancel();
-    _streamController.close();
-    _errorController.close();
-    _messageController.close();
-    _scrollController.dispose();
-    _scrollController2.dispose();
+    // _streamController.close();
+    // _errorController.close();
+    // _messageController.close();
+    // _scrollController.dispose();
+    // _scrollController2.dispose();
+    // Ensure that no further UI updates occur
+    if (mounted) {
+      _scrollController.dispose();
+      _scrollController2.dispose();
+      _streamController.close();
+      _errorController.close();
+      _messageController.close();
+    }
 
     super.dispose();
   }
@@ -254,7 +266,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                   ),
                   LgElevatedButton(
                     // elevatedButtonContent: 'OK',
-                    elevatedButtonContent: AppLocalizations.of(context)!.defaults_ok,
+                    elevatedButtonContent:
+                        AppLocalizations.of(context)!.defaults_ok,
                     // buttonColor: PrimaryAppColors.buttonColors,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
@@ -338,7 +351,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                   child: Text(
                                     // 'Error: ${snapshot.error}\nPlease try again later...',
                                     AppLocalizations.of(context)!
-                                        .aiGenerationAPIGemini_snapShotError(snapshot.error.toString()),
+                                        .aiGenerationAPIGemini_snapShotError(
+                                            snapshot.error.toString()),
                                     style: TextStyle(
                                       // color: FontAppColors.primaryFont,
                                       color: fontsProv.fonts.primaryFontColor,
@@ -352,7 +366,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                               ),
                               LgElevatedButton(
                                 // elevatedButtonContent: 'OK',
-                                elevatedButtonContent: AppLocalizations.of(context)!.defaults_ok,
+                                elevatedButtonContent:
+                                    AppLocalizations.of(context)!.defaults_ok,
                                 // buttonColor: PrimaryAppColors.buttonColors,
                                 buttonColor: colorProv.colors.buttonColors,
                                 onpressed: () {
@@ -417,7 +432,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                               ),
                               LgElevatedButton(
                                 // elevatedButtonContent: 'OK',
-                                elevatedButtonContent: AppLocalizations.of(context)!.defaults_ok,
+                                elevatedButtonContent:
+                                    AppLocalizations.of(context)!.defaults_ok,
                                 // buttonColor: PrimaryAppColors.buttonColors,
                                 buttonColor: colorProv.colors.buttonColors,
                                 onpressed: () {
@@ -566,7 +582,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                           return Text(
                                             // 'Error: ${snapshot.error}',
                                             AppLocalizations.of(context)!
-                                                .aiGenerationAPIGemini_snapShotError(snapshot.error.toString()),
+                                                .aiGenerationAPIGemini_snapShotError(
+                                                    snapshot.error.toString()),
                                             style: TextStyle(
                                               // color: FontAppColors.primaryFont,
                                               color: fontProv
@@ -700,10 +717,18 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                       ),
                                       LgElevatedButton(
                                         // elevatedButtonContent: 'Cancel',
-                                        elevatedButtonContent: AppLocalizations.of(context)!.defaults_cancel,
+                                        elevatedButtonContent:
+                                            AppLocalizations.of(context)!
+                                                .defaults_cancel,
                                         buttonColor: LgAppColors.lgColor2,
                                         onpressed: () {
-                                          Navigator.pop(context);
+                                          if (mounted) {
+                                            Navigator.pop(context);
+                                          }
+                                          // Navigator.pop(context);
+                                          // Navigator.of(context,
+                                          //         rootNavigator: true)
+                                          //     .pop();
                                         },
                                         height:
                                             MediaQuery.of(context).size.height *

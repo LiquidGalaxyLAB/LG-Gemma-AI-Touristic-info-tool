@@ -144,8 +144,8 @@ class LangchainService {
       ChatGoogleGenerativeAI llm = ChatGoogleGenerativeAI(
         apiKey: apiKey,
         defaultOptions: ChatGoogleGenerativeAIOptions(
-          model: "gemini-1.5-pro",
-          // model: "gemini-1.0-pro",
+          // model: "gemini-1.5-pro",
+          model: "gemini-1.0-pro",
         ),
       );
 
