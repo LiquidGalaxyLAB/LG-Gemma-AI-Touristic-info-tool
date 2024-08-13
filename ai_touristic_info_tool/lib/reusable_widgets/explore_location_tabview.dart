@@ -896,8 +896,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                     _isLoading = false;
                                   });
                                   if (res == '') {
+                                     Locale locale= await SettingsSharedPref.getLocale();
                                     showStreamingGeminiDialog(context, query,
-                                        _city, _country, apiKey);
+                                        _city, _country, apiKey,locale);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(

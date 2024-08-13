@@ -1,6 +1,7 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 import 'package:ai_touristic_info_tool/services/langchain_service.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
@@ -123,8 +124,9 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                 _isLoading = false;
               });
               if (res == '') {
+                Locale locale= await SettingsSharedPref.getLocale();
                 showStreamingGeminiDialog(context, widget.query,
-                    widget.city ?? '', widget.country ?? '', apiKey);
+                    widget.city ?? '', widget.country ?? '', apiKey, locale);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

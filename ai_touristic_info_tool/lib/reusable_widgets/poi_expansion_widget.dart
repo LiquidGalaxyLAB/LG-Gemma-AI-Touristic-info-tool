@@ -303,7 +303,7 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                         //         urlNum: 10);
                                         List<String> _futureUrls =
                                             await LangchainService()
-                                                .fetchUrlsTemp(context,
+                                                .fetchUrlsTemp(
                                                     widget.placeModel.name,
                                                     numResults: 10);
                                         /////////////////////////////////////////

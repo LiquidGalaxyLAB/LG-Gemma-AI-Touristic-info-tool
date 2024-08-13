@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
+import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:langchain/langchain.dart';
@@ -12,6 +13,7 @@ import 'package:langchain_google/langchain_google.dart';
 import 'package:http/http.dart' as http;
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class LangchainService {
   Future<Map<String, dynamic>> generateAnswer(
@@ -35,7 +37,8 @@ class LangchainService {
     ChatGoogleGenerativeAI llm = ChatGoogleGenerativeAI(
       apiKey: apiKey,
       defaultOptions: ChatGoogleGenerativeAIOptions(
-        model: "gemini-1.5-pro",
+        // model: "gemini-1.5-pro",
+        model: "gemini-1.0-pro",
       ),
     );
 
@@ -99,7 +102,7 @@ class LangchainService {
     }
   }
 
-  Stream<dynamic> generateStreamAnswer(String userQuery, String apiKey, BuildContext context) async* {
+  Stream<dynamic> generateStreamAnswer(String userQuery, String apiKey) async* {
     // Getting API key from env
     // final String apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
 
@@ -108,7 +111,7 @@ class LangchainService {
     // }
     try {
       // List<String> links = await fetchUrls(userQuery);
-      List<String> links = await fetchUrlsTemp(context, userQuery);
+      List<String> links = await fetchUrlsTemp(userQuery);
       print(links);
 
       final embeddings = GoogleGenerativeAIEmbeddings(
@@ -199,25 +202,36 @@ class LangchainService {
       // .map((result) => result.toString());
       final stream = chain.stream(userQuery);
       print('start stream');
-      yield {'type': 'message', 
-      // 'data': 'Streaming'
-      'data': AppLocalizations.of(context)!.aiGenerationAPIGemini_progressMessage1
+      yield {
+        'type': 'message',
+        'data': 'Streaming'
+        // 'data':
+        //     AppLocalizations.of(context)!.aiGenerationAPIGemini_progressMessage1
       };
       // print(await stream.isEmpty);
       await for (var result in stream) {
+        // ModelErrorProvider errorProv =
+        //     Provider.of<ModelErrorProvider>(context, listen: false);
+        // print('isCanceled?');
+        // print(errorProv.isCanceled);
+        // if (errorProv.isCanceled) {
+        //   return;
+        // }
         final placeCount = RegExp(r'name').allMatches(result.toString()).length;
         if (result.toString().contains('name:')) {
           print('results contains name');
           if (currPlaceCount < placeCount) {
             currPlaceCount = placeCount;
-            print('increment');
-            print(placeCount);
-            print(currPlaceCount);
+            // print('increment');
+            // print(placeCount);
+            // print(currPlaceCount);
             yield {
               'type': 'message',
-              // 'data': 'Streaming',
-              'data': AppLocalizations.of(context)!.aiGenerationAPIGemini_progressMessage1
+              'data': 'Streaming',
+              // 'data': AppLocalizations.of(context)!
+              //     .aiGenerationAPIGemini_progressMessage1
             };
+            print('after yield');
           }
         }
         print(await result);
@@ -226,38 +240,30 @@ class LangchainService {
           'data': result,
         };
       }
-      // print('done with stream');
+      print('will prep visualizations?');
 
-      // final full_result = chain.invoke(PromptValue.string(prompt));
-      // final full_result = chain.invoke(userQuery);
-      yield {'type': 'message', 
-      // 'data': 'Preparing visualizations'
-      'data': AppLocalizations.of(context)!.aiGenerationAPIGemini_progressMessage2
+      yield {
+        'type': 'message',
+        'data': 'Preparing visualizations'
+        // 'data':
+        //     AppLocalizations.of(context)!.aiGenerationAPIGemini_progressMessage2
       };
-      // bool isDone = false;
-      // await full_result.then((value) {
-      //   isDone = true;
-      // });
-
-      // yield {
-      //   'type': 'result',
-      //   'data': full_result,
-      // };
-      // if (isDone) {
-      //   yield {
-      //     'type': 'message',
-      //     'data': 'Almost Done! Please wait few seconds...'
-      //   };
-      // }
 
       print('full result');
     } catch (e) {
       print('exception');
+      print(e);
       // Handle exceptions and provide user-friendly error messages
-      yield {'type': 'error', 
-      // 'data': 'An error occurred: ${e.toString()}'
-      'data': AppLocalizations.of(context)!.aiGenerationAPIGemini_error1(e.toString())
+      //get provideR:
+
+      // if (!errorProv.isCanceled) {
+      yield {
+        'type': 'error',
+        'data': 'An error occurred: ${e.toString()}'
+        // 'data': AppLocalizations.of(context)!
+        //     .aiGenerationAPIGemini_error1(e.toString())
       };
+      // }
     }
   }
 
@@ -299,44 +305,46 @@ class LangchainService {
   //   return links;
   // }
 
-  Future<List<String>> fetchUrls(String userQuery, BuildContext context, {int urlNum = 20}) async {
-    final searchUrl =
-        'https://www.google.com/search?q=${Uri.encodeComponent(userQuery)}';
-    final response = await http.get(Uri.parse(searchUrl));
+//   Future<List<String>> fetchUrls(String userQuery, BuildContext context,
+//       {int urlNum = 20}) async {
+//     final searchUrl =
+//         'https://www.google.com/search?q=${Uri.encodeComponent(userQuery)}';
+//     final response = await http.get(Uri.parse(searchUrl));
 
-    if (response.statusCode == 200) {
-      // Parse the HTML content using BeautifulSoup
-      final soup = BeautifulSoup(response.body);
+//     if (response.statusCode == 200) {
+//       // Parse the HTML content using BeautifulSoup
+//       final soup = BeautifulSoup(response.body);
 
-      // Find all links that match Google search result pattern
-      final linkTags = soup.findAll('a');
-      print(linkTags.length);
-      print(linkTags);
-// # [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
-// #  <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>,
-// #  <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
-      List<String> links = [];
-      for (var tag in linkTags) {
-        final href = tag.attributes['href'];
-        if (href != null &&
-            href.startsWith('/url?q=https') &&
-            links.length < urlNum) {
-          final link = href.split('/url?q=')[1].split('&')[0];
-          links.add(link);
-        }
-      }
+//       // Find all links that match Google search result pattern
+//       final linkTags = soup.findAll('a');
+//       print(linkTags.length);
+//       print(linkTags);
+// // # [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
+// // #  <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>,
+// // #  <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
+//       List<String> links = [];
+//       for (var tag in linkTags) {
+//         final href = tag.attributes['href'];
+//         if (href != null &&
+//             href.startsWith('/url?q=https') &&
+//             links.length < urlNum) {
+//           final link = href.split('/url?q=')[1].split('&')[0];
+//           links.add(link);
+//         }
+//       }
 
-      print(links.length);
-      print(links[0]);
-      return links;
-    } else {
-      // throw Exception('Failed to load Google search results');
-      throw Exception(AppLocalizations.of(context)!.aiGenerationAPIGemini_errorFetchUrLs);
-    }
-  }
+//       print(links.length);
+//       print(links[0]);
+//       return links;
+//     } else {
+//       // throw Exception('Failed to load Google search results');
+//       throw Exception(
+//           AppLocalizations.of(context)!.aiGenerationAPIGemini_errorFetchUrLs);
+//     }
+//   }
 
   Future<List<String>> fetchUrlsTemp(
-    BuildContext context,
+    // BuildContext context,
     String term, {
     int numResults = 40,
     String lang = 'en',
@@ -345,14 +353,23 @@ class LangchainService {
     String? safe = 'active',
     String? region,
   }) async {
+    // const _userAgentList = [
+    //   'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0',
+    //   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+    //   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+    //   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+    //   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+    //   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.62',
+    //   'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0'
+    // ];
     const _userAgentList = [
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0',
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
-      'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.62',
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0'
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+      'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+      'Mozilla/5.0 (Linux; Android 13; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:115.0) Gecko/20100101 Firefox/115.0'
     ];
 
     final results = <String>[];
@@ -386,11 +403,21 @@ class LangchainService {
         },
       ).timeout(timeout ?? const Duration(seconds: 60));
 
+      print('response code: ${response.statusCode}');
+
       if (response.statusCode != 200) {
-        throw HttpException(
-            // 'Failed to fetch search results. Status code: ${response.statusCode}'
-            AppLocalizations.of(context)!.aiGenerationAPIGemini_errorFetchUrLs
-            );
+        if (response.statusCode == 429) {
+          // throw HttpException(
+          //     // 'Failed to fetch search results. Status code: ${response.statusCode}'
+          //     AppLocalizations.of(context)!.aiGenerationAPIGemini_errorFetchUrLs);
+          return [];
+        } else {
+          continue;
+        }
+
+        // throw HttpException(
+        //     // 'Failed to fetch search results. Status code: ${response.statusCode}'
+        //     AppLocalizations.of(context)!.aiGenerationAPIGemini_errorFetchUrLs);
       }
 
       final soup = BeautifulSoup(response.body);

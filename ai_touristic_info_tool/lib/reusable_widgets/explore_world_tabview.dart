@@ -576,8 +576,9 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                                         _isLoading = false;
                                       });
                                       if (res == '') {
+                                         Locale locale= await SettingsSharedPref.getLocale();
                                         showStreamingGeminiDialog(
-                                            context, query, '', '', apiKey);
+                                            context, query, '', '', apiKey, locale);
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(

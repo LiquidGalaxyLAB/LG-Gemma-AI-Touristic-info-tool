@@ -82,13 +82,17 @@ class SearchResultsContainer extends StatelessWidget {
                           color: Color.fromARGB(110, 210, 209, 209),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Text(
-                          // 'No URLs found',
-                          AppLocalizations.of(context)!.searchResults_noneFound,
-                          style: TextStyle(
-                            fontSize: fontProv.fonts.textSize,
-                            color: FontAppColors.primaryFont,
-                            fontFamily: fontType,
+                        child: Center(
+                          child: Text(
+                            // 'No URLs found',
+                            AppLocalizations.of(context)!
+                                .searchResults_noneFound,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: fontProv.fonts.textSize,
+                              color: FontAppColors.primaryFont,
+                              fontFamily: fontType,
+                            ),
                           ),
                         )));
               } else {

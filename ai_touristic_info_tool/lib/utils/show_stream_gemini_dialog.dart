@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void showStreamingGeminiDialog(
-    BuildContext context, String query, String city, String country, String apiKey) {
+    BuildContext context, String query, String city, String country, String apiKey, Locale locale) {
 
   showDialog(
     context: context,
@@ -52,6 +52,7 @@ void showStreamingGeminiDialog(
                 );
               }),
               content: ProcessContainerGemini(
+                locale: locale,
                 query: query,
                 city: city,
                 country: country,

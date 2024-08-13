@@ -20,12 +20,14 @@ class ProcessContainerGemini extends StatefulWidget {
   final String city;
   final String country;
   final String apiKey;
+  final Locale locale;
   const ProcessContainerGemini(
       {super.key,
       required this.query,
       this.city = '',
       this.country = '',
-      required this.apiKey});
+      required this.apiKey,
+      required this.locale});
 
   @override
   State<ProcessContainerGemini> createState() => _ProcessContainerGeminiState();
@@ -74,7 +76,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
     });
 
     _subscription = _langchainService
-        .generateStreamAnswer(widget.query, widget.apiKey, context)
+        .generateStreamAnswer(widget.query, widget.apiKey)
         // .timeout(
         // Duration(seconds: 30), // Set your timeout duration here
         // onTimeout: (sink) {
@@ -82,63 +84,76 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         // },
         // )
         .listen((event) {
-      if (event['type'] == 'stream') {
-        print('TYPE STREAM');
-        if (mounted) {
-          setState(() {
-            // _currProgress += 1;
-            print(_currProgress);
-            lastResult = event['data'];
-            _streamController.add(event['data']);
-          });
-        }
-      } else if (event['type'] == 'error') {
-        if (mounted) {
-          setState(() {
-            _isError = true;
-            print('Error Exception');
-            _errorController.addError(event['data']);
-          });
-        }
-      } else if (event['type'] == 'message') {
-        if (event['data'] == 'Preparing visualizations') {
+      if (mounted) {
+        print('listening, check after or ebfore dispose?');
+        if (event['type'] == 'stream') {
+          print('TYPE STREAM');
           if (mounted) {
             setState(() {
-              // _currProgress = 11;
-              _currProgress = 12;
-              _messageController.add(event['data']);
+              // _currProgress += 1;
+              print('mounted after dispose??');
+              print(_currProgress);
+              lastResult = event['data'];
+              _streamController.add(event['data']);
             });
           }
-        }
-        // else if (event['data'] == 'Almost Done! Please wait few seconds...') {
-        //   if (mounted) {
-        //     setState(() {
-        //       _currProgress = 12;
-        //       _messageController.add(event['data']);
-        //     });
-        //   }
-        // }
-        else if (event['data'] == 'Streaming' ||
-            event['data'] == "بث" ||
-            event['data'] == 'Transmitiendo' ||
-            event['data'] == 'स्ट्रीमिंग' ||
-            event['data'] == 'ストリーミング中') {
+        } else if (event['type'] == 'error') {
           if (mounted) {
+            print('mounted after dispose??');
             setState(() {
-              _currProgress += 1;
-              _messageController.add(event['data']);
+              _isError = true;
+              print('Error Exception');
+              _errorController.addError(event['data']);
             });
+          }
+        } else if (event['type'] == 'message') {
+          print('a message');
+          if (event['data'] == 'Preparing visualizations') {
+            if (mounted) {
+              print('mounted after dispose??');
+              setState(() {
+                print('mounted after dispose??');
+                // _currProgress = 11;
+                _currProgress = 12;
+                _messageController.add(event['data']);
+              });
+            }
+          }
+          // else if (event['data'] == 'Almost Done! Please wait few seconds...') {
+          //   if (mounted) {
+          //     setState(() {
+          //       _currProgress = 12;
+          //       _messageController.add(event['data']);
+          //     });
+          //   }
+          // }
+          else if (event['data'] == 'Streaming' ||
+              event['data'] == "بث" ||
+              event['data'] == 'Transmitiendo' ||
+              event['data'] == 'स्ट्रीमिंग' ||
+              event['data'] == 'ストリーミング中') {
+            if (mounted) {
+              setState(() {
+                print('mounted after dispose??');
+                _currProgress += 1;
+                _messageController.add(event['data']);
+              });
+            }
           }
         }
       }
     }, onDone: () {
-      print('ondone');
-      if (!_isError) {
-        _initializePlaces(lastResult);
+      if (mounted) {
+        print('ondone??');
+        if (!_isError) {
+          _initializePlaces(lastResult);
+        }
       }
     }, onError: (error) {
+      print('error hereeeeeeeeeeeeeeeeeeeee');
       if (mounted) {
         setState(() {
+          print('mounted after dispose??');
           _isError = true;
           _streamController.addError(error);
           _messageController.addError(error);
@@ -207,20 +222,19 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
 
   @override
   void dispose() {
-    _subscription.cancel();
+    print('dispose');
     // _streamController.close();
     // _errorController.close();
     // _messageController.close();
     // _scrollController.dispose();
     // _scrollController2.dispose();
-    // Ensure that no further UI updates occur
-    if (mounted) {
-      _scrollController.dispose();
-      _scrollController2.dispose();
-      _streamController.close();
-      _errorController.close();
-      _messageController.close();
-    }
+
+    _subscription.cancel();
+    _streamController.close();
+    _errorController.close();
+    _messageController.close();
+    _scrollController.dispose();
+    _scrollController2.dispose();
 
     super.dispose();
   }
@@ -599,7 +613,51 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                                 // ? 'Generation completed successfully!'
                                                 ? AppLocalizations.of(context)!
                                                     .aiGenerationAPIGemini_successGeneration
-                                                : snapshot.data.toString(),
+                                                : //check on locale and show relavant message:
+                                                snapshot.data.toString() ==
+                                                        'Streaming'
+                                                    ? widget.locale ==
+                                                            Locale('ar')
+                                                        ? 'جاري البث'
+                                                        : widget.locale ==
+                                                                Locale('ja')
+                                                            ? 'ストリーミング中'
+                                                            : widget.locale ==
+                                                                    Locale('hi')
+                                                                ? 'स्ट्रीमिंग'
+                                                                : widget.locale ==
+                                                                        Locale(
+                                                                            'es')
+                                                                    ? 'Transmitiendo'
+                                                                    : 'Streaming'
+                                                    : snapshot.data
+                                                                .toString() ==
+                                                            'Preparing visualizations'
+                                                        ? widget.locale ==
+                                                                Locale('ar')
+                                                            ? 'جاري تحضير التصورات'
+                                                            : widget.locale ==
+                                                                    Locale('ja')
+                                                                ? 'ビジュアライゼーションの準備中'
+                                                                : widget.locale ==
+                                                                        Locale(
+                                                                            'hi')
+                                                                    ? 'विजुअलाइजेशन की तैयारी'
+                                                                    : widget.locale ==
+                                                                            Locale(
+                                                                                'es')
+                                                                        ? 'Preparando visualizaciones'
+                                                                        : widget.locale ==
+                                                                                Locale('de')
+                                                                            ? 'Visualisierungen vorbereiten'
+                                                                            : widget.locale == Locale('fr')
+                                                                                ? 'Préparation des visualisations'
+                                                                                : widget.locale == Locale('it')
+                                                                                    ? 'Preparazione delle visualizzazioni'
+                                                                                    : 'Preparing visualizations'
+                                                        : 'Please wait...',
+
+                                            // snapshot.data.toString(),
                                             style: TextStyle(
                                               // color: FontAppColors.primaryFont,
                                               // fontSize: textSize,
@@ -723,8 +781,19 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                         buttonColor: LgAppColors.lgColor2,
                                         onpressed: () {
                                           if (mounted) {
+                                            print('mounted');
+                                            _subscription.cancel();
+                                            //error provideR:
+                                            // ModelErrorProvider errorProv =
+                                            //     Provider.of<ModelErrorProvider>(
+                                            //         context,
+                                            //         listen: false);
+                                            // errorProv.isCanceled = true;
+
                                             Navigator.pop(context);
+                                            // errorProv.isCanceled = false;
                                           }
+                                          print('pressed');
                                           // Navigator.pop(context);
                                           // Navigator.of(context,
                                           //         rootNavigator: true)

@@ -1,12 +1,19 @@
-
 import 'package:geocoding/geocoding.dart';
 // import 'package:geolocator/geolocator.dart';
 
 class GeocodingService {
   Future<MyLatLng> getCoordinates(String address) async {
-    List<Location> locations = await locationFromAddress(address);
-    Location location = locations.first;
-    return MyLatLng(location.latitude, location.longitude);
+    // List<Location> locations = await locationFromAddress(address);
+    // Location location = locations.first;
+    // return MyLatLng(location.latitude, location.longitude);
+    try {
+      List<Location> locations = await locationFromAddress(address);
+      Location location = locations.first;
+      return MyLatLng(location.latitude, location.longitude);
+    } catch (e) {
+      print('error geocoding failed to get coordinates: ${e}');
+      return MyLatLng(0.0, 0.0);
+    }
   }
 
   Future<Map<String, String?>> getAddressFromLatLng(
@@ -35,15 +42,20 @@ class GeocodingService {
         };
       }
     } catch (e) {
-      throw Exception('Failed to get address: $e');
-      // print('Failed to get address: $e');
+      print('Failed to get address: $e');
+      return {
+        'city': null,
+        'country': null,
+        'address': null,
+      };
+      // throw Exception('Failed to get address: $e');
     }
   }
 
 //   Future<bool> handleLocationPermission(BuildContext context) async {
 //   bool serviceEnabled;
 //   LocationPermission permission;
-  
+
 //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
 //   if (!serviceEnabled) {
 //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -53,7 +65,7 @@ class GeocodingService {
 //   permission = await Geolocator.checkPermission();
 //   if (permission == LocationPermission.denied) {
 //     permission = await Geolocator.requestPermission();
-//     if (permission == LocationPermission.denied) {   
+//     if (permission == LocationPermission.denied) {
 //       ScaffoldMessenger.of(context).showSnackBar(
 //           const SnackBar(content: Text('Location permissions are denied')));
 //       return false;
@@ -67,8 +79,6 @@ class GeocodingService {
 //   return true;
 // }
 }
-
-
 
 class MyLatLng {
   final double latitude;
