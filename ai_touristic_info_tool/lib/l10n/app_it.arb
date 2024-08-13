@@ -41,7 +41,70 @@
 
 
     "settingsHelp_title": "Pagina di Aiuto",
-    "settingsHelp_subtitle": "Tocca il pulsante qui sotto per visualizzare il tutorial dell'app!",
+    "settingsHelp_subtitle": "I seguenti sono diversi tutorial in-app per aiutarti a navigare nell'app:",
+    "settingsHelp_button1": "Guida all'App",
+    "settingsHelp_button2": "Come connettersi a Liquid Galaxy?",
+    "settingsHelp_button3": "Come controllare Liquid Galaxy?",
+    "settingsHelp_button4": "Come gestire le tue chiavi API?",
+    "settingsHelp_button5": "Visualizzare i tuoi tour",
+    "settingsHelp_button6": "Come utilizzare la funzione Preferiti?",
+    "settingsHelp_button7": "Come creare il tuo tour personalizzato?",
+    "settingsHelp_button8": "Come modificare le impostazioni dell'app?",
+
+    
+        "tutorialApp_title1": "Naviga alla tua pagina iniziale",
+        "tutorialApp_desc1": "È qui che puoi digitare il tuo comando e generare raccomandazioni AI in tutto il mondo o vicino alla tua posizione",
+        "tutorialApp_title2": "Connettiti al sistema Liquid Galaxy",
+        "tutorialApp_desc2": "Per vivere un'esperienza panoramica multi-schermo del mondo",
+        "tutorialApp_title3": "Controlla il Liquid Galaxy",
+        "tutorialApp_desc3": "Spegni, riavvia, rilancia il tuo LG e molto altro!",
+        "tutorialApp_title4": "Visualizza tutti i tuoi tour e luoghi salvati!",
+        "tutorialApp_desc4": "Puoi anche creare il tuo tour personalizzato!",
+        "tutorialApp_title5": "Tutte le impostazioni della tua app in un unico posto",
+        "tutorialApp_desc5": "Per un'esperienza più personalizzata!",
+        "tutorialApp_title6": "Scopri di più sull'app!",
+    
+        "tutorialLGConnect_title1": "Naviga al gestore di connessioni LG",
+        "tutorialLGConnect_title2": "Inserisci il tuo nome utente LG",
+        "tutorialLGConnect_title3": "Inserisci la tua password LG",
+        "tutorialLGConnect_title4": "Inserisci l'indirizzo IP del master LG",
+        "tutorialLGConnect_desc4": "Di solito inizia con 192.xxx.xxx.x",
+        "tutorialLGConnect_title5": "Inserisci il numero di porta LG",
+        "tutorialLGConnect_desc5": "Di solito è 22",
+        "tutorialLGConnect_title6": "Inserisci il numero di schermi LG nel tuo impianto",
+        "tutorialLGConnect_title7": "Clicca qui per connetterti dopo aver inserito i tuoi dati!",
+        "tutorialLGConnect_title8": "Controlla lo stato della tua connessione LG da qui",
+    
+        "tutorialTasls_titl1": "Naviga alle attività LG",
+        "tutorialTasls_title2": "Clicca qui per rilanciare il tuo LG",
+        "tutorialTasls_title3": "Clicca qui per riavviare il tuo LG",
+        "tutorialTasls_title4": "Clicca qui per spegnere il tuo LG",
+        "tutorialTasls_title5": "Clicca qui per mostrare i loghi dell'app sullo schermo più a sinistra di LG",
+        "tutorialTasls_title6": "Clicca qui per nascondere i loghi dell'app sullo schermo più a sinistra di LG",
+        "tutorialTasls_title7": "Clicca qui per pulire tutti i KML su LG",
+    
+        "tutorialFavs_navigate":"Naviga ai tuoi preferiti",
+        "tutorialFavs_titl1": "I tuoi tour salvati dalle visualizzazioni precedenti",
+        "tutorialFavs_desc1": "Puoi trovare tour generati dall'AI o personalizzati da te.",
+        "tutorialFavs_title2": "I tuoi luoghi salvati dalle visualizzazioni precedenti",
+        "tutorialFavs_desc2": "Puoi personalizzare il tuo tour dai tuoi luoghi salvati.",
+    
+        "tutorialSettings_title1": "Cambia la lingua dell'app da qui",
+        "tutorialSettings_title2": "Cambia l'aspetto dell'app da qui",
+        "tutorialSettings_title3": "Cambia la dimensione del carattere dell'app da qui",
+        "tutorialSettings_title4": "Gestisci le tue chiavi API da qui",
+        "tutorialSettings_desc4": "Puoi aggiungere, modificare o eliminare le tue chiavi API per diversi servizi.",
+    
+        "tutorialCustomization_title1": "Trascina i luoghi che vuoi visitare da qui",
+        "tutorialCustomization_title2": "Rilasciarli qui",
+        "tutorialCustomization_title3": "Crea il tuo tour personalizzato",
+        "tutorialCustomization_desc3": "Dopo aver creato il tuo tour apparirà un pulsante per visualizzarlo!",
+        "tutorialCustomization_title4": "Reimposta il tuo tour",
+        "tutorialCustomization_desc4": "Questo cancellerà tutti i luoghi che hai aggiunto al tuo tour",
+        "tutorialCustomization_title5": "Puoi seguire il tuo tour attuale qui",
+        "tutorialCustomization_desc5": "Scorri a destra o a sinistra per vedere tutto il tour",
+        "tutorialCustomization_title6": "Salva il tuo tour personalizzato",
+    
 
 
     "settingsLG_title": "Informazioni su Liquid Galaxy",
@@ -170,14 +233,17 @@
     "favs_savedTours": "Tutti i Tour Salvati",
     "favs_savedPlaces": "Luoghi Preferiti",
 
-    "favPlaces_title": "Tutti i tuoi luoghi preferiti nel mondo in un unico posto!",
+    "favPlaces_title": "Tutti i tuoi luoghi preferiti in tutto il mondo in un solo posto!",
     "favPlaces_customizeSubhead": "Per personalizzare un tour, seleziona almeno 2 luoghi",
-    "favPlaces_customizeError": "Seleziona almeno 2 luoghi per personalizzare un tour",
-    
-
+    "favPlaces_customizeSubhead2": "Tieni premuto su un luogo per rimuoverlo",
+    "favPlaces_customizeError": "Per personalizzare un tour, seleziona almeno 2 luoghi",
+    "favPlaces_none": "Nessun luogo preferito aggiunto ancora\nSalva alcuni luoghi per personalizzare un tour",
+    "favPlaces_removeConfirm": "Sei sicuro di voler rimuovere questo luogo?",
+  
     "favTours_generatedByGemini": "Generato da Gemini",
     "favTours_generatedByGemma": "Generato da Gemma",
     "favTours_customized": "Tour Personalizzato",
+    "favTours_none": "Nessun tour preferito aggiunto ancora\nSalva alcuni tour per visualizzarli qui",
 
 
     "textfield_error":"Il campo è obbligatorio",
@@ -349,6 +415,7 @@
     "defaults_generate": "GENERA",
     "defaults_customize": "Personalizza",
     "defaults_restart": "Rilancia",
+    "defaults_skip":"Salta",
 
 
     "searchResults_web": "Risultati Web per {query}",

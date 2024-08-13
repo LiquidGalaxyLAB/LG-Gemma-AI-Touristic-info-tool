@@ -1,4 +1,5 @@
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,7 @@ class _ConnectionIndicatorState extends State<ConnectionIndicator> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
+              key: GlobalKeys.showcaseKeyLGconnectionIndicator,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Flexible(

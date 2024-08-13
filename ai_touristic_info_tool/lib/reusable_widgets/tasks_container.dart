@@ -42,11 +42,10 @@ class LgTasksButton extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: CircleAvatar(
-                backgroundColor: borderColor,
+                backgroundColor: Colors.white,
                 radius: 20,
-                child: 
-                Image.asset(imgPath,
-                
+                child: Image.asset(
+                  imgPath,
                 ),
                 // Icon(
                 //  icon,

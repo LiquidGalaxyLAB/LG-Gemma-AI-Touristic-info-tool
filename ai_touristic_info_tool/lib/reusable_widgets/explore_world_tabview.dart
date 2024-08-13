@@ -2,6 +2,7 @@ import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container_widget.dart';
@@ -38,10 +39,13 @@ class ExploreWorldTabView extends StatefulWidget {
 
 class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
   bool _isLoading = false;
+  final ScrollController _scrollController = ScrollController();
   //init:
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: _scrollController,
       child: Consumer<FontsProvider>(
         builder:
             (BuildContext context, FontsProvider fontsProv, Widget? child) {
@@ -66,6 +70,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
               Padding(
                 padding: const EdgeInsets.only(top: 40.0, bottom: 80),
                 child: CarouselSlider(
+                  // key: GlobalKeys.showcaseKeyTouristicRecommendationWorldwide,
                   items: [
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 1,
@@ -73,13 +78,15 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-london.jpg',
                       // title: 'Attractions in London, UK',
-                      title: AppLocalizations.of(context)!.exploreWorld_londonTitle,
+                      title: AppLocalizations.of(context)!
+                          .exploreWorld_londonTitle,
                       query: 'Attractions in London, UK',
                       country: 'United Kingdom',
                       city: 'London',
                       // description:
                       //     'Visit iconic sites such as the Tower of London, Buckingham Palace, and the British Museum.',
-                      description: AppLocalizations.of(context)!.exploreWorld_londonDesc,
+                      description:
+                          AppLocalizations.of(context)!.exploreWorld_londonDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -90,12 +97,14 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-egypt1.jpg',
                       // title: 'Nile River Cruise in Egypt',
-                      title: AppLocalizations.of(context)!.exploreWorld_nileEgyptTitle,
+                      title: AppLocalizations.of(context)!
+                          .exploreWorld_nileEgyptTitle,
                       query: 'Nile River Cruise in Egypt',
                       country: 'Egypt',
                       // description:
                       //     'Sail along the historic Nile River, visiting ancient temples and monuments.',
-                      description: AppLocalizations.of(context)!.exploreWorld_nileEgyptDesc,
+                      description: AppLocalizations.of(context)!
+                          .exploreWorld_nileEgyptDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -107,13 +116,15 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       imagePath: 'assets/images/rec-egypt2.jpg',
                       // title:
                       //     'Dive the Pristine Coral Reefs of the Red Sea, Egypt',
-                      title: AppLocalizations.of(context)!.exploreWorld_redSeaEgyptTitle,
+                      title: AppLocalizations.of(context)!
+                          .exploreWorld_redSeaEgyptTitle,
                       query:
                           'Dive the Pristine Coral Reefs of the Red Sea, Egypt',
                       country: 'Egypt',
                       // description:
                       //     'Experience world-class diving with vibrant marine life and stunning coral reefs.',
-                      description: AppLocalizations.of(context)!.exploreWorld_redSeaEgyptDesc,
+                      description: AppLocalizations.of(context)!
+                          .exploreWorld_redSeaEgyptDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -124,12 +135,14 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-scotland.jpg',
                       // title: 'Highland Adventure in the Scottish Highlands',
-                      title: AppLocalizations.of(context)!.exploreWorld_scotlandTitle,
+                      title: AppLocalizations.of(context)!
+                          .exploreWorld_scotlandTitle,
                       query: 'Highland Adventure in the Scottish Highlands',
                       country: 'Scotland',
                       // description:
                       //     'Explore rugged landscapes, historic castles, and scenic lochs in Scotland.',
-                     description: AppLocalizations.of(context)!.exploreWorld_scotlandDesc,
+                      description: AppLocalizations.of(context)!
+                          .exploreWorld_scotlandDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -140,12 +153,14 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-spain.jpg',
                       // title: 'Art and Architecture Tour in Spain',
-                      title: AppLocalizations.of(context)!.exploreWorld_spainTitle,
+                      title:
+                          AppLocalizations.of(context)!.exploreWorld_spainTitle,
                       query: 'Art and Architecture Tour in Spain',
                       country: 'Spain',
                       // description:
                       //     'Discover Spain\'s rich artistic heritage and architectural marvels, including Gaudí’s works.',
-                      description: AppLocalizations.of(context)!.exploreWorld_spainDesc,
+                      description:
+                          AppLocalizations.of(context)!.exploreWorld_spainDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -156,13 +171,15 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-iceland.jpg',
                       // title: 'Volcano Trekking in Iceland',
-                      title: AppLocalizations.of(context)!.exploreWorld_icelandTitle,
+                      title: AppLocalizations.of(context)!
+                          .exploreWorld_icelandTitle,
 
                       query: 'Volcano Trekking in Iceland',
                       country: 'Iceland',
                       // description:
                       //     'Trek across lava fields, hot springs, and stunning volcanic landscapes.',
-                      description: AppLocalizations.of(context)!.exploreWorld_icelandDesc,
+                      description: AppLocalizations.of(context)!
+                          .exploreWorld_icelandDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -173,12 +190,14 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-europe.jpg',
                       // title: 'Cycling Tour in Europe',
-                      title: AppLocalizations.of(context)!.exploreWorld_europeTitle,
+                      title: AppLocalizations.of(context)!
+                          .exploreWorld_europeTitle,
                       query: 'Cycling Tour in Europe',
                       country: 'Europe',
                       // description:
                       //     'Enjoy a cycling adventure through picturesque landscapes and historic towns in Europe.',
-                      description: AppLocalizations.of(context)!.exploreWorld_europeDesc,
+                      description:
+                          AppLocalizations.of(context)!.exploreWorld_europeDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -189,12 +208,14 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-uae.jpg',
                       // title: 'Desert Safari in UAE',
-                      title: AppLocalizations.of(context)!.exploreWorld_uaeTitle,
+                      title:
+                          AppLocalizations.of(context)!.exploreWorld_uaeTitle,
                       query: 'Desert Safari in UAE',
                       country: 'UAE',
                       // description:
                       //     'Experience thrilling dune bashing, camel rides, and a taste of Bedouin culture.',
-                     description: AppLocalizations.of(context)!.exploreWorld_uaeDesc,
+                      description:
+                          AppLocalizations.of(context)!.exploreWorld_uaeDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -205,12 +226,14 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-paris.png',
                       // title: 'City Tour in Paris, France',
-                      title: AppLocalizations.of(context)!.exploreWorld_parisTitle,
+                      title:
+                          AppLocalizations.of(context)!.exploreWorld_parisTitle,
                       query: 'City Tour in Paris, France',
                       country: 'France',
                       // description:
                       //     'Explore iconic landmarks like the Eiffel Tower, Louvre Museum, and Notre-Dame Cathedral.',
-                      description: AppLocalizations.of(context)!.exploreWorld_parisDesc,
+                      description:
+                          AppLocalizations.of(context)!.exploreWorld_parisDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -221,12 +244,14 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-norway.jpg',
                       // title: 'Aurora Borealis Viewing in Norway',
-                      title: AppLocalizations.of(context)!.exploreWorld_norwayTitle,
+                      title: AppLocalizations.of(context)!
+                          .exploreWorld_norwayTitle,
                       query: 'Aurora Borealis Viewing in Norway',
                       country: 'Norway',
                       // description:
                       //     'Witness the stunning Northern Lights in one of the best viewing spots on Earth.',
-                      description: AppLocalizations.of(context)!.exploreWorld_norwayDesc,
+                      description:
+                          AppLocalizations.of(context)!.exploreWorld_norwayDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -237,12 +262,14 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-japan.jpg',
                       // title: 'Cultural Tour in Kyoto, Japan',
-                      title: AppLocalizations.of(context)!.exploreWorld_japanTitle,
+                      title:
+                          AppLocalizations.of(context)!.exploreWorld_japanTitle,
                       query: 'Cultural Tour in Kyoto, Japan',
                       country: 'Japan',
                       // description:
                       //     'Discover ancient temples, traditional tea houses, and the serene beauty of Kyoto\'s gardens.',
-                      description: AppLocalizations.of(context)!.exploreWorld_japanDesc,
+                      description:
+                          AppLocalizations.of(context)!.exploreWorld_japanDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -253,12 +280,14 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       bottomOpacity: 0.6,
                       imagePath: 'assets/images/rec-india2.jpeg',
                       // title: 'Yoga and Wellness Retreats in India',
-                      title: AppLocalizations.of(context)!.exploreWorld_indiaTitle,
+                      title:
+                          AppLocalizations.of(context)!.exploreWorld_indiaTitle,
                       query: 'Yoga and Wellness Retreats in India',
                       country: 'India',
                       // description:
                       //     'Engage in rejuvenating yoga sessions and meditation practices in serene settings.',
-                      description: AppLocalizations.of(context)!.exploreWorld_indiaDesc,
+                      description:
+                          AppLocalizations.of(context)!.exploreWorld_indiaDesc,
                       txtSize: textSize + 6,
                       // txtSize: fontsProv.fonts.textSize + 6,
                       descriptionSize: textSize + 2,
@@ -301,7 +330,8 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         bottomOpacity: 0.6,
                         imagePath: 'assets/images/landmark.png',
                         // title: 'Visting Major Landmarks',
-                        title: AppLocalizations.of(context)!.exploreWorld_landmarks,
+                        title: AppLocalizations.of(context)!
+                            .exploreWorld_landmarks,
                         query: 'Visting Major Landmarks Worldwide',
                         txtSize: textSize + 6,
                         // txtSize: fontsProv.fonts.textSize + 6,
@@ -325,7 +355,8 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         bottomOpacity: 0.6,
                         imagePath: 'assets/images/sightseeing.png',
                         // title: 'City Sightseeing Tours',
-                        title: AppLocalizations.of(context)!.exploreWorld_sightseeing,
+                        title: AppLocalizations.of(context)!
+                            .exploreWorld_sightseeing,
                         query: 'City Sightseeing Tours Worldwide',
                         txtSize: textSize + 6,
                         // txtSize: fontsProv.fonts.textSize + 6,
@@ -337,7 +368,8 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         bottomOpacity: 0.6,
                         imagePath: 'assets/images/museum.png',
                         // title: 'Museums and Historical Sites',
-                        title: AppLocalizations.of(context)!.exploreWorld_museums,
+                        title:
+                            AppLocalizations.of(context)!.exploreWorld_museums,
                         query: 'Museums and Historical Sites Worldwide',
                         txtSize: textSize + 6,
                         // txtSize: fontsProv.fonts.textSize + 6,
@@ -349,7 +381,8 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         bottomOpacity: 0.6,
                         imagePath: 'assets/images/wildlife.png',
                         // title: 'Nature and Wildlife Tours',
-                        title: AppLocalizations.of(context)!.exploreWorld_nature,
+                        title:
+                            AppLocalizations.of(context)!.exploreWorld_nature,
                         query: 'Nature and Wildlife Tours Worldwide',
                         txtSize: textSize + 6,
                         // txtSize: fontsProv.fonts.textSize + 6,
@@ -361,7 +394,8 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         bottomOpacity: 0.6,
                         imagePath: 'assets/images/adventure.jpg',
                         // title: 'Adventure Sports',
-                        title: AppLocalizations.of(context)!.exploreWorld_adventure,
+                        title: AppLocalizations.of(context)!
+                            .exploreWorld_adventure,
                         query: 'Adventure Sports Worldwide',
                         txtSize: textSize + 6,
                         // txtSize: fontsProv.fonts.textSize + 6,
@@ -433,7 +467,8 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         bottomOpacity: 0.6,
                         imagePath: 'assets/images/football.jpg',
                         // title: 'Football Stadium Tours and Matches',
-                        title: AppLocalizations.of(context)!.exploreWorld_football,
+                        title:
+                            AppLocalizations.of(context)!.exploreWorld_football,
                         query: 'Football Stadium Tours and Matches Worldwide',
                         txtSize: textSize + 6,
                         // txtSize: fontsProv.fonts.textSize + 6,
@@ -553,7 +588,8 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                                                   Widget? child) {
                                                 return Text(
                                                   // 'Please add a default API Key for Gemini in the settings!',
-                                                   AppLocalizations.of(context)!.settings_apiKeyNotSetDefaultError,
+                                                  AppLocalizations.of(context)!
+                                                      .settings_apiKeyNotSetDefaultError,
                                                   style: TextStyle(
                                                     fontSize:
                                                         value.fonts.textSize,
@@ -576,9 +612,10 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                                         _isLoading = false;
                                       });
                                       if (res == '') {
-                                         Locale locale= await SettingsSharedPref.getLocale();
-                                        showStreamingGeminiDialog(
-                                            context, query, '', '', apiKey, locale);
+                                        Locale locale = await SettingsSharedPref
+                                            .getLocale();
+                                        showStreamingGeminiDialog(context,
+                                            query, '', '', apiKey, locale);
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -610,8 +647,10 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                             elevatedButtonContent:
                                 // _isLoading ? 'Loading..' : ' GENERATE',
                                 _isLoading
-                                    ? AppLocalizations.of(context)!.defaults_loading
-                                    : AppLocalizations.of(context)!.defaults_generate,
+                                    ? AppLocalizations.of(context)!
+                                        .defaults_loading
+                                    : AppLocalizations.of(context)!
+                                        .defaults_generate,
                           );
                         },
                       ),

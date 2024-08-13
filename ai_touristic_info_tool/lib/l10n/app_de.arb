@@ -40,8 +40,71 @@
 
 
     "settingsHelp_title": "Hilfeseite",
-    "settingsHelp_subtitle": "Tippen Sie auf die Schaltfläche unten, um das App-Tutorial anzuzeigen!",
+    "settingsHelp_subtitle": "Die folgenden sind verschiedene In-App-Tutorials, um dir bei der Navigation durch die App zu helfen:",
+    "settingsHelp_button1": "App-Leitfaden",
+    "settingsHelp_button2": "Wie verbindet man sich mit Liquid Galaxy?",
+    "settingsHelp_button3": "Wie steuert man Liquid Galaxy?",
+    "settingsHelp_button4": "Wie verwaltet man deine API-Schlüssel?",
+    "settingsHelp_button5": "Visualisierung deiner Touren",
+    "settingsHelp_button6": "Wie nutzt man die Favoriten-Funktion?",
+    "settingsHelp_button7": "Wie erstellt man eine eigene benutzerdefinierte Tour?",
+    "settingsHelp_button8": "Wie ändert man die App-Einstellungen?",
 
+    
+        "tutorialApp_title1": "Navigiere zu deiner Startseite",
+        "tutorialApp_desc1": "Hier kannst du deinen Befehl eingeben und KI-Empfehlungen weltweit oder in deiner Nähe generieren",
+        "tutorialApp_title2": "Verbinde dich mit dem Liquid Galaxy System",
+        "tutorialApp_desc2": "Um eine mehrbildschirmige Panoramansicht der Welt zu erleben",
+        "tutorialApp_title3": "Steuere das Liquid Galaxy",
+        "tutorialApp_desc3": "Schalte dein LG aus, starte es neu, starte es neu und vieles mehr!",
+        "tutorialApp_title4": "Sieh dir alle deine gespeicherten Touren und Orte an!",
+        "tutorialApp_desc4": "Du kannst auch deine eigene individuelle Tour erstellen!",
+        "tutorialApp_title5": "Alle deine App-Einstellungen an einem Ort",
+        "tutorialApp_desc5": "Für eine individuellere Erfahrung!",
+        "tutorialApp_title6": "Erfahre mehr über die App!",
+    
+        "tutorialLGConnect_title1": "Navigiere zum LG-Verbindungsmanager",
+        "tutorialLGConnect_title2": "Gib deinen LG-Benutzernamen ein",
+        "tutorialLGConnect_title3": "Gib dein LG-Passwort ein",
+        "tutorialLGConnect_title4": "Gib die IP-Adresse des LG-Masters ein",
+        "tutorialLGConnect_desc4": "Es beginnt normalerweise mit 192.xxx.xxx.x",
+        "tutorialLGConnect_title5": "Gib die LG-Portnummer ein",
+        "tutorialLGConnect_desc5": "Es ist normalerweise 22",
+        "tutorialLGConnect_title6": "Gib die Anzahl der LG-Bildschirme in deinem Rig ein",
+        "tutorialLGConnect_title7": "Klicke hier, um dich nach Eingabe deiner Daten zu verbinden!",
+        "tutorialLGConnect_title8": "Überprüfe hier den Status deiner LG-Verbindung",
+    
+        "tutorialTasls_title1": "Navigiere zu LG-Aufgaben",
+        "tutorialTasls_title2": "Klicke hier, um dein LG neu zu starten",
+        "tutorialTasls_title3": "Klicke hier, um dein LG neu zu starten",
+        "tutorialTasls_title4": "Klicke hier, um dein LG herunterzufahren",
+        "tutorialTasls_title5": "Klicke hier, um die App-Logos auf dem linken Bildschirm von LG anzuzeigen",
+        "tutorialTasls_title6": "Klicke hier, um die App-Logos auf dem linken Bildschirm von LG auszublenden",
+        "tutorialTasls_title7": "Klicke hier, um alle KMLs auf LG zu bereinigen",
+    
+        "tutorialFavs_navigate":"Navigiere zu deinen Favoriten",
+        "tutorialFavs_title1": "Deine gespeicherten Touren aus früheren Visualisierungen",
+        "tutorialFavs_desc1": "Du kannst von der KI generierte oder von dir selbst erstellte Touren finden.",
+        "tutorialFavs_title2": "Deine gespeicherten Orte aus früheren Visualisierungen",
+        "tutorialFavs_desc2": "Du kannst deine eigene Tour aus deinen gespeicherten Orten anpassen.",
+    
+        "tutorialSettings_title1": "Ändere die App-Sprache hier",
+        "tutorialSettings_title2": "Ändere das Aussehen der App hier",
+        "tutorialSettings_title3": "Ändere die Schriftgröße der App hier",
+        "tutorialSettings_title4": "Verwalte hier deine API-Schlüssel",
+        "tutorialSettings_desc4": "Du kannst deine API-Schlüssel für verschiedene Dienste hinzufügen, bearbeiten oder löschen.",
+    
+        "tutorialCustomization_title1": "Ziehe die Orte, die du besuchen möchtest, von hier",
+        "tutorialCustomization_title2": "Hier ablegen",
+        "tutorialCustomization_title3": "Erstelle deine individuelle Tour",
+        "tutorialCustomization_desc3": "Nach dem Erstellen deiner Tour erscheint eine Schaltfläche, um sie zu visualisieren!",
+        "tutorialCustomization_title4": "Setze deine Tour zurück",
+        "tutorialCustomization_desc4": "Dies löscht alle Orte, die du zu deiner Tour hinzugefügt hast",
+        "tutorialCustomization_title5": "Du kannst deine aktuelle Tour hier verfolgen",
+        "tutorialCustomization_desc5": "Wische nach rechts oder links, um die gesamte Tour anzuzeigen",
+        "tutorialCustomization_title6": "Speichere deine angepasste Tour",
+    
+    
 
     "settingsLG_title": "Über Liquid Galaxy",
     "settingsLG_desc": "Liquid Galaxy ist ein multiscreen, immersives System, das durch die Synchronisation mehrerer Bildschirme Panoramablicke bietet. Ursprünglich ein Google-Projekt, ermöglicht es den Nutzern, Orte in einem nahtlosen 360-Grad-Erlebnis zu erkunden",
@@ -169,14 +232,17 @@
     "favs_savedTours": "Alle gespeicherten Touren",
     "favs_savedPlaces": "Lieblingsorte",
 
-    "favPlaces_title": "Alle Ihre Lieblingsorte weltweit an einem Ort!",
-    "favPlaces_customizeSubhead": "Um eine Tour anzupassen, wählen Sie bitte mindestens 2 Orte aus",
-    "favPlaces_customizeError": "Bitte wählen Sie mindestens 2 Orte aus, um eine Tour anzupassen",
-    
+"favPlaces_title": "Alle deine Lieblingsorte weltweit an einem Ort!",
+  "favPlaces_customizeSubhead": "Um eine Tour anzupassen, wähle bitte mindestens 2 Orte aus",
+  "favPlaces_customizeSubhead2": "Lange auf einen Ort drücken, um ihn zu entfernen",
+  "favPlaces_customizeError": "Bitte wähle mindestens 2 Orte aus, um eine Tour anzupassen",
+  "favPlaces_none": "Noch keine Lieblingsorte hinzugefügt\nBitte speichere einige Orte, um eine Tour anzupassen",
+  "favPlaces_removeConfirm": "Bist du sicher, dass du diesen Ort entfernen möchtest?",
 
-    "favTours_generatedByGemini": "Generiert von Gemini",
-    "favTours_generatedByGemma": "Generiert von Gemma",
-    "favTours_customized": "Angepasste Tour",
+  "favTours_generatedByGemini": "Erzeugt von Gemini",
+  "favTours_generatedByGemma": "Erzeugt von Gemma",
+  "favTours_customized": "Angepasste Tour",
+  "favTours_none": "Noch keine Lieblingstouren hinzugefügt\nBitte speichere einige Touren, um sie hier anzuzeigen",
 
 
     "textfield_error":"Das Feld ist erforderlich",
@@ -348,6 +414,7 @@
     "defaults_generate": "GENERIEREN",
     "defaults_customize": "Anpassen",
     "defaults_restart": "Neustart",
+    "defaults_skip":"Überspringen",
     
 
     "searchResults_web": "Web-Ergebnisse für {query}",

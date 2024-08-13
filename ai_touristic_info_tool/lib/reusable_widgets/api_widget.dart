@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class APIWidget extends StatefulWidget {
   const APIWidget({super.key});
 
@@ -36,14 +35,17 @@ class _APIWidgetState extends State<APIWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Text(
-                  // 'API Keys Settings',
-                  AppLocalizations.of(context)!.settings_apiKeySettings,
-                  style: TextStyle(
-                    fontSize: fontProv.fonts.headingSize,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: fontType,
+                child: Center(
+                  child: Text(
+                    // 'API Keys Settings',
+                    textAlign: TextAlign.center,
+                    AppLocalizations.of(context)!.settings_apiKeySettings,
+                    style: TextStyle(
+                      fontSize: fontProv.fonts.headingSize,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: fontType,
+                    ),
                   ),
                 ),
               ),
@@ -125,7 +127,8 @@ class _APIWidgetState extends State<APIWidget> {
                   padding: const EdgeInsets.all(20.0),
                   child: LgElevatedButton(
                     // elevatedButtonContent: 'Add Key',
-                    elevatedButtonContent: AppLocalizations.of(context)!.settings_AddKey,
+                    elevatedButtonContent:
+                        AppLocalizations.of(context)!.settings_AddKey,
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () async {
                       await addAPIKeyDialog(context, colorProv, _formKeyAddKey,
@@ -171,7 +174,8 @@ Widget getSavedAPIKeysWidget(
             return Center(
                 child: Text(
               // 'Error: ${snapshot.error}',
-              AppLocalizations.of(context)!.settings_errorSnapshot(snapshot.error.toString()),
+              AppLocalizations.of(context)!
+                  .settings_errorSnapshot(snapshot.error.toString()),
               style: TextStyle(
                 fontSize: fontProv.fonts.textSize,
                 color: Colors.black,
@@ -273,7 +277,8 @@ Widget getSavedAPIKeysWidget(
                                           backgroundColor: LgAppColors.lgColor4,
                                           content: Text(
                                             // 'API Key deleted. Please refresh your API keys',
-                                            AppLocalizations.of(context)!.settings_apiKeyDeleteNotification,
+                                            AppLocalizations.of(context)!
+                                                .settings_apiKeyDeleteNotification,
                                             style: TextStyle(
                                               fontSize: fontProv.fonts.textSize,
                                               color: Colors.white,
@@ -300,7 +305,8 @@ Widget getSavedAPIKeysWidget(
                                           backgroundColor: LgAppColors.lgColor4,
                                           content: Text(
                                             // 'API Key is set as default. Please refresh your API keys',
-                                            AppLocalizations.of(context)!.settings_apiKeySetDefaultNotification,
+                                            AppLocalizations.of(context)!
+                                                .settings_apiKeySetDefaultNotification,
                                             style: TextStyle(
                                               fontSize: fontProv.fonts.textSize,
                                               color: Colors.white,

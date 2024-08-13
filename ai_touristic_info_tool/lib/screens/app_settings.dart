@@ -245,6 +245,7 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                               //       'Click to learn how to use the app',
                               // ),
                               SettingsOptionButton(
+                                key: GlobalKeys.showcaseKeyLanguages,
                                 // buttonText: 'Language',
                                 buttonText: AppLocalizations.of(context)!
                                     .settingsLanguage_title,
@@ -263,6 +264,7 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                     MediaQuery.of(context).size.height * 0.01,
                               ),
                               SettingsOptionButton(
+                                key: GlobalKeys.showcaseKeyAppearance,
                                 // buttonText: 'Appearance',
                                 buttonText: AppLocalizations.of(context)!
                                     .settings_themeTitle,
@@ -281,6 +283,7 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                     MediaQuery.of(context).size.height * 0.01,
                               ),
                               SettingsOptionButton(
+                                key: GlobalKeys.showcaseKeyFontSize,
                                 // buttonText: 'Font Size',
                                 buttonText: AppLocalizations.of(context)!
                                     .settings_fontSizeTitle,
@@ -316,6 +319,7 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                     MediaQuery.of(context).size.height * 0.01,
                               ),
                               SettingsOptionButton(
+                                key: GlobalKeys.showcaseKeyAPIKeys,
                                 // buttonText: 'API Keys',
                                 buttonText: AppLocalizations.of(context)!
                                     .settings_apiKeyTitle,

@@ -40,7 +40,69 @@
 
 
     "settingsHelp_title": "صفحة المساعدة",
-    "settingsHelp_subtitle": "اضغط على الزر أدناه لعرض دليل التطبيق!",
+    "settingsHelp_subtitle": "تتضمن التطبيقات التالية دروسًا مختلفة لمساعدتك في التنقل داخل التطبيق:",
+    "settingsHelp_button1": "دليل التطبيق",
+    "settingsHelp_button2": "كيفية الاتصال بـ Liquid Galaxy؟",
+    "settingsHelp_button3": "كيفية التحكم في Liquid Galaxy؟",
+    "settingsHelp_button4": "كيفية إدارة مفاتيح API الخاصة بك؟",
+    "settingsHelp_button5": "تصور جولاتك",
+    "settingsHelp_button6": "كيفية استخدام ميزة المفضلات؟",
+    "settingsHelp_button7": "كيفية إنشاء جولة مخصصة خاصة بك؟",
+    "settingsHelp_button8": "كيفية تغيير إعدادات التطبيق؟",
+
+    "tutorialApp_title1": "انتقل إلى صفحتك الرئيسية",
+    "tutorialApp_desc1": "هنا يمكنك كتابة مطالبتك وإنشاء توصيات ذكاء اصطناعي على مستوى العالم أو بالقرب من موقعك",
+    "tutorialApp_title2": "الاتصال بنظام Liquid Galaxy",
+    "tutorialApp_desc2": "لتجربة عرض بانورامي متعدد الشاشات للعالم",
+    "tutorialApp_title3": "تحكم في Liquid Galaxy",
+    "tutorialApp_desc3": "إيقاف تشغيل، إعادة تشغيل، إعادة تشغيل نظام LG والمزيد!",
+    "tutorialApp_title4": "عرض جميع الجولات والأماكن المحفوظة الخاصة بك!",
+    "tutorialApp_desc4": "يمكنك أيضًا إنشاء جولة مخصصة خاصة بك!",
+    "tutorialApp_title5": "جميع إعدادات التطبيق في مكان واحد",
+    "tutorialApp_desc5": "لتجربة أكثر تخصيصًا!",
+    "tutorialApp_title6": "تعرف على المزيد حول التطبيق",
+
+    "tutorialLGConnect_title1": "انتقل إلى مدير الاتصال بـ LG",
+    "tutorialLGConnect_title2": "أدخل اسم المستخدم الخاص بك لـ LG",
+    "tutorialLGConnect_title3": "أدخل كلمة المرور الخاصة بك لـ LG",
+    "tutorialLGConnect_title4": "أدخل عنوان IP الخاص بماستر LG",
+    "tutorialLGConnect_desc4": "عادةً ما يبدأ بـ 192.xxx.xxx.x",
+    "tutorialLGConnect_title5": "أدخل رقم منفذ LG الخاص بك",
+    "tutorialLGConnect_desc5": "عادةً ما يكون 22",
+    "tutorialLGConnect_title6": "أدخل عدد شاشات LG في نظامك",
+    "tutorialLGConnect_title7": "انقر هنا للاتصال بعد إدخال بياناتك!",
+    "tutorialLGConnect_title8": "تحقق من حالة اتصال LG الخاص بك من هنا",
+
+    "tutorialTasls_titl1": "انتقل إلى مهام LG",
+    "tutorialTasls_title2": "انقر هنا لإعادة تشغيل LG الخاص بك",
+    "tutorialTasls_title3": "انقر هنا لإعادة تشغيل LG الخاص بك",
+    "tutorialTasls_title4": "انقر هنا لإيقاف تشغيل LG الخاص بك",
+    "tutorialTasls_title5": "انقر هنا لعرض شعارات التطبيق على الشاشة اليسرى لنظام LG",
+    "tutorialTasls_title6": "انقر هنا لإخفاء شعارات التطبيق على الشاشة اليسرى لنظام LG",
+    "tutorialTasls_title7": "انقر هنا لمسح جميع ملفات KML على LG",
+
+    "tutorialFavs_navigate":"انتقل إلى صفحة المفضلات",
+    "tutorialFavs_titl1": "جولاتك المحفوظة من التصورات السابقة",
+    "tutorialFavs_desc1": "يمكنك العثور على جولات تم إنشاؤها بواسطة الذكاء الاصطناعي أو تم تخصيصها بواسطةك.",
+    "tutorialFavs_title2": "أماكنك المحفوظة من التصورات السابقة",
+    "tutorialFavs_desc2": "يمكنك تخصيص جولة خاصة بك من الأماكن المحفوظة لديك.",
+
+    "tutorialSettings_title1": "تغيير لغة التطبيق من هنا",
+    "tutorialSettings_title2": "تغيير مظهر التطبيق من هنا",
+    "tutorialSettings_title3": "تغيير حجم الخط في التطبيق من هنا",
+    "tutorialSettings_title4": "إدارة مفاتيح API الخاصة بك من هنا",
+    "tutorialSettings_desc4": "يمكنك إضافة أو تعديل أو حذف مفاتيح API الخاصة بك لخدمات مختلفة.",
+
+    "tutorialCustomization_title1": "اسحب الأماكن التي تريد زيارتها من هنا",
+    "tutorialCustomization_title2": "قم بإفلاتها هنا",
+    "tutorialCustomization_title3": "أنشئ جولتك المخصصة",
+    "tutorialCustomization_desc3": "سيظهر زر بعد إنشاء جولتك لعرضها!",
+    "tutorialCustomization_title4": "إعادة ضبط جولتك",
+    "tutorialCustomization_desc4": "سيؤدي ذلك إلى مسح جميع الأماكن التي أضفتها إلى جولتك",
+    "tutorialCustomization_title5": "يمكنك تتبع جولتك الحالية هنا",
+    "tutorialCustomization_desc5": "اسحب لليمين أو اليسار لمشاهدة الجولة بأكملها",
+    "tutorialCustomization_title6": "احفظ جولتك المخصصة",
+
 
 
     "settingsLG_title": "حول ليكويد جالاكسي",
@@ -170,14 +232,17 @@
     "favs_savedTours": "جميع الجولات المحفوظة",
     "favs_savedPlaces": "الأماكن المفضلة",
 
-    "favPlaces_title": "جميع أماكنك المفضلة حول العالم في مكان واحد!",
-    "favPlaces_customizeSubhead": "لتخصيص جولة، يرجى اختيار مكانين على الأقل",
-    "favPlaces_customizeError": "يرجى اختيار مكانين على الأقل لتخصيص جولة",
-    
+  "favPlaces_title": "جميع أماكنك المفضلة حول العالم في مكان واحد!",
+  "favPlaces_customizeSubhead": "لتخصيص جولة، يرجى اختيار مكانين على الأقل",
+  "favPlaces_customizeSubhead2": "اضغط مطولاً على مكان لإزالته",
+  "favPlaces_customizeError": "يرجى اختيار مكانين على الأقل لتخصيص جولة",
+  "favPlaces_none": "لم تتم إضافة أماكن مفضلة بعد\nيرجى حفظ بعض الأماكن لتخصيص جولة",
+  "favPlaces_removeConfirm": "هل أنت متأكد أنك تريد إزالة هذا المكان؟",
 
-    "favTours_generatedByGemini": "تم إنشاؤه بواسطة Gemini",
-    "favTours_generatedByGemma": "تم إنشاؤه بواسطة Gemma",
-    "favTours_customized": "جولة مخصصة",
+  "favTours_generatedByGemini": "تم إنشاؤه بواسطة جمني",
+  "favTours_generatedByGemma": "تم إنشاؤه بواسطة جينا",
+  "favTours_customized": "جولة مخصصة",
+  "favTours_none": "لم تتم إضافة جولات مفضلة بعد\nيرجى حفظ بعض الجولات لعرضها هنا",
 
 
     "textfield_error": "هذا الحقل مطلوب",
@@ -349,6 +414,7 @@
     "defaults_generate": "توليد",
     "defaults_customize": "تخصيص",
     "defaults_restart": "إعادة تشغيل",
+    "defaults_skip":"تجاوز",
   
 
     "searchResults_web": "نتائج الويب لـ {query}",

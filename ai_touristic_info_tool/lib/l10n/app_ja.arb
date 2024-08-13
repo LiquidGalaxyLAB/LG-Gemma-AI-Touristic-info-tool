@@ -41,7 +41,71 @@
 
 
     "settingsHelp_title": "ヘルプページ",
-    "settingsHelp_subtitle": "以下のボタンをタップして、アプリのチュートリアルをご覧ください！",
+    "settingsHelp_subtitle": "アプリ内のチュートリアルが以下に示されています。アプリのナビゲートに役立ててください:",
+    "settingsHelp_button1": "アプリガイド",
+    "settingsHelp_button2": "Liquid Galaxyに接続する方法",
+    "settingsHelp_button3": "Liquid Galaxyを制御する方法",
+    "settingsHelp_button4": "APIキーの管理方法",
+    "settingsHelp_button5": "ツアーの視覚化",
+    "settingsHelp_button6": "お気に入り機能の使い方",
+    "settingsHelp_button7": "自分だけのカスタムツアーの作り方",
+    "settingsHelp_button8": "アプリ設定の変更方法",
+
+    
+        "tutorialApp_title1": "ホームページに移動する",
+        "tutorialApp_desc1": "ここでプロンプトを入力し、世界中または近くの場所でAIの推奨を生成できます",
+        "tutorialApp_title2": "Liquid Galaxyシステムに接続する",
+        "tutorialApp_desc2": "マルチスクリーンのパノラマビューを体験するために",
+        "tutorialApp_title3": "Liquid Galaxyを操作する",
+        "tutorialApp_desc3": "LGのシャットダウン、再起動、再起動などが可能です！",
+        "tutorialApp_title4": "保存されたツアーと場所をすべて表示！",
+        "tutorialApp_desc4": "カスタムツアーも作成できます！",
+        "tutorialApp_title5": "すべてのアプリ設定を1か所に",
+        "tutorialApp_desc5": "より個別化された体験のために！",
+        "tutorialApp_title6": "アプリについてもっと学ぶ",
+    
+        "tutorialLGConnect_title1": "LG接続マネージャーに移動する",
+        "tutorialLGConnect_title2": "LGのユーザー名を入力する",
+        "tutorialLGConnect_title3": "LGのパスワードを入力する",
+        "tutorialLGConnect_title4": "LGマスターのIPアドレスを入力する",
+        "tutorialLGConnect_desc4": "通常は192.xxx.xxx.xから始まります",
+        "tutorialLGConnect_title5": "LGのポート番号を入力する",
+        "tutorialLGConnect_desc5": "通常は22です",
+        "tutorialLGConnect_title6": "リグにあるLGスクリーンの数を入力する",
+        "tutorialLGConnect_title7": "データ入力後、ここをクリックして接続する！",
+        "tutorialLGConnect_title8": "ここからLG接続ステータスを確認する",
+    
+        "tutorialTasls_titl1": "LGタスクに移動する",
+        "tutorialTasls_title2": "LGを再起動するにはここをクリック",
+        "tutorialTasls_title3": "LGを再起動するにはここをクリック",
+        "tutorialTasls_title4": "LGをシャットダウンするにはここをクリック",
+        "tutorialTasls_title5": "LGの最も左側の画面にアプリのロゴを表示するにはここをクリック",
+        "tutorialTasls_title6": "LGの最も左側の画面からアプリのロゴを非表示にするにはここをクリック",
+        "tutorialTasls_title7": "LG上のすべてのKMLをクリアするにはここをクリック",
+    
+        "tutorialFavs_navigate":"お気に入りのツアーと場所に移動する",
+        "tutorialFavs_titl1": "以前のビジュアライゼーションから保存されたツアー",
+        "tutorialFavs_desc1": "AIによって生成されたツアーや、自分でカスタマイズしたツアーを見つけることができます。",
+        "tutorialFavs_title2": "以前のビジュアライゼーションから保存された場所",
+        "tutorialFavs_desc2": "保存された場所から自分のツアーをカスタマイズできます。",
+    
+        "tutorialSettings_title1": "ここからアプリの言語を変更する",
+        "tutorialSettings_title2": "ここからアプリの外観を変更する",
+        "tutorialSettings_title3": "ここからアプリのフォントサイズを変更する",
+        "tutorialSettings_title4": "ここからAPIキーを管理する",
+        "tutorialSettings_desc4": "さまざまなサービスのAPIキーを追加、編集、削除できます。",
+    
+        "tutorialCustomization_title1": "ここから訪問したい場所をドラッグする",
+        "tutorialCustomization_title2": "ここにドロップする",
+        "tutorialCustomization_title3": "カスタムツアーを作成する",
+        "tutorialCustomization_desc3": "ツアーを作成すると、表示するためのボタンが表示されます！",
+        "tutorialCustomization_title4": "ツアーをリセットする",
+        "tutorialCustomization_desc4": "これにより、ツアーに追加したすべての場所がクリアされます",
+        "tutorialCustomization_title5": "現在のツアーをここで追跡できます",
+        "tutorialCustomization_desc5": "ツアー全体を表示するには、右または左にスライドしてください",
+        "tutorialCustomization_title6": "カスタマイズされたツアーを保存する",
+    
+
 
 
     "settingsLG_title": "Liquid Galaxyについて",
@@ -171,14 +235,17 @@
     "favs_savedTours": "保存済みツアー",
     "favs_savedPlaces": "お気に入りの場所",
 
-    "favPlaces_title": "お気に入りの場所を世界中の1つの場所に！",
-    "favPlaces_customizeSubhead": "ツアーをカスタマイズするには、少なくとも2つの場所を選択してください",
-    "favPlaces_customizeError": "ツアーをカスタマイズするには、少なくとも2つの場所を選択してください",
+"favPlaces_title": "世界中のあなたのお気に入りの場所がここに集結！",
+  "favPlaces_customizeSubhead": "ツアーをカスタマイズするには、少なくとも2つの場所を選択してください",
+  "favPlaces_customizeSubhead2": "場所を長押しして削除します",
+  "favPlaces_customizeError": "ツアーをカスタマイズするには、少なくとも2つの場所を選択してください",
+  "favPlaces_none": "まだお気に入りの場所が追加されていません\nツアーをカスタマイズするために、いくつかの場所を保存してください",
+  "favPlaces_removeConfirm": "この場所を削除してもよろしいですか？",
 
-
-    "favTours_generatedByGemini": "Geminiによって生成されました",
-    "favTours_generatedByGemma": "Gemmaによって生成されました",
-    "favTours_customized": "カスタマイズされたツアー",
+  "favTours_generatedByGemini": "ジェミニによって生成されました",
+  "favTours_generatedByGemma": "ジェマによって生成されました",
+  "favTours_customized": "カスタマイズツアー",
+  "favTours_none": "まだお気に入りのツアーが追加されていません\nツアーを保存して、ここで表示してください",
 
 
     "textfield_error": "このフィールドは必須です",
@@ -350,6 +417,7 @@
     "defaults_generate": "生成",
     "defaults_customize": "カスタマイズ",
     "defaults_restart": "再起動",
+    "defaults_skip":"スキップ",
 
 
     "searchResults_web": "{query} のウェブ結果",

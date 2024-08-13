@@ -1,5 +1,6 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +77,24 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         isDefault = false;
       });
     }
+    if (currViewProvider.currentView == 'home') {
+      setState(() {
+        selected = 'home';
+        isDefault = false;
+      });
+    }
+    if (currViewProvider.currentView == 'favs') {
+      setState(() {
+        selected = 'favs';
+        isDefault = false;
+      });
+    }
+    if (currViewProvider.currentView == 'about') {
+      setState(() {
+        selected = 'about';
+        isDefault = false;
+      });
+    }
 
     // if (colorProv.theme == 'dark') {
     //   setState(() {
@@ -104,6 +123,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   NavigationItem(
+                      key: GlobalKeys.showcaseKeyHome,
                       imagePath: 'assets/images/home.png',
                       // title: 'Home',
                       title: AppLocalizations.of(context)!.appDrawer_home,
@@ -128,6 +148,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         });
                       }),
                   NavigationItem(
+                      key: GlobalKeys.showcaseKeyConnectionManager,
                       imagePath: 'assets/images/connection.png',
                       // title: 'Connection Manager',
                       title: AppLocalizations.of(context)!.appDrawer_connection,
@@ -155,6 +176,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         });
                       }),
                   NavigationItem(
+                      key: GlobalKeys.showcaseKeyLGTasks,
                       imagePath: 'assets/images/lgTasks.png',
                       // title: 'LG Tasks',
                       title: AppLocalizations.of(context)!.appDrawer_tasks,
@@ -181,6 +203,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         });
                       }),
                   NavigationItem(
+                      key: GlobalKeys.showcaseKeyFavs,
                       imagePath: 'assets/images/fav.png',
                       // title: 'Favorites',
                       title: AppLocalizations.of(context)!.appDrawer_favs,
@@ -206,6 +229,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         });
                       }),
                   NavigationItem(
+                      key: GlobalKeys.showcaseKeySettings,
                       imagePath: 'assets/images/settings.png',
                       // title: 'Settings',
                       title: AppLocalizations.of(context)!.appDrawer_settings,
@@ -233,6 +257,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         });
                       }),
                   NavigationItem(
+                      key: GlobalKeys.showcaseKeyAbout,
                       imagePath: 'assets/images/about.png',
                       // title: 'About',
                       title: 'About',

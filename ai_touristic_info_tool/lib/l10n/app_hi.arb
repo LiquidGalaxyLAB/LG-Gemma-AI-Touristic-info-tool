@@ -40,8 +40,69 @@
     "settingsFont_trial": "Aa",
 
 
-    "settingsHelp_title": "सहायता पृष्ठ",
-    "settingsHelp_subtitle": "ऐप ट्यूटोरियल देखने के लिए नीचे बटन टैप करें!",
+    "settingsHelp_title": "मदद पृष्ठ",
+    "settingsHelp_subtitle": "निम्नलिखित विभिन्न इन-ऐप ट्यूटोरियल हैं जो आपको ऐप का नेविगेशन करने में मदद करेंगे:",
+    "settingsHelp_button1": "ऐप गाइड",
+    "settingsHelp_button2": "Liquid Galaxy से कनेक्ट कैसे करें?",
+    "settingsHelp_button3": "Liquid Galaxy को कैसे नियंत्रित करें?",
+    "settingsHelp_button4": "अपने API कुंजी कैसे प्रबंधित करें?",
+    "settingsHelp_button5": "अपने टूर को विज़ुअलाइज़ करना",
+    "settingsHelp_button6": "फेवरेट्स फीचर का उपयोग कैसे करें?",
+    "settingsHelp_button7": "अपना कस्टम टूर कैसे बनाएं?",
+    "settingsHelp_button8": "ऐप सेटिंग्स को कैसे बदलें?",
+
+    "tutorialApp_title1": "अपने होम पेज पर नेविगेट करें",
+    "tutorialApp_desc1": "यह वह जगह है जहां आप अपना प्रॉम्प्ट टाइप कर सकते हैं और विश्वव्यापी या आपके स्थान के पास AI सिफारिशें उत्पन्न कर सकते हैं",
+    "tutorialApp_title2": "Liquid Galaxy सिस्टम से कनेक्ट करें",
+    "tutorialApp_desc2": "दुनिया के मल्टी-स्क्रीन पैनोरमिक दृश्य का अनुभव करने के लिए",
+    "tutorialApp_title3": "Liquid Galaxy को नियंत्रित करें",
+    "tutorialApp_desc3": "अपने LG को शटडाउन, रीस्टार्ट, रीलॉन्च करें और भी बहुत कुछ!",
+    "tutorialApp_title4": "अपने सभी सेव्ड टूर और स्थान देखें!",
+    "tutorialApp_desc4": "आप अपना खुद का कस्टम टूर भी बना सकते हैं!",
+    "tutorialApp_title5": "आपके ऐप की सभी सेटिंग्स एक ही स्थान पर",
+    "tutorialApp_desc5": "एक अधिक व्यक्तिगत अनुभव के लिए!",
+    "tutorialApp_title6": "ऐप के बारे में और जानें",
+
+    "tutorialLGConnect_title1": "LG कनेक्शन मैनेजर पर नेविगेट करें",
+    "tutorialLGConnect_title2": "अपना LG उपयोगकर्ता नाम दर्ज करें",
+    "tutorialLGConnect_title3": "अपना LG पासवर्ड दर्ज करें",
+    "tutorialLGConnect_title4": "अपना LG मास्टर IP पता दर्ज करें",
+    "tutorialLGConnect_desc4": "यह आमतौर पर 192.xxx.xxx.x से शुरू होता है",
+    "tutorialLGConnect_title5": "अपना LG पोर्ट नंबर दर्ज करें",
+    "tutorialLGConnect_desc5": "यह आमतौर पर 22 होता है",
+    "tutorialLGConnect_title6": "अपने Rig में LG स्क्रीन की संख्या दर्ज करें",
+    "tutorialLGConnect_title7": "अपना डेटा भरने के बाद यहां क्लिक करें!",
+    "tutorialLGConnect_title8": "यहां से अपनी LG कनेक्शन स्थिति की जांच करें",
+
+    "tutorialTasls_titl1": "LG टास्क पर नेविगेट करें",
+    "tutorialTasls_title2": "यहां क्लिक करें अपने LG को रीलॉन्च करने के लिए",
+    "tutorialTasls_title3": "यहां क्लिक करें अपने LG को रीबूट करने के लिए",
+    "tutorialTasls_title4": "यहां क्लिक करें अपने LG को शटडाउन करने के लिए",
+    "tutorialTasls_title5": "यहां क्लिक करें LG के सबसे बाईं ओर स्क्रीन पर ऐप लोगो दिखाने के लिए",
+    "tutorialTasls_title6": "यहां क्लिक करें LG के सबसे बाईं ओर स्क्रीन पर ऐप लोगो छिपाने के लिए",
+    "tutorialTasls_title7": "यहां क्लिक करें LG पर सभी KML को साफ़ करने के लिए",
+
+    "tutorialFavs_navigate":"अपने फेवरेट्स पर नेविगेट करें",
+    "tutorialFavs_titl1": "पिछली विज़ुअलाइज़ेशन से आपके सेव्ड टूर",
+    "tutorialFavs_desc1": "आप AI द्वारा उत्पन्न या आपके द्वारा अनुकूलित किए गए टूर पा सकते हैं।",
+    "tutorialFavs_title2": "पिछली विज़ुअलाइज़ेशन से आपके सेव्ड स्थान",
+    "tutorialFavs_desc2": "आप अपने सेव्ड स्थान से अपना टूर अनुकूलित कर सकते हैं।",
+
+    "tutorialSettings_title1": "यहां से ऐप की भाषा बदलें",
+    "tutorialSettings_title2": "यहां से ऐप की उपस्थिति बदलें",
+    "tutorialSettings_title3": "यहां से ऐप के फ़ॉन्ट आकार को बदलें",
+    "tutorialSettings_title4": "यहां से अपने API कुंजी प्रबंधित करें",
+    "tutorialSettings_desc4": "आप विभिन्न सेवाओं के लिए अपनी API कुंजी जोड़ सकते हैं, संपादित कर सकते हैं या हटा सकते हैं।",
+
+    "tutorialCustomization_title1": "उन स्थानों को यहां से खींचें जिन्हें आप देखना चाहते हैं",
+    "tutorialCustomization_title2": "उन्हें यहां छोड़ें",
+    "tutorialCustomization_title3": "अपना कस्टम टूर बनाएं",
+    "tutorialCustomization_desc3": "टूर बनाने के बाद इसे विज़ुअलाइज़ करने के लिए एक बटन दिखाई देगा!",
+    "tutorialCustomization_title4": "अपना टूर रीसेट करें",
+    "tutorialCustomization_desc4": "यह आपके टूर में जोड़े गए सभी स्थानों को साफ़ कर देगा",
+    "tutorialCustomization_title5": "आप यहां से अपना वर्तमान टूर ट्रैक कर सकते हैं",
+    "tutorialCustomization_desc5": "पूरा टूर देखने के लिए दाएं या बाएं स्लाइड करें",
+    "tutorialCustomization_title6": "अपना अनुकूलित टूर सहेजें",
 
 
     "settingsLG_title": "लिक्विड गैलेक्सी के बारे में",
@@ -170,14 +231,17 @@
     "favs_savedTours": "सभी सहेजे गए टूर",
     "favs_savedPlaces": "पसंदीदा स्थान",
 
-    "favPlaces_title": "आपके सभी पसंदीदा स्थान पूरे विश्व में एक ही जगह पर!",
-    "favPlaces_customizeSubhead": "एक टूर को अनुकूलित करने के लिए, कृपया कम से कम 2 स्थान चुनें",
-    "favPlaces_customizeError": "कृपया एक टूर को अनुकूलित करने के लिए कम से कम 2 स्थान चुनें",
-
-
-    "favTours_generatedByGemini": "Gemini द्वारा उत्पन्न",
-    "favTours_generatedByGemma": "Gemma द्वारा उत्पन्न",
-    "favTours_customized": "अनुकूलित टूर",
+    "favPlaces_title": "दुनिया भर के आपके पसंदीदा स्थान एक ही जगह पर!",
+    "favPlaces_customizeSubhead": "एक टूर को कस्टमाइज़ करने के लिए, कृपया कम से कम 2 स्थान चुनें",
+    "favPlaces_customizeSubhead2": "एक स्थान को हटाने के लिए लंबा दबाएं",
+    "favPlaces_customizeError": "कृपया एक टूर कस्टमाइज़ करने के लिए कम से कम 2 स्थान चुनें",
+    "favPlaces_none": "अभी तक कोई पसंदीदा स्थान जोड़ा नहीं गया\nकृपया कुछ स्थान सहेजें ताकि आप एक टूर कस्टमाइज़ कर सकें",
+    "favPlaces_removeConfirm": "क्या आप वाकई इस स्थान को हटाना चाहते हैं?",
+  
+    "favTours_generatedByGemini": "जेमिनी द्वारा उत्पन्न",
+    "favTours_generatedByGemma": "जेम्मा द्वारा उत्पन्न",
+    "favTours_customized": "कस्टम टूर",
+    "favTours_none": "अभी तक कोई पसंदीदा टूर जोड़ा नहीं गया\nकृपया कुछ टूर सहेजें ताकि आप उन्हें यहाँ देख सकें",
 
     
     "textfield_error": "यह क्षेत्र आवश्यक है",
@@ -349,6 +413,7 @@
     "defaults_generate": "जनरेट करें",
     "defaults_customize": "अनुकूलित करें",
     "defaults_restart": "पुनः आरंभ करें",
+    "defaults_skip":"छोड़ें",
 
 
 

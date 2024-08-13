@@ -40,9 +40,72 @@
     "settingsFont_trial": "Aa",
 
 
-    "settingsHelp_title": "Page d'aide",
-    "settingsHelp_subtitle": "Appuyez sur le bouton ci-dessous pour voir le tutoriel de l'application !",
+    "settingsHelp_title": "Page d'Aide",
+    "settingsHelp_subtitle": "Voici différents tutoriels dans l'application pour vous aider à naviguer dans l'app :",
+    "settingsHelp_button1": "Guide de l'App",
+    "settingsHelp_button2": "Comment se connecter à Liquid Galaxy ?",
+    "settingsHelp_button3": "Comment contrôler Liquid Galaxy ?",
+    "settingsHelp_button4": "Comment gérer vos clés API ?",
+    "settingsHelp_button5": "Visualiser vos tours",
+    "settingsHelp_button6": "Comment utiliser la fonction Favoris ?",
+    "settingsHelp_button7": "Comment créer votre propre tour personnalisé ?",
+    "settingsHelp_button8": "Comment modifier les paramètres de l'app ?",
 
+    
+        "tutorialApp_title1": "Naviguez vers votre page d'accueil",
+        "tutorialApp_desc1": "C'est là que vous pouvez saisir votre requête et générer des recommandations IA dans le monde entier ou à proximité de votre emplacement",
+        "tutorialApp_title2": "Connectez-vous au système Liquid Galaxy",
+        "tutorialApp_desc2": "Pour vivre une expérience de vue panoramique multi-écrans du monde",
+        "tutorialApp_title3": "Contrôlez le Liquid Galaxy",
+        "tutorialApp_desc3": "Éteignez, redémarrez, relancez votre LG et bien plus encore!",
+        "tutorialApp_title4": "Voir tous vos tours et lieux enregistrés!",
+        "tutorialApp_desc4": "Vous pouvez également créer votre propre tour personnalisé!",
+        "tutorialApp_title5": "Tous vos paramètres d'application en un seul endroit",
+        "tutorialApp_desc5": "Pour une expérience plus personnalisée!",
+        "tutorialApp_title6": "En savoir plus sur l'application!",
+    
+        "tutorialLGConnect_title1": "Accédez au gestionnaire de connexion LG",
+        "tutorialLGConnect_title2": "Entrez votre nom d'utilisateur LG",
+        "tutorialLGConnect_title3": "Entrez votre mot de passe LG",
+        "tutorialLGConnect_title4": "Entrez l'adresse IP du maître LG",
+        "tutorialLGConnect_desc4": "Elle commence généralement par 192.xxx.xxx.x",
+        "tutorialLGConnect_title5": "Entrez votre numéro de port LG",
+        "tutorialLGConnect_desc5": "Il est généralement de 22",
+        "tutorialLGConnect_title6": "Entrez le nombre d'écrans LG dans votre configuration",
+        "tutorialLGConnect_title7": "Cliquez ici pour vous connecter après avoir rempli vos informations!",
+        "tutorialLGConnect_title8": "Vérifiez le statut de votre connexion LG ici",
+    
+        "tutorialTasls_titl1": "Accédez aux tâches LG",
+        "tutorialTasls_title2": "Cliquez ici pour relancer votre LG",
+        "tutorialTasls_title3": "Cliquez ici pour redémarrer votre LG",
+        "tutorialTasls_title4": "Cliquez ici pour éteindre votre LG",
+        "tutorialTasls_title5": "Cliquez ici pour afficher les logos de l'application sur l'écran le plus à gauche de LG",
+        "tutorialTasls_title6": "Cliquez ici pour masquer les logos de l'application sur l'écran le plus à gauche de LG",
+        "tutorialTasls_title7": "Cliquez ici pour nettoyer tous les KMLs sur LG",
+    
+        "tutorialFavs_navigate":"Naviguez vers la page des favoris",
+        "tutorialFavs_titl1": "Vos tours enregistrés à partir de visualisations précédentes",
+        "tutorialFavs_desc1": "Vous pouvez trouver des tours générés par l'IA ou personnalisés par vous.",
+        "tutorialFavs_title2": "Vos lieux enregistrés à partir de visualisations précédentes",
+        "tutorialFavs_desc2": "Vous pouvez personnaliser votre propre tour à partir de vos lieux enregistrés.",
+    
+        "tutorialSettings_title1": "Changez la langue de l'application ici",
+        "tutorialSettings_title2": "Changez l'apparence de l'application ici",
+        "tutorialSettings_title3": "Changez la taille de la police de l'application ici",
+        "tutorialSettings_title4": "Gérez vos clés API ici",
+        "tutorialSettings_desc4": "Vous pouvez ajouter, modifier ou supprimer vos clés API de différents services.",
+    
+        "tutorialCustomization_title1": "Faites glisser les lieux que vous souhaitez visiter depuis ici",
+        "tutorialCustomization_title2": "Déposez-les ici",
+        "tutorialCustomization_title3": "Créez votre tour personnalisé",
+        "tutorialCustomization_desc3": "Un bouton apparaîtra après la création de votre tour pour le visualiser!",
+        "tutorialCustomization_title4": "Réinitialisez votre tour",
+        "tutorialCustomization_desc4": "Cela effacera tous les lieux que vous avez ajoutés à votre tour",
+        "tutorialCustomization_title5": "Vous pouvez suivre votre tour actuel ici",
+        "tutorialCustomization_desc5": "Faites glisser vers la droite ou la gauche pour voir tout le tour",
+        "tutorialCustomization_title6": "Enregistrez votre tour personnalisé",
+    
+    
 
     "settingsLG_title": "À propos de Liquid Galaxy",
     "settingsLG_desc": "Liquid Galaxy est un système immersif à plusieurs écrans offrant des vues panoramiques en synchronisant plusieurs écrans. À l'origine un projet Google, il permet aux utilisateurs d'explorer des lieux dans une expérience transparente à 360 degrés",
@@ -172,13 +235,16 @@
     "favs_savedPlaces": "Lieux Favoris",
 
     "favPlaces_title": "Tous vos lieux favoris dans le monde entier en un seul endroit !",
-    "favPlaces_customizeSubhead": "Pour personnaliser un circuit, veuillez sélectionner au moins 2 lieux",
-    "favPlaces_customizeError": "Veuillez sélectionner au moins 2 lieux pour personnaliser un circuit",
-
-
+    "favPlaces_customizeSubhead": "Pour personnaliser une visite, veuillez sélectionner au moins 2 lieux",
+    "favPlaces_customizeSubhead2": "Appuyez longuement sur un lieu pour le supprimer",
+    "favPlaces_customizeError": "Veuillez sélectionner au moins 2 lieux pour personnaliser une visite",
+    "favPlaces_none": "Aucun lieu favori ajouté pour l'instant\nVeuillez enregistrer quelques lieux pour personnaliser une visite",
+    "favPlaces_removeConfirm": "Êtes-vous sûr de vouloir supprimer ce lieu ?",
+  
     "favTours_generatedByGemini": "Généré par Gemini",
     "favTours_generatedByGemma": "Généré par Gemma",
-    "favTours_customized": "Circuit Personnalisé",
+    "favTours_customized": "Visite personnalisée",
+    "favTours_none": "Aucune visite préférée ajoutée pour l'instant\nVeuillez enregistrer quelques visites pour les afficher ici",
 
 
     "textfield_error": "Le champ est requis",
@@ -350,6 +416,7 @@
     "defaults_generate": "GÉNÉRER",
     "defaults_customize": "Personnaliser",
     "defaults_restart": "Redémarrer",
+    "defaults_skip":"Passer",
 
 
     "searchResults_web": "Résultats Web pour {query}",

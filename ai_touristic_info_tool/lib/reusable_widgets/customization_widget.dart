@@ -1,5 +1,6 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/models/saved_tours_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
@@ -46,6 +47,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _queryNameController = TextEditingController();
   double _tourDuration = 0;
+  bool isCreateClicked = false;
 
   @override
   void initState() {
@@ -55,6 +57,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
   }
 
   void _onPlaceDropped() async {
+    setState(() {
+      isCreateClicked = false;
+    });
     GoogleMapProvider gmp =
         Provider.of<GoogleMapProvider>(context, listen: false);
     DisplayedListProvider dlp =
@@ -108,10 +113,15 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                         child: Row(
                           children: [
                             LgElevatedButton(
+                              key: GlobalKeys.showcaseKeyCustomizationReset,
                               // elevatedButtonContent: 'Reset',
-                              elevatedButtonContent: AppLocalizations.of(context)!.defaults_reset,
+                              elevatedButtonContent:
+                                  AppLocalizations.of(context)!.defaults_reset,
                               buttonColor: colorVal.colors.buttonColors,
                               onpressed: () async {
+                                setState(() {
+                                  isCreateClicked = false;
+                                });
                                 DisplayedListProvider dlp =
                                     Provider.of<DisplayedListProvider>(context,
                                         listen: false);
@@ -157,8 +167,10 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                               width: MediaQuery.of(context).size.width * 0.02,
                             ),
                             LgElevatedButton(
+                              key: GlobalKeys.showcaseKeyCustomizationCreate,
                               // elevatedButtonContent: 'Create',
-                              elevatedButtonContent: AppLocalizations.of(context)!.defaults_create,
+                              elevatedButtonContent:
+                                  AppLocalizations.of(context)!.defaults_create,
                               buttonColor: colorVal.colors.buttonColors,
                               onpressed: () async {
                                 final sshData = Provider.of<SSHprovider>(
@@ -185,7 +197,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                             colorVal.colors.innerBackground,
                                         content: Text(
                                             // 'Please add more than one place to create a route.',
-                                            AppLocalizations.of(context)!.customapptour_WarningToCreateRoute,
+                                            AppLocalizations.of(context)!
+                                                .customapptour_WarningToCreateRoute,
                                             style: TextStyle(
                                                 color: fontVal
                                                     .fonts.primaryFontColor,
@@ -198,8 +211,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                               Navigator.of(context).pop();
                                             },
                                             child: Text(
-                                              // 'OK',
-                                              AppLocalizations.of(context)!.defaults_ok,
+                                                // 'OK',
+                                                AppLocalizations.of(context)!
+                                                    .defaults_ok,
                                                 style: TextStyle(
                                                     color: LgAppColors.lgColor4,
                                                     fontSize:
@@ -211,6 +225,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                     },
                                   );
                                 } else {
+                                  setState(() {
+                                    isCreateClicked = true;
+                                  });
                                   gmp.addPolylinesBetweenMarkers();
                                   gmp.setBitmapDescriptor(
                                       "assets/images/airplane.png");
@@ -242,74 +259,81 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.02,
                             ),
-                            LgElevatedButton(
-                              elevatedButtonContent:
-                                  // _isvisualizing ? 'Stop' : 'Visualize',
-                                  _isvisualizing ? AppLocalizations.of(context)!.defaults_stop : AppLocalizations.of(context)!.defaults_visualize,
-                              buttonColor: colorVal.colors.buttonColors,
-                              onpressed: () async {
-                                final sshData = Provider.of<SSHprovider>(
-                                    context,
-                                    listen: false);
-                                Connectionprovider connection =
-                                    Provider.of<Connectionprovider>(context,
-                                        listen: false);
-                                GoogleMapProvider gmp =
-                                    Provider.of<GoogleMapProvider>(context,
-                                        listen: false);
-                                gmp.allowSync = false;
+                            if (isCreateClicked)
+                              LgElevatedButton(
+                                elevatedButtonContent:
+                                    // _isvisualizing ? 'Stop' : 'Visualize',
+                                    _isvisualizing
+                                        ? AppLocalizations.of(context)!
+                                            .defaults_stop
+                                        : AppLocalizations.of(context)!
+                                            .defaults_visualize,
+                                buttonColor: colorVal.colors.buttonColors,
+                                onpressed: () async {
+                                  final sshData = Provider.of<SSHprovider>(
+                                      context,
+                                      listen: false);
+                                  Connectionprovider connection =
+                                      Provider.of<Connectionprovider>(context,
+                                          listen: false);
+                                  GoogleMapProvider gmp =
+                                      Provider.of<GoogleMapProvider>(context,
+                                          listen: false);
+                                  gmp.allowSync = false;
 
-                                if (_isvisualizing) {
-                                  gmp.isTourOn = false;
-                                  setState(() {
-                                    _isvisualizing = false;
-                                  });
+                                  if (_isvisualizing) {
+                                    gmp.isTourOn = false;
+                                    setState(() {
+                                      _isvisualizing = false;
+                                    });
 
-                                  if (sshData.client != null &&
-                                      connection.isLgConnected) {
-                                    await LgService(sshData).stopTour();
-                                  }
-                                } else {
-                                  setState(() {
-                                    _isvisualizing = true;
-                                  });
-
-                                  gmp.isTourOn = true;
-
-                                  if (sshData.client != null &&
-                                      connection.isLgConnected) {
-                                    await Future.wait([
-                                      gmp.googleMapCustomTour(),
-                                      LgService(sshData).startTour('App Tour'),
-                                      Future.delayed(Duration(
-                                          seconds: _tourDuration.toInt()))
-                                    ]);
+                                    if (sshData.client != null &&
+                                        connection.isLgConnected) {
+                                      await LgService(sshData).stopTour();
+                                    }
                                   } else {
-                                    await gmp.googleMapCustomTour();
+                                    setState(() {
+                                      _isvisualizing = true;
+                                    });
+
+                                    gmp.isTourOn = true;
+
+                                    if (sshData.client != null &&
+                                        connection.isLgConnected) {
+                                      await Future.wait([
+                                        gmp.googleMapCustomTour(),
+                                        LgService(sshData)
+                                            .startTour('App Tour'),
+                                        Future.delayed(Duration(
+                                            seconds: _tourDuration.toInt()))
+                                      ]);
+                                    } else {
+                                      await gmp.googleMapCustomTour();
+                                    }
+
+                                    gmp.isTourOn = false;
+                                    setState(() {
+                                      _isvisualizing = false;
+                                    });
                                   }
 
-                                  gmp.isTourOn = false;
-                                  setState(() {
-                                    _isvisualizing = false;
-                                  });
-                                }
-
-                                gmp.allowSync = true;
-                              },
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              width: MediaQuery.of(context).size.width * 0.14,
-                              fontSize: fontVal.fonts.textSize,
-                              fontColor: Colors.white,
-                              isLoading: false,
-                              isBold: false,
-                              isPrefixIcon: false,
-                              isSuffixIcon: true,
-                              suffixIcon:
-                                  _isvisualizing ? Icons.stop : Icons.flight,
-                              suffixIconSize: fontVal.fonts.textSize,
-                              suffixIconColor: Colors.white,
-                              curvatureRadius: 30,
-                            ),
+                                  gmp.allowSync = true;
+                                },
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.14,
+                                fontSize: fontVal.fonts.textSize,
+                                fontColor: Colors.white,
+                                isLoading: false,
+                                isBold: false,
+                                isPrefixIcon: false,
+                                isSuffixIcon: true,
+                                suffixIcon:
+                                    _isvisualizing ? Icons.stop : Icons.flight,
+                                suffixIconSize: fontVal.fonts.textSize,
+                                suffixIconColor: Colors.white,
+                                curvatureRadius: 30,
+                              ),
                           ],
                         ),
                       ),
@@ -331,6 +355,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                         List<dynamic> rejectedData,
                       ) {
                         return GoogleMapWidget(
+                          key: GlobalKeys.showcaseKeyCustomizationMap,
                           height: MediaQuery.of(context).size.height * 0.45,
                           width: MediaQuery.of(context).size.width * 0.65,
                           // initialLatValue: widget.chosenPlaces[0].latitude,
@@ -350,6 +375,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
                     Container(
+                      key: GlobalKeys.showcaseKeyCustomizationDragDrop,
                       height: MediaQuery.of(context).size.height * 0.4,
                       width: MediaQuery.of(context).size.width * 0.22,
                       decoration: BoxDecoration(
@@ -462,6 +488,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                   padding:
                       const EdgeInsets.only(left: 20.0, right: 20, bottom: 10),
                   child: Row(
+                    key: GlobalKeys.showcaseKeyCustomizationCurrentTour,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -503,9 +530,11 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                         child: Tooltip(
                           message: _isFav
                               // ? 'Added to favorites'
-                              ?  AppLocalizations.of(context)!.favs_addtofavsmessage
+                              ? AppLocalizations.of(context)!
+                                  .favs_addtofavsmessage
                               // : 'Removed from favorites',
-                              :  AppLocalizations.of(context)!.favs_removefromfavsmessage,
+                              : AppLocalizations.of(context)!
+                                  .favs_removefromfavsmessage,
                           triggerMode: TooltipTriggerMode.tap,
                           onTriggered: () async {
                             if (await FavoritesSharedPref()
@@ -528,7 +557,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                           colorVal.colors.innerBackground,
                                       content: Text(
                                           // 'Please add places to create a tour.',
-                                          AppLocalizations.of(context)!.customapptour_missingPlaces,
+                                          AppLocalizations.of(context)!
+                                              .customapptour_missingPlaces,
                                           style: TextStyle(
                                               color: fontVal
                                                   .fonts.primaryFontColor,
@@ -540,8 +570,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                             Navigator.of(context).pop();
                                           },
                                           child: Text(
-                                            // 'OK',
-                                            AppLocalizations.of(context)!.defaults_ok,
+                                              // 'OK',
+                                              AppLocalizations.of(context)!
+                                                  .defaults_ok,
                                               style: TextStyle(
                                                   color: LgAppColors.lgColor4,
                                                   fontSize:
@@ -571,7 +602,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                             children: [
                                               Text(
                                                   // 'Choose a name for your tour:',
-                                                  AppLocalizations.of(context)!.customapptour_chooseName,
+                                                  AppLocalizations.of(context)!
+                                                      .customapptour_chooseName,
                                                   style: TextStyle(
                                                       color: fontVal.fonts
                                                           .primaryFontColor,
@@ -625,8 +657,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                             }
                                           },
                                           child: Text(
-                                            // 'Done',
-                                            AppLocalizations.of(context)!.defaults_done,
+                                              // 'Done',
+                                              AppLocalizations.of(context)!
+                                                  .defaults_done,
                                               style: TextStyle(
                                                   color: LgAppColors.lgColor4,
                                                   fontSize:
@@ -644,6 +677,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                               _isFav
                                   ? CupertinoIcons.heart_fill
                                   : CupertinoIcons.heart,
+                              key: GlobalKeys.showcaseKeyCustomizationAddFav,
                               color: LgAppColors.lgColor2,
                               size: fontVal.fonts.titleSize),
                         ),

@@ -1,5 +1,6 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_location_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/explore_world_tabview.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
@@ -11,6 +12,7 @@ import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -116,6 +118,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 indicatorColor: value.colors.buttonColors,
                 tabs: <Widget>[
                   Tab(
+                    key: GlobalKeys.showcaseKeyExploreWorldwide,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -142,6 +145,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                     ),
                   ),
                   Tab(
+                    key: GlobalKeys.showcaseKeyExploreLocation,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -177,6 +181,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       ),
       Expanded(
           child: TabBarView(
+            key: GlobalKeys.showcaseKeyViewHome,
         physics: NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: <Widget>[

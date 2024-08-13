@@ -1,5 +1,6 @@
 import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
@@ -101,7 +102,8 @@ class _ConnectionViewState extends State<ConnectionView> {
                             Center(
                               child: Text(
                                 // 'Liquid Galaxy Connection Manager',
-                                AppLocalizations.of(context)!.lgConnection_title,
+                                AppLocalizations.of(context)!
+                                    .lgConnection_title,
                                 style: TextStyle(
                                   fontFamily: fontType,
                                   // fontSize: headingSize,
@@ -152,11 +154,14 @@ class _ConnectionViewState extends State<ConnectionView> {
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: TextFormFieldWidget(
+                                        key: GlobalKeys
+                                            .showcaseKeyConnectionUsername,
                                         // fontSize: textSize,
                                         fontSize: value.fonts.textSize,
                                         // label: 'LG User Name',
-                                        label: AppLocalizations.of(context)!.lgConnection_userName,
-                                        key: const ValueKey("username"),
+                                        label: AppLocalizations.of(context)!
+                                            .lgConnection_userName,
+                                        // key: const ValueKey("username"),
                                         textController: _userNameController,
                                         isSuffixRequired: true,
                                         // isHidden: false,
@@ -171,12 +176,15 @@ class _ConnectionViewState extends State<ConnectionView> {
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: TextFormFieldWidget(
+                                        key: GlobalKeys
+                                            .showcaseKeyConnectionPassword,
                                         isPassword: true,
                                         // fontSize: textSize,
                                         fontSize: value.fonts.textSize,
                                         // label: 'LG Password',
-                                        label: AppLocalizations.of(context)!.lgConnection_password,
-                                        key: const ValueKey("lgpass"),
+                                        label: AppLocalizations.of(context)!
+                                            .lgConnection_password,
+                                        // key: const ValueKey("lgpass"),
                                         textController: _passwordController,
                                         isSuffixRequired: true,
                                         // isHidden: true,
@@ -190,11 +198,13 @@ class _ConnectionViewState extends State<ConnectionView> {
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: TextFormFieldWidget(
+                                        key: GlobalKeys.showcaseKeyConnectionIP,
                                         // fontSize: textSize,
                                         fontSize: value.fonts.textSize,
                                         // label: 'LG Master IP Address',
-                                        label: AppLocalizations.of(context)!.lgConnection_ip,
-                                        key: const ValueKey("ip"),
+                                        label: AppLocalizations.of(context)!
+                                            .lgConnection_ip,
+                                        // key: const ValueKey("ip"),
                                         textController: _ipController,
                                         isSuffixRequired: true,
                                         // isHidden: false,
@@ -209,11 +219,14 @@ class _ConnectionViewState extends State<ConnectionView> {
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: TextFormFieldWidget(
+                                        key: GlobalKeys
+                                            .showcaseKeyConnectionPort,
                                         // fontSize: textSize,
                                         fontSize: value.fonts.textSize,
                                         // label: 'LG Port Number',
-                                        label: AppLocalizations.of(context)!.lgConnection_port,
-                                        key: const ValueKey("port"),
+                                        label: AppLocalizations.of(context)!
+                                            .lgConnection_port,
+                                        // key: const ValueKey("port"),
                                         textController: _portController,
                                         isSuffixRequired: true,
                                         // isHidden: false,
@@ -228,11 +241,14 @@ class _ConnectionViewState extends State<ConnectionView> {
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: TextFormFieldWidget(
+                                        key: GlobalKeys
+                                            .showcaseKeyConnectionNumScreens,
                                         // fontSize: textSize,
                                         fontSize: value.fonts.textSize,
                                         // label: 'Number of LG screens',
-                                        label: AppLocalizations.of(context)!.lgConnection_numScreens,
-                                        key: const ValueKey("lgscreens"),
+                                        label: AppLocalizations.of(context)!
+                                            .lgConnection_numScreens,
+                                        // key: const ValueKey("lgscreens"),
                                         textController: _screenAmountController,
                                         isSuffixRequired: true,
                                         // isHidden: false,
@@ -263,8 +279,12 @@ class _ConnectionViewState extends State<ConnectionView> {
                                       Connectionprovider conn, Widget? child) {
                                     if (!conn.isLgConnected) {
                                       return LgElevatedButton(
+                                        key: GlobalKeys
+                                            .showcaseKeyConnectionConnect,
                                         // elevatedButtonContent: 'CONNECT LG',
-                                        elevatedButtonContent: AppLocalizations.of(context)!.lgConnection_connect,
+                                        elevatedButtonContent:
+                                            AppLocalizations.of(context)!
+                                                .lgConnection_connect,
                                         buttonColor: LgAppColors.lgColor4,
                                         fontColor: FontAppColors.secondaryFont,
                                         height:
@@ -335,8 +355,14 @@ class _ConnectionViewState extends State<ConnectionView> {
                                             connection.isLgConnected = false;
 
                                             // ignore: use_build_context_synchronously
-                                            dialogBuilder(context, result!,
-                                                true, AppLocalizations.of(context)!.defaults_ok, null, null);
+                                            dialogBuilder(
+                                                context,
+                                                result!,
+                                                true,
+                                                AppLocalizations.of(context)!
+                                                    .defaults_ok,
+                                                null,
+                                                null);
                                           }
 
                                           ///stop the loading process by setting `isloading` to false
@@ -348,7 +374,9 @@ class _ConnectionViewState extends State<ConnectionView> {
                                     } else {
                                       return LgElevatedButton(
                                         // elevatedButtonContent: 'DISCONNECT LG',
-                                        elevatedButtonContent: AppLocalizations.of(context)!.lgConnection_disconnect,
+                                        elevatedButtonContent:
+                                            AppLocalizations.of(context)!
+                                                .lgConnection_disconnect,
                                         buttonColor: LgAppColors.lgColor2,
                                         fontColor: FontAppColors.secondaryFont,
                                         height:
@@ -380,12 +408,12 @@ class _ConnectionViewState extends State<ConnectionView> {
                                           dialogBuilder(
                                               context,
                                               // 'Are you sure you want to disconnect?',
-                                              AppLocalizations.of(context)!.lgConnection_confirmDisconnect,
+                                              AppLocalizations.of(context)!
+                                                  .lgConnection_confirmDisconnect,
                                               false,
                                               // 'YES'
-                                              AppLocalizations.of(context)!.defaults_yes,
-                                              
-                                               () {
+                                              AppLocalizations.of(context)!
+                                                  .defaults_yes, () {
                                             if (connection.isLgConnected) {
                                               sshData.disconnect();
                                               connection.isLgConnected = false;
@@ -393,10 +421,12 @@ class _ConnectionViewState extends State<ConnectionView> {
                                               dialogBuilder(
                                                   context,
                                                   // 'You are already disconnected!',
-                                                  AppLocalizations.of(context)!.lgConnection_errorDisconnect,
+                                                  AppLocalizations.of(context)!
+                                                      .lgConnection_errorDisconnect,
                                                   true,
                                                   // 'OK',
-                                                  AppLocalizations.of(context)!.defaults_ok,
+                                                  AppLocalizations.of(context)!
+                                                      .defaults_ok,
                                                   null,
                                                   null);
                                             }
@@ -626,7 +656,8 @@ class _ConnectionViewState extends State<ConnectionView> {
                             color: value.colors.innerBackground,
                             backgroundColor: value.colors.buttonColors,
                             // semanticsLabel: 'Loading',
-                            semanticsLabel: AppLocalizations.of(context)!.defaults_loading,
+                            semanticsLabel:
+                                AppLocalizations.of(context)!.defaults_loading,
                           ),
                         );
                       },

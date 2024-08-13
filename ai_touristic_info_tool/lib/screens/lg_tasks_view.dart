@@ -1,4 +1,5 @@
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/tasks_container.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
@@ -79,6 +80,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   LgTasksButton(
+                    key: GlobalKeys.showcaseKeyTasksRelaunch,
                     buttonColor: value.colors.shadow,
                     borderColor: value.colors.buttonColors,
                     fontSize: fontProv.fonts.textSize,
@@ -125,6 +127,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   LgTasksButton(
+                    key: GlobalKeys.showcaseKeyTasksReboot,
                     buttonColor: value.colors.shadow,
                     borderColor: value.colors.buttonColors,
                     fontSize: fontProv.fonts.textSize,
@@ -172,6 +175,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   LgTasksButton(
+                    key: GlobalKeys.showcaseKeyTasksShutDown,
                     buttonColor: value.colors.shadow,
                     borderColor: value.colors.buttonColors,
                     fontSize: fontProv.fonts.textSize,
@@ -329,6 +333,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                   //   height: MediaQuery.of(context).size.height *0.01,
                   // ),
                   LgTasksButton(
+                      key: GlobalKeys.showcaseKeyTasksShowLogos,
                       buttonColor: value.colors.shadow,
                       borderColor: value.colors.buttonColors,
                       fontSize: fontProv.fonts.textSize,
@@ -364,6 +369,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   LgTasksButton(
+                      key: GlobalKeys.showcaseKeyTasksHideLogos,
                       buttonColor: value.colors.shadow,
                       borderColor: value.colors.buttonColors,
                       fontSize: fontProv.fonts.textSize,
@@ -399,6 +405,7 @@ class _LGTasksViewState extends State<LGTasksView> {
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   LgTasksButton(
+                      key: GlobalKeys.showcaseKeyTasksCleanKmls,
                       buttonColor: value.colors.shadow,
                       borderColor: value.colors.buttonColors,
                       fontSize: fontProv.fonts.textSize,

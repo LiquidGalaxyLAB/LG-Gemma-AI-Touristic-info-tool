@@ -1,5 +1,6 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
+import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/fav_places_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/saved_tours_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
@@ -96,6 +97,7 @@ class _FavoritesViewState extends State<FavoritesView>
                 indicatorColor: value.colors.buttonColors,
                 tabs: <Widget>[
                   Tab(
+                    key: GlobalKeys.showcaseKeySavedTours,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -122,6 +124,7 @@ class _FavoritesViewState extends State<FavoritesView>
                     ),
                   ),
                   Tab(
+                    key: GlobalKeys.showcaseKeySavedPlaces,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

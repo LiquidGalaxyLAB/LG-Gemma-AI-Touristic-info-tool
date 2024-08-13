@@ -3,6 +3,7 @@ import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
+import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/show_customization_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -82,9 +83,22 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.only(left: 20.0, top: 20),
+              child: Text(
+                // 'To customize a tour, please select at least 2 places',
+                // 'Long press on a place to remove it',
+                AppLocalizations.of(context)!.favPlaces_customizeSubhead2,
+                style: TextStyle(
+                  fontSize: fontVal.fonts.textSize,
+                  color: fontVal.fonts.primaryFontColor,
+                  fontFamily: fontType,
+                ),
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.4,
+                height: MediaQuery.of(context).size.height * 0.32,
                 width: MediaQuery.of(context).size.width * 1,
                 decoration: BoxDecoration(
                   color: colorVal.colors.shadow.withOpacity(0.9),
@@ -102,82 +116,143 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                     radius: const Radius.circular(10),
                     child: SingleChildScrollView(
                       controller: _scrollController,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: groupedPlaces.keys.map((country) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 20.0),
-                            child: Column(
+                      child: !groupedPlaces.isEmpty
+                          ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  country,
+                              children: groupedPlaces.keys.map((country) {
+                                //check if groupledplaced is empty
+                                // print('grouped');
+                                // print(groupedPlaces.keys);
+                                // if (groupedPlaces.isEmpty) {
+                                //   return Padding(
+                                //     padding: const EdgeInsets.only(bottom: 20.0),
+                                //     child: Text(
+                                //       'No favorite places added yet',
+                                //       style: TextStyle(
+                                //         fontSize: fontVal.fonts.textSize,
+                                //         fontWeight: FontWeight.bold,
+                                //         color: Colors.black,
+                                //         fontFamily: fontType,
+                                //       ),
+                                //     ),
+                                //   );
+                                // } else {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 20.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        country,
+                                        style: TextStyle(
+                                          fontSize: fontVal.fonts.textSize,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontFamily: fontType,
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.8,
+                                        decoration: BoxDecoration(
+                                          color: colorVal.colors.darkShadow,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Wrap(
+                                            spacing: 8.0,
+                                            runSpacing: 8.0,
+                                            children: groupedPlaces[country]!
+                                                .map((place) {
+                                              return GestureDetector(
+                                                onLongPress: () {
+                                                  //show dialog:
+                                                  dialogBuilder(
+                                                      context,
+                                                      // 'Are you sure you want to remove this place?',
+                                                      AppLocalizations.of(context)!
+                                                          .favPlaces_removeConfirm,
+                                                      false,
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .defaults_yes, () {
+                                                    setState(() {
+                                                      _favPlaces.remove(place);
+                                                      // FavoritesSharedPref().removePlace(
+                                                      //     place.name, place.country??'');
+                                                      FavoritesSharedPref()
+                                                          .savePlacesList(
+                                                              _favPlaces);
+                                                      _loadPlaces();
+                                                    });
+                                                  }, () {});
+                                                },
+                                                onTap: () {
+                                                  setState(() {
+                                                    if (_selectedPlaces
+                                                        .contains(place)) {
+                                                      _selectedPlaces
+                                                          .remove(place);
+                                                    } else {
+                                                      _selectedPlaces
+                                                          .add(place);
+                                                    }
+                                                  });
+                                                },
+                                                child: Chip(
+                                                  label: Text(
+                                                    place.name,
+                                                    style: TextStyle(
+                                                      fontSize: fontVal
+                                                              .fonts.textSize -
+                                                          5,
+                                                      color: _selectedPlaces
+                                                              .contains(place)
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontFamily: fontType,
+                                                    ),
+                                                  ),
+                                                  backgroundColor:
+                                                      _selectedPlaces
+                                                              .contains(place)
+                                                          ? colorVal.colors
+                                                              .buttonColors
+                                                          : colorVal.colors
+                                                              .accentColor,
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                                // }
+                              }).toList(),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(bottom: 20.0),
+                              child: Center(
+                                child: Text(
+                                  // 'No favorite places added yet\nPlease save some places to customize a tour',
+                                  AppLocalizations.of(context)!
+                                      .favPlaces_none,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: fontVal.fonts.textSize,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black,
+                                    color: LgAppColors.lgColor2,
                                     fontFamily: fontType,
                                   ),
                                 ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  decoration: BoxDecoration(
-                                    color: colorVal.colors.darkShadow,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Wrap(
-                                      spacing: 8.0,
-                                      runSpacing: 8.0,
-                                      children: groupedPlaces[country]!
-                                          .map((place) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                           
-                                         
-                                            setState(() {
-                                              if (_selectedPlaces
-                                                  .contains(place)) {
-                                                _selectedPlaces.remove(place);
-                                              } else {
-                                                _selectedPlaces.add(place);
-                                              }
-                                            });
-                                          },
-                                          child: Chip(
-                                            label: Text(
-                                              place.name,
-                                              style: TextStyle(
-                                                fontSize:
-                                                    fontVal.fonts.textSize -
-                                                        5,
-                                                color:_selectedPlaces
-                                                        .contains(place)
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontFamily: fontType,
-                                              ),
-                                            ),
-                                            backgroundColor: _selectedPlaces
-                                                    
-                                                    .contains(place)
-                                                ? colorVal
-                                                    .colors.buttonColors
-                                                : colorVal
-                                                    .colors.accentColor,
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          );
-                        }).toList(),
-                      ),
                     ),
                   ),
                 ),
@@ -193,38 +268,35 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-            
-                    FloatingActionButton(
-                        backgroundColor: colorVal.colors.buttonColors,
-                        onPressed: () {
-                          if (_selectedPlaces.length < 2) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(
-                                    // 'Please select at least 2 places to customize a tour',
-                                    AppLocalizations.of(context)!
-                                        .favPlaces_customizeError,
-                                    style: TextStyle(
-                                      fontSize: fontVal.fonts.textSize - 5,
-                                      color: Colors.white,
-                                      fontFamily: fontType,
-                                    ),
-                                  ),
-                                  backgroundColor: LgAppColors.lgColor2),
-                            );
-                          } else {
-                            print(_selectedPlaces.length);
+                  FloatingActionButton(
+                    backgroundColor: colorVal.colors.buttonColors,
+                    onPressed: () {
+                      if (_selectedPlaces.length < 2) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(
+                                // 'Please select at least 2 places to customize a tour',
+                                AppLocalizations.of(context)!
+                                    .favPlaces_customizeError,
+                                style: TextStyle(
+                                  fontSize: fontVal.fonts.textSize - 5,
+                                  color: Colors.white,
+                                  fontFamily: fontType,
+                                ),
+                              ),
+                              backgroundColor: LgAppColors.lgColor2),
+                        );
+                      } else {
+                        print(_selectedPlaces.length);
 
-                            final List<PlacesModel> places = _selectedPlaces;
-                          
-                            showCustomizationDialog(context, places);
-                          }
-                        },
-                        child: Image.asset(
-                          'assets/images/custom.png',
-                        ),
-                   
-                  
+                        final List<PlacesModel> places = _selectedPlaces;
+
+                        showCustomizationDialog(context, places);
+                      }
+                    },
+                    child: Image.asset(
+                      'assets/images/custom.png',
+                    ),
                   ),
                   Text(
                     // 'Customize',

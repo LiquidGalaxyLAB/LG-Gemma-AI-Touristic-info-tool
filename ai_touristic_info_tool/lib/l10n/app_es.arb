@@ -40,7 +40,72 @@
 
 
     "settingsHelp_title": "Página de Ayuda",
-    "settingsHelp_subtitle": "¡Toca el botón de abajo para ver el tutorial de la aplicación!",
+    "settingsHelp_subtitle": "Los siguientes son diferentes tutoriales dentro de la aplicación para ayudarte a navegar por la app:",
+    "settingsHelp_button1": "Guía de la App",
+    "settingsHelp_button2": "¿Cómo conectar con Liquid Galaxy?",
+    "settingsHelp_button3": "¿Cómo controlar el Liquid Galaxy?",
+    "settingsHelp_button4": "¿Cómo gestionar tus claves API?",
+    "settingsHelp_button5": "Visualizando tus tours",
+    "settingsHelp_button6": "¿Cómo usar la función de Favoritos?",
+    "settingsHelp_button7": "¿Cómo hacer tu propio tour personalizado?",
+    "settingsHelp_button8": "¿Cómo cambiar la configuración de la app?",
+
+
+        "tutorialApp_title1": "Navega a tu página de inicio",
+        "tutorialApp_desc1": "Es donde puedes escribir tu solicitud y generar recomendaciones de IA a nivel mundial o cerca de tu ubicación",
+        "tutorialApp_title2": "Conéctate al Sistema Liquid Galaxy",
+        "tutorialApp_desc2": "Para experimentar una vista panorámica de múltiples pantallas del mundo",
+        "tutorialApp_title3": "Controla el Liquid Galaxy",
+        "tutorialApp_desc3": "¡Apaga, reinicia, relanza tu LG y mucho más!",
+        "tutorialApp_title4": "¡Ve todos tus tours y lugares guardados!",
+        "tutorialApp_desc4": "¡También puedes crear tu propio tour personalizado!",
+        "tutorialApp_title5": "Todos tus ajustes de la app en un solo lugar",
+        "tutorialApp_desc5": "¡Para una experiencia más personalizada!",
+        "tutorialApp_title6": "¡Aprende más sobre la app!",
+    
+        "tutorialLGConnect_title1": "Navega al Gestor de Conexiones LG",
+        "tutorialLGConnect_title2": "Ingresa tu nombre de usuario LG",
+        "tutorialLGConnect_title3": "Ingresa tu contraseña LG",
+        "tutorialLGConnect_title4": "Ingresa la dirección IP del Maestro LG",
+        "tutorialLGConnect_desc4": "Usualmente empieza con 192.xxx.xxx.x",
+        "tutorialLGConnect_title5": "Ingresa el número de puerto de LG",
+        "tutorialLGConnect_desc5": "Usualmente es 22",
+        "tutorialLGConnect_title6": "Ingresa el número de pantallas LG en tu equipo",
+        "tutorialLGConnect_title7": "¡Haz clic aquí para conectarte después de llenar tus datos!",
+        "tutorialLGConnect_title8": "Revisa el estado de tu conexión LG desde aquí",
+    
+        "tutorialTasls_title1": "Navega a Tareas LG",
+        "tutorialTasls_title2": "Haz clic aquí para relanzar tu LG",
+        "tutorialTasls_title3": "Haz clic aquí para reiniciar tu LG",
+        "tutorialTasls_title4": "Haz clic aquí para apagar tu LG",
+        "tutorialTasls_title5": "Haz clic aquí para mostrar los logos de la app en la pantalla más a la izquierda de LG",
+        "tutorialTasls_title6": "Haz clic aquí para ocultar los logos de la app en la pantalla más a la izquierda de LG",
+        "tutorialTasls_title7": "Haz clic aquí para limpiar todos los KMLs en LG",
+    
+        "tutorialFavs_navigate":"Navega a Favoritos",
+        "tutorialFavs_title1": "Tus tours guardados de visualizaciones anteriores",
+        "tutorialFavs_desc1": "Puedes encontrar tours generados por IA o personalizados por ti.",
+        "tutorialFavs_title2": "Tus lugares guardados de visualizaciones anteriores",
+        "tutorialFavs_desc2": "Puedes personalizar tu propio tour a partir de tus lugares guardados.",
+    
+        "tutorialSettings_title1": "Cambia el idioma de la app desde aquí",
+        "tutorialSettings_title2": "Cambia la apariencia de la app desde aquí",
+        "tutorialSettings_title3": "Cambia el tamaño de fuente de la app desde aquí",
+        "tutorialSettings_title4": "Gestiona tus claves API desde aquí",
+        "tutorialSettings_desc4": "Puedes añadir, editar o eliminar tus claves API de diferentes servicios.",
+    
+        "tutorialCustomization_title1": "Arrastra los lugares que quieres visitar desde aquí",
+        "tutorialCustomization_title2": "Suelte aquí",
+        "tutorialCustomization_title3": "Crea tu tour personalizado",
+        "tutorialCustomization_desc3": "¡Aparecerá un botón después de crear tu tour para visualizarlo!",
+        "tutorialCustomization_title4": "Restablece tu tour",
+        "tutorialCustomization_desc4": "Esto borrará todos los lugares que has agregado a tu tour",
+        "tutorialCustomization_title5": "Puedes seguir tu tour actual aquí",
+        "tutorialCustomization_desc5": "Desliza hacia la derecha o izquierda para ver todo el tour",
+        "tutorialCustomization_title6": "Guarda tu tour personalizado",
+
+    
+
 
 
     "settingsLG_title": "Acerca de Liquid Galaxy",
@@ -172,12 +237,15 @@
     
     "favPlaces_title": "¡Todos tus lugares favoritos en todo el mundo en un solo lugar!",
     "favPlaces_customizeSubhead": "Para personalizar un tour, selecciona al menos 2 lugares",
+    "favPlaces_customizeSubhead2": "Mantén presionado un lugar para eliminarlo",
     "favPlaces_customizeError": "Por favor, selecciona al menos 2 lugares para personalizar un tour",
-    
-
+    "favPlaces_none": "No se han agregado lugares favoritos aún\nPor favor, guarda algunos lugares para personalizar un tour",
+    "favPlaces_removeConfirm": "¿Estás seguro de que deseas eliminar este lugar?",
+  
     "favTours_generatedByGemini": "Generado por Gemini",
     "favTours_generatedByGemma": "Generado por Gemma",
     "favTours_customized": "Tour Personalizado",
+    "favTours_none": "No se han agregado tours favoritos aún\nPor favor, guarda algunos tours para verlos aquí",
     
 
     "textfield_error": "El campo es obligatorio",
@@ -350,6 +418,7 @@
     "defaults_generate": "GENERAR",
     "defaults_customize": "Personalizar",
     "defaults_restart": "Reiniciar",
+    "defaults_skip":"Saltar",
 
 
     "searchResults_web": "Resultados Web para {query}",
