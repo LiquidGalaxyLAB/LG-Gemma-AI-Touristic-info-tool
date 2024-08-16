@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:ai_touristic_info_tool/helpers/lg_connection_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
@@ -48,7 +49,8 @@ class Api {
     }
   }
 
-  Stream<dynamic> postaStreamEventsGemma(BuildContext context,{required String input}) async* {
+  Stream<dynamic> postaStreamEventsGemma(BuildContext context,
+      {required String input}) async* {
     final http.Client _client = http.Client();
     //final rag_url = Uri.parse('http://10.0.2.2:8000/rag/stream_events');
     final rag_url = Uri.parse('$baseUrl/rag/stream_events');
@@ -66,7 +68,8 @@ class Api {
       yield {
         'type': 'error',
         // 'data': 'The server is currently unavailable. Please try again later.'
-        'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_serverNotAvailable
+        'data': AppLocalizations.of(context)!
+            .aiGenerationAPIGemma_serverNotAvailable
       };
       return;
     }
@@ -98,38 +101,48 @@ class Api {
             yield {
               'type': 'message',
               // 'data': "RAG (Retrieval Augmented Generation) Chain Starting ..."
-              'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages1
+              'data': AppLocalizations.of(context)!
+                  .aiGenerationAPIGemma_progressMessages1
             };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_retriever_start') {
-            yield {'type': 'message', 
-            // 'data': "Getting Retrieval ready..."
-            'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages2
+            yield {
+              'type': 'message',
+              // 'data': "Getting Retrieval ready..."
+              'data': AppLocalizations.of(context)!
+                  .aiGenerationAPIGemma_progressMessages2
             };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_retriever_end') {
-            yield {'type': 'message', 
-            // 'data': "Retrieval Initialized ..."
-            'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages3
+            yield {
+              'type': 'message',
+              // 'data': "Retrieval Initialized ..."
+              'data': AppLocalizations.of(context)!
+                  .aiGenerationAPIGemma_progressMessages3
             };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_prompt_start') {
-            yield {'type': 'message', 
-            // 'data': "Preparing Prompt ..."
-            'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages4
+            yield {
+              'type': 'message',
+              // 'data': "Preparing Prompt ..."
+              'data': AppLocalizations.of(context)!
+                  .aiGenerationAPIGemma_progressMessages4
             };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_prompt_end') {
-            yield {'type': 'message',
-            //  'data': "Prompt Ready ..."
-            'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages5
-             };
+            yield {
+              'type': 'message',
+              //  'data': "Prompt Ready ..."
+              'data': AppLocalizations.of(context)!
+                  .aiGenerationAPIGemma_progressMessages5
+            };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_llm_start') {
             yield {
               'type': 'message',
               // 'data': "Getting Gemma LLM Model ready..."
-              'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages6
+              'data': AppLocalizations.of(context)!
+                  .aiGenerationAPIGemma_progressMessages6
             };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_llm_stream') {
@@ -137,9 +150,11 @@ class Api {
             yield {'type': 'chunk', 'data': chunk};
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_llm_end') {
-            yield {'type': 'message', 
-            // 'data': "End of Chain ..."
-            'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_progressMessages7
+            yield {
+              'type': 'message',
+              // 'data': "End of Chain ..."
+              'data': AppLocalizations.of(context)!
+                  .aiGenerationAPIGemma_progressMessages7
             };
           } else if (jsonMap.containsKey('event') &&
               jsonMap['event'] == 'on_chain_end' &&
@@ -177,14 +192,16 @@ class Api {
       yield {
         'type': 'error',
         // 'data': 'An error occurred while generating the response: $e'
-        'data': AppLocalizations.of(context)!.aiGenerationAPIGemma_errorresponsegeneration(e.toString())
+        'data': AppLocalizations.of(context)!
+            .aiGenerationAPIGemma_errorresponsegeneration(e.toString())
       };
     } finally {
       _client.close();
     }
   }
 
-  Future<List<String>> fetchWebUrls(String placeName, BuildContext context) async {
+  Future<List<String>> fetchWebUrls(
+      String placeName, BuildContext context) async {
     final Uri uri = Uri.parse('$baseUrl/search?place_name=$placeName');
     final response = await http.get(uri);
 
@@ -193,11 +210,14 @@ class Api {
       return jsonList.cast<String>();
     } else {
       // throw Exception('Failed to fetch URLs: ${response.reasonPhrase}');
-      throw Exception(AppLocalizations.of(context)!.aiGenerationAPIGemma_errorFetchURLs(response.reasonPhrase.toString()));
+      throw Exception(AppLocalizations.of(context)!
+          .aiGenerationAPIGemma_errorFetchURLs(
+              response.reasonPhrase.toString()));
     }
   }
 
-  Future<List<String>> fetchYoutubeUrls(BuildContext context,{required String query}) async {
+  Future<List<String>> fetchYoutubeUrls(BuildContext context,
+      {required String query}) async {
     final String endpoint = 'https://www.googleapis.com/youtube/v3/search';
 
     final Uri url = Uri.parse(
@@ -220,7 +240,8 @@ class Api {
       return videoUrls;
     } else {
       // throw Exception('Failed to load YouTube URLs');
-      throw Exception(AppLocalizations.of(context)!.aiGenerationAPIGemma_errorFetchYoutube);
+      throw Exception(
+          AppLocalizations.of(context)!.aiGenerationAPIGemma_errorFetchYoutube);
     }
   }
 
@@ -289,4 +310,69 @@ class Api {
     ]
 }
   */
+
+  Future<String> speechToTextApi(File content) async {
+    final uri = Uri.parse("http://10.0.2.2:8440/speech-to-text");
+    //adding headers:
+
+    final request = http.MultipartRequest('POST', uri);
+    request.headers['Content-Type'] = 'multipart/form-data';
+
+    request.files.add(await http.MultipartFile.fromPath('audio', content.path));
+    request.fields['model'] = 'deepgram_stt';
+    request.fields['deepgram_model'] = 'aura-helios-en';
+
+    try {
+      final response = await request.send();
+
+      print('response');
+      print(response.statusCode);
+      if (response.statusCode == 200 || response.statusCode == 307) {
+        print("API Call Successful");
+        final responseBody = await response.stream.bytesToString();
+        print('responseBody');
+        print(responseBody);
+        return responseBody;
+      } else {
+        print("Failed to call API: ${response.statusCode}");
+        // throw Exception('Failed to load data');
+        return 'Failed';
+      }
+    } catch (e) {
+      print('Error: $e');
+      return 'Failed';
+    }
+  }
 }
+
+
+/*
+
+Future<void> uploadFile(File file) async {
+  final uri = Uri.parse('https://example.com/upload');
+  
+  // Create a MultipartRequest
+  final request = http.MultipartRequest('POST', uri);
+  
+  // Attach the file
+  request.files.add(await http.MultipartFile.fromPath('file', file.path));
+  
+  // Optionally add other fields
+  request.fields['description'] = 'File upload example';
+  
+  try {
+    // Send the request
+    final response = await request.send();
+    
+    // Check the response status
+    if (response.statusCode == 200) {
+      print('File uploaded successfully');
+    } else {
+      print('Failed to upload file. Status code: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error: $e');
+  }
+}
+
+*/

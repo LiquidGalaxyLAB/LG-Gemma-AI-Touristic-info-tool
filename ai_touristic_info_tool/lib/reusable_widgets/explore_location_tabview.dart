@@ -1,8 +1,13 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/custom_recording_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/drop_down_list_component.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
@@ -20,10 +25,14 @@ import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_gemini_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:record/record.dart';
 
 class ExploreLocationTabView extends StatefulWidget {
   const ExploreLocationTabView({
@@ -57,6 +66,116 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
 
   final _addressFormKey = GlobalKey<FormState>();
   bool _isLoading = false;
+
+  bool _isUseRecord = false;
+  bool _isRecording = false;
+  String? _audioPath;
+  late final AudioRecorder _audioRecorder;
+  bool _isAudioProcessing = false;
+  String? audioPrompt;
+  bool _isSTTFinished = false;
+  late AudioPlayer player = AudioPlayer();
+
+  @override
+  void initState() {
+    _audioRecorder = AudioRecorder();
+    super.initState();
+    // Create the audio player.
+    player = AudioPlayer();
+
+    // Set the release mode to keep the source after playback has completed.
+    player.setReleaseMode(ReleaseMode.stop);
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    _audioRecorder.dispose();
+    super.dispose();
+  }
+
+  String _generateRandomId() {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    final random = Random();
+    return List.generate(
+      10,
+      (index) => chars[random.nextInt(chars.length)],
+      growable: false,
+    ).join();
+  }
+
+  Future<void> _startRecording() async {
+    try {
+      debugPrint(
+          '=========>>>>>>>>>>> RECORDING!!!!!!!!!!!!!!! <<<<<<===========');
+
+      String filePath = await getApplicationDocumentsDirectory()
+          .then((value) => '${value.path}/${_generateRandomId()}.wav');
+
+      await _audioRecorder.start(
+        const RecordConfig(
+          // specify the codec to be `.wav`
+          encoder: AudioEncoder.wav,
+        ),
+        path: filePath,
+      );
+    } catch (e) {
+      debugPrint('ERROR WHILE RECORDING: $e');
+    }
+  }
+
+  Future<void> _stopRecording() async {
+    print('stop');
+    try {
+      String? path = await _audioRecorder.stop();
+
+      setState(() {
+        _audioPath = path!;
+        _isAudioProcessing = true;
+      });
+      debugPrint('=========>>>>>> PATH: $_audioPath <<<<<<===========');
+      convertSpeechToText();
+    } catch (e) {
+      debugPrint('ERROR WHILE STOP RECORDING: $e');
+    }
+  }
+
+  void _record() async {
+    if (_isRecording == false) {
+      final status = await Permission.microphone.request();
+
+      if (status == PermissionStatus.granted) {
+        setState(() {
+          _isRecording = true;
+        });
+        await _startRecording();
+      } else if (status == PermissionStatus.permanentlyDenied) {
+        debugPrint('Permission permanently denied');
+        // TODO: handle this case
+      }
+    } else {
+      await _stopRecording();
+
+      setState(() {
+        _isRecording = false;
+      });
+    }
+  }
+
+  void convertSpeechToText() async {
+    //making a file using audio path:
+    if (_audioPath != null) {
+      final audioFile = File(_audioPath!);
+      print(audioFile);
+      Api().speechToTextApi(audioFile).then((value) {
+        setState(() {
+          audioPrompt = value;
+          _isAudioProcessing = false;
+          _isSTTFinished = true;
+        });
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,10 +229,11 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         // elevatedButtonContent: 'Type Address',
                         elevatedButtonContent: AppLocalizations.of(context)!
                             .exploreLocation_typeAdd,
-                        buttonColor: ButtonColors.musicButton,
+                        buttonColor: ButtonColors.locationButton,
                         onpressed: () {
                           setState(() {
                             showAddressFields = true;
+                            _isUseRecord = false;
                             useMap = false;
                           });
                         },
@@ -133,30 +253,37 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       ),
                     ),
                   ),
-                  // Expanded(
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(20.0),
-                  //     child: LgElevatedButton(
-                  ////       elevatedButtonContent: 'Record Audio',
-                  // elevatedButtonContent:  AppLocalizations.of(context)!.exploreLocation_recordAudio,
-                  //       buttonColor: ButtonColors.audioButton,
-                  //       onpressed: () {},
-                  //       height: MediaQuery.of(context).size.height * 0.1,
-                  //       width: MediaQuery.of(context).size.width * 0.2,
-                  //       // fontSize: textSize,
-                  //       fontSize: value.fonts.textSize,
-                  //       fontColor: FontAppColors.secondaryFont,
-                  //       isLoading: false,
-                  //       isBold: false,
-                  //       isPrefixIcon: true,
-                  //       prefixIcon: Icons.mic_outlined,
-                  //       prefixIconColor: Colors.white,
-                  //       prefixIconSize: 30,
-                  //       isSuffixIcon: false,
-                  //       curvatureRadius: 10,
-                  //     ),
-                  //   ),
-                  // ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: LgElevatedButton(
+                        //       elevatedButtonContent: 'Record Audio',
+                        elevatedButtonContent: AppLocalizations.of(context)!
+                            .exploreLocation_recordAudio,
+                        buttonColor: ButtonColors.musicButton,
+                        onpressed: () {
+                          setState(() {
+                            showAddressFields = false;
+                            _isUseRecord = true;
+                            useMap = false;
+                          });
+                        },
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        // fontSize: textSize,
+                        fontSize: value.fonts.textSize,
+                        fontColor: FontAppColors.secondaryFont,
+                        isLoading: false,
+                        isBold: false,
+                        isPrefixIcon: true,
+                        prefixIcon: Icons.mic_outlined,
+                        prefixIconColor: Colors.white,
+                        prefixIconSize: 30,
+                        isSuffixIcon: false,
+                        curvatureRadius: 10,
+                      ),
+                    ),
+                  ),
                 ],
               );
             },
@@ -359,6 +486,187 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                 },
               ),
             ),
+          if (_isUseRecord)
+            Consumer2<FontsProvider, ColorProvider>(
+              builder: (BuildContext context, FontsProvider fontsProv,
+                  ColorProvider colorVal, Widget? child) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: colorVal.colors.buttonColors,
+                          width: 4,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      _isAudioProcessing
+                                          ? 'We are processing your audio to text. Please wait...'
+                                          : _isSTTFinished
+                                              ? audioPrompt ??
+                                                  'No Text found. Please try recording again..'
+                                              : 'Tap the microphone button to start recording.',
+                                      maxLines: 4,
+                                      style: TextStyle(
+                                        fontSize: fontsProv.fonts.textSize,
+                                        fontFamily: fontType,
+                                        // color: FontAppColors.primaryFont,
+                                        color: fontsProv.fonts.primaryFontColor,
+                                      ),
+                                    ),
+                                  ),
+                                  CustomRecordingButton(
+                                    isRecording: _isRecording,
+                                    onPressed: () => _record(),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  LgElevatedButton(
+                                    elevatedButtonContent: 'Confirm',
+                                    buttonColor: LgAppColors.lgColor4,
+                                    onpressed: () async {
+                                      ModelErrorProvider errProvider =
+                                          Provider.of<ModelErrorProvider>(
+                                              context,
+                                              listen: false);
+                                      errProvider.isError = false;
+                                      if (_isSTTFinished &&
+                                          audioPrompt != null) {
+                                        // String query =
+                                        //     '${audioPrompt} Worldwide';
+                                        // print(query);
+                                        _addressQuery = audioPrompt!;
+                                        //snack bar:
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor:
+                                                LgAppColors.lgColor2,
+                                            content: Consumer<FontsProvider>(
+                                              builder: (BuildContext context,
+                                                  FontsProvider value,
+                                                  Widget? child) {
+                                                return Text(
+                                                  'Scroll down now to choose one of the activities nearby that location!',
+                                                  // AppLocalizations.of(context)!
+                                                  //     .exploreWorld_recordPromptError,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        value.fonts.textSize,
+                                                    color: Colors.white,
+                                                    fontFamily: fontType,
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        //snack bar:
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor:
+                                                LgAppColors.lgColor2,
+                                            content: Consumer<FontsProvider>(
+                                              builder: (BuildContext context,
+                                                  FontsProvider value,
+                                                  Widget? child) {
+                                                return Text(
+                                                  'Please record a prompt first!',
+                                                  // AppLocalizations.of(context)!
+                                                  //     .exploreWorld_recordPromptError,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        value.fonts.textSize,
+                                                    color: Colors.white,
+                                                    fontFamily: fontType,
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    height: MediaQuery.of(context).size.height *
+                                        0.05,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.2,
+                                    fontSize: fontsProv.fonts.textSize,
+                                    fontColor: Colors.white,
+                                    isLoading: false,
+                                    isBold: true,
+                                    isPrefixIcon: false,
+                                    isSuffixIcon: true,
+                                    suffixIcon: Icons.done_all,
+                                    suffixIconColor: Colors.white,
+                                    suffixIconSize: 30,
+                                    curvatureRadius: 30,
+                                  ),
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05),
+                                  LgElevatedButton(
+                                    elevatedButtonContent: 'Clear',
+                                    buttonColor: LgAppColors.lgColor2,
+                                    onpressed: () {
+                                      setState(() {
+                                        _isAudioProcessing = false;
+                                        _isSTTFinished = false;
+                                        _audioPath = null;
+                                        _isRecording = false;
+                                      });
+                                    },
+                                    height: MediaQuery.of(context).size.height *
+                                        0.05,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.2,
+                                    fontSize: fontsProv.fonts.textSize,
+                                    fontColor: Colors.white,
+                                    isLoading: false,
+                                    isBold: true,
+                                    isPrefixIcon: false,
+                                    isSuffixIcon: true,
+                                    suffixIcon: Icons.clear,
+                                    suffixIconColor: Colors.white,
+                                    suffixIconSize: 30,
+                                    curvatureRadius: 30,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,
           ),
@@ -383,6 +691,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                 },
               ),
             ),
+
           if (!useMap)
             Padding(
               padding: const EdgeInsets.only(left: 20.0, bottom: 20),
@@ -403,6 +712,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                 },
               ),
             ),
+
           GoogleMapWidget(
             height: MediaQuery.of(context).size.height * 0.5,
             width: MediaQuery.of(context).size.width * 0.8,
@@ -896,9 +1206,10 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                     _isLoading = false;
                                   });
                                   if (res == '') {
-                                     Locale locale= await SettingsSharedPref.getLocale();
+                                    Locale locale =
+                                        await SettingsSharedPref.getLocale();
                                     showStreamingGeminiDialog(context, query,
-                                        _city, _country, apiKey,locale);
+                                        _city, _country, apiKey, locale);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(

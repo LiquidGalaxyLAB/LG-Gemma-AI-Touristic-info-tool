@@ -68,6 +68,10 @@ dependencies:
   restart_app: ^1.2.1
   flutter_intro: ^3.3.1
   tutorial_coach_mark: ^1.2.11
+  record: ^5.1.2
+  audioplayers: ^5.2.1
+  flutter_sound: ^9.6.0
+  permission_handler: ^11.3.1
   
 
 dev_dependencies:
@@ -82,7 +86,7 @@ flutter_launcher_icons:
   #Local:
   # image_path: "assets/images/appLogo-Gemma.png"
   #Gemini:
-  image_path: "assets/images/appLogo-Gemini.png"
+  image_path: "assets/images/psLogo.jpg"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

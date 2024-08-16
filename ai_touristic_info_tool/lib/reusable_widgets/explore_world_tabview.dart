@@ -1,10 +1,17 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/custom_recording_button.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/custom_recording_wave_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
+import 'package:ai_touristic_info_tool/reusable_widgets/player_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/services/langchain_service.dart';
@@ -17,10 +24,16 @@ import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_gemini_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/public/flutter_sound_recorder.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:record/record.dart';
 
 class ExploreWorldTabView extends StatefulWidget {
   const ExploreWorldTabView({
@@ -40,15 +53,123 @@ class ExploreWorldTabView extends StatefulWidget {
 class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
   bool _isLoading = false;
   final ScrollController _scrollController = ScrollController();
-  //init:
+  bool _isTypePrompt = false;
+  bool _isRecordPrompt = false;
+  bool _isRecording = false;
+  String? _audioPath;
+  late final AudioRecorder _audioRecorder;
+  bool _isAudioProcessing = false;
+  String? audioPrompt;
+  bool _isSTTFinished = false;
+  late AudioPlayer player = AudioPlayer();
+
+  @override
+  void initState() {
+    _audioRecorder = AudioRecorder();
+    super.initState();
+    // Create the audio player.
+    player = AudioPlayer();
+
+    // Set the release mode to keep the source after playback has completed.
+    player.setReleaseMode(ReleaseMode.stop);
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    _audioRecorder.dispose();
+    super.dispose();
+  }
+
+  String _generateRandomId() {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    final random = Random();
+    return List.generate(
+      10,
+      (index) => chars[random.nextInt(chars.length)],
+      growable: false,
+    ).join();
+  }
+
+  Future<void> _startRecording() async {
+    try {
+      debugPrint(
+          '=========>>>>>>>>>>> RECORDING!!!!!!!!!!!!!!! <<<<<<===========');
+
+      String filePath = await getApplicationDocumentsDirectory()
+          .then((value) => '${value.path}/${_generateRandomId()}.wav');
+
+      await _audioRecorder.start(
+        const RecordConfig(
+          // specify the codec to be `.wav`
+          encoder: AudioEncoder.wav,
+        ),
+        path: filePath,
+      );
+    } catch (e) {
+      debugPrint('ERROR WHILE RECORDING: $e');
+    }
+  }
+
+  Future<void> _stopRecording() async {
+    try {
+      String? path = await _audioRecorder.stop();
+
+      setState(() {
+        _audioPath = path!;
+        _isAudioProcessing = true;
+      });
+      debugPrint('=========>>>>>> PATH: $_audioPath <<<<<<===========');
+      convertSpeechToText();
+    } catch (e) {
+      debugPrint('ERROR WHILE STOP RECORDING: $e');
+    }
+  }
+
+  void _record() async {
+    if (_isRecording == false) {
+      final status = await Permission.microphone.request();
+
+      if (status == PermissionStatus.granted) {
+        setState(() {
+          _isRecording = true;
+        });
+        await _startRecording();
+      } else if (status == PermissionStatus.permanentlyDenied) {
+        debugPrint('Permission permanently denied');
+        // TODO: handle this case
+      }
+    } else {
+      await _stopRecording();
+
+      setState(() {
+        _isRecording = false;
+      });
+    }
+  }
+
+  void convertSpeechToText() async {
+    //making a file using audio path:
+    if (_audioPath != null) {
+      final audioFile = File(_audioPath!);
+      print(audioFile);
+      Api().speechToTextApi(audioFile).then((value) {
+        setState(() {
+          audioPrompt = value;
+          _isAudioProcessing = false;
+          _isSTTFinished = true;
+        });
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: _scrollController,
-      child: Consumer<FontsProvider>(
-        builder:
-            (BuildContext context, FontsProvider fontsProv, Widget? child) {
+      child: Consumer2<FontsProvider, ColorProvider>(
+        builder: (BuildContext context, FontsProvider fontsProv,
+            ColorProvider colorProvv, Widget? child) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -495,128 +616,140 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                   ),
                 ),
               ),
-              Form(
-                key: widget._formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Center(
-                      child: TextFormFieldWidget(
-                        // fontSize: textSize,
-                        fontSize: fontsProv.fonts.textSize,
-                        key: const ValueKey("world-prompt"),
-                        textController: widget._promptController,
-                        isSuffixRequired: false,
-                        // isHidden: false,
-                        isPassword: false,
-                        maxLength: 100,
-                        maxlines: 1,
-                        width: MediaQuery.sizeOf(context).width * 0.85,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LgElevatedButton(
+                    elevatedButtonContent: 'Type a Prompt',
+                    buttonColor: ButtonColors.locationButton,
+                    onpressed: () {
+                      setState(() {
+                        _isTypePrompt = true;
+                        _isRecordPrompt = false;
+                      });
+                    },
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    fontSize: fontsProv.fonts.textSize,
+                    fontColor: Colors.white,
+                    isLoading: false,
+                    isBold: true,
+                    isPrefixIcon: false,
+                    isSuffixIcon: true,
+                    suffixIcon: Icons.keyboard,
+                    suffixIconColor: Colors.white,
+                    suffixIconSize: fontsProv.fonts.headingSize,
+                    curvatureRadius: 10,
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                  LgElevatedButton(
+                    elevatedButtonContent: 'Record a Prompt',
+                    buttonColor: ButtonColors.musicButton,
+                    onpressed: () {
+                      setState(() {
+                        _isRecordPrompt = true;
+                        _isTypePrompt = false;
+                      });
+                    },
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    fontSize: fontsProv.fonts.textSize,
+                    fontColor: Colors.white,
+                    isLoading: false,
+                    isBold: true,
+                    isPrefixIcon: false,
+                    isSuffixIcon: true,
+                    suffixIcon: Icons.mic,
+                    suffixIconColor: Colors.white,
+                    suffixIconSize: fontsProv.fonts.headingSize,
+                    curvatureRadius: 10,
+                  ),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              if (_isTypePrompt)
+                Form(
+                  key: widget._formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Center(
+                        child: TextFormFieldWidget(
+                          // fontSize: textSize,
+                          fontSize: fontsProv.fonts.textSize,
+                          key: const ValueKey("world-prompt"),
+                          textController: widget._promptController,
+                          isSuffixRequired: false,
+                          // isHidden: false,
+                          isPassword: false,
+                          maxLength: 100,
+                          maxlines: 1,
+                          width: MediaQuery.sizeOf(context).width * 0.85,
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 40.0, top: 20),
-                      child: Consumer<ColorProvider>(
-                        builder: (BuildContext context, ColorProvider value,
-                            Widget? child) {
-                          return LgElevatedButton(
-                            key: const ValueKey("world-prompt-button"),
-                            height: MediaQuery.sizeOf(context).height * 0.05,
-                            width: MediaQuery.sizeOf(context).width * 0.2,
-                            // buttonColor: PrimaryAppColors.buttonColors,
-                            buttonColor: value.colors.buttonColors,
-                            // fontSize: textSize,
-                            fontSize: fontsProv.fonts.textSize,
-                            fontColor: Colors.white,
-                            // fontColor: FontAppColors.secondaryFont,
-                            isBold: true,
-                            isLoading: false,
-                            isPrefixIcon: false,
-                            isSuffixIcon: false,
-                            curvatureRadius: 50,
-                            onpressed: () {
-                              ModelErrorProvider errProvider =
-                                  Provider.of<ModelErrorProvider>(context,
-                                      listen: false);
-                              errProvider.isError = false;
-                              if (widget._formKey.currentState!.validate()) {
-                                String query =
-                                    '${widget._promptController.text} Worldwide';
-                                print(query);
+                      Padding(
+                        padding: const EdgeInsets.only(right: 40.0, top: 20),
+                        child: Consumer<ColorProvider>(
+                          builder: (BuildContext context, ColorProvider value,
+                              Widget? child) {
+                            return LgElevatedButton(
+                              key: const ValueKey("world-prompt-button"),
+                              height: MediaQuery.sizeOf(context).height * 0.05,
+                              width: MediaQuery.sizeOf(context).width * 0.2,
+                              // buttonColor: PrimaryAppColors.buttonColors,
+                              buttonColor: value.colors.buttonColors,
+                              // fontSize: textSize,
+                              fontSize: fontsProv.fonts.textSize,
+                              fontColor: Colors.white,
+                              // fontColor: FontAppColors.secondaryFont,
+                              isBold: true,
+                              isLoading: false,
+                              isPrefixIcon: false,
+                              isSuffixIcon: false,
+                              curvatureRadius: 50,
+                              onpressed: () {
+                                ModelErrorProvider errProvider =
+                                    Provider.of<ModelErrorProvider>(context,
+                                        listen: false);
+                                errProvider.isError = false;
+                                if (widget._formKey.currentState!.validate()) {
+                                  String query =
+                                      '${widget._promptController.text} Worldwide';
+                                  print(query);
 
-                                PromptsSharedPref.getPlaces(query)
-                                    .then((value) async {
-                                  print('value: $value');
-                                  print(value.isNotEmpty);
-                                  if (value.isNotEmpty) {
-                                    await buildQueryPlacemark(
-                                        query, '', '', context);
-                                    showVisualizationDialog(context, value,
-                                        query, '', '', () {}, false);
-                                  } else {
-                                    //Local
-                                    // Connectionprovider connection =
-                                    //     Provider.of<Connectionprovider>(context,
-                                    //         listen: false);
-                                    // if (!connection.isAiConnected) {
-                                    //   dialogBuilder(
-                                    //       context,
-                                    //       'NOT connected to AI Server!!\nPlease Connect!',
-                                    //       true,
-                                    //       'OK',
-                                    //       null,
-                                    //       null);
-                                    // } else {
-                                    //   showStreamingDialog(
-                                    //       context, query, '', '');
-                                    // }
-                                    //Gemini:
-                                    ApiKeyModel? apiKeyModel =
-                                        await APIKeySharedPref.getDefaultApiKey(
-                                            'Gemini');
-                                    String apiKey;
-                                    if (apiKeyModel == null) {
-                                      //snackbar:
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                            backgroundColor:
-                                                LgAppColors.lgColor2,
-                                            content: Consumer<FontsProvider>(
-                                              builder: (BuildContext context,
-                                                  FontsProvider value,
-                                                  Widget? child) {
-                                                return Text(
-                                                  // 'Please add a default API Key for Gemini in the settings!',
-                                                  AppLocalizations.of(context)!
-                                                      .settings_apiKeyNotSetDefaultError,
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        value.fonts.textSize,
-                                                    color: Colors.white,
-                                                    fontFamily: fontType,
-                                                  ),
-                                                );
-                                              },
-                                            )),
-                                      );
+                                  PromptsSharedPref.getPlaces(query)
+                                      .then((value) async {
+                                    print('value: $value');
+                                    print(value.isNotEmpty);
+                                    if (value.isNotEmpty) {
+                                      await buildQueryPlacemark(
+                                          query, '', '', context);
+                                      showVisualizationDialog(context, value,
+                                          query, '', '', () {}, false);
                                     } else {
-                                      apiKey = apiKeyModel.key;
-                                      setState(() {
-                                        _isLoading = true;
-                                      });
-                                      String res = await LangchainService()
-                                          .checkAPIValidity(apiKey, context);
-
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
-                                      if (res == '') {
-                                        Locale locale = await SettingsSharedPref
-                                            .getLocale();
-                                        showStreamingGeminiDialog(context,
-                                            query, '', '', apiKey, locale);
-                                      } else {
+                                      //Local
+                                      // Connectionprovider connection =
+                                      //     Provider.of<Connectionprovider>(context,
+                                      //         listen: false);
+                                      // if (!connection.isAiConnected) {
+                                      //   dialogBuilder(
+                                      //       context,
+                                      //       'NOT connected to AI Server!!\nPlease Connect!',
+                                      //       true,
+                                      //       'OK',
+                                      //       null,
+                                      //       null);
+                                      // } else {
+                                      //   showStreamingDialog(
+                                      //       context, query, '', '');
+                                      // }
+                                      //Gemini:
+                                      ApiKeyModel? apiKeyModel =
+                                          await APIKeySharedPref
+                                              .getDefaultApiKey('Gemini');
+                                      String apiKey;
+                                      if (apiKeyModel == null) {
+                                        //snackbar:
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
@@ -627,7 +760,10 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                                                     FontsProvider value,
                                                     Widget? child) {
                                                   return Text(
-                                                    res,
+                                                    // 'Please add a default API Key for Gemini in the settings!',
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .settings_apiKeyNotSetDefaultError,
                                                     style: TextStyle(
                                                       fontSize:
                                                           value.fonts.textSize,
@@ -638,28 +774,345 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                                                 },
                                               )),
                                         );
+                                      } else {
+                                        apiKey = apiKeyModel.key;
+                                        setState(() {
+                                          _isLoading = true;
+                                        });
+                                        String res = await LangchainService()
+                                            .checkAPIValidity(apiKey, context);
+
+                                        setState(() {
+                                          _isLoading = false;
+                                        });
+                                        if (res == '') {
+                                          Locale locale =
+                                              await SettingsSharedPref
+                                                  .getLocale();
+                                          showStreamingGeminiDialog(context,
+                                              query, '', '', apiKey, locale);
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                backgroundColor:
+                                                    LgAppColors.lgColor2,
+                                                content:
+                                                    Consumer<FontsProvider>(
+                                                  builder:
+                                                      (BuildContext context,
+                                                          FontsProvider value,
+                                                          Widget? child) {
+                                                    return Text(
+                                                      res,
+                                                      style: TextStyle(
+                                                        fontSize: value
+                                                            .fonts.textSize,
+                                                        color: Colors.white,
+                                                        fontFamily: fontType,
+                                                      ),
+                                                    );
+                                                  },
+                                                )),
+                                          );
+                                        }
                                       }
                                     }
-                                  }
-                                });
-                              }
-                            },
-                            elevatedButtonContent:
-                                // _isLoading ? 'Loading..' : ' GENERATE',
-                                _isLoading
-                                    ? AppLocalizations.of(context)!
-                                        .defaults_loading
-                                    : AppLocalizations.of(context)!
-                                        .defaults_generate,
-                          );
-                        },
+                                  });
+                                }
+                              },
+                              elevatedButtonContent:
+                                  // _isLoading ? 'Loading..' : ' GENERATE',
+                                  _isLoading
+                                      ? AppLocalizations.of(context)!
+                                          .defaults_loading
+                                      : AppLocalizations.of(context)!
+                                          .defaults_generate,
+                            );
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.sizeOf(context).height * 0.05,
+                      ),
+                    ],
+                  ),
+                ),
+              if (_isRecordPrompt)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: colorProvv.colors.buttonColors,
+                          width: 4,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      _isAudioProcessing
+                                          ? 'We are processing your audio to text. Please wait...'
+                                          : _isSTTFinished
+                                              ? audioPrompt ??
+                                                  'No Text found. Please try recording again..'
+                                              : 'Tap the microphone button to start recording.',
+                                      maxLines: 4,
+                                      style: TextStyle(
+                                        fontSize: fontsProv.fonts.textSize,
+                                        fontFamily: fontType,
+                                        // color: FontAppColors.primaryFont,
+                                        color: fontsProv.fonts.primaryFontColor,
+                                      ),
+                                    ),
+                                  ),
+                                  CustomRecordingButton(
+                                    isRecording: _isRecording,
+                                    onPressed: () => _record(),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  LgElevatedButton(
+                                    elevatedButtonContent: 'Generate',
+                                    buttonColor: LgAppColors.lgColor4,
+                                    onpressed: () async {
+                                      ModelErrorProvider errProvider =
+                                          Provider.of<ModelErrorProvider>(
+                                              context,
+                                              listen: false);
+                                      errProvider.isError = false;
+                                      if (_isRecordPrompt && _isSTTFinished) {
+                                        String query =
+                                            '${audioPrompt} Worldwide';
+                                        print(query);
+
+                                        PromptsSharedPref.getPlaces(query)
+                                            .then((value) async {
+                                          print('value: $value');
+                                          print(value.isNotEmpty);
+                                          if (value.isNotEmpty) {
+                                            await buildQueryPlacemark(
+                                                query, '', '', context);
+                                            showVisualizationDialog(
+                                                context,
+                                                value,
+                                                query,
+                                                '',
+                                                '',
+                                                () {},
+                                                false);
+                                          } else {
+                                            //Local
+                                            // Connectionprovider connection =
+                                            //     Provider.of<Connectionprovider>(context,
+                                            //         listen: false);
+                                            // if (!connection.isAiConnected) {
+                                            //   dialogBuilder(
+                                            //       context,
+                                            //       'NOT connected to AI Server!!\nPlease Connect!',
+                                            //       true,
+                                            //       'OK',
+                                            //       null,
+                                            //       null);
+                                            // } else {
+                                            //   showStreamingDialog(
+                                            //       context, query, '', '');
+                                            // }
+                                            //Gemini:
+                                            ApiKeyModel? apiKeyModel =
+                                                await APIKeySharedPref
+                                                    .getDefaultApiKey('Gemini');
+                                            String apiKey;
+                                            if (apiKeyModel == null) {
+                                              //snackbar:
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                    backgroundColor:
+                                                        LgAppColors.lgColor2,
+                                                    content:
+                                                        Consumer<FontsProvider>(
+                                                      builder: (BuildContext
+                                                              context,
+                                                          FontsProvider value,
+                                                          Widget? child) {
+                                                        return Text(
+                                                          // 'Please add a default API Key for Gemini in the settings!',
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .settings_apiKeyNotSetDefaultError,
+                                                          style: TextStyle(
+                                                            fontSize: value
+                                                                .fonts.textSize,
+                                                            color: Colors.white,
+                                                            fontFamily:
+                                                                fontType,
+                                                          ),
+                                                        );
+                                                      },
+                                                    )),
+                                              );
+                                            } else {
+                                              apiKey = apiKeyModel.key;
+                                              setState(() {
+                                                _isLoading = true;
+                                              });
+                                              String res =
+                                                  await LangchainService()
+                                                      .checkAPIValidity(
+                                                          apiKey, context);
+
+                                              setState(() {
+                                                _isLoading = false;
+                                              });
+                                              if (res == '') {
+                                                Locale locale =
+                                                    await SettingsSharedPref
+                                                        .getLocale();
+                                                showStreamingGeminiDialog(
+                                                    context,
+                                                    query,
+                                                    '',
+                                                    '',
+                                                    apiKey,
+                                                    locale);
+                                              } else {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                      backgroundColor:
+                                                          LgAppColors.lgColor2,
+                                                      content: Consumer<
+                                                          FontsProvider>(
+                                                        builder: (BuildContext
+                                                                context,
+                                                            FontsProvider value,
+                                                            Widget? child) {
+                                                          return Text(
+                                                            res,
+                                                            style: TextStyle(
+                                                              fontSize: value
+                                                                  .fonts
+                                                                  .textSize,
+                                                              color:
+                                                                  Colors.white,
+                                                              fontFamily:
+                                                                  fontType,
+                                                            ),
+                                                          );
+                                                        },
+                                                      )),
+                                                );
+                                              }
+                                            }
+                                          }
+                                          ;
+                                        });
+                                      } else {
+                                        //snack bar:
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor:
+                                                LgAppColors.lgColor2,
+                                            content: Consumer<FontsProvider>(
+                                              builder: (BuildContext context,
+                                                  FontsProvider value,
+                                                  Widget? child) {
+                                                return Text(
+                                                  'Please record a prompt first!',
+                                                  // AppLocalizations.of(context)!
+                                                  //     .exploreWorld_recordPromptError,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        value.fonts.textSize,
+                                                    color: Colors.white,
+                                                    fontFamily: fontType,
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    height: MediaQuery.of(context).size.height *
+                                        0.05,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.2,
+                                    fontSize: fontsProv.fonts.textSize,
+                                    fontColor: Colors.white,
+                                    isLoading: false,
+                                    isBold: true,
+                                    isPrefixIcon: false,
+                                    isSuffixIcon: true,
+                                    suffixIcon: Icons.done_all,
+                                    suffixIconColor: Colors.white,
+                                    suffixIconSize: 30,
+                                    curvatureRadius: 30,
+                                  ),
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05),
+                                  LgElevatedButton(
+                                    elevatedButtonContent: 'Clear',
+                                    buttonColor: LgAppColors.lgColor2,
+                                    onpressed: () {
+                                      setState(() {
+                                        _isAudioProcessing = false;
+                                        _isSTTFinished = false;
+                                        _audioPath = null;
+                                        _isRecording = false;
+                                      });
+                                    },
+                                    height: MediaQuery.of(context).size.height *
+                                        0.05,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.2,
+                                    fontSize: fontsProv.fonts.textSize,
+                                    fontColor: Colors.white,
+                                    isLoading: false,
+                                    isBold: true,
+                                    isPrefixIcon: false,
+                                    isSuffixIcon: true,
+                                    suffixIcon: Icons.clear,
+                                    suffixIconColor: Colors.white,
+                                    suffixIconSize: 30,
+                                    curvatureRadius: 30,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.sizeOf(context).height * 0.05,
-                    ),
-                  ],
+                  ),
                 ),
+              if (_isSTTFinished) PlayerWidget(player: player),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.08,
               ),
             ],
           );
