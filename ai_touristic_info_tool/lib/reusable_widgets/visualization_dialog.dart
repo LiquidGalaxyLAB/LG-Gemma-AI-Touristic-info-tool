@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/kml/KMLModel.dart';
@@ -20,9 +24,11 @@ import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -53,6 +59,20 @@ class VisualizationDialog extends StatefulWidget {
 
 class _VisualizationDialogState extends State<VisualizationDialog> {
   late bool _isTourOn;
+  final _narrationPlayer = AudioPlayer();
+  // bool _isNarrating = false;
+  PlayerState _audioPlayerState = PlayerState.stopped;
+  bool _isPlaying = false;
+  bool _isPaused = false;
+  bool _isAudioFinishedNarration = true;
+  Uint8List? _bytes;
+  bool _narratedOnce = false;
+  bool _isAudioLoading = false;
+  bool _isAudioEmptyError = false;
+  bool _isAudioPlayError = false;
+
+  // final AudioPlayer _audioPlayer = AudioPlayer();
+  File? _audioFile;
 
   // late MyLatLng myLatLng;
   // double lat=0;
@@ -62,7 +82,163 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
   void initState() {
     super.initState();
     _isTourOn = false;
-    // _initializeLocation();
+    _narrationPlayer.onPlayerStateChanged.listen((PlayerState state) {
+      if (mounted) {
+        setState(() {
+          _audioPlayerState = state;
+          if (state == PlayerState.playing) {
+            _isPlaying = true;
+            _isPaused = false;
+            _isAudioFinishedNarration = false;
+            _isAudioLoading = false;
+          } else if (state == PlayerState.paused) {
+            _isPlaying = false;
+            _isPaused = true;
+            _isAudioFinishedNarration = false;
+            _isAudioLoading = false;
+          } else if (state == PlayerState.completed) {
+            _isPlaying = false;
+            _isPaused = false;
+            _isAudioFinishedNarration = true;
+            _isAudioLoading = false;
+          }
+        });
+      }
+    });
+  }
+
+  void playAudio() async {
+    // await _narrationPlayer.play(BytesSource(_bytes!));
+    print('playing audio');
+    try {
+      if (_isAudioEmptyError) {
+        //
+      } else {
+        await _narrationPlayer.play(DeviceFileSource(_audioFile!.path));
+      }
+    } catch (e) {
+      print(e);
+      if (mounted) {
+        setState(() {
+          _isAudioPlayError = true;
+        });
+      }
+    }
+
+    // _isNarrating = true;
+  }
+
+  void stopAudio() async {
+    await _narrationPlayer.stop();
+    // _narrationPlayer.audioCache.clearAll();
+    // _isNarrating = false;
+  }
+
+  void pauseAudio() async {
+    await _narrationPlayer.pause();
+  }
+
+  void resumeAudio() async {
+    await _narrationPlayer.resume();
+  }
+
+  void _convertTextToSpeech(String text) async {
+    if (mounted) {
+      setState(() {
+        _narratedOnce = true;
+      });
+    }
+
+    File? audioFile = await Api().textToSpeech(text);
+    print('converted');
+    if (audioFile == null) {
+      print('audiofile empty');
+      if (mounted) {
+        setState(() {
+          _isAudioEmptyError = true;
+          _isAudioLoading = false;
+        });
+      }
+      dialogBuilder(
+          context,
+          _isAudioEmptyError
+              ? 'Error loading audio. Please try again later.'
+              : 'Error playing audio. Please try again later.',
+          true,
+          AppLocalizations.of(context)!.defaults_ok,
+          () {},
+          () {});
+      return;
+    }
+    if (mounted) {
+      setState(() {
+        _audioFile = audioFile;
+      });
+    }
+    playAudio();
+
+    // Uint8List? bytes = await Api().textToSpeechApi(text);
+    // if (bytes != null) {
+    //   setState(() {
+    //     _bytes = bytes;
+    //   });
+    // }
+  }
+
+  void _handlePlayPause(String text) async {
+    print('clicked');
+    print('Final text');
+    print(text);
+    if (!_isAudioEmptyError && !_isAudioPlayError) {
+      if (_audioPlayerState == PlayerState.playing) {
+        if (mounted) {
+          setState(() {
+            _isAudioLoading = false;
+          });
+        }
+        pauseAudio();
+      } else if (_audioPlayerState == PlayerState.paused) {
+        if (mounted) {
+          setState(() {
+            _isAudioLoading = false;
+          });
+        }
+        resumeAudio();
+      } else if (_audioPlayerState == PlayerState.stopped ||
+          _audioPlayerState == PlayerState.completed) {
+        if (_narratedOnce) {
+          print('narrated before');
+          // if (_audioFile != null) {
+          playAudio();
+
+          // } else {}
+        } else {
+          if (mounted) {
+            setState(() {
+              _isAudioLoading = true;
+            });
+          }
+          print('shoudl convert');
+          _convertTextToSpeech(text);
+          if (mounted) {
+            setState(() {
+              _narratedOnce = true;
+            });
+          }
+        }
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _narrationPlayer.dispose();
+    // Check if the audio file exists, then delete it
+    if (_audioFile != null && _audioFile!.existsSync()) {
+      _audioFile!.deleteSync(); // Synchronously delete the file
+      print('Audio file deleted: ${_audioFile!.path}');
+    }
+    super.dispose();
   }
 
   @override
@@ -347,13 +523,44 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                       width: MediaQuery.of(context).size.width * 0.01,
                     ),
                     LgElevatedButton(
-                      elevatedButtonContent: 'Narrate',
+                      elevatedButtonContent: playAudioElevatedButtonContent,
+
                       // elevatedButtonContent: AppLocalizations.of(context)!
                       //     .visualizationDialog_PrepTour,
                       buttonColor: SettingsSharedPref.getTheme() == 'dark'
                           ? colorVal.colors.midShadow
                           : FontAppColors.secondaryFont,
-                      onpressed: () async {},
+                      onpressed: () async {
+                        String voiceNarration =
+                            'Let\'s begin our ${widget.query} tour!';
+                        for (int i = 0; i < widget.places.length; i++) {
+                          PlacesModel poi = widget.places[i];
+                          if (i == 0) {
+                            voiceNarration +=
+                                'First, we have ${poi.name} in ${poi.city}, ${poi.country}.';
+                          } else {
+                            voiceNarration +=
+                                'Next, we have ${poi.name} in ${poi.city}, ${poi.country}.';
+                          }
+                          voiceNarration += poi.description ?? '';
+                          print(voiceNarration);
+                          // _convertTextToSpeech(voiceNarration);
+                        }
+                        if (_isAudioEmptyError) {
+                          //
+                          dialogBuilder(
+                              context,
+                              _isAudioEmptyError
+                                  ? 'Error loading audio. Please try again later.'
+                                  : 'Error playing audio. Please try again later.',
+                              true,
+                              AppLocalizations.of(context)!.defaults_ok,
+                              () {},
+                              () {});
+                        } else {
+                          _handlePlayPause(voiceNarration);
+                        }
+                      },
                       height: MediaQuery.of(context).size.height * 0.07,
                       width: MediaQuery.of(context).size.width * 0.165,
                       fontSize: textSize,
@@ -362,7 +569,13 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                       isLoading: false,
                       isBold: true,
                       isPrefixIcon: true,
-                      prefixIcon: Icons.speaker_notes,
+                      prefixIcon: _isAudioLoading
+                          ? Icons.watch_later_outlined
+                          : _isPlaying
+                              ? Icons.stop
+                              : _isAudioFinishedNarration
+                                  ? CupertinoIcons.speaker_1_fill
+                                  : Icons.play_circle_sharp,
                       prefixIconColor: FontAppColors.primaryFont,
                       prefixIconSize: 30,
                       isSuffixIcon: false,
@@ -566,6 +779,24 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
         );
       },
     );
+  }
+
+  String get playAudioElevatedButtonContent {
+    if (_isAudioLoading) {
+      // Show 'Loading..' if audio is still loading
+      return 'Loading..';
+    } else if (_isAudioEmptyError ||
+        _isAudioPlayError ||
+        _isAudioFinishedNarration) {
+      // Show 'Play sound' if there is an error, or narration is finished
+      return 'Play sound';
+    } else if (_isPlaying) {
+      // Show 'Pause' if the audio is currently playing
+      return 'Pause';
+    } else {
+      // Show 'Resume' if the audio is paused and narration is not finished
+      return 'Resume';
+    }
   }
 }
 

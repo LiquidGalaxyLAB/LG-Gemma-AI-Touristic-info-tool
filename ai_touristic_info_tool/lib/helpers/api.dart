@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:ai_touristic_info_tool/helpers/lg_connection_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:path_provider/path_provider.dart';
 
 ///This is the [Api] class that contains all kind of requests we might need
 
@@ -311,23 +313,38 @@ class Api {
 }
   */
 
-  Future<File> textToSpeechApi(String content) async {
-    final uri = Uri.parse("http://10.0.2.2:8440/text-to-speech");
+  Future<File?> textToSpeech(String text) async {
+    final url = Uri.parse('http://10.0.2.2:8440/text-to-speech');
+    /*
+  curl -X POST -H "Content-Type: application/json" -d '{"model":"deepgram_tts", "content":"Hello how are you today. I am your personal assistant"}' http://localhost:8440/text-to-speech
 
-    var response = await http.post(uri,
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          "model": "deepgram_tts",
-          "content": content,
-          "voice": "aura-helios-en",
-        }));
+  */
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode(
+        {'model': 'deepgram_tts', 'content': text, "voice": "aura-helios-en"});
 
-    if (response.statusCode == 200) {
-      print("API Call Successful");
-      return jsonDecode(response.body);
-    } else {
-      print("Failed to call API: ${response.statusCode}");
-      throw Exception('Failed to load data');
+    try {
+      final response = await http
+          .post(url, headers: headers, body: body)
+          .timeout(Duration(seconds: 10));
+      ;
+      if (response.statusCode == 200) {
+        final directory = await getApplicationDocumentsDirectory();
+        final filePath = '${directory.path}/audio.wav';
+        final file = File(filePath);
+        await file.writeAsBytes(response.bodyBytes);
+        return file;
+      } else {
+        // throw Exception('Failed to convert text to speech');
+        print('Failed to convert text to speech');
+        return null;
+      }
+    } on TimeoutException catch (_) {
+      print('Request to text-to-speech API timed out');
+      return null;
+    } catch (e) {
+      print('Error: $e');
+      return null;
     }
   }
 
