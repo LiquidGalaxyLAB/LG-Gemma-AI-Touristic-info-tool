@@ -642,28 +642,28 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                     curvatureRadius: 10,
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                  LgElevatedButton(
-                    elevatedButtonContent: 'Record a Prompt',
-                    buttonColor: ButtonColors.musicButton,
-                    onpressed: () {
-                      setState(() {
-                        _isRecordPrompt = true;
-                        _isTypePrompt = false;
-                      });
-                    },
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    fontSize: fontsProv.fonts.textSize,
-                    fontColor: Colors.white,
-                    isLoading: false,
-                    isBold: true,
-                    isPrefixIcon: false,
-                    isSuffixIcon: true,
-                    suffixIcon: Icons.mic,
-                    suffixIconColor: Colors.white,
-                    suffixIconSize: fontsProv.fonts.headingSize,
-                    curvatureRadius: 10,
-                  ),
+                  // LgElevatedButton(
+                  //   elevatedButtonContent: 'Record a Prompt',
+                  //   buttonColor: ButtonColors.musicButton,
+                  //   onpressed: () {
+                  //     setState(() {
+                  //       _isRecordPrompt = true;
+                  //       _isTypePrompt = false;
+                  //     });
+                  //   },
+                  //   height: MediaQuery.of(context).size.height * 0.08,
+                  //   width: MediaQuery.of(context).size.width * 0.2,
+                  //   fontSize: fontsProv.fonts.textSize,
+                  //   fontColor: Colors.white,
+                  //   isLoading: false,
+                  //   isBold: true,
+                  //   isPrefixIcon: false,
+                  //   isSuffixIcon: true,
+                  //   suffixIcon: Icons.mic,
+                  //   suffixIconColor: Colors.white,
+                  //   suffixIconSize: fontsProv.fonts.headingSize,
+                  //   curvatureRadius: 10,
+                  // ),
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -838,279 +838,279 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                     ],
                   ),
                 ),
-              if (_isRecordPrompt)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: colorProvv.colors.buttonColors,
-                          width: 4,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      _isAudioProcessing
-                                          ? 'We are processing your audio to text. Please wait...'
-                                          : _isSTTFinished
-                                              ? audioPrompt ??
-                                                  'No Text found. Please try recording again..'
-                                              : 'Tap the microphone button to start recording.',
-                                      maxLines: 4,
-                                      style: TextStyle(
-                                        fontSize: fontsProv.fonts.textSize,
-                                        fontFamily: fontType,
-                                        // color: FontAppColors.primaryFont,
-                                        color: fontsProv.fonts.primaryFontColor,
-                                      ),
-                                    ),
-                                  ),
-                                  CustomRecordingButton(
-                                    isRecording: _isRecording,
-                                    onPressed: () => _record(),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.05,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  LgElevatedButton(
-                                    elevatedButtonContent: 'Generate',
-                                    buttonColor: LgAppColors.lgColor4,
-                                    onpressed: () async {
-                                      ModelErrorProvider errProvider =
-                                          Provider.of<ModelErrorProvider>(
-                                              context,
-                                              listen: false);
-                                      errProvider.isError = false;
-                                      if (_isRecordPrompt && _isSTTFinished) {
-                                        String query =
-                                            '${audioPrompt} Worldwide';
-                                        print(query);
+              // if (_isRecordPrompt)
+              //   Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: Center(
+              //       child: Container(
+              //         width: MediaQuery.of(context).size.width * 0.9,
+              //         height: MediaQuery.of(context).size.height * 0.3,
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(10),
+              //           border: Border.all(
+              //             color: colorProvv.colors.buttonColors,
+              //             width: 4,
+              //           ),
+              //         ),
+              //         child: Padding(
+              //           padding: const EdgeInsets.all(8.0),
+              //           child: SingleChildScrollView(
+              //             child: Column(
+              //               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //               children: [
+              //                 Row(
+              //                   crossAxisAlignment: CrossAxisAlignment.center,
+              //                   mainAxisAlignment:
+              //                       MainAxisAlignment.spaceBetween,
+              //                   children: [
+              //                     Expanded(
+              //                       child: Text(
+              //                         _isAudioProcessing
+              //                             ? 'We are processing your audio to text. Please wait...'
+              //                             : _isSTTFinished
+              //                                 ? audioPrompt ??
+              //                                     'No Text found. Please try recording again..'
+              //                                 : 'Tap the microphone button to start recording.',
+              //                         maxLines: 4,
+              //                         style: TextStyle(
+              //                           fontSize: fontsProv.fonts.textSize,
+              //                           fontFamily: fontType,
+              //                           // color: FontAppColors.primaryFont,
+              //                           color: fontsProv.fonts.primaryFontColor,
+              //                         ),
+              //                       ),
+              //                     ),
+              //                     CustomRecordingButton(
+              //                       isRecording: _isRecording,
+              //                       onPressed: () => _record(),
+              //                     ),
+              //                   ],
+              //                 ),
+              //                 SizedBox(
+              //                   height:
+              //                       MediaQuery.of(context).size.height * 0.05,
+              //                 ),
+              //                 Row(
+              //                   mainAxisAlignment: MainAxisAlignment.center,
+              //                   children: [
+              //                     LgElevatedButton(
+              //                       elevatedButtonContent: 'Generate',
+              //                       buttonColor: LgAppColors.lgColor4,
+              //                       onpressed: () async {
+              //                         ModelErrorProvider errProvider =
+              //                             Provider.of<ModelErrorProvider>(
+              //                                 context,
+              //                                 listen: false);
+              //                         errProvider.isError = false;
+              //                         if (_isRecordPrompt && _isSTTFinished) {
+              //                           String query =
+              //                               '${audioPrompt} Worldwide';
+              //                           print(query);
 
-                                        PromptsSharedPref.getPlaces(query)
-                                            .then((value) async {
-                                          print('value: $value');
-                                          print(value.isNotEmpty);
-                                          if (value.isNotEmpty) {
-                                            await buildQueryPlacemark(
-                                                query, '', '', context);
-                                            showVisualizationDialog(
-                                                context,
-                                                value,
-                                                query,
-                                                '',
-                                                '',
-                                                () {},
-                                                false);
-                                          } else {
-                                            //Local
-                                            // Connectionprovider connection =
-                                            //     Provider.of<Connectionprovider>(context,
-                                            //         listen: false);
-                                            // if (!connection.isAiConnected) {
-                                            //   dialogBuilder(
-                                            //       context,
-                                            //       'NOT connected to AI Server!!\nPlease Connect!',
-                                            //       true,
-                                            //       'OK',
-                                            //       null,
-                                            //       null);
-                                            // } else {
-                                            //   showStreamingDialog(
-                                            //       context, query, '', '');
-                                            // }
-                                            //Gemini:
-                                            ApiKeyModel? apiKeyModel =
-                                                await APIKeySharedPref
-                                                    .getDefaultApiKey('Gemini');
-                                            String apiKey;
-                                            if (apiKeyModel == null) {
-                                              //snackbar:
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                    backgroundColor:
-                                                        LgAppColors.lgColor2,
-                                                    content:
-                                                        Consumer<FontsProvider>(
-                                                      builder: (BuildContext
-                                                              context,
-                                                          FontsProvider value,
-                                                          Widget? child) {
-                                                        return Text(
-                                                          // 'Please add a default API Key for Gemini in the settings!',
-                                                          AppLocalizations.of(
-                                                                  context)!
-                                                              .settings_apiKeyNotSetDefaultError,
-                                                          style: TextStyle(
-                                                            fontSize: value
-                                                                .fonts.textSize,
-                                                            color: Colors.white,
-                                                            fontFamily:
-                                                                fontType,
-                                                          ),
-                                                        );
-                                                      },
-                                                    )),
-                                              );
-                                            } else {
-                                              apiKey = apiKeyModel.key;
-                                              setState(() {
-                                                _isLoading = true;
-                                              });
-                                              String res =
-                                                  await LangchainService()
-                                                      .checkAPIValidity(
-                                                          apiKey, context);
+              //                           PromptsSharedPref.getPlaces(query)
+              //                               .then((value) async {
+              //                             print('value: $value');
+              //                             print(value.isNotEmpty);
+              //                             if (value.isNotEmpty) {
+              //                               await buildQueryPlacemark(
+              //                                   query, '', '', context);
+              //                               showVisualizationDialog(
+              //                                   context,
+              //                                   value,
+              //                                   query,
+              //                                   '',
+              //                                   '',
+              //                                   () {},
+              //                                   false);
+              //                             } else {
+              //                               //Local
+              //                               // Connectionprovider connection =
+              //                               //     Provider.of<Connectionprovider>(context,
+              //                               //         listen: false);
+              //                               // if (!connection.isAiConnected) {
+              //                               //   dialogBuilder(
+              //                               //       context,
+              //                               //       'NOT connected to AI Server!!\nPlease Connect!',
+              //                               //       true,
+              //                               //       'OK',
+              //                               //       null,
+              //                               //       null);
+              //                               // } else {
+              //                               //   showStreamingDialog(
+              //                               //       context, query, '', '');
+              //                               // }
+              //                               //Gemini:
+              //                               ApiKeyModel? apiKeyModel =
+              //                                   await APIKeySharedPref
+              //                                       .getDefaultApiKey('Gemini');
+              //                               String apiKey;
+              //                               if (apiKeyModel == null) {
+              //                                 //snackbar:
+              //                                 ScaffoldMessenger.of(context)
+              //                                     .showSnackBar(
+              //                                   SnackBar(
+              //                                       backgroundColor:
+              //                                           LgAppColors.lgColor2,
+              //                                       content:
+              //                                           Consumer<FontsProvider>(
+              //                                         builder: (BuildContext
+              //                                                 context,
+              //                                             FontsProvider value,
+              //                                             Widget? child) {
+              //                                           return Text(
+              //                                             // 'Please add a default API Key for Gemini in the settings!',
+              //                                             AppLocalizations.of(
+              //                                                     context)!
+              //                                                 .settings_apiKeyNotSetDefaultError,
+              //                                             style: TextStyle(
+              //                                               fontSize: value
+              //                                                   .fonts.textSize,
+              //                                               color: Colors.white,
+              //                                               fontFamily:
+              //                                                   fontType,
+              //                                             ),
+              //                                           );
+              //                                         },
+              //                                       )),
+              //                                 );
+              //                               } else {
+              //                                 apiKey = apiKeyModel.key;
+              //                                 setState(() {
+              //                                   _isLoading = true;
+              //                                 });
+              //                                 String res =
+              //                                     await LangchainService()
+              //                                         .checkAPIValidity(
+              //                                             apiKey, context);
 
-                                              setState(() {
-                                                _isLoading = false;
-                                              });
-                                              if (res == '') {
-                                                Locale locale =
-                                                    await SettingsSharedPref
-                                                        .getLocale();
-                                                showStreamingGeminiDialog(
-                                                    context,
-                                                    query,
-                                                    '',
-                                                    '',
-                                                    apiKey,
-                                                    locale);
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                      backgroundColor:
-                                                          LgAppColors.lgColor2,
-                                                      content: Consumer<
-                                                          FontsProvider>(
-                                                        builder: (BuildContext
-                                                                context,
-                                                            FontsProvider value,
-                                                            Widget? child) {
-                                                          return Text(
-                                                            res,
-                                                            style: TextStyle(
-                                                              fontSize: value
-                                                                  .fonts
-                                                                  .textSize,
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  fontType,
-                                                            ),
-                                                          );
-                                                        },
-                                                      )),
-                                                );
-                                              }
-                                            }
-                                          }
-                                          ;
-                                        });
-                                      } else {
-                                        //snack bar:
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            backgroundColor:
-                                                LgAppColors.lgColor2,
-                                            content: Consumer<FontsProvider>(
-                                              builder: (BuildContext context,
-                                                  FontsProvider value,
-                                                  Widget? child) {
-                                                return Text(
-                                                  'Please record a prompt first!',
-                                                  // AppLocalizations.of(context)!
-                                                  //     .exploreWorld_recordPromptError,
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        value.fonts.textSize,
-                                                    color: Colors.white,
-                                                    fontFamily: fontType,
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    height: MediaQuery.of(context).size.height *
-                                        0.05,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    fontSize: fontsProv.fonts.textSize,
-                                    fontColor: Colors.white,
-                                    isLoading: false,
-                                    isBold: true,
-                                    isPrefixIcon: false,
-                                    isSuffixIcon: true,
-                                    suffixIcon: Icons.done_all,
-                                    suffixIconColor: Colors.white,
-                                    suffixIconSize: 30,
-                                    curvatureRadius: 30,
-                                  ),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.05),
-                                  LgElevatedButton(
-                                    elevatedButtonContent: 'Clear',
-                                    buttonColor: LgAppColors.lgColor2,
-                                    onpressed: () {
-                                      setState(() {
-                                        _isAudioProcessing = false;
-                                        _isSTTFinished = false;
-                                        _audioPath = null;
-                                        _isRecording = false;
-                                      });
-                                    },
-                                    height: MediaQuery.of(context).size.height *
-                                        0.05,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    fontSize: fontsProv.fonts.textSize,
-                                    fontColor: Colors.white,
-                                    isLoading: false,
-                                    isBold: true,
-                                    isPrefixIcon: false,
-                                    isSuffixIcon: true,
-                                    suffixIcon: Icons.clear,
-                                    suffixIconColor: Colors.white,
-                                    suffixIconSize: 30,
-                                    curvatureRadius: 30,
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              if (_isSTTFinished) PlayerWidget(player: player),
+              //                                 setState(() {
+              //                                   _isLoading = false;
+              //                                 });
+              //                                 if (res == '') {
+              //                                   Locale locale =
+              //                                       await SettingsSharedPref
+              //                                           .getLocale();
+              //                                   showStreamingGeminiDialog(
+              //                                       context,
+              //                                       query,
+              //                                       '',
+              //                                       '',
+              //                                       apiKey,
+              //                                       locale);
+              //                                 } else {
+              //                                   ScaffoldMessenger.of(context)
+              //                                       .showSnackBar(
+              //                                     SnackBar(
+              //                                         backgroundColor:
+              //                                             LgAppColors.lgColor2,
+              //                                         content: Consumer<
+              //                                             FontsProvider>(
+              //                                           builder: (BuildContext
+              //                                                   context,
+              //                                               FontsProvider value,
+              //                                               Widget? child) {
+              //                                             return Text(
+              //                                               res,
+              //                                               style: TextStyle(
+              //                                                 fontSize: value
+              //                                                     .fonts
+              //                                                     .textSize,
+              //                                                 color:
+              //                                                     Colors.white,
+              //                                                 fontFamily:
+              //                                                     fontType,
+              //                                               ),
+              //                                             );
+              //                                           },
+              //                                         )),
+              //                                   );
+              //                                 }
+              //                               }
+              //                             }
+              //                             ;
+              //                           });
+              //                         } else {
+              //                           //snack bar:
+              //                           ScaffoldMessenger.of(context)
+              //                               .showSnackBar(
+              //                             SnackBar(
+              //                               backgroundColor:
+              //                                   LgAppColors.lgColor2,
+              //                               content: Consumer<FontsProvider>(
+              //                                 builder: (BuildContext context,
+              //                                     FontsProvider value,
+              //                                     Widget? child) {
+              //                                   return Text(
+              //                                     'Please record a prompt first!',
+              //                                     // AppLocalizations.of(context)!
+              //                                     //     .exploreWorld_recordPromptError,
+              //                                     style: TextStyle(
+              //                                       fontSize:
+              //                                           value.fonts.textSize,
+              //                                       color: Colors.white,
+              //                                       fontFamily: fontType,
+              //                                     ),
+              //                                   );
+              //                                 },
+              //                               ),
+              //                             ),
+              //                           );
+              //                         }
+              //                       },
+              //                       height: MediaQuery.of(context).size.height *
+              //                           0.05,
+              //                       width:
+              //                           MediaQuery.of(context).size.width * 0.2,
+              //                       fontSize: fontsProv.fonts.textSize,
+              //                       fontColor: Colors.white,
+              //                       isLoading: false,
+              //                       isBold: true,
+              //                       isPrefixIcon: false,
+              //                       isSuffixIcon: true,
+              //                       suffixIcon: Icons.done_all,
+              //                       suffixIconColor: Colors.white,
+              //                       suffixIconSize: 30,
+              //                       curvatureRadius: 30,
+              //                     ),
+              //                     SizedBox(
+              //                         width: MediaQuery.of(context).size.width *
+              //                             0.05),
+              //                     LgElevatedButton(
+              //                       elevatedButtonContent: 'Clear',
+              //                       buttonColor: LgAppColors.lgColor2,
+              //                       onpressed: () {
+              //                         setState(() {
+              //                           _isAudioProcessing = false;
+              //                           _isSTTFinished = false;
+              //                           _audioPath = null;
+              //                           _isRecording = false;
+              //                         });
+              //                       },
+              //                       height: MediaQuery.of(context).size.height *
+              //                           0.05,
+              //                       width:
+              //                           MediaQuery.of(context).size.width * 0.2,
+              //                       fontSize: fontsProv.fonts.textSize,
+              //                       fontColor: Colors.white,
+              //                       isLoading: false,
+              //                       isBold: true,
+              //                       isPrefixIcon: false,
+              //                       isSuffixIcon: true,
+              //                       suffixIcon: Icons.clear,
+              //                       suffixIconColor: Colors.white,
+              //                       suffixIconSize: 30,
+              //                       curvatureRadius: 30,
+              //                     )
+              //                   ],
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // if (_isSTTFinished) PlayerWidget(player: player),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.08,
               ),
