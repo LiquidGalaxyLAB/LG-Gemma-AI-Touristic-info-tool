@@ -311,6 +311,26 @@ class Api {
 }
   */
 
+  Future<File> textToSpeechApi(String content) async {
+    final uri = Uri.parse("http://10.0.2.2:8440/text-to-speech");
+
+    var response = await http.post(uri,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "model": "deepgram_tts",
+          "content": content,
+          "voice": "aura-helios-en",
+        }));
+
+    if (response.statusCode == 200) {
+      print("API Call Successful");
+      return jsonDecode(response.body);
+    } else {
+      print("Failed to call API: ${response.statusCode}");
+      throw Exception('Failed to load data');
+    }
+  }
+
   Future<String> speechToTextApi(File content) async {
     final uri = Uri.parse("http://10.0.2.2:8440/speech-to-text");
     //adding headers:

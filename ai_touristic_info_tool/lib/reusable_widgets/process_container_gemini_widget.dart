@@ -525,8 +525,11 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                               ),
                               Padding(
                                 // padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                                padding:
-                                    const EdgeInsets.only(left: 30, right: 30),
+                                padding: EdgeInsets.only(
+                                  left: 30,
+                                  right: 30,
+                                  top: _isFinished ? 20 : 0,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -544,11 +547,15 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                     ),
                                     // if (fontProv.fonts.titleSize > 40)
                                     Image.asset(
-                                      'assets/images/wait2.gif',
+                                      _isFinished
+                                          ? 'assets/images/wait.png'
+                                          : 'assets/images/wait2.gif',
                                       width: MediaQuery.of(context).size.width *
                                           0.2,
-                                      height:
-                                          MediaQuery.of(context).size.height *
+                                      height: _isFinished
+                                          ? MediaQuery.of(context).size.height *
+                                              0.12
+                                          : MediaQuery.of(context).size.height *
                                               0.2,
                                     ),
                                     // if (fontProv.fonts.titleSize == 40)
@@ -708,9 +715,12 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                     borderRadius: BorderRadius.circular(30),
                                     backgroundColor: FontAppColors.secondaryFont
                                         .withOpacity(0.5),
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      colorProv.colors.accentColor,
-                                    ),
+                                    valueColor: _isFinished
+                                        ? AlwaysStoppedAnimation<Color>(
+                                            LgAppColors.lgColor4)
+                                        : AlwaysStoppedAnimation<Color>(
+                                            colorProv.colors.accentColor,
+                                          ),
                                   ),
                                 ),
                               ),

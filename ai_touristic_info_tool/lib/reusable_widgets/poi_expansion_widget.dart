@@ -383,106 +383,105 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.08,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.1,
-                                      decoration: BoxDecoration(
-                                        color: FontAppColors.secondaryFont,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              GestureDetector(
-                                                  onTap: () async {
-                                                    final sshData = Provider.of<
-                                                            SSHprovider>(
-                                                        context,
-                                                        listen: false);
+                                    GestureDetector(
+                                      onTap: () async {
+                                        final sshData =
+                                            Provider.of<SSHprovider>(context,
+                                                listen: false);
 
-                                                    Connectionprovider
-                                                        connection = Provider
-                                                            .of<Connectionprovider>(
-                                                                context,
-                                                                listen: false);
+                                        Connectionprovider connection =
+                                            Provider.of<Connectionprovider>(
+                                                context,
+                                                listen: false);
 
-                                                    ///checking the connection status first
-                                                    if (sshData.client !=
-                                                            null &&
-                                                        connection
-                                                            .isLgConnected) {
-                                                      if (play) {
-                                                        await LgService(sshData)
-                                                            .startTour('Orbit');
-                                                      } else {
-                                                        await LgService(sshData)
-                                                            .stopTour();
-                                                      }
-                                                      setState(() {
-                                                        play = !play;
-                                                      });
-                                                    } else {
-                                                      dialogBuilder(
-                                                          context,
-                                                          // 'NOT connected to LG !! \n Please Connect to LG',
-                                                          AppLocalizations.of(
-                                                                  context)!
-                                                              .lgTasks_notConnectedError,
-                                                          true,
-                                                          // 'OK',
-                                                          AppLocalizations.of(
-                                                                  context)!
-                                                              .defaults_ok,
-                                                          null,
-                                                          null);
-                                                    }
-                                                  },
-                                                  child: play
-                                                      ? const Icon(
-                                                          Icons
-                                                              .play_circle_outlined,
-                                                          //stop_circle_outlined
-                                                          color: FontAppColors
-                                                              .primaryFont,
-                                                          size: textSize + 10)
-                                                      : const Icon(
-                                                          Icons
-                                                              .stop_circle_outlined,
-                                                          color: FontAppColors
-                                                              .primaryFont,
-                                                          size: textSize + 10)),
-                                            ],
-                                          ),
-                                          Flexible(
-                                            child: FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                // 'Orbit',
-                                                AppLocalizations.of(context)!
-                                                    .poiExpansion_orbit,
-                                                style: TextStyle(
-                                                  color:
-                                                      FontAppColors.primaryFont,
+                                        ///checking the connection status first
+                                        if (sshData.client != null &&
+                                            connection.isLgConnected) {
+                                          if (play) {
+                                            try {
+                                              await LgService(sshData)
+                                                  .startTour('Orbit');
+                                            } catch (e) {
+                                              print(e);
+                                            }
+                                          } else {
+                                            try {
+                                              await LgService(sshData)
+                                                  .stopTour();
+                                            } catch (e) {
+                                              print(e);
+                                            }
+                                          }
+                                          setState(() {
+                                            play = !play;
+                                          });
+                                        } else {
+                                          dialogBuilder(
+                                              context,
+                                              // 'NOT connected to LG !! \n Please Connect to LG',
+                                              AppLocalizations.of(context)!
+                                                  .lgTasks_notConnectedError,
+                                              true,
+                                              // 'OK',
+                                              AppLocalizations.of(context)!
+                                                  .defaults_ok,
+                                              null,
+                                              null);
+                                        }
+                                      },
+                                      child: Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.08,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.12,
+                                        decoration: BoxDecoration(
+                                          color: FontAppColors.secondaryFont,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            play
+                                                ? const Icon(
+                                                    Icons.play_circle_outlined,
+                                                    //stop_circle_outlined
+                                                    color: FontAppColors
+                                                        .primaryFont,
+                                                    size: titleSize + 10)
+                                                : const Icon(
+                                                    Icons.stop_circle_outlined,
+                                                    color: FontAppColors
+                                                        .primaryFont,
+                                                    size: titleSize + 10),
+                                            Flexible(
+                                              child: FittedBox(
+                                                fit: BoxFit.scaleDown,
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  // 'Orbit',
+                                                  AppLocalizations.of(context)!
+                                                      .poiExpansion_orbit,
+                                                  style: TextStyle(
+                                                    color: FontAppColors
+                                                        .primaryFont,
 
-                                                  // fontSize: textSize - 2,
-                                                  fontSize:
-                                                      fontVal.fonts.textSize -
-                                                          2,
-                                                  fontFamily: fontType,
+                                                    // fontSize: textSize - 2,
+                                                    fontSize:
+                                                        fontVal.fonts.textSize -
+                                                            2,
+                                                    fontFamily: fontType,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          )
-                                        ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     Tooltip(

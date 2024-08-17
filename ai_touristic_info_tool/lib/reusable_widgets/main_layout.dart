@@ -37,10 +37,15 @@ class _MainLayoutState extends State<MainLayout> {
           const AppBarWidget(),
           const DrawerWidget(),
           Positioned(
-            top: 100,
-            bottom: 30,
-            left: 150,
-            right: 20,
+            // top: 100,
+            // bottom: 30,
+            // left: 150,
+            // right: 20,
+            top: MediaQuery.of(context).size.height * 0.13,
+            bottom: MediaQuery.of(context).size.height * 0.03,
+            left: MediaQuery.of(context).size.width * 0.12,
+            right: MediaQuery.of(context).size.width * 0.02,
+
             child: Consumer<ColorProvider>(
               builder:
                   (BuildContext context, ColorProvider value, Widget? child) {

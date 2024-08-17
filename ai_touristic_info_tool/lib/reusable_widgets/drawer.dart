@@ -111,178 +111,223 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     return Consumer<ColorProvider>(
       builder: (BuildContext context, ColorProvider value, Widget? child) {
         return Positioned(
-          top: 100,
-          bottom: 30,
-          left: 20,
-          width: 100,
+          top: MediaQuery.of(context).size.height * 0.13,
+          bottom: MediaQuery.of(context).size.height * 0.03,
+          left: MediaQuery.of(context).size.width * 0.01,
+          // width: 100,
           child: Container(
+            // height: MediaQuery.of(context).size.height * 0.8,
+            width: MediaQuery.of(context).size.width * 0.09,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: value.colors.innerBackground),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  NavigationItem(
-                      key: GlobalKeys.showcaseKeyHome,
-                      imagePath: 'assets/images/home.png',
-                      // title: 'Home',
-                      title: AppLocalizations.of(context)!.appDrawer_home,
-                      // containerColor: isDefault || selected == 'home'
-                      //     ? selectedButton
-                      //     : unselectedButton,
-                      containerColor: isDefault || selected == 'home'
-                          ? value.colors.buttonColors
-                          : value.colors.innerBackground,
-                      color: isDefault || selected == 'home'
-                          ? colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.secondaryFont
-                          : colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.primaryFont,
-                      onPressed: () {
-                        setState(() {
-                          selected = 'home';
-                          isDefault = false;
-                          currViewProvider.currentView = 'home';
-                        });
-                      }),
-                  NavigationItem(
-                      key: GlobalKeys.showcaseKeyConnectionManager,
-                      imagePath: 'assets/images/connection.png',
-                      // title: 'Connection Manager',
-                      title: AppLocalizations.of(context)!.appDrawer_connection,
-                      // containerColor: selected == 'connection'
-                      //     ? selectedButton
-                      //     : unselectedButton,
-                      containerColor: selected == 'connection'
-                          ? value.colors.buttonColors
-                          : value.colors.innerBackground,
-                      // color: selected == 'connection'
-                      //     ? selectedText
-                      //     : unselectedText,
-                      color: selected == 'connection'
-                          ? colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.secondaryFont
-                          : colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.primaryFont,
-                      onPressed: () {
-                        setState(() {
-                          selected = 'connection';
-                          isDefault = false;
-                          currViewProvider.currentView = 'connection';
-                        });
-                      }),
-                  NavigationItem(
-                      key: GlobalKeys.showcaseKeyLGTasks,
-                      imagePath: 'assets/images/lgTasks.png',
-                      // title: 'LG Tasks',
-                      title: AppLocalizations.of(context)!.appDrawer_tasks,
-                      // containerColor: selected == 'tasks'
-                      //     ? selectedButton
-                      //     : unselectedButton,
-                      containerColor: selected == 'tasks'
-                          ? value.colors.buttonColors
-                          : value.colors.innerBackground,
-                      // color:
-                      //     selected == 'tasks' ? selectedText : unselectedText,
-                      color: selected == 'tasks'
-                          ? colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.secondaryFont
-                          : colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.primaryFont,
-                      onPressed: () {
-                        setState(() {
-                          selected = 'tasks';
-                          isDefault = false;
-                          currViewProvider.currentView = 'tasks';
-                        });
-                      }),
-                  NavigationItem(
-                      key: GlobalKeys.showcaseKeyFavs,
-                      imagePath: 'assets/images/fav.png',
-                      // title: 'Favorites',
-                      title: AppLocalizations.of(context)!.appDrawer_favs,
-                      // containerColor: selected == 'favs'
-                      //     ? selectedButton
-                      //     : unselectedButton,
-                      containerColor: selected == 'favs'
-                          ? value.colors.buttonColors
-                          : value.colors.innerBackground,
-                      // color: selected == 'favs' ? selectedText : unselectedText,
-                      color: selected == 'favs'
-                          ? colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.secondaryFont
-                          : colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.primaryFont,
-                      onPressed: () {
-                        setState(() {
-                          selected = 'favs';
-                          isDefault = false;
-                          currViewProvider.currentView = 'favs';
-                        });
-                      }),
-                  NavigationItem(
-                      key: GlobalKeys.showcaseKeySettings,
-                      imagePath: 'assets/images/settings.png',
-                      // title: 'Settings',
-                      title: AppLocalizations.of(context)!.appDrawer_settings,
-                      // containerColor: selected == 'settings'
-                      //     ? selectedButton
-                      //     : unselectedButton,
-                      containerColor: selected == 'settings'
-                          ? value.colors.buttonColors
-                          : value.colors.innerBackground,
-                      // color: selected == 'settings'
-                      //     ? selectedText
-                      //     : unselectedText,
-                      color: selected == 'settings'
-                          ? colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.secondaryFont
-                          : colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.primaryFont,
-                      onPressed: () {
-                        setState(() {
-                          selected = 'settings';
-                          isDefault = false;
-                          currViewProvider.currentView = 'settings';
-                        });
-                      }),
-                  NavigationItem(
-                      key: GlobalKeys.showcaseKeyAbout,
-                      imagePath: 'assets/images/about.png',
-                      // title: 'About',
-                      title: 'About',
-                      // containerColor: selected == 'about'
-                      //     ? selectedButton
-                      //     : unselectedButton,
-                      containerColor: selected == 'about'
-                          ? value.colors.buttonColors
-                          : value.colors.innerBackground,
-                      // color:
-                      //     selected == 'about' ? selectedText : unselectedText,
-                      color: selected == 'about'
-                          ? colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.secondaryFont
-                          : colorProv.theme == 'dark'
-                              ? FontAppColors.secondaryFont
-                              : FontAppColors.primaryFont,
-                      onPressed: () {
-                        setState(() {
-                          selected = 'about';
-                          isDefault = false;
-                          currViewProvider.currentView = 'about';
-                        });
-                      }),
+                  Expanded(
+                    child: NavigationItem(
+                        key: GlobalKeys.showcaseKeyHome,
+                        imagePath: 'assets/images/home.png',
+                        topLeftCurve: 20,
+                        topRightCurve: 20,
+                        bottomLeftCurve: 0,
+                        bottomRightCurve: 0,
+                        icondata: Icons.home,
+                        // title: 'Home',
+                        title: AppLocalizations.of(context)!.appDrawer_home,
+                        // containerColor: isDefault || selected == 'home'
+                        //     ? selectedButton
+                        //     : unselectedButton,
+                        containerColor: isDefault || selected == 'home'
+                            ? value.colors.buttonColors
+                            : value.colors.innerBackground,
+                        color: isDefault || selected == 'home'
+                            ? colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.secondaryFont
+                            : colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.primaryFont,
+                        onPressed: () {
+                          setState(() {
+                            selected = 'home';
+                            isDefault = false;
+                            currViewProvider.currentView = 'home';
+                          });
+                        }),
+                  ),
+                  Expanded(
+                    child: NavigationItem(
+                        key: GlobalKeys.showcaseKeyConnectionManager,
+                        imagePath: 'assets/images/connection.png',
+                        topLeftCurve: 0,
+                        topRightCurve: 0,
+                        bottomLeftCurve: 0,
+                        bottomRightCurve: 0,
+                        icondata: Icons.wifi,
+                        // title: 'Connection Manager',
+                        title:
+                            AppLocalizations.of(context)!.appDrawer_connection,
+                        // containerColor: selected == 'connection'
+                        //     ? selectedButton
+                        //     : unselectedButton,
+                        containerColor: selected == 'connection'
+                            ? value.colors.buttonColors
+                            : value.colors.innerBackground,
+                        // color: selected == 'connection'
+                        //     ? selectedText
+                        //     : unselectedText,
+                        color: selected == 'connection'
+                            ? colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.secondaryFont
+                            : colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.primaryFont,
+                        onPressed: () {
+                          setState(() {
+                            selected = 'connection';
+                            isDefault = false;
+                            currViewProvider.currentView = 'connection';
+                          });
+                        }),
+                  ),
+                  Expanded(
+                    child: NavigationItem(
+                        key: GlobalKeys.showcaseKeyLGTasks,
+                        topLeftCurve: 0,
+                        topRightCurve: 0,
+                        bottomLeftCurve: 0,
+                        bottomRightCurve: 0,
+                        imagePath: 'assets/images/lgTasks.png',
+                        icondata: Icons.task,
+                        // title: 'LG Tasks',
+                        title: AppLocalizations.of(context)!.appDrawer_tasks,
+                        // containerColor: selected == 'tasks'
+                        //     ? selectedButton
+                        //     : unselectedButton,
+                        containerColor: selected == 'tasks'
+                            ? value.colors.buttonColors
+                            : value.colors.innerBackground,
+                        // color:
+                        //     selected == 'tasks' ? selectedText : unselectedText,
+                        color: selected == 'tasks'
+                            ? colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.secondaryFont
+                            : colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.primaryFont,
+                        onPressed: () {
+                          setState(() {
+                            selected = 'tasks';
+                            isDefault = false;
+                            currViewProvider.currentView = 'tasks';
+                          });
+                        }),
+                  ),
+                  Expanded(
+                    child: NavigationItem(
+                        key: GlobalKeys.showcaseKeyFavs,
+                        topLeftCurve: 0,
+                        topRightCurve: 0,
+                        bottomLeftCurve: 0,
+                        bottomRightCurve: 0,
+                        imagePath: 'assets/images/fav.png',
+                        icondata: Icons.favorite,
+                        // title: 'Favorites',
+                        title: AppLocalizations.of(context)!.appDrawer_favs,
+                        // containerColor: selected == 'favs'
+                        //     ? selectedButton
+                        //     : unselectedButton,
+                        containerColor: selected == 'favs'
+                            ? value.colors.buttonColors
+                            : value.colors.innerBackground,
+                        // color: selected == 'favs' ? selectedText : unselectedText,
+                        color: selected == 'favs'
+                            ? colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.secondaryFont
+                            : colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.primaryFont,
+                        onPressed: () {
+                          setState(() {
+                            selected = 'favs';
+                            isDefault = false;
+                            currViewProvider.currentView = 'favs';
+                          });
+                        }),
+                  ),
+                  Expanded(
+                    child: NavigationItem(
+                        key: GlobalKeys.showcaseKeySettings,
+                        topLeftCurve: 0,
+                        topRightCurve: 0,
+                        bottomLeftCurve: 0,
+                        bottomRightCurve: 0,
+                        imagePath: 'assets/images/settings.png',
+                        icondata: Icons.settings,
+                        // title: 'Settings',
+                        title: AppLocalizations.of(context)!.appDrawer_settings,
+                        // containerColor: selected == 'settings'
+                        //     ? selectedButton
+                        //     : unselectedButton,
+                        containerColor: selected == 'settings'
+                            ? value.colors.buttonColors
+                            : value.colors.innerBackground,
+                        // color: selected == 'settings'
+                        //     ? selectedText
+                        //     : unselectedText,
+                        color: selected == 'settings'
+                            ? colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.secondaryFont
+                            : colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.primaryFont,
+                        onPressed: () {
+                          setState(() {
+                            selected = 'settings';
+                            isDefault = false;
+                            currViewProvider.currentView = 'settings';
+                          });
+                        }),
+                  ),
+                  Expanded(
+                    child: NavigationItem(
+                        key: GlobalKeys.showcaseKeyAbout,
+                        topLeftCurve: 0,
+                        topRightCurve: 0,
+                        bottomLeftCurve: 20,
+                        bottomRightCurve: 20,
+                        imagePath: 'assets/images/about.png',
+                        icondata: Icons.info,
+                        // title: 'About',
+                        title: 'About',
+                        // containerColor: selected == 'about'
+                        //     ? selectedButton
+                        //     : unselectedButton,
+                        containerColor: selected == 'about'
+                            ? value.colors.buttonColors
+                            : value.colors.innerBackground,
+                        // color:
+                        //     selected == 'about' ? selectedText : unselectedText,
+                        color: selected == 'about'
+                            ? colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.secondaryFont
+                            : colorProv.theme == 'dark'
+                                ? FontAppColors.secondaryFont
+                                : FontAppColors.primaryFont,
+                        onPressed: () {
+                          setState(() {
+                            selected = 'about';
+                            isDefault = false;
+                            currViewProvider.currentView = 'about';
+                          });
+                        }),
+                  ),
                 ]),
           ),
         );

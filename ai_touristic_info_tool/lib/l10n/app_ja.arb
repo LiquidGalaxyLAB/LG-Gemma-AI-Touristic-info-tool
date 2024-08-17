@@ -161,7 +161,7 @@
     "aiGenerationAPIGemma_streamWaitMessg": "ストリームを待っています。しばらくお待ちください...",
     "aiGenerationAPIGemma_snapShotError": "エラー: {snapshotError}",
     "aiGenerationAPIGemma_noDataError": "データが利用できません",
-    "aiGenerationAPIGemma_responseTimeMessg": "平均応答時間は10分です。\nご辛抱いただきありがとうございます！",
+    "aiGenerationAPIGemma_responseTimeMessg": "平均応答時間は20〜30秒です。\nご辛抱いただきありがとうございます",
     "aiGenerationAPIGemma_waitMessg": "しばらくお待ちください...",
 
 
@@ -176,7 +176,7 @@
     "aiGenerationAPIGemini_webLoadingMessage": "モデルがウェブから情報を収集してユニークで正確な最新の体験を提供する間、少々お待ちください！",
     "aiGenerationAPIGemini_snapShotError": "エラー: {snapshotError}\n後でもう一度お試しください...",
     "aiGenerationAPIGemini_noDataError": "データが利用できません\n後でもう一度お試しください...",
-    "aiGenerationAPIGemini_responseTimeMessg": "平均応答時間は1分です。\nご辛抱いただきありがとうございます！",
+    "aiGenerationAPIGemini_responseTimeMessg": "平均応答時間は20〜30秒です。\nご辛抱いただきありがとうございます",
     "aiGenerationAPIGemini_waitMessg": "しばらくお待ちください...",
     "aiGenerationAPIGemini_successGeneration": "生成が成功しました！",
 

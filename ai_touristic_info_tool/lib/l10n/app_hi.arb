@@ -158,7 +158,7 @@
     "aiGenerationAPIGemma_streamWaitMessg": "स्ट्रीम का इंतजार कर रहे हैं। कृपया प्रतीक्षा करें...",
     "aiGenerationAPIGemma_snapShotError": "त्रुटि: {snapshotError}",
     "aiGenerationAPIGemma_noDataError": "कोई डेटा उपलब्ध नहीं है",
-    "aiGenerationAPIGemma_responseTimeMessg": "औसत प्रतिक्रिया समय 10 मिनट है।\nआपके धैर्य के लिए धन्यवाद!",
+    "aiGenerationAPIGemma_responseTimeMessg": "औसत प्रतिक्रिया समय 20-30 सेकंड है।\nआपके धैर्य के लिए धन्यवाद!",
     "aiGenerationAPIGemma_waitMessg": "कृपया प्रतीक्षा करें...",
 
 
@@ -173,7 +173,7 @@
     "aiGenerationAPIGemini_webLoadingMessage": "कृपया प्रतीक्षा करें जबकि मॉडल वेब से जानकारी एकत्र करता है ताकि एक अनूठा, सटीक, और अद्यतित अनुभव प्रदान किया जा सके!",
     "aiGenerationAPIGemini_snapShotError": "त्रुटि: {snapshotError}\nकृपया बाद में फिर से प्रयास करें...",
     "aiGenerationAPIGemini_noDataError": "कोई डेटा उपलब्ध नहीं है\nकृपया बाद में फिर से प्रयास करें...",
-    "aiGenerationAPIGemini_responseTimeMessg": "औसत प्रतिक्रिया समय 1 मिनट है।\nआपके धैर्य के लिए धन्यवाद!",
+    "aiGenerationAPIGemini_responseTimeMessg":  "औसत प्रतिक्रिया समय 20-30 सेकंड है।\nआपके धैर्य के लिए धन्यवाद!",
     "aiGenerationAPIGemini_waitMessg": "कृपया प्रतीक्षा करें...",
     "aiGenerationAPIGemini_successGeneration": "उत्पादन सफलतापूर्वक पूरा हुआ!",
 

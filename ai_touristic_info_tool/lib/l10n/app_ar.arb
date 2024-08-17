@@ -158,7 +158,7 @@
     "aiGenerationAPIGemma_streamWaitMessg": "انتظار البث. يرجى الانتظار...",
     "aiGenerationAPIGemma_snapShotError": "خطأ: {snapshotError}",
     "aiGenerationAPIGemma_noDataError": "لا تتوفر بيانات",
-    "aiGenerationAPIGemma_responseTimeMessg": "متوسط وقت الاستجابة هو 10 دقائق.\nشكرًا على صبرك!",
+    "aiGenerationAPIGemma_responseTimeMessg": "متوسط وقت الاستجابة هو 20 - 30 ثانية.\nشكرًا على صبركك!",
     "aiGenerationAPIGemma_waitMessg": "يرجى الانتظار...",
 
 
@@ -173,7 +173,7 @@
     "aiGenerationAPIGemini_webLoadingMessage": "يرجى الانتظار بينما يجمع النموذج المعلومات من الويب لتوفير تجربة فريدة ودقيقة ومحدثة!",
     "aiGenerationAPIGemini_snapShotError": "خطأ: {snapshotError}\nيرجى المحاولة مرة أخرى لاحقًا...",
     "aiGenerationAPIGemini_noDataError": "لا تتوفر بيانات\nيرجى المحاولة مرة أخرى لاحقًا...",
-    "aiGenerationAPIGemini_responseTimeMessg": "متوسط وقت الاستجابة هو 1 دقيقة.\nشكرًا على صبرك!",
+    "aiGenerationAPIGemini_responseTimeMessg":  "متوسط وقت الاستجابة هو 20 - 30 ثانية.\nشكرًا على صبركك!",
     "aiGenerationAPIGemini_waitMessg": "يرجى الانتظار...",
     "aiGenerationAPIGemini_successGeneration": "تم الانتهاء من التوليد بنجاح!",
 

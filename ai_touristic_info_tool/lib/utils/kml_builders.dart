@@ -1499,7 +1499,7 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
   }
 }
 
-buildQueryTour(
+Future<List<KMLModel>> buildQueryTour(
     BuildContext context, String query, List<PlacesModel> pois) async {
   FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
   ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
@@ -1725,15 +1725,17 @@ buildQueryTour(
 
   try {
     await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'app-tour');
-    for (int i = 0; i < kmlBallonsList.length; i++) {
-      await LgService(sshData).sendKMLToSlave(
-        LgService(sshData).balloonScreen,
-        kmlBallonsList[i].body,
-      );
-      await Future.delayed(Duration(seconds: 60));
-    }
+    // for (int i = 0; i < kmlBallonsList.length; i++) {
+    //   await LgService(sshData).sendKMLToSlave(
+    //     LgService(sshData).balloonScreen,
+    //     kmlBallonsList[i].body,
+    //   );
+    //   await Future.delayed(Duration(seconds: 60));
+    // }
+    return kmlBallonsList;
   } catch (e) {
     print(e);
+    return [];
   }
 }
 

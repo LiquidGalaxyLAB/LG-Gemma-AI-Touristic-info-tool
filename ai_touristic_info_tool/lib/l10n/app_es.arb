@@ -161,7 +161,7 @@
     "aiGenerationAPIGemma_streamWaitMessg": "Esperando la transmisión. Por favor espera...",
     "aiGenerationAPIGemma_snapShotError": "Error: {snapshotError}",
     "aiGenerationAPIGemma_noDataError": "No hay datos disponibles",
-    "aiGenerationAPIGemma_responseTimeMessg": "El tiempo promedio de respuesta es de 10 minutos.\n¡Gracias por tu paciencia!",
+    "aiGenerationAPIGemma_responseTimeMessg": "El tiempo promedio de respuesta es de 20-30 segundos.\n¡Gracias por tu paciencia!",
     "aiGenerationAPIGemma_waitMessg": "Por favor espera...",
 
 
@@ -176,7 +176,7 @@
     "aiGenerationAPIGemini_webLoadingMessage": "¡Por favor espera mientras el modelo recoge información de la web para proporcionarte una experiencia única, precisa y actualizada!",
     "aiGenerationAPIGemini_snapShotError": "Error: {snapshotError}\nPor favor intenta nuevamente más tarde...",
     "aiGenerationAPIGemini_noDataError": "No hay datos disponibles\nPor favor intenta nuevamente más tarde...",
-    "aiGenerationAPIGemini_responseTimeMessg": "El tiempo promedio de respuesta es de 1 minuto.\n¡Gracias por tu paciencia!",
+    "aiGenerationAPIGemini_responseTimeMessg": "El tiempo promedio de respuesta es de 20-30 segundos.\n¡Gracias por tu paciencia!",
     "aiGenerationAPIGemini_waitMessg": "Por favor espera...",
     "aiGenerationAPIGemini_successGeneration": "¡Generación completada con éxito!",
 

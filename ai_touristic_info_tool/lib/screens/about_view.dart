@@ -86,6 +86,33 @@ class AboutScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
             ),
+            SettingsSharedPref.getTheme() == 'dark'
+                ?
+                //Local
+                // Image.asset(
+                //     'assets/images/dark-logos-gemma.jpg',
+                //     height: MediaQuery.of(context).size.height * 0.8,
+                //     width: MediaQuery.of(context).size.width * 0.8,
+                //   )
+                //Gemini
+                Image.asset(
+                    'assets/images/dark-logos-gemini.jpg',
+                    height: MediaQuery.of(context).size.height * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                  )
+                :
+                //Local
+                // Image.asset(
+                //     'assets/images/Logos_Screen-gemma.jpg',
+                //     height: MediaQuery.of(context).size.height * 0.8,
+                //     width: MediaQuery.of(context).size.width * 1,
+                //   ),
+                //Gemini
+                Image.asset(
+                    'assets/images/Logos_Screen-gemini.jpg',
+                    height: MediaQuery.of(context).size.height * 0.8,
+                    width: MediaQuery.of(context).size.width * 1,
+                  ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
@@ -208,56 +235,6 @@ class AboutScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
             ),
-            // Consumer2<ColorProvider, FontsProvider>(
-            //   builder:
-            //       (BuildContext context, ColorProvider value, FontsProvider font,
-            //           Widget? child) {
-            //     return LgElevatedButton(
-            //       elevatedButtonContent: 'App Guide',
-            //       // buttonColor: PrimaryAppColors.buttonColors,
-            //       buttonColor: value.colors.buttonColors,
-            //       onpressed: () {},
-            //       height: MediaQuery.of(context).size.height * 0.05,
-            //       width: MediaQuery.of(context).size.width * 0.2,
-            //       // fontSize: textSize,
-            //       fontSize: font.fonts.textSize,
-            //       fontColor: FontAppColors.secondaryFont,
-            //       isLoading: false,
-            //       isBold: true,
-            //       isPrefixIcon: false,
-            //       isSuffixIcon: false,
-            //       curvatureRadius: 50,
-            //     );
-            //   },
-            // ),
-            // const Icon(Icons.ads_click_rounded, size: 50),
-            SettingsSharedPref.getTheme() == 'dark'
-                ?
-                //Local
-                // Image.asset(
-                //     'assets/images/dark-logos-gemma.jpg',
-                //     height: MediaQuery.of(context).size.height * 0.8,
-                //     width: MediaQuery.of(context).size.width * 0.8,
-                //   )
-                //Gemini
-                Image.asset(
-                    'assets/images/dark-logos-gemini.jpg',
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    width: MediaQuery.of(context).size.width * 0.8,
-                  )
-                :
-                //Local
-                // Image.asset(
-                //     'assets/images/Logos_Screen-gemma.jpg',
-                //     height: MediaQuery.of(context).size.height * 0.8,
-                //     width: MediaQuery.of(context).size.width * 1,
-                //   ),
-                //Gemini
-                Image.asset(
-                    'assets/images/Logos_Screen-gemini.jpg',
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    width: MediaQuery.of(context).size.width * 1,
-                  ),
           ],
         );
       }),

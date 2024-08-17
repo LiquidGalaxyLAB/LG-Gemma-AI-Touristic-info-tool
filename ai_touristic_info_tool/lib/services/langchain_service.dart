@@ -437,6 +437,9 @@ class LangchainService {
                 link.startsWith("https://accounts")) {
               continue;
             }
+            if (results.contains(link)) {
+              continue;
+            }
             results.add(link);
             fetchedResults++;
             newResults++;

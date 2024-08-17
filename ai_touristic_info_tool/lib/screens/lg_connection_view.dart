@@ -148,6 +148,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                           return Form(
                             key: _form1Key,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Column(
                                   children: [
@@ -262,18 +263,18 @@ class _ConnectionViewState extends State<ConnectionView> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.05,
-                                ),
+                                // SizedBox(
+                                //   width:
+                                //       MediaQuery.of(context).size.width * 0.05,
+                                // ),
                                 AppDividerWidget(
                                   height:
                                       MediaQuery.of(context).size.height * 0.5,
                                 ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.05,
-                                ),
+                                // SizedBox(
+                                //   width:
+                                //       MediaQuery.of(context).size.width * 0.05,
+                                // ),
                                 Consumer<Connectionprovider>(
                                   builder: (BuildContext context,
                                       Connectionprovider conn, Widget? child) {
@@ -351,18 +352,54 @@ class _ConnectionViewState extends State<ConnectionView> {
                                             await LgService(sshData).setLogos();
                                             await buildAppBalloonOverlay(
                                                 context);
+                                            //show snackbar that its connected:
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'You are now connected to the Liquid Galaxy successfully!',
+                                                  // AppLocalizations.of(context)!
+                                                  //     .lgConnection_connected,
+                                                  style: TextStyle(
+                                                      fontFamily: fontType,
+                                                      fontSize: fontProv
+                                                          .fonts.textSize,
+                                                      color: Colors.white),
+                                                ),
+                                                duration:
+                                                    const Duration(seconds: 3),
+                                                backgroundColor:
+                                                    LgAppColors.lgColor4,
+                                              ),
+                                            );
                                           } else {
                                             connection.isLgConnected = false;
-
-                                            // ignore: use_build_context_synchronously
-                                            dialogBuilder(
-                                                context,
-                                                result!,
-                                                true,
-                                                AppLocalizations.of(context)!
-                                                    .defaults_ok,
-                                                null,
-                                                null);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  result!,
+                                                  style: TextStyle(
+                                                      fontFamily: fontType,
+                                                      fontSize: fontProv
+                                                          .fonts.textSize,
+                                                      color: Colors.white),
+                                                ),
+                                                duration:
+                                                    const Duration(seconds: 3),
+                                                backgroundColor:
+                                                    LgAppColors.lgColor4,
+                                              ),
+                                            );
+                                            //   // ignore: use_build_context_synchronously
+                                            //   dialogBuilder(
+                                            //       context,
+                                            //       result!,
+                                            //       true,
+                                            //       AppLocalizations.of(context)!
+                                            //           .defaults_ok,
+                                            //       null,
+                                            //       null);
                                           }
 
                                           ///stop the loading process by setting `isloading` to false
@@ -417,18 +454,56 @@ class _ConnectionViewState extends State<ConnectionView> {
                                             if (connection.isLgConnected) {
                                               sshData.disconnect();
                                               connection.isLgConnected = false;
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'You are now disconnected from the Liquid Galaxy!',
+                                                    // AppLocalizations.of(context)!
+                                                    //     .lgConnection_disconnected,
+                                                    style: TextStyle(
+                                                        fontFamily: fontType,
+                                                        fontSize: fontProv
+                                                            .fonts.textSize,
+                                                        color: Colors.white),
+                                                  ),
+                                                  duration: const Duration(
+                                                      seconds: 3),
+                                                  backgroundColor:
+                                                      LgAppColors.lgColor4,
+                                                ),
+                                              );
                                             } else {
-                                              dialogBuilder(
-                                                  context,
-                                                  // 'You are already disconnected!',
-                                                  AppLocalizations.of(context)!
-                                                      .lgConnection_errorDisconnect,
-                                                  true,
-                                                  // 'OK',
-                                                  AppLocalizations.of(context)!
-                                                      .defaults_ok,
-                                                  null,
-                                                  null);
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'You are already disconnected!',
+                                                    // AppLocalizations.of(context)!
+                                                    //     .lgConnection_connected,
+                                                    style: TextStyle(
+                                                        fontFamily: fontType,
+                                                        fontSize: fontProv
+                                                            .fonts.textSize,
+                                                        color: Colors.white),
+                                                  ),
+                                                  duration: const Duration(
+                                                      seconds: 3),
+                                                  backgroundColor:
+                                                      LgAppColors.lgColor2,
+                                                ),
+                                              );
+                                              // dialogBuilder(
+                                              //     context,
+                                              //     // 'You are already disconnected!',
+                                              //     AppLocalizations.of(context)!
+                                              //         .lgConnection_errorDisconnect,
+                                              //     true,
+                                              //     // 'OK',
+                                              //     AppLocalizations.of(context)!
+                                              //         .defaults_ok,
+                                              //     null,
+                                              //     null);
                                             }
                                           }, null);
                                         },

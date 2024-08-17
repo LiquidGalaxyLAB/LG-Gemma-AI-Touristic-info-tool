@@ -159,7 +159,7 @@
     "aiGenerationAPIGemma_streamWaitMessg": "Warten auf Stream. Bitte warten...",
     "aiGenerationAPIGemma_snapShotError": "Fehler: {snapshotError}",
     "aiGenerationAPIGemma_noDataError": "Keine Daten verfügbar",
-    "aiGenerationAPIGemma_responseTimeMessg": "Die durchschnittliche Antwortzeit beträgt 10 Minuten.\nVielen Dank für Ihre Geduld!",
+    "aiGenerationAPIGemma_responseTimeMessg": "Die durchschnittliche Antwortzeit beträgt 20-30 Sekunden.\nVielen Dank für Ihre Geduld!",
     "aiGenerationAPIGemma_waitMessg": "Bitte warten...",
 
 
@@ -174,7 +174,7 @@
     "aiGenerationAPIGemini_webLoadingMessage": "Bitte warten Sie, während das Modell Informationen aus dem Web sammelt, um eine einzigartige, genaue und aktuelle Erfahrung zu bieten!",
     "aiGenerationAPIGemini_snapShotError": "Fehler: {snapshotError}\nBitte versuchen Sie es später erneut...",
     "aiGenerationAPIGemini_noDataError": "Keine Daten verfügbar\nBitte versuchen Sie es später erneut...",
-    "aiGenerationAPIGemini_responseTimeMessg": "Die durchschnittliche Antwortzeit beträgt 1 Minute.\nVielen Dank für Ihre Geduld!",
+    "aiGenerationAPIGemini_responseTimeMessg": "Die durchschnittliche Antwortzeit beträgt 20-30 Sekunden.\nVielen Dank für Ihre Geduld!",
     "aiGenerationAPIGemini_waitMessg": "Bitte warten...",
     "aiGenerationAPIGemini_successGeneration": "Generierung erfolgreich abgeschlossen!",
 
