@@ -42,42 +42,6 @@ def scrape_urls(user_query):
                print('Fetched 10 URLs')
                break
     return general_fetched_urls
-# def scrape_urls(user_query):
-#     words = user_query.split()
-#     url_search = '+'.join(words)
-#     seed_url = f'https://www.google.com/search?q={url_search}'
-
-#     headers = {
-#         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-#         "Accept-Language": "en-US,en;q=0.5",
-#         "Referer": "https://www.google.com/",
-#     }
-
-#     response = requests.get(seed_url, headers=headers)
-#     general_fetched_urls = []
-
-#     if response.status_code == 200:
-#         page_content = response.text
-#         sp = soup(page_content, 'html.parser')
-#         for a_tag in sp.find_all('a', href=True):
-#             link = a_tag['href']
-#             if 'url=' in link and '&ved=' in link:
-#                 url_part = link.split('url=')[1]
-#                 url = url_part.split('&ved=')[0]
-#                 decoded_url = urllib.parse.unquote(url)
-#                 if decoded_url.startswith('https://') and 'tripadvisor' not in decoded_url:
-#                     try:
-#                         r = requests.get(decoded_url, headers=headers, verify=True, timeout=20)
-#                         if r.status_code == 200 or r.status_code == 520:
-#                             general_fetched_urls.append(decoded_url)
-#                             if len(general_fetched_urls) >= 10:
-#                                 break
-#                     except requests.exceptions.SSLError:
-#                         print(f"SSL Error for URL: {link}")
-#                     except requests.exceptions.RequestException as e:
-#                         print(f"Request Exception for URL: {link}, Error: {e}")
-
-#     return general_fetched_urls
 
 
 app = FastAPI(
@@ -163,23 +127,7 @@ async def handle_request(user_query:str):
 
 
 
-
-    
-
-
-
-# @app.post("/rag/invoke")
-# async def simple_invoke(query: Query):
-#     try:
-#         result = handle_request(query.user_query)
-#         return result
-#     except Exception as e:
-#         raise HTTPException(status_code=400, detail=str(e))
-    
-
-
 chain = RunnableLambda(handle_request)
-
 
 
 add_routes(app,
@@ -189,51 +137,6 @@ add_routes(app,
             enable_public_trace_link_endpoint=True,
             playground_type="default"
         )
-
-
-
-
-# api_handler = APIHandler(chain, path="/rag")
-
-# # First register the endpoints without documentation
-# @app.post("/rag/invoke", include_in_schema=False)
-# async def simple_invoke(request: Request) -> Response:
-#     """Handle a request."""
-#     # The API Handler validates the parts of the request
-#     # that are used by the runnnable (e.g., input, config fields)
-#     return await api_handler.invoke(request)
-
-
-# async def _get_api_handler() -> APIHandler:
-#     """Prepare a RunnableLambda."""
-#     return APIHandler(RunnableLambda(handle_request), path="/rag")
-
-
-# @app.post("/rag/astream")
-# async def rag_astream(
-#     request: Request, runnable: Annotated[APIHandler, Depends(_get_api_handler)]
-# ) -> EventSourceResponse:
-#     """Handle astream request."""
-#     # The API Handler validates the parts of the request
-#     # that are used by the runnnable (e.g., input, config fields)
-#             # async for item in rag_chain.astream({"question": user_query}):
-#         #     yield item  # Stream the item
-#         #     result.append(item)  # Collect the item
-#         #     print(item)
-#     # async for item in runnable.astream_events(request):
-#     #     yield item
-#     #     print(item)
-#     return await runnable.astream_events(request)
-
-
-# @app.post("/rag/streamlog")
-# async def rag_stream_log(
-#     request: Request, runnable: Annotated[APIHandler, Depends(_get_api_handler)]
-# ) -> EventSourceResponse:
-#     """Handle stream log request."""
-#     # The API Handler validates the parts of the request
-#     # that are used by the runnnable (e.g., input, config fields)
-#     return await runnable.stream_log(request)
 
 
 @app.get("/health")
@@ -249,8 +152,7 @@ async def fetch_urls(place_name: str):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-     
-
+    
 
 if __name__ == "__main__":
     import uvicorn

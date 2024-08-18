@@ -1,0 +1,50 @@
+# @app.post("/rag/invoke")
+# async def simple_invoke(query: Query):
+#     try:
+#         result = handle_request(query.user_query)
+#         return result
+#     except Exception as e:
+#         raise HTTPException(status_code=400, detail=str(e))
+    
+
+# api_handler = APIHandler(chain, path="/rag")
+
+# # First register the endpoints without documentation
+# @app.post("/rag/invoke", include_in_schema=False)
+# async def simple_invoke(request: Request) -> Response:
+#     """Handle a request."""
+#     # The API Handler validates the parts of the request
+#     # that are used by the runnnable (e.g., input, config fields)
+#     return await api_handler.invoke(request)
+
+
+# async def _get_api_handler() -> APIHandler:
+#     """Prepare a RunnableLambda."""
+#     return APIHandler(RunnableLambda(handle_request), path="/rag")
+
+
+# @app.post("/rag/astream")
+# async def rag_astream(
+#     request: Request, runnable: Annotated[APIHandler, Depends(_get_api_handler)]
+# ) -> EventSourceResponse:
+#     """Handle astream request."""
+#     # The API Handler validates the parts of the request
+#     # that are used by the runnnable (e.g., input, config fields)
+#             # async for item in rag_chain.astream({"question": user_query}):
+#         #     yield item  # Stream the item
+#         #     result.append(item)  # Collect the item
+#         #     print(item)
+#     # async for item in runnable.astream_events(request):
+#     #     yield item
+#     #     print(item)
+#     return await runnable.astream_events(request)
+
+
+# @app.post("/rag/streamlog")
+# async def rag_stream_log(
+#     request: Request, runnable: Annotated[APIHandler, Depends(_get_api_handler)]
+# ) -> EventSourceResponse:
+#     """Handle stream log request."""
+#     # The API Handler validates the parts of the request
+#     # that are used by the runnnable (e.g., input, config fields)
+#     return await runnable.stream_log(request)
