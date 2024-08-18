@@ -37,15 +37,11 @@ buildAppBalloonOverlay(BuildContext context) async {
   String primaryColor;
 
   if (SettingsSharedPref.getTheme() == 'light') {
-    print('light');
     primaryColor = 'black';
   } else {
-    print('dark');
     primaryColor = 'white';
   }
 
-  print('primaryColor');
-  print(primaryColor);
   // String buttonColor =
   //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
@@ -214,15 +210,11 @@ buildWebsiteLinkBallon(String placeName, String? city, String? country,
   String primaryColor;
 
   if (SettingsSharedPref.getTheme() == 'light') {
-    print('light');
     primaryColor = 'black';
   } else {
-    print('dark');
     primaryColor = 'white';
   }
 
-  print('primaryColor');
-  print(primaryColor);
   // String buttonColor =
   //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
@@ -403,15 +395,11 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
   String primaryColor;
 
   if (SettingsSharedPref.getTheme() == 'light') {
-    print('light');
     primaryColor = 'black';
   } else {
-    print('dark');
     primaryColor = 'white';
   }
 
-  print('primaryColor');
-  print(primaryColor);
   // String buttonColor =
   //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
@@ -594,15 +582,11 @@ buildAllLinksBalloon(String placeName, String? city, String? country,
   String primaryColor;
 
   if (SettingsSharedPref.getTheme() == 'light') {
-    print('light');
     primaryColor = 'black';
   } else {
-    print('dark');
     primaryColor = 'white';
   }
 
-  print('primaryColor');
-  print(primaryColor);
   // String buttonColor =
   //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
@@ -795,15 +779,11 @@ buildQueryPlacemark(
   String primaryColor;
 
   if (SettingsSharedPref.getTheme() == 'light') {
-    print('light');
     primaryColor = 'black';
   } else {
-    print('dark');
     primaryColor = 'white';
   }
 
-  print('primaryColor');
-  print(primaryColor);
   // String buttonColor =
   //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
@@ -963,15 +943,11 @@ buildPlacePlacemark(
   String primaryColor;
 
   if (SettingsSharedPref.getTheme() == 'light') {
-    print('light');
     primaryColor = 'black';
   } else {
-    print('dark');
     primaryColor = 'white';
   }
 
-  print('primaryColor');
-  print(primaryColor);
   // String buttonColor =
   //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
@@ -983,7 +959,6 @@ buildPlacePlacemark(
   String grad4 =
       colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
 
-  print('inside placemark');
   String indx = '';
   if (index != -1) {
     indx = index.toString();
@@ -1165,8 +1140,6 @@ buildPlacePlacemark(
       orbitContent: orbitContent);
 
   content += placemark.tag;
-  print('Content: $content');
-  print('Lat: $placeLatitude ,long: $placeLongitude ');
 
   final kmlPlacemark = KMLModel(
     name: '$placeName-pin',
@@ -1194,7 +1167,7 @@ buildPlacePlacemark(
   );
 
   try {
-    await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, placeName);
+    await LgService(sshData).sendKmlFileToMaster(kmlPlacemark.body, placeName);
     await LgService(sshData).sendKMLToSlave(
       LgService(sshData).balloonScreen,
       kmlBalloon.body,
@@ -1216,15 +1189,11 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
   String primaryColor;
 
   if (SettingsSharedPref.getTheme() == 'light') {
-    print('light');
     primaryColor = 'black';
   } else {
-    print('dark');
     primaryColor = 'white';
   }
 
-  print('primaryColor');
-  print(primaryColor);
   // String buttonColor =
   //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
@@ -1441,7 +1410,7 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
       LgService(sshData).balloonScreen,
       kmlBalloon.body,
     );
-    await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'POIs');
+    await LgService(sshData).sendKmlFileToMaster(kmlPlacemark.body, 'POIs');
   } catch (e) {
     print(e);
   }
@@ -1458,15 +1427,11 @@ Future<List<KMLModel>> buildQueryTour(
   String primaryColor;
 
   if (SettingsSharedPref.getTheme() == 'light') {
-    print('light');
     primaryColor = 'black';
   } else {
-    print('dark');
     primaryColor = 'white';
   }
 
-  print('primaryColor');
-  print(primaryColor);
   // String buttonColor =
   //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
@@ -1643,7 +1608,6 @@ Future<List<KMLModel>> buildQueryTour(
     kmlBallonsList.add(kmlBalloon);
   }
 
-
   String screenoverlayTags = '';
 
   for (int i = 0; i < screenOverlays.length; i++) {
@@ -1657,13 +1621,12 @@ Future<List<KMLModel>> buildQueryTour(
     poisNames: poisNames,
   );
   String kmlContent = screenoverlayTags + tour.tourTag();
-  print(kmlContent);
 
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   final kmlPlacemark = KMLModel(name: 'app-tour', content: kmlContent);
 
   try {
-    await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'app-tour');
+    await LgService(sshData).sendKmlFileToMaster(kmlPlacemark.body, 'app-tour');
     return kmlBallonsList;
   } catch (e) {
     print(e);
@@ -1682,17 +1645,12 @@ Future<double> buildCustomTour(
   String primaryColor;
 
   if (SettingsSharedPref.getTheme() == 'light') {
-    print('light');
     primaryColor = 'black';
   } else {
-    print('dark');
     primaryColor = 'white';
   }
-
-  print('primaryColor');
-  print(primaryColor);
-  String buttonColor =
-      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  // String buttonColor =
+  //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
       colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
   String grad2 =
@@ -1745,9 +1703,6 @@ Future<double> buildCustomTour(
               </div>
               ''';
   }
-
-  print('button color:');
-  print(buttonColor);
 
   String balloonContent = '''
     <html lang="en">
@@ -1861,11 +1816,9 @@ Future<double> buildCustomTour(
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   final kmlPlacemark = KMLModel(name: 'app-tour', content: tourTagContent);
 
-  print(kmlPlacemark.body);
 
   try {
-    await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'app-tour');
-    // await LgService(sshData).sendKmlPlacemarks(kmlTemp, 'app-tour');
+    await LgService(sshData).sendKmlFileToMaster(kmlPlacemark.body, 'app-tour');
     await LgService(sshData).sendKMLToSlave(
       LgService(sshData).balloonScreen,
       kmlBalloon.body,

@@ -1,6 +1,5 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +19,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
   String selectedTheme = SettingsSharedPref.getTheme() ?? 'default';
 
   Color pickerColor = Color(0xff443a49);
-  // Color currentColor = Color(0xff443a49);
-
   void changeColor(Color color) {
     setState(() => pickerColor = color);
     ColorProvider colorProv =
@@ -47,7 +44,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     AppLocalizations.of(context)!.settingsTheme_title,
                     style: TextStyle(
                       fontFamily: fontType,
-                      // fontSize: textSize + 3,
                       fontSize: value.fonts.textSize + 3,
                       color: FontAppColors.primaryFont,
                       fontWeight: FontWeight.bold,
@@ -65,7 +61,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     AppLocalizations.of(context)!.settingsTheme_subtitle,
                     style: TextStyle(
                       fontFamily: fontType,
-                      // fontSize: textSize,
                       fontSize: value.fonts.textSize,
                       color: FontAppColors.primaryFont,
                     ),
@@ -84,7 +79,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   AppLocalizations.of(context)!.settingsTheme_interface,
                   style: TextStyle(
                     fontFamily: fontType,
-                    // fontSize: textSize,
                     fontSize: value.fonts.textSize,
                     color: FontAppColors.primaryFont,
                     fontWeight: FontWeight.bold,
@@ -108,7 +102,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                           height: MediaQuery.of(context).size.height * 0.12,
                           width: MediaQuery.of(context).size.width * 0.1,
                           decoration: BoxDecoration(
-                            // color: PrimaryAppColors.darkShadow,
                             color: value.colors.innerBackground,
                             borderRadius: BorderRadius.circular(5),
                           ),
@@ -135,13 +128,12 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                 fontProvv.fonts.updateFontColor();
                               },
                               style: ElevatedButton.styleFrom(
-                                elevation: 30, // Set the elevation value here
+                                elevation: 30,
                                 backgroundColor: selectedTheme == 'default'
                                     ? Colors.black.withOpacity(0.5)
                                     : value.colors.innerBackground,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      0), // Optional: Set button shape
+                                  borderRadius: BorderRadius.circular(0),
                                 ),
                               ),
                               child: Image.asset(
@@ -159,7 +151,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                             AppLocalizations.of(context)!.settingsTheme_default,
                             style: TextStyle(
                                 fontFamily: fontType,
-                                // fontSize: textSize - 4,
                                 fontSize: fontProv.fonts.textSize - 4,
                                 color: FontAppColors.primaryFont),
                           ),
@@ -172,7 +163,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                           height: MediaQuery.of(context).size.height * 0.12,
                           width: MediaQuery.of(context).size.width * 0.1,
                           decoration: BoxDecoration(
-                            // color: PrimaryAppColors.darkShadow,
                             color: value.colors.innerBackground,
                             borderRadius: BorderRadius.circular(5),
                           ),
@@ -198,13 +188,12 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                               fontProvv.fonts.updateFontColor();
                             },
                             style: ElevatedButton.styleFrom(
-                              elevation: 30, // Set the elevation value here
+                              elevation: 30,
                               backgroundColor: selectedTheme == 'light'
                                   ? Colors.black.withOpacity(0.5)
                                   : value.colors.innerBackground,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    0), // Optional: Set button shape
+                                borderRadius: BorderRadius.circular(0),
                               ),
                             ),
                             child: Image.asset("assets/images/light-theme.png"),
@@ -218,7 +207,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                           AppLocalizations.of(context)!.settingsTheme_light,
                           style: TextStyle(
                               fontFamily: fontType,
-                              // fontSize: textSize - 4,
                               fontSize: fontProv.fonts.textSize - 4,
                               color: FontAppColors.primaryFont),
                         ),
@@ -255,13 +243,12 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                               fontProvv.fonts.updateFontColor();
                             },
                             style: ElevatedButton.styleFrom(
-                              elevation: 30, // Set the elevation value here
+                              elevation: 30,
                               backgroundColor: selectedTheme == 'dark'
                                   ? Colors.black.withOpacity(0.5)
                                   : value.colors.innerBackground,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    0), // Optional: Set button shape
+                                borderRadius: BorderRadius.circular(0),
                               ),
                             ),
                             child: Image.asset("assets/images/dark-theme.png"),
@@ -298,7 +285,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     AppLocalizations.of(context)!.settingsTheme_accent,
                     style: TextStyle(
                       fontFamily: fontType,
-                      // fontSize: textSize,
                       fontSize: value.fonts.textSize,
                       color: FontAppColors.primaryFont,
                       fontWeight: FontWeight.bold,
@@ -317,11 +303,10 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     onTap: () {
                       setState(() {
                         selectedColor = 0;
-                        // currentColor = PrimaryAppColors.buttonColors;
                       });
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
-                      // colorProv.updateButtonColor(PrimaryAppColors.buttonColors);
+
                       colorProv
                           .updateButtonColor(PrimaryAppColors.buttonColors);
                       SettingsSharedPref.setAccentTheme(
@@ -342,7 +327,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     onTap: () {
                       setState(() {
                         selectedColor = 1;
-                        // currentColor = Color(0xFFAB87C7);
                       });
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
@@ -365,7 +349,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     onTap: () {
                       setState(() {
                         selectedColor = 2;
-                        // currentColor = Color(0xFF1D6F9A);
                       });
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
@@ -388,7 +371,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     onTap: () {
                       setState(() {
                         selectedColor = 3;
-                        // currentColor = Color(0xFF2E8B57);
                       });
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
@@ -411,7 +393,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     onTap: () {
                       setState(() {
                         selectedColor = 4;
-                        // currentColor = Color(0xFFAB4C4C);
                       });
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
@@ -434,7 +415,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     onTap: () {
                       setState(() {
                         selectedColor = 5;
-                        // currentColor = Color(0xFFCE6C2F);
                       });
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
@@ -457,7 +437,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     onTap: () {
                       setState(() {
                         selectedColor = 6;
-                        // currentColor = Color(0xFFD81B60);
                       });
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
@@ -480,7 +459,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     onTap: () {
                       setState(() {
                         selectedColor = 7;
-                        // currentColor = Color(0xFF00796B);
                       });
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
@@ -513,7 +491,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                         Widget? child) {
                       return Container(
                         decoration: BoxDecoration(
-                          // color: PrimaryAppColors.innerBackground,
                           color: value.colors.innerBackground,
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -530,9 +507,7 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                         .settingsTheme_current,
                                     style: TextStyle(
                                       fontFamily: fontType,
-                                      // fontSize: textSize,
                                       fontSize: value.fonts.textSize,
-                                      // color: FontAppColors.primaryFont,
                                       color: value.fonts.primaryFontColor,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -576,9 +551,7 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                         .settingsTheme_pick,
                                     style: TextStyle(
                                       fontFamily: fontType,
-                                      // fontSize: textSize,
                                       fontSize: fontProv.fonts.textSize,
-                                      // color: FontAppColors.primaryFont,
                                       color: fontProv.fonts.primaryFontColor,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -592,7 +565,6 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () {
-                                        // setState(() => currentColor = pickerColor);
                                         ColorProvider colorProv =
                                             Provider.of<ColorProvider>(context,
                                                 listen: false);
@@ -607,11 +579,9 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                                         AppLocalizations.of(context)!
                                             .defaults_done,
                                         style: TextStyle(
-                                            // color: FontAppColors.primaryFont,
                                             color:
                                                 fontProv.fonts.primaryFontColor,
                                             fontFamily: fontType,
-                                            // fontSize: textSize,
                                             fontSize: fontProv.fonts.textSize),
                                       ),
                                     ),

@@ -20,7 +20,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 /// ```
 /// 
 Future<void> addKml(GoogleMapController mapController) async {
-    print('addKml');
     var mapId = mapController.mapId;
     const MethodChannel channel = MethodChannel('flutter.native/helper');
     final MethodChannel kmlchannel = MethodChannel('plugins.flutter.dev/google_maps_android_${mapId}');

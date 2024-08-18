@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+/// This is a Provider class of [SearchProvider] that extends [ChangeNotifier]
+/// It has the following:
+/// *  [_showMap] to check if the map is displayed
+/// *  [_searchPoiSelected] to check the selected point of interest
+/// *  [_searchPoiCountry] to check the country of the selected point of interest
+/// *  [_searchPoiCity] to check the city of the selected point of interest
+/// *  [_webSearchResults] to check the web search results
+/// *  [_youtubeSearchResults] to check the youtube search results
+/// *  [_isLoading] to check if the process is loading
+/// *  [_poiLat] to check the latitude of the point of interest
+/// *  [_poiLong] to check the longitude of the point of interest
+/// It has setters and getters with notifyListeners
 class SearchProvider with ChangeNotifier {
   bool _showMap = true;
   String _searchPoiSelected = '';

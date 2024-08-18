@@ -1,4 +1,3 @@
-import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:flutter/material.dart';
 
 class TopBarWidget extends StatelessWidget {
@@ -18,15 +17,11 @@ class TopBarWidget extends StatelessWidget {
     required this.grad2,
     required this.grad3,
     required this.grad4,
-    
-    
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: MediaQuery.of(context).size.height * 0.1,
-      // width: MediaQuery.of(context).size.width * 1,
       height: height,
       width: width,
       decoration: BoxDecoration(
@@ -39,10 +34,6 @@ class TopBarWidget extends StatelessWidget {
             grad2,
             grad3,
             grad4,
-            // PrimaryAppColors.gradient1,
-            // PrimaryAppColors.gradient2,
-            // PrimaryAppColors.gradient3,
-            // PrimaryAppColors.gradient4,
           ],
         ),
       ),

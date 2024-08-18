@@ -1,17 +1,12 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/help_button.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/main_layout.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/show_case_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
-import 'package:features_tour/features_tour.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_intro/flutter_intro.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class HelpWidget extends StatefulWidget {
@@ -22,27 +17,11 @@ class HelpWidget extends StatefulWidget {
 }
 
 class _HelpWidgetState extends State<HelpWidget> {
-//  final tourController = FeaturesTourController('AI-Generation-WorlWide');
-/*
- "settingsHelp_button1": "App Guide",
-    "settingsHelp_button2": "How to connect to Liquid Galaxy?",
-    "settingsHelp_button3": "How to control the Liquid Galaxy?",
-    "settingsHelp_button4": "How to manage your API keys?",
-    "settingsHelp_button5": "Visualizing your tours",
-    "settingsHelp_button6": "How to use the Favourites feature?",
-    "settingsHelp_button7": "How to make your own custom tour?",
-    "settingsHelp_button8": "How to change the app settings?",
-*/
   List<TargetFocus> appTargets = [];
   List<TargetFocus> lgConnectTargets = [];
   List<TargetFocus> lgControlTargets = [];
-  // List<TargetFocus> apiKeysTargets = [];
-  // List<TargetFocus> visualizeToursTargets = [];
   List<TargetFocus> favsTargets = [];
-  // List<TargetFocus> customTourTargets = [];
   List<TargetFocus> appSettingsTargets = [];
-  // ScrollController _scrollController = ScrollController();
-  // TutorialCoachMark? tutorialMark;
   bool _isInitialized = false;
 
 //init:
@@ -811,165 +790,110 @@ class _HelpWidgetState extends State<HelpWidget> {
 
   void showAppTutorial() {
     TutorialCoachMark(
-      targets: appTargets, // List<TargetFocus>
+      targets: appTargets,
       colorShadow: Colors.black,
       alignSkip: Alignment.bottomRight,
-      // textSkip: "SKIP",
+
       textSkip: AppLocalizations.of(context)!.defaults_skip,
       useSafeArea: true,
       textStyleSkip: TextStyle(color: Colors.white, fontSize: 30),
       paddingFocus: 10,
       opacityShadow: 0.8,
-      onClickTarget: (target) {
-        print(target);
-      },
-      onClickTargetWithTapPosition: (target, tapDetails) {
-        print("target: $target");
-        print(
-            "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
-      },
-      onClickOverlay: (target) {
-        print(target);
-      },
+      onClickTarget: (target) {},
+      onClickTargetWithTapPosition: (target, tapDetails) {},
+      onClickOverlay: (target) {},
       onSkip: () {
-        print("skip");
         return true;
       },
-      onFinish: () {
-        print("finish");
-      },
+      onFinish: () {},
       // );
     )..show(context: context);
   }
 
   void showLGConnectionTutorial() {
     TutorialCoachMark(
-      targets: lgConnectTargets, // List<TargetFocus>
+      targets: lgConnectTargets,
       colorShadow: Colors.black,
       alignSkip: Alignment.bottomRight,
-      // textSkip: "SKIP",
+
       textSkip: AppLocalizations.of(context)!.defaults_skip,
       useSafeArea: true,
       textStyleSkip: TextStyle(color: Colors.white, fontSize: 30),
       paddingFocus: 10,
       opacityShadow: 0.8,
-      onClickTarget: (target) {
-        print(target);
-      },
-      onClickTargetWithTapPosition: (target, tapDetails) {
-        print("target: $target");
-        print(
-            "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
-      },
-      onClickOverlay: (target) {
-        print(target);
-      },
+      onClickTarget: (target) {},
+      onClickTargetWithTapPosition: (target, tapDetails) {},
+      onClickOverlay: (target) {},
       onSkip: () {
-        print("skip");
         return true;
       },
-      onFinish: () {
-        print("finish");
-      },
+      onFinish: () {},
       // );
     )..show(context: context);
   }
 
   void showLGControlTutorial() {
     TutorialCoachMark(
-      targets: lgControlTargets, // List<TargetFocus>
+      targets: lgControlTargets,
       colorShadow: Colors.black,
       alignSkip: Alignment.bottomRight,
-      // textSkip: "SKIP",
+
       textSkip: AppLocalizations.of(context)!.defaults_skip,
       useSafeArea: true,
       textStyleSkip: TextStyle(color: Colors.white, fontSize: 30),
       paddingFocus: 10,
       opacityShadow: 0.8,
-      onClickTarget: (target) {
-        print(target);
-      },
-      onClickTargetWithTapPosition: (target, tapDetails) {
-        print("target: $target");
-        print(
-            "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
-      },
-      onClickOverlay: (target) {
-        print(target);
-      },
+      onClickTarget: (target) {},
+      onClickTargetWithTapPosition: (target, tapDetails) {},
+      onClickOverlay: (target) {},
       onSkip: () {
-        print("skip");
         return true;
       },
-      onFinish: () {
-        print("finish");
-      },
+      onFinish: () {},
       // );
     )..show(context: context);
   }
 
   void showFavTutorial() {
     TutorialCoachMark(
-      targets: favsTargets, // List<TargetFocus>
+      targets: favsTargets,
       colorShadow: Colors.black,
       alignSkip: Alignment.bottomRight,
-      // textSkip: "SKIP",
+
       textSkip: AppLocalizations.of(context)!.defaults_skip,
       useSafeArea: true,
       textStyleSkip: TextStyle(color: Colors.white, fontSize: 30),
       paddingFocus: 10,
       opacityShadow: 0.8,
-      onClickTarget: (target) {
-        print(target);
-      },
-      onClickTargetWithTapPosition: (target, tapDetails) {
-        print("target: $target");
-        print(
-            "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
-      },
-      onClickOverlay: (target) {
-        print(target);
-      },
+      onClickTarget: (target) {},
+      onClickTargetWithTapPosition: (target, tapDetails) {},
+      onClickOverlay: (target) {},
       onSkip: () {
-        print("skip");
         return true;
       },
-      onFinish: () {
-        print("finish");
-      },
+      onFinish: () {},
       // );
     )..show(context: context);
   }
 
   void showSettingsTutorial() {
     TutorialCoachMark(
-      targets: appSettingsTargets, // List<TargetFocus>
+      targets: appSettingsTargets,
       colorShadow: Colors.black,
       alignSkip: Alignment.bottomRight,
-      // textSkip: "SKIP",
+
       textSkip: AppLocalizations.of(context)!.defaults_skip,
       useSafeArea: true,
       textStyleSkip: TextStyle(color: Colors.white, fontSize: 30),
       paddingFocus: 10,
       opacityShadow: 0.8,
-      onClickTarget: (target) {
-        print(target);
-      },
-      onClickTargetWithTapPosition: (target, tapDetails) {
-        print("target: $target");
-        print(
-            "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
-      },
-      onClickOverlay: (target) {
-        print(target);
-      },
+      onClickTarget: (target) {},
+      onClickTargetWithTapPosition: (target, tapDetails) {},
+      onClickOverlay: (target) {},
       onSkip: () {
-        print("skip");
         return true;
       },
-      onFinish: () {
-        print("finish");
-      },
+      onFinish: () {},
       // );
     )..show(context: context);
   }
@@ -995,21 +919,6 @@ class _HelpWidgetState extends State<HelpWidget> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 10.0, right: 10),
-              //   child: Text(
-              //     // 'Tap the button below to view the app tutorial!',
-              //     AppLocalizations.of(context)!.settingsHelp_subtitle,
-              //     style: TextStyle(
-              //       fontSize: fontProv.fonts.textSize,
-              //       color: Colors.black,
-              //       fontFamily: fontType,
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.01,
-              // ),
 
               //1. Home guide
               HelpButton(
@@ -1055,24 +964,7 @@ class _HelpWidgetState extends State<HelpWidget> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
               ),
-              // HelpButton(
-              //   bgColor: colorProv.colors.innerBackground,
-              //   textColor: fontProv.fonts.primaryFontColor,
-              //   textSize: fontProv.fonts.textSize - 4,
-              //   text: AppLocalizations.of(context)!.settingsHelp_button4,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.01,
-              // ),
-              // HelpButton(
-              //   bgColor: colorProv.colors.innerBackground,
-              //   textColor: fontProv.fonts.primaryFontColor,
-              //   textSize: fontProv.fonts.textSize - 4,
-              //   text: AppLocalizations.of(context)!.settingsHelp_button5,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.01,
-              // ),
+
               HelpButton(
                 bgColor: colorProv.colors.innerBackground,
                 textColor: fontProv.fonts.primaryFontColor,
@@ -1089,15 +981,7 @@ class _HelpWidgetState extends State<HelpWidget> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
               ),
-              // HelpButton(
-              //   bgColor: colorProv.colors.innerBackground,
-              //   textColor: fontProv.fonts.primaryFontColor,
-              //   textSize: fontProv.fonts.textSize - 4,
-              //   text: AppLocalizations.of(context)!.settingsHelp_button7,
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.01,
-              // ),
+
               HelpButton(
                 bgColor: colorProv.colors.innerBackground,
                 textColor: fontProv.fonts.primaryFontColor,
@@ -1118,113 +1002,3 @@ class _HelpWidgetState extends State<HelpWidget> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-  // void showAiGenWorldWideTutorial() {
-  //   int counter = 0;
-  //   TutorialCoachMark? tutorialMark; // Declare the variable 'tutorialMark'
-  //   // _scrollController.animateTo(_scrollController.position.minScrollExtent,
-  //   //     duration: Duration(milliseconds: 1), curve: Curves.easeOut);
-  //   // Scrollable.ensureVisible(
-  //   //     aiGenWorldWideTargets[counter].keyTarget?.currentContext ?? context);
-  //   tutorialMark = TutorialCoachMark(
-  //     targets: homeTargets, // List<TargetFocus>
-  //     colorShadow: Colors.black,
-  //     // alignSkip: Alignment.bottomRight,
-  //     textSkip: "SKIP",
-  //     useSafeArea: true,
-  //     textStyleSkip: TextStyle(color: Colors.white, fontSize: 30),
-  //     paddingFocus: 10,
-  //     opacityShadow: 0.8,
-  //     onClickTarget: (target) {
-  //       print(target);
-  //     },
-  //     onClickTargetWithTapPosition: (target, tapDetails) {
-  //       print("target: $target");
-  //       print(
-  //           "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
-  //       // setState(() {
-  //       //   print(counter);
-  //       //   counter++;
-  //       //   if (counter == 1) {
-  //       //     _scrollController.animateTo(
-  //       //         _scrollController.position.maxScrollExtent,
-  //       //         duration: Duration(milliseconds: 500),
-  //       //         curve: Curves.ease);
-  //       //   } else if (counter == 2) {
-  //       //     _scrollController.animateTo(
-  //       //         _scrollController.position.maxScrollExtent,
-  //       //         duration: Duration(milliseconds: 500),
-  //       //         curve: Curves.ease);
-  //       //   }
-  //       // });
-  //       if (mounted) {
-  //         setState(() {
-  //           counter++;
-  //         });
-  //         if (counter < homeTargets.length) {
-  //           Scrollable.ensureVisible(
-  //               homeTargets[counter].keyTarget?.currentContext ?? context);
-  //         }
-  //       }
-  //     },
-  //     onClickOverlay: (target) {
-  //       print(target);
-  //     },
-  //     onSkip: () {
-  //       print("skip");
-  //       return true;
-  //     },
-  //     onFinish: () {
-  //       print("finish");
-  //     },
-  //     // );
-  //   )..show(context: context);
-  //   // Future.delayed(const Duration(seconds: 3), () {
-  //   //   if (mounted) {
-  //   //     tutorialMark!.show(context: context);
-  //   //   }
-  //   // });
-  // }
-
-
-
-              // GestureDetector(
-              //   onTap: () {},
-              //   child: Image.asset("assets/images/help.png",
-              //       height: MediaQuery.of(context).size.height * 0.2,
-              //       width: MediaQuery.of(context).size.width * 0.2),
-              // ),
-              // LGShowCaseWidget(
-              //   showCaseKey: GlobalKeys.showcaseKeyStartShowCase,
-              //   height: MediaQuery.of(context).size.height * 0.1,
-              //   width: MediaQuery.of(context).size.width * 0.2,
-              //   targetShape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(40.0)),
-              //   showCaseWidget: GestureDetector(
-              //     onTap: () {
-              //       ShowCaseWidget.of(context).startShowCase([
-              //         GlobalKeys.showcaseKeyLanguages,
-              //         GlobalKeys.showcaseKeyAppearance,
-              //         GlobalKeys.showcaseKeyFontSize,
-              //         GlobalKeys.showcaseKeyLiquidGalaxy,
-              //         GlobalKeys.showcaseKeyAPIKeys,
-              //         GlobalKeys.showcaseKeyHelp,
-              //       ]);
-              //     },
-              //     child: Image.asset("assets/images/help.png",
-              //         height: MediaQuery.of(context).size.height * 0.2,
-              //         width: MediaQuery.of(context).size.width * 0.2),
-              //   ),
-              //   title: 'Tutorial',
-              //   description: 'Tap the button below to view the app tutorial!',
-              // ),

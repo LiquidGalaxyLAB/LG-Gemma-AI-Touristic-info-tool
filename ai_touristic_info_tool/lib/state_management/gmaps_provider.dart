@@ -4,17 +4,21 @@ import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/state_management/displayed_fav_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
+import 'package:ai_touristic_info_tool/utils/get_bytes_from_assets.dart';
 import 'package:flutter/services.dart' show Uint8List;
-import 'package:ai_touristic_info_tool/services/map_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-class GoogleMapProvider with ChangeNotifier {
-  final MapService _mapService = MapService();
+/// [GoogleMapProvider] is a provider class responsible for managing the state and logic 
+/// related to Google Maps in the application. It provides methods to add, remove, and 
+/// update markers on the map, as well as methods to update the camera position and
+/// fly to a specific location. It also manages the state of the map controller, the
+/// current full address, the pin pill position, and the custom tour mode.
 
+class GoogleMapProvider with ChangeNotifier {
+
+  /// [currentlySelectedPin] is a [PlacesModel] object that represents the currently selected pin on the map.
   PlacesModel currentlySelectedPin = PlacesModel(
     id: -1,
     name: '',
@@ -28,21 +32,52 @@ class GoogleMapProvider with ChangeNotifier {
     latitude: 0.0,
     longitude: 0.0,
   );
+  /// [currentFullAddress] is a [Map] object that represents the current full address of the selected pin.
   Map<String, String?> _currentFullAddress = {};
+
+  /// [pinPillPosition] is a [double] value that represents the position of the pin pill on the map.
   double _pinPillPosition = -1000;
+  
+  /// [_mapController] is a [GoogleMapController] object that represents the map controller.
   GoogleMapController? _mapController;
+
+  /// [_markers] is a [Set] of [Marker] objects that represents the markers on the map.
   final Set<Marker> _markers = {};
+
+  /// [_customTourMainMarkers] is a [Set] of [Marker] objects that represents the custom tour main markers on the map.
   final Set<Marker> _customTourMainMarkers = {};
+
+  /// [_polylines] is a [Set] of [Polyline] objects that represents the polylines on the map.
   final Set<Polyline> _polylines = {};
+
+  /// [_polylineMarkers] is a [Map] object that represents the polyline markers on the map.
   final Map<Polyline, List<Marker>> _polylineMarkers = {};
+
+  /// [_center] is a [LatLng] object that represents the initial center of the map.
   LatLng _center = const LatLng(0, 0); // Initial center
+
+  /// [_zoom] is a [double] value that represents the initial zoom of the map.
   double _zoom = 14.4746; // Initial zoom
+
+  /// [_tilt] is a [double] value that represents the initial tilt of the map.
   double _tilt = 0;
+
+  /// [_bearing] is a [double] value that represents the initial bearing of the map.
   double _bearing = 0;
+
+  /// [_zoomvalue] is a [double] value that represents the initial zoom value of the map.
   double _zoomvalue = 591657550.500000 / pow(2, 14.4746);
+
+  /// [_iconMarker] is a [BitmapDescriptor] object that represents the icon marker on the map.
   BitmapDescriptor? _iconMarker;
+
+  /// [_isWorld] is a [bool] value that represents whether the map is in world mode.
   bool _isWorld = true;
+
+  /// [_isTourOn] is a [bool] value that represents whether the tour is on.
   bool _isTourOn = false;
+
+  /// [_allowSync] is a [bool] value that represents whether the map is allowed to sync with LG or not.
   bool _allowSync = true;
 
   // Getters for camera values
@@ -57,7 +92,6 @@ class GoogleMapProvider with ChangeNotifier {
   Set<Marker> get customTourMainMarkers => _customTourMainMarkers;
   Set<Polyline> get polylines => _polylines;
   Map<Polyline, List<Marker>> get polylineMarkers => _polylineMarkers;
-  // PolylinePoints get polylinePoints => _polylinePoints;
   double get pinPillPosition => _pinPillPosition;
   bool get isWorld => _isWorld;
   bool get isTourOn => _isTourOn;
@@ -110,7 +144,9 @@ class GoogleMapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Method to update camera position
+  /// [updateCameraPosition] method updates the camera position of the map.
+  /// It takes a [CameraPosition] object representing the new camera position and updates the camera position of the map.
+  /// The method is asynchronous and returns a [Future] of [void].
   void updateCameraPosition(CameraPosition position) {
     _center = position.target;
     _zoom = position.zoom;
@@ -118,10 +154,12 @@ class GoogleMapProvider with ChangeNotifier {
     _tilt = position.tilt;
     _bearing = position.bearing;
 
-    notifyListeners(); // Notify listeners of changes
+    notifyListeners();
   }
 
-  // Fly to location method
+  /// [flyToLocation] method animates the camera to fly to a specific location on the map.
+  /// It takes a [LatLng] object representing the target location and animates the camera to fly to that location.
+  /// The method is asynchronous and returns a [Future] of [void].
   void flyToLocation(LatLng targetLocation) {
     _mapController?.animateCamera(
       CameraUpdate.newCameraPosition(
@@ -136,21 +174,28 @@ class GoogleMapProvider with ChangeNotifier {
     );
     notifyListeners();
   }
-
+ 
+  /// [setBitmapDescriptor] method sets the bitmap descriptor for the icon marker on the map.
+  /// It takes an [imagePath] parameter and sets the bitmap descriptor from the given image path.
+  /// The image is converted to bytes and then set as the bitmap descriptor for the icon marker.
+  /// The method is asynchronous and returns a [Future] of [void].
   Future<void> setBitmapDescriptor(String imagePath) async {
-    final Uint8List unselected =
-        await _mapService.getBytesFromAsset(width: 50, path: imagePath);
-    _iconMarker = BitmapDescriptor.fromBytes(unselected);
+    final Uint8List dataBytes =
+        await getBytesFromAsset(width: 50, path: imagePath);
+    _iconMarker = BitmapDescriptor.fromBytes(dataBytes);
   }
 
-  // Add a marker
+  /// [addMarker] method adds a marker to the map.
+  /// It takes a [BuildContext] object, a [PlacesModel] object, and optional parameters [removeAll] and [isFromFav].
+  /// It adds a marker to the map with the given [poi] object and sets the marker's info window to display the name and description of the place.
+  /// If [removeAll] is true, it removes all existing markers from the map before adding the new marker.
+  /// If [isFromFav] is true, it adds the marker to the custom tour main markers set and removes the place from the displayed places list and adds it to the tour places list.
   Future<void> addMarker(BuildContext context, PlacesModel poi,
       {bool removeAll = true, bool isFromFav = false}) async {
     if (removeAll) {
-      _markers.clear(); // Remove all existing markers
+      _markers.clear();
     }
 
-    // final String markerId = 'marker_${_markers.length}';
     final String markerId = 'marker_${poi.id}.${poi.name}';
 
     DisplayedListProvider dlp =
@@ -165,7 +210,6 @@ class GoogleMapProvider with ChangeNotifier {
         title: poi.name,
         snippet: poi.description,
         onTap: () {
-          print('Info window tapped: ${poi.name}');
           pinPillPosition = 10;
           currentlySelectedPin = poi;
         },
@@ -227,7 +271,6 @@ class GoogleMapProvider with ChangeNotifier {
                     },
                   ));
         } else {
-          print('Marker tapped: ${poi.name}');
           pinPillPosition = 10;
           currentlySelectedPin = poi;
         }
@@ -236,26 +279,20 @@ class GoogleMapProvider with ChangeNotifier {
     );
 
     _markers.add(marker);
-    _customTourMainMarkers.add(marker);
-    dlp.removeDisplayedPlace(poi);
-    dlp.addTourPlace(poi);
-    print(dlp.displayedList);
+    //added this new if condition:
+    if (isFromFav) {
+      _customTourMainMarkers.add(marker);
+      dlp.removeDisplayedPlace(poi);
+      dlp.addTourPlace(poi);
+    }
 
     notifyListeners();
   }
 
-  // // Add a polyline
-  // void addPolyline(List<LatLng> polylineCoordinates) {
-  //   PolylineId id = PolylineId("poly");
-  //   _polylines.add(Polyline(
-  //     polylineId: id,
-  //     color: Colors.blue,
-  //     points: polylineCoordinates,
-  //     width: 4,
-  //   ));
-  //   notifyListeners();
-  // }
 
+
+  /// [addPolylinesBetweenMarkers] method adds polylines between the markers on the map.
+  /// It takes no parameters and adds polylines between the markers on the map.
   void addPolylinesBetweenMarkers() {
     List<Marker> markers = _markers.toList();
     if (markers.length < 2) return;
@@ -281,7 +318,8 @@ class GoogleMapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // interpolation between 2 points to get rest of straight line
+  /// [interpolatePoints] method interpolates points between two given points.
+  /// It takes two [LatLng] objects representing the start and end points, and an [int] value representing the number of points to interpolate.
   List<LatLng> interpolatePoints(LatLng start, LatLng end, int numPoints) {
     List<LatLng> points = [];
     double latStep = (end.latitude - start.latitude) / (numPoints - 1);
@@ -296,7 +334,8 @@ class GoogleMapProvider with ChangeNotifier {
     return points;
   }
 
-  // add polyline markers for each polyline:
+  /// [addMarkersForPolylines] method adds markers for the polylines on the map.
+  /// It takes no parameters and adds markers for the polylines on the map.
   void addMarkersForPolylines() {
     for (Polyline polyline in _polylines) {
       List<LatLng> polylinePoints = polyline.points;
@@ -361,7 +400,6 @@ class GoogleMapProvider with ChangeNotifier {
       }
     }
     if (markerToRemove == null) {
-      print('Marker not found');
       return;
     }
 

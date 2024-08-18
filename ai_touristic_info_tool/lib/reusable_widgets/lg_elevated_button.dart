@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 ///This is a customer elevated button which is reused in many views through our app
-///[OptimileElevatedButton] takes as parameters:
+///[LgElevatedButton] takes as parameters:
 ///   * [elevatedButtonContent] - A [String] for displaying the content of each elevated button
 ///   * [buttonColor] - A [Color] to display different colors for the buttons through the app
 ///   * [onpressed]  - A [Function] to be displayed when the button is pressed

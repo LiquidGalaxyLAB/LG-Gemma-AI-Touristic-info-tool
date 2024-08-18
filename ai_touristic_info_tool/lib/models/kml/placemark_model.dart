@@ -1,7 +1,8 @@
+import 'package:ai_touristic_info_tool/models/kml/tour_model.dart';
+
 import 'line_model.dart';
 import 'look_at_model.dart';
 import 'point_model.dart';
-import 'tourr_model.dart';
 
 /// Class that defines the `placemark` entity, which contains its properties and methods.
 class PlacemarkModel {
@@ -139,7 +140,7 @@ class PlacemarkModel {
             </gx:FlyTo>
     </Placemark>
     ${viewOrbit ? orbitTag : ''}
-    ${tour != null ? tour!.tag : ''}
+    ${tour != null ? tour!.tourTag() : ''}
   ''';
 
 //https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/animalPin.png?raw=true
@@ -167,22 +168,6 @@ class PlacemarkModel {
   </Placemark>
 ''';
 
-  String get pinOnlyTag => '''
-    <Placemark>
-      <Style id="${id}_icon">
-        <IconStyle>
-        <scale>1.0</scale> <!-- increase the size of the icon by a factor of 10 -->
-          <Icon>
-            <href>$icon</href>
-          </Icon>
-        </IconStyle>
-      </Style>
-      <styleUrl>#${id}_icon</styleUrl>
-      ${point?.tag}
-    </Placemark>
-   
-  ''';
-
   String get orbitTag => '''
  <gx:Tour>
       <name>Orbit</name>
@@ -192,13 +177,6 @@ class PlacemarkModel {
   </gx:Tour>
 ''';
 
-  // String get orbitTag => '''
-  //   <Placemark>
-  //     <name>Orbit - $name</name>
-  //     <styleUrl>line-$id</styleUrl>
-  //     ${line!.tag}
-  //   </Placemark>
-  // ''';
 
   /// Property that defines a placemark tag which contains only a balloon.
   /// FF537DC0

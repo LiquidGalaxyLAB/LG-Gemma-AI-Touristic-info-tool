@@ -1,14 +1,13 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/api_widget.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/font_widget.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/help_widget.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/language_widget.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/lg_widget.dart';
+import 'package:ai_touristic_info_tool/screens/views/api_widget.dart';
+import 'package:ai_touristic_info_tool/screens/views/font_widget.dart';
+import 'package:ai_touristic_info_tool/screens/views/help_widget.dart';
+import 'package:ai_touristic_info_tool/screens/views/language_widget.dart';
+import 'package:ai_touristic_info_tool/screens/views/lg_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/settings_option.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/show_case_widget.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/theme_widget.dart';
+import 'package:ai_touristic_info_tool/screens/views/theme_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
@@ -45,10 +44,6 @@ class _AppSettingsViewState extends State<AppSettingsView> {
               return TopBarWidget(
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width * 1,
-                // grad1: value.colors.gradient1,
-                // grad2: value.colors.gradient2,
-                // grad3: value.colors.gradient3,
-                // grad4: value.colors.gradient4,
                 grad1: SettingsSharedPref.getTheme() == 'light'
                     ? value.colors.buttonColors
                     : value.colors.gradient1,
@@ -61,7 +56,6 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                 grad4: SettingsSharedPref.getTheme() == 'light'
                     ? value.colors.buttonColors
                     : value.colors.gradient4,
-
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -78,7 +72,6 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                         style: TextStyle(
                           fontFamily: fontType,
                           fontSize: fontProv.fonts.headingSize,
-                          // color: FontAppColors.secondaryFont,
                           color: SettingsSharedPref.getTheme() == 'dark'
                               ? fontProv.fonts.primaryFontColor
                               : fontProv.fonts.secondaryFontColor,
@@ -98,7 +91,6 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
-                      // top: 20.0, bottom: 0, left: 20, right: 20
                       top: MediaQuery.of(context).size.height * 0.02,
                       bottom: 0,
                       left: MediaQuery.of(context).size.width * 0.01,
@@ -108,7 +100,6 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                       height: MediaQuery.of(context).size.height * 0.68,
                       width: MediaQuery.of(context).size.width * 0.4,
                       decoration: BoxDecoration(
-                        // color: PrimaryAppColors.shadow,
                         color: value.colors.shadow,
                         borderRadius: BorderRadius.circular(5),
                       ),
@@ -159,7 +150,6 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                               ),
                               SettingsOptionButton(
                                 key: GlobalKeys.showcaseKeyFontSize,
-                                // buttonText: 'Font Size',
                                 buttonText: AppLocalizations.of(context)!
                                     .settings_fontSizeTitle,
                                 buttonDescription:
@@ -237,17 +227,14 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                      // top: 20.0, bottom: 0, left: 0, right: 10
                       top: MediaQuery.of(context).size.height * 0.02,
                       bottom: 0,
                       left: MediaQuery.of(context).size.width * 0.01,
-                      // right: MediaQuery.of(context).size.width * 0.02,
                     ),
                     child: Container(
                         height: MediaQuery.of(context).size.height * 0.68,
                         width: MediaQuery.of(context).size.width * 0.4,
                         decoration: BoxDecoration(
-                          // color: PrimaryAppColors.shadow,
                           color: value.colors.shadow,
                           borderRadius: BorderRadius.circular(5),
                         ),
@@ -273,7 +260,6 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                                 .settings_welcomeSettings,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              // fontSize: textSize + 10,
                                               fontSize:
                                                   fontProv.fonts.textSize + 10,
                                               fontWeight: FontWeight.bold,
@@ -293,7 +279,6 @@ class _AppSettingsViewState extends State<AppSettingsView> {
                                           // 'You can change the language, appearance, font size, learn about Liquid Galaxy, manage API keys, and access help resources.',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            // fontSize: textSize,
                                             fontSize: fontProv.fonts.textSize,
                                             fontFamily: fontType,
                                             color: Colors.grey,

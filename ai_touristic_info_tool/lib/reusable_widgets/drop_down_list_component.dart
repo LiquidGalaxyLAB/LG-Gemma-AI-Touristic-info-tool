@@ -77,7 +77,6 @@ class DropDownListWidget extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-              // color: PrimaryAppColors.buttonColors,
               color: colorProv.colors.buttonColors,
               width: 5.0,
             ),
@@ -86,14 +85,12 @@ class DropDownListWidget extends StatelessWidget {
               const EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
           prefixIcon: prefixIcon,
           hintText: hinttext,
-          // fillColor: Colors.white,
           fillColor: colorProv.colors.innerBackground,
           filled: true,
         ),
         isExpanded: true,
         icon: Icon(
           Icons.arrow_drop_down,
-          // color: PrimaryAppColors.buttonColors,
           color: colorProv.colors.buttonColors,
           size: 36,
         ),
@@ -102,7 +99,9 @@ class DropDownListWidget extends StatelessWidget {
         }).toList(),
         value: selectedValue ?? items[0],
         onChanged: (value) {
+          // ignore: unused_local_variable
           int index = state.selectedIndex = items.indexOf(value!);
+          // ignore: unused_local_variable
           int length = items.length;
           onChanged?.call(value);
         },

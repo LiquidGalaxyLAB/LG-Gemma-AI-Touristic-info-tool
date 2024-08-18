@@ -255,7 +255,6 @@ fi
       final kmlFile = await _fileService.createFile(fileName, tourKml);
 
       await _sshData.uploadKml(kmlFile, fileName);
-      print('kml uploaded');
 
       await _sshData
           .execute('echo "\n$_url/$fileName" >> /var/www/html/kmls.txt');
@@ -297,15 +296,6 @@ fi
     }
   }
 
-  Future<void> updateKMLonSlave(int screen, String content) async {
-    try {
-      await _sshData
-          .execute("echo '$content' >> /var/www/html/kml/slave_$screen.kml");
-    } catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
-  }
 
   /// Sends a the given [kml] to the Liquid Galaxy system.
   ///
@@ -347,9 +337,8 @@ fi
     }
   }
 
-  Future<void> sendKmlPlacemarks(String kml, String placemarkName) async {
-    print(' inside kml placemarks');
-    final fileName = '$placemarkName.kml';
+  Future<void> sendKmlFileToMaster(String kml, String KmlName) async {
+    final fileName = '$KmlName.kml';
     try {
       final kmlFile = await _fileService.createFile(fileName, kml);
     
@@ -358,7 +347,6 @@ fi
 
       await _sshData
           .execute('echo "\n$_url/$fileName" > /var/www/html/kmls.txt');
-      print('after execute');
     } catch (e) {
       // ignore: avoid_print
       print(e);

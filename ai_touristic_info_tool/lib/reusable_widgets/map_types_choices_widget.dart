@@ -1,5 +1,4 @@
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
@@ -34,18 +33,12 @@ class MapTypeChoicesWidget extends StatelessWidget {
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
-                  // color: value.currentView == 'satellite'
-                  //     ? PrimaryAppColors.buttonColors
-                  //     : FontAppColors.secondaryFont,
                   color: value.currentView == 'satellite'
                       ? colorProv.colors.buttonColors
                       : FontAppColors.secondaryFont,
                   borderRadius: const BorderRadius.all(Radius.circular(50)),
                   border: Border.all(
                     width: 3,
-                    // color: value.currentView == 'satellite'
-                    //     ? FontAppColors.secondaryFont
-                    //     : PrimaryAppColors.buttonColors,
                     color: value.currentView == 'satellite'
                         ? FontAppColors.secondaryFont
                         : colorProv.colors.buttonColors,
@@ -68,18 +61,12 @@ class MapTypeChoicesWidget extends StatelessWidget {
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
-                  // color: value.currentView == 'normal'
-                  //     ? PrimaryAppColors.buttonColors
-                  //     : FontAppColors.secondaryFont,
                   color: value.currentView == 'normal'
                       ? colorProv.colors.buttonColors
                       : FontAppColors.secondaryFont,
                   borderRadius: const BorderRadius.all(Radius.circular(50)),
                   border: Border.all(
                     width: 3,
-                    // color: value.currentView == 'normal'
-                    //     ? FontAppColors.secondaryFont
-                    //     : PrimaryAppColors.buttonColors,
                     color: value.currentView == 'normal'
                         ? FontAppColors.secondaryFont
                         : colorProv.colors.buttonColors,
@@ -102,18 +89,12 @@ class MapTypeChoicesWidget extends StatelessWidget {
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
-                  // color: value.currentView == 'terrain'
-                  //     ? PrimaryAppColors.buttonColors
-                  //     : FontAppColors.secondaryFont,
                   color: value.currentView == 'terrain'
                       ? colorProv.colors.buttonColors
                       : FontAppColors.secondaryFont,
                   borderRadius: const BorderRadius.all(Radius.circular(50)),
                   border: Border.all(
                     width: 3,
-                    // color: value.currentView == 'terrain'
-                    //     ? FontAppColors.secondaryFont
-                    //     : PrimaryAppColors.buttonColors,
                     color: value.currentView == 'terrain'
                         ? FontAppColors.secondaryFont
                         : colorProv.colors.buttonColors,

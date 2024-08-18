@@ -2,28 +2,24 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/custom_recording_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/drop_down_list_component.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/google_maps_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
-import 'package:ai_touristic_info_tool/services/langchain_service.dart';
-import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/services/gemini_services.dart';
+import 'package:ai_touristic_info_tool/services/voices_services.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
-import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/dialogs/show_stream_gemini_dialog.dart';
-import 'package:ai_touristic_info_tool/dialogs/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/dialogs/visualization_dialog.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -67,12 +63,15 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
   final _addressFormKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
+  // ignore: unused_field
   bool _isUseRecord = false;
   bool _isRecording = false;
   String? _audioPath;
   late final AudioRecorder _audioRecorder;
+  // ignore: unused_field
   bool _isAudioProcessing = false;
   String? audioPrompt;
+  // ignore: unused_field
   bool _isSTTFinished = false;
   late AudioPlayer player = AudioPlayer();
 
@@ -80,10 +79,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
   void initState() {
     _audioRecorder = AudioRecorder();
     super.initState();
-    // Create the audio player.
     player = AudioPlayer();
-
-    // Set the release mode to keep the source after playback has completed.
     player.setReleaseMode(ReleaseMode.stop);
   }
 
@@ -114,7 +110,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
 
       await _audioRecorder.start(
         const RecordConfig(
-          // specify the codec to be `.wav`
           encoder: AudioEncoder.wav,
         ),
         path: filePath,
@@ -125,7 +120,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
   }
 
   Future<void> _stopRecording() async {
-    print('stop');
     try {
       String? path = await _audioRecorder.stop();
 
@@ -151,7 +145,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
         await _startRecording();
       } else if (status == PermissionStatus.permanentlyDenied) {
         debugPrint('Permission permanently denied');
-        // TODO: handle this case
       }
     } else {
       await _stopRecording();
@@ -166,8 +159,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
     //making a file using audio path:
     if (_audioPath != null) {
       final audioFile = File(_audioPath!);
-      print(audioFile);
-      Api().speechToTextApi(audioFile).then((value) {
+      VoicesServicesApi().speechToTextApi(audioFile).then((value) {
         setState(() {
           audioPrompt = value;
           _isAudioProcessing = false;
@@ -183,9 +175,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          //options: map, prompt, song, audio, photo, detect location
           Consumer<FontsProvider>(
             builder:
                 (BuildContext context, FontsProvider value, Widget? child) {
@@ -208,7 +198,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         },
                         height: MediaQuery.of(context).size.height * 0.1,
                         width: MediaQuery.of(context).size.width * 0.2,
-                        // fontSize: textSize,
                         fontSize: value.fonts.textSize,
                         fontColor: FontAppColors.secondaryFont,
                         isLoading: false,
@@ -239,7 +228,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         },
                         height: MediaQuery.of(context).size.height * 0.1,
                         width: MediaQuery.of(context).size.width * 0.2,
-                        // fontSize: textSize,
                         fontSize: value.fonts.textSize,
                         fontColor: FontAppColors.secondaryFont,
                         isLoading: false,
@@ -299,7 +287,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     FontsProvider fontval, Widget? child) {
                   return Container(
                     decoration: BoxDecoration(
-                      // color: PrimaryAppColors.buttonColors,
                       color: value.colors.buttonColors,
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -314,29 +301,18 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                 AppLocalizations.of(context)!
                                     .exploreLocation_address,
                                 style: TextStyle(
-                                    // fontSize: textSize + 10,
                                     fontSize: fontval.fonts.textSize + 10,
                                     fontFamily: fontType,
                                     fontWeight: FontWeight.bold,
-                                    // color: FontAppColors.secondaryFont,
-                                    color: Colors.white
-                                    // SettingsSharedPref.getTheme() ==
-                                    //             'default' ||
-                                    //         SettingsSharedPref.getTheme() ==
-                                    //             'dark'
-                                    //     ? fontval.fonts.primaryFontColor
-                                    //     : fontval.fonts.secondaryFontColor,
-                                    )),
+                                    color: Colors.white)),
                             TextFormFieldWidget(
                               // hint: 'Enter address, or leave empty',
                               hint: AppLocalizations.of(context)!
                                   .exploreLocation_addressHint,
-                              // fontSize: textSize,
                               fontSize: fontval.fonts.textSize,
                               key: const ValueKey("address"),
                               textController: _addressController,
                               isSuffixRequired: false,
-                              // isHidden: false,
                               isPassword: false,
                               maxLength: 100,
                               maxlines: 1,
@@ -347,23 +323,18 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                 AppLocalizations.of(context)!
                                     .exploreLocation_city,
                                 style: TextStyle(
-                                    // fontSize: textSize + 10,
                                     fontSize: fontval.fonts.textSize + 10,
                                     fontFamily: fontType,
                                     fontWeight: FontWeight.bold,
-                                    // color: FontAppColors.secondaryFont,
-                                    // color: fontval.fonts.secondaryFontColor
                                     color: Colors.white)),
                             TextFormFieldWidget(
                               // hint: 'Enter city',
                               hint: AppLocalizations.of(context)!
                                   .exploreLocation_cityHint,
-                              // fontSize: textSize,
                               fontSize: fontval.fonts.textSize,
                               key: const ValueKey("city"),
                               textController: _cityController,
                               isSuffixRequired: true,
-                              // isHidden: false,
                               isPassword: false,
                               maxLength: 100,
                               maxlines: 1,
@@ -374,22 +345,17 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                 AppLocalizations.of(context)!
                                     .exploreLocation_country,
                                 style: TextStyle(
-                                    // fontSize: textSize + 10,
                                     fontSize: fontval.fonts.textSize + 10,
                                     fontFamily: fontType,
                                     fontWeight: FontWeight.bold,
-                                    // color: FontAppColors.secondaryFont,
-                                    // color: fontval.fonts.secondaryFontColor,
                                     color: Colors.white)),
                             DropDownListWidget(
                               key: const ValueKey("countries"),
-                              // fontSize: textSize,
                               fontSize: fontval.fonts.textSize,
                               items: countries,
                               selectedValue: countryIndex != -1
                                   ? countries[countryIndex]
                                   : countries[0],
-                              // hinttext: 'Country',
                               hinttext: AppLocalizations.of(context)!
                                   .exploreLocation_countryHint,
                               onChanged: (value) {
@@ -412,10 +378,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                     elevatedButtonContent:
                                         AppLocalizations.of(context)!
                                             .defaults_save,
-                                    // buttonColor: PrimaryAppColors.innerBackground,
                                     buttonColor: value.colors.innerBackground,
-                                    // fontColor: FontAppColors.primaryFont,
-                                    // fontColor: fontval.fonts.primaryFontColor,
                                     fontColor: fontval.fonts.primaryFontColor,
                                     onpressed: () async {
                                       if (_addressFormKey.currentState!
@@ -434,11 +397,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                                 .getCoordinates(_addressQuery);
                                         double lat = myLatLng.latitude;
                                         double long = myLatLng.longitude;
-                                        print('Lat: $lat , long: $long');
-
-                                        // GoogleMapProvider gmp =
-                                        //     Provider.of<GoogleMapProvider>(context,
-                                        //         listen: false);
 
                                         LatLng newLocation = LatLng(lat, long);
                                         final mapProvider =
@@ -454,22 +412,13 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                         mapProvider.updateZoom(18.4746);
                                         mapProvider.updateBearing(90);
                                         mapProvider.updateTilt(45);
-                                        print('before fly to');
                                         mapProvider.flyToLocation(newLocation);
-
-                                        // gmp.updateCameraPosition(CameraPosition(
-                                        //     target: LatLng(lat, long), zoom: 14.4746));
-                                        // gmp.flyToLocation(LatLng(lat, long));
-
-                                        print('Lat: $lat , long: $long');
-                                        print('after fly to');
                                       }
                                     },
                                     height: MediaQuery.of(context).size.height *
                                         0.05,
                                     width:
                                         MediaQuery.of(context).size.width * 0.1,
-                                    // fontSize: textSize,
                                     fontSize: fontval.fonts.textSize,
                                     isLoading: false,
                                     isBold: true,
@@ -565,7 +514,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
           //                                       .getCoordinates(_addressQuery);
           //                               double lat = myLatLng.latitude;
           //                               double long = myLatLng.longitude;
-          //                               print('Lat: $lat , long: $long');
 
           //                               LatLng newLocation = LatLng(lat, long);
           //                               final mapProvider =
@@ -576,15 +524,11 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
           //                               mapProvider.updateZoom(18.4746);
           //                               mapProvider.updateBearing(90);
           //                               mapProvider.updateTilt(45);
-          //                               print('before fly to');
           //                               mapProvider.flyToLocation(newLocation);
 
           //                               // gmp.updateCameraPosition(CameraPosition(
           //                               //     target: LatLng(lat, long), zoom: 14.4746));
           //                               // gmp.flyToLocation(LatLng(lat, long));
-
-          //                               print('Lat: $lat , long: $long');
-          //                               print('after fly to');
 
           //                               //snack bar:
           //                               ScaffoldMessenger.of(context)
@@ -707,12 +651,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     // 'Navigate till you find your desired location!',
                     AppLocalizations.of(context)!.exploreLocation_navigate,
                     style: TextStyle(
-                        // fontSize: textSize + 10,
                         fontSize: value.fonts.textSize + 10,
                         fontFamily: fontType,
                         fontWeight: FontWeight.bold,
-                        // color: FontAppColors.primaryFont,
-                        // color: value.fonts.primaryFontColor
                         color: value.fonts.primaryFontColor),
                   );
                 },
@@ -729,11 +670,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                     // 'Click on Use Map button to navigate if you want!',
                     AppLocalizations.of(context)!.exploreLocation_useMap,
                     style: TextStyle(
-                        // fontSize: textSize + 10,
                         fontSize: value.fonts.textSize + 10,
                         fontFamily: fontType,
                         fontWeight: FontWeight.bold,
-                        // color: FontAppColors.primaryFont
                         color: value.fonts.primaryFontColor),
                   );
                 },
@@ -756,13 +695,11 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
             child: Consumer<GoogleMapProvider>(
               builder: (BuildContext context, GoogleMapProvider value,
                   Widget? child) {
-                print(useMap);
                 if (useMap) {
                   _address = value.currentFullAddress['address'] ?? '';
                   _city = value.currentFullAddress['city'] ?? '';
                   _country = value.currentFullAddress['country'] ?? '';
                   _addressQuery = '$_address $_city $_country';
-                  print(_addressQuery);
                 }
 
                 return Consumer<FontsProvider>(
@@ -773,11 +710,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       AppLocalizations.of(context)!
                           .exploreLocation_youarein(_addressQuery),
                       style: TextStyle(
-                        // fontSize: textSize + 8,
                         fontSize: value.fonts.textSize + 8,
                         fontFamily: fontType,
-                        // color: FontAppColors.primaryFont,
-                        // color: value.fonts.primaryFontColor,
                         color: value.fonts.primaryFontColor,
                       ),
                     );
@@ -796,12 +730,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                   AppLocalizations.of(context)!
                       .exploreLocation_aiRecommendation,
                   style: TextStyle(
-                      // fontSize: textSize + 10,
                       fontSize: value.fonts.textSize + 10,
                       fontFamily: fontType,
                       fontWeight: FontWeight.bold,
-                      // color: FontAppColors.primaryFont
-                      // color: value.fonts.primaryFontColor,
                       color: value.fonts.primaryFontColor),
                 );
               },
@@ -834,7 +765,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -850,7 +780,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -865,7 +794,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -881,7 +809,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -897,7 +824,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -912,7 +838,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -928,7 +853,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -944,7 +868,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -960,7 +883,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -976,7 +898,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -992,7 +913,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -1008,7 +928,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -1024,7 +943,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -1039,7 +957,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -1054,7 +971,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                     RecommendationContainer(
@@ -1070,7 +986,6 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       city: _city,
                       country: _country,
                       txtSize: textSize + 2,
-                      // txtSize: fontsVal.fonts.textSize + 2,
                       bottomOpacity: 1,
                     ),
                   ],
@@ -1090,12 +1005,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                   // 'Ask Gemini anything you want to know nearby:',
                   AppLocalizations.of(context)!.exploreLocation_askGemini,
                   style: TextStyle(
-                      // fontSize: textSize + 10,
                       fontSize: value.fonts.textSize + 10,
                       fontFamily: fontType,
                       fontWeight: FontWeight.bold,
-                      // color: FontAppColors.primaryFont,
-                      // color: value.fonts.primaryFontColor,
                       color: value.fonts.primaryFontColor),
                 );
               },
@@ -1111,12 +1023,10 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       Widget? child) {
                     return Center(
                       child: TextFormFieldWidget(
-                        // fontSize: textSize,
                         fontSize: value.fonts.textSize,
                         key: const ValueKey("location-prompt"),
                         textController: widget._prompt2Controller,
                         isSuffixRequired: false,
-                        // isHidden: false,
                         isPassword: false,
                         maxLength: 100,
                         maxlines: 1,
@@ -1134,16 +1044,12 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         key: const ValueKey("location-prompt-button"),
                         height: MediaQuery.sizeOf(context).height * 0.05,
                         width: MediaQuery.sizeOf(context).width * 0.2,
-                        // buttonColor: PrimaryAppColors.buttonColors,
                         buttonColor: value.colors.buttonColors,
-                        // fontSize: textSize,
                         fontSize: fontVal.fonts.textSize,
-                        // fontColor: fontVal.fonts.secondaryFontColor,
                         fontColor: SettingsSharedPref.getTheme() == 'default' ||
                                 SettingsSharedPref.getTheme() == 'light'
                             ? fontVal.fonts.secondaryFontColor
                             : fontVal.fonts.primaryFontColor,
-                        // fontColor: FontAppColors.secondaryFont,
                         isBold: true,
                         isLoading: false,
                         isPrefixIcon: false,
@@ -1166,12 +1072,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                             } else {
                               query = '$_whatToDoQuery in $_addressQuery';
                             }
-
-                            print('query: $query');
                             PromptsSharedPref.getPlaces(query)
                                 .then((value) async {
-                              print('value: $value');
-                              print(value.isNotEmpty);
                               if (value.isNotEmpty) {
                                 await buildQueryPlacemark(
                                     query, _city, _country, context);
@@ -1227,7 +1129,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                   setState(() {
                                     _isLoading = true;
                                   });
-                                  String res = await LangchainService()
+                                  String res = await GeminiServices()
                                       .checkAPIValidity(apiKey, context);
                                   setState(() {
                                     _isLoading = false;
@@ -1285,44 +1187,3 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
   }
 }
 
-
-
-/*
-  // Future<void> _getAddressFromCoordinates() async {
-  //   Position position = await Geolocator.getCurrentPosition(
-  //       desiredAccuracy: LocationAccuracy.high);
-  //   final Map<String, String?> result = await GeocodingService()
-  //       .getAddressFromLatLng(position.latitude, position.longitude);
-  //   setState(() {
-  //     fullAdddress['city'] = result['city'];
-  //     fullAdddress['country'] = result['country'];
-  //     fullAdddress['address'] = result['address'];
-  //   });
-  //   GoogleMapProvider gmp =
-  //       Provider.of<GoogleMapProvider>(context, listen: false);
-  //   gmp.currentFullAddress = fullAdddress;
-  //   gmp.updateCameraPosition(CameraPosition(
-  //       target: LatLng(position.latitude, position.longitude), zoom: 14.4746));
-  // }
-
-
-  // LgElevatedButton(
-              //   elevatedButtonContent: 'Detect\nLocation',
-              //   buttonColor: ButtonColors.locationButton,
-              //   onpressed: () {
-              //    // _getAddressFromCoordinates();
-              //   },
-              //   height: MediaQuery.of(context).size.height * 0.1,
-              //   width: MediaQuery.of(context).size.width * 0.14,
-              //   fontSize: textSize,
-              //   fontColor: FontAppColors.secondaryFont,
-              //   isLoading: false,
-              //   isBold: false,
-              //   isPrefixIcon: true,
-              //   prefixIcon: Icons.location_on_outlined,
-              //   prefixIconColor: Colors.white,
-              //   prefixIconSize: 30,
-              //   isSuffixIcon: false,
-              //   curvatureRadius: 10,
-              // ),
-*/

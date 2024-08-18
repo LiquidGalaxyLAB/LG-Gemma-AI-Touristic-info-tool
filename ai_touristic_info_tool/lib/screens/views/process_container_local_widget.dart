@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
+import 'package:ai_touristic_info_tool/services/gemma_api_services.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
@@ -45,7 +45,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
     _chunkController = StreamController();
     _errorController = StreamController();
 
-    Api().postaStreamEventsGemma(input: widget.query, context).listen((event) {
+    GemmaApiServices()
+        .postaStreamEventsGemma(input: widget.query, context)
+        .listen((event) {
       setState(() {
         if (event['type'] == 'chunk') {
           _chunkController.sink.add(event['data']);
@@ -102,9 +104,7 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                       child: Text(
                         errorSnapshot.data.toString(),
                         style: TextStyle(
-                          // color: FontAppColors.primaryFont,
                           color: fontsProv.fonts.primaryFontColor,
-                          // fontSize: textSize,
                           fontSize: fontsProv.fonts.textSize,
                           fontWeight: FontWeight.bold,
                           fontFamily: fontType,
@@ -116,7 +116,8 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                     ),
                     LgElevatedButton(
                       // elevatedButtonContent: 'OK',
-                      elevatedButtonContent: AppLocalizations.of(context)!.defaults_ok,
+                      elevatedButtonContent:
+                          AppLocalizations.of(context)!.defaults_ok,
                       // buttonColor: PrimaryAppColors.buttonColors,
                       buttonColor: colorProv.colors.buttonColors,
                       onpressed: () {
@@ -124,7 +125,7 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                       },
                       height: MediaQuery.of(context).size.height * 0.05,
                       width: MediaQuery.of(context).size.width * 0.2,
-                      // fontSize: textSize,
+
                       fontSize: fontsProv.fonts.textSize,
                       fontColor: FontAppColors.secondaryFont,
                       isLoading: false,
@@ -159,11 +160,9 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      // color: PrimaryAppColors.gradient1,
                                       color: colorProv.colors.gradient1,
                                       width: 4),
                                   borderRadius: BorderRadius.circular(30),
-                                  // color: Color.fromARGB(111, 184, 184, 187),
                                   color:
                                       colorProv.colors.shadow.withOpacity(0.5),
                                 ),
@@ -179,7 +178,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                         builder: (context, snapshot) {
                                           if (snapshot.connectionState ==
                                               ConnectionState.waiting) {
-                                            //return CircularProgressIndicator();
                                             return Text(
                                               // 'Waiting for stream. Please wait... ',
                                               AppLocalizations.of(context)!
@@ -187,7 +185,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                               style: TextStyle(
                                                 color:
                                                     FontAppColors.primaryFont,
-                                                // fontSize: textSize,
                                                 fontSize:
                                                     fontProv.fonts.textSize,
                                                 fontWeight: FontWeight.bold,
@@ -198,11 +195,12 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                             return Text(
                                               // 'Error: ${snapshot.error}',
                                               AppLocalizations.of(context)!
-                                                  .aiGenerationAPIGemma_snapShotError(snapshot.error.toString()),
+                                                  .aiGenerationAPIGemma_snapShotError(
+                                                      snapshot.error
+                                                          .toString()),
                                               style: TextStyle(
                                                 color:
                                                     FontAppColors.primaryFont,
-                                                // fontSize: textSize,
                                                 fontSize:
                                                     fontProv.fonts.textSize,
                                                 fontFamily: fontType,
@@ -216,7 +214,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                               style: TextStyle(
                                                 color:
                                                     FontAppColors.primaryFont,
-                                                // fontSize: textSize,
                                                 fontSize:
                                                     fontProv.fonts.textSize,
                                                 fontFamily: fontType,
@@ -230,7 +227,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                               style: TextStyle(
                                                 color:
                                                     FontAppColors.primaryFont,
-                                                // fontSize: textSize,
                                                 fontSize:
                                                     fontProv.fonts.textSize,
                                                 fontFamily: fontType,
@@ -266,18 +262,16 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                   ),
                                   if (fontProv.fonts.titleSize > 40)
                                     Image.asset(
-                                      'assets/images/wait2.gif', // Replace with your actual asset path
+                                      'assets/images/wait2.gif',
                                       width: MediaQuery.of(context).size.width *
                                           0.2,
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.2,
-
-                                      // You can also adjust other properties like width, height, etc.
                                     ),
                                   if (fontProv.fonts.titleSize == 40)
                                     Image.asset(
-                                      'assets/images/wait2.gif', // Replace with your actual asset path
+                                      'assets/images/wait2.gif',
                                       width: MediaQuery.of(context).size.width *
                                           0.4,
                                       height:
@@ -287,7 +281,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                               'dark'
                                           ? Colors.black
                                           : Colors.white,
-                                      // You can also adjust other properties like width, height, etc.
                                     ),
                                 ],
                               ),
@@ -297,7 +290,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                   left: 30, right: 30, bottom: 0),
                               child: Center(
                                 child: Container(
-                                  // height: MediaQuery.of(context).size.height * 0.05,
                                   width:
                                       MediaQuery.of(context).size.width * 0.9,
                                   child: StreamBuilder<dynamic>(
@@ -310,10 +302,8 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                           AppLocalizations.of(context)!
                                               .aiGenerationAPIGemma_waitMessg,
                                           style: TextStyle(
-                                            // color: FontAppColors.primaryFont,
                                             color:
                                                 fontProv.fonts.primaryFontColor,
-                                            // fontSize: textSize,
                                             fontSize: fontProv.fonts.textSize,
                                             fontWeight: FontWeight.bold,
                                             fontFamily: fontType,
@@ -323,12 +313,11 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                         return Text(
                                           // 'Error: ${snapshot.error}',
                                           AppLocalizations.of(context)!
-                                              .aiGenerationAPIGemma_snapShotError(snapshot.error.toString()),
+                                              .aiGenerationAPIGemma_snapShotError(
+                                                  snapshot.error.toString()),
                                           style: TextStyle(
-                                            // color: FontAppColors.primaryFont,
                                             color:
                                                 fontProv.fonts.primaryFontColor,
-                                            // fontSize: textSize,
                                             fontSize: fontProv.fonts.textSize,
                                             fontFamily: fontType,
                                           ),
@@ -337,8 +326,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                         return Text(
                                           snapshot.data.toString(),
                                           style: TextStyle(
-                                            // color: FontAppColors.primaryFont,
-                                            // fontSize: textSize,
                                             color:
                                                 fontProv.fonts.primaryFontColor,
                                             fontSize: fontProv.fonts.textSize,
@@ -351,8 +338,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                           AppLocalizations.of(context)!
                                               .aiGenerationAPIGemma_noDataError,
                                           style: TextStyle(
-                                            // color: FontAppColors.primaryFont,
-                                            // fontSize: textSize,
                                             color:
                                                 fontProv.fonts.primaryFontColor,
                                             fontSize: fontProv.fonts.textSize,
@@ -374,7 +359,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      // color: PrimaryAppColors.gradient1,
                                       color: colorProv.colors.gradient1,
                                       width: 2),
                                   borderRadius: BorderRadius.circular(30),
@@ -385,7 +369,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                   backgroundColor: FontAppColors.secondaryFont
                                       .withOpacity(0.5),
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                    // PrimaryAppColors.accentColor,
                                     colorProv.colors.accentColor,
                                   ),
                                 ),
@@ -406,8 +389,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                               // 'Visualize now!',
                                               AppLocalizations.of(context)!
                                                   .defaults_visualizeNow,
-                                          // buttonColor:
-                                          //     PrimaryAppColors.buttonColors,
                                           buttonColor:
                                               colorProv.colors.buttonColors,
                                           onpressed: () async {
@@ -433,7 +414,6 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
                                                   .size
                                                   .width *
                                               0.15,
-                                          // fontSize: textSize,
                                           fontSize: fontProv.fonts.textSize,
                                           fontColor:
                                               FontAppColors.secondaryFont,

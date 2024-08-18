@@ -2,7 +2,6 @@ import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/connection_indicator.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/dialogs/show_ai_alert.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
@@ -56,10 +55,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                             text: AppLocalizations.of(context)!.appBar_title,
                             style: TextStyle(
                               fontFamily: fontType,
-                              // fontSize: titleSize,
                               fontSize: value.fonts.titleSize,
                               fontWeight: FontWeight.bold,
-                              // color: FontAppColors.secondaryFont
                               color: SettingsSharedPref.getTheme() == 'default'
                                   ? value.fonts.secondaryFontColor
                                   : value.fonts.primaryFontColor,
@@ -70,11 +67,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                             text: AppLocalizations.of(context)!.appBar_made,
                             style: TextStyle(
                                 fontFamily: fontType,
-                                // fontSize: titleSize - 15,
                                 fontSize: value.fonts.titleSize - 15,
                                 fontWeight: FontWeight.bold,
-                                // color: FontAppColors.secondaryFont,
-                                // color: value.fonts.secondaryFontColor,
                                 color:
                                     SettingsSharedPref.getTheme() == 'default'
                                         ? value.fonts.secondaryFontColor
@@ -106,20 +100,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               ),
             ),
           ),
-          // SizedBox(
-          //   width: MediaQuery.of(context).size.width * 0.01,
-          // ),
-          // Image.asset(
-          //   'assets/images/gemma2.webp',
-          //   width: 120,
-          //   height: 80,
-          // ),
-          // SizedBox(
-          //   width: MediaQuery.of(context).size.width * 0.1,
-          // ),
-          // Expanded(
-          //   child: Container(),
-          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,

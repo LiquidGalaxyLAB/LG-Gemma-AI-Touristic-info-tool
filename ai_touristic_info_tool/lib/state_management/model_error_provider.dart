@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// This is a Provider class of [ModelErrorProvider] that extends [ChangeNotifier]
+/// It has the following:
+/// *  [_isError] to check if there is an error
+/// *  [_hasStarted] to check if the process has started
+/// *  [_isCanceled] to check if the process has been canceled
+/// It has setters and getters with notifyListeners
+
 class ModelErrorProvider extends ChangeNotifier {
   bool _isError = false;
   bool _hasStarted = false;

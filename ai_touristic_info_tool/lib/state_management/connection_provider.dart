@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 
-///This is a [Provider] class of [Connectionprovider] that extends [ChangeNotifier]
+///This is a Provider]class of [Connectionprovider] that extends [ChangeNotifier]
 ///It has the following:
-///  *  [_isConnected] to check the connection status
+///  *  [_isLgConnected] to check the connection status
 /// It has setters and getters
 
 

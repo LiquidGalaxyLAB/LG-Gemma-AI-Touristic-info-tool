@@ -37,7 +37,6 @@ class TextFormFieldWidget extends StatefulWidget {
     bool? isPrefixIconrequired,
     Icon? prefixIcon,
     bool? enabled,
-    // bool? isHidden,
     required this.width,
     this.onChanged,
     this.onEditingComplete,
@@ -52,7 +51,6 @@ class TextFormFieldWidget extends StatefulWidget {
         _isPrefixIconRequired = isPrefixIconrequired,
         _prefixIcon = prefixIcon,
         _enabled = enabled,
-        // _isHidden = isHidden,
         _isPassword = isPassword;
 
   final TextEditingController _textController;
@@ -94,24 +92,19 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
             decoration: InputDecoration(
               labelText: widget._label,
               labelStyle: TextStyle(
-                // fontSize: textSize + 2,
                 fontSize: fontProv.fonts.textSize + 2,
                 fontFamily: fontType,
-                // color: FontAppColors.primaryFont,
                 color: fontProv.fonts.primaryFontColor,
               ),
               hintText: widget._hint,
               hintStyle: TextStyle(
-                // fontSize: textSize,
                 fontSize: fontProv.fonts.textSize,
                 fontFamily: fontType,
-                // color: FontAppColors.secondaryFont,
                 color: fontProv.fonts.primaryFontColor,
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
-                  // color: Colors.black,
                   color: fontProv.fonts.primaryFontColor,
                   width: 5.0,
                 ),
@@ -119,13 +112,11 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
-                  // color: PrimaryAppColors.buttonColors,
                   color: value.colors.buttonColors,
                   width: 3.0,
                 ),
               ),
               filled: true,
-              // fillColor: widget.fillColor ?? PrimaryAppColors.innerBackground,
               fillColor: widget.fillColor ?? value.colors.innerBackground,
               suffixIcon: (widget._isSuffixRequired! && widget._isPassword)
                   ? Row(
@@ -172,7 +163,6 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
             ),
             onChanged: widget.onChanged,
             style: TextStyle(
-              // color: Colors.black,
               color: fontProv.fonts.primaryFontColor,
               fontFamily: fontType,
               fontSize: widget.fontSize,
@@ -181,7 +171,6 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
             validator: (value) {
               if (widget._isSuffixRequired == true) {
                 if (value == null || value.isEmpty) {
-                  // return 'This field is required';
                   return AppLocalizations.of(context)!.textfield_error;
                 }
                 return null;

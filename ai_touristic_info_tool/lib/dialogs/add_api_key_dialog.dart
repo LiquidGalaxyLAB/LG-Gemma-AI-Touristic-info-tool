@@ -131,7 +131,6 @@ Future<dynamic> addAPIKeyDialog(
                           setState(() {
                             _serviceController.text = value;
                             _chosenService = value;
-                            print(_chosenService);
                           });
                         },
                       ),
@@ -144,7 +143,6 @@ Future<dynamic> addAPIKeyDialog(
               TextButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    print(nameExists);
                     List<ApiKeyModel> keys =
                         await APIKeySharedPref.getApiKeys();
 
@@ -175,8 +173,6 @@ Future<dynamic> addAPIKeyDialog(
                           serviceType: _chosenService ?? keyServicesAPI[0],
                         ));
                       }
-
-                      print('added');
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                             backgroundColor: LgAppColors.lgColor4,

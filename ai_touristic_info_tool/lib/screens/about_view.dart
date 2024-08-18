@@ -1,26 +1,16 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
-
-  // Future<void> _launchUrl(Uri url) async {
-  //   if (await canLaunchUrl(url)) {
-  //     await launchUrl(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +21,6 @@ class AboutScreen extends StatelessWidget {
         return Column(
           children: [
             TopBarWidget(
-              // grad1: value.colors.gradient1,
-              // grad2: value.colors.gradient2,
-              // grad3: value.colors.gradient3,
-              // grad4: value.colors.gradient4,
               grad1: SettingsSharedPref.getTheme() == 'light'
                   ? value.colors.buttonColors
                   : value.colors.gradient1,
@@ -144,8 +130,6 @@ class AboutScreen extends StatelessWidget {
                                 AppLocalizations.of(context)!
                                     .aiHallucination_text2,
                             style: TextStyle(
-                                // color: Colors.black,
-                                // fontSize: textSize + 4,
                                 color: font.fonts.primaryFontColor,
                                 fontSize: font.fonts.textSize + 4,
                                 fontWeight: FontWeight.bold,
@@ -157,8 +141,6 @@ class AboutScreen extends StatelessWidget {
                                 AppLocalizations.of(context)!
                                     .aiHallucination_text3,
                             style: TextStyle(
-                                // color: Colors.black,
-                                // fontSize: textSize,
                                 color: font.fonts.primaryFontColor,
                                 fontSize: font.fonts.textSize,
                                 fontFamily: fontType),
@@ -187,14 +169,11 @@ class AboutScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () => launchUrlString(
                       'https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool'),
-                  // _launchUrl(Uri.parse(
-                  //     'https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool')),
                   child: Text(
                     // 'Project Github',
                     AppLocalizations.of(context)!.about_projGit,
                     style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
                         fontSize: font.fonts.textSize,
                         color: Colors.blue,
                         decoration: TextDecoration.underline),
@@ -202,13 +181,11 @@ class AboutScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () => launchUrlString('https://www.liquidgalaxy.eu/'),
-                  //  _launchUrl(Uri.parse('https://www.liquidgalaxy.eu/')),
                   child: Text(
                     // 'Liquid Galaxy Website',
                     AppLocalizations.of(context)!.about_lgWebsite,
                     style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
                         fontSize: font.fonts.textSize,
                         color: Colors.blue,
                         decoration: TextDecoration.underline),
@@ -217,14 +194,11 @@ class AboutScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () => launchUrlString(
                       'https://www.linkedin.com/in/mahinour-elsarky-122958216/'),
-                  // _launchUrl(Uri.parse(
-                  //     'https://www.linkedin.com/in/mahinour-elsarky-122958216/')),
                   child: Text(
                     // 'My LinkedIn',
                     AppLocalizations.of(context)!.about_linkedin,
                     style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
                         fontSize: font.fonts.textSize,
                         color: Colors.blue,
                         decoration: TextDecoration.underline),
@@ -256,7 +230,6 @@ class AppDescriptionWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.8,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
-              // color: PrimaryAppColors.innerBackground,
               color: value.colors.innerBackground),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,7 +239,6 @@ class AppDescriptionWidget extends StatelessWidget {
                 AppLocalizations.of(context)!.about_appDesc1,
                 style: TextStyle(
                     fontFamily: fontType,
-                    // fontSize: textSize + 2,
                     fontSize: font.fonts.textSize + 2,
                     color: font.fonts.primaryFontColor,
                     fontWeight: FontWeight.bold),
@@ -277,7 +249,6 @@ class AppDescriptionWidget extends StatelessWidget {
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontFamily: fontType,
-                  // fontSize: textSize,
                   fontSize: font.fonts.textSize,
                   color: font.fonts.primaryFontColor,
                 ),
@@ -287,7 +258,6 @@ class AppDescriptionWidget extends StatelessWidget {
                 AppLocalizations.of(context)!.about_appDesc3,
                 style: TextStyle(
                     fontFamily: fontType,
-                    // fontSize: textSize + 2,
                     fontSize: font.fonts.textSize + 2,
                     color: font.fonts.primaryFontColor,
                     fontWeight: FontWeight.bold),
@@ -298,7 +268,6 @@ class AppDescriptionWidget extends StatelessWidget {
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontFamily: fontType,
-                  // fontSize: textSize,
                   fontSize: font.fonts.textSize,
                   color: font.fonts.primaryFontColor,
                 ),
@@ -322,7 +291,6 @@ class AppDescriptionWidget extends StatelessWidget {
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontFamily: fontType,
-                  // fontSize: textSize,
                   fontSize: font.fonts.textSize,
                   color: font.fonts.primaryFontColor,
                 ),
@@ -343,7 +311,6 @@ class AppDescriptionWidget extends StatelessWidget {
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontFamily: fontType,
-                  // fontSize: textSize,
                   fontSize: font.fonts.textSize,
                   color: font.fonts.primaryFontColor,
                 ),
@@ -364,7 +331,6 @@ class AppDescriptionWidget extends StatelessWidget {
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontFamily: fontType,
-                  // fontSize: textSize,
                   fontSize: font.fonts.textSize,
                   color: font.fonts.primaryFontColor,
                 ),
@@ -405,7 +371,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       AppLocalizations.of(context)!.about_contributor,
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -416,7 +382,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       AppLocalizations.of(context)!.about_organization,
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -427,7 +393,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       AppLocalizations.of(context)!.about_mentors,
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -438,7 +404,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       AppLocalizations.of(context)!.about_admin,
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -449,7 +415,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       AppLocalizations.of(context)!.about_coMentor,
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -460,7 +426,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       AppLocalizations.of(context)!.about_listenerContributor,
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -471,7 +437,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       AppLocalizations.of(context)!.about_testers,
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -498,7 +464,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       "Mahinour Elsarky",
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -508,7 +474,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       "Liquid Galaxy Project",
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -518,7 +484,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       "Claudia Diosan , Andreu Ibañez, Laura Morillo",
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -528,7 +494,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       "Andreu Ibañez",
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -538,7 +504,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       "Emilie Ma , Irene",
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -548,7 +514,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       "Vertika Bajpai",
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,
@@ -558,7 +524,7 @@ class DevelopersInfoWidget extends StatelessWidget {
                       "Liquid Galaxy LAB testers:",
                       style: TextStyle(
                         fontFamily: fontType,
-                        // fontSize: textSize,
+
                         // color: FontAppColors.primaryFont
                         fontSize: font.fonts.textSize,
                         color: font.fonts.primaryFontColor,

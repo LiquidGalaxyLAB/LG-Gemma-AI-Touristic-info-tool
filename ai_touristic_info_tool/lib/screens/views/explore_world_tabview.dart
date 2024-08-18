@@ -2,33 +2,24 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
-import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/custom_recording_button.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/custom_recording_wave_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/player_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
-import 'package:ai_touristic_info_tool/services/langchain_service.dart';
-import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
+import 'package:ai_touristic_info_tool/services/gemini_services.dart';
+import 'package:ai_touristic_info_tool/services/voices_services.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
-import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/dialogs/show_stream_gemini_dialog.dart';
-import 'package:ai_touristic_info_tool/dialogs/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/dialogs/visualization_dialog.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sound/public/flutter_sound_recorder.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -54,12 +45,15 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
   bool _isLoading = false;
   final ScrollController _scrollController = ScrollController();
   bool _isTypePrompt = false;
+  // ignore: unused_field
   bool _isRecordPrompt = false;
   bool _isRecording = false;
   String? _audioPath;
   late final AudioRecorder _audioRecorder;
+  // ignore: unused_field
   bool _isAudioProcessing = false;
   String? audioPrompt;
+  // ignore: unused_field
   bool _isSTTFinished = false;
   late AudioPlayer player = AudioPlayer();
 
@@ -67,10 +61,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
   void initState() {
     _audioRecorder = AudioRecorder();
     super.initState();
-    // Create the audio player.
     player = AudioPlayer();
-
-    // Set the release mode to keep the source after playback has completed.
     player.setReleaseMode(ReleaseMode.stop);
   }
 
@@ -101,7 +92,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
 
       await _audioRecorder.start(
         const RecordConfig(
-          // specify the codec to be `.wav`
           encoder: AudioEncoder.wav,
         ),
         path: filePath,
@@ -137,7 +127,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
         await _startRecording();
       } else if (status == PermissionStatus.permanentlyDenied) {
         debugPrint('Permission permanently denied');
-        // TODO: handle this case
       }
     } else {
       await _stopRecording();
@@ -149,11 +138,9 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
   }
 
   void convertSpeechToText() async {
-    //making a file using audio path:
     if (_audioPath != null) {
       final audioFile = File(_audioPath!);
-      print(audioFile);
-      Api().speechToTextApi(audioFile).then((value) {
+      VoicesServicesApi().speechToTextApi(audioFile).then((value) {
         setState(() {
           audioPrompt = value;
           _isAudioProcessing = false;
@@ -179,11 +166,9 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                   // 'AI Touristic Recommendations WorldWide',
                   AppLocalizations.of(context)!.exploreWorld_aiRecommendation,
                   style: TextStyle(
-                    // fontSize: textSize + 10,
                     fontSize: fontsProv.fonts.textSize + 10,
                     fontFamily: fontType,
                     fontWeight: FontWeight.bold,
-                    // color: FontAppColors.primaryFont,
                     color: fontsProv.fonts.primaryFontColor,
                   ),
                 ),
@@ -191,7 +176,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
               Padding(
                 padding: const EdgeInsets.only(top: 40.0, bottom: 80),
                 child: CarouselSlider(
-                  // key: GlobalKeys.showcaseKeyTouristicRecommendationWorldwide,
                   items: [
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 1,
@@ -209,7 +193,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description:
                           AppLocalizations.of(context)!.exploreWorld_londonDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -227,7 +211,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description: AppLocalizations.of(context)!
                           .exploreWorld_nileEgyptDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -247,7 +231,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description: AppLocalizations.of(context)!
                           .exploreWorld_redSeaEgyptDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -265,7 +249,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description: AppLocalizations.of(context)!
                           .exploreWorld_scotlandDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -283,7 +267,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description:
                           AppLocalizations.of(context)!.exploreWorld_spainDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -302,7 +286,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description: AppLocalizations.of(context)!
                           .exploreWorld_icelandDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -320,7 +304,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description:
                           AppLocalizations.of(context)!.exploreWorld_europeDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -338,7 +322,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description:
                           AppLocalizations.of(context)!.exploreWorld_uaeDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -356,7 +340,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description:
                           AppLocalizations.of(context)!.exploreWorld_parisDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -374,7 +358,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description:
                           AppLocalizations.of(context)!.exploreWorld_norwayDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -392,7 +376,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description:
                           AppLocalizations.of(context)!.exploreWorld_japanDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                     RecommendationContainer(
@@ -410,7 +394,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                       description:
                           AppLocalizations.of(context)!.exploreWorld_indiaDesc,
                       txtSize: textSize + 6,
-                      // txtSize: fontsProv.fonts.textSize + 6,
+
                       descriptionSize: textSize + 2,
                     ),
                   ],
@@ -429,11 +413,9 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                   // 'Most Popular Activities WorldWide',
                   AppLocalizations.of(context)!.exploreWorld_popular,
                   style: TextStyle(
-                    // fontSize: textSize + 10,
                     fontSize: fontsProv.fonts.textSize + 10,
                     fontFamily: fontType,
                     fontWeight: FontWeight.bold,
-                    // color: FontAppColors.primaryFont
                     color: fontsProv.fonts.primaryFontColor,
                   ),
                 ),
@@ -455,7 +437,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                             .exploreWorld_landmarks,
                         query: 'Visting Major Landmarks Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -467,7 +448,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         title: AppLocalizations.of(context)!.exploreWorld_beach,
                         query: 'Beach Holidays Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -480,7 +460,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                             .exploreWorld_sightseeing,
                         query: 'City Sightseeing Tours Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -493,7 +472,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                             AppLocalizations.of(context)!.exploreWorld_museums,
                         query: 'Museums and Historical Sites Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -506,7 +484,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                             AppLocalizations.of(context)!.exploreWorld_nature,
                         query: 'Nature and Wildlife Tours Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -519,7 +496,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                             .exploreWorld_adventure,
                         query: 'Adventure Sports Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -531,7 +507,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         title: AppLocalizations.of(context)!.exploreWorld_theme,
                         query: 'Theme Parks Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -543,7 +518,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         title: AppLocalizations.of(context)!.exploreWorld_food,
                         query: 'Food and Culinary Tours Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -555,7 +529,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         title: AppLocalizations.of(context)!.exploreWorld_hike,
                         query: 'Hiking and Trekking Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -567,7 +540,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         title: AppLocalizations.of(context)!.exploreWorld_kayak,
                         query: 'Kayaking Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -579,7 +551,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         title: AppLocalizations.of(context)!.exploreWorld_cycle,
                         query: 'Cycling Tours Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       RecommendationContainer(
@@ -592,7 +563,6 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                             AppLocalizations.of(context)!.exploreWorld_football,
                         query: 'Football Stadium Tours and Matches Worldwide',
                         txtSize: textSize + 6,
-                        // txtSize: fontsProv.fonts.textSize + 6,
                       ),
                     ],
                   ),
@@ -611,7 +581,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                     fontSize: fontsProv.fonts.textSize + 10,
                     fontFamily: fontType,
                     fontWeight: FontWeight.bold,
-                    // color: FontAppColors.primaryFont
+
                     color: fontsProv.fonts.primaryFontColor,
                   ),
                 ),
@@ -715,12 +685,8 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                                 if (widget._formKey.currentState!.validate()) {
                                   String query =
                                       '${widget._promptController.text} Worldwide';
-                                  print(query);
-
                                   PromptsSharedPref.getPlaces(query)
                                       .then((value) async {
-                                    print('value: $value');
-                                    print(value.isNotEmpty);
                                     if (value.isNotEmpty) {
                                       await buildQueryPlacemark(
                                           query, '', '', context);
@@ -779,7 +745,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                                         setState(() {
                                           _isLoading = true;
                                         });
-                                        String res = await LangchainService()
+                                        String res = await GeminiServices()
                                             .checkAPIValidity(apiKey, context);
 
                                         setState(() {
@@ -875,7 +841,7 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
               //                         style: TextStyle(
               //                           fontSize: fontsProv.fonts.textSize,
               //                           fontFamily: fontType,
-              //                           // color: FontAppColors.primaryFont,
+              //                           ,
               //                           color: fontsProv.fonts.primaryFontColor,
               //                         ),
               //                       ),

@@ -1,14 +1,13 @@
-import 'package:ai_touristic_info_tool/reusable_widgets/current_view.dart';
+import 'package:ai_touristic_info_tool/screens/views/current_view.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/dialogs/show_ai_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../constants.dart';
 
-import 'app_bar_widget.dart';
-import 'drawer.dart';
-import 'gradient_background.dart';
+import '../../reusable_widgets/app_bar_widget.dart';
+import '../../reusable_widgets/drawer.dart';
+import '../../reusable_widgets/gradient_background.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({
@@ -37,10 +36,6 @@ class _MainLayoutState extends State<MainLayout> {
           const AppBarWidget(),
           const DrawerWidget(),
           Positioned(
-            // top: 100,
-            // bottom: 30,
-            // left: 150,
-            // right: 20,
             top: MediaQuery.of(context).size.height * 0.13,
             bottom: MediaQuery.of(context).size.height * 0.03,
             left: MediaQuery.of(context).size.width * 0.12,
@@ -52,7 +47,6 @@ class _MainLayoutState extends State<MainLayout> {
                 return Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    // color: PrimaryAppColors.innerBackground,
                     color: value.colors.innerBackground,
                   ),
                   child: const CurrentView(),

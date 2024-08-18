@@ -4,6 +4,8 @@ import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+///`PromptsSharedPref` to presist data in the app locally
+/// A utility class for managing and persisting prompts data locally using `shared_preferences`.
 class PromptsSharedPref {
   static SharedPreferences? _prefs;
 
@@ -19,8 +21,6 @@ class PromptsSharedPref {
   static Future _initializeDefaultData() async {
     Map<String, List<PlacesModel>> defaultData = defaultDataConst;
     Map<String, List<PlacesModel>> existingData = await getAllPlaces();
-    print('Initializing: ');
-    print(existingData.keys);
     if (existingData.isEmpty) {
       await setAllPlaces(defaultData);
     }

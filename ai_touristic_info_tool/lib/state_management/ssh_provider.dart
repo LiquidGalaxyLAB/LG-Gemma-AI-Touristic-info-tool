@@ -206,6 +206,7 @@ class SSHprovider extends ChangeNotifier {
   /// uploading kml file
   uploadKml(File inputFile, String filename) async {
     final sftp = await _client?.sftp();
+    // ignore: unused_local_variable
     double anyKindofProgressBar;
     final file = await sftp?.open('/var/www/html/$filename',
         mode: SftpFileOpenMode.create |

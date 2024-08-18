@@ -1,4 +1,3 @@
-import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +16,6 @@ class AppDividerWidget extends StatelessWidget {
         return Container(
           width: 4,
           height: height,
-          // color: PrimaryAppColors.buttonColors,
           color: value.colors.buttonColors,
         );
       },

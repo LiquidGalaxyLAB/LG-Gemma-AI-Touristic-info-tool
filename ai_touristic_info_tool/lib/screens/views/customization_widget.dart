@@ -13,7 +13,6 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
-import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +40,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
   final ScrollController _scrollController = ScrollController();
   bool _isvisualizing = false;
   bool _isFav = false;
-  // String _queryName = 'Custom Tour';
-  // String _queryName= AppLocalizations.of(context)!.customapptour_queryNameTemp;
   String _queryName = 'Custom Tour';
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _queryNameController = TextEditingController();
@@ -52,7 +49,7 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
   @override
   void initState() {
     super.initState();
-    // Create a copy of chosenPlaces
+    // Create a copy of chosenPlaces so the original is not affected
     _originalList = List<PlacesModel>.from(widget.chosenPlaces);
   }
 
@@ -69,11 +66,8 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
         LatLng(_draggedPlace!.latitude, _draggedPlace!.longitude));
     if (_draggedPlace != null) {
       gmp.addMarker(context, _draggedPlace!, removeAll: false, isFromFav: true);
-      // await buildPlacePlacemark(_draggedPlace!, -1, 'Custom Tour', context);
       await buildPlacePlacemark(_draggedPlace!, -1, _queryName, context);
       setState(() {
-        // displayedPlaces.remove(_draggedPlace);
-        // _tourPlaces.add(_draggedPlace!);
         _draggedPlace = null;
       });
     }
@@ -125,9 +119,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                 DisplayedListProvider dlp =
                                     Provider.of<DisplayedListProvider>(context,
                                         listen: false);
-                                // print('checking chosen places');
-                                // print(dlp.selectedPlaces.length);
-                                // print(widget.chosenPlaces);
                                 dlp.setDisplayedList(
                                     List<PlacesModel>.from(_originalList));
                                 dlp.setTourPlaces([]);
@@ -241,8 +232,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                     setState(() {
                                       _tourDuration = dur;
                                     });
-                                    print('tour');
-                                    print(_tourDuration);
                                   }
                                 }
                               },
@@ -344,9 +333,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                   children: [
                     DragTarget<PlacesModel>(
                       onAcceptWithDetails: (details) {
-                        // RenderBox renderBox = context.findRenderObject() as RenderBox;
-                        // Offset offset = renderBox.globalToLocal(details.offset);
-
                         _onPlaceDropped();
                       },
                       builder: (
@@ -358,8 +344,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                           key: GlobalKeys.showcaseKeyCustomizationMap,
                           height: MediaQuery.of(context).size.height * 0.45,
                           width: MediaQuery.of(context).size.width * 0.65,
-                          // initialLatValue: widget.chosenPlaces[0].latitude,
-                          // initialLongValue: widget.chosenPlaces[0].longitude,
                           initialLatValue: widget.firstLat,
                           initialLongValue: widget.firstLong,
                           initialTiltValue: 41.82725143432617,
@@ -612,7 +596,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                                       fontFamily: fontType)),
                                               Center(
                                                 child: TextFormFieldWidget(
-                                                  // fontSize: textSize,
                                                   fontSize:
                                                       fontVal.fonts.textSize,
                                                   key: const ValueKey(
@@ -620,7 +603,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                                   textController:
                                                       _queryNameController,
                                                   isSuffixRequired: true,
-
                                                   isPassword: false,
                                                   maxLength: 100,
                                                   maxlines: 1,
@@ -703,7 +685,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
               ColorProvider colorVal, Widget? child) {
             return Container(
               height: MediaQuery.of(context).size.height * 0.05,
-              // width: MediaQuery.of(context).size.width * 0.2,
               decoration: BoxDecoration(
                 color: colorVal.colors.buttonColors,
                 borderRadius: BorderRadius.circular(10),
@@ -721,7 +702,6 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
         ),
       );
 
-      // Add an icon between places, but not after the last place
       if (i < places.length - 1) {
         widgets.add(
           Consumer2<ColorProvider, FontsProvider>(builder:

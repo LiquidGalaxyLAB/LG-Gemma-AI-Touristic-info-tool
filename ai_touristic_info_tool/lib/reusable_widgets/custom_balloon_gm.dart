@@ -30,33 +30,16 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
     }
     return AnimatedPositioned(
       top: pinPillPosition,
-      //mapProvider.pinPillPosition,
       right: MediaQuery.of(context).size.width * 0.4,
       left: 0,
       duration: const Duration(milliseconds: 200),
       child: Align(
         alignment: Alignment.bottomCenter,
-        child:
-            // Container(
-            //   margin: const EdgeInsets.all(20),
-            //   height: MediaQuery.of(context).size.height * 0.5,
-            //   width: MediaQuery.of(context).size.width * 0.3,
-            //   decoration: BoxDecoration(
-            //       color: Colors.white,
-            //       borderRadius: BorderRadius.all(Radius.circular(0)),
-            //       boxShadow: <BoxShadow>[
-            //         BoxShadow(
-            //             blurRadius: 20,
-            //             offset: Offset.zero,
-            //             color: Colors.grey.withOpacity(0.5))
-            //       ]),
-            //   child:
-            Consumer2<ColorProvider, FontsProvider>(
+        child: Consumer2<ColorProvider, FontsProvider>(
           builder: (BuildContext context, ColorProvider value,
               FontsProvider fontsval, Widget? child) {
             return Container(
               margin: const EdgeInsets.all(10),
-              // height: MediaQuery.of(context).size.height * 0.3,
               height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -83,15 +66,12 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Center(
                       child: Text(
-                        //'${mapProvider.currentlySelectedPin.id}. ${mapProvider.currentlySelectedPin.name}',
                         '${poi.id}. ${poi.name}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          // color: Colors.white,
                           color: SettingsSharedPref.getTheme() == 'default'
                               ? fontsval.fonts.secondaryFontColor
                               : fontsval.fonts.primaryFontColor,
-                          // fontSize: textSize + 5,
                           fontSize: fontsval.fonts.textSize + 5,
                           fontWeight: FontWeight.bold,
                           fontFamily: fontType,
@@ -104,11 +84,9 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                         '${poi.city}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          // color: Colors.white,
                           color: SettingsSharedPref.getTheme() == 'default'
                               ? fontsval.fonts.secondaryFontColor
                               : fontsval.fonts.primaryFontColor,
-                          // fontSize: textSize + 2,
                           fontSize: fontsval.fonts.textSize + 2,
                           fontWeight: FontWeight.bold,
                           fontFamily: fontType,
@@ -121,11 +99,9 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                         '${poi.country}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          // color: Colors.white,
                           color: SettingsSharedPref.getTheme() == 'default'
                               ? fontsval.fonts.secondaryFontColor
                               : fontsval.fonts.primaryFontColor,
-                          // fontSize: textSize + 2,
                           fontSize: fontsval.fonts.textSize + 2,
                           fontWeight: FontWeight.bold,
                           fontFamily: fontType,
@@ -148,11 +124,9 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                         '${poi.description}',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                          // color: Colors.white,
                           color: SettingsSharedPref.getTheme() == 'default'
                               ? fontsval.fonts.secondaryFontColor
                               : fontsval.fonts.primaryFontColor,
-                          // fontSize: textSize,
                           fontSize: fontsval.fonts.textSize,
                           fontFamily: fontType,
                         ),
@@ -182,9 +156,6 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                     SettingsSharedPref.getTheme() == 'default'
                                         ? fontsval.fonts.secondaryFontColor
                                         : fontsval.fonts.primaryFontColor,
-                                // color:
-                                //     fontsval.fonts.primaryFontColor,
-                                // fontSize: textSize - 5,
                                 fontSize: fontsval.fonts.textSize,
                                 fontFamily: fontType,
                                 fontWeight: FontWeight.bold,
@@ -197,10 +168,6 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                     SettingsSharedPref.getTheme() == 'default'
                                         ? fontsval.fonts.secondaryFontColor
                                         : fontsval.fonts.primaryFontColor,
-                                // color:
-                                //     fontsval.fonts.primaryFontColor,
-
-                                // fontSize: textSize - 5,
                                 fontSize: fontsval.fonts.textSize,
                                 fontFamily: fontType,
                                 fontWeight: FontWeight.normal,
@@ -223,10 +190,6 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                     SettingsSharedPref.getTheme() == 'default'
                                         ? fontsval.fonts.secondaryFontColor
                                         : fontsval.fonts.primaryFontColor,
-                                // color:
-                                //     fontsval.fonts.primaryFontColor,
-
-                                // fontSize: textSize - 5,
                                 fontSize: fontsval.fonts.textSize,
                                 fontFamily: fontType,
                                 fontWeight: FontWeight.bold,
@@ -239,10 +202,6 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                     SettingsSharedPref.getTheme() == 'default'
                                         ? fontsval.fonts.secondaryFontColor
                                         : fontsval.fonts.primaryFontColor,
-                                // color:
-                                //     fontsval.fonts.primaryFontColor,
-
-                                // fontSize: textSize - 5,
                                 fontSize: fontsval.fonts.textSize,
                                 fontFamily: fontType,
                                 fontWeight: FontWeight.normal,
@@ -265,10 +224,6 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                     SettingsSharedPref.getTheme() == 'default'
                                         ? fontsval.fonts.secondaryFontColor
                                         : fontsval.fonts.primaryFontColor,
-                                // color:
-                                //     fontsval.fonts.primaryFontColor,
-
-                                // fontSize: textSize - 5,
                                 fontSize: fontsval.fonts.textSize,
                                 fontFamily: fontType,
                                 fontWeight: FontWeight.bold,
@@ -281,10 +236,6 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                     SettingsSharedPref.getTheme() == 'default'
                                         ? fontsval.fonts.secondaryFontColor
                                         : fontsval.fonts.primaryFontColor,
-                                // fontSize: textSize - 5,
-                                // color:
-                                //     fontsval.fonts.primaryFontColor,
-
                                 fontSize: fontsval.fonts.textSize,
                                 fontFamily: fontType,
                                 fontWeight: FontWeight.normal,
@@ -307,10 +258,6 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                     SettingsSharedPref.getTheme() == 'default'
                                         ? fontsval.fonts.secondaryFontColor
                                         : fontsval.fonts.primaryFontColor,
-                                // fontSize: textSize - 5,
-                                // color:
-                                //     fontsval.fonts.primaryFontColor,
-
                                 fontSize: fontsval.fonts.textSize,
                                 fontFamily: fontType,
                                 fontWeight: FontWeight.bold,
@@ -323,10 +270,6 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                                     SettingsSharedPref.getTheme() == 'default'
                                         ? fontsval.fonts.secondaryFontColor
                                         : fontsval.fonts.primaryFontColor,
-                                // fontSize: textSize - 5,
-                                // color:
-                                //     fontsval.fonts.primaryFontColor,
-
                                 fontSize: fontsval.fonts.textSize,
                                 fontFamily: fontType,
                                 fontWeight: FontWeight.normal,
@@ -337,228 +280,8 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
                         textAlign: TextAlign.left,
                       ),
                     ),
-                    // Text.rich(
-                    //   TextSpan(
-                    //     children: [
-                    //       TextSpan(
-                    //         text: 'Source Link: ',
-                    //         style: TextStyle(
-                    //           color: FontAppColors.primaryFont,
-                    //           // fontSize: textSize - 5,
-                    //           // color:
-                    //           //     fontsval.fonts.primaryFontColor,
 
-                    //           fontSize: fontsval.fonts.textSize ,
-                    //           fontFamily: fontType,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //       TextSpan(
-                    //         text: '${poi.sourceLink ?? 'None'}',
-                    //         style: TextStyle(
-                    //           color: FontAppColors.primaryFont,
-                    //           // fontSize: textSize - 5,
-                    //           // color:
-                    //           //     fontsval.fonts.primaryFontColor,
-
-                    //           fontSize: fontsval.fonts.textSize ,
-                    //           fontFamily: fontType,
-                    //           fontWeight: FontWeight.normal,
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   textAlign: TextAlign.left,
-                    // ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(10.0),
-                    //   child: Container(
-                    //     height: MediaQuery.of(context).size.height * 0.2,
-                    //     width: MediaQuery.of(context).size.width * 1,
-                    //     decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(0),
-                    //       // color: FontAppColors.secondaryFont,
-                    //       // color: fontsval.fonts.secondaryFontColor,
-                    //       color: Colors.white,
-                    //     ),
-                    //     child: SingleChildScrollView(
-                    //       child: Padding(
-                    //         padding: const EdgeInsets.all(8.0),
-                    //         child: Column(
-                    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             Text.rich(
-                    //               TextSpan(
-                    //                 children: [
-                    //                   TextSpan(
-                    //                     text: 'Address: ',
-                    //                     style: TextStyle(
-                    //                       color: FontAppColors.primaryFont,
-                    //                       // color:
-                    //                       //     fontsval.fonts.primaryFontColor,
-                    //                       // fontSize: textSize - 5,
-                    //                       fontSize: fontsval.fonts.textSize - 5,
-                    //                       fontFamily: fontType,
-                    //                       fontWeight: FontWeight.bold,
-                    //                     ),
-                    //                   ),
-                    //                   TextSpan(
-                    //                     text: poi.address,
-                    //                     style: TextStyle(
-                    //                       color: FontAppColors.primaryFont,
-                    //                       // color:
-                    //                       //     fontsval.fonts.primaryFontColor,
-
-                    //                       // fontSize: textSize - 5,
-                    //                       fontSize: fontsval.fonts.textSize - 5,
-                    //                       fontFamily: fontType,
-                    //                       fontWeight: FontWeight.normal,
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //               textAlign: TextAlign.left,
-                    //             ),
-                    //             Text.rich(
-                    //               TextSpan(
-                    //                 children: [
-                    //                   TextSpan(
-                    //                     text: 'Avg. Ratings: ',
-                    //                     style: TextStyle(
-                    //                       color: FontAppColors.primaryFont,
-                    //                       // color:
-                    //                       //     fontsval.fonts.primaryFontColor,
-
-                    //                       // fontSize: textSize - 5,
-                    //                       fontSize: fontsval.fonts.textSize - 5,
-                    //                       fontFamily: fontType,
-                    //                       fontWeight: FontWeight.bold,
-                    //                     ),
-                    //                   ),
-                    //                   TextSpan(
-                    //                     text: '${poi.ratings}',
-                    //                     style: TextStyle(
-                    //                       color: FontAppColors.primaryFont,
-                    //                       // color:
-                    //                       //     fontsval.fonts.primaryFontColor,
-
-                    //                       // fontSize: textSize - 5,
-                    //                       fontSize: fontsval.fonts.textSize - 5,
-                    //                       fontFamily: fontType,
-                    //                       fontWeight: FontWeight.normal,
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //               textAlign: TextAlign.left,
-                    //             ),
-                    //             Text.rich(
-                    //               TextSpan(
-                    //                 children: [
-                    //                   TextSpan(
-                    //                     text: 'Pricing: ',
-                    //                     style: TextStyle(
-                    //                       color: FontAppColors.primaryFont,
-                    //                       // color:
-                    //                       //     fontsval.fonts.primaryFontColor,
-
-                    //                       // fontSize: textSize - 5,
-                    //                       fontSize: fontsval.fonts.textSize - 5,
-                    //                       fontFamily: fontType,
-                    //                       fontWeight: FontWeight.bold,
-                    //                     ),
-                    //                   ),
-                    //                   TextSpan(
-                    //                     text: '${poi.price ?? ''} ',
-                    //                     style: TextStyle(
-                    //                       color: FontAppColors.primaryFont,
-                    //                       // fontSize: textSize - 5,
-                    //                       // color:
-                    //                       //     fontsval.fonts.primaryFontColor,
-
-                    //                       fontSize: fontsval.fonts.textSize - 5,
-                    //                       fontFamily: fontType,
-                    //                       fontWeight: FontWeight.normal,
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //               textAlign: TextAlign.left,
-                    //             ),
-                    //             Text.rich(
-                    //               TextSpan(
-                    //                 children: [
-                    //                   TextSpan(
-                    //                     text: 'Amenities: ',
-                    //                     style: TextStyle(
-                    //                       color: FontAppColors.primaryFont,
-                    //                       // fontSize: textSize - 5,
-                    //                       // color:
-                    //                       //     fontsval.fonts.primaryFontColor,
-
-                    //                       fontSize: fontsval.fonts.textSize - 5,
-                    //                       fontFamily: fontType,
-                    //                       fontWeight: FontWeight.bold,
-                    //                     ),
-                    //                   ),
-                    //                   TextSpan(
-                    //                     text: '${poi.amenities ?? ''}',
-                    //                     style: TextStyle(
-                    //                       color: FontAppColors.primaryFont,
-                    //                       // fontSize: textSize - 5,
-                    //                       // color:
-                    //                       //     fontsval.fonts.primaryFontColor,
-
-                    //                       fontSize: fontsval.fonts.textSize - 5,
-                    //                       fontFamily: fontType,
-                    //                       fontWeight: FontWeight.normal,
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //               textAlign: TextAlign.left,
-                    //             ),
-                    //             Text.rich(
-                    //               TextSpan(
-                    //                 children: [
-                    //                   TextSpan(
-                    //                     text: 'Source Link: ',
-                    //                     style: TextStyle(
-                    //                       color: FontAppColors.primaryFont,
-                    //                       // fontSize: textSize - 5,
-                    //                       // color:
-                    //                       //     fontsval.fonts.primaryFontColor,
-
-                    //                       fontSize: fontsval.fonts.textSize - 5,
-                    //                       fontFamily: fontType,
-                    //                       fontWeight: FontWeight.bold,
-                    //                     ),
-                    //                   ),
-                    //                   TextSpan(
-                    //                     text: '${poi.sourceLink ?? 'None'}',
-                    //                     style: TextStyle(
-                    //                       color: FontAppColors.primaryFont,
-                    //                       // fontSize: textSize - 5,
-                    //                       // color:
-                    //                       //     fontsval.fonts.primaryFontColor,
-
-                    //                       fontSize: fontsval.fonts.textSize - 5,
-                    //                       fontFamily: fontType,
-                    //                       fontWeight: FontWeight.normal,
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //               textAlign: TextAlign.left,
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -567,6 +290,5 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
         ),
       ),
     );
-    // );
   }
 }

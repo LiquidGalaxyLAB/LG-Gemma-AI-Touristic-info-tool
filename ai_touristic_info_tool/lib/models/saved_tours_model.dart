@@ -1,10 +1,20 @@
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 
+/// Class that defines the `SavedToursModel` entity, which contains its properties and methods.
 class SavedToursModel {
+  /// Property that defines the `query`.
   String query;
+
+  /// Property that defines the `places`.
   List<PlacesModel> places;
+
+  /// Property that defines the `country`.
   String country;
+
+  /// Property that defines the `city`.
   String city;
+
+  /// Property that defines the `isGenerated`.
   bool isGenerated;
 
   SavedToursModel({
@@ -15,7 +25,7 @@ class SavedToursModel {
     required this.isGenerated,
   });
 
-  // Convert a Tour into a JSON Map
+  /// Returns a [Map] from the current [SavedToursModel].
   Map<String, dynamic> toJson() => {
         'query': query,
         'places': places.map((place) => place.toJson()).toList(),
@@ -24,7 +34,7 @@ class SavedToursModel {
         'isGenerated': isGenerated,
       };
 
-  // Convert a JSON into a Tour Object
+  /// Returns a [SavedToursModel] from the given [json].
   factory SavedToursModel.fromJson(Map<String, dynamic> json) {
     return SavedToursModel(
       query: json['query'],
@@ -37,10 +47,4 @@ class SavedToursModel {
     );
   }
 
-  // // Encode to JSON string
-  // String encodeToJson() => json.encode(toJson());
-
-  // // Decode from JSON string
-  // factory SavedToursModel.decodeFromJson(String source) =>
-  //     SavedToursModel.fromJson(json.decode(source));
 }

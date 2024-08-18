@@ -1,11 +1,18 @@
 import 'package:geocoding/geocoding.dart';
-// import 'package:geolocator/geolocator.dart';
 
+
+/// A service class that provides geocoding functionality, such as converting
+/// addresses into coordinates and vice versa.
 class GeocodingService {
+  /// Converts a given address into geographic coordinates (latitude and longitude).
+  ///
+  /// Returns a [MyLatLng] object containing the latitude and longitude of the
+  /// first location found for the given address. If the address cannot be
+  /// geocoded, it returns a [MyLatLng] object with coordinates (0.0, 0.0).
+  ///
+  /// - Parameter address: The address to be converted into coordinates.
+  /// - Returns: A [MyLatLng] object containing the latitude and longitude.
   Future<MyLatLng> getCoordinates(String address) async {
-    // List<Location> locations = await locationFromAddress(address);
-    // Location location = locations.first;
-    // return MyLatLng(location.latitude, location.longitude);
     try {
       List<Location> locations = await locationFromAddress(address);
       Location location = locations.first;
@@ -15,7 +22,18 @@ class GeocodingService {
       return MyLatLng(0.0, 0.0);
     }
   }
-
+  
+  /// Converts geographic coordinates (latitude and longitude) into a human-readable address.
+  ///
+  /// Returns a [Map] containing the city, country, and full address corresponding
+  /// to the provided latitude and longitude. If the address cannot be determined,
+  /// the map values will be `null`.
+  ///
+  /// - Parameters:
+  ///   - lat: The latitude of the location.
+  ///   - lng: The longitude of the location.
+  /// - Returns: A [Map] with keys 'city', 'country', and 'address', each containing
+  ///   a string value or `null` if the address could not be determined.
   Future<Map<String, String?>> getAddressFromLatLng(
       double lat, double lng) async {
     try {
@@ -51,33 +69,6 @@ class GeocodingService {
       // throw Exception('Failed to get address: $e');
     }
   }
-
-//   Future<bool> handleLocationPermission(BuildContext context) async {
-//   bool serviceEnabled;
-//   LocationPermission permission;
-
-//   serviceEnabled = await Geolocator.isLocationServiceEnabled();
-//   if (!serviceEnabled) {
-//     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-//         content: Text('Location services are disabled. Please enable the services')));
-//     return false;
-//   }
-//   permission = await Geolocator.checkPermission();
-//   if (permission == LocationPermission.denied) {
-//     permission = await Geolocator.requestPermission();
-//     if (permission == LocationPermission.denied) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//           const SnackBar(content: Text('Location permissions are denied')));
-//       return false;
-//     }
-//   }
-//   if (permission == LocationPermission.deniedForever) {
-//     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-//         content: Text('Location permissions are permanently denied, we cannot request permissions.')));
-//     return false;
-//   }
-//   return true;
-// }
 }
 
 class MyLatLng {

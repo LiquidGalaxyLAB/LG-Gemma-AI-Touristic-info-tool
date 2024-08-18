@@ -49,8 +49,6 @@ class ScreenOverlayModel {
     required this.screenY,
     required this.sizeX,
     required this.sizeY,
-    // this.visibility = 1,
-    // this.color = 'ffffffff',
     this.content = '',
   });
 
@@ -145,16 +143,12 @@ class ScreenOverlayModel {
           //Gemini:
           'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/Logos_Screen-gemini.jpg?raw=true',
 
-//1980 × 1080 px  710 × 387 px
       overlayX: 0,
       overlayY: 1,
       screenX: 0.02,
       screenY: 0.95,
       sizeX: 710,
       sizeY: 387,
-
-      // sizeX: 355.5, // reduce the size by 50%
-      // sizeY: 193.5, // reduce the size by 50%
     );
   }
 }

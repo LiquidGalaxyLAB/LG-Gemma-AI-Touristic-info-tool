@@ -3,16 +3,37 @@ import 'dart:math';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:flutter/material.dart';
 
+/// Class that defines the `App colors` entity, which contains its properties and
+/// methods.
 class DynamicAppColors {
+  /// Property that defines the `gradient1` color.
   Color gradient1;
+
+  /// Property that defines the `gradient2` color.
   Color gradient2;
+
+  /// Property that defines the `gradient3` color.
   Color gradient3;
+
+  /// Property that defines the `gradient4` color.
   Color gradient4;
+
+  /// Property that defines the `buttonColors` color.
   Color buttonColors;
+
+  /// Property that defines the `accentColor` color.
   Color accentColor;
+
+  /// Property that defines the `innerBackground` color.
   Color innerBackground;
+
+  /// Property that defines the `shadow` color.
   Color shadow;
+
+  /// Property that defines the `midShadow` color.
   Color midShadow;
+
+  /// Property that defines the `darkShadow` color.
   Color darkShadow;
 
   DynamicAppColors({
@@ -28,6 +49,7 @@ class DynamicAppColors {
     required this.darkShadow,
   });
 
+  /// Returns a [DynamicAppColors] from the given [buttonColor].
   factory DynamicAppColors.fromButtonColor(Color buttonColor) {
     Color grad1;
     Color grad2;
@@ -39,10 +61,10 @@ class DynamicAppColors {
     Color medShd;
     Color darkShd;
     if (SettingsSharedPref.getTheme() == 'dark') {
-      grad1 = Color.fromARGB(255, 34, 34, 34); // Pure Black
-      grad2 = Color.fromARGB(255, 34, 34, 34); // Dark Grey
-      grad3 = Color.fromARGB(255, 68, 68, 68); // Medium Grey
-      grad4 = Color.fromARGB(255, 102, 102, 102); // Light Grey
+      grad1 = Color.fromARGB(255, 34, 34, 34); 
+      grad2 = Color.fromARGB(255, 34, 34, 34);
+      grad3 = Color.fromARGB(255, 68, 68, 68); 
+      grad4 = Color.fromARGB(255, 102, 102, 102);
       innerBg = Color.fromARGB(255, 26, 26, 26);
       buttons = Color.fromARGB(255, 85, 85, 85);
     } else if (SettingsSharedPref.getTheme() == 'light') {
@@ -51,10 +73,6 @@ class DynamicAppColors {
       grad3 = Color(0xFFECECEB);
       grad4 = Color(0xFFE5E6E4);
 
-      // grad4 = Color.fromARGB(255, 230, 230, 230); // Pure White
-      // grad3 = Color.fromARGB(255, 204, 204, 204); // Very Light Grey
-      // grad2 = Color.fromARGB(255, 204, 204, 204); // Light Grey
-      // grad1 = Color.fromARGB(255, 179, 179, 179); // Lighter Grey
 
       innerBg = Colors.white;
       if (isNearWhite(buttonColor)) {
@@ -77,9 +95,9 @@ class DynamicAppColors {
       medShd = Colors.white;
       shd = Colors.white;
     } else {
-      darkShd = lightenColor(buttons, 0.4); // Light shadow
-      medShd = lightenColor(buttons, 0.6); // Medium shadow
-      shd = lightenColor(buttons, 0.8); // Dark shadow
+      darkShd = lightenColor(buttons, 0.4); 
+      medShd = lightenColor(buttons, 0.6); 
+      shd = lightenColor(buttons, 0.8); 
     }
     return DynamicAppColors(
       gradient4: grad4,
@@ -89,15 +107,13 @@ class DynamicAppColors {
       buttonColors: buttons,
       accentColor: Color.fromARGB(120, 252, 171, 21),
       innerBackground: innerBg,
-      // shadow: lightenColor(buttons, 0.8),
-      // midShadow: lightenColor(buttons, 0.6),
-      // darkShadow: lightenColor(buttons, 0.4),
       shadow: shd,
       midShadow: medShd,
       darkShadow: darkShd,
     );
   }
 
+  /// Updates the colors based on the given [buttonColor].
   void updateColors(Color buttonColor) {
     Color grad1;
     Color grad2;
@@ -106,10 +122,10 @@ class DynamicAppColors {
     Color innerBg;
     Color buttons;
     if (SettingsSharedPref.getTheme() == 'dark') {
-      grad1 = Color.fromARGB(255, 34, 34, 34); // Pure Black
-      grad2 = Color.fromARGB(255, 34, 34, 34); // Dark Grey
-      grad3 = Color.fromARGB(255, 68, 68, 68); // Medium Grey
-      grad4 = Color.fromARGB(255, 102, 102, 102); // Light Grey
+      grad1 = Color.fromARGB(255, 34, 34, 34); 
+      grad2 = Color.fromARGB(255, 34, 34, 34); 
+      grad3 = Color.fromARGB(255, 68, 68, 68); 
+      grad4 = Color.fromARGB(255, 102, 102, 102); 
       innerBg = Color.fromARGB(255, 26, 26, 26);
       buttons = Color.fromARGB(255, 85, 85, 85);
     } else if (SettingsSharedPref.getTheme() == 'light') {
@@ -117,11 +133,6 @@ class DynamicAppColors {
       grad2 = Color(0xFFF2F3F2);
       grad3 = Color(0xFFECECEB);
       grad4 = Color(0xFFE5E6E4);
-
-      // grad4 = Color.fromARGB(255, 230, 230, 230); // Pure White
-      // grad3 = Color.fromARGB(255, 204, 204, 204); // Very Light Grey
-      // grad2 = Color.fromARGB(255, 204, 204, 204); // Light Grey
-      // grad1 = Color.fromARGB(255, 179, 179, 179); // Lighter Grey
 
       innerBg = Colors.white;
       if (isNearWhite(buttonColor)) {
@@ -158,8 +169,8 @@ class DynamicAppColors {
   }
 }
 
-// Calculates a brighter shadow color based on the button color and the reference shadow color
-// Lightens the color by a given factor
+/// Lightens the color by multiplying RGB values by the factor
+/// The factor should be between 0 and 1
 Color lightenColor(Color color, double factor) {
   return Color.fromARGB(
     color.alpha,
@@ -169,7 +180,7 @@ Color lightenColor(Color color, double factor) {
   );
 }
 
-// Adjusts the color brightness by multiplying RGB values by the factor
+/// Adjusts the color by multiplying RGB values by the factor
 Color adjustColor(Color color, double factor) {
   return Color.fromRGBO(
     (color.red * factor).clamp(0, 255).toInt(),
@@ -179,6 +190,7 @@ Color adjustColor(Color color, double factor) {
   );
 }
 
+/// Checks if the color is near white
 bool isNearWhite(Color color, {double threshold = 100.0}) {
   // Calculate the Euclidean distance from white
   double distance = sqrt(

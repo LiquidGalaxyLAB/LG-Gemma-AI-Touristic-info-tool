@@ -1,5 +1,4 @@
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
@@ -39,7 +38,6 @@ class SearchResultsContainer extends StatelessWidget {
                       .searchResults_web(value.searchPoiSelected),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    // fontSize: textSize + 4,
                     fontSize: fontProv.fonts.textSize + 4,
                     color: fontProv.fonts.primaryFontColor,
                     fontWeight: FontWeight.bold,
@@ -110,6 +108,7 @@ class SearchResultsContainer extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: value.webSearchResults.length,
                       itemBuilder: (context, index) {
+                        // ignore: unused_local_variable
                         bool isLoading = true;
                         WebViewController webController = WebViewController()
                           ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -179,7 +178,6 @@ class SearchResultsContainer extends StatelessWidget {
                                     softWrap: true,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      // fontSize: textSize,
                                       fontSize: fontProv.fonts.textSize,
                                       color: Colors.blue,
                                       decoration: TextDecoration.underline,
@@ -213,7 +211,6 @@ class SearchResultsContainer extends StatelessWidget {
                       .searchResults_youtube(value.searchPoiSelected),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    // fontSize: textSize + 4,
                     fontSize: fontProv.fonts.textSize + 4,
                     color: fontProv.fonts.primaryFontColor,
                     fontWeight: FontWeight.bold,
@@ -281,6 +278,7 @@ class SearchResultsContainer extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: value.youtubeSearchResults.length,
                       itemBuilder: (context, index) {
+                        // ignore: unused_local_variable
                         bool isLoading = true;
                         WebViewController youtubeController =
                             WebViewController()

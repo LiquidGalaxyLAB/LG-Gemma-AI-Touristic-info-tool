@@ -33,22 +33,18 @@ class _RecordingWaveWidgetState extends State<CustomRecordingWaveWidget> {
     return Consumer<ColorProvider>(
       builder: (context, value, _) => Center(
         child: SizedBox(
-          height: MediaQuery.sizeOf(context).height *
-              0.05, // Reduce the overall height
+          height: MediaQuery.sizeOf(context).height * 0.05,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: _heights.map((height) {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 width: 10, // Reduce the width
-                height: MediaQuery.sizeOf(context).height *
-                    height *
-                    0.5, // Further scale down heights
-                margin: const EdgeInsets.only(right: 5), // Reduce the margin
+                height: MediaQuery.sizeOf(context).height * height * 0.5,
+                margin: const EdgeInsets.only(right: 5),
                 decoration: BoxDecoration(
                   color: value.colors.buttonColors,
-                  borderRadius:
-                      BorderRadius.circular(25), // Smaller border radius
+                  borderRadius: BorderRadius.circular(25),
                 ),
               );
             }).toList(),

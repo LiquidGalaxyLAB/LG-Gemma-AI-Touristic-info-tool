@@ -1,17 +1,41 @@
-import 'dart:convert';
 
+/// Class that defines the `Places` entity, which contains its properties and
+/// methods.
 class PlacesModel {
+  /// Property that defines the `id`.  
   int id;
+
+  /// Property that defines the `name`.
   String name;
+
+  /// Property that defines the `address`.
   String address;
+
+  /// Property that defines the `city`.
   String? city;
+
+  /// Property that defines the `country`.
   String? country;
+
+  /// Property that defines the `description`.
   String? description;
+
+  /// Property that defines the `ratings`.
   double? ratings;
+
+  /// Property that defines the `amenities`.
   String? amenities;
+
+  /// Property that defines the `price`.
   String? price;
+
+  /// Property that defines the `latitude`.
   double latitude;
+
+  /// Property that defines the `longitude`.
   double longitude;
+
+  /// Property that defines the `sourceLink`.
   String? sourceLink;
 
   PlacesModel({
@@ -29,7 +53,7 @@ class PlacesModel {
     this.sourceLink
   });
 
-  // Convert a Place into a JSON Map
+  /// Returns a [Map] from the current [PlacesModel].
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
@@ -45,7 +69,7 @@ class PlacesModel {
         'sourceLink': sourceLink
       };
 
-  // Convert a JSON into a Place Object
+  /// Returns a [PlacesModel] from the given [map].
   factory PlacesModel.fromJson(Map<String, dynamic> json) {
     return PlacesModel(
       id: json['id'],
@@ -62,13 +86,6 @@ class PlacesModel {
       sourceLink: json['sourceLink']
     );
   }
-
-  // // Encode to JSON string
-  // String encodeToJson() => json.encode(toJson());
-
-  // // Decode from JSON string
-  // factory PlacesModel.decodeFromJson(String source) =>
-  //     PlacesModel.fromJson(json.decode(source));
 }
 
 

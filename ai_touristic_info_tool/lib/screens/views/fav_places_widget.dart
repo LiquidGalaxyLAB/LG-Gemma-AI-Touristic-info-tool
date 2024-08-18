@@ -120,23 +120,6 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: groupedPlaces.keys.map((country) {
-                                //check if groupledplaced is empty
-                                // print('grouped');
-                                // print(groupedPlaces.keys);
-                                // if (groupedPlaces.isEmpty) {
-                                //   return Padding(
-                                //     padding: const EdgeInsets.only(bottom: 20.0),
-                                //     child: Text(
-                                //       'No favorite places added yet',
-                                //       style: TextStyle(
-                                //         fontSize: fontVal.fonts.textSize,
-                                //         fontWeight: FontWeight.bold,
-                                //         color: Colors.black,
-                                //         fontFamily: fontType,
-                                //       ),
-                                //     ),
-                                //   );
-                                // } else {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 20.0),
                                   child: Column(
@@ -170,11 +153,11 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                                                 .map((place) {
                                               return GestureDetector(
                                                 onLongPress: () {
-                                                  //show dialog:
                                                   dialogBuilder(
                                                       context,
                                                       // 'Are you sure you want to remove this place?',
-                                                      AppLocalizations.of(context)!
+                                                      AppLocalizations.of(
+                                                              context)!
                                                           .favPlaces_removeConfirm,
                                                       false,
                                                       AppLocalizations.of(
@@ -182,8 +165,7 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                                                           .defaults_yes, () {
                                                     setState(() {
                                                       _favPlaces.remove(place);
-                                                      // FavoritesSharedPref().removePlace(
-                                                      //     place.name, place.country??'');
+
                                                       FavoritesSharedPref()
                                                           .savePlacesList(
                                                               _favPlaces);
@@ -241,8 +223,7 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                               child: Center(
                                 child: Text(
                                   // 'No favorite places added yet\nPlease save some places to customize a tour',
-                                  AppLocalizations.of(context)!
-                                      .favPlaces_none,
+                                  AppLocalizations.of(context)!.favPlaces_none,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: fontVal.fonts.textSize,
@@ -287,8 +268,6 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                               backgroundColor: LgAppColors.lgColor2),
                         );
                       } else {
-                        print(_selectedPlaces.length);
-
                         final List<PlacesModel> places = _selectedPlaces;
 
                         showCustomizationDialog(context, places);

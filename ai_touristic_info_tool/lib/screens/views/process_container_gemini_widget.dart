@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
-import 'package:ai_touristic_info_tool/services/langchain_service.dart';
+import 'package:ai_touristic_info_tool/services/gemini_services.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
@@ -38,19 +37,16 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
   late StreamController<dynamic> _messageController;
   late StreamController<dynamic> _errorController;
 
-  // late StreamController<Map<String, dynamic>> _fullResultController;
   List<PlacesModel> _pois = [];
   late Map<String, dynamic> full_result;
   int _currProgress = 0;
   bool _isFinished = false;
   bool _isError = false;
-  // bool isGeminiAvailable = true;
   final ScrollController _scrollController = ScrollController();
   final ScrollController _scrollController2 = ScrollController();
-  final LangchainService _langchainService = LangchainService();
+  final GeminiServices _langchainService = GeminiServices();
 
   late StreamSubscription _subscription;
-  // late dynamic lastResult;
   late Map<String, dynamic> lastResult;
 
   @override
@@ -59,15 +55,11 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
     _streamController = StreamController<dynamic>();
     _messageController = StreamController<dynamic>();
     _errorController = StreamController<dynamic>();
-    //  _fullResultController = StreamController<Map<String, dynamic>>();
-    // Timer to check if _isFinished is false after 2 minutes
     Timer(Duration(seconds: 200), () {
       if (!_isFinished) {
         if (mounted) {
           setState(() {
             _isError = true;
-            // _errorController
-            //     .addError('Process timed out. Please try again later.');
             _errorController.addError(AppLocalizations.of(context)!
                 .aiGenerationAPIGemini_timeOutMessg);
           });
@@ -77,64 +69,37 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
 
     _subscription = _langchainService
         .generateStreamAnswer(widget.query, widget.apiKey)
-        // .timeout(
-        // Duration(seconds: 30), // Set your timeout duration here
-        // onTimeout: (sink) {
-        //   sink.addError('The request timed out. Please try again later.');
-        // },
-        // )
         .listen((event) {
       if (mounted) {
-        print('listening, check after or ebfore dispose?');
         if (event['type'] == 'stream') {
-          print('TYPE STREAM');
           if (mounted) {
             setState(() {
-              // _currProgress += 1;
-              print('mounted after dispose??');
-              print(_currProgress);
               lastResult = event['data'];
               _streamController.add(event['data']);
             });
           }
         } else if (event['type'] == 'error') {
           if (mounted) {
-            print('mounted after dispose??');
             setState(() {
               _isError = true;
-              print('Error Exception');
               _errorController.addError(event['data']);
             });
           }
         } else if (event['type'] == 'message') {
-          print('a message');
           if (event['data'] == 'Preparing visualizations') {
             if (mounted) {
-              print('mounted after dispose??');
               setState(() {
-                print('mounted after dispose??');
-                // _currProgress = 11;
                 _currProgress = 12;
                 _messageController.add(event['data']);
               });
             }
-          }
-          // else if (event['data'] == 'Almost Done! Please wait few seconds...') {
-          //   if (mounted) {
-          //     setState(() {
-          //       _currProgress = 12;
-          //       _messageController.add(event['data']);
-          //     });
-          //   }
-          // }
-          else if (event['data'] == 'Streaming' ||
+          } else if (event['data'] == 'Streaming' ||
               event['data'] == "بث" ||
               event['data'] == 'Transmitiendo' ||
               event['data'] == 'स्ट्रीमिंग' ||
               event['data'] == 'ストリーミング中') {
             if (mounted) {
               setState(() {
-                print('mounted after dispose??');
                 _currProgress += 1;
                 _messageController.add(event['data']);
               });
@@ -144,16 +109,13 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
       }
     }, onDone: () {
       if (mounted) {
-        print('ondone??');
         if (!_isError) {
           _initializePlaces(lastResult);
         }
       }
     }, onError: (error) {
-      print('error hereeeeeeeeeeeeeeeeeeeee');
       if (mounted) {
         setState(() {
-          print('mounted after dispose??');
           _isError = true;
           _streamController.addError(error);
           _messageController.addError(error);
@@ -166,23 +128,15 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
   _initializePlaces(Map<String, dynamic> futureResult) async {
     try {
       Map<String, dynamic> result = futureResult;
-      print(result);
 
       List<dynamic> places = result["places"] ?? [];
-      print('places length:');
-      print(places.length);
-      print(places[0]['name']);
 
       for (int i = 0; i < places.length; i++) {
-        print('hereeeeeee');
         final poi = places[i];
         String location =
             '${poi['name']}, ${poi['address']}, ${poi['city']}, ${poi['country']}';
-        print(location);
-        // try {
         MyLatLng latlng = await GeocodingService().getCoordinates(location);
 
-        print('hereeeeee after geo');
         if (mounted) {
           setState(() {
             _pois.add(PlacesModel(
@@ -203,11 +157,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         }
       }
       if (mounted) {
-        print('hereeeeeee');
         setState(() {
           _currProgress = 13;
           _isFinished = true;
-          print('finished');
         });
       }
     } catch (e) {
@@ -216,19 +168,11 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
           _isError = true;
         });
       }
-      // rethrow;
     }
   }
 
   @override
   void dispose() {
-    print('dispose');
-    // _streamController.close();
-    // _errorController.close();
-    // _messageController.close();
-    // _scrollController.dispose();
-    // _scrollController2.dispose();
-
     _subscription.cancel();
     _streamController.close();
     _errorController.close();
@@ -244,11 +188,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
     return StreamBuilder<dynamic>(
       stream: _errorController.stream,
       builder: (context, errorSnapshot) {
-        print('Check is error');
-        print(_isError);
-        print(errorSnapshot.hasData);
         if (_isError || errorSnapshot.hasData) {
-          print('error found UI');
           return SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,
             height: MediaQuery.of(context).size.height * 0.2,
@@ -266,9 +206,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                           : AppLocalizations.of(context)!
                               .aiGenerationAPIGemini_error2,
                       style: TextStyle(
-                        // color: FontAppColors.primaryFont,
                         color: fontsProv.fonts.primaryFontColor,
-                        // fontSize: textSize,
                         fontSize: fontsProv.fonts.textSize,
                         fontWeight: FontWeight.bold,
                         fontFamily: fontType,
@@ -282,14 +220,14 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                     // elevatedButtonContent: 'OK',
                     elevatedButtonContent:
                         AppLocalizations.of(context)!.defaults_ok,
-                    // buttonColor: PrimaryAppColors.buttonColors,
+
                     buttonColor: colorProv.colors.buttonColors,
                     onpressed: () {
                       Navigator.pop(context);
                     },
                     height: MediaQuery.of(context).size.height * 0.05,
                     width: MediaQuery.of(context).size.width * 0.2,
-                    // fontSize: textSize,
+
                     fontSize: fontsProv.fonts.textSize,
                     fontColor: FontAppColors.secondaryFont,
                     isLoading: false,
@@ -368,9 +306,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                         .aiGenerationAPIGemini_snapShotError(
                                             snapshot.error.toString()),
                                     style: TextStyle(
-                                      // color: FontAppColors.primaryFont,
                                       color: fontsProv.fonts.primaryFontColor,
-                                      // fontSize: textSize,
                                       fontSize: fontsProv.fonts.textSize,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: fontType,
@@ -382,7 +318,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                 // elevatedButtonContent: 'OK',
                                 elevatedButtonContent:
                                     AppLocalizations.of(context)!.defaults_ok,
-                                // buttonColor: PrimaryAppColors.buttonColors,
+
                                 buttonColor: colorProv.colors.buttonColors,
                                 onpressed: () {
                                   Navigator.pop(context);
@@ -390,7 +326,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.05,
                                 width: MediaQuery.of(context).size.width * 0.2,
-                                // fontSize: textSize,
+
                                 fontSize: fontsProv.fonts.textSize,
                                 fontColor: FontAppColors.secondaryFont,
                                 isLoading: false,
@@ -403,16 +339,6 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                           );
                         }),
                       );
-                      // return Center(
-                      //   child: Text(
-                      //     'Error: ${snapshot.error}',
-                      //     style: TextStyle(
-                      //       color: fontProv.fonts.primaryFontColor,
-                      //       fontSize: fontProv.fonts.textSize,
-                      //       fontFamily: fontType,
-                      //     ),
-                      //   ),
-                      // );
                     } else if (!snapshot.hasData) {
                       return SizedBox(
                         width: MediaQuery.of(context).size.width * 0.5,
@@ -430,9 +356,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                     AppLocalizations.of(context)!
                                         .aiGenerationAPIGemini_noDataError,
                                     style: TextStyle(
-                                      // color: FontAppColors.primaryFont,
                                       color: fontsProv.fonts.primaryFontColor,
-                                      // fontSize: textSize,
                                       fontSize: fontsProv.fonts.textSize,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: fontType,
@@ -448,7 +372,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                 // elevatedButtonContent: 'OK',
                                 elevatedButtonContent:
                                     AppLocalizations.of(context)!.defaults_ok,
-                                // buttonColor: PrimaryAppColors.buttonColors,
+
                                 buttonColor: colorProv.colors.buttonColors,
                                 onpressed: () {
                                   Navigator.pop(context);
@@ -456,7 +380,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.05,
                                 width: MediaQuery.of(context).size.width * 0.2,
-                                // fontSize: textSize,
+
                                 fontSize: fontsProv.fonts.textSize,
                                 fontColor: FontAppColors.secondaryFont,
                                 isLoading: false,
@@ -469,16 +393,6 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                           );
                         }),
                       );
-                      // return Center(
-                      //   child: Text(
-                      //     'No data available',
-                      //     style: TextStyle(
-                      //       color: fontProv.fonts.primaryFontColor,
-                      //       fontSize: fontProv.fonts.textSize,
-                      //       fontFamily: fontType,
-                      //     ),
-                      //   ),
-                      // );
                     } else {
                       return Scrollbar(
                         thumbVisibility: true,
@@ -535,7 +449,6 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      // 'Average response time is 1 minute.\nThank you for your patience!',
                                       AppLocalizations.of(context)!
                                           .aiGenerationAPIGemini_responseTimeMessg,
                                       style: TextStyle(
@@ -545,7 +458,6 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                         fontFamily: fontType,
                                       ),
                                     ),
-                                    // if (fontProv.fonts.titleSize > 40)
                                     Image.asset(
                                       _isFinished
                                           ? 'assets/images/wait.png'
@@ -558,17 +470,6 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                           : MediaQuery.of(context).size.height *
                                               0.2,
                                     ),
-                                    // if (fontProv.fonts.titleSize == 40)
-                                    //   Image.asset(
-                                    //     'assets/images/wait2.gif',
-                                    //     width:
-                                    //         MediaQuery.of(context).size.width * 0.4,
-                                    //     height:
-                                    //         MediaQuery.of(context).size.height * 0.4,
-                                    //     color: SettingsSharedPref.getTheme() == 'dark'
-                                    //         ? Colors.black
-                                    //         : Colors.white,
-                                    //   ),
                                   ],
                                 ),
                               ),
@@ -577,7 +478,6 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                     left: 30, right: 30, bottom: 0),
                                 child: Center(
                                   child: Container(
-                                    // height: MediaQuery.of(context).size.height * 0.05,
                                     width:
                                         MediaQuery.of(context).size.width * 0.9,
                                     child: StreamBuilder<dynamic>(
@@ -590,10 +490,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                             AppLocalizations.of(context)!
                                                 .aiGenerationAPIGemini_waitMessg,
                                             style: TextStyle(
-                                              // color: FontAppColors.primaryFont,
                                               color: fontProv
                                                   .fonts.primaryFontColor,
-                                              // fontSize: textSize,
                                               fontSize: fontProv.fonts.textSize,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: fontType,
@@ -606,10 +504,8 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                                 .aiGenerationAPIGemini_snapShotError(
                                                     snapshot.error.toString()),
                                             style: TextStyle(
-                                              // color: FontAppColors.primaryFont,
                                               color: fontProv
                                                   .fonts.primaryFontColor,
-                                              // fontSize: textSize,
                                               fontSize: fontProv.fonts.textSize,
                                               fontFamily: fontType,
                                             ),
@@ -617,11 +513,9 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                         } else if (snapshot.hasData) {
                                           return Text(
                                             _isFinished
-                                                // ? 'Generation completed successfully!'
                                                 ? AppLocalizations.of(context)!
                                                     .aiGenerationAPIGemini_successGeneration
-                                                : //check on locale and show relavant message:
-                                                snapshot.data.toString() ==
+                                                : snapshot.data.toString() ==
                                                         'Streaming'
                                                     ? widget.locale ==
                                                             Locale('ar')
@@ -663,11 +557,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                                                                     ? 'Preparazione delle visualizzazioni'
                                                                                     : 'Preparing visualizations'
                                                         : 'Please wait...',
-
-                                            // snapshot.data.toString(),
                                             style: TextStyle(
-                                              // color: FontAppColors.primaryFont,
-                                              // fontSize: textSize,
                                               color: fontProv
                                                   .fonts.primaryFontColor,
                                               fontSize: fontProv.fonts.textSize,
@@ -680,8 +570,6 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                             AppLocalizations.of(context)!
                                                 .aiGenerationAPIGemini_noDataError,
                                             style: TextStyle(
-                                              // color: FontAppColors.primaryFont,
-                                              // fontSize: textSize,
                                               color: fontProv
                                                   .fonts.primaryFontColor,
                                               fontSize: fontProv.fonts.textSize,
@@ -791,23 +679,10 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                         buttonColor: LgAppColors.lgColor2,
                                         onpressed: () {
                                           if (mounted) {
-                                            print('mounted');
                                             _subscription.cancel();
-                                            //error provideR:
-                                            // ModelErrorProvider errorProv =
-                                            //     Provider.of<ModelErrorProvider>(
-                                            //         context,
-                                            //         listen: false);
-                                            // errorProv.isCanceled = true;
 
                                             Navigator.pop(context);
-                                            // errorProv.isCanceled = false;
                                           }
-                                          print('pressed');
-                                          // Navigator.pop(context);
-                                          // Navigator.of(context,
-                                          //         rootNavigator: true)
-                                          //     .pop();
                                         },
                                         height:
                                             MediaQuery.of(context).size.height *

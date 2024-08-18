@@ -39,22 +39,17 @@ class _SettingsOptionButtonState extends State<SettingsOptionButton> {
         builder: (BuildContext context, ColorProvider value,
             FontsProvider fontProv, Widget? child) {
           return Container(
-            // height: MediaQuery.of(context).size.height * 0.11,
             width: MediaQuery.of(context).size.width * 0.4,
             decoration: BoxDecoration(
-              // color: isPressed
-              //     ? PrimaryAppColors.midShadow
-              //     : PrimaryAppColors.shadow,
               color: isPressed ? value.colors.midShadow : value.colors.shadow,
               borderRadius: BorderRadius.circular(5),
               boxShadow: [
                 isPressed
                     ? BoxShadow(
-                        // color: PrimaryAppColors.gradient4.withOpacity(0.9),
                         color: value.colors.gradient4.withOpacity(0.9),
                         spreadRadius: 1,
                         blurRadius: 3,
-                        offset: Offset(1.5, 1.5), // changes position of shadow
+                        offset: Offset(1.5, 1.5),
                       )
                     : BoxShadow(
                         color: Colors.black.withOpacity(0),
@@ -73,7 +68,6 @@ class _SettingsOptionButtonState extends State<SettingsOptionButton> {
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.04,
                   decoration: BoxDecoration(
-                    // color: PrimaryAppColors.darkShadow,
                     color: value.colors.darkShadow,
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -99,7 +93,6 @@ class _SettingsOptionButtonState extends State<SettingsOptionButton> {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: fontType,
-                          // fontSize: textSize + 3,
                           fontSize: fontProv.fonts.textSize + 3,
                           color: FontAppColors.primaryFont,
                           fontWeight: FontWeight.bold,

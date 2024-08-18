@@ -3,16 +3,12 @@ import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
-import 'package:ai_touristic_info_tool/services/langchain_service.dart';
-import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
-import 'package:ai_touristic_info_tool/state_management/current_view_provider.dart';
+import 'package:ai_touristic_info_tool/services/gemini_services.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
-import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:ai_touristic_info_tool/dialogs/show_stream_gemini_dialog.dart';
-import 'package:ai_touristic_info_tool/dialogs/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/dialogs/visualization_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,9 +16,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RecommendationContainer extends StatefulWidget {
   final String imagePath;
-  final String title; //query
-  final String? country; //query
-  final String? city; //query
+  final String title;
+  final String? country;
+  final String? city;
   final String query;
   final String? description;
   final double width;
@@ -58,19 +54,15 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
         ModelErrorProvider errProvider =
             Provider.of<ModelErrorProvider>(context, listen: false);
         errProvider.isError = false;
-        print('query: ${widget.query}');
-
         PromptsSharedPref.getPlaces(widget.query).then((value) async {
-          print('value: $value');
-          print(value.isNotEmpty);
           if (value.isNotEmpty) {
             await buildQueryPlacemark(
                 widget.title, widget.city, widget.country, context);
             showVisualizationDialog(context, value, widget.title, widget.city,
                 widget.country, () {}, false);
           } else {
-            Connectionprovider connection =
-                Provider.of<Connectionprovider>(context, listen: false);
+            // Connectionprovider connection =
+            //     Provider.of<Connectionprovider>(context, listen: false);
             //Local:
             // if (!connection.isAiConnected) {
             //   dialogBuilder(
@@ -104,7 +96,8 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                           Widget? child) {
                         return Text(
                           // 'Please add a default API Key for Gemini in the settings!',
-                          AppLocalizations.of(context)!.settings_apiKeyNotSetDefaultError,
+                          AppLocalizations.of(context)!
+                              .settings_apiKeyNotSetDefaultError,
                           style: TextStyle(
                             fontSize: value.fonts.textSize,
                             color: Colors.white,
@@ -119,12 +112,13 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
               setState(() {
                 _isLoading = true;
               });
-              String res = await LangchainService().checkAPIValidity(apiKey, context);
+              String res =
+                  await GeminiServices().checkAPIValidity(apiKey, context);
               setState(() {
                 _isLoading = false;
               });
               if (res == '') {
-                Locale locale= await SettingsSharedPref.getLocale();
+                Locale locale = await SettingsSharedPref.getLocale();
                 showStreamingGeminiDialog(context, widget.query,
                     widget.city ?? '', widget.country ?? '', apiKey, locale);
               } else {
@@ -156,10 +150,7 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
             width: widget.width,
             height: widget.height,
             decoration: BoxDecoration(
-              border: Border.all(
-                  // color: PrimaryAppColors.buttonColors,
-                  color: value.colors.buttonColors,
-                  width: 4),
+              border: Border.all(color: value.colors.buttonColors, width: 4),
               borderRadius: BorderRadius.circular(30),
             ),
             child: Stack(
@@ -223,14 +214,10 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                       children: [
                         CircularProgressIndicator(
                           color: Colors.white,
-
-                          // valueColor: AlwaysStoppedAnimation<Color>(
-                          //   value.colors.buttonColors,
-                          // ),
                         ),
                         Text(
-                          // 'Loading...',
-                          AppLocalizations.of(context)!.defaults_loading,
+                            // 'Loading...',
+                            AppLocalizations.of(context)!.defaults_loading,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,

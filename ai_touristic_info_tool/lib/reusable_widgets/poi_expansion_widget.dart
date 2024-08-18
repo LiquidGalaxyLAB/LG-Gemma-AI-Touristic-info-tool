@@ -1,10 +1,9 @@
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
-import 'package:ai_touristic_info_tool/services/langchain_service.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
+import 'package:ai_touristic_info_tool/services/search_services.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
@@ -35,9 +34,6 @@ class PoiExpansionWidget extends StatefulWidget {
 }
 
 class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
-  // double _currentProgress = 0.0;
-  // final double _totalDuration = 1.2 * 10; // Example total duration
-
   bool play = true;
   bool _isFav = false;
 
@@ -73,9 +69,7 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: TextStyle(
-                // color: FontAppColors.primaryFont,
                 color: fontVal.fonts.primaryFontColor,
-                // fontSize: textSize,
                 fontSize: fontVal.fonts.textSize,
                 fontFamily: fontType,
                 fontWeight: FontWeight.bold),
@@ -96,7 +90,6 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                     decoration: BoxDecoration(
                       border: Border.all(
                           color: FontAppColors.primaryFont, width: 3),
-                      // color: PrimaryAppColors.gradient4,
                       color: value.colors.gradient4,
                       borderRadius: BorderRadius.circular(2),
                     ),
@@ -130,7 +123,6 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                   maxLines: 3,
                                   style: TextStyle(
                                       color: FontAppColors.primaryFont,
-                                      // fontSize: textSize,
                                       fontSize: fontVal.fonts.textSize,
                                       fontFamily: fontType,
                                       fontWeight: FontWeight.bold),
@@ -197,7 +189,6 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                                   .width *
                                               0.12,
                                           decoration: BoxDecoration(
-                                            // color: PrimaryAppColors.gradient1,
                                             color: value.colors.gradient1,
                                             borderRadius:
                                                 BorderRadius.circular(30),
@@ -228,9 +219,6 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                                             context)!
                                                         .poiExpansion_flyTo,
                                                     style: TextStyle(
-                                                        // color: FontAppColors
-                                                        //     .secondaryFont,
-                                                        // fontSize: textSize - 4,
                                                         fontSize: fontVal.fonts
                                                                 .textSize -
                                                             4,
@@ -277,9 +265,11 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                         srch.searchPoiSelected =
                                             widget.placeModel.name;
                                         List<String> _futureYoutubeUrls =
-                                            await Api().fetchYoutubeUrls(
-                                                query: widget.placeModel.name,
-                                                context);
+                                            await SearchServices()
+                                                .fetchYoutubeUrls(
+                                                    query:
+                                                        widget.placeModel.name,
+                                                    context);
 
                                         //Local:
                                         // List<String> _futureUrls = await Api()
@@ -302,10 +292,9 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                         //         widget.placeModel.name,
                                         //         urlNum: 10);
                                         List<String> _futureUrls =
-                                            await LangchainService()
-                                                .fetchUrlsTemp(
-                                                    widget.placeModel.name,
-                                                    numResults: 10);
+                                            await SearchServices().fetchUrls(
+                                                widget.placeModel.name,
+                                                numResults: 10);
                                         /////////////////////////////////////////
 
                                         final sshData =
@@ -352,7 +341,6 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                                   .width *
                                               0.03,
                                           decoration: BoxDecoration(
-                                            // color: PrimaryAppColors.gradient1,
                                             color: value.colors.gradient1,
                                             borderRadius:
                                                 BorderRadius.circular(30),
@@ -450,7 +438,6 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                             play
                                                 ? const Icon(
                                                     Icons.play_circle_outlined,
-                                                    //stop_circle_outlined
                                                     color: FontAppColors
                                                         .primaryFont,
                                                     size: titleSize + 10)
@@ -470,8 +457,6 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                                   style: TextStyle(
                                                     color: FontAppColors
                                                         .primaryFont,
-
-                                                    // fontSize: textSize - 2,
                                                     fontSize:
                                                         fontVal.fonts.textSize -
                                                             2,
@@ -543,76 +528,3 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
 }
 
 
-
-                    // Divider(
-                    //   color: FontAppColors.primaryFont,
-                    //   thickness: 0.5,
-                    // ),
-
-                    // SizedBox(
-                    //   height: MediaQuery.of(context).size.height * 0.02,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   crossAxisAlignment: CrossAxisAlignment.center,
-                    //   children: [
-                    //     GestureDetector(
-                    //       onTap: () async {
-                    //         final sshData = Provider.of<SSHprovider>(context,
-                    //             listen: false);
-
-                    //         Connectionprovider connection =
-                    //             Provider.of<Connectionprovider>(context,
-                    //                 listen: false);
-
-                    //         ///checking the connection status first
-                    //         if (sshData.client != null &&
-                    //             connection.isLgConnected) {
-                    //           await LgService(sshData).startTour('Orbit');
-                    //         } else {
-                    //           dialogBuilder(
-                    //               context,
-                    //               'NOT connected to LG !! \n Please Connect to LG',
-                    //               true,
-                    //               'OK',
-                    //               null,
-                    //               null);
-                    //         }
-                    //       },
-                    //       child: const Icon(Icons.loop_outlined,
-                    //           color: FontAppColors.primaryFont,
-                    //           size: textSize + 20),
-                    //     ),
-                    //     GestureDetector(
-                    //       onTap: () async {
-                    //         final sshData = Provider.of<SSHprovider>(context,
-                    //             listen: false);
-
-                    //         Connectionprovider connection =
-                    //             Provider.of<Connectionprovider>(context,
-                    //                 listen: false);
-
-                    //         ///checking the connection status first
-                    //         if (sshData.client != null &&
-                    //             connection.isLgConnected) {
-                    //           await LgService(sshData).stopTour();
-                    //           // }
-                    //         } else {
-                    //           dialogBuilder(
-                    //               context,
-                    //               'NOT connected to LG !! \n Please Connect to LG',
-                    //               true,
-                    //               'OK',
-                    //               null,
-                    //               null);
-                    //         }
-                    //       },
-                    //       child: const Icon(Icons.stop_outlined,
-                    //           color: FontAppColors.primaryFont,
-                    //           size: textSize + 20),
-                    //     ),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: MediaQuery.of(context).size.height * 0.02,
-                    // ),

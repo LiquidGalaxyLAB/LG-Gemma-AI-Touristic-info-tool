@@ -5,7 +5,6 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:restart_app/restart_app.dart';
@@ -103,27 +102,12 @@ class _LanguageWidgetState extends State<LanguageWidget> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 10.0, right: 10),
-              //   child: Text(
-              //     AppLocalizations.of(context)!.settingsLanguage_subtitle,
-              //     style: TextStyle(
-              //       fontSize: fontProv.fonts.textSize,
-              //       color: Colors.black,
-              //       fontFamily: fontType,
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.02,
-              // ),
               RadioButton(
                 title: AppLocalizations.of(context)!.settingsLanguage_eng,
                 value: 1,
                 groupValue: selectedOption,
                 activeColor: colorProv.colors.buttonColors,
                 onChanged: (value) {
-                  //show dialog to ask for restart:
                   dialogBuilder(
                       context,
                       AppLocalizations.of(context)!
@@ -132,14 +116,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       AppLocalizations.of(context)!.defaults_restart, () async {
                     setState(() {
                       selectedOption = value!;
-                      print("Button value: $value");
                     });
                     await SettingsSharedPref.setLocale(Locale('en'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
-                  }, () {
-                    // Navigator.of(context).pop();
-                  });
+                  }, () {});
                 },
                 fontSize: fontProv.fonts.textSize,
               ),
@@ -149,7 +130,6 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 groupValue: selectedOption,
                 activeColor: colorProv.colors.buttonColors,
                 onChanged: (value) {
-                  //show dialog to ask for restart:
                   dialogBuilder(
                       context,
                       AppLocalizations.of(context)!
@@ -158,14 +138,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       AppLocalizations.of(context)!.defaults_restart, () async {
                     setState(() {
                       selectedOption = value!;
-                      print("Button value: $value");
                     });
                     await SettingsSharedPref.setLocale(Locale('es'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
-                  }, () {
-                    // Navigator.of(context).pop();
-                  });
+                  }, () {});
                 },
                 fontSize: fontProv.fonts.textSize,
               ),
@@ -175,7 +152,6 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 groupValue: selectedOption,
                 activeColor: colorProv.colors.buttonColors,
                 onChanged: (value) {
-                  //show dialog to ask for restart:
                   dialogBuilder(
                       context,
                       AppLocalizations.of(context)!
@@ -184,14 +160,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       AppLocalizations.of(context)!.defaults_restart, () async {
                     setState(() {
                       selectedOption = value!;
-                      print("Button value: $value");
                     });
                     await SettingsSharedPref.setLocale(Locale('de'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
-                  }, () {
-                    // Navigator.of(context).pop();
-                  });
+                  }, () {});
                 },
                 fontSize: fontProv.fonts.textSize,
               ),
@@ -201,7 +174,6 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 groupValue: selectedOption,
                 activeColor: colorProv.colors.buttonColors,
                 onChanged: (value) {
-                  //show dialog to ask for restart:
                   dialogBuilder(
                       context,
                       AppLocalizations.of(context)!
@@ -210,14 +182,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       AppLocalizations.of(context)!.defaults_restart, () async {
                     setState(() {
                       selectedOption = value!;
-                      print("Button value: $value");
                     });
                     await SettingsSharedPref.setLocale(Locale('fr'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
-                  }, () {
-                    // Navigator.of(context).pop();
-                  });
+                  }, () {});
                 },
                 fontSize: fontProv.fonts.textSize,
               ),
@@ -227,7 +196,6 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 groupValue: selectedOption,
                 activeColor: colorProv.colors.buttonColors,
                 onChanged: (value) {
-                  //show dialog to ask for restart:
                   dialogBuilder(
                       context,
                       AppLocalizations.of(context)!
@@ -236,14 +204,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       AppLocalizations.of(context)!.defaults_restart, () async {
                     setState(() {
                       selectedOption = value!;
-                      print("Button value: $value");
                     });
                     await SettingsSharedPref.setLocale(Locale('it'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
-                  }, () {
-                    // Navigator.of(context).pop();
-                  });
+                  }, () {});
                 },
                 fontSize: fontProv.fonts.textSize,
               ),
@@ -253,7 +218,6 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 groupValue: selectedOption,
                 activeColor: colorProv.colors.buttonColors,
                 onChanged: (value) {
-                  //show dialog to ask for restart:
                   dialogBuilder(
                       context,
                       AppLocalizations.of(context)!
@@ -262,15 +226,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       AppLocalizations.of(context)!.defaults_restart, () async {
                     setState(() {
                       selectedOption = value!;
-                      print("Button value: $value");
                     });
                     await SettingsSharedPref.setLocale(Locale('ja'));
-                    print('restart');
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
-                  }, () {
-                    // Navigator.of(context).pop();
-                  });
+                  }, () {});
                 },
                 fontSize: fontProv.fonts.textSize,
               ),
@@ -280,7 +240,6 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 groupValue: selectedOption,
                 activeColor: colorProv.colors.buttonColors,
                 onChanged: (value) {
-                  //show dialog to ask for restart:
                   dialogBuilder(
                       context,
                       AppLocalizations.of(context)!
@@ -289,14 +248,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       AppLocalizations.of(context)!.defaults_restart, () async {
                     setState(() {
                       selectedOption = value!;
-                      print("Button value: $value");
                     });
                     await SettingsSharedPref.setLocale(Locale('hi'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
-                  }, () {
-                    // Navigator.of(context).pop();
-                  });
+                  }, () {});
                 },
                 fontSize: fontProv.fonts.textSize,
               ),
@@ -306,7 +262,6 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 groupValue: selectedOption,
                 activeColor: colorProv.colors.buttonColors,
                 onChanged: (value) {
-                  //show dialog to ask for restart:
                   dialogBuilder(
                       context,
                       AppLocalizations.of(context)!
@@ -315,14 +270,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       AppLocalizations.of(context)!.defaults_restart, () async {
                     setState(() {
                       selectedOption = value!;
-                      print("Button value: $value");
                     });
                     await SettingsSharedPref.setLocale(Locale('ar'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
-                  }, () {
-                    // Navigator.of(context).pop();
-                  });
+                  }, () {});
                 },
                 fontSize: fontProv.fonts.textSize,
               ),

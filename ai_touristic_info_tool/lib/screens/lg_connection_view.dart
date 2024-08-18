@@ -1,4 +1,3 @@
-import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
@@ -28,11 +27,11 @@ class ConnectionView extends StatefulWidget {
 class _ConnectionViewState extends State<ConnectionView> {
   /// `form key` for our configuration form
   final _form1Key = GlobalKey<FormState>();
-  final _form2Key = GlobalKey<FormState>();
+  // final _form2Key = GlobalKey<FormState>();
 
   /// `is loading` to Track the loading state
   bool _isLoading1 = false;
-  bool _isLoading2 = false;
+  // bool _isLoading2 = false;
 
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _ipController =
@@ -48,10 +47,10 @@ class _ConnectionViewState extends State<ConnectionView> {
           ? '3'
           : LgConnectionSharedPref.getScreenAmount().toString());
 
-  final TextEditingController _aiIpAddressController =
-      TextEditingController(text: LgConnectionSharedPref.getAiIp());
-  final TextEditingController _aiPortController =
-      TextEditingController(text: LgConnectionSharedPref.getAiPort());
+  // final TextEditingController _aiIpAddressController =
+  //     TextEditingController(text: LgConnectionSharedPref.getAiIp());
+  // final TextEditingController _aiPortController =
+  //     TextEditingController(text: LgConnectionSharedPref.getAiPort());
 
   @override
   Widget build(BuildContext context) {
@@ -106,9 +105,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                                     .lgConnection_title,
                                 style: TextStyle(
                                   fontFamily: fontType,
-                                  // fontSize: headingSize,
                                   fontSize: fontProv.fonts.headingSize,
-                                  // color: FontAppColors.secondaryFont,
                                   color: SettingsSharedPref.getTheme() == 'dark'
                                       ? fontProv.fonts.primaryFontColor
                                       : fontProv.fonts.secondaryFontColor,
@@ -119,9 +116,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                           ],
                         ),
                       ),
-                      // SizedBox(
-                      //   height: MediaQuery.of(context).size.height * 0.05,
-                      // ),
+
                       Consumer<FontsProvider>(
                         builder: (BuildContext context, FontsProvider value,
                             Widget? child) {
@@ -130,18 +125,14 @@ class _ConnectionViewState extends State<ConnectionView> {
                             AppLocalizations.of(context)!.lgConnection_subtitle,
                             style: TextStyle(
                               fontFamily: fontType,
-                              // fontSize: headingSize - 8,
                               fontSize: value.fonts.headingSize - 8,
-                              // color: FontAppColors.primaryFont,
                               color: value.fonts.primaryFontColor,
                               fontWeight: FontWeight.bold,
                             ),
                           );
                         },
                       ),
-                      // SizedBox(
-                      //   height: MediaQuery.of(context).size.height * 0.05,
-                      // ),
+
                       Consumer<FontsProvider>(
                         builder: (BuildContext context, FontsProvider value,
                             Widget? child) {
@@ -157,15 +148,11 @@ class _ConnectionViewState extends State<ConnectionView> {
                                       child: TextFormFieldWidget(
                                         key: GlobalKeys
                                             .showcaseKeyConnectionUsername,
-                                        // fontSize: textSize,
                                         fontSize: value.fonts.textSize,
-                                        // label: 'LG User Name',
                                         label: AppLocalizations.of(context)!
                                             .lgConnection_userName,
-                                        // key: const ValueKey("username"),
                                         textController: _userNameController,
                                         isSuffixRequired: true,
-                                        // isHidden: false,
                                         isPassword: false,
                                         maxLength: 50,
                                         maxlines: 1,
@@ -180,15 +167,14 @@ class _ConnectionViewState extends State<ConnectionView> {
                                         key: GlobalKeys
                                             .showcaseKeyConnectionPassword,
                                         isPassword: true,
-                                        // fontSize: textSize,
                                         fontSize: value.fonts.textSize,
                                         // label: 'LG Password',
                                         label: AppLocalizations.of(context)!
                                             .lgConnection_password,
-                                        // key: const ValueKey("lgpass"),
+
                                         textController: _passwordController,
                                         isSuffixRequired: true,
-                                        // isHidden: true,
+
                                         maxLength: 50,
                                         maxlines: 1,
                                         width:
@@ -200,15 +186,15 @@ class _ConnectionViewState extends State<ConnectionView> {
                                       padding: const EdgeInsets.all(5.0),
                                       child: TextFormFieldWidget(
                                         key: GlobalKeys.showcaseKeyConnectionIP,
-                                        // fontSize: textSize,
+
                                         fontSize: value.fonts.textSize,
                                         // label: 'LG Master IP Address',
                                         label: AppLocalizations.of(context)!
                                             .lgConnection_ip,
-                                        // key: const ValueKey("ip"),
+
                                         textController: _ipController,
                                         isSuffixRequired: true,
-                                        // isHidden: false,
+
                                         isPassword: false,
                                         maxLength: 50,
                                         maxlines: 1,
@@ -222,15 +208,15 @@ class _ConnectionViewState extends State<ConnectionView> {
                                       child: TextFormFieldWidget(
                                         key: GlobalKeys
                                             .showcaseKeyConnectionPort,
-                                        // fontSize: textSize,
+
                                         fontSize: value.fonts.textSize,
                                         // label: 'LG Port Number',
                                         label: AppLocalizations.of(context)!
                                             .lgConnection_port,
-                                        // key: const ValueKey("port"),
+
                                         textController: _portController,
                                         isSuffixRequired: true,
-                                        // isHidden: false,
+
                                         isPassword: false,
                                         maxLength: 50,
                                         maxlines: 1,
@@ -244,15 +230,15 @@ class _ConnectionViewState extends State<ConnectionView> {
                                       child: TextFormFieldWidget(
                                         key: GlobalKeys
                                             .showcaseKeyConnectionNumScreens,
-                                        // fontSize: textSize,
+
                                         fontSize: value.fonts.textSize,
                                         // label: 'Number of LG screens',
                                         label: AppLocalizations.of(context)!
                                             .lgConnection_numScreens,
-                                        // key: const ValueKey("lgscreens"),
+
                                         textController: _screenAmountController,
                                         isSuffixRequired: true,
-                                        // isHidden: false,
+
                                         isPassword: false,
                                         maxLength: 50,
                                         maxlines: 1,
@@ -263,18 +249,10 @@ class _ConnectionViewState extends State<ConnectionView> {
                                     ),
                                   ],
                                 ),
-                                // SizedBox(
-                                //   width:
-                                //       MediaQuery.of(context).size.width * 0.05,
-                                // ),
                                 AppDividerWidget(
                                   height:
                                       MediaQuery.of(context).size.height * 0.5,
                                 ),
-                                // SizedBox(
-                                //   width:
-                                //       MediaQuery.of(context).size.width * 0.05,
-                                // ),
                                 Consumer<Connectionprovider>(
                                   builder: (BuildContext context,
                                       Connectionprovider conn, Widget? child) {
@@ -294,7 +272,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.25,
-                                        // fontSize: textSize + 2,
+
                                         fontSize: value.fonts.textSize + 2,
                                         isLoading: false,
                                         isBold: true,
@@ -391,15 +369,6 @@ class _ConnectionViewState extends State<ConnectionView> {
                                                     LgAppColors.lgColor4,
                                               ),
                                             );
-                                            //   // ignore: use_build_context_synchronously
-                                            //   dialogBuilder(
-                                            //       context,
-                                            //       result!,
-                                            //       true,
-                                            //       AppLocalizations.of(context)!
-                                            //           .defaults_ok,
-                                            //       null,
-                                            //       null);
                                           }
 
                                           ///stop the loading process by setting `isloading` to false
@@ -422,7 +391,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.25,
-                                        // fontSize: textSize + 2,
+
                                         fontSize: value.fonts.textSize + 2,
                                         isLoading: false,
                                         isBold: true,
@@ -493,17 +462,6 @@ class _ConnectionViewState extends State<ConnectionView> {
                                                       LgAppColors.lgColor2,
                                                 ),
                                               );
-                                              // dialogBuilder(
-                                              //     context,
-                                              //     // 'You are already disconnected!',
-                                              //     AppLocalizations.of(context)!
-                                              //         .lgConnection_errorDisconnect,
-                                              //     true,
-                                              //     // 'OK',
-                                              //     AppLocalizations.of(context)!
-                                              //         .defaults_ok,
-                                              //     null,
-                                              //     null);
                                             }
                                           }, null);
                                         },
@@ -726,11 +684,8 @@ class _ConnectionViewState extends State<ConnectionView> {
                           width: MediaQuery.of(context).size.width * 0.2,
                           height: MediaQuery.of(context).size.height * 0.3,
                           child: CircularProgressIndicator(
-                            // color: PrimaryAppColors.innerBackground,
-                            // backgroundColor: PrimaryAppColors.buttonColors,
                             color: value.colors.innerBackground,
                             backgroundColor: value.colors.buttonColors,
-                            // semanticsLabel: 'Loading',
                             semanticsLabel:
                                 AppLocalizations.of(context)!.defaults_loading,
                           ),

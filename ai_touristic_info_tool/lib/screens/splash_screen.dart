@@ -1,5 +1,5 @@
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/main_layout.dart';
+import 'package:ai_touristic_info_tool/screens/views/main_layout.dart';
 import 'package:flutter/material.dart';
 
 ///This is a splash screen for displaying the logos and the name of the app for 3 seconds, then navigate to home page

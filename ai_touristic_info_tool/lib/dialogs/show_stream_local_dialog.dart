@@ -1,5 +1,5 @@
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/process_container_local_widget.dart';
+import 'package:ai_touristic_info_tool/screens/views/process_container_local_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';

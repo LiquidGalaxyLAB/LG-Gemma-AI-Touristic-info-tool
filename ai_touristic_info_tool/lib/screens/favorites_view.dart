@@ -1,8 +1,8 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/fav_places_widget.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/saved_tours_widget.dart';
+import 'package:ai_touristic_info_tool/screens/views/fav_places_widget.dart';
+import 'package:ai_touristic_info_tool/screens/views/saved_tours_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
@@ -93,7 +93,6 @@ class _FavoritesViewState extends State<FavoritesView>
                 FontsProvider fontProv, Widget? child) {
               return TabBar(
                 controller: _tabController,
-                // indicatorColor: PrimaryAppColors.buttonColors,
                 indicatorColor: value.colors.buttonColors,
                 tabs: <Widget>[
                   Tab(
@@ -102,20 +101,14 @@ class _FavoritesViewState extends State<FavoritesView>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(CupertinoIcons.airplane,
-                            // color: PrimaryAppColors.buttonColors,
-                            // color: value.colors.buttonColors,
-                            color: value.colors.buttonColors,
-                            size: 30),
+                            color: value.colors.buttonColors, size: 30),
                         const SizedBox(width: 10),
                         Text(
                           // 'All Saved Tours',
                           AppLocalizations.of(context)!.favs_savedTours,
                           style: TextStyle(
                             fontFamily: fontType,
-                            // fontSize: textSize,
                             fontSize: fontProv.fonts.textSize,
-                            // color: PrimaryAppColors.buttonColors,
-                            // color: value.colors.buttonColors,
                             color: fontProv.fonts.primaryFontColor,
                             fontWeight: FontWeight.bold,
                           ),
@@ -129,19 +122,14 @@ class _FavoritesViewState extends State<FavoritesView>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(CupertinoIcons.location_circle,
-                            // color: PrimaryAppColors.buttonColors,
-                            color: value.colors.buttonColors,
-                            size: 30),
+                            color: value.colors.buttonColors, size: 30),
                         const SizedBox(width: 10),
                         Text(
                           // 'Favorite places',
                           AppLocalizations.of(context)!.favs_savedPlaces,
                           style: TextStyle(
                             fontFamily: fontType,
-                            // fontSize: textSize,
                             fontSize: fontProv.fonts.textSize,
-                            // color: PrimaryAppColors.buttonColors,
-                            // color: value.colors.buttonColors,
                             color: fontProv.fonts.primaryFontColor,
                             fontWeight: FontWeight.bold,
                           ),

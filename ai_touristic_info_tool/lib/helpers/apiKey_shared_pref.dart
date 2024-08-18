@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 
+///`APIKeySharedPref` to presist data in the app locally
+/// A utility class for managing and persisting API keys session data locally using `shared_preferences`.
 class APIKeySharedPref {
   static SharedPreferences? _prefs;
   static const String _apiKeys = 'api_keys';
@@ -11,7 +13,7 @@ class APIKeySharedPref {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  // Save API Keys
+  /// Save API keys for the API session
   static Future<void> saveApiKeys(List<ApiKeyModel> apiKeys) async {
     List<Map<String, dynamic>> apiKeysMapList =
         apiKeys.map((apiKey) => apiKey.toMap()).toList();
@@ -19,7 +21,7 @@ class APIKeySharedPref {
     await _prefs!.setString(_apiKeys, apiKeysJson);
   }
 
-  // Retrieve API Keys
+  /// Retrieve API keys for the API session
   static Future<List<ApiKeyModel>> getApiKeys() async {
     String? apiKeysJson = _prefs!.getString(_apiKeys);
 
@@ -33,20 +35,18 @@ class APIKeySharedPref {
     }
   }
 
-  // Clear API Keys
+  /// Clear all API keys from the session
   static Future<void> clearApiKeys() async {
     await _prefs!.remove(_apiKeys);
   }
 
-  // Add a single API Key
+  /// Add a single API key to the session
   static Future<void> addApiKey(ApiKeyModel newApiKey) async {
     List<ApiKeyModel> apiKeys = await getApiKeys();
 
-    // Check if the API key already exists
     if (apiKeys.any((apiKey) =>
         apiKey.name == newApiKey.name &&
         apiKey.serviceType == newApiKey.serviceType)) {
-      // Update existing key
       apiKeys = apiKeys
           .map((apiKey) => apiKey.name == newApiKey.name &&
                   apiKey.serviceType == newApiKey.serviceType
@@ -54,13 +54,12 @@ class APIKeySharedPref {
               : apiKey)
           .toList();
     } else {
-      // Add new key
       apiKeys.add(newApiKey);
     }
     await saveApiKeys(apiKeys);
   }
 
-  // Remove a single API Key
+  /// Remove a single API key from the session
   static Future<void> removeApiKey(String name, String serviceType) async {
     List<ApiKeyModel> apiKeys = await getApiKeys();
     apiKeys.removeWhere(
@@ -68,7 +67,7 @@ class APIKeySharedPref {
     await saveApiKeys(apiKeys);
   }
 
-  // Edit a single API Key
+  /// Edit a single API key in the session
   static Future<void> editApiKey(
       String name, String newKey, String serviceType) async {
     List<ApiKeyModel> apiKeys = await getApiKeys();
@@ -84,38 +83,14 @@ class APIKeySharedPref {
         .toList();
     await saveApiKeys(apiKeys);
   }
-
-  // Save the default API key for a specific service type
-  // static Future<void> saveDefaultApiKey(
-  //     String serviceType, String keyName) async {
-  //   await _prefs!.setString('default_api_key_$serviceType', keyName);
-
-  //   // Update the default key in the stored list
-  //   List<ApiKeyModel> apiKeys = await getApiKeys();
-  //   apiKeys = apiKeys
-  //       .map((apiKey) => apiKey.serviceType == serviceType
-  //           ? ApiKeyModel(
-  //               name: apiKey.name,
-  //               key: apiKey.key,
-  //               serviceType: serviceType,
-  //               isDefault: apiKey.name == keyName)
-  //           : ApiKeyModel(
-  //               name: apiKey.name,
-  //               key: apiKey.key,
-  //               serviceType: serviceType,
-  //               isDefault: false))
-  //       .toList();
-  //   await saveApiKeys(apiKeys);
-  // }
+  
+  /// Save the default API key for a specific service type
   static Future<void> saveDefaultApiKey(
       String serviceType, String keyName) async {
-    // Save the new default key for the given service type
     await _prefs!.setString('default_api_key_$serviceType', keyName);
 
-    // Retrieve and update the API keys
     List<ApiKeyModel> apiKeys = await getApiKeys();
 
-    // Update the default key status
     apiKeys = apiKeys.map((apiKey) {
       if (apiKey.serviceType == serviceType) {
         return ApiKeyModel(
@@ -129,14 +104,12 @@ class APIKeySharedPref {
       }
     }).toList();
 
-    // Save the updated API keys list
     await saveApiKeys(apiKeys);
   }
 
-  // Retrieve the default API key for a specific service type
+  /// Retrieve the default API key for a specific service type
   static Future<ApiKeyModel?> getDefaultApiKey(String serviceType) async {
     List<ApiKeyModel> apiKeys = await getApiKeys();
-    print(apiKeys);
     try {
       return apiKeys
           .firstWhere((key) => key.serviceType == serviceType && key.isDefault);

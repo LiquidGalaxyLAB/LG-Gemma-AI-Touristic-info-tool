@@ -5,6 +5,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class FontWidget extends StatefulWidget {
   const FontWidget({super.key});
 
@@ -29,10 +30,7 @@ class _FontWidgetState extends State<FontWidget> {
                   AppLocalizations.of(context)!.settingsFont_title,
                   style: TextStyle(
                       fontFamily: fontType,
-                      // fontSize: textSize + 3,
                       fontSize: value.fonts.textSize + 3,
-                      // color: FontAppColors.primaryFont,
-                      // color: value.fonts.primaryFontColor,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -43,10 +41,7 @@ class _FontWidgetState extends State<FontWidget> {
                   AppLocalizations.of(context)!.settingsFont_subtitle,
                   style: TextStyle(
                       fontFamily: fontType,
-                      // fontSize: textSize,
                       fontSize: value.fonts.textSize,
-                      // color: FontAppColors.primaryFont,
-                      // color: value.fonts.primaryFontColor,
                       color: Colors.black),
                 ),
               ),
@@ -77,7 +72,6 @@ class _FontWidgetState extends State<FontWidget> {
                   style: TextStyle(
                       fontSize: value.fonts.titleSize,
                       fontFamily: fontType,
-                      // color: value.fonts.primaryFontColor,
                       color: Colors.black),
                 ),
               ),

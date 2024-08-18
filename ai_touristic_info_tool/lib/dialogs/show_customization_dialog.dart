@@ -2,7 +2,7 @@ import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/show_case_keys.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/customization_widget.dart';
+import 'package:ai_touristic_info_tool/screens/views/customization_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';

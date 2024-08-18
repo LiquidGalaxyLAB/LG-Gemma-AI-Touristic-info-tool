@@ -1,8 +1,5 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/helpers/api.dart';
 import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/kml/KMLModel.dart';
@@ -14,8 +11,8 @@ import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart'
 import 'package:ai_touristic_info_tool/reusable_widgets/poi_expansion_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/search_results_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
-import 'package:ai_touristic_info_tool/services/geocoding_services.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
+import 'package:ai_touristic_info_tool/services/voices_services.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
@@ -28,7 +25,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-// import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -60,23 +56,17 @@ class VisualizationDialog extends StatefulWidget {
 class _VisualizationDialogState extends State<VisualizationDialog> {
   late bool _isTourOn;
   final _narrationPlayer = AudioPlayer();
-  // bool _isNarrating = false;
   PlayerState _audioPlayerState = PlayerState.stopped;
   bool _isPlaying = false;
+  // ignore: unused_field
   bool _isPaused = false;
   bool _isAudioFinishedNarration = true;
-  Uint8List? _bytes;
   bool _narratedOnce = false;
   bool _isAudioLoading = false;
   bool _isAudioEmptyError = false;
   bool _isAudioPlayError = false;
 
-  // final AudioPlayer _audioPlayer = AudioPlayer();
   File? _audioFile;
-
-  // late MyLatLng myLatLng;
-  // double lat=0;
-  // double long=0;
 
   @override
   void initState() {
@@ -108,8 +98,6 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
   }
 
   void playAudio() async {
-    // await _narrationPlayer.play(BytesSource(_bytes!));
-    print('playing audio');
     try {
       if (_isAudioEmptyError) {
         //
@@ -124,14 +112,10 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
         });
       }
     }
-
-    // _isNarrating = true;
   }
 
   void stopAudio() async {
     await _narrationPlayer.stop();
-    // _narrationPlayer.audioCache.clearAll();
-    // _isNarrating = false;
   }
 
   void pauseAudio() async {
@@ -149,10 +133,9 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
       });
     }
 
-    File? audioFile = await Api().textToSpeech(text);
-    print('converted');
+    File? audioFile = await VoicesServicesApi().textToSpeech(text);
+
     if (audioFile == null) {
-      print('audiofile empty');
       if (mounted) {
         setState(() {
           _isAudioEmptyError = true;
@@ -176,19 +159,9 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
       });
     }
     playAudio();
-
-    // Uint8List? bytes = await Api().textToSpeechApi(text);
-    // if (bytes != null) {
-    //   setState(() {
-    //     _bytes = bytes;
-    //   });
-    // }
   }
 
   void _handlePlayPause(String text) async {
-    print('clicked');
-    print('Final text');
-    print(text);
     if (!_isAudioEmptyError && !_isAudioPlayError) {
       if (_audioPlayerState == PlayerState.playing) {
         if (mounted) {
@@ -207,18 +180,13 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
       } else if (_audioPlayerState == PlayerState.stopped ||
           _audioPlayerState == PlayerState.completed) {
         if (_narratedOnce) {
-          print('narrated before');
-          // if (_audioFile != null) {
           playAudio();
-
-          // } else {}
         } else {
           if (mounted) {
             setState(() {
               _isAudioLoading = true;
             });
           }
-          print('shoudl convert');
           _convertTextToSpeech(text);
           if (mounted) {
             setState(() {
@@ -233,10 +201,8 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
   @override
   void dispose() {
     _narrationPlayer.dispose();
-    // Check if the audio file exists, then delete it
     if (_audioFile != null && _audioFile!.existsSync()) {
-      _audioFile!.deleteSync(); // Synchronously delete the file
-      print('Audio file deleted: ${_audioFile!.path}');
+      _audioFile!.deleteSync();
     }
     super.dispose();
   }
@@ -282,15 +248,9 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                         widget.query,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            // color: FontAppColors.secondaryFont,
-                            // color: SettingsSharedPref.getTheme() == 'default'
-                            //     ? fontVal.fonts.secondaryFontColor
-                            //     : fontVal.fonts.primaryFontColor,
                             color: SettingsSharedPref.getTheme() == 'dark'
                                 ? fontVal.fonts.primaryFontColor
                                 : fontVal.fonts.secondaryFontColor,
-                            // fontSize: headingSize,
-                            // fontSize: fontVal.fonts.headingSize,
                             fontSize: fontVal.fonts.headingSize,
                             fontWeight: FontWeight.bold,
                             fontFamily: fontType),
@@ -304,7 +264,6 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
               ),
               Positioned(
                 bottom: 0,
-                // left: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -322,21 +281,17 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                         mapProvider.setBitmapDescriptor(
                             "assets/images/placemark_pin.png");
                         mapProvider.updateZoom(12.4746);
-                        // mapProvider.flyToLocation(
-                        //     LatLng(myLatLng.latitude, myLatLng.longitude));
+
                         mapProvider.flyToLocation(
                             LatLng(widget.initialLat, widget.initialLong));
 
                         for (int i = 0; i < widget.places.length; i++) {
                           PlacesModel placeModel = widget.places[i];
 
-                          // LatLng newLocation =
-                          //     LatLng(placeModel.latitude, placeModel.longitude);
                           mapProvider.addMarker(context, placeModel,
                               removeAll: false);
                         }
 
-                        //wait for 5 seconds:
                         await Future.delayed(const Duration(seconds: 3));
                         final sshData =
                             Provider.of<SSHprovider>(context, listen: false);
@@ -413,8 +368,6 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                             await LgService(sshData).startTour('App Tour');
                             for (int i = 0; i < kmlBalloons.length; i++) {
                               if (_isTourOn) {
-                                print('tour is on');
-                                print('new kml balloon');
                                 await LgService(sshData).sendKMLToSlave(
                                   LgService(sshData).balloonScreen,
                                   kmlBalloons[i].body,
@@ -441,7 +394,7 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                       height: MediaQuery.of(context).size.height * 0.07,
                       width: MediaQuery.of(context).size.width * 0.165,
                       fontSize: textSize,
-                      // fontSize: fontVal.fonts.textSize,
+
                       fontColor: FontAppColors.primaryFont,
                       isLoading: false,
                       isBold: true,
@@ -506,7 +459,7 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                       height: MediaQuery.of(context).size.height * 0.07,
                       width: MediaQuery.of(context).size.width * 0.165,
                       fontSize: textSize,
-                      // fontSize: fontVal.fonts.textSize,
+
                       fontColor: FontAppColors.primaryFont,
                       isLoading: false,
                       isBold: true,
@@ -543,8 +496,6 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                                 'Next, we have ${poi.name} in ${poi.city}, ${poi.country}.';
                           }
                           voiceNarration += poi.description ?? '';
-                          print(voiceNarration);
-                          // _convertTextToSpeech(voiceNarration);
                         }
                         if (_isAudioEmptyError) {
                           //
@@ -564,7 +515,7 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                       height: MediaQuery.of(context).size.height * 0.07,
                       width: MediaQuery.of(context).size.width * 0.165,
                       fontSize: textSize,
-                      // fontSize: fontVal.fonts.textSize,
+
                       fontColor: FontAppColors.primaryFont,
                       isLoading: false,
                       isBold: true,
@@ -624,14 +575,11 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                             width: MediaQuery.of(context).size.width * 0.65,
                             height: MediaQuery.of(context).size.height * 0.55,
                             initialLatValue: widget.initialLat,
-                            //places[0].latitude,
                             initialLongValue: widget.initialLong,
-                            //places[0].longitude,
                             initialTiltValue: 41.82725143432617,
                             initialBearingValue: 61.403038024902344,
                             initialCenterValue:
                                 LatLng(widget.initialLat, widget.initialLong),
-                            //LatLng(places[0].latitude, places[0].longitude),
                             query: widget.query,
                           ),
                         ]);
@@ -663,10 +611,7 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                             AppLocalizations.of(context)!
                                 .visualizationDialog_listofPois,
                             style: TextStyle(
-                                // color: FontAppColors.primaryFont,
                                 color: value.fonts.primaryFontColor,
-
-                                // fontSize: textSize + 4,
                                 fontSize: fontVal.fonts.textSize + 4,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: fontType),
@@ -719,7 +664,7 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                           // elevatedButtonContent: 'Map',
                           elevatedButtonContent: AppLocalizations.of(context)!
                               .visualizationDialog_mapButton,
-                          // buttonColor: PrimaryAppColors.buttonColors,
+
                           buttonColor: colorProv.colors.buttonColors,
                           onpressed: () {
                             Provider.of<SearchProvider>(context, listen: false)
@@ -727,7 +672,7 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                           },
                           height: MediaQuery.of(context).size.height * 0.035,
                           width: MediaQuery.of(context).size.width * 0.1,
-                          // fontSize: textSize,
+
                           fontSize: fontVal.fonts.textSize,
                           fontColor: FontAppColors.secondaryFont,
                           isLoading: false,
@@ -744,21 +689,21 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                         // elevatedButtonContent: 'Close',
                         elevatedButtonContent:
                             AppLocalizations.of(context)!.defaults_close,
-                        // buttonColor: PrimaryAppColors.buttonColors,
+
                         buttonColor: colorProv.colors.buttonColors,
                         onpressed: () async {
                           SSHprovider sshData =
                               Provider.of<SSHprovider>(context, listen: false);
                           await LgService(sshData).clearKml();
                           await buildAppBalloonOverlay(context);
-                          //value.showMap = true;
+
                           while (Navigator.of(context).canPop()) {
                             Navigator.of(context).pop();
                           }
                         },
                         height: MediaQuery.of(context).size.height * 0.035,
                         width: MediaQuery.of(context).size.width * 0.1,
-                        // fontSize: textSize,
+
                         fontSize: fontVal.fonts.textSize,
                         fontColor: FontAppColors.secondaryFont,
                         isLoading: false,
@@ -771,9 +716,7 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                   );
                 },
               ),
-              onPressed: () {
-                // Navigator.of(context).pop();
-              },
+              onPressed: () {},
             ),
           ],
         );
@@ -783,18 +726,14 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
 
   String get playAudioElevatedButtonContent {
     if (_isAudioLoading) {
-      // Show 'Loading..' if audio is still loading
       return 'Loading..';
     } else if (_isAudioEmptyError ||
         _isAudioPlayError ||
         _isAudioFinishedNarration) {
-      // Show 'Play sound' if there is an error, or narration is finished
       return 'Play sound';
     } else if (_isPlaying) {
-      // Show 'Pause' if the audio is currently playing
       return 'Pause';
     } else {
-      // Show 'Resume' if the audio is paused and narration is not finished
       return 'Resume';
     }
   }
@@ -848,7 +787,6 @@ class _FavIconState extends State<FavIcon> {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      // message: _isFav ? 'Added to favorites' : 'Removed from favorites',
       message: _isFav
           ? AppLocalizations.of(context)!.favs_addtofavsmessage
           : AppLocalizations.of(context)!.favs_removefromfavsmessage,

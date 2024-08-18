@@ -48,14 +48,12 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
 
   void _onMapCreated(GoogleMapController mapController) {
     _mapController = mapController;
-    //Provider.of<GoogleMapProvider>(context, listen: false).mapController = mapController;
     GoogleMapProvider gmp =
         Provider.of<GoogleMapProvider>(context, listen: false);
     gmp.mapController = mapController;
     gmp.updateCameraPosition(
       CameraPosition(
         target: widget.initialCenterValue,
-        // zoom: 14.4746,
         zoom: widget.zoomValue,
         bearing: widget.initialBearingValue,
         tilt: widget.initialTiltValue,
@@ -140,9 +138,6 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                   child: Consumer2<MapTypeProvider, GoogleMapProvider>(builder:
                       (BuildContext context, MapTypeProvider value,
                           GoogleMapProvider mapProvider, Widget? child) {
-                    print('google maps');
-                    print(mapProvider.markers);
-                    print(mapProvider.polylines);
                     return Stack(
                       children: [
                         GoogleMap(
@@ -188,7 +183,6 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                         if (widget.showCleaner)
                           GestureDetector(
                             onTap: () {
-                              print(mapProvider.markers);
                               setState(() {
                                 mapProvider.clearMarkers();
                                 mapProvider.clearCustomMarkers();
@@ -196,9 +190,6 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                                     MediaQuery.of(context).size.height * 1;
                               });
                               setState(() {});
-
-                              print(mapProvider.markers);
-                              print('cleared');
                             },
                             child: Container(
                               alignment: Alignment.topRight,
@@ -211,8 +202,8 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                                     size: 50,
                                   ),
                                   Text(
-                                    // 'Clear data',
-                                    AppLocalizations.of(context)!.map_clear,
+                                      // 'Clear data',
+                                      AppLocalizations.of(context)!.map_clear,
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,

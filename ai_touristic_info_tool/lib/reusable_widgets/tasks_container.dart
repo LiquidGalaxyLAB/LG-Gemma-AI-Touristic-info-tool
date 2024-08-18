@@ -1,6 +1,5 @@
 import 'package:ai_touristic_info_tool/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class LgTasksButton extends StatelessWidget {
   final Color buttonColor;
@@ -27,10 +26,8 @@ class LgTasksButton extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.07,
         width: MediaQuery.of(context).size.width * 0.8,
         decoration: BoxDecoration(
-          // color: value.colors.shadow,
           color: buttonColor,
           border: Border.all(
-            // color: value.colors.buttonColors,
             color: borderColor,
             width: 2,
           ),
@@ -47,11 +44,6 @@ class LgTasksButton extends StatelessWidget {
                 child: Image.asset(
                   imgPath,
                 ),
-                // Icon(
-                //  icon,
-                //   color: FontAppColors.secondaryFont,
-                //   size: 25,
-                // ),
               ),
             ),
             Expanded(
@@ -63,7 +55,6 @@ class LgTasksButton extends StatelessWidget {
                     text,
                     style: TextStyle(
                       fontFamily: fontType,
-                      // fontSize: fontProv.fonts.textSize,
                       fontSize: fontSize,
                       color: FontAppColors.primaryFont,
                       fontWeight: FontWeight.bold,

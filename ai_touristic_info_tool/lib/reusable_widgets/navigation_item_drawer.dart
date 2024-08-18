@@ -60,12 +60,6 @@ class NavigationItem extends StatelessWidget {
                         color: color,
                         size: 40,
                       ),
-                      // Image.asset(
-                      //   imagePath,
-                      //   color: color,
-                      //   height: 40,
-                      //   width: 40,
-                      // ),
                       Expanded(
                         child: Text(
                           title,
@@ -73,9 +67,7 @@ class NavigationItem extends StatelessWidget {
                           maxLines: 2,
                           style: TextStyle(
                             fontFamily: fontType,
-                            // fontSize: textSize - 10,
                             fontSize: textSize - 5,
-                            // fontSize: value.fonts.textSize - 10,
                             color: color,
                           ),
                         ),

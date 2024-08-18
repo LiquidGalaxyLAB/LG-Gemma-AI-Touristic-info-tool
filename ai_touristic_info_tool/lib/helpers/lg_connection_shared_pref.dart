@@ -11,11 +11,20 @@ class LgConnectionSharedPref {
   static const String _keyScreenAmount = 'screenAmount';
   static const String _keyAiPort = 'aiPort';
   static const String _keyAiIp = 'aiIP';
+  static const String _keyVoicePort = 'voicePort';
+  static const String _keyVoiceIp = 'voiceIP';
 
   /// Initializes the SharedPreferences instance for local data storage.
   static Future init() async => _prefs = await SharedPreferences.getInstance();
 
-  // Setters
+
+  /// Sets the IP address for the voice session.
+  static Future<void> setVoiceIP(String ip) async =>
+      await _prefs?.setString(_keyVoiceIp, ip);
+
+  /// Sets the port number for the voice session.
+  static Future<void> setVoicePort(String port) async =>
+      await _prefs?.setString(_keyVoicePort, port);
 
   /// Sets the IP address for the lg session.
   static Future<void> setIP(String ip) async =>
@@ -37,11 +46,13 @@ class LgConnectionSharedPref {
   static Future<void> setScreenAmount(int screenAmount) async =>
       await _prefs?.setInt(_keyScreenAmount, screenAmount);
 
+  /// Sets the IP address for the AI session.
   static Future<void> setAiIp(String aiIp) async =>
       await _prefs?.setString(_keyAiIp, aiIp);
+  /// Sets the port number for the AI session.
   static Future<void> setAiPort(String aiPort) async =>
       await _prefs?.setString(_keyAiPort, aiPort);
-  // Getters
+  
 
   /// Retrieves the saved IP address from the lg session.
   static String? getIP() => _prefs?.getString(_keyIP);
@@ -58,10 +69,16 @@ class LgConnectionSharedPref {
   /// Retrieves the saved screen amount from the lg session.
   static int? getScreenAmount() => _prefs?.getInt(_keyScreenAmount);
 
+  ///   Retrieves the saved IP address from the AI session.
   static String? getAiPort() => _prefs?.getString(_keyAiPort);
+  ///  Retrieves the saved port number from the AI session.
   static String? getAiIp() => _prefs?.getString(_keyAiIp);
 
-  // Removers
+   ///  Retrieves the saved IP address from the voice session.
+  static String? getVoiceIp() => _prefs?.getString(_keyVoiceIp);
+   /// Retrieves the saved port number from the voice session.
+  static String? getVoicePort() => _prefs?.getString(_keyVoicePort);
+
 
   /// Removes the saved IP address from the lg session.
   static Future<void> removeIP() async => await _prefs?.remove(_keyIP);
@@ -81,6 +98,13 @@ class LgConnectionSharedPref {
   static Future<void> removeScreenAmount() async =>
       await _prefs?.remove(_keyScreenAmount);
 
+  /// Removes the saved IP address from the AI session.
   static Future<void> removeAiPort() async => await _prefs?.remove(_keyAiPort);
+  /// Removes the saved port number from the AI session.
   static Future<void> removeAiIp() async => await _prefs?.remove(_keyAiIp);
+
+  /// Removes the saved IP address from the voice session.
+  static Future<void> removeVoiceIp() async => await _prefs?.remove(_keyVoiceIp);
+  /// Removes the saved port number from the voice session.
+  static Future<void> removeVoicePort() async => await _prefs?.remove(_keyVoicePort);
 }

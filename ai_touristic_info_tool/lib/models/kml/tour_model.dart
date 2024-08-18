@@ -4,13 +4,26 @@ import 'package:ai_touristic_info_tool/models/kml/look_at_model.dart';
 import 'package:ai_touristic_info_tool/models/kml/orbit_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+
+/// Class that defines the `tour` entity, which contains its properties and methods.
+/// Used for creating the tour path and the placemarks.
 class TourModel {
+  /// Property that defines the tour `name`.
   String name;
+
+  /// Property that defines the number of places in the tour.
   int numberOfPlaces;
+
+  /// Property that defines the list of `look at` coordinates.
   List<LookAtModel> lookAtCoordinates;
-  // List<String> ballonContentOfPlacemarks;
+
+  /// Property that defines the list of `POIs` names.
   List<String> poisNames;
+
+  /// Property that defines the list of `all path points`.
   List<LatLng> allPathPoints = [];
+
+  /// Property that defines the list of `interpolated points`.
   List<LatLng> interpolatedPoints = [];
 
   TourModel({
@@ -21,6 +34,10 @@ class TourModel {
     required this.poisNames,
   });
 
+
+
+
+  /// Property that defines the tour `styleOnlyTag` according to its current properties.
   String styleOnlyTag(String placemarkIndex) {
     String content = '';
     content += '''
@@ -35,6 +52,7 @@ class TourModel {
     return content;
   }
 
+  /// Property that defines the tour `iconStyleOnlyTag` according to its current properties.
   String iconStyleOnlyTag(String hrefIcon, String styleID) {
     String content = '';
     //String placemarkIndex
@@ -50,7 +68,8 @@ class TourModel {
 ''';
     return content;
   }
-
+ 
+  /// Property that defines the tour `lineStyleOnlyTag` according to its current properties.
   String lineStyleOnlyTag() {
     String content = '';
     content += '''
@@ -64,6 +83,7 @@ class TourModel {
     return content;
   }
 
+  ///  Property that defines the tour `flyToLookAtOnlyTag` according to its current properties.
   String flyToLookAtOnlyTag(
       double lat,
       double long,
@@ -93,6 +113,7 @@ class TourModel {
     return content;
   }
 
+  /// Property that defines the tour `flyToCameraOnlyTag` according to its current properties.
   String flyToCameraOnlyTag(
     double lat,
     double long,
@@ -115,6 +136,7 @@ class TourModel {
     return content;
   }
 
+  /// Property that defines the tour `ballonVisibilityOnlyTag` according to its current properties.
   String ballonVisibilityOnlyTag(String placemarkIndex, int visibility) {
     String content = '';
     content += '''
@@ -133,12 +155,14 @@ class TourModel {
     return content;
   }
 
+  /// Property that defines the tour `waitOnlyTag` according to its current properties.
   String get waitOnlyTag => '''
  <gx:Wait>
     <gx:duration>6.0</gx:duration>
   </gx:Wait>
 ''';
 
+ /// Property that defines the tour `placemarkOnlyTag` according to its current properties.
   String placemarkOnlyTag(
       String placemarkIndex, String placemarkName, double lat, double long) {
     String content = '';
@@ -154,6 +178,7 @@ class TourModel {
     return content;
   }
 
+  /// Property that defines the tour `pointPlacemarkOnlyTag` according to its current properties.   
   String pointPlacemarkOnlyTag(
       String placemarkName, double lat, double long, String styleID) {
     String content = '';
@@ -170,6 +195,7 @@ class TourModel {
     return content;
   }
 
+  ///   Property that defines the tour `midPointPlacemarkOnlyTag` according to its current properties.
   String midPointPlacemarkOnlyTag(double lat, double long, String styleID) {
     String content = '';
     //  <styleUrl>#placemark-$placemarkIndex-style</styleUrl>
@@ -184,6 +210,8 @@ class TourModel {
     return content;
   }
 
+  /// Property that defines the tour `linePlacemarkOnlyTag` according to its current properties.
+  /// Returns the line placemark content.
   String linePlacemarkOnlyTag(List<LatLng> coordinates) {
     String content = '';
     String coordinatesString = '';
@@ -207,6 +235,8 @@ class TourModel {
     return content;
   }
 
+  /// Property that defines the tour `calculateDistance` according to its current properties.
+  /// Returns the distance between two given points.
   double calculateDistance(LatLng start, LatLng end) {
     const double earthRadius = 6371000; // Earth's radius in meters
 
@@ -224,29 +254,28 @@ class TourModel {
     return earthRadius * c; // Distance in meters
   }
 
+
+  /// Property that defines the tour `_toRadians` according to its current properties.
+  /// Converts degrees to radians.
   double _toRadians(double degree) {
     return degree * pi / 180;
   }
 
+   /// Property that defines the tour `determineNumPoints` according to its current properties.
+   /// Returns the number of points to interpolate between two given points.
   int determineNumPoints(double distance) {
     print('distance:');
-    //15 718 508.08362816    2 037 454 .8680823362
-    //9 285 328.213744583
-    // Calculate the ratio of points to distance
-    double ratio = 10 / 16000000;
     if (distance > 10000000) {
       return 10;
     } else if (distance > 5000000) {
       return 5;
     } else {
       return 2;
-      // Calculate the number of points for the given distance
-      // int points = (distance * ratio).floor();
-
-      // return points;
     }
   }
 
+  /// Property that defines the tour `interpolatePoints` according to its current properties.
+  /// Returns a list of interpolated points between two given points.
   List<LatLng> interpolatePoints(LatLng start, LatLng end) {
     double distance = calculateDistance(start, end);
     int numPoints = determineNumPoints(distance);
@@ -264,6 +293,7 @@ class TourModel {
     return interpolatedPoints;
   }
 
+  /// Property that defines the tour `setInterpolatedPath` according to its current properties.
   setInterpolatedPath() {
     //List<LatLng> allPoints = [];
 
@@ -349,6 +379,8 @@ class TourModel {
   }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+///
+/// Tour Model for Line Tour
   List<dynamic> lineTourTag() {
     double tourDuration = 0;
     setInterpolatedPath();

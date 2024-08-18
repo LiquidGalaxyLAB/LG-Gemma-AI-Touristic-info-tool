@@ -46,10 +46,6 @@ class _CustomRecordingButtonState extends State<CustomRecordingButton> {
                   backgroundColor: colorProvv.colors.innerBackground,
                   child: widget.isRecording
                       ? CustomRecordingWaveWidget()
-                      // Image.asset(
-                      //     "assets/images/rec-gif.gif",
-                      //     scale: 10,
-                      //   )
                       : Icon(Icons.mic,
                           size: 50, color: colorProvv.colors.buttonColors),
                 ),
@@ -63,35 +59,6 @@ class _CustomRecordingButtonState extends State<CustomRecordingButton> {
                     fontFamily: fontType),
               ),
             ],
-            // child: AnimatedContainer(
-            //   height: 100,
-            //   width: 100,
-            //   duration: const Duration(milliseconds: 300),
-            //   padding: EdgeInsets.all(
-            //     isRecording ? 25 : 15,
-            //   ),
-            //   decoration: BoxDecoration(
-            //     color: Colors.white,
-            //     shape: BoxShape.circle,
-            //     border: Border.all(
-            //       color: Colors.blue,
-            //       width: isRecording ? 8 : 3,
-            //     ),
-            //   ),
-            //   child: AnimatedContainer(
-            //     duration: const Duration(milliseconds: 300),
-            //     height: 70,
-            //     width: 70,
-            //     decoration: BoxDecoration(
-            //       color: Colors.blue,
-            //       shape: isRecording ? BoxShape.rectangle : BoxShape.circle,
-            //     ),
-            //   child: MaterialButton(
-            //     onPressed: onPressed,
-            //     shape: const CircleBorder(),
-            //     child: const SizedBox.shrink(),
-            //   ),
-            // ),
           ),
         ));
       },

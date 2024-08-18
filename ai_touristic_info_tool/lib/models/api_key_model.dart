@@ -1,7 +1,17 @@
+/// Class that defines the `API key` entity, which contains its properties and
+/// methods.
 class ApiKeyModel {
+
+  /// Property that defines the API key `name`.
   final String name;
+
+  /// Property that defines the API key `key`.
   final String key;
+
+  /// Property that defines the API key `serviceType`.  
   final String serviceType;
+
+  /// Property that defines if the API key is the default one.
   final bool isDefault;
 
   ApiKeyModel({
@@ -11,7 +21,7 @@ class ApiKeyModel {
     this.isDefault = false,
   });
 
-  // Convert ApiKeyModel to a Map for storage
+  /// Returns a [Map] from the current [ApiKeyModel].
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -21,7 +31,7 @@ class ApiKeyModel {
     };
   }
 
-  // Create ApiKeyModel from a Map
+  /// Returns a [ApiKeyModel] from the given [map].
   factory ApiKeyModel.fromMap(Map<String, dynamic> map) {
     return ApiKeyModel(
       name: map['name'] ?? '',

@@ -1,11 +1,22 @@
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:flutter/material.dart';
 
+/// Class that defines the `DynamicFontsModel` entity, which contains its properties and
+/// methods.
 class DynamicFontsModel {
+  /// Property that defines the `primaryFontColor` color.
   Color primaryFontColor;
+
+  /// Property that defines the `secondaryFontColor` color.
   Color secondaryFontColor;
+
+  /// Property that defines the `titleSize` double.
   double titleSize;
+
+  /// Property that defines the `headingSize` double.
   double headingSize;
+
+  /// Property that defines the `textSize` double.
   double textSize;
 
   DynamicFontsModel({
@@ -16,18 +27,15 @@ class DynamicFontsModel {
     required this.textSize,
   });
 
+  /// Returns a [DynamicFontsModel] from the given [inputSize].
   factory DynamicFontsModel.fromFonts(double inputSize) {
     Color primFntColor;
     Color secFntColor;
     double tlSize = inputSize;
     double headSize = tlSize - 5;
     double txtSize = tlSize - 20;
-    // primFntColor = Colors.black;
-    // secFntColor = Colors.white;
 
     if (SettingsSharedPref.getTheme() == 'dark'
-        // ||
-        // SettingsSharedPref.getTheme() == 'default'
         ) {
       primFntColor = Colors.white;
       secFntColor = Colors.black;
@@ -44,13 +52,12 @@ class DynamicFontsModel {
     );
   }
 
+  /// Updates the `font color`.
   void updateFontColor() {
     Color primFntColor;
     Color secFntColor;
 
     if (SettingsSharedPref.getTheme() == 'dark'
-        // ||
-        //     SettingsSharedPref.getTheme() == 'default'
         ) {
       primFntColor = Colors.white;
       secFntColor = Colors.black;
@@ -62,6 +69,7 @@ class DynamicFontsModel {
     secondaryFontColor = secFntColor;
   }
 
+  /// Updates the `font size`.
   void updateFonts(double inputSize) {
     Color primFntColor;
     Color secFntColor;
@@ -69,12 +77,7 @@ class DynamicFontsModel {
     double headSize = tlSize - 5;
     double txtSize = tlSize - 20;
 
-    // primFntColor = Colors.black;
-    // secFntColor = Colors.white;
-
     if (SettingsSharedPref.getTheme() == 'dark'
-        // ||
-        //     SettingsSharedPref.getTheme() == 'default'
         ) {
       primFntColor = Colors.white;
       secFntColor = Colors.black;
