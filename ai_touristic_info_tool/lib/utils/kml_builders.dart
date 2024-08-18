@@ -16,9 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
 
+/// Escapes HTML special characters in the input string.
 String escapeHtml(String input) {
   return input
-      // .replaceAll('&', '&amp;')
       .replaceAll('&', 'and')
       .replaceAll('<', '&lt;')
       .replaceAll('>', '&gt;')
@@ -26,6 +26,7 @@ String escapeHtml(String input) {
       .replaceAll("'", '&#39;');
 }
 
+/// Builds and sends an app balloon overlay to Liquid Galaxy setup.
 buildAppBalloonOverlay(BuildContext context) async {
   FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
   ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
@@ -45,8 +46,8 @@ buildAppBalloonOverlay(BuildContext context) async {
 
   print('primaryColor');
   print(primaryColor);
-  String buttonColor =
-      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  // String buttonColor =
+  //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
       colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
   String grad2 =
@@ -57,8 +58,8 @@ buildAppBalloonOverlay(BuildContext context) async {
       colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
 
   final sshData = Provider.of<SSHprovider>(context, listen: false);
-  String appLogoGemma =
-      'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo-Gemma.png?raw=true';
+  // String appLogoGemma =
+  //     'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo-Gemma.png?raw=true';
   String appLogoGemini =
       'https://github.com/Mahy02/LG-KISS-AI-App/blob/main/assets/images/appLogo-Gemini.png?raw=true';
   String balloonContent = '''
@@ -170,12 +171,6 @@ buildAppBalloonOverlay(BuildContext context) async {
     sizeY: 0.5,
     content: balloonContent,
   );
-  /*
-   "      <overlayXY x=\"0\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                        "      <screenXY x=\"1\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                        "      <rotationXY x=\"0\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                        "      <size x=\"0\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-  */
 
   String kmlName = 'App-Balloon';
   String content = '<name>AppBalloon</name>';
@@ -197,7 +192,6 @@ buildAppBalloonOverlay(BuildContext context) async {
   );
 
   try {
-    // await LgService(sshData).sendKml(kmlBalloon);
     await LgService(sshData).sendKMLToSlave(
       LgService(sshData).balloonScreen,
       kmlBalloon.body,
@@ -229,8 +223,8 @@ buildWebsiteLinkBallon(String placeName, String? city, String? country,
 
   print('primaryColor');
   print(primaryColor);
-  String buttonColor =
-      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  // String buttonColor =
+  //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
       colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
   String grad2 =
@@ -418,8 +412,8 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
 
   print('primaryColor');
   print(primaryColor);
-  String buttonColor =
-      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  // String buttonColor =
+  //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
       colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
   String grad2 =
@@ -609,8 +603,8 @@ buildAllLinksBalloon(String placeName, String? city, String? country,
 
   print('primaryColor');
   print(primaryColor);
-  String buttonColor =
-      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  // String buttonColor =
+  //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
       colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
   String grad2 =
@@ -769,13 +763,6 @@ buildAllLinksBalloon(String placeName, String? city, String? country,
     sizeY: 0.5,
     content: balloonContent,
   );
-  /*
-   "      <overlayXY x=\"0\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                        "      <screenXY x=\"1\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                        "      <rotationXY x=\"0\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                        "      <size x=\"0\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-  */
-
   String kmlName = 'AllLinks-Balloon';
   String content = '<name>LinksBalloon</name>';
 
@@ -817,8 +804,8 @@ buildQueryPlacemark(
 
   print('primaryColor');
   print(primaryColor);
-  String buttonColor =
-      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  // String buttonColor =
+  //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
       colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
   String grad2 =
@@ -985,8 +972,8 @@ buildPlacePlacemark(
 
   print('primaryColor');
   print(primaryColor);
-  String buttonColor =
-      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  // String buttonColor =
+  //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
       colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
   String grad2 =
@@ -1181,11 +1168,6 @@ buildPlacePlacemark(
   print('Content: $content');
   print('Lat: $placeLatitude ,long: $placeLongitude ');
 
-  // final kmlBalloon = KMLModel(
-  //   name: '$placeName-balloon',
-  //   content: placemark.balloonOnlyTag,
-  // );
-
   final kmlPlacemark = KMLModel(
     name: '$placeName-pin',
     content: content,
@@ -1243,8 +1225,8 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
 
   print('primaryColor');
   print(primaryColor);
-  String buttonColor =
-      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  // String buttonColor =
+  //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
       colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
   String grad2 =
@@ -1433,40 +1415,6 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
     content: content,
   );
 
-//   String balloonTag = '''
-
-//  <Style id="balloon-POIs">
-//       <BalloonStyle>
-//         <bgColor>000000</bgColor>
-//         <text><![CDATA[
-//          <html>
-//           <body style="font-family: montserrat, sans-serif; font-size: 18px; width: 400px; display: flex; justify-content: center; align-items: center;">
-//             <div style="background-color: #ffffff; padding: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">
-//               <span style="color: black;">$balloonContent</span> <!-- Content of the balloon with red color -->
-//             </div>
-//           </body>
-//         </html>
-//         ]]></text>
-//       </BalloonStyle>
-//       <LabelStyle>
-//         <scale>0</scale>
-//       </LabelStyle>
-//       <IconStyle>
-//         <scale>0</scale>
-//       </IconStyle>
-//     </Style>
-//     <Placemark>
-//       <name>POIs-Balloon</name>
-//       <styleUrl>#balloon-POIs</styleUrl>
-//       <gx:balloonVisibility>${balloonContent.isEmpty ? 0 : 1}</gx:balloonVisibility>
-//     </Placemark>
-// ''';
-
-  // final kmlBalloon = KMLModel(
-  //   name: 'home-balloon',
-  //   content: balloonTag,
-  // );
-
   ScreenOverlayModel screenOverlay = ScreenOverlayModel(
     name: "",
     overlayX: 0,
@@ -1519,8 +1467,8 @@ Future<List<KMLModel>> buildQueryTour(
 
   print('primaryColor');
   print(primaryColor);
-  String buttonColor =
-      colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  // String buttonColor =
+  //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
   String grad1 =
       colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
   String grad2 =
@@ -1695,14 +1643,6 @@ Future<List<KMLModel>> buildQueryTour(
     kmlBallonsList.add(kmlBalloon);
   }
 
-  // String kmlName = 'App-Balloon';
-  // String content = '<name>AppBalloon</name>';
-
-  // final kmlBalloon = KMLModel(
-  //   name: kmlName,
-  //   content: content,
-  //   screenOverlay: screenOverlay.balloonTag,
-  // );
 
   String screenoverlayTags = '';
 
@@ -1714,7 +1654,6 @@ Future<List<KMLModel>> buildQueryTour(
     name: 'app-tour',
     numberOfPlaces: pois.length,
     lookAtCoordinates: lookAts,
-    // ballonContentOfPlacemarks: ballonContents,
     poisNames: poisNames,
   );
   String kmlContent = screenoverlayTags + tour.tourTag();
@@ -1725,13 +1664,6 @@ Future<List<KMLModel>> buildQueryTour(
 
   try {
     await LgService(sshData).sendKmlPlacemarks(kmlPlacemark.body, 'app-tour');
-    // for (int i = 0; i < kmlBallonsList.length; i++) {
-    //   await LgService(sshData).sendKMLToSlave(
-    //     LgService(sshData).balloonScreen,
-    //     kmlBallonsList[i].body,
-    //   );
-    //   await Future.delayed(Duration(seconds: 60));
-    // }
     return kmlBallonsList;
   } catch (e) {
     print(e);
@@ -1773,8 +1705,6 @@ Future<double> buildCustomTour(
   List<LookAtModel> lookAts = [];
   List<String> poisNames = [];
   String placesData = '';
-  // List<String> placesDataList=[];
-  // List<String> flags = [];
 
   for (int i = 0; i < pois.length; i++) {
     String placeName = escapeHtml(pois[i].name);
@@ -1789,8 +1719,7 @@ Future<double> buildCustomTour(
       altitudeMode: 'relativeToGround',
     );
     lookAts.add(lookAt);
-    // placesData += '<p>${i + 1}. ${escapeHtml(pois[i].name)}</p>';
-    // placesDataList.add(escapeHtml(pois[i].name));
+
     String countryFlagImg;
     String countryCode = countryMap[pois[i].country] ?? 'None';
     String flagDiv;
@@ -1807,7 +1736,7 @@ Future<double> buildCustomTour(
       countryFlagImg = '';
       flagDiv = '<br></br>';
     }
-    // flags.add(countryFlagImg);
+
     placesData += '''
              <div class="details" style="text-align: center; font-weight: bold;">
                 $flagDiv
@@ -1817,9 +1746,6 @@ Future<double> buildCustomTour(
               ''';
   }
 
-  // <div class="details">
-  //  $placesData
-  // </div>
   print('button color:');
   print(buttonColor);
 

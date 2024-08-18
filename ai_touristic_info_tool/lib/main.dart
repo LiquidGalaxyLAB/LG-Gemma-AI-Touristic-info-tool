@@ -18,13 +18,10 @@ import 'package:ai_touristic_info_tool/state_management/model_error_provider.dar
 import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
-import 'package:features_tour/features_tour.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'helpers/lg_connection_shared_pref.dart';
 import 'models/ssh_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -51,35 +48,6 @@ void main() async {
 
   await dotenv.load(fileName: ".env");
 
-  FeaturesTour.setGlobalConfig(
-    skipConfig: SkipConfig(
-      text: 'Skip',
-      textStyle: TextStyle(fontSize: 25, color: Colors.white),
-      buttonStyle: TextButton.styleFrom(
-          backgroundColor: Colors.black.withOpacity(0.9),
-          padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 13),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(300),
-              side:
-                  BorderSide(color: Colors.black.withOpacity(0.2), width: 1))),
-    ),
-    nextConfig: NextConfig(
-      text: 'Next',
-      textStyle: TextStyle(fontSize: 25, color: Colors.white),
-      buttonStyle: TextButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 13),
-          backgroundColor: Colors.black.withOpacity(0.9),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(300),
-              side:
-                  BorderSide(color: Colors.black.withOpacity(0.2), width: 1))),
-    ),
-    predialogConfig: PredialogConfig(
-      enabled: false,
-    ),
-    debugLog: true,
-  );
-
   runApp(
     MultiProvider(
       providers: [
@@ -96,9 +64,6 @@ void main() async {
         ChangeNotifierProvider(create: (_) => DisplayedListProvider()),
       ],
       child: Phoenix(child: AITouristicInfo(locale: locale)),
-      // child: ShowCaseWidget(
-      //   builder: (context) => const AITouristicInfo(),
-      // ),
     ),
   );
   Timer.periodic(const Duration(seconds: 10), (timer) async {

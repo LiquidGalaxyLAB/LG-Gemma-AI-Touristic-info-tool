@@ -1,7 +1,7 @@
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/connection_indicator.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
-import 'package:ai_touristic_info_tool/utils/show_ai_alert.dart';
+import 'package:ai_touristic_info_tool/dialogs/show_ai_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -5,6 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Displays an alert dialog with dynamic styling based on current theme settings.
+///
+/// This function shows an `AlertDialog` with customizable styles for the background color,
+/// text size, font, and colors, which are fetched from `ColorProvider` and `FontsProvider`.
+/// The dialog content is localized using `AppLocalizations` to ensure it adapts to the user's language.
+///
+/// The dialog includes:
+/// - A title with bold, large text.
+/// - Content text that is styled with varying font sizes and weights.
+/// - An action button to close the dialog.
+///
+/// [context] is the BuildContext used to locate the `ColorProvider` and `FontsProvider`.
+/// 
+
 Future<void> showAIAlert(BuildContext context) {
   return showDialog<void>(
     context: context,
@@ -13,14 +27,11 @@ Future<void> showAIAlert(BuildContext context) {
         builder: (BuildContext context, ColorProvider colorVal,
             FontsProvider fontVal, Widget? child) {
           return AlertDialog(
-            // backgroundColor: FontAppColors.secondaryFont,
             backgroundColor: colorVal.colors.innerBackground,
             title: Center(
               child: Text(
-                // 'Be aware of AI hallucinations !',
                 AppLocalizations.of(context)!.aiHallucination_text1,
                 style: TextStyle(
-                    // fontSize: headingSize,
                     fontSize: fontVal.fonts.headingSize,
                     color: LgAppColors.lgColor2,
                     fontFamily: fontType,
@@ -32,23 +43,17 @@ Future<void> showAIAlert(BuildContext context) {
                 children: [
                   TextSpan(
                     text:
-                        // 'The state of the art of most AI tools as 2024 can give you sometimes incorrect answers, or even the so called Hallucinations:\n\n',
                         AppLocalizations.of(context)!.aiHallucination_text2,
                     style: TextStyle(
-                        // color: Colors.black,
                         color: fontVal.fonts.primaryFontColor,
-                        // fontSize: textSize + 4,
                         fontSize: fontVal.fonts.textSize + 4,
                         fontWeight: FontWeight.bold,
                         fontFamily: fontType),
                   ),
                   TextSpan(
                     text:
-                        // 'AI hallucinations are incorrect or misleading results that AI models generate. These errors can be caused by a variety of factors, including insufficient training data, incorrect assumptions made by the model, or biases in the data used to train the model.\n\nThe Liquid Galaxy project has no control over this, and the contents responsibility is of the owners of the respective Large Language models used',
                         AppLocalizations.of(context)!.aiHallucination_text3,
                     style: TextStyle(
-                        // color: Colors.black,
-                        // fontSize: textSize,
                         fontSize: fontVal.fonts.textSize,
                         color: fontVal.fonts.primaryFontColor,
                         fontFamily: fontType),
@@ -62,7 +67,6 @@ Future<void> showAIAlert(BuildContext context) {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    // 'I understand',
                     AppLocalizations.of(context)!.defaults_understand,
                       style: TextStyle(
                           fontSize: fontVal.fonts.textSize,

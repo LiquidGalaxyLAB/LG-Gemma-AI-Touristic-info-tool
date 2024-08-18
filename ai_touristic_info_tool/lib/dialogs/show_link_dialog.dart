@@ -1,10 +1,26 @@
 import 'package:ai_touristic_info_tool/constants.dart';
-import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+
+/// Displays a dialog containing a web view and action buttons.
+///
+/// This function shows an `AlertDialog` that includes a `WebViewWidget` for
+/// displaying a webpage and two action buttons. One button opens the URL
+/// in the default web browser, and the other closes the dialog.
+///
+/// [context] - The BuildContext used to display the dialog.
+/// [url] - The URL to open in the web view and when the "Open" button is pressed.
+/// [webController] - The `WebViewController` used to manage the web view within the dialog.
+///
+/// The dialog contains:
+/// - A `WebViewWidget` displaying the specified URL.
+/// - A button to open the URL in the default web browser.
+/// - A button to close the dialog.
+/// 
 
 void showLinkDialog(
     BuildContext context, String url, WebViewController webController) {
@@ -34,10 +50,8 @@ void showLinkDialog(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
               Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   LgElevatedButton(
-                    // elevatedButtonContent: 'Open in Browser',
                       elevatedButtonContent: AppLocalizations.of(context)!.link_open,
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () async {
@@ -55,7 +69,6 @@ void showLinkDialog(
                     elevation: 5,
                   ),
                   LgElevatedButton(
-                    // elevatedButtonContent: 'Close',
                     elevatedButtonContent: AppLocalizations.of(context)!.defaults_close,
                     buttonColor: FontAppColors.secondaryFont,
                     onpressed: () async {

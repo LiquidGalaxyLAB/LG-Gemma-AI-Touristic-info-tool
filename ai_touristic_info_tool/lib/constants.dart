@@ -32,22 +32,16 @@ class PrimaryAppColors {
   static const Color accentColor = Color.fromARGB(120, 252, 171, 21);
   static const Color innerBackground = Colors.white;
   static const Color shadow = Color.fromARGB(155, 230, 236, 251);
-  // static const Color shadow1 = Color(0x9BE6ECFB); //155 230 236 251
-  // static const Color shado1 = Color(0xB2CCD5ED);
-  // static const Color shad1 = Color(0xBDC2D2FA);
-
   static const Color midShadow = Color.fromARGB(178, 204, 213, 237);
   static const Color darkShadow = Color.fromARGB(189, 194, 210, 250);
 }
 
-// final fontType = GoogleFonts.montserrat().fontFamily;
+
 final fontType = GoogleFonts.lato().fontFamily;
 const double titleSize = 40;
-// const double headingSize = 35;
 const double headingSize = titleSize - 5;
 const double textSize = titleSize - 20;
 const List<String> keyServicesAPI = ['Gemini'];
-// const double textSize = 20;
 
 Map<String, List<PlacesModel>> defaultDataConst = {
   'Attractions in London, UK': [

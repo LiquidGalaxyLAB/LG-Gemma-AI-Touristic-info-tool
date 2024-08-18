@@ -8,6 +8,35 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+
+/// Displays a dialog for adding a new API key with input fields and a dropdown.
+///
+/// This function presents an `AlertDialog` that allows users to input a new API key,
+/// select a service type from a dropdown list, and validate the input. The dialog uses
+/// `ColorProvider` and `FontsProvider` for dynamic styling and localization through
+/// `AppLocalizations`. It checks if the API key name already exists before adding a new one.
+///
+/// [context] - The `BuildContext` used to locate the `ColorProvider` and `FontsProvider`.
+/// [colorProv] - The `ColorProvider` used to style the dialog's background color.
+/// [ _formKey] - A `GlobalKey<FormState>` used to manage the form's state and validation.
+/// [fontProv] - The `FontsProvider` used to style the text and input fields in the dialog.
+/// [ _keyNameController] - A `TextEditingController` for managing the API key name input field.
+/// [ _keyValueController] - A `TextEditingController` for managing the API key value input field.
+///
+/// The dialog includes:
+/// - An input field for the API key name with validation to ensure the name is unique.
+/// - An input field for the API key value.
+/// - A dropdown list to select the service type from predefined options.
+/// - Two buttons: "Done" to confirm the addition of the API key, and "Cancel" to close the dialog without saving.
+///
+/// The `addAPIKeyDialog` function performs the following actions:
+/// - Displays the dialog with the specified input fields and dropdown.
+/// - Checks if the API key name already exists in the stored keys. If it does, it sets an error state.
+/// - Adds the new API key if the name does not already exist.
+/// - Shows a snack bar notification upon successful addition of the API key.
+/// - Closes the dialog upon confirmation or cancellation.
+
+
 Future<dynamic> addAPIKeyDialog(
     BuildContext context,
     ColorProvider colorProv,
@@ -36,7 +65,6 @@ Future<dynamic> addAPIKeyDialog(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        // 'Choose a name for your Key:',
                         AppLocalizations.of(context)!.settings_addApiKeyName,
                           style: TextStyle(
                               color: fontProv.fonts.primaryFontColor,
@@ -44,12 +72,10 @@ Future<dynamic> addAPIKeyDialog(
                               fontFamily: fontType)),
                       Center(
                         child: TextFormFieldWidget(
-                          // fontSize: textSize,
                           fontSize: fontProv.fonts.textSize,
                           key: const ValueKey("key-name"),
                           textController: _keyNameController,
                           isSuffixRequired: true,
-
                           isPassword: false,
                           maxLength: 100,
                           maxlines: 1,
@@ -63,17 +89,12 @@ Future<dynamic> addAPIKeyDialog(
                       ),
                       if (nameExists)
                         Text(
-                          // 'Name already exists',
                           AppLocalizations.of(context)!.settings_nameExist,
                             style: TextStyle(
                                 color: LgAppColors.lgColor2,
                                 fontSize: fontProv.fonts.textSize,
                                 fontFamily: fontType)),
-                      // SizedBox(
-                      //   height: MediaQuery.of(context).size.height * 0.05,
-                      // ),
                       Text(
-                        // 'Enter your key:',
                         AppLocalizations.of(context)!.settings_enterKey,
                           style: TextStyle(
                               color: fontProv.fonts.primaryFontColor,
@@ -81,7 +102,6 @@ Future<dynamic> addAPIKeyDialog(
                               fontFamily: fontType)),
                       Center(
                         child: TextFormFieldWidget(
-                          // fontSize: textSize,
                           fontSize: fontProv.fonts.textSize,
                           key: const ValueKey("key-value"),
                           textController: _keyValueController,
@@ -93,7 +113,6 @@ Future<dynamic> addAPIKeyDialog(
                         ),
                       ),
                       Text(
-                        // 'Choose the API Key service type',
                         AppLocalizations.of(context)!.settings_chooseServiceAPI,
                           style: TextStyle(
                               color: fontProv.fonts.primaryFontColor,
@@ -162,7 +181,6 @@ Future<dynamic> addAPIKeyDialog(
                         SnackBar(
                             backgroundColor: LgAppColors.lgColor4,
                             content: Text(
-                              // 'API Key added. Please refresh your API keys',
                               AppLocalizations.of(context)!.settings_apiKeyAddedNotification,
                               style: TextStyle(
                                 fontSize: fontProv.fonts.textSize,
@@ -176,7 +194,6 @@ Future<dynamic> addAPIKeyDialog(
                   }
                 },
                 child: Text(
-                  // 'DONE',
                   AppLocalizations.of(context)!.defaults_done,
                     style: TextStyle(
                         color: LgAppColors.lgColor4,
@@ -188,7 +205,6 @@ Future<dynamic> addAPIKeyDialog(
                   Navigator.of(context).pop();
                 },
                 child: Text(
-                  // 'CANCEL',
                   AppLocalizations.of(context)!.defaults_cancel,
                     style: TextStyle(
                         color: LgAppColors.lgColor2,

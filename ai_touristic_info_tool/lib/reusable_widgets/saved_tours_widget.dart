@@ -4,7 +4,7 @@ import 'package:ai_touristic_info_tool/models/saved_tours_model.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
-import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
+import 'package:ai_touristic_info_tool/dialogs/visualization_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

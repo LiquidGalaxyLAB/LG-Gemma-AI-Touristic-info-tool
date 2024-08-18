@@ -9,7 +9,7 @@ import 'package:ai_touristic_info_tool/state_management/connection_provider.dart
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
-import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
+import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

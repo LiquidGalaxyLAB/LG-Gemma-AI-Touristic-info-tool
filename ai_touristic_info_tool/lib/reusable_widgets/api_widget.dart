@@ -5,8 +5,8 @@ import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart'
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
-import 'package:ai_touristic_info_tool/utils/add_api_key_dialog.dart';
-import 'package:ai_touristic_info_tool/utils/edit_api_key_dialog.dart';
+import 'package:ai_touristic_info_tool/dialogs/add_api_key_dialog.dart';
+import 'package:ai_touristic_info_tool/dialogs/edit_api_key_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -19,11 +19,11 @@ import 'package:ai_touristic_info_tool/state_management/connection_provider.dart
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
-import 'package:ai_touristic_info_tool/utils/dialog_builder.dart';
+import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
-import 'package:ai_touristic_info_tool/utils/show_stream_gemini_dialog.dart';
-import 'package:ai_touristic_info_tool/utils/show_stream_local_dialog.dart';
-import 'package:ai_touristic_info_tool/utils/visualization_dialog.dart';
+import 'package:ai_touristic_info_tool/dialogs/show_stream_gemini_dialog.dart';
+import 'package:ai_touristic_info_tool/dialogs/show_stream_local_dialog.dart';
+import 'package:ai_touristic_info_tool/dialogs/visualization_dialog.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';

@@ -17,6 +17,16 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
+/// Shows a customization dialog with a tutorial and options for customizing the display of selected places.
+///
+/// [context] - The BuildContext used to display the dialog.
+/// [selectedPlaces] - A list of selected `PlacesModel` items to display in the customization widget.
+///
+/// The dialog contains:
+/// - A `TopBarWidget` for the title and tutorial guide.
+/// - A `CustomizationWidget` to handle place customization.
+/// - A tutorial coach mark that highlights different UI elements with explanations.
+
 void showCustomizationDialog(
     BuildContext context, final List<PlacesModel> selectedPlaces) async {
   Provider.of<DisplayedListProvider>(context, listen: false)
@@ -45,7 +55,6 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              // "Drag the places you want to visit from here",
                               AppLocalizations.of(context)!.tutorialCustomization_title1,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -70,7 +79,6 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              // "Drop them here",
                               AppLocalizations.of(context)!.tutorialCustomization_title2,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -95,7 +103,6 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              // "Create your Custom tour",
                               AppLocalizations.of(context)!.tutorialCustomization_title3,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -103,7 +110,6 @@ void showCustomizationDialog(
                                   fontSize: 30.0),
                             ),
                             Text(
-                                // 'A button will appear after you create your tour to visualize it!',
                                 AppLocalizations.of(context)!.tutorialCustomization_desc3,
                                 style: TextStyle(
                                   color: Colors.white,
@@ -127,7 +133,6 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              // "Reset your tour",
                               AppLocalizations.of(context)!.tutorialCustomization_title4,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -135,7 +140,6 @@ void showCustomizationDialog(
                                   fontSize: 30.0),
                             ),
                             Text(
-                                // 'This will clear all the places you have added to your tour',
                                 AppLocalizations.of(context)!.tutorialCustomization_desc4,
                                 style: TextStyle(
                                   color: Colors.white,
@@ -159,7 +163,6 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              // "You can track your current tour here",
                               AppLocalizations.of(context)!.tutorialCustomization_title5,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -167,7 +170,6 @@ void showCustomizationDialog(
                                   fontSize: 30.0),
                             ),
                             Text(
-                              // 'Slide right or left to view all the tour',
                               AppLocalizations.of(context)!.tutorialCustomization_desc5,
                                 style: TextStyle(
                                   color: Colors.white,
@@ -191,7 +193,6 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              // "Save your customized tour",
                               AppLocalizations.of(context)!.tutorialCustomization_title6,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -202,14 +203,14 @@ void showCustomizationDialog(
                         ),
                       ))
                 ]));
+
+//////////////////////////////////////////////////////////////////////////////////////////////
             return AlertDialog(
-              // backgroundColor: FontAppColors.secondaryFont,
               backgroundColor: colorVal.colors.innerBackground,
               shadowColor: FontAppColors.secondaryFont,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
-              // insetPadding: EdgeInsets.zero,
               iconPadding: EdgeInsets.zero,
               titlePadding: const EdgeInsets.only(bottom: 20),
               contentPadding: EdgeInsets.zero,
@@ -238,10 +239,9 @@ void showCustomizationDialog(
                           GestureDetector(
                             onTap: () {
                               TutorialCoachMark(
-                                targets: customTargets, // List<TargetFocus>
+                                targets: customTargets, 
                                 colorShadow: Colors.black,
                                 alignSkip: Alignment.bottomRight,
-                                // textSkip: "SKIP",
                                 textSkip: AppLocalizations.of(context)!.defaults_skip,
                                 useSafeArea: true,
                                 textStyleSkip: TextStyle(
@@ -277,7 +277,6 @@ void showCustomizationDialog(
                           Expanded(
                             child: Center(
                               child: Text(
-                                // 'Customize your own tour!',
                                 AppLocalizations.of(context)!
                                     .customapptour_title,
                                 textAlign: TextAlign.center,
