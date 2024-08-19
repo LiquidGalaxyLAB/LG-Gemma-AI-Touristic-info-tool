@@ -202,6 +202,11 @@
     "visualizationDialog_stopTour": "Arrêter le tour",
     "visualizationDialog_listofPois": "Liste des POIs",
     "visualizationDialog_mapButton": "Carte",
+    "visualizationDialog_startTourConfirmation": "Êtes-vous sûr de vouloir commencer la visite ?",
+    "visualizationDialog_stopTourConfirmation": "Êtes-vous sûr de vouloir arrêter la visite ?",
+    "visualizationDialog_errorLoadingAudio": "Erreur lors du chargement de l'audio. Veuillez réessayer plus tard.",
+    "visualizationDialog_errorPlayingAudio": "Erreur lors de la lecture de l'audio. Veuillez réessayer plus tard.",
+    "viusalizationDialog_playSound": "Jouer le Son",
 
 
     "about_title": "Outil d'Information Touristique AI LG Gemini",
@@ -260,6 +265,8 @@
     "lgConnection_disconnect": "DÉCONNEXION LG",
     "lgConnection_confirmDisconnect": "Êtes-vous sûr de vouloir vous déconnecter ?",
     "lgConnection_errorDisconnect": "Vous êtes déjà déconnecté !",
+    "lgConnection_success": "Vous êtes maintenant connecté à Liquid Galaxy avec succès !",
+    "lgConnection_disconnectMsg": "Vous êtes maintenant déconnecté de Liquid Galaxy.",
 
 
     "lgTasks_title": "Tâches Liquid Galaxy",
@@ -302,6 +309,8 @@
 
     "poiExpansion_flyTo": "Voler vers",
     "poiExpansion_orbit": "Orbiter",
+    "poiExpansion_runningTourError": "Une visite est en cours.\nArrêtez d'abord la visite.",
+    "poiExpansion_noAPIKeyYoutube": "Aucune clé API trouvée pour l'API Youtube.\nVeuillez ajouter une clé API dans les paramètres.",
 
 
     "mapTypes_terrain": "Terrain",
@@ -346,6 +355,7 @@
     "exploreLocation_salons": "Salons de Beauté",
     "exploreLocation_askGemini": "Demandez à Gemini tout ce que vous voulez savoir à proximité :",
     "exploreLocation_askGemma": "Demandez à Gemma tout ce que vous voulez savoir à proximité :",
+    "exploreLocation_missingAddress": "Veuillez d'abord entrer une adresse ci-dessus ou utiliser la carte !",
     
 
     "exploreWorld_aiRecommendation": "Recommandations Touristiques AI dans le Monde",
@@ -417,6 +427,12 @@
     "defaults_customize": "Personnaliser",
     "defaults_restart": "Redémarrer",
     "defaults_skip":"Passer",
+    "defaults_play": "Jouer",
+    "defaults_pause": "Pause",
+    "defaults_start": "Démarrer",
+    "defaults_resume": "Reprendre",
+    "validate_dropdown": "Veuillez sélectionner une option",
+    "button_TypePrompt": "Tapez une invite",
 
 
     "searchResults_web": "Résultats Web pour {query}",

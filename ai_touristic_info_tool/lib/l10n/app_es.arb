@@ -203,6 +203,11 @@
     "visualizationDialog_stopTour": "Detener Tour",
     "visualizationDialog_listofPois": "Lista de POIs",
     "visualizationDialog_mapButton": "Mapa",
+    "visualizationDialog_startTourConfirmation": "¿Estás seguro de que quieres empezar el tour?",
+    "visualizationDialog_stopTourConfirmation": "¿Estás seguro de que quieres detener el tour?",
+    "visualizationDialog_errorLoadingAudio": "Error al cargar el audio. Por favor, inténtelo de nuevo más tarde.",
+    "visualizationDialog_errorPlayingAudio": "Error al reproducir el audio. Por favor, inténtelo de nuevo más tarde.",
+    "viusalizationDialog_playSound": "Reproducir Sonido",
 
 
     "about_title": "Herramienta de Información Turística LG Gemini AI",
@@ -261,6 +266,8 @@
     "lgConnection_disconnect": "DESCONECTAR LG",
     "lgConnection_confirmDisconnect": "¿Estás seguro de que deseas desconectar?",
     "lgConnection_errorDisconnect": "¡Ya estás desconectado!",
+    "lgConnection_success": "¡Ahora estás conectado a Liquid Galaxy con éxito!",
+    "lgConnection_disconnectMsg": "Ahora estás desconectado de Liquid Galaxy.",
     
 
     "lgTasks_title": "Tareas de Liquid Galaxy",
@@ -304,6 +311,8 @@
 
     "poiExpansion_flyTo": "Volar a",
     "poiExpansion_orbit": "Orbitar",
+    "poiExpansion_runningTourError": "Actualmente hay un tour en marcha.\nPrimero detén el tour.",
+    "poiExpansion_noAPIKeyYoutube": "No se encontró una clave API para Youtube.\nPor favor, añada una clave API en la configuración.",
     
 
     "mapTypes_terrain": "Terreno",
@@ -348,6 +357,7 @@
     "exploreLocation_salons": "Salones de Belleza",
     "exploreLocation_askGemini": "Pregunta a Gemini cualquier cosa que quieras saber cerca:",
     "exploreLocation_askGemma": "Pregunta a Gemma cualquier cosa que quieras saber cerca:",
+    "exploreLocation_missingAddress": "¡Por favor, introduce una dirección arriba o usa el mapa primero!",
 
 
     "exploreWorld_aiRecommendation":"Recomendaciones Turísticas AI en Todo el Mundo",
@@ -419,6 +429,12 @@
     "defaults_customize": "Personalizar",
     "defaults_restart": "Reiniciar",
     "defaults_skip":"Saltar",
+    "defaults_play": "Reproducir",
+    "defaults_pause": "Pausa",
+    "defaults_start": "Iniciar",
+    "defaults_resume": "Reanudar",
+    "validate_dropdown": "Por favor seleccione una opción",
+    "button_TypePrompt": "Escribe un prompt",
 
 
     "searchResults_web": "Resultados Web para {query}",

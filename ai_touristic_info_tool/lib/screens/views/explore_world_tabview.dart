@@ -590,7 +590,9 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   LgElevatedButton(
-                    elevatedButtonContent: 'Type a Prompt',
+                    // elevatedButtonContent: 'Type a Prompt',
+                    elevatedButtonContent:
+                        AppLocalizations.of(context)!.button_TypePrompt,
                     buttonColor: ButtonColors.locationButton,
                     onpressed: () {
                       setState(() {

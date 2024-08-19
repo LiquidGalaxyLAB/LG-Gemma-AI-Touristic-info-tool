@@ -203,6 +203,11 @@
     "visualizationDialog_stopTour": "ツアーを停止",
     "visualizationDialog_listofPois": "POIのリスト",
     "visualizationDialog_mapButton": "地図",
+    "visualizationDialog_startTourConfirmation": "ツアーを開始してもよろしいですか？",
+    "visualizationDialog_stopTourConfirmation": "ツアーを停止してもよろしいですか？",
+    "visualizationDialog_errorLoadingAudio": "オーディオの読み込み中にエラーが発生しました。後でもう一度お試しください。",
+    "visualizationDialog_errorPlayingAudio": "オーディオの再生中にエラーが発生しました。後でもう一度お試しください。",
+    "viusalizationDialog_playSound": "音を再生",
 
 
     "about_title": "LG Gemini AI 観光情報ツール",
@@ -261,6 +266,8 @@
     "lgConnection_disconnect": "LG 切断",
     "lgConnection_confirmDisconnect": "本当に切断しますか？",
     "lgConnection_errorDisconnect": "すでに切断されています！",
+    "lgConnection_success": "Liquid Galaxy に正常に接続されました！",
+    "lgConnection_disconnectMsg": "Liquid Galaxy から切断されました。",
 
 
     "lgTasks_title": "Liquid Galaxy タスク",
@@ -303,6 +310,8 @@
     
     "poiExpansion_flyTo": "飛ぶ",
     "poiExpansion_orbit": "軌道",
+    "poiExpansion_runningTourError": "ツアーが進行中です。\n最初にツアーを停止してください。",
+    "poiExpansion_noAPIKeyYoutube": "Youtube API の API キーが見つかりません。\n設定で API キーを追加してください。",
 
 
     "mapTypes_terrain": "地形",
@@ -347,6 +356,7 @@
     "exploreLocation_salons": "美容サロン",
     "exploreLocation_askGemini": "Geminiに近くの情報を尋ねてください:",
     "exploreLocation_askGemma": "Gemmaに近くの情報を尋ねてください:",
+    "exploreLocation_missingAddress": "まず、上に住所を入力するか、地図を使用してください！",
 
 
     "exploreWorld_aiRecommendation": "AI観光推薦 世界中",
@@ -418,6 +428,12 @@
     "defaults_customize": "カスタマイズ",
     "defaults_restart": "再起動",
     "defaults_skip":"スキップ",
+    "defaults_play": "再生",
+    "defaults_pause": "一時停止",
+    "defaults_start": "開始",
+    "defaults_resume": "再開",
+    "validate_dropdown": "オプションを選択してください",
+    "button_TypePrompt": "プロンプトを入力",
 
 
     "searchResults_web": "{query} のウェブ結果",

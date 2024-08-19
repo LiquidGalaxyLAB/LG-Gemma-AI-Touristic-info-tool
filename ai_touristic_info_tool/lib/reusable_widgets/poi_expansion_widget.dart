@@ -146,7 +146,8 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                             if (tourStatus.isTourOn) {
                                               dialogBuilder(
                                                   context,
-                                                  'A tour is currently running.\nStop tour first.',
+                                                  // 'A tour is currently running.\nStop tour first.',
+                                                  AppLocalizations.of(context)!.poiExpansion_runningTourError,
                                                   true,
                                                   AppLocalizations.of(context)!
                                                       .defaults_ok,
@@ -302,7 +303,8 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                             if (apiKeyModel == null) {
                                               dialogBuilder(
                                                   context,
-                                                  'No API key found for Youtube API.\nPlease add an API key in the settings.',
+                                                  // 'No API key found for Youtube API.\nPlease add an API key in the settings.',
+                                                  AppLocalizations.of(context)!.poiExpansion_noAPIKeyYoutube,
                                                   true,
                                                   AppLocalizations.of(context)!
                                                       .defaults_ok,

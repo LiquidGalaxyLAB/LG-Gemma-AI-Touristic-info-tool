@@ -200,6 +200,11 @@
     "visualizationDialog_stopTour": "Tour stoppen",
     "visualizationDialog_listofPois": "Liste der POIs",
     "visualizationDialog_mapButton": "Karte",
+    "visualizationDialog_startTourConfirmation": "Sind Sie sicher, dass Sie die Tour starten möchten?",
+    "visualizationDialog_stopTourConfirmation": "Sind Sie sicher, dass Sie die Tour stoppen möchten?",
+    "visualizationDialog_errorLoadingAudio": "Fehler beim Laden der Audiodatei. Bitte versuchen Sie es später noch einmal.",
+    "visualizationDialog_errorPlayingAudio": "Fehler bei der Wiedergabe der Audiodatei. Bitte versuchen Sie es später noch einmal.",
+    "viusalizationDialog_playSound": "Ton abspielen",
 
 
     "about_title": "LG Gemini KI Touristische Info Tool",
@@ -258,6 +263,8 @@
     "lgConnection_disconnect": "LG TRENNEN",
     "lgConnection_confirmDisconnect": "Möchten Sie die Verbindung wirklich trennen?",
     "lgConnection_errorDisconnect": "Sie sind bereits getrennt!",
+    "lgConnection_success": "Sie sind jetzt erfolgreich mit Liquid Galaxy verbunden!",
+    "lgConnection_disconnectMsg": "Sie sind jetzt von Liquid Galaxy getrennt.",
 
 
     "lgTasks_title": "Liquid Galaxy Aufgaben",
@@ -300,6 +307,8 @@
 
     "poiExpansion_flyTo": "zufliegen",
     "poiExpansion_orbit": "Orbit",
+    "poiExpansion_runningTourError": "Eine Tour läuft gerade.\nStoppen Sie zuerst die Tour.",
+    "poiExpansion_noAPIKeyYoutube": "Kein API-Schlüssel für Youtube gefunden.\nBitte fügen Sie einen API-Schlüssel in den Einstellungen hinzu.",
 
 
     "mapTypes_terrain": "Gelände",
@@ -344,6 +353,8 @@
     "exploreLocation_salons": "Schönheitssalons",
     "exploreLocation_askGemini": "Fragen Sie Gemini, was Sie in der Nähe wissen möchten:",
     "exploreLocation_askGemma": "Fragen Sie Gemma, was Sie in der Nähe wissen möchten:",
+    "exploreLocation_missingAddress": "Bitte geben Sie zuerst eine Adresse oben ein oder verwenden Sie die Karte!",
+
 
 
     "exploreWorld_aiRecommendation":"KI Touristische Empfehlungen weltweit",
@@ -415,6 +426,12 @@
     "defaults_customize": "Anpassen",
     "defaults_restart": "Neustart",
     "defaults_skip":"Überspringen",
+    "defaults_play": "Abspielen",
+    "defaults_pause": "Pause",
+    "defaults_start": "Starten",
+    "defaults_resume": "Fortsetzen",
+    "validate_dropdown": "Bitte wählen Sie eine Option aus",
+    "button_TypePrompt": "Geben Sie ein Prompt ein",
     
 
     "searchResults_web": "Web-Ergebnisse für {query}",

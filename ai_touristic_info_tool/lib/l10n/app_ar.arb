@@ -200,6 +200,11 @@
     "visualizationDialog_stopTour": "إيقاف الجولة",
     "visualizationDialog_listofPois": "قائمة نقاط الاهتمام",
     "visualizationDialog_mapButton": "الخريطة",
+    "visualizationDialog_startTourConfirmation": "هل أنت متأكد أنك تريد بدء الجولة؟",
+    "visualizationDialog_stopTourConfirmation": "هل أنت متأكد أنك تريد إيقاف الجولة؟",
+    "visualizationDialog_errorLoadingAudio": "حدث خطأ أثناء تحميل الصوت. يرجى المحاولة لاحقًا.",
+    "visualizationDialog_errorPlayingAudio": "حدث خطأ أثناء تشغيل الصوت. يرجى المحاولة لاحقًا.",
+    "viusalizationDialog_playSound": "تشغيل الصوت",
 
 
     "about_title": "أداة المعلومات السياحية LG Gemini AI",
@@ -258,6 +263,8 @@
     "lgConnection_disconnect": "فصل LG",
     "lgConnection_confirmDisconnect": "هل أنت متأكد أنك تريد فصل الاتصال؟",
     "lgConnection_errorDisconnect": "أنت بالفعل مفصول!",
+    "lgConnection_success": "أنت الآن متصل بنجاح بـ Liquid Galaxy!",
+    "lgConnection_disconnectMsg": "أنت الآن غير متصل بـ Liquid Galaxy.",
 
 
     "lgTasks_title": "مهام Liquid Galaxy",
@@ -300,6 +307,8 @@
 
     "poiExpansion_flyTo": "التحليق إلى",
     "poiExpansion_orbit": "الدوران حول",
+    "poiExpansion_runningTourError": "الجولة قيد التشغيل حاليًا.\nأوقف الجولة أولاً.",
+    "poiExpansion_noAPIKeyYoutube": "لم يتم العثور على مفتاح API لواجهة برمجة تطبيقات يوتيوب.\nيرجى إضافة مفتاح API في الإعدادات.",
 
 
     "mapTypes_terrain": "التضاريس",
@@ -344,6 +353,7 @@
     "exploreLocation_salons": "صالونات التجميل",
     "exploreLocation_askGemini": "اسأل Gemini أي شيء تود معرفته في الجوار:",
     "exploreLocation_askGemma": "اسأل Gemma أي شيء تود معرفته في الجوار:",
+    "exploreLocation_missingAddress": "يرجى إدخال العنوان أولاً أعلاه أو استخدام الخريطة!",
 
 
     "exploreWorld_aiRecommendation": "توصيات سياحية ذكية عالمياً",
@@ -415,6 +425,12 @@
     "defaults_customize": "تخصيص",
     "defaults_restart": "إعادة تشغيل",
     "defaults_skip":"تجاوز",
+    "defaults_play": "تشغيل",
+    "defaults_pause": "إيقاف مؤقت",
+    "defaults_start": "ابدأ",
+    "defaults_resume": "استئناف",
+    "validate_dropdown": "يرجى اختيار خيار",
+    "button_TypePrompt": "اكتب مطالبة",
   
 
     "searchResults_web": "نتائج الويب لـ {query}",

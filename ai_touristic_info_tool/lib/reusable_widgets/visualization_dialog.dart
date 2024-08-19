@@ -145,9 +145,10 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
       }
       dialogBuilder(
           context,
-          _isAudioEmptyError
-              ? 'Error loading audio. Please try again later.'
-              : 'Error playing audio. Please try again later.',
+          _isAudioEmptyError ? AppLocalizations.of(context)!.visualizationDialog_errorLoadingAudio : AppLocalizations.of(context)!.visualizationDialog_errorPlayingAudio,
+              // ? 'Error loading audio. Please try again later.'
+              // : 'Error playing audio. Please try again later.',
+      
           true,
           AppLocalizations.of(context)!.defaults_ok,
           () {},
@@ -381,9 +382,9 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                               context, widget.query, widget.places);
                           dialogBuilder(
                               context,
-                              'Are you sure you want to start tour?',
-                              // AppLocalizations.of(context)!
-                              //     .lgTasks_notConnectedError,
+                              // 'Are you sure you want to start tour?',
+                              AppLocalizations.of(context)!
+                                  .visualizationDialog_startTourConfirmation,
                               false,
                               // 'OK',
                               AppLocalizations.of(context)!.defaults_yes,
@@ -461,9 +462,9 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                             connection.isLgConnected) {
                           dialogBuilder(
                               context,
-                              'Are you sure you want to stop tour?',
-                              // AppLocalizations.of(context)!
-                              //     .lgTasks_notConnectedError,
+                              // 'Are you sure you want to stop tour?',
+                              AppLocalizations.of(context)!
+                                  .visualizationDialog_stopTourConfirmation,
                               false,
                               // 'OK',
                               AppLocalizations.of(context)!.defaults_yes,
@@ -755,15 +756,19 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
 
   String get playAudioElevatedButtonContent {
     if (_isAudioLoading) {
-      return 'Loading..';
+      // return 'Loading..';
+      return AppLocalizations.of(context)!.defaults_loading;
     } else if (_isAudioEmptyError ||
         _isAudioPlayError ||
         _isAudioFinishedNarration) {
-      return 'Play sound';
+      // return 'Play sound';
+      return AppLocalizations.of(context)!.viusalizationDialog_playSound;
     } else if (_isPlaying) {
-      return 'Pause';
+      // return 'Pause';
+      return AppLocalizations.of(context)!.defaults_pause;
     } else {
-      return 'Resume';
+      // return 'Resume';
+      return AppLocalizations.of(context)!.defaults_resume;
     }
   }
 }

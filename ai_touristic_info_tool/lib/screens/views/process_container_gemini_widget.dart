@@ -458,14 +458,18 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        AppLocalizations.of(context)!
-                                            .aiGenerationAPIGemini_responseTimeMessg,
-                                        style: TextStyle(
-                                          color: LgAppColors.lgColor2,
-                                          fontSize: fontProv.fonts.textSize + 2,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: fontType,
+                                      Expanded(
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .aiGenerationAPIGemini_responseTimeMessg,
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                            color: LgAppColors.lgColor2,
+                                            fontSize:
+                                                fontProv.fonts.textSize + 2,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: fontType,
+                                          ),
                                         ),
                                       ),
                                       Image.asset(

@@ -49,6 +49,7 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
   Map<String, String?> fullAdddress = {};
   bool showAddressFields = false;
   bool useMap = true;
+  bool _isTypePrompt = false;
 
   final _addressController = TextEditingController();
   final _cityController = TextEditingController();
@@ -1057,163 +1058,186 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
               },
             ),
           ),
-          Form(
-            key: widget._form2Key,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Consumer<FontsProvider>(
-                  builder: (BuildContext context, FontsProvider value,
-                      Widget? child) {
-                    return Center(
-                      child: TextFormFieldWidget(
-                        fontSize: value.fonts.textSize,
-                        key: const ValueKey("location-prompt"),
-                        textController: widget._prompt2Controller,
-                        isSuffixRequired: false,
-                        isPassword: false,
-                        maxLength: 100,
-                        maxlines: 1,
-                        width: MediaQuery.sizeOf(context).width * 0.85,
-                      ),
-                    );
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 40.0, top: 20),
-                  child: Consumer2<ColorProvider, FontsProvider>(
-                    builder: (BuildContext context, ColorProvider value,
-                        FontsProvider fontVal, Widget? child) {
-                      return LgElevatedButton(
-                        key: const ValueKey("location-prompt-button"),
-                        height: MediaQuery.sizeOf(context).height * 0.05,
-                        width: MediaQuery.sizeOf(context).width * 0.2,
-                        buttonColor: value.colors.buttonColors,
-                        fontSize: fontVal.fonts.textSize,
-                        fontColor: SettingsSharedPref.getTheme() == 'default' ||
-                                SettingsSharedPref.getTheme() == 'light'
-                            ? fontVal.fonts.secondaryFontColor
-                            : fontVal.fonts.primaryFontColor,
-                        isBold: true,
-                        isLoading: false,
-                        isPrefixIcon: false,
-                        isSuffixIcon: false,
-                        curvatureRadius: 50,
-                        onpressed: () async {
-                          ModelErrorProvider errProvider =
-                              Provider.of<ModelErrorProvider>(context,
-                                  listen: false);
-                          errProvider.isError = false;
-                          if (widget._form2Key.currentState!.validate()) {
-                            GoogleMapProvider gmp =
-                                Provider.of<GoogleMapProvider>(context,
+          Consumer<FontsProvider>(
+            builder:
+                (BuildContext context, FontsProvider value, Widget? child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LgElevatedButton(
+                    // elevatedButtonContent: 'Type a Prompt',
+                    elevatedButtonContent:
+                        AppLocalizations.of(context)!.button_TypePrompt,
+                    buttonColor: ButtonColors.locationButton,
+                    onpressed: () {
+                      setState(() {
+                        _isTypePrompt = true;
+                        // _isRecordPrompt = false;
+                      });
+                    },
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    fontSize: value.fonts.textSize,
+                    fontColor: Colors.white,
+                    isLoading: false,
+                    isBold: true,
+                    isPrefixIcon: false,
+                    isSuffixIcon: true,
+                    suffixIcon: Icons.keyboard,
+                    suffixIconColor: Colors.white,
+                    suffixIconSize: value.fonts.headingSize,
+                    curvatureRadius: 10,
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                  // LgElevatedButton(
+                  //   elevatedButtonContent: 'Record a Prompt',
+                  //   buttonColor: ButtonColors.musicButton,
+                  //   onpressed: () {
+                  //     setState(() {
+                  //       _isRecordPrompt = true;
+                  //       _isTypePrompt = false;
+                  //     });
+                  //   },
+                  //   height: MediaQuery.of(context).size.height * 0.08,
+                  //   width: MediaQuery.of(context).size.width * 0.2,
+                  //   fontSize: fontsProv.fonts.textSize,
+                  //   fontColor: Colors.white,
+                  //   isLoading: false,
+                  //   isBold: true,
+                  //   isPrefixIcon: false,
+                  //   isSuffixIcon: true,
+                  //   suffixIcon: Icons.mic,
+                  //   suffixIconColor: Colors.white,
+                  //   suffixIconSize: fontsProv.fonts.headingSize,
+                  //   curvatureRadius: 10,
+                  // ),
+                ],
+              );
+            },
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+          if (_isTypePrompt)
+            Form(
+              key: widget._form2Key,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Consumer<FontsProvider>(
+                    builder: (BuildContext context, FontsProvider value,
+                        Widget? child) {
+                      return Center(
+                        child: TextFormFieldWidget(
+                          fontSize: value.fonts.textSize,
+                          key: const ValueKey("location-prompt"),
+                          textController: widget._prompt2Controller,
+                          isSuffixRequired: false,
+                          isPassword: false,
+                          maxLength: 100,
+                          maxlines: 1,
+                          width: MediaQuery.sizeOf(context).width * 0.85,
+                        ),
+                      );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 40.0, top: 20),
+                    child: Consumer2<ColorProvider, FontsProvider>(
+                      builder: (BuildContext context, ColorProvider value,
+                          FontsProvider fontVal, Widget? child) {
+                        return LgElevatedButton(
+                          key: const ValueKey("location-prompt-button"),
+                          height: MediaQuery.sizeOf(context).height * 0.05,
+                          width: MediaQuery.sizeOf(context).width * 0.2,
+                          buttonColor: value.colors.buttonColors,
+                          fontSize: fontVal.fonts.textSize,
+                          fontColor:
+                              SettingsSharedPref.getTheme() == 'default' ||
+                                      SettingsSharedPref.getTheme() == 'light'
+                                  ? fontVal.fonts.secondaryFontColor
+                                  : fontVal.fonts.primaryFontColor,
+                          isBold: true,
+                          isLoading: false,
+                          isPrefixIcon: false,
+                          isSuffixIcon: false,
+                          curvatureRadius: 50,
+                          onpressed: () async {
+                            ModelErrorProvider errProvider =
+                                Provider.of<ModelErrorProvider>(context,
                                     listen: false);
-                            _whatToDoQuery = widget._prompt2Controller.text;
-                            String query;
+                            errProvider.isError = false;
+                            if (widget._form2Key.currentState!.validate()) {
+                              GoogleMapProvider gmp =
+                                  Provider.of<GoogleMapProvider>(context,
+                                      listen: false);
+                              _whatToDoQuery = widget._prompt2Controller.text;
+                              String query;
 
-                            if (useMap) {
-                              query =
-                                  '$_whatToDoQuery in ${gmp.currentFullAddress['address']}, ${gmp.currentFullAddress['city']}, ${gmp.currentFullAddress['country']}';
-                            } else {
-                              if (_addressQuery == '') {
-                                query = '';
+                              if (useMap) {
+                                query =
+                                    '$_whatToDoQuery in ${gmp.currentFullAddress['address']}, ${gmp.currentFullAddress['city']}, ${gmp.currentFullAddress['country']}';
                               } else {
-                                query = '$_whatToDoQuery in $_addressQuery';
-                              }
-                            }
-
-                            if (!useMap && query == '') {
-                              //show snack bar with error:
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: LgAppColors.lgColor2,
-                                  content: Consumer<FontsProvider>(
-                                    builder: (BuildContext context,
-                                        FontsProvider value, Widget? child) {
-                                      return Text(
-                                        'Please enter an address first above or use map!',
-                                        // AppLocalizations.of(context)!
-                                        //     .exploreLocation_addressError,
-                                        style: TextStyle(
-                                          fontSize: value.fonts.textSize,
-                                          color: Colors.white,
-                                          fontFamily: fontType,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              );
-                            } else {
-                              PromptsSharedPref.getPlaces(query)
-                                  .then((value) async {
-                                if (value.isNotEmpty) {
-                                  await buildQueryPlacemark(
-                                      query, _city, _country, context);
-
-                                  showVisualizationDialog(context, value, query,
-                                      _city, _country, () {}, false);
+                                if (_addressQuery == '') {
+                                  query = '';
                                 } else {
-                                  //Local:
-                                  // Connectionprovider connection =
-                                  //     Provider.of<Connectionprovider>(context,
-                                  //         listen: false);
-                                  // if (!connection.isAiConnected) {
-                                  //   dialogBuilder(
-                                  //       context,
-                                  //       'NOT connected to AI Server!!\nPlease Connect!',
-                                  //       true,
-                                  //       'OK',
-                                  //       null,
-                                  //       null);
-                                  // } else {
-                                  //   showStreamingDialog(
-                                  //       context, query, _city, _country);
-                                  // }
-                                  //Gemini:
-                                  ApiKeyModel? apiKeyModel =
-                                      await APIKeySharedPref.getDefaultApiKey(
-                                          'Gemini');
-                                  String apiKey;
-                                  if (apiKeyModel == null) {
-                                    //snackbar:
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          backgroundColor: LgAppColors.lgColor2,
-                                          content: Consumer<FontsProvider>(
-                                            builder: (BuildContext context,
-                                                FontsProvider value,
-                                                Widget? child) {
-                                              return Text(
-                                                // 'Please add a default API Key for Gemini in the settings!',
-                                                AppLocalizations.of(context)!
-                                                    .settings_apiKeyNotSetDefaultError,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      value.fonts.textSize,
-                                                  color: Colors.white,
-                                                  fontFamily: fontType,
-                                                ),
-                                              );
-                                            },
-                                          )),
-                                    );
+                                  query = '$_whatToDoQuery in $_addressQuery';
+                                }
+                              }
+
+                              if (!useMap && query == '') {
+                                //show snack bar with error:
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: LgAppColors.lgColor2,
+                                    content: Consumer<FontsProvider>(
+                                      builder: (BuildContext context,
+                                          FontsProvider value, Widget? child) {
+                                        return Text(
+                                          // 'Please enter an address first above or use map!',
+                                          AppLocalizations.of(context)!
+                                              .exploreLocation_missingAddress,
+                                          style: TextStyle(
+                                            fontSize: value.fonts.textSize,
+                                            color: Colors.white,
+                                            fontFamily: fontType,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                PromptsSharedPref.getPlaces(query)
+                                    .then((value) async {
+                                  if (value.isNotEmpty) {
+                                    await buildQueryPlacemark(
+                                        query, _city, _country, context);
+
+                                    showVisualizationDialog(context, value,
+                                        query, _city, _country, () {}, false);
                                   } else {
-                                    apiKey = apiKeyModel.key;
-                                    setState(() {
-                                      _isLoading = true;
-                                    });
-                                    String res = await GeminiServices()
-                                        .checkAPIValidity(apiKey, context);
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
-                                    if (res == '') {
-                                      Locale locale =
-                                          await SettingsSharedPref.getLocale();
-                                      showStreamingGeminiDialog(context, query,
-                                          _city, _country, apiKey, locale);
-                                    } else {
+                                    //Local:
+                                    // Connectionprovider connection =
+                                    //     Provider.of<Connectionprovider>(context,
+                                    //         listen: false);
+                                    // if (!connection.isAiConnected) {
+                                    //   dialogBuilder(
+                                    //       context,
+                                    //       'NOT connected to AI Server!!\nPlease Connect!',
+                                    //       true,
+                                    //       'OK',
+                                    //       null,
+                                    //       null);
+                                    // } else {
+                                    //   showStreamingDialog(
+                                    //       context, query, _city, _country);
+                                    // }
+                                    //Gemini:
+                                    ApiKeyModel? apiKeyModel =
+                                        await APIKeySharedPref.getDefaultApiKey(
+                                            'Gemini');
+                                    String apiKey;
+                                    if (apiKeyModel == null) {
+                                      //snackbar:
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
@@ -1224,7 +1248,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                                   FontsProvider value,
                                                   Widget? child) {
                                                 return Text(
-                                                  res,
+                                                  // 'Please add a default API Key for Gemini in the settings!',
+                                                  AppLocalizations.of(context)!
+                                                      .settings_apiKeyNotSetDefaultError,
                                                   style: TextStyle(
                                                     fontSize:
                                                         value.fonts.textSize,
@@ -1235,29 +1261,72 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                               },
                                             )),
                                       );
+                                    } else {
+                                      apiKey = apiKeyModel.key;
+                                      setState(() {
+                                        _isLoading = true;
+                                      });
+                                      String res = await GeminiServices()
+                                          .checkAPIValidity(apiKey, context);
+                                      setState(() {
+                                        _isLoading = false;
+                                      });
+                                      if (res == '') {
+                                        Locale locale = await SettingsSharedPref
+                                            .getLocale();
+                                        showStreamingGeminiDialog(
+                                            context,
+                                            query,
+                                            _city,
+                                            _country,
+                                            apiKey,
+                                            locale);
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              backgroundColor:
+                                                  LgAppColors.lgColor2,
+                                              content: Consumer<FontsProvider>(
+                                                builder: (BuildContext context,
+                                                    FontsProvider value,
+                                                    Widget? child) {
+                                                  return Text(
+                                                    res,
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          value.fonts.textSize,
+                                                      color: Colors.white,
+                                                      fontFamily: fontType,
+                                                    ),
+                                                  );
+                                                },
+                                              )),
+                                        );
+                                      }
                                     }
                                   }
-                                }
-                              });
+                                });
+                              }
                             }
-                          }
-                        },
-                        elevatedButtonContent:
-                            // _isLoading ? 'Loading..' : 'GENERATE',
-                            _isLoading
-                                ? AppLocalizations.of(context)!.defaults_loading
-                                : AppLocalizations.of(context)!
-                                    .defaults_generate,
-                      );
-                    },
+                          },
+                          elevatedButtonContent:
+                              // _isLoading ? 'Loading..' : 'GENERATE',
+                              _isLoading
+                                  ? AppLocalizations.of(context)!
+                                      .defaults_loading
+                                  : AppLocalizations.of(context)!
+                                      .defaults_generate,
+                        );
+                      },
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).height * 0.05,
-                ),
-              ],
-            ),
-          )
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height * 0.05,
+                  ),
+                ],
+              ),
+            )
         ],
       ),
     );

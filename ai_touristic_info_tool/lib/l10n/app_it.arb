@@ -201,6 +201,11 @@
     "visualizationDialog_stopTour": "Ferma Tour",
     "visualizationDialog_listofPois": "Elenco dei POI",
     "visualizationDialog_mapButton": "Mappa",
+    "visualizationDialog_startTourConfirmation": "Sei sicuro di voler iniziare il tour?",
+    "visualizationDialog_stopTourConfirmation": "Sei sicuro di voler fermare il tour?",
+    "visualizationDialog_errorLoadingAudio": "Errore durante il caricamento dell'audio. Riprova più tardi.",
+    "visualizationDialog_errorPlayingAudio": "Errore durante la riproduzione dell'audio. Riprova più tardi.",
+    "viusalizationDialog_playSound": "Riproduci Suono",
 
 
     "about_title": "LG Gemini AI Strumento di Informazioni Turistiche",
@@ -259,6 +264,8 @@
     "lgConnection_disconnect": "DISCONNETTI LG",
     "lgConnection_confirmDisconnect": "Sei sicuro di voler disconnetterti?",
     "lgConnection_errorDisconnect": "Sei già disconnesso!",
+    "lgConnection_success": "Ti sei connesso con successo a Liquid Galaxy!",
+    "lgConnection_disconnectMsg": "Ora sei disconnesso da Liquid Galaxy.",
 
  
     "lgTasks_title": "Attività di Liquid Galaxy",
@@ -301,6 +308,8 @@
 
    "poiExpansion_flyTo": "Vola a",
    "poiExpansion_orbit": "Orbita",
+   "poiExpansion_runningTourError": "Un tour è attualmente in corso.\nPrima interrompi il tour.",
+   "poiExpansion_noAPIKeyYoutube": "Chiave API per Youtube non trovata.\nAggiungi una chiave API nelle impostazioni.",
 
 
     "mapTypes_terrain": "Terreno",
@@ -345,6 +354,7 @@
     "exploreLocation_salons": "Saloni di Bellezza",
     "exploreLocation_askGemini": "Chiedi a Gemini tutto ciò che vuoi sapere nelle vicinanze:",
     "exploreLocation_askGemma": "Chiedi a Gemma tutto ciò che vuoi sapere nelle vicinanze:",
+    "exploreLocation_missingAddress": "Per favore inserisci prima un indirizzo sopra o usa la mappa!",
 
 
     "exploreWorld_aiRecommendation":"Raccomandazioni Turistiche AI a Livello Mondiale",
@@ -416,6 +426,12 @@
     "defaults_customize": "Personalizza",
     "defaults_restart": "Rilancia",
     "defaults_skip":"Salta",
+    "defaults_play": "Riproduci",
+    "defaults_pause": "Pausa",
+    "defaults_start": "Inizia",
+    "defaults_resume": "Riprendi",
+    "validate_dropdown": "Seleziona un'opzione",
+    "button_TypePrompt": "Scrivi un prompt",
 
 
     "searchResults_web": "Risultati Web per {query}",

@@ -203,6 +203,12 @@
     "visualizationDialog_stopTour": "Stop Tour",
     "visualizationDialog_listofPois": "List of POIs",
     "visualizationDialog_mapButton": "Map",
+    "visualizationDialog_startTourConfirmation":"Are you sure you want to start tour?",
+    "visualizationDialog_stopTourConfirmation": "Are you sure you want to stop tour?",
+    "visualizationDialog_errorLoadingAudio": "Error loading audio. Please try again later.",
+    "visualizationDialog_errorPlayingAudio": "Error playing audio. Please try again later.",
+    "viusalizationDialog_playSound":"Play Sound",
+
 
 
     "about_title": "LG Gemini AI Touristic Info Tool",
@@ -261,6 +267,9 @@
     "lgConnection_disconnect": "DISCONNECT LG",
     "lgConnection_confirmDisconnect": "Are you sure you want to disconnect?",
     "lgConnection_errorDisconnect": "You are already disconnected!",
+    "lgConnection_success":"You are now connected to the Liquid Galaxy successfully!",
+    "lgConnection_disconnectMsg": "You are now disconnected from the Liquid Galaxy.",
+
 
  
     "lgTasks_title": "Liquid Galaxy Tasks",
@@ -303,6 +312,10 @@
 
    "poiExpansion_flyTo": "Fly to",
    "poiExpansion_orbit": "Orbit",
+   "poiExpansion_runningTourError": "A tour is currently running.\nStop tour first.",
+   "poiExpansion_noAPIKeyYoutube":"No API key found for Youtube API.\nPlease add an API key in the settings.",
+
+
 
 
     "mapTypes_terrain": "Terrain",
@@ -347,6 +360,8 @@
     "exploreLocation_salons": "Beauty Salons",
     "exploreLocation_askGemini": "Ask Gemini anything you want to know nearby:",
     "exploreLocation_askGemma": "Ask Gemma anything you want to know nearby:",
+    "exploreLocation_missingAddress": "Please enter an address first above or use map!",
+
 
 
     "exploreWorld_aiRecommendation":"AI Touristic Recommendations WorldWide",
@@ -418,6 +433,13 @@
     "defaults_customize": "Customize",
     "defaults_restart": "Restart",
     "defaults_skip":"SKIP",
+    "defaults_play": "Play",
+    "defaults_pause": "Pause",
+    "defaults_start": "Start",
+    "defaults_resume": "Resume",
+
+    "validate_dropdown": "Please select an option",
+    "button_TypePrompt": "Type a prompt",
 
 
     "searchResults_web": "Web Results for {query}",

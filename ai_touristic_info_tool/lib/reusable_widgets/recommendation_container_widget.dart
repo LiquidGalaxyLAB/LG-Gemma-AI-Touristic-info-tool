@@ -64,8 +64,8 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                   builder: (BuildContext context, FontsProvider value,
                       Widget? child) {
                     return Text(
-                      'Please enter an address first above or use map!',
-                      // AppLocalizations.of(context)!.defaults_queryError,
+                      // 'Please enter an address first above or use map!',
+                      AppLocalizations.of(context)!.exploreLocation_missingAddress,
                       style: TextStyle(
                         fontSize: value.fonts.textSize,
                         color: Colors.white,
@@ -241,14 +241,17 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                         CircularProgressIndicator(
                           color: Colors.white,
                         ),
-                        Text(
-                            // 'Loading...',
-                            AppLocalizations.of(context)!.defaults_loading,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: fontType,
-                            ))
+                        Expanded(
+                          child: Text(
+                              // 'Loading...',
+                              AppLocalizations.of(context)!.defaults_loading,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                overflow: TextOverflow.ellipsis,
+                                fontFamily: fontType,
+                              )),
+                        )
                       ],
                     ),
                   ),

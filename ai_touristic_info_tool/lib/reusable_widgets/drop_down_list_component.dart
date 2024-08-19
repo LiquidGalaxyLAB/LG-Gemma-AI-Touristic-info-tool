@@ -3,7 +3,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../constants.dart';
 import '../utils/build_drop_menu_items.dart';
 
@@ -115,13 +115,12 @@ class DropDownListWidget extends StatelessWidget {
           dropdownColor: colorProv.colors.innerBackground,
           validator: (value) {
             if (value == null || value == 'None') {
-              return 'Please select an item';
+              // return 'Please select an item';
+              return AppLocalizations.of(context)!.validate_dropdown;
             }
             return null;
           },
-          
         ),
-      
       ),
     );
   }

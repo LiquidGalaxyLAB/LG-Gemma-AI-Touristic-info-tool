@@ -199,6 +199,11 @@
     "visualizationDialog_stopTour": "टूर रोकें",
     "visualizationDialog_listofPois": "POIs की सूची",
     "visualizationDialog_mapButton": "मानचित्र",
+    "visualizationDialog_startTourConfirmation": "क्या आप वाकई यात्रा शुरू करना चाहते हैं?",
+    "visualizationDialog_stopTourConfirmation": "क्या आप वाकई यात्रा रोकना चाहते हैं?",
+    "visualizationDialog_errorLoadingAudio": "ऑडियो लोड करने में त्रुटि। कृपया बाद में पुनः प्रयास करें।",
+    "visualizationDialog_errorPlayingAudio": "ऑडियो चलाने में त्रुटि। कृपया बाद में पुनः प्रयास करें।",
+    "viusalizationDialog_playSound": "ध्वनि चलाएं",
 
 
     "about_title": "LG Gemini AI टूरिस्टिक इन्फो टूल",
@@ -257,6 +262,8 @@
     "lgConnection_disconnect": "LG डिस्कनेक्ट करें",
     "lgConnection_confirmDisconnect": "क्या आप वास्तव में डिस्कनेक्ट करना चाहते हैं?",
     "lgConnection_errorDisconnect": "आप पहले से ही डिस्कनेक्टेड हैं!",
+     "lgConnection_success": "आप अब सफलतापूर्वक लिक्विड गैलेक्सी से जुड़े हैं!",
+    "lgConnection_disconnectMsg": "आप अब लिक्विड गैलेक्सी से डिस्कनेक्ट हो चुके हैं।",
 
 
     "lgTasks_title": "Liquid Galaxy कार्य",
@@ -299,6 +306,8 @@
 
     "poiExpansion_flyTo": "उड़ें",
     "poiExpansion_orbit": "कक्षा",
+    "poiExpansion_runningTourError": "एक यात्रा वर्तमान में चल रही है।\nपहले यात्रा को रोकें।",
+    "poiExpansion_noAPIKeyYoutube": "Youtube API के लिए कोई API कुंजी नहीं मिली।\nकृपया सेटिंग्स में एक API कुंजी जोड़ें।",
 
 
     "mapTypes_terrain": "भू-आकृति",
@@ -343,6 +352,7 @@
     "exploreLocation_salons": "सौंदर्य सैलून",
     "exploreLocation_askGemini": "नजदीक के बारे में कुछ भी पूछें:",
     "exploreLocation_askGemma": "नजदीक के बारे में कुछ भी पूछें:",
+    "exploreLocation_missingAddress": "कृपया पहले ऊपर एक पता दर्ज करें या मानचित्र का उपयोग करें!",
 
 
     "exploreWorld_aiRecommendation": "AI पर्यटन सिफारिशें विश्वभर में",
@@ -414,6 +424,12 @@
     "defaults_customize": "अनुकूलित करें",
     "defaults_restart": "पुनः आरंभ करें",
     "defaults_skip":"छोड़ें",
+    "defaults_play": "चलाएं",
+    "defaults_pause": "विराम",
+    "defaults_start": "प्रारंभ करें",
+    "defaults_resume": "फिर से शुरू करें",
+    "validate_dropdown": "कृपया एक विकल्प चुनें",
+    "button_TypePrompt": "एक संकेत टाइप करें",
 
 
 

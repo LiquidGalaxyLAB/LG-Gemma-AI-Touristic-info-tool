@@ -335,9 +335,9 @@ class _ConnectionViewState extends State<ConnectionView> {
                                                 .showSnackBar(
                                               SnackBar(
                                                 content: Text(
-                                                  'You are now connected to the Liquid Galaxy successfully!',
-                                                  // AppLocalizations.of(context)!
-                                                  //     .lgConnection_connected,
+                                                  // 'You are now connected to the Liquid Galaxy successfully!',
+                                                  AppLocalizations.of(context)!
+                                                      .lgConnection_success,
                                                   style: TextStyle(
                                                       fontFamily: fontType,
                                                       fontSize: fontProv
@@ -427,9 +427,9 @@ class _ConnectionViewState extends State<ConnectionView> {
                                                   .showSnackBar(
                                                 SnackBar(
                                                   content: Text(
-                                                    'You are now disconnected from the Liquid Galaxy!',
-                                                    // AppLocalizations.of(context)!
-                                                    //     .lgConnection_disconnected,
+                                                    // 'You are now disconnected from the Liquid Galaxy!',
+                                                    AppLocalizations.of(context)!
+                                                        .lgConnection_disconnectMsg,
                                                     style: TextStyle(
                                                         fontFamily: fontType,
                                                         fontSize: fontProv
@@ -447,9 +447,9 @@ class _ConnectionViewState extends State<ConnectionView> {
                                                   .showSnackBar(
                                                 SnackBar(
                                                   content: Text(
-                                                    'You are already disconnected!',
-                                                    // AppLocalizations.of(context)!
-                                                    //     .lgConnection_connected,
+                                                    // 'You are already disconnected!',
+                                                    AppLocalizations.of(context)!
+                                                        .lgConnection_errorDisconnect,
                                                     style: TextStyle(
                                                         fontFamily: fontType,
                                                         fontSize: fontProv

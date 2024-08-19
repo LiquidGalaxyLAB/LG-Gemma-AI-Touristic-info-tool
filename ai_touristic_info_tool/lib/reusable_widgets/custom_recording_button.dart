@@ -4,6 +4,7 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomRecordingButton extends StatefulWidget {
   const CustomRecordingButton({
@@ -51,7 +52,7 @@ class _CustomRecordingButtonState extends State<CustomRecordingButton> {
                 ),
               ),
               Text(
-                widget.isRecording ? 'Stop' : 'Start',
+                widget.isRecording ? AppLocalizations.of(context)!.defaults_stop : AppLocalizations.of(context)!.defaults_start,
                 style: TextStyle(
                     fontSize: fontProv.fonts.textSize,
                     color: colorProvv.colors.buttonColors,
