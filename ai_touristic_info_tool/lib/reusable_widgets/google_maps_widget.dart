@@ -46,6 +46,19 @@ class GoogleMapWidget extends StatefulWidget {
 class _GoogleMapWidgetState extends State<GoogleMapWidget> {
   late GoogleMapController _mapController;
 
+  @override
+  void initState() {
+    super.initState();
+
+    // Set the callback to rebuild the map
+    Provider.of<GoogleMapProvider>(context, listen: false)
+        .setMapResetCallback(() {
+      setState(() {
+        _mapKey = UniqueKey(); // Update the map key to force rebuild
+      });
+    });
+  }
+
   void _onMapCreated(GoogleMapController mapController) {
     _mapController = mapController;
     GoogleMapProvider gmp =
@@ -113,6 +126,8 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     super.dispose();
   }
 
+  Key _mapKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -141,6 +156,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                     return Stack(
                       children: [
                         GoogleMap(
+                            key: _mapKey,
                             gestureRecognizers: Set()
                               ..add(Factory<PanGestureRecognizer>(
                                   () => PanGestureRecognizer())),
@@ -166,8 +182,10 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                             scrollGesturesEnabled: true,
                             onCameraMove: _onCameraMove,
                             onCameraIdle: _onCameraIdle,
-                            markers: mapProvider.markers,
-                            polylines: mapProvider.polylines,
+                            // markers: mapProvider.markers,
+                            markers: Set<Marker>.of(mapProvider.markers),
+                            // polylines: mapProvider.polylines,
+                            polylines: Set<Polyline>.of(mapProvider.polylines),
                             onMapCreated: _onMapCreated,
                             onTap: (LatLng location) {
                               setState(() {

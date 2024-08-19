@@ -145,10 +145,14 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
       }
       dialogBuilder(
           context,
-          _isAudioEmptyError ? AppLocalizations.of(context)!.visualizationDialog_errorLoadingAudio : AppLocalizations.of(context)!.visualizationDialog_errorPlayingAudio,
-              // ? 'Error loading audio. Please try again later.'
-              // : 'Error playing audio. Please try again later.',
-      
+          _isAudioEmptyError
+              ? AppLocalizations.of(context)!
+                  .visualizationDialog_errorLoadingAudio
+              : AppLocalizations.of(context)!
+                  .visualizationDialog_errorPlayingAudio,
+          // ? 'Error loading audio. Please try again later.'
+          // : 'Error playing audio. Please try again later.',
+
           true,
           AppLocalizations.of(context)!.defaults_ok,
           () {},
@@ -306,6 +310,8 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                         final mapProvider = Provider.of<GoogleMapProvider>(
                             context,
                             listen: false);
+                        mapProvider.pinPillPosition =
+                            MediaQuery.of(context).size.height * 1;
                         mapProvider.setBitmapDescriptor(
                             "assets/images/placemark_pin.png");
                         mapProvider.updateZoom(12.4746);

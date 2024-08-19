@@ -4,7 +4,6 @@ import 'package:ai_touristic_info_tool/dialogs/show_ai_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import '../../reusable_widgets/app_bar_widget.dart';
 import '../../reusable_widgets/drawer.dart';
 import '../../reusable_widgets/gradient_background.dart';
@@ -40,7 +39,6 @@ class _MainLayoutState extends State<MainLayout> {
             bottom: MediaQuery.of(context).size.height * 0.03,
             left: MediaQuery.of(context).size.width * 0.12,
             right: MediaQuery.of(context).size.width * 0.02,
-
             child: Consumer<ColorProvider>(
               builder:
                   (BuildContext context, ColorProvider value, Widget? child) {

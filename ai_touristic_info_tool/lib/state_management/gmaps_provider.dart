@@ -10,14 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-/// [GoogleMapProvider] is a provider class responsible for managing the state and logic 
-/// related to Google Maps in the application. It provides methods to add, remove, and 
+/// [GoogleMapProvider] is a provider class responsible for managing the state and logic
+/// related to Google Maps in the application. It provides methods to add, remove, and
 /// update markers on the map, as well as methods to update the camera position and
 /// fly to a specific location. It also manages the state of the map controller, the
 /// current full address, the pin pill position, and the custom tour mode.
 
 class GoogleMapProvider with ChangeNotifier {
-
   /// [currentlySelectedPin] is a [PlacesModel] object that represents the currently selected pin on the map.
   PlacesModel currentlySelectedPin = PlacesModel(
     id: -1,
@@ -32,12 +31,13 @@ class GoogleMapProvider with ChangeNotifier {
     latitude: 0.0,
     longitude: 0.0,
   );
+
   /// [currentFullAddress] is a [Map] object that represents the current full address of the selected pin.
   Map<String, String?> _currentFullAddress = {};
 
   /// [pinPillPosition] is a [double] value that represents the position of the pin pill on the map.
   double _pinPillPosition = -1000;
-  
+
   /// [_mapController] is a [GoogleMapController] object that represents the map controller.
   GoogleMapController? _mapController;
 
@@ -79,6 +79,12 @@ class GoogleMapProvider with ChangeNotifier {
 
   /// [_allowSync] is a [bool] value that represents whether the map is allowed to sync with LG or not.
   bool _allowSync = true;
+
+  Function? onMapReset;
+
+  void setMapResetCallback(Function callback) {
+    onMapReset = callback;
+  }
 
   // Getters for camera values
 
@@ -174,7 +180,7 @@ class GoogleMapProvider with ChangeNotifier {
     );
     notifyListeners();
   }
- 
+
   /// [setBitmapDescriptor] method sets the bitmap descriptor for the icon marker on the map.
   /// It takes an [imagePath] parameter and sets the bitmap descriptor from the given image path.
   /// The image is converted to bytes and then set as the bitmap descriptor for the icon marker.
@@ -289,8 +295,6 @@ class GoogleMapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
-
   /// [addPolylinesBetweenMarkers] method adds polylines between the markers on the map.
   /// It takes no parameters and adds polylines between the markers on the map.
   void addPolylinesBetweenMarkers() {
@@ -374,12 +378,18 @@ class GoogleMapProvider with ChangeNotifier {
   void clearPolylines() {
     _polylines.clear();
     notifyListeners();
+    if (onMapReset != null) {
+      onMapReset!(); // Trigger map rebuild
+    }
   }
 
   //clear custom markers
   void clearCustomMarkers() {
     _customTourMainMarkers.clear();
     notifyListeners();
+    if (onMapReset != null) {
+      onMapReset!(); // Trigger map rebuild
+    }
   }
 
   //clear map
@@ -388,6 +398,9 @@ class GoogleMapProvider with ChangeNotifier {
     _customTourMainMarkers.clear();
     _polylines.clear();
     notifyListeners();
+    if (onMapReset != null) {
+      onMapReset!(); // Trigger map rebuild
+    }
   }
 
   // Remove a marker
@@ -471,5 +484,8 @@ class GoogleMapProvider with ChangeNotifier {
   void clearMarkers() {
     _markers.clear();
     notifyListeners();
+    if (onMapReset != null) {
+      onMapReset!(); // Trigger map rebuild
+    }
   }
 }
