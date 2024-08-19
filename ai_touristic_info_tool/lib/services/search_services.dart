@@ -1,17 +1,14 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'dart:math';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// A service class for fetching URLs related to user queries, including YouTube video URLs and general URLs from Google search results
-class SearchServices{
-
-
+class SearchServices {
   /// Fetches a list of YouTube video URLs based on the provided search query.
   ///
   /// The function uses the YouTube Data API to search for videos related to the query.
@@ -20,32 +17,39 @@ class SearchServices{
   /// [query]: The search query string.
   /// Returns a list of YouTube video URLs.
   /// Throws an exception if the API request fails.
- Future<List<String>> fetchYoutubeUrls(BuildContext context,
+  Future<List<String>> fetchYoutubeUrls(BuildContext context, String apiKey,
       {required String query}) async {
     final String endpoint = 'https://www.googleapis.com/youtube/v3/search';
 
-    final Uri url = Uri.parse(
-        '$endpoint?key=${dotenv.env['YOUTUBE_API_KEY']}&q=$query&type=video');
+    final Uri url = Uri.parse('$endpoint?key=$apiKey&q=$query&type=video');
+    // final Uri url = Uri.parse(
+    //     '$endpoint?key=${dotenv.env['YOUTUBE_API_KEY']}&q=$query&type=video');
+    try {
+      final response = await http.get(url);
 
-    final response = await http.get(url);
+      print(response.statusCode);
 
-    print(response.statusCode);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        List<String> videoUrls = [];
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      List<String> videoUrls = [];
+        for (var item in data['items']) {
+          String videoId = item['id']['videoId'];
+          String videoUrl = 'https://www.youtube.com/watch?v=$videoId';
+          videoUrls.add(videoUrl);
+        }
 
-      for (var item in data['items']) {
-        String videoId = item['id']['videoId'];
-        String videoUrl = 'https://www.youtube.com/watch?v=$videoId';
-        videoUrls.add(videoUrl);
+        return videoUrls;
+      } else {
+        // throw Exception('Failed to load YouTube URLs');
+        // throw Exception(
+        //     AppLocalizations.of(context)!.aiGenerationAPIGemma_errorFetchYoutube);
+        return [];
       }
-
-      return videoUrls;
-    } else {
-      // throw Exception('Failed to load YouTube URLs');
-      throw Exception(
-          AppLocalizations.of(context)!.aiGenerationAPIGemma_errorFetchYoutube);
+    } catch (e) {
+      return [];
+      // throw Exception(
+      //     AppLocalizations.of(context)!.aiGenerationAPIGemma_errorFetchYoutube);
     }
   }
 
@@ -71,7 +75,6 @@ class SearchServices{
     String? safe = 'active',
     String? region,
   }) async {
-
     const _userAgentList = [
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
@@ -94,10 +97,8 @@ class SearchServices{
         'www.google.com',
         '/search',
         {
-          'q':
-              '$term -tripadvisor -inurl:http', 
-          'num':
-              '${numResults + 2}', 
+          'q': '$term -tripadvisor -inurl:http',
+          'num': '${numResults + 2}',
           'hl': lang,
           'start': '$start',
           'safe': safe,
@@ -157,8 +158,7 @@ class SearchServices{
         break;
       }
 
-      start +=
-          numResults; 
+      start += numResults;
       await Future.delayed(sleepInterval ?? Duration.zero);
     }
 

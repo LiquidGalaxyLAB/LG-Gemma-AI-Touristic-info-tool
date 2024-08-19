@@ -532,21 +532,33 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                                 ? AppLocalizations.of(context)!
                                                     .aiGenerationAPIGemini_successGeneration
                                                 : snapshot.data.toString() ==
-                                                        'Streaming'
+                                                        'The model is generating the POIs for you. Please wait... '
                                                     ? widget.locale ==
                                                             Locale('ar')
-                                                        ? 'جاري البث'
+                                                        ? 'جاري توليد الأماكن لك. يرجى الانتظار...'
                                                         : widget.locale ==
                                                                 Locale('ja')
-                                                            ? 'ストリーミング中'
+                                                            ? 'モデルがPOIを生成しています。お待ちください...'
                                                             : widget.locale ==
                                                                     Locale('hi')
-                                                                ? 'स्ट्रीमिंग'
+                                                                ? 'मॉडल आपके लिए पीओआई उत्पन्न कर रहा है। कृपया प्रतीक्षा करें...'
                                                                 : widget.locale ==
                                                                         Locale(
                                                                             'es')
-                                                                    ? 'Transmitiendo'
-                                                                    : 'Streaming'
+                                                                    ? 'El modelo está generando los POI para ti. Por favor espera...'
+                                                                    : widget.locale ==
+                                                                            Locale(
+                                                                                'de')
+                                                                        ? 'Das Modell generiert die POIs für Sie. Bitte warten...'
+                                                                        : widget.locale ==
+                                                                                Locale(
+                                                                                    'fr')
+                                                                            ? 'Le modèle génère les POI pour vous. Veuillez patienter...'
+                                                                            : widget.locale ==
+                                                                                    Locale(
+                                                                                        'it')
+                                                                                ? 'Il modello sta generando i POI per te. Attendere...'
+                                                                                : 'The model is generating the POIs for you. Please wait... '
                                                     : snapshot.data
                                                                 .toString() ==
                                                             'Preparing visualizations'

@@ -1,6 +1,8 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
+import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/services/search_services.dart';
@@ -289,12 +291,34 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                             srch.showMap = false;
                                             srch.searchPoiSelected =
                                                 widget.placeModel.name;
-                                            List<String> _futureYoutubeUrls =
-                                                await SearchServices()
-                                                    .fetchYoutubeUrls(
-                                                        query: widget
-                                                            .placeModel.name,
-                                                        context);
+
+                                            ApiKeyModel? apiKeyModel =
+                                                await APIKeySharedPref
+                                                    .getDefaultApiKey(
+                                                        'Youtube');
+
+                                            String apiKey;
+                                            List<String> _futureYoutubeUrls;
+                                            if (apiKeyModel == null) {
+                                              dialogBuilder(
+                                                  context,
+                                                  'No API key found for Youtube API.\nPlease add an API key in the settings.',
+                                                  true,
+                                                  AppLocalizations.of(context)!
+                                                      .defaults_ok,
+                                                  () {},
+                                                  () {});
+                                              _futureYoutubeUrls = [];
+                                            } else {
+                                              apiKey = apiKeyModel.key;
+                                              _futureYoutubeUrls =
+                                                  await SearchServices()
+                                                      .fetchYoutubeUrls(
+                                                          query: widget
+                                                              .placeModel.name,
+                                                          context,
+                                                          apiKey);
+                                            }
 
                                             //Local:
                                             // List<String> _futureUrls = await Api()

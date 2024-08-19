@@ -40,7 +40,7 @@ final fontType = GoogleFonts.lato().fontFamily;
 const double titleSize = 40;
 const double headingSize = titleSize - 5;
 const double textSize = titleSize - 20;
-const List<String> keyServicesAPI = ['Gemini'];
+const List<String> keyServicesAPI = ['Gemini', 'Youtube'];
 
 Map<String, List<PlacesModel>> defaultDataConst = {
   'Attractions in London, UK': [
