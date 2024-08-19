@@ -475,68 +475,68 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.01,
                     ),
-                    LgElevatedButton(
-                      elevatedButtonContent: playAudioElevatedButtonContent,
+                    // LgElevatedButton(
+                    //   elevatedButtonContent: playAudioElevatedButtonContent,
 
-                      // elevatedButtonContent: AppLocalizations.of(context)!
-                      //     .visualizationDialog_PrepTour,
-                      buttonColor: SettingsSharedPref.getTheme() == 'dark'
-                          ? colorVal.colors.midShadow
-                          : FontAppColors.secondaryFont,
-                      onpressed: () async {
-                        String voiceNarration =
-                            'Let\'s begin our ${widget.query} tour!';
-                        for (int i = 0; i < widget.places.length; i++) {
-                          PlacesModel poi = widget.places[i];
-                          if (i == 0) {
-                            voiceNarration +=
-                                'First, we have ${poi.name} in ${poi.city}, ${poi.country}.';
-                          } else {
-                            voiceNarration +=
-                                'Next, we have ${poi.name} in ${poi.city}, ${poi.country}.';
-                          }
-                          voiceNarration += poi.description ?? '';
-                        }
-                        if (_isAudioEmptyError) {
-                          //
-                          dialogBuilder(
-                              context,
-                              _isAudioEmptyError
-                                  ? 'Error loading audio. Please try again later.'
-                                  : 'Error playing audio. Please try again later.',
-                              true,
-                              AppLocalizations.of(context)!.defaults_ok,
-                              () {},
-                              () {});
-                        } else {
-                          _handlePlayPause(voiceNarration);
-                        }
-                      },
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      width: MediaQuery.of(context).size.width * 0.165,
-                      fontSize: textSize,
+                    //   // elevatedButtonContent: AppLocalizations.of(context)!
+                    //   //     .visualizationDialog_PrepTour,
+                    //   buttonColor: SettingsSharedPref.getTheme() == 'dark'
+                    //       ? colorVal.colors.midShadow
+                    //       : FontAppColors.secondaryFont,
+                    //   onpressed: () async {
+                    //     String voiceNarration =
+                    //         'Let\'s begin our ${widget.query} tour!';
+                    //     for (int i = 0; i < widget.places.length; i++) {
+                    //       PlacesModel poi = widget.places[i];
+                    //       if (i == 0) {
+                    //         voiceNarration +=
+                    //             'First, we have ${poi.name} in ${poi.city}, ${poi.country}.';
+                    //       } else {
+                    //         voiceNarration +=
+                    //             'Next, we have ${poi.name} in ${poi.city}, ${poi.country}.';
+                    //       }
+                    //       voiceNarration += poi.description ?? '';
+                    //     }
+                    //     if (_isAudioEmptyError) {
+                    //       //
+                    //       dialogBuilder(
+                    //           context,
+                    //           _isAudioEmptyError
+                    //               ? 'Error loading audio. Please try again later.'
+                    //               : 'Error playing audio. Please try again later.',
+                    //           true,
+                    //           AppLocalizations.of(context)!.defaults_ok,
+                    //           () {},
+                    //           () {});
+                    //     } else {
+                    //       _handlePlayPause(voiceNarration);
+                    //     }
+                    //   },
+                    //   height: MediaQuery.of(context).size.height * 0.07,
+                    //   width: MediaQuery.of(context).size.width * 0.165,
+                    //   fontSize: textSize,
 
-                      fontColor: FontAppColors.primaryFont,
-                      isLoading: false,
-                      isBold: true,
-                      isPrefixIcon: true,
-                      prefixIcon: _isAudioLoading
-                          ? Icons.watch_later_outlined
-                          : _isPlaying
-                              ? Icons.stop
-                              : _isAudioFinishedNarration
-                                  ? CupertinoIcons.speaker_1_fill
-                                  : Icons.play_circle_sharp,
-                      prefixIconColor: FontAppColors.primaryFont,
-                      prefixIconSize: 30,
-                      isSuffixIcon: false,
-                      borderColor: FontAppColors.primaryFont,
-                      borderWidth: 2,
-                      curvatureRadius: 10,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
+                    //   fontColor: FontAppColors.primaryFont,
+                    //   isLoading: false,
+                    //   isBold: true,
+                    //   isPrefixIcon: true,
+                    //   prefixIcon: _isAudioLoading
+                    //       ? Icons.watch_later_outlined
+                    //       : _isPlaying
+                    //           ? Icons.stop
+                    //           : _isAudioFinishedNarration
+                    //               ? CupertinoIcons.speaker_1_fill
+                    //               : Icons.play_circle_sharp,
+                    //   prefixIconColor: FontAppColors.primaryFont,
+                    //   prefixIconSize: 30,
+                    //   isSuffixIcon: false,
+                    //   borderColor: FontAppColors.primaryFont,
+                    //   borderWidth: 2,
+                    //   curvatureRadius: 10,
+                    // ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width * 0.01,
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

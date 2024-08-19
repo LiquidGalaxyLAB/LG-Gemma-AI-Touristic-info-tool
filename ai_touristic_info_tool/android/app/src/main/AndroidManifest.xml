@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO" /> -->
     <!-- Optional: Add this permission if you want to use bluetooth telephony device like headset/earbuds -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> -->
     <!-- Optional: Add this permission if you want to save your recordings in public folders -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
 
     <supports-screens
         android:smallScreens="false"
@@ -12,6 +12,16 @@
         android:largeScreens="true"
         android:xlargeScreens="true"
         android:requiresSmallestWidthDp="600" />
+
+    <compatible-screens>
+    <screen android:screenSize="large" android:screenDensity="ldpi" />
+    <screen android:screenSize="large" android:screenDensity="mdpi" />
+
+    <screen android:screenSize="xlarge" android:screenDensity="ldpi" />
+    <screen android:screenSize="xlarge" android:screenDensity="mdpi" />
+    <screen android:screenSize="xlarge" android:screenDensity="hdpi" />
+    <screen android:screenSize="xlarge" android:screenDensity="xhdpi" />
+    </compatible-screens>
     
     <application
         android:label="Gemini AI Touristic tool"
