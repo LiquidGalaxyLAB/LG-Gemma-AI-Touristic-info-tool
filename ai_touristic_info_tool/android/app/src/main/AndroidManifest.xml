@@ -6,13 +6,6 @@
     <!-- Optional: Add this permission if you want to save your recordings in public folders -->
     <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
 
-    <supports-screens
-        android:smallScreens="false"
-        android:normalScreens="false"
-        android:largeScreens="true"
-        android:xlargeScreens="true"
-        android:requiresSmallestWidthDp="600" />
-
     <compatible-screens>
     <screen android:screenSize="large" android:screenDensity="ldpi" />
     <screen android:screenSize="large" android:screenDensity="mdpi" />
@@ -22,7 +15,7 @@
     <screen android:screenSize="xlarge" android:screenDensity="hdpi" />
     <screen android:screenSize="xlarge" android:screenDensity="xhdpi" />
     </compatible-screens>
-    
+
     <application
         android:label="Gemini AI Touristic tool"
         android:name="${applicationName}"

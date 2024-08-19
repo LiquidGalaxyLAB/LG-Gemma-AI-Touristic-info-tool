@@ -11,6 +11,7 @@ import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
+import 'package:ai_touristic_info_tool/state_management/tour_status_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -128,242 +129,270 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        LatLng newLocation = LatLng(
-                                            widget.placeModel.latitude,
-                                            widget.placeModel.longitude);
-                                        final mapProvider =
-                                            Provider.of<GoogleMapProvider>(
-                                                context,
-                                                listen: false);
-                                        mapProvider.setBitmapDescriptor(
-                                            "assets/images/placemark_pin.png");
-                                        mapProvider.addMarker(
-                                            context, widget.placeModel,
-                                            removeAll: true);
-                                        mapProvider.updateZoom(18.4746);
-                                        mapProvider.updateBearing(90);
-                                        mapProvider.updateTilt(45);
-                                        mapProvider.flyToLocation(newLocation);
+                              Consumer<TourStatusprovider>(
+                                builder: (BuildContext context,
+                                    TourStatusprovider tourStatus,
+                                    Widget? child) {
+                                  return Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            if (tourStatus.isTourOn) {
+                                              dialogBuilder(
+                                                  context,
+                                                  'A tour is currently running.\nStop tour first.',
+                                                  true,
+                                                  AppLocalizations.of(context)!
+                                                      .defaults_ok,
+                                                  () {},
+                                                  () {});
+                                            } else {
+                                              LatLng newLocation = LatLng(
+                                                  widget.placeModel.latitude,
+                                                  widget.placeModel.longitude);
+                                              final mapProvider = Provider.of<
+                                                      GoogleMapProvider>(
+                                                  context,
+                                                  listen: false);
+                                              mapProvider.setBitmapDescriptor(
+                                                  "assets/images/placemark_pin.png");
+                                              mapProvider.addMarker(
+                                                  context, widget.placeModel,
+                                                  removeAll: true);
+                                              mapProvider.updateZoom(18.4746);
+                                              mapProvider.updateBearing(90);
+                                              mapProvider.updateTilt(45);
+                                              mapProvider
+                                                  .flyToLocation(newLocation);
 
-                                        mapProvider.currentlySelectedPin =
-                                            widget.placeModel;
-                                        mapProvider.pinPillPosition = 10;
+                                              mapProvider.currentlySelectedPin =
+                                                  widget.placeModel;
+                                              mapProvider.pinPillPosition = 10;
 
-                                        await Future.delayed(
-                                            const Duration(seconds: 3));
+                                              await Future.delayed(
+                                                  const Duration(seconds: 3));
 
-                                        final sshData =
-                                            Provider.of<SSHprovider>(context,
-                                                listen: false);
+                                              final sshData =
+                                                  Provider.of<SSHprovider>(
+                                                      context,
+                                                      listen: false);
 
-                                        Connectionprovider connection =
-                                            Provider.of<Connectionprovider>(
-                                                context,
-                                                listen: false);
+                                              Connectionprovider connection =
+                                                  Provider.of<
+                                                          Connectionprovider>(
+                                                      context,
+                                                      listen: false);
 
-                                        ///checking the connection status first
-                                        if (sshData.client != null &&
-                                            connection.isLgConnected) {
-                                          await buildPlacePlacemark(
-                                              widget.placeModel,
-                                              widget.index + 1,
-                                              widget.query,
-                                              context);
-                                        }
-                                      },
-                                      child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.05,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.12,
-                                          decoration: BoxDecoration(
-                                            color: value.colors.gradient1,
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                          ),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Icon(
-                                                  Icons
-                                                      .airplanemode_active_outlined,
-                                                  color: SettingsSharedPref
-                                                              .getTheme() ==
-                                                          'light'
-                                                      ? Colors.black
-                                                      : FontAppColors
-                                                          .secondaryFont,
-                                                  size: textSize + 10),
-                                              Flexible(
-                                                child: FittedBox(
-                                                  fit: BoxFit.scaleDown,
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    // 'Fly to',
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .poiExpansion_flyTo,
-                                                    style: TextStyle(
-                                                        fontSize: fontVal.fonts
-                                                                .textSize -
-                                                            4,
-                                                        color: SettingsSharedPref
-                                                                    .getTheme() ==
-                                                                'default'
-                                                            ? fontVal.fonts
-                                                                .secondaryFontColor
-                                                            : fontVal.fonts
-                                                                .primaryFontColor,
-                                                        fontFamily: fontType,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          )),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        final srch =
-                                            Provider.of<SearchProvider>(context,
-                                                listen: false);
-                                        Connectionprovider connection =
-                                            Provider.of<Connectionprovider>(
-                                                context,
-                                                listen: false);
-                                        //Local:
-                                        // if (!connection.isAiConnected) {
-                                        //   dialogBuilder(
-                                        //       context,
-                                        //       'NOT connected to AI Server!!\nPlease Connect!',
-                                        //       true,
-                                        //       'OK',
-                                        //       null,
-                                        //       null);
-                                        // } else {
-                                        srch.isLoading = true;
-                                        srch.showMap = false;
-                                        srch.searchPoiSelected =
-                                            widget.placeModel.name;
-                                        List<String> _futureYoutubeUrls =
-                                            await SearchServices()
-                                                .fetchYoutubeUrls(
-                                                    query:
-                                                        widget.placeModel.name,
+                                              ///checking the connection status first
+                                              if (sshData.client != null &&
+                                                  connection.isLgConnected) {
+                                                await buildPlacePlacemark(
+                                                    widget.placeModel,
+                                                    widget.index + 1,
+                                                    widget.query,
                                                     context);
+                                              }
+                                            }
+                                          },
+                                          child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.05,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.12,
+                                              decoration: BoxDecoration(
+                                                color: value.colors.gradient1,
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                              ),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  Icon(
+                                                      Icons
+                                                          .airplanemode_active_outlined,
+                                                      color: SettingsSharedPref
+                                                                  .getTheme() ==
+                                                              'light'
+                                                          ? Colors.black
+                                                          : FontAppColors
+                                                              .secondaryFont,
+                                                      size: textSize + 10),
+                                                  Flexible(
+                                                    child: FittedBox(
+                                                      fit: BoxFit.scaleDown,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        // 'Fly to',
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .poiExpansion_flyTo,
+                                                        style: TextStyle(
+                                                            fontSize: fontVal
+                                                                    .fonts
+                                                                    .textSize -
+                                                                4,
+                                                            color: SettingsSharedPref
+                                                                        .getTheme() ==
+                                                                    'default'
+                                                                ? fontVal.fonts
+                                                                    .secondaryFontColor
+                                                                : fontVal.fonts
+                                                                    .primaryFontColor,
+                                                            fontFamily:
+                                                                fontType,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            final srch =
+                                                Provider.of<SearchProvider>(
+                                                    context,
+                                                    listen: false);
+                                            // Connectionprovider connection =
+                                            //     Provider.of<Connectionprovider>(
+                                            //         context,
+                                            //         listen: false);
+                                            //Local:
+                                            // if (!connection.isAiConnected) {
+                                            //   dialogBuilder(
+                                            //       context,
+                                            //       'NOT connected to AI Server!!\nPlease Connect!',
+                                            //       true,
+                                            //       'OK',
+                                            //       null,
+                                            //       null);
+                                            // } else {
+                                            srch.isLoading = true;
+                                            srch.showMap = false;
+                                            srch.searchPoiSelected =
+                                                widget.placeModel.name;
+                                            List<String> _futureYoutubeUrls =
+                                                await SearchServices()
+                                                    .fetchYoutubeUrls(
+                                                        query: widget
+                                                            .placeModel.name,
+                                                        context);
 
-                                        //Local:
-                                        // List<String> _futureUrls = await Api()
-                                        //     .fetchWebUrls(
-                                        //         widget.placeModel.name);
+                                            //Local:
+                                            // List<String> _futureUrls = await Api()
+                                            //     .fetchWebUrls(
+                                            //         widget.placeModel.name);
 
-                                        //Gemini:
-                                        // Map<String, dynamic> _geminiWebResults =
-                                        //     await LangchainService()
-                                        //         .generatewebLinks(
-                                        //             widget.placeModel.name);
-                                        // List<dynamic> _futureUrlsDynamic =
-                                        //     _geminiWebResults['links'];
-                                        // List<String> _futureUrls = [];
-                                        // for (var link in _futureUrlsDynamic) {
-                                        //   _futureUrls.add(link.toString());
-                                        // }
-                                        // List<String> _futureUrls =
-                                        //     await LangchainService().fetchUrls(
-                                        //         widget.placeModel.name,
-                                        //         urlNum: 10);
-                                        List<String> _futureUrls =
-                                            await SearchServices().fetchUrls(
-                                                widget.placeModel.name,
-                                                numResults: 10);
-                                        /////////////////////////////////////////
+                                            //Gemini:
+                                            // Map<String, dynamic> _geminiWebResults =
+                                            //     await LangchainService()
+                                            //         .generatewebLinks(
+                                            //             widget.placeModel.name);
+                                            // List<dynamic> _futureUrlsDynamic =
+                                            //     _geminiWebResults['links'];
+                                            // List<String> _futureUrls = [];
+                                            // for (var link in _futureUrlsDynamic) {
+                                            //   _futureUrls.add(link.toString());
+                                            // }
+                                            // List<String> _futureUrls =
+                                            //     await LangchainService().fetchUrls(
+                                            //         widget.placeModel.name,
+                                            //         urlNum: 10);
+                                            List<String> _futureUrls =
+                                                await SearchServices()
+                                                    .fetchUrls(
+                                                        widget.placeModel.name,
+                                                        numResults: 10);
+                                            /////////////////////////////////////////
 
-                                        final sshData =
-                                            Provider.of<SSHprovider>(context,
-                                                listen: false);
+                                            // final sshData =
+                                            //     Provider.of<SSHprovider>(context,
+                                            //         listen: false);
 
-                                        ///checking the connection status first
-                                        if (sshData.client != null &&
-                                            connection.isLgConnected) {
-                                          List<String> links =
-                                              _futureUrls + _futureYoutubeUrls;
-                                          await buildAllLinksBalloon(
-                                              widget.placeModel.name,
-                                              widget.placeModel.city,
-                                              widget.placeModel.country,
-                                              widget.placeModel.latitude,
-                                              widget.placeModel.longitude,
-                                              links,
-                                              context);
-                                        }
+                                            ///checking the connection status first
+                                            // if (sshData.client != null &&
+                                            //     connection.isLgConnected) {
+                                            //   List<String> links =
+                                            //       _futureUrls + _futureYoutubeUrls;
+                                            // await buildAllLinksBalloon(
+                                            //     widget.placeModel.name,
+                                            //     widget.placeModel.city,
+                                            //     widget.placeModel.country,
+                                            //     widget.placeModel.latitude,
+                                            //     widget.placeModel.longitude,
+                                            //     links,
+                                            //     context);
+                                            // }
 
-                                        srch.webSearchResults = _futureUrls;
-                                        srch.youtubeSearchResults =
-                                            _futureYoutubeUrls;
-                                        srch.isLoading = false;
-                                        srch.poiLat =
-                                            widget.placeModel.latitude;
-                                        srch.poiLong =
-                                            widget.placeModel.longitude;
-                                        srch.searchPoiCountry =
-                                            widget.placeModel.country ??
-                                                'Worldwide';
-                                        srch.searchPoiCity =
-                                            widget.placeModel.city ?? '';
-                                        //Local: }
-                                      },
-                                      child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.05,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.03,
-                                          decoration: BoxDecoration(
-                                            color: value.colors.gradient1,
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                          ),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Icon(Icons.info,
-                                                  color: SettingsSharedPref
-                                                              .getTheme() ==
-                                                          'light'
-                                                      ? Colors.black
-                                                      : FontAppColors
-                                                          .secondaryFont,
-                                                  size: textSize + 10),
-                                            ],
-                                          )),
-                                    ),
-                                  ),
-                                ],
+                                            srch.webSearchResults = _futureUrls;
+                                            srch.youtubeSearchResults =
+                                                _futureYoutubeUrls;
+                                            srch.isLoading = false;
+                                            srch.poiLat =
+                                                widget.placeModel.latitude;
+                                            srch.poiLong =
+                                                widget.placeModel.longitude;
+                                            srch.searchPoiCountry =
+                                                widget.placeModel.country ??
+                                                    'Worldwide';
+                                            srch.searchPoiCity =
+                                                widget.placeModel.city ?? '';
+                                            //Local: }
+                                          },
+                                          child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.05,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.03,
+                                              decoration: BoxDecoration(
+                                                color: value.colors.gradient1,
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                              ),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  Icon(Icons.info,
+                                                      color: SettingsSharedPref
+                                                                  .getTheme() ==
+                                                              'light'
+                                                          ? Colors.black
+                                                          : FontAppColors
+                                                              .secondaryFont,
+                                                      size: textSize + 10),
+                                                ],
+                                              )),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -526,5 +555,3 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
     );
   }
 }
-
-

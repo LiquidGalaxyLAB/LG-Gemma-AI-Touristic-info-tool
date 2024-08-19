@@ -2,7 +2,6 @@ import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.d
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 /// This function creates a `DropdownMenuItem` widget for use in a dropdown menu.
 /// Each menu item is built using the provided `item` string and the `fontSize`.
 /// The text color for the item is dynamically set based on the current font
@@ -20,10 +19,12 @@ DropdownMenuItem<String> buildMenuItem(String item, double fontSize) =>
         value: item,
         child: Consumer<FontsProvider>(
           builder: (BuildContext context, FontsProvider value, Widget? child) {
-            return Text(
-              item,
-              style: TextStyle(
-                color: value.fonts.primaryFontColor,
+            return SizedBox(
+              child: Text(
+                item,
+                style: TextStyle(
+                  color: value.fonts.primaryFontColor,
+                ),
               ),
             );
           },

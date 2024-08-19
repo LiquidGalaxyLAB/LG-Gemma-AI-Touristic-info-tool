@@ -700,6 +700,18 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                   _city = value.currentFullAddress['city'] ?? '';
                   _country = value.currentFullAddress['country'] ?? '';
                   _addressQuery = '$_address $_city $_country';
+                } else {
+                  _address = _addressController.text;
+                  _city = _cityController.text;
+                  _country =
+                      (_chosenCountry != 'None' || _chosenCountry != null)
+                          ? _chosenCountry ?? ''
+                          : '';
+                  if (_address == '' && _city == '' && _country == '') {
+                    _addressQuery = '';
+                  } else {
+                    _addressQuery = '$_address $_city $_country';
+                  }
                 }
 
                 return Consumer<FontsProvider>(
@@ -766,6 +778,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -781,6 +795,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -795,6 +811,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -810,6 +828,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -825,6 +845,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -839,6 +861,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -854,6 +878,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -869,6 +895,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -884,6 +912,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -899,6 +929,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -914,6 +946,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -929,6 +963,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -944,6 +980,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -958,6 +996,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -972,6 +1012,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                     RecommendationContainer(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -987,6 +1029,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                       country: _country,
                       txtSize: textSize + 2,
                       bottomOpacity: 1,
+                      addressQuery: _addressQuery,
+                      isFromWorldwide: false,
                     ),
                   ],
                 );
@@ -1066,80 +1110,73 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                     listen: false);
                             _whatToDoQuery = widget._prompt2Controller.text;
                             String query;
+
                             if (useMap) {
                               query =
                                   '$_whatToDoQuery in ${gmp.currentFullAddress['address']}, ${gmp.currentFullAddress['city']}, ${gmp.currentFullAddress['country']}';
                             } else {
-                              query = '$_whatToDoQuery in $_addressQuery';
-                            }
-                            PromptsSharedPref.getPlaces(query)
-                                .then((value) async {
-                              if (value.isNotEmpty) {
-                                await buildQueryPlacemark(
-                                    query, _city, _country, context);
-
-                                showVisualizationDialog(context, value, query,
-                                    _city, _country, () {}, false);
+                              if (_addressQuery == '') {
+                                query = '';
                               } else {
-                                //Local:
-                                // Connectionprovider connection =
-                                //     Provider.of<Connectionprovider>(context,
-                                //         listen: false);
-                                // if (!connection.isAiConnected) {
-                                //   dialogBuilder(
-                                //       context,
-                                //       'NOT connected to AI Server!!\nPlease Connect!',
-                                //       true,
-                                //       'OK',
-                                //       null,
-                                //       null);
-                                // } else {
-                                //   showStreamingDialog(
-                                //       context, query, _city, _country);
-                                // }
-                                //Gemini:
-                                ApiKeyModel? apiKeyModel =
-                                    await APIKeySharedPref.getDefaultApiKey(
-                                        'Gemini');
-                                String apiKey;
-                                if (apiKeyModel == null) {
-                                  //snackbar:
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        backgroundColor: LgAppColors.lgColor2,
-                                        content: Consumer<FontsProvider>(
-                                          builder: (BuildContext context,
-                                              FontsProvider value,
-                                              Widget? child) {
-                                            return Text(
-                                              // 'Please add a default API Key for Gemini in the settings!',
-                                              AppLocalizations.of(context)!
-                                                  .settings_apiKeyNotSetDefaultError,
-                                              style: TextStyle(
-                                                fontSize: value.fonts.textSize,
-                                                color: Colors.white,
-                                                fontFamily: fontType,
-                                              ),
-                                            );
-                                          },
-                                        )),
-                                  );
+                                query = '$_whatToDoQuery in $_addressQuery';
+                              }
+                            }
+
+                            if (!useMap && query == '') {
+                              //show snack bar with error:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: LgAppColors.lgColor2,
+                                  content: Consumer<FontsProvider>(
+                                    builder: (BuildContext context,
+                                        FontsProvider value, Widget? child) {
+                                      return Text(
+                                        'Please enter an address first above or use map!',
+                                        // AppLocalizations.of(context)!
+                                        //     .exploreLocation_addressError,
+                                        style: TextStyle(
+                                          fontSize: value.fonts.textSize,
+                                          color: Colors.white,
+                                          fontFamily: fontType,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            } else {
+                              PromptsSharedPref.getPlaces(query)
+                                  .then((value) async {
+                                if (value.isNotEmpty) {
+                                  await buildQueryPlacemark(
+                                      query, _city, _country, context);
+
+                                  showVisualizationDialog(context, value, query,
+                                      _city, _country, () {}, false);
                                 } else {
-                                  apiKey = apiKeyModel.key;
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-                                  String res = await GeminiServices()
-                                      .checkAPIValidity(apiKey, context);
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                  if (res == '') {
-                                    Locale locale =
-                                        await SettingsSharedPref.getLocale();
-                                    showStreamingGeminiDialog(context, query,
-                                        _city, _country, apiKey, locale);
-                                  } else {
+                                  //Local:
+                                  // Connectionprovider connection =
+                                  //     Provider.of<Connectionprovider>(context,
+                                  //         listen: false);
+                                  // if (!connection.isAiConnected) {
+                                  //   dialogBuilder(
+                                  //       context,
+                                  //       'NOT connected to AI Server!!\nPlease Connect!',
+                                  //       true,
+                                  //       'OK',
+                                  //       null,
+                                  //       null);
+                                  // } else {
+                                  //   showStreamingDialog(
+                                  //       context, query, _city, _country);
+                                  // }
+                                  //Gemini:
+                                  ApiKeyModel? apiKeyModel =
+                                      await APIKeySharedPref.getDefaultApiKey(
+                                          'Gemini');
+                                  String apiKey;
+                                  if (apiKeyModel == null) {
+                                    //snackbar:
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           backgroundColor: LgAppColors.lgColor2,
@@ -1148,7 +1185,9 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                                 FontsProvider value,
                                                 Widget? child) {
                                               return Text(
-                                                res,
+                                                // 'Please add a default API Key for Gemini in the settings!',
+                                                AppLocalizations.of(context)!
+                                                    .settings_apiKeyNotSetDefaultError,
                                                 style: TextStyle(
                                                   fontSize:
                                                       value.fonts.textSize,
@@ -1159,10 +1198,48 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                             },
                                           )),
                                     );
+                                  } else {
+                                    apiKey = apiKeyModel.key;
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    String res = await GeminiServices()
+                                        .checkAPIValidity(apiKey, context);
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                    if (res == '') {
+                                      Locale locale =
+                                          await SettingsSharedPref.getLocale();
+                                      showStreamingGeminiDialog(context, query,
+                                          _city, _country, apiKey, locale);
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            backgroundColor:
+                                                LgAppColors.lgColor2,
+                                            content: Consumer<FontsProvider>(
+                                              builder: (BuildContext context,
+                                                  FontsProvider value,
+                                                  Widget? child) {
+                                                return Text(
+                                                  res,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        value.fonts.textSize,
+                                                    color: Colors.white,
+                                                    fontFamily: fontType,
+                                                  ),
+                                                );
+                                              },
+                                            )),
+                                      );
+                                    }
                                   }
                                 }
-                              }
-                            });
+                              });
+                            }
                           }
                         },
                         elevatedButtonContent:
@@ -1186,4 +1263,3 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
     );
   }
 }
-

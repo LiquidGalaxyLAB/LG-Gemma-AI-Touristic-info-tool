@@ -17,6 +17,7 @@ import 'package:ai_touristic_info_tool/state_management/map_type_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
+import 'package:ai_touristic_info_tool/state_management/tour_status_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -62,6 +63,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ColorProvider()),
         ChangeNotifierProvider(create: (_) => FontsProvider()),
         ChangeNotifierProvider(create: (_) => DisplayedListProvider()),
+        ChangeNotifierProvider(create: (_) => TourStatusprovider()),
       ],
       child: Phoenix(child: AITouristicInfo(locale: locale)),
     ),

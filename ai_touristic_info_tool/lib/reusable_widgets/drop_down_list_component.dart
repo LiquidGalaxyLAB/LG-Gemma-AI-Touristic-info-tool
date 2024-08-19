@@ -65,49 +65,63 @@ class DropDownListWidget extends StatelessWidget {
               ColorProvider colorProv,
               FontsProvider fontsProv,
               Widget? child) =>
-          DropdownButtonFormField<String>(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
+          Container(
+        child: DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: Colors.black,
+                width: 10.0,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: colorProv.colors.buttonColors,
+                width: 5.0,
+              ),
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
+            prefixIcon: prefixIcon,
+            hintText: hinttext,
+            fillColor: colorProv.colors.innerBackground,
+            filled: true,
+          ),
+          isExpanded: true,
+          isDense: true,
+          icon: Icon(
+            Icons.arrow_drop_down,
+            color: colorProv.colors.buttonColors,
+            size: 36,
+          ),
+          items: items.map((String item) {
+            return buildMenuItem(item, fontSize);
+          }).toList(),
+          value: selectedValue ?? items[0],
+          onChanged: (value) {
+            // ignore: unused_local_variable
+            int index = state.selectedIndex = items.indexOf(value!);
+            // ignore: unused_local_variable
+            int length = items.length;
+            onChanged?.call(value);
+          },
+          style: TextStyle(
+              fontSize: fontSize,
               color: Colors.black,
-              width: 5.0,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: colorProv.colors.buttonColors,
-              width: 5.0,
-            ),
-          ),
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
-          prefixIcon: prefixIcon,
-          hintText: hinttext,
-          fillColor: colorProv.colors.innerBackground,
-          filled: true,
+              fontFamily: fontType,
+              textBaseline: TextBaseline.alphabetic),
+          dropdownColor: colorProv.colors.innerBackground,
+          validator: (value) {
+            if (value == null || value == 'None') {
+              return 'Please select an item';
+            }
+            return null;
+          },
+          
         ),
-        isExpanded: true,
-        icon: Icon(
-          Icons.arrow_drop_down,
-          color: colorProv.colors.buttonColors,
-          size: 36,
-        ),
-        items: items.map((String item) {
-          return buildMenuItem(item, fontSize);
-        }).toList(),
-        value: selectedValue ?? items[0],
-        onChanged: (value) {
-          // ignore: unused_local_variable
-          int index = state.selectedIndex = items.indexOf(value!);
-          // ignore: unused_local_variable
-          int length = items.length;
-          onChanged?.call(value);
-        },
-        style: TextStyle(
-            fontSize: fontSize, color: Colors.black, fontFamily: fontType),
-        dropdownColor: colorProv.colors.innerBackground,
+      
       ),
     );
   }

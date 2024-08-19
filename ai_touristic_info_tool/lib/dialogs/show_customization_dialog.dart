@@ -55,7 +55,8 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              AppLocalizations.of(context)!.tutorialCustomization_title1,
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title1,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -79,7 +80,8 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              AppLocalizations.of(context)!.tutorialCustomization_title2,
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title2,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -103,14 +105,16 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              AppLocalizations.of(context)!.tutorialCustomization_title3,
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title3,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                   fontSize: 30.0),
                             ),
                             Text(
-                                AppLocalizations.of(context)!.tutorialCustomization_desc3,
+                                AppLocalizations.of(context)!
+                                    .tutorialCustomization_desc3,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20.0,
@@ -133,14 +137,16 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              AppLocalizations.of(context)!.tutorialCustomization_title4,
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title4,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                   fontSize: 30.0),
                             ),
                             Text(
-                                AppLocalizations.of(context)!.tutorialCustomization_desc4,
+                                AppLocalizations.of(context)!
+                                    .tutorialCustomization_desc4,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20.0,
@@ -163,14 +169,16 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              AppLocalizations.of(context)!.tutorialCustomization_title5,
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title5,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                   fontSize: 30.0),
                             ),
                             Text(
-                              AppLocalizations.of(context)!.tutorialCustomization_desc5,
+                                AppLocalizations.of(context)!
+                                    .tutorialCustomization_desc5,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20.0,
@@ -193,7 +201,8 @@ void showCustomizationDialog(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              AppLocalizations.of(context)!.tutorialCustomization_title6,
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title6,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -239,10 +248,11 @@ void showCustomizationDialog(
                           GestureDetector(
                             onTap: () {
                               TutorialCoachMark(
-                                targets: customTargets, 
+                                targets: customTargets,
                                 colorShadow: Colors.black,
                                 alignSkip: Alignment.bottomRight,
-                                textSkip: AppLocalizations.of(context)!.defaults_skip,
+                                textSkip:
+                                    AppLocalizations.of(context)!.defaults_skip,
                                 useSafeArea: true,
                                 textStyleSkip: TextStyle(
                                     color: Colors.white, fontSize: 30),
@@ -313,6 +323,8 @@ void showCustomizationDialog(
                               gmp.clearPolylines();
                               gmp.clearCustomMarkers();
                               gmp.clearPolylinesMap();
+                              gmp.pinPillPosition =
+                                  MediaQuery.of(context).size.height * 1;
 
                               final sshData = Provider.of<SSHprovider>(context,
                                   listen: false);

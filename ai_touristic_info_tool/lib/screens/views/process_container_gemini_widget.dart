@@ -191,7 +191,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         if (_isError || errorSnapshot.hasData) {
           return SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.2,
+            // height: MediaQuery.of(context).size.height * 0.2,
             child: Consumer2<ColorProvider, FontsProvider>(builder:
                 (BuildContext context, ColorProvider colorProv,
                     FontsProvider fontsProv, Widget? child) {
@@ -246,7 +246,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
         } else {
           return SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            // height: MediaQuery.of(context).size.height*0.02,
             child: Consumer2<ColorProvider, FontsProvider>(
               builder: (BuildContext context, ColorProvider colorProv,
                   FontsProvider fontProv, Widget? child) {
@@ -254,44 +254,52 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                   stream: _streamController.stream,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.2,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.2,
-                                  child: CircularProgressIndicator(
-                                    color: colorProv.colors.buttonColors,
-                                  )),
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.05,
-                            ),
-                            Center(
-                              child: Text(
-                                // 'Please hold on while the model collects information from the web to provide a unique, accurate, and up-to-date experience!',
-                                AppLocalizations.of(context)!
-                                    .aiGenerationAPIGemini_webLoadingMessage,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: fontProv.fonts.primaryFontColor,
-                                  fontSize: fontProv.fonts.textSize,
-                                  fontFamily: fontType,
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        child: Center(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.1,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      child: CircularProgressIndicator(
+                                        color: colorProv.colors.buttonColors,
+                                      )),
                                 ),
-                              ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                ),
+                                Center(
+                                  child: Text(
+                                    // 'Please hold on while the model collects information from the web to provide a unique, accurate, and up-to-date experience!',
+                                    AppLocalizations.of(context)!
+                                        .aiGenerationAPIGemini_webLoadingMessage,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: fontProv.fonts.primaryFontColor,
+                                      fontSize: fontProv.fonts.textSize,
+                                      fontFamily: fontType,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       );
                     } else if (snapshot.hasError) {
                       return SizedBox(
                         width: MediaQuery.of(context).size.width * 0.5,
-                        height: MediaQuery.of(context).size.height * 0.1,
+                        // height: MediaQuery.of(context).size.height * 0.1,
                         child: Consumer2<ColorProvider, FontsProvider>(builder:
                             (BuildContext context, ColorProvider colorProv,
                                 FontsProvider fontsProv, Widget? child) {
@@ -342,7 +350,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                     } else if (!snapshot.hasData) {
                       return SizedBox(
                         width: MediaQuery.of(context).size.width * 0.5,
-                        height: MediaQuery.of(context).size.height * 0.2,
+                        // height: MediaQuery.of(context).size.height * 0.2,
                         child: Consumer2<ColorProvider, FontsProvider>(builder:
                             (BuildContext context, ColorProvider colorProv,
                                 FontsProvider fontsProv, Widget? child) {
@@ -400,77 +408,85 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                         child: SingleChildScrollView(
                           controller: _scrollController2,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10.0, right: 10, top: 10),
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.4,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.9,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: colorProv.colors.gradient1,
-                                        width: 4),
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: colorProv.colors.shadow
-                                        .withOpacity(0.5),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(
+                              //       left: 10.0, right: 10, top: 10),
+                              //   child: Container(
+                              //     height:
+                              //         MediaQuery.of(context).size.height * 0.4,
+                              //     width:
+                              //         MediaQuery.of(context).size.width * 0.9,
+                              //     decoration: BoxDecoration(
+                              //       border: Border.all(
+                              //           color: colorProv.colors.gradient1,
+                              //           width: 4),
+                              //       borderRadius: BorderRadius.circular(30),
+                              //       color: colorProv.colors.shadow
+                              //           .withOpacity(0.5),
+                              //     ),
+                              //     child: Scrollbar(
+                              //       thumbVisibility: true,
+                              //       controller: _scrollController,
+                              //       child: SingleChildScrollView(
+                              //         controller: _scrollController,
+                              //         child: Padding(
+                              //           padding: const EdgeInsets.all(10.0),
+                              //           child: Text(
+                              //             snapshot.data.toString(),
+                              //             style: TextStyle(
+                              //               color: FontAppColors.primaryFont,
+                              //               fontSize: fontProv.fonts.textSize,
+                              //               fontFamily: fontType,
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              Center(
+                                child: Padding(
+                                  // padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                                  padding: EdgeInsets.only(
+                                    left: 30,
+                                    right: 30,
+                                    top: _isFinished ? 20 : 0,
                                   ),
-                                  child: Scrollbar(
-                                    thumbVisibility: true,
-                                    controller: _scrollController,
-                                    child: SingleChildScrollView(
-                                      controller: _scrollController,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text(
-                                          snapshot.data.toString(),
-                                          style: TextStyle(
-                                            color: FontAppColors.primaryFont,
-                                            fontSize: fontProv.fonts.textSize,
-                                            fontFamily: fontType,
-                                          ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .aiGenerationAPIGemini_responseTimeMessg,
+                                        style: TextStyle(
+                                          color: LgAppColors.lgColor2,
+                                          fontSize: fontProv.fonts.textSize + 2,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: fontType,
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                // padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                                padding: EdgeInsets.only(
-                                  left: 30,
-                                  right: 30,
-                                  top: _isFinished ? 20 : 0,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!
-                                          .aiGenerationAPIGemini_responseTimeMessg,
-                                      style: TextStyle(
-                                        color: LgAppColors.lgColor2,
-                                        fontSize: fontProv.fonts.textSize + 2,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: fontType,
+                                      Image.asset(
+                                        _isFinished
+                                            ? 'assets/images/wait.png'
+                                            : 'assets/images/wait2.gif',
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.2,
+                                        height: _isFinished
+                                            ? MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.12
+                                            : MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.2,
                                       ),
-                                    ),
-                                    Image.asset(
-                                      _isFinished
-                                          ? 'assets/images/wait.png'
-                                          : 'assets/images/wait2.gif',
-                                      width: MediaQuery.of(context).size.width *
-                                          0.2,
-                                      height: _isFinished
-                                          ? MediaQuery.of(context).size.height *
-                                              0.12
-                                          : MediaQuery.of(context).size.height *
-                                              0.2,
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                               Padding(

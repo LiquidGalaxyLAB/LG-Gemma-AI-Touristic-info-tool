@@ -570,202 +570,202 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
   }
 }
 
-buildAllLinksBalloon(String placeName, String? city, String? country,
-    double lat, double long, List<String> links, BuildContext context,
-    {visibility = true}) async {
-  FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
-  ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
-  double textSize = fonts.fonts.textSize;
-  double titleSize = fonts.fonts.titleSize;
-  double headSize = fonts.fonts.headingSize;
+// buildAllLinksBalloon(String placeName, String? city, String? country,
+//     double lat, double long, List<String> links, BuildContext context,
+//     {visibility = true}) async {
+//   FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
+//   ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
+//   double textSize = fonts.fonts.textSize;
+//   double titleSize = fonts.fonts.titleSize;
+//   double headSize = fonts.fonts.headingSize;
 
-  String primaryColor;
+//   String primaryColor;
 
-  if (SettingsSharedPref.getTheme() == 'light') {
-    primaryColor = 'black';
-  } else {
-    primaryColor = 'white';
-  }
+//   if (SettingsSharedPref.getTheme() == 'light') {
+//     primaryColor = 'black';
+//   } else {
+//     primaryColor = 'white';
+//   }
 
-  // String buttonColor =
-  //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
-  String grad1 =
-      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
-  String grad2 =
-      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
-  String grad3 =
-      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
-  String grad4 =
-      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+//   // String buttonColor =
+//   //     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+//   String grad1 =
+//       colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+//   String grad2 =
+//       colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+//   String grad3 =
+//       colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+//   String grad4 =
+//       colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
 
-  final sshData = Provider.of<SSHprovider>(context, listen: false);
-  String countryCode = countryMap[country] ?? 'None';
-  String countryFlagImg;
+//   final sshData = Provider.of<SSHprovider>(context, listen: false);
+//   String countryCode = countryMap[country] ?? 'None';
+//   String countryFlagImg;
 
-  String flagDiv;
-  if (countryCode != 'None') {
-    String cc = countryCode.toLowerCase();
-    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+//   String flagDiv;
+//   if (countryCode != 'None') {
+//     String cc = countryCode.toLowerCase();
+//     countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
 
-    flagDiv = '''
-              <div style="text-align:center;">
-                <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
-              </div>
-''';
-  } else {
-    countryFlagImg = '';
-    flagDiv = '<br>';
-  }
-  city ??= '';
-  country ??= 'World Wide';
-  String linkDetails = '';
-  for (String link in links) {
-    linkDetails += '<p><b>Link</b></p>';
-    linkDetails += '<linkp>- $link</linkp>';
-    linkDetails += '<br>';
-  }
-  String balloonContent = '''
-    <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Gemini AI Touristic Info Tool</title>
-    <style>
-             .balloon {
-               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
-              padding: 10px;
-              border-radius: 20px;
-              font-family: Lato, sans-serif;
-            }
-            .balloon h1 {
-              font-size: ${titleSize}px;
-              color: $primaryColor;
-            }
-             .balloon h2 {
-              font-size: ${headSize}px;
-              color: $primaryColor;
-            }
-            .balloon h3 {
-              font-size: ${headSize - 10}px;
-              color: $primaryColor;
-            }
+//     flagDiv = '''
+//               <div style="text-align:center;">
+//                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
+//               </div>
+// ''';
+//   } else {
+//     countryFlagImg = '';
+//     flagDiv = '<br>';
+//   }
+//   city ??= '';
+//   country ??= 'World Wide';
+//   String linkDetails = '';
+//   for (String link in links) {
+//     linkDetails += '<p><b>Link</b></p>';
+//     linkDetails += '<linkp>- $link</linkp>';
+//     linkDetails += '<br>';
+//   }
+//   String balloonContent = '''
+//     <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <title>LG Gemini AI Touristic Info Tool</title>
+//     <style>
+//              .balloon {
+//                background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
+//               padding: 10px;
+//               border-radius: 20px;
+//               font-family: Lato, sans-serif;
+//             }
+//             .balloon h1 {
+//               font-size: ${titleSize}px;
+//               color: $primaryColor;
+//             }
+//              .balloon h2 {
+//               font-size: ${headSize}px;
+//               color: $primaryColor;
+//             }
+//             .balloon h3 {
+//               font-size: ${headSize - 10}px;
+//               color: $primaryColor;
+//             }
           
-            .balloon pp{
-              font-size: ${textSize}px;
-              color: $primaryColor;
-            }
-            .balloon p {
-              font-size:  ${textSize}px;
-              color: #ffff;
-            }
+//             .balloon pp{
+//               font-size: ${textSize}px;
+//               color: $primaryColor;
+//             }
+//             .balloon p {
+//               font-size:  ${textSize}px;
+//               color: #ffff;
+//             }
 
-            .details {
-              background-color: rgba(255, 255, 255, 1);
-              color: #000;
-              padding: 10px;
-              border-radius: 10px;
-              margin-top: 10px;
-              text-align: left;
-              font-size: ${textSize}px;
-            }    
+//             .details {
+//               background-color: rgba(255, 255, 255, 1);
+//               color: #000;
+//               padding: 10px;
+//               border-radius: 10px;
+//               margin-top: 10px;
+//               text-align: left;
+//               font-size: ${textSize}px;
+//             }    
         
-             .balloon linkp{
-               font-size:  ${textSize}px;
-              color: blue;
-              text-decoration: underline; 
-            }
+//              .balloon linkp{
+//                font-size:  ${textSize}px;
+//               color: blue;
+//               text-decoration: underline; 
+//             }
           
-            .balloon b {
-              color: #ffff;
-            }
+//             .balloon b {
+//               color: #ffff;
+//             }
           
-           .container-logo {
-            width: 100px; 
-            height: 50px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            margin: auto; 
-          }
-          .logo img {
-            max-width: 100%; /* Ensure image fits within container */
-            max-height: 100%; /* Ensure image fits within container */
-            display: block;
-            margin: auto;
-            border-radius: 10px; /* Optional rounded corners for the image */
-          }
-          </style>
-</head>
-<body>
+//            .container-logo {
+//             width: 100px; 
+//             height: 50px;
+//             background-color: white;
+//             padding: 20px;
+//             border-radius: 10px;
+//             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+//             text-align: center;
+//             margin: auto; 
+//           }
+//           .logo img {
+//             max-width: 100%; /* Ensure image fits within container */
+//             max-height: 100%; /* Ensure image fits within container */
+//             display: block;
+//             margin: auto;
+//             border-radius: 10px; /* Optional rounded corners for the image */
+//           }
+//           </style>
+// </head>
+// <body>
         
-        <div class="balloon">
+//         <div class="balloon">
         
-              <div style="text-align:center;">
-                <h2> ${escapeHtml(placeName)}</h2>
-              </div>
+//               <div style="text-align:center;">
+//                 <h2> ${escapeHtml(placeName)}</h2>
+//               </div>
 
-              <div style="text-align:center;">
-                <h3>${escapeHtml(city)}</h3>
-                <h3>${escapeHtml(country)}</h3>
-              </div>
+//               <div style="text-align:center;">
+//                 <h3>${escapeHtml(city)}</h3>
+//                 <h3>${escapeHtml(country)}</h3>
+//               </div>
 
-              $flagDiv
+//               $flagDiv
 
-              <div style="text-align:justify;">
-                <pp>Website & Youtube Links</pp>
-              </div>
+//               <div style="text-align:justify;">
+//                 <pp>Website & Youtube Links</pp>
+//               </div>
 
-              <div class="details">
-                $linkDetails
-              </div>
+//               <div class="details">
+//                 $linkDetails
+//               </div>
       
            
-        </div>
-</body>
-  </html>
-''';
+//         </div>
+// </body>
+//   </html>
+// ''';
 
-  LookAtModel lookAt = LookAtModel(
-    longitude: long,
-    latitude: lat,
-    range: '500',
-    tilt: '60',
-    altitude: 0,
-    heading: '0',
-    altitudeMode: 'relativeToGround',
-  );
+//   LookAtModel lookAt = LookAtModel(
+//     longitude: long,
+//     latitude: lat,
+//     range: '500',
+//     tilt: '60',
+//     altitude: 0,
+//     heading: '0',
+//     altitudeMode: 'relativeToGround',
+//   );
 
-  ScreenOverlayModel screenOverlay = ScreenOverlayModel(
-    name: "",
-    overlayX: 0,
-    overlayY: 1,
-    screenX: 1,
-    screenY: 1,
-    sizeX: 0.5,
-    sizeY: 0.5,
-    content: balloonContent,
-  );
-  String kmlName = 'AllLinks-Balloon';
-  String content = '<name>LinksBalloon</name>';
+//   ScreenOverlayModel screenOverlay = ScreenOverlayModel(
+//     name: "",
+//     overlayX: 0,
+//     overlayY: 1,
+//     screenX: 1,
+//     screenY: 1,
+//     sizeX: 0.5,
+//     sizeY: 0.5,
+//     content: balloonContent,
+//   );
+//   String kmlName = 'AllLinks-Balloon';
+//   String content = '<name>LinksBalloon</name>';
 
-  final kmlBalloon = KMLModel(
-    name: kmlName,
-    content: content,
-    screenOverlay: screenOverlay.balloonTag,
-  );
+//   final kmlBalloon = KMLModel(
+//     name: kmlName,
+//     content: content,
+//     screenOverlay: screenOverlay.balloonTag,
+//   );
 
-  try {
-    await LgService(sshData).sendKMLToSlave(
-      LgService(sshData).balloonScreen,
-      kmlBalloon.body,
-    );
-    await LgService(sshData).flyTo(lookAt);
-  } catch (e) {
-    print(e);
-  }
-}
+//   try {
+//     await LgService(sshData).sendKMLToSlave(
+//       LgService(sshData).balloonScreen,
+//       kmlBalloon.body,
+//     );
+//     await LgService(sshData).flyTo(lookAt);
+//   } catch (e) {
+//     print(e);
+//   }
+// }
 
 buildQueryPlacemark(
     String query, String? city, String? country, BuildContext context,
@@ -977,7 +977,7 @@ buildPlacePlacemark(
   double placesRating = place.ratings ?? 0;
   double placeLatitude = place.latitude;
   double placeLongitude = place.longitude;
-  String placeLink = escapeHtml(place.sourceLink ?? '');
+  // String placeLink = escapeHtml(place.sourceLink ?? '');
 
   String countryCode = countryMap[placeCountry] ?? 'None';
   String countryFlagImg;
@@ -1096,7 +1096,6 @@ buildPlacePlacemark(
                 <p><b>Average Ratings:</b>$placesRating</p>
                 <p><b>Pricing:</b>$placePrices</p>
                 <p><b>Amenities:</b>$placeAmenities</p>
-                <p style="text-align: center;"><a href="$placeLink">source link</a></p>
               </div>
           </div>
 </body>
@@ -1572,7 +1571,6 @@ Future<List<KMLModel>> buildQueryTour(
                 <p><b>Average Ratings:</b>${pois[i].ratings ?? ''}</p>
                 <p><b>Pricing:</b>${escapeHtml(pois[i].price ?? '')}</p>
                 <p><b>Amenities:</b>${escapeHtml(pois[i].amenities ?? '')}</p>
-                 <p style="text-align: center;"><a href="${escapeHtml(pois[i].sourceLink ?? '')}">source link</a></p>
               </div>
           </div>
 </body>

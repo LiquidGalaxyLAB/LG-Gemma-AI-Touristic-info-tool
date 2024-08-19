@@ -20,6 +20,7 @@ import 'package:ai_touristic_info_tool/state_management/gmaps_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/search_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/ssh_provider.dart';
 import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
+import 'package:ai_touristic_info_tool/state_management/tour_status_provider.dart';
 import 'package:ai_touristic_info_tool/utils/kml_builders.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
@@ -244,16 +245,42 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                     height: MediaQuery.of(context).size.height * 0.1,
                     width: MediaQuery.of(context).size.width * 1,
                     child: Center(
-                      child: Text(
-                        widget.query,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: SettingsSharedPref.getTheme() == 'dark'
-                                ? fontVal.fonts.primaryFontColor
-                                : fontVal.fonts.secondaryFontColor,
-                            fontSize: fontVal.fonts.headingSize,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: fontType),
+                      child: Center(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  widget.query,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: SettingsSharedPref.getTheme() ==
+                                              'dark'
+                                          ? fontVal.fonts.primaryFontColor
+                                          : fontVal.fonts.secondaryFontColor,
+                                      fontSize: fontVal.fonts.headingSize,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: fontType),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                FavIcon(
+                                  iconSize: fontVal.fonts.textSize + 40,
+                                  query: widget.query,
+                                  places: widget.places,
+                                  city: widget.city ?? '',
+                                  country: widget.country ?? '',
+                                  onItemRemoved: widget.onItemRemoved,
+                                  fromFav: widget.fromFav,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -361,8 +388,12 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                               // 'OK',
                               AppLocalizations.of(context)!.defaults_yes,
                               () async {
+                            TourStatusprovider tourStatus =
+                                Provider.of<TourStatusprovider>(context,
+                                    listen: false);
                             setState(() {
                               _isTourOn = true;
+                              tourStatus.isTourOn = true;
                             });
 
                             await LgService(sshData).startTour('App Tour');
@@ -437,9 +468,13 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                               // 'OK',
                               AppLocalizations.of(context)!.defaults_yes,
                               () async {
+                            TourStatusprovider tourStatus =
+                                Provider.of<TourStatusprovider>(context,
+                                    listen: false);
                             await LgService(sshData).stopTour();
                             setState(() {
                               _isTourOn = false;
+                              tourStatus.isTourOn = true;
                             });
                             await LgService(sshData).clearKml();
                           }, null);
@@ -537,23 +572,6 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                     // SizedBox(
                     //   width: MediaQuery.of(context).size.width * 0.01,
                     // ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.05,
-                        ),
-                        FavIcon(
-                          iconSize: fontVal.fonts.textSize + 40,
-                          query: widget.query,
-                          places: widget.places,
-                          city: widget.city ?? '',
-                          country: widget.country ?? '',
-                          onItemRemoved: widget.onItemRemoved,
-                          fromFav: widget.fromFav,
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -696,6 +714,17 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                               Provider.of<SSHprovider>(context, listen: false);
                           await LgService(sshData).clearKml();
                           await buildAppBalloonOverlay(context);
+
+                          final mapProvider = Provider.of<GoogleMapProvider>(
+                              context,
+                              listen: false);
+
+                          mapProvider.clearCustomMarkers();
+                          mapProvider.clearMarkers();
+                          mapProvider.clearPolylinesMap();
+                          mapProvider.clearPolylines();
+                          mapProvider.pinPillPosition =
+                              MediaQuery.of(context).size.height * 1;
 
                           while (Navigator.of(context).canPop()) {
                             Navigator.of(context).pop();

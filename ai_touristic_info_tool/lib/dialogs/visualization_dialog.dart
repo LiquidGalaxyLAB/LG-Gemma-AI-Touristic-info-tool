@@ -21,7 +21,6 @@ import 'package:provider/provider.dart';
 ///
 /// Returns a Future that completes when the dialog is closed
 
-
 void showVisualizationDialog(
   BuildContext context,
   List<PlacesModel> places,
@@ -30,17 +29,19 @@ void showVisualizationDialog(
   String? country,
   VoidCallback onItemRemoved,
   bool fromFav,
-) async{
+) async {
   MyLatLng myLatLng;
   if (country == '' || country == null) {
-      myLatLng =
-          MyLatLng(places[0].latitude, places[0].longitude);
+    if (places.isNotEmpty) {
+      myLatLng = MyLatLng(places[0].latitude, places[0].longitude);
     } else {
-      myLatLng = await GeocodingService()
-          .getCoordinates('$city, $country');
+      myLatLng = MyLatLng(0, 0);
     }
-    double lat = myLatLng.latitude;
-    double long = myLatLng.longitude;
+  } else {
+    myLatLng = await GeocodingService().getCoordinates('$city, $country');
+  }
+  double lat = myLatLng.latitude;
+  double long = myLatLng.longitude;
   SearchProvider srch = Provider.of<SearchProvider>(context, listen: false);
   srch.showMap = true;
   showDialog(
@@ -54,10 +55,8 @@ void showVisualizationDialog(
         onItemRemoved: onItemRemoved,
         fromFav: fromFav,
         initialLat: lat,
-        initialLong:long,
+        initialLong: long,
       );
     },
   );
 }
-
-

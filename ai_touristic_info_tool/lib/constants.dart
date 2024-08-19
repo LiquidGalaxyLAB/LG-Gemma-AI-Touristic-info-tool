@@ -36,7 +36,6 @@ class PrimaryAppColors {
   static const Color darkShadow = Color.fromARGB(189, 194, 210, 250);
 }
 
-
 final fontType = GoogleFonts.lato().fontFamily;
 const double titleSize = 40;
 const double headingSize = titleSize - 5;
@@ -2372,6 +2371,7 @@ const Map<String, String> countryMap = {
 
 ///all the `countries` for the drop down menu
 final countries = [
+  'None',
   'Afghanistan',
   'Albania',
   'Algeria',

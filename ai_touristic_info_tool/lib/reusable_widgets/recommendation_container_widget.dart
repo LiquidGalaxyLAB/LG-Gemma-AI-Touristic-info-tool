@@ -20,12 +20,14 @@ class RecommendationContainer extends StatefulWidget {
   final String? country;
   final String? city;
   final String query;
+  final String? addressQuery;
   final String? description;
   final double width;
   final double height;
   final double txtSize;
   final double? descriptionSize;
   final double bottomOpacity;
+  final bool isFromWorldwide;
   const RecommendationContainer(
       {super.key,
       required this.imagePath,
@@ -38,6 +40,8 @@ class RecommendationContainer extends StatefulWidget {
       required this.height,
       required this.txtSize,
       this.descriptionSize,
+      this.addressQuery = '',
+      this.isFromWorldwide = true,
       required this.bottomOpacity});
 
   @override
@@ -51,77 +55,64 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        ModelErrorProvider errProvider =
-            Provider.of<ModelErrorProvider>(context, listen: false);
-        errProvider.isError = false;
-        PromptsSharedPref.getPlaces(widget.query).then((value) async {
-          if (value.isNotEmpty) {
-            await buildQueryPlacemark(
-                widget.title, widget.city, widget.country, context);
-            showVisualizationDialog(context, value, widget.title, widget.city,
-                widget.country, () {}, false);
-          } else {
-            // Connectionprovider connection =
-            //     Provider.of<Connectionprovider>(context, listen: false);
-            //Local:
-            // if (!connection.isAiConnected) {
-            //   dialogBuilder(
-            //       context,
-            //       'NOT connected to AI Server!!\nPlease Connect!',
-            //       true,
-            //       'OK',
-            //       null,
-            //       null);
-            // } else {
-            // showStreamingDialog(context, query, city ?? '', country ?? '');
-            // }
-            // With Gemini:
-            //  Map<String, dynamic> result =
-            //   await LangchainService().generateAnswer(query);
-            // print(result);
-            //result["places"][i]["name"]
-            // name address city country description pricing rating amenities source
-
-            ApiKeyModel? apiKeyModel =
-                await APIKeySharedPref.getDefaultApiKey('Gemini');
-
-            String apiKey;
-            if (apiKeyModel == null) {
-              //snackbar:
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    backgroundColor: LgAppColors.lgColor2,
-                    content: Consumer<FontsProvider>(
-                      builder: (BuildContext context, FontsProvider value,
-                          Widget? child) {
-                        return Text(
-                          // 'Please add a default API Key for Gemini in the settings!',
-                          AppLocalizations.of(context)!
-                              .settings_apiKeyNotSetDefaultError,
-                          style: TextStyle(
-                            fontSize: value.fonts.textSize,
-                            color: Colors.white,
-                            fontFamily: fontType,
-                          ),
-                        );
-                      },
-                    )),
-              );
+        if (widget.addressQuery == '' && widget.isFromWorldwide == false) {
+          //show snackbar:
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                backgroundColor: LgAppColors.lgColor2,
+                content: Consumer<FontsProvider>(
+                  builder: (BuildContext context, FontsProvider value,
+                      Widget? child) {
+                    return Text(
+                      'Please enter an address first above or use map!',
+                      // AppLocalizations.of(context)!.defaults_queryError,
+                      style: TextStyle(
+                        fontSize: value.fonts.textSize,
+                        color: Colors.white,
+                        fontFamily: fontType,
+                      ),
+                    );
+                  },
+                )),
+          );
+        } else {
+          ModelErrorProvider errProvider =
+              Provider.of<ModelErrorProvider>(context, listen: false);
+          errProvider.isError = false;
+          PromptsSharedPref.getPlaces(widget.query).then((value) async {
+            if (value.isNotEmpty) {
+              await buildQueryPlacemark(
+                  widget.title, widget.city, widget.country, context);
+              showVisualizationDialog(context, value, widget.title, widget.city,
+                  widget.country, () {}, false);
             } else {
-              apiKey = apiKeyModel.key;
-              setState(() {
-                _isLoading = true;
-              });
-              String res =
-                  await GeminiServices().checkAPIValidity(apiKey, context);
-              setState(() {
-                _isLoading = false;
-              });
-              if (res == '') {
-                Locale locale = await SettingsSharedPref.getLocale();
-                showStreamingGeminiDialog(context, widget.query,
-                    widget.city ?? '', widget.country ?? '', apiKey, locale);
-              } else {
+              // Connectionprovider connection =
+              //     Provider.of<Connectionprovider>(context, listen: false);
+              //Local:
+              // if (!connection.isAiConnected) {
+              //   dialogBuilder(
+              //       context,
+              //       'NOT connected to AI Server!!\nPlease Connect!',
+              //       true,
+              //       'OK',
+              //       null,
+              //       null);
+              // } else {
+              // showStreamingDialog(context, query, city ?? '', country ?? '');
+              // }
+              // With Gemini:
+              //  Map<String, dynamic> result =
+              //   await LangchainService().generateAnswer(query);
+              // print(result);
+              //result["places"][i]["name"]
+              // name address city country description pricing rating amenities source
+
+              ApiKeyModel? apiKeyModel =
+                  await APIKeySharedPref.getDefaultApiKey('Gemini');
+
+              String apiKey;
+              if (apiKeyModel == null) {
+                //snackbar:
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                       backgroundColor: LgAppColors.lgColor2,
@@ -129,7 +120,9 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                         builder: (BuildContext context, FontsProvider value,
                             Widget? child) {
                           return Text(
-                            res,
+                            // 'Please add a default API Key for Gemini in the settings!',
+                            AppLocalizations.of(context)!
+                                .settings_apiKeyNotSetDefaultError,
                             style: TextStyle(
                               fontSize: value.fonts.textSize,
                               color: Colors.white,
@@ -139,10 +132,43 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                         },
                       )),
                 );
+              } else {
+                apiKey = apiKeyModel.key;
+                setState(() {
+                  _isLoading = true;
+                });
+                String res =
+                    await GeminiServices().checkAPIValidity(apiKey, context);
+                setState(() {
+                  _isLoading = false;
+                });
+                if (res == '') {
+                  Locale locale = await SettingsSharedPref.getLocale();
+                  showStreamingGeminiDialog(context, widget.query,
+                      widget.city ?? '', widget.country ?? '', apiKey, locale);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        backgroundColor: LgAppColors.lgColor2,
+                        content: Consumer<FontsProvider>(
+                          builder: (BuildContext context, FontsProvider value,
+                              Widget? child) {
+                            return Text(
+                              res,
+                              style: TextStyle(
+                                fontSize: value.fonts.textSize,
+                                color: Colors.white,
+                                fontFamily: fontType,
+                              ),
+                            );
+                          },
+                        )),
+                  );
+                }
               }
             }
-          }
-        });
+          });
+        }
       },
       child: Consumer<ColorProvider>(
         builder: (BuildContext context, ColorProvider value, Widget? child) {

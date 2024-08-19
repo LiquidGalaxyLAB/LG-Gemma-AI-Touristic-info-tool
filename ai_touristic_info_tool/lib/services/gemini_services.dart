@@ -159,8 +159,7 @@ class GeminiServices {
         'type': 'message',
         'data': 'Preparing visualizations'
       };
-
-    } catch (e) {
+        } catch (e) {
       print('exception');
       print(e);
       yield {
