@@ -481,7 +481,7 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                             await LgService(sshData).stopTour();
                             setState(() {
                               _isTourOn = false;
-                              tourStatus.isTourOn = true;
+                              tourStatus.isTourOn = false;
                             });
                             await LgService(sshData).clearKml();
                           }, null);

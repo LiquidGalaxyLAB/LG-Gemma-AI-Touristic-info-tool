@@ -536,7 +536,7 @@ class _ProcessContainerGeminiState extends State<ProcessContainerGemini> {
                                                 ? AppLocalizations.of(context)!
                                                     .aiGenerationAPIGemini_successGeneration
                                                 : snapshot.data.toString() ==
-                                                        'The model is generating the POIs for you. Please wait... '
+                                                        'Streaming'
                                                     ? widget.locale ==
                                                             Locale('ar')
                                                         ? 'جاري توليد الأماكن لك. يرجى الانتظار...'
