@@ -54,9 +54,11 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
   }
 
   void _onPlaceDropped() async {
-    setState(() {
-      isCreateClicked = false;
-    });
+    if (mounted) {
+      setState(() {
+        isCreateClicked = false;
+      });
+    }
     GoogleMapProvider gmp =
         Provider.of<GoogleMapProvider>(context, listen: false);
     DisplayedListProvider dlp =
@@ -67,9 +69,11 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
     if (_draggedPlace != null) {
       gmp.addMarker(context, _draggedPlace!, removeAll: false, isFromFav: true);
       await buildPlacePlacemark(_draggedPlace!, -1, _queryName, context);
-      setState(() {
-        _draggedPlace = null;
-      });
+      if (mounted) {
+        setState(() {
+          _draggedPlace = null;
+        });
+      }
     }
   }
 
@@ -113,9 +117,11 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                   AppLocalizations.of(context)!.defaults_reset,
                               buttonColor: colorVal.colors.buttonColors,
                               onpressed: () async {
-                                setState(() {
-                                  isCreateClicked = false;
-                                });
+                                if (mounted) {
+                                  setState(() {
+                                    isCreateClicked = false;
+                                  });
+                                }
                                 DisplayedListProvider dlp =
                                     Provider.of<DisplayedListProvider>(context,
                                         listen: false);
@@ -129,7 +135,9 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                 gmp.clearPolylines();
                                 gmp.clearCustomMarkers();
                                 gmp.clearPolylinesMap();
-                                setState(() {});
+                                if (mounted) {
+                                  setState(() {});
+                                }
 
                                 final sshData = Provider.of<SSHprovider>(
                                     context,
@@ -216,9 +224,11 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                     },
                                   );
                                 } else {
-                                  setState(() {
-                                    isCreateClicked = true;
-                                  });
+                                  if (mounted) {
+                                    setState(() {
+                                      isCreateClicked = true;
+                                    });
+                                  }
                                   gmp.addPolylinesBetweenMarkers();
                                   gmp.setBitmapDescriptor(
                                       "assets/images/airplane.png");
@@ -228,10 +238,11 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                       connection.isLgConnected) {
                                     double dur = await buildCustomTour(
                                         context, dlp.tourPlaces);
-
-                                    setState(() {
-                                      _tourDuration = dur;
-                                    });
+                                    if (mounted) {
+                                      setState(() {
+                                        _tourDuration = dur;
+                                      });
+                                    }
                                   }
                                 }
                               },
@@ -272,18 +283,22 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
 
                                   if (_isvisualizing) {
                                     gmp.isTourOn = false;
-                                    setState(() {
-                                      _isvisualizing = false;
-                                    });
+                                    if (mounted) {
+                                      setState(() {
+                                        _isvisualizing = false;
+                                      });
+                                    }
 
                                     if (sshData.client != null &&
                                         connection.isLgConnected) {
                                       await LgService(sshData).stopTour();
                                     }
                                   } else {
-                                    setState(() {
-                                      _isvisualizing = true;
-                                    });
+                                    if (mounted) {
+                                      setState(() {
+                                        _isvisualizing = true;
+                                      });
+                                    }
 
                                     gmp.isTourOn = true;
 
@@ -301,9 +316,11 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                     }
 
                                     gmp.isTourOn = false;
-                                    setState(() {
-                                      _isvisualizing = false;
-                                    });
+                                    if (mounted) {
+                                      setState(() {
+                                        _isvisualizing = false;
+                                      });
+                                    }
                                   }
 
                                   gmp.allowSync = true;
@@ -429,14 +446,18 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                                 ),
                                               ),
                                               onDragStarted: () {
-                                                setState(() {
-                                                  _draggedPlace = place;
-                                                });
+                                                if (mounted) {
+                                                  setState(() {
+                                                    _draggedPlace = place;
+                                                  });
+                                                }
                                               },
                                               onDragEnd: (details) {
-                                                setState(() {
-                                                  _draggedPlace = null;
-                                                });
+                                                if (mounted) {
+                                                  setState(() {
+                                                    _draggedPlace = null;
+                                                  });
+                                                }
                                               },
                                               child: Chip(
                                                 label: Text(
@@ -525,9 +546,11 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                 .isTourExist(_queryName)) {
                               await FavoritesSharedPref()
                                   .removeTour(_queryName);
-                              setState(() {
-                                _isFav = false;
-                              });
+                              if (mounted) {
+                                setState(() {
+                                  _isFav = false;
+                                });
+                              }
                             } else {
                               DisplayedListProvider dlp =
                                   Provider.of<DisplayedListProvider>(context,
@@ -630,11 +653,13 @@ class _CustomizationWidgetState extends State<CustomizationWidget> {
                                                 country: '',
                                                 isGenerated: false,
                                               ));
-                                              setState(() {
-                                                _isFav = true;
-                                                _queryName =
-                                                    _queryNameController.text;
-                                              });
+                                              if (mounted) {
+                                                setState(() {
+                                                  _isFav = true;
+                                                  _queryName =
+                                                      _queryNameController.text;
+                                                });
+                                              }
                                               Navigator.of(context).pop();
                                             }
                                           },

@@ -50,13 +50,17 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
     bool doesExist = await FavoritesSharedPref()
         .isPlaceExist(widget.placeModel.name, widget.placeModel.country ?? '');
     if (doesExist) {
-      setState(() {
-        _isFav = true;
-      });
+      if (mounted) {
+        setState(() {
+          _isFav = true;
+        });
+      }
     } else {
-      setState(() {
-        _isFav = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isFav = false;
+        });
+      }
     }
   }
 
@@ -147,7 +151,8 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                               dialogBuilder(
                                                   context,
                                                   // 'A tour is currently running.\nStop tour first.',
-                                                  AppLocalizations.of(context)!.poiExpansion_runningTourError,
+                                                  AppLocalizations.of(context)!
+                                                      .poiExpansion_runningTourError,
                                                   true,
                                                   AppLocalizations.of(context)!
                                                       .defaults_ok,
@@ -266,306 +271,363 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                               )),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: GestureDetector(
-                                          onTap: () async {
-                                            final srch =
-                                                Provider.of<SearchProvider>(
+                                      Consumer<TourStatusprovider>(builder:
+                                          (BuildContext context,
+                                              TourStatusprovider tourStatus,
+                                              Widget? child) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: GestureDetector(
+                                            onTap: () async {
+                                              if (tourStatus.isTourOn) {
+                                                dialogBuilder(
                                                     context,
-                                                    listen: false);
-                                            // Connectionprovider connection =
-                                            //     Provider.of<Connectionprovider>(
-                                            //         context,
-                                            //         listen: false);
-                                            //Local:
-                                            // if (!connection.isAiConnected) {
-                                            //   dialogBuilder(
-                                            //       context,
-                                            //       'NOT connected to AI Server!!\nPlease Connect!',
-                                            //       true,
-                                            //       'OK',
-                                            //       null,
-                                            //       null);
-                                            // } else {
-                                            srch.isLoading = true;
-                                            srch.showMap = false;
-                                            srch.searchPoiSelected =
-                                                widget.placeModel.name;
+                                                    // 'A tour is currently running.\nStop tour first.',
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .poiExpansion_runningTourError,
+                                                    true,
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .defaults_ok,
+                                                    () {},
+                                                    () {});
+                                              } else {
+                                                final srch =
+                                                    Provider.of<SearchProvider>(
+                                                        context,
+                                                        listen: false);
+                                                // Connectionprovider connection =
+                                                //     Provider.of<Connectionprovider>(
+                                                //         context,
+                                                //         listen: false);
+                                                //Local:
+                                                // if (!connection.isAiConnected) {
+                                                //   dialogBuilder(
+                                                //       context,
+                                                //       'NOT connected to AI Server!!\nPlease Connect!',
+                                                //       true,
+                                                //       'OK',
+                                                //       null,
+                                                //       null);
+                                                // } else {
+                                                srch.isLoading = true;
+                                                srch.showMap = false;
+                                                srch.searchPoiSelected =
+                                                    widget.placeModel.name;
 
-                                            ApiKeyModel? apiKeyModel =
-                                                await APIKeySharedPref
-                                                    .getDefaultApiKey(
-                                                        'Youtube');
+                                                ApiKeyModel? apiKeyModel =
+                                                    await APIKeySharedPref
+                                                        .getDefaultApiKey(
+                                                            'Youtube');
 
-                                            String apiKey;
-                                            List<String> _futureYoutubeUrls;
-                                            if (apiKeyModel == null) {
-                                              dialogBuilder(
-                                                  context,
-                                                  // 'No API key found for Youtube API.\nPlease add an API key in the settings.',
-                                                  AppLocalizations.of(context)!.poiExpansion_noAPIKeyYoutube,
-                                                  true,
-                                                  AppLocalizations.of(context)!
-                                                      .defaults_ok,
-                                                  () {},
-                                                  () {});
-                                              _futureYoutubeUrls = [];
-                                            } else {
-                                              apiKey = apiKeyModel.key;
-                                              _futureYoutubeUrls =
-                                                  await SearchServices()
-                                                      .fetchYoutubeUrls(
-                                                          query: widget
-                                                              .placeModel.name,
-                                                          context,
-                                                          apiKey);
-                                            }
+                                                String apiKey;
+                                                List<String> _futureYoutubeUrls;
+                                                if (apiKeyModel == null) {
+                                                  dialogBuilder(
+                                                      context,
+                                                      // 'No API key found for Youtube API.\nPlease add an API key in the settings.',
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .poiExpansion_noAPIKeyYoutube,
+                                                      true,
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .defaults_ok,
+                                                      () {},
+                                                      () {});
+                                                  _futureYoutubeUrls = [];
+                                                } else {
+                                                  apiKey = apiKeyModel.key;
+                                                  _futureYoutubeUrls =
+                                                      await SearchServices()
+                                                          .fetchYoutubeUrls(
+                                                              query: widget
+                                                                  .placeModel
+                                                                  .name,
+                                                              context,
+                                                              apiKey);
+                                                }
 
-                                            //Local:
-                                            // List<String> _futureUrls = await Api()
-                                            //     .fetchWebUrls(
-                                            //         widget.placeModel.name);
+                                                //Local:
+                                                // List<String> _futureUrls = await Api()
+                                                //     .fetchWebUrls(
+                                                //         widget.placeModel.name);
 
-                                            //Gemini:
-                                            // Map<String, dynamic> _geminiWebResults =
-                                            //     await LangchainService()
-                                            //         .generatewebLinks(
-                                            //             widget.placeModel.name);
-                                            // List<dynamic> _futureUrlsDynamic =
-                                            //     _geminiWebResults['links'];
-                                            // List<String> _futureUrls = [];
-                                            // for (var link in _futureUrlsDynamic) {
-                                            //   _futureUrls.add(link.toString());
-                                            // }
-                                            // List<String> _futureUrls =
-                                            //     await LangchainService().fetchUrls(
-                                            //         widget.placeModel.name,
-                                            //         urlNum: 10);
-                                            List<String> _futureUrls =
-                                                await SearchServices()
-                                                    .fetchUrls(
-                                                        widget.placeModel.name,
-                                                        numResults: 10);
-                                            /////////////////////////////////////////
+                                                //Gemini:
+                                                // Map<String, dynamic> _geminiWebResults =
+                                                //     await LangchainService()
+                                                //         .generatewebLinks(
+                                                //             widget.placeModel.name);
+                                                // List<dynamic> _futureUrlsDynamic =
+                                                //     _geminiWebResults['links'];
+                                                // List<String> _futureUrls = [];
+                                                // for (var link in _futureUrlsDynamic) {
+                                                //   _futureUrls.add(link.toString());
+                                                // }
+                                                // List<String> _futureUrls =
+                                                //     await LangchainService().fetchUrls(
+                                                //         widget.placeModel.name,
+                                                //         urlNum: 10);
+                                                List<String> _futureUrls =
+                                                    await SearchServices()
+                                                        .fetchUrls(
+                                                            widget.placeModel
+                                                                .name,
+                                                            numResults: 10);
+                                                /////////////////////////////////////////
 
-                                            // final sshData =
-                                            //     Provider.of<SSHprovider>(context,
-                                            //         listen: false);
+                                                // final sshData =
+                                                //     Provider.of<SSHprovider>(context,
+                                                //         listen: false);
 
-                                            ///checking the connection status first
-                                            // if (sshData.client != null &&
-                                            //     connection.isLgConnected) {
-                                            //   List<String> links =
-                                            //       _futureUrls + _futureYoutubeUrls;
-                                            // await buildAllLinksBalloon(
-                                            //     widget.placeModel.name,
-                                            //     widget.placeModel.city,
-                                            //     widget.placeModel.country,
-                                            //     widget.placeModel.latitude,
-                                            //     widget.placeModel.longitude,
-                                            //     links,
-                                            //     context);
-                                            // }
+                                                ///checking the connection status first
+                                                // if (sshData.client != null &&
+                                                //     connection.isLgConnected) {
+                                                //   List<String> links =
+                                                //       _futureUrls + _futureYoutubeUrls;
+                                                // await buildAllLinksBalloon(
+                                                //     widget.placeModel.name,
+                                                //     widget.placeModel.city,
+                                                //     widget.placeModel.country,
+                                                //     widget.placeModel.latitude,
+                                                //     widget.placeModel.longitude,
+                                                //     links,
+                                                //     context);
+                                                // }
 
-                                            srch.webSearchResults = _futureUrls;
-                                            srch.youtubeSearchResults =
-                                                _futureYoutubeUrls;
-                                            srch.isLoading = false;
-                                            srch.poiLat =
-                                                widget.placeModel.latitude;
-                                            srch.poiLong =
-                                                widget.placeModel.longitude;
-                                            srch.searchPoiCountry =
-                                                widget.placeModel.country ??
-                                                    'Worldwide';
-                                            srch.searchPoiCity =
-                                                widget.placeModel.city ?? '';
-                                            //Local: }
-                                          },
-                                          child: Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.05,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.03,
-                                              decoration: BoxDecoration(
-                                                color: value.colors.gradient1,
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              ),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  Icon(Icons.info,
-                                                      color: SettingsSharedPref
-                                                                  .getTheme() ==
-                                                              'light'
-                                                          ? Colors.black
-                                                          : FontAppColors
-                                                              .secondaryFont,
-                                                      size: textSize + 10),
-                                                ],
-                                              )),
-                                        ),
-                                      ),
+                                                srch.webSearchResults =
+                                                    _futureUrls;
+                                                srch.youtubeSearchResults =
+                                                    _futureYoutubeUrls;
+                                                srch.isLoading = false;
+                                                srch.poiLat =
+                                                    widget.placeModel.latitude;
+                                                srch.poiLong =
+                                                    widget.placeModel.longitude;
+                                                srch.searchPoiCountry =
+                                                    widget.placeModel.country ??
+                                                        'Worldwide';
+                                                srch.searchPoiCity =
+                                                    widget.placeModel.city ??
+                                                        '';
+                                                //Local: }
+                                              }
+                                            },
+                                            child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.05,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.03,
+                                                decoration: BoxDecoration(
+                                                  color: value.colors.gradient1,
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                ),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Icon(Icons.info,
+                                                        color: SettingsSharedPref
+                                                                    .getTheme() ==
+                                                                'light'
+                                                            ? Colors.black
+                                                            : FontAppColors
+                                                                .secondaryFont,
+                                                        size: textSize + 10),
+                                                  ],
+                                                )),
+                                          ),
+                                        );
+                                      }),
                                     ],
                                   );
                                 },
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () async {
-                                        final sshData =
-                                            Provider.of<SSHprovider>(context,
-                                                listen: false);
-
-                                        Connectionprovider connection =
-                                            Provider.of<Connectionprovider>(
+                              Consumer<TourStatusprovider>(builder:
+                                  (BuildContext context,
+                                      TourStatusprovider tourStatus,
+                                      Widget? child) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () async {
+                                          if (tourStatus.isTourOn) {
+                                            dialogBuilder(
                                                 context,
-                                                listen: false);
-
-                                        ///checking the connection status first
-                                        if (sshData.client != null &&
-                                            connection.isLgConnected) {
-                                          if (play) {
-                                            try {
-                                              await LgService(sshData)
-                                                  .startTour('Orbit');
-                                            } catch (e) {
-                                              print(e);
-                                            }
+                                                // 'A tour is currently running.\nStop tour first.',
+                                                AppLocalizations.of(context)!
+                                                    .poiExpansion_runningTourError,
+                                                true,
+                                                AppLocalizations.of(context)!
+                                                    .defaults_ok,
+                                                () {},
+                                                () {});
                                           } else {
-                                            try {
-                                              await LgService(sshData)
-                                                  .stopTour();
-                                            } catch (e) {
-                                              print(e);
+                                            final sshData =
+                                                Provider.of<SSHprovider>(
+                                                    context,
+                                                    listen: false);
+
+                                            Connectionprovider connection =
+                                                Provider.of<Connectionprovider>(
+                                                    context,
+                                                    listen: false);
+
+                                            ///checking the connection status first
+                                            if (sshData.client != null &&
+                                                connection.isLgConnected) {
+                                              if (play) {
+                                                try {
+                                                  await LgService(sshData)
+                                                      .startTour('Orbit');
+                                                } catch (e) {
+                                                  print(e);
+                                                }
+                                              } else {
+                                                try {
+                                                  await LgService(sshData)
+                                                      .stopTour();
+                                                } catch (e) {
+                                                  print(e);
+                                                }
+                                              }
+                                              if (mounted) {
+                                                setState(() {
+                                                  play = !play;
+                                                });
+                                              }
+                                            } else {
+                                              dialogBuilder(
+                                                  context,
+                                                  // 'NOT connected to LG !! \n Please Connect to LG',
+                                                  AppLocalizations.of(context)!
+                                                      .lgTasks_notConnectedError,
+                                                  true,
+                                                  // 'OK',
+                                                  AppLocalizations.of(context)!
+                                                      .defaults_ok,
+                                                  null,
+                                                  null);
                                             }
                                           }
-                                          setState(() {
-                                            play = !play;
-                                          });
-                                        } else {
-                                          dialogBuilder(
-                                              context,
-                                              // 'NOT connected to LG !! \n Please Connect to LG',
-                                              AppLocalizations.of(context)!
-                                                  .lgTasks_notConnectedError,
-                                              true,
-                                              // 'OK',
-                                              AppLocalizations.of(context)!
-                                                  .defaults_ok,
-                                              null,
-                                              null);
-                                        }
-                                      },
-                                      child: Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.08,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.12,
-                                        decoration: BoxDecoration(
-                                          color: FontAppColors.secondaryFont,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            play
-                                                ? const Icon(
-                                                    Icons.play_circle_outlined,
-                                                    color: FontAppColors
-                                                        .primaryFont,
-                                                    size: titleSize + 10)
-                                                : const Icon(
-                                                    Icons.stop_circle_outlined,
-                                                    color: FontAppColors
-                                                        .primaryFont,
-                                                    size: titleSize + 10),
-                                            Flexible(
-                                              child: FittedBox(
-                                                fit: BoxFit.scaleDown,
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  // 'Orbit',
-                                                  AppLocalizations.of(context)!
-                                                      .poiExpansion_orbit,
-                                                  style: TextStyle(
-                                                    color: FontAppColors
-                                                        .primaryFont,
-                                                    fontSize:
-                                                        fontVal.fonts.textSize -
-                                                            2,
-                                                    fontFamily: fontType,
+                                        },
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.08,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.12,
+                                          decoration: BoxDecoration(
+                                            color: FontAppColors.secondaryFont,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              play
+                                                  ? const Icon(
+                                                      Icons
+                                                          .play_circle_outlined,
+                                                      color: FontAppColors
+                                                          .primaryFont,
+                                                      size: titleSize + 10)
+                                                  : const Icon(
+                                                      Icons
+                                                          .stop_circle_outlined,
+                                                      color: FontAppColors
+                                                          .primaryFont,
+                                                      size: titleSize + 10),
+                                              Flexible(
+                                                child: FittedBox(
+                                                  fit: BoxFit.scaleDown,
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    // 'Orbit',
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .poiExpansion_orbit,
+                                                    style: TextStyle(
+                                                      color: FontAppColors
+                                                          .primaryFont,
+                                                      fontSize: fontVal
+                                                              .fonts.textSize -
+                                                          2,
+                                                      fontFamily: fontType,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            )
-                                          ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Tooltip(
-                                      message: _isFav
-                                          // ? 'Added to favorites'
-                                          ? AppLocalizations.of(context)!
-                                              .favs_addtofavsmessage
-                                          // : 'Removed from favorites',
-                                          : AppLocalizations.of(context)!
-                                              .favs_removefromfavsmessage,
-                                      triggerMode: TooltipTriggerMode.tap,
-                                      onTriggered: () async {
-                                        if (await FavoritesSharedPref()
-                                            .isPlaceExist(
-                                                widget.placeModel.name,
-                                                widget.placeModel.country ??
-                                                    '')) {
-                                          await FavoritesSharedPref()
-                                              .removePlace(
+                                      Tooltip(
+                                        message: _isFav
+                                            // ? 'Added to favorites'
+                                            ? AppLocalizations.of(context)!
+                                                .favs_addtofavsmessage
+                                            // : 'Removed from favorites',
+                                            : AppLocalizations.of(context)!
+                                                .favs_removefromfavsmessage,
+                                        triggerMode: TooltipTriggerMode.tap,
+                                        onTriggered: () async {
+                                          if (await FavoritesSharedPref()
+                                              .isPlaceExist(
                                                   widget.placeModel.name,
                                                   widget.placeModel.country ??
-                                                      '');
-                                          setState(() {
-                                            _isFav = false;
-                                          });
-                                        } else {
-                                          await FavoritesSharedPref()
-                                              .addPlace(widget.placeModel);
-                                          setState(() {
-                                            _isFav = true;
-                                          });
-                                        }
-                                      },
-                                      child: Icon(
-                                        _isFav
-                                            ? CupertinoIcons.heart_fill
-                                            : CupertinoIcons.heart,
-                                        color: LgAppColors.lgColor2,
-                                        size: fontVal.fonts.textSize + 20,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
+                                                      '')) {
+                                            await FavoritesSharedPref()
+                                                .removePlace(
+                                                    widget.placeModel.name,
+                                                    widget.placeModel.country ??
+                                                        '');
+                                            if (mounted) {
+                                              setState(() {
+                                                _isFav = false;
+                                              });
+                                            }
+                                          } else {
+                                            await FavoritesSharedPref()
+                                                .addPlace(widget.placeModel);
+                                            if (mounted) {
+                                              setState(() {
+                                                _isFav = true;
+                                              });
+                                            }
+                                          }
+                                        },
+                                        child: Icon(
+                                          _isFav
+                                              ? CupertinoIcons.heart_fill
+                                              : CupertinoIcons.heart,
+                                          color: LgAppColors.lgColor2,
+                                          size: fontVal.fonts.textSize + 20,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }),
                             ],
                           ),
                         )

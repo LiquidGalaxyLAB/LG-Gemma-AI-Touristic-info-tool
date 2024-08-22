@@ -65,7 +65,8 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                       Widget? child) {
                     return Text(
                       // 'Please enter an address first above or use map!',
-                      AppLocalizations.of(context)!.exploreLocation_missingAddress,
+                      AppLocalizations.of(context)!
+                          .exploreLocation_missingAddress,
                       style: TextStyle(
                         fontSize: value.fonts.textSize,
                         color: Colors.white,
@@ -134,14 +135,18 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                 );
               } else {
                 apiKey = apiKeyModel.key;
-                setState(() {
-                  _isLoading = true;
-                });
+                if (mounted) {
+                  setState(() {
+                    _isLoading = true;
+                  });
+                }
                 String res =
                     await GeminiServices().checkAPIValidity(apiKey, context);
-                setState(() {
-                  _isLoading = false;
-                });
+                if (mounted) {
+                  setState(() {
+                    _isLoading = false;
+                  });
+                }
                 if (res == '') {
                   Locale locale = await SettingsSharedPref.getLocale();
                   showStreamingGeminiDialog(context, widget.query,
@@ -234,26 +239,26 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
                 ),
                 if (_isLoading)
                   Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
-                        Expanded(
-                          child: Text(
-                              // 'Loading...',
-                              AppLocalizations.of(context)!.defaults_loading,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                overflow: TextOverflow.ellipsis,
-                                fontFamily: fontType,
-                              )),
-                        )
-                      ],
+                    // child: Column(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    //   children: [
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
                     ),
+                    // Expanded(
+                    //   child: Text(
+                    //       // 'Loading...',
+                    //       AppLocalizations.of(context)!.defaults_loading,
+                    //       style: TextStyle(
+                    //         color: Colors.white,
+                    //         fontSize: 20,
+                    //         overflow: TextOverflow.ellipsis,
+                    //         fontFamily: fontType,
+                    //       )),
+                    // )
+                    // ],
+                    // ),
                   ),
               ],
             ),

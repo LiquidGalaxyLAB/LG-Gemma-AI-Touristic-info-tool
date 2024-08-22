@@ -299,70 +299,85 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    LgElevatedButton(
-                      // elevatedButtonContent: 'Show POIs',
-                      elevatedButtonContent: AppLocalizations.of(context)!
-                          .visualizationDialog_Showpois,
-                      buttonColor: SettingsSharedPref.getTheme() == 'dark'
-                          ? colorVal.colors.midShadow
-                          : FontAppColors.secondaryFont,
-                      onpressed: () async {
-                        final mapProvider = Provider.of<GoogleMapProvider>(
-                            context,
-                            listen: false);
-                        mapProvider.pinPillPosition =
-                            MediaQuery.of(context).size.height * 1;
-                        mapProvider.setBitmapDescriptor(
-                            "assets/images/placemark_pin.png");
-                        mapProvider.updateZoom(12.4746);
+                    Consumer<TourStatusprovider>(builder: (BuildContext context,
+                        TourStatusprovider tourStatus, Widget? child) {
+                      return LgElevatedButton(
+                        // elevatedButtonContent: 'Show POIs',
+                        elevatedButtonContent: AppLocalizations.of(context)!
+                            .visualizationDialog_Showpois,
+                        buttonColor: SettingsSharedPref.getTheme() == 'dark'
+                            ? colorVal.colors.midShadow
+                            : FontAppColors.secondaryFont,
+                        onpressed: () async {
+                          if (tourStatus.isTourOn) {
+                            dialogBuilder(
+                                context,
+                                // 'A tour is currently running.\nStop tour first.',
+                                AppLocalizations.of(context)!
+                                    .poiExpansion_runningTourError,
+                                true,
+                                AppLocalizations.of(context)!.defaults_ok,
+                                () {},
+                                () {});
+                          } else {
+                            final mapProvider = Provider.of<GoogleMapProvider>(
+                                context,
+                                listen: false);
+                            mapProvider.pinPillPosition =
+                                MediaQuery.of(context).size.height * 1;
+                            mapProvider.setBitmapDescriptor(
+                                "assets/images/placemark_pin.png");
+                            mapProvider.updateZoom(12.4746);
 
-                        mapProvider.flyToLocation(
-                            LatLng(widget.initialLat, widget.initialLong));
+                            mapProvider.flyToLocation(
+                                LatLng(widget.initialLat, widget.initialLong));
 
-                        for (int i = 0; i < widget.places.length; i++) {
-                          PlacesModel placeModel = widget.places[i];
+                            for (int i = 0; i < widget.places.length; i++) {
+                              PlacesModel placeModel = widget.places[i];
 
-                          mapProvider.addMarker(context, placeModel,
-                              removeAll: false);
-                        }
+                              mapProvider.addMarker(context, placeModel,
+                                  removeAll: false);
+                            }
 
-                        await Future.delayed(const Duration(seconds: 3));
-                        final sshData =
-                            Provider.of<SSHprovider>(context, listen: false);
-
-                        Connectionprovider connection =
-                            Provider.of<Connectionprovider>(context,
+                            await Future.delayed(const Duration(seconds: 3));
+                            final sshData = Provider.of<SSHprovider>(context,
                                 listen: false);
 
-                        ///checking the connection status first
-                        if (sshData.client != null &&
-                            connection.isLgConnected) {
-                          await buildShowPois(
-                              widget.places,
-                              context,
-                              widget.initialLat,
-                              widget.initialLong,
-                              widget.city,
-                              widget.country,
-                              widget.query);
-                        }
-                      },
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      width: MediaQuery.of(context).size.width * 0.165,
-                      fontSize: textSize,
-                      // fontSize: fontVal.fonts.textSize,
-                      fontColor: FontAppColors.primaryFont,
-                      isLoading: false,
-                      isBold: true,
-                      isPrefixIcon: true,
-                      prefixIcon: Icons.location_on_outlined,
-                      prefixIconColor: FontAppColors.primaryFont,
-                      prefixIconSize: 30,
-                      isSuffixIcon: false,
-                      borderColor: FontAppColors.primaryFont,
-                      borderWidth: 2,
-                      curvatureRadius: 10,
-                    ),
+                            Connectionprovider connection =
+                                Provider.of<Connectionprovider>(context,
+                                    listen: false);
+
+                            ///checking the connection status first
+                            if (sshData.client != null &&
+                                connection.isLgConnected) {
+                              await buildShowPois(
+                                  widget.places,
+                                  context,
+                                  widget.initialLat,
+                                  widget.initialLong,
+                                  widget.city,
+                                  widget.country,
+                                  widget.query);
+                            }
+                          }
+                        },
+                        height: MediaQuery.of(context).size.height * 0.07,
+                        width: MediaQuery.of(context).size.width * 0.165,
+                        fontSize: textSize,
+                        // fontSize: fontVal.fonts.textSize,
+                        fontColor: FontAppColors.primaryFont,
+                        isLoading: false,
+                        isBold: true,
+                        isPrefixIcon: true,
+                        prefixIcon: Icons.location_on_outlined,
+                        prefixIconColor: FontAppColors.primaryFont,
+                        prefixIconSize: 30,
+                        isSuffixIcon: false,
+                        borderColor: FontAppColors.primaryFont,
+                        borderWidth: 2,
+                        curvatureRadius: 10,
+                      );
+                    }),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.01,
                     ),
@@ -374,6 +389,15 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                           ? colorVal.colors.midShadow
                           : FontAppColors.secondaryFont,
                       onpressed: () async {
+                        final mapProvider = Provider.of<GoogleMapProvider>(
+                            context,
+                            listen: false);
+                        mapProvider.pinPillPosition =
+                            MediaQuery.of(context).size.height * 1;
+                        mapProvider.allowSync = false;
+                        mapProvider.clearCustomMarkers();
+                        mapProvider.clearMarkers();
+
                         final sshData =
                             Provider.of<SSHprovider>(context, listen: false);
 
@@ -384,8 +408,11 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                         ///checking the connection status first
                         if (sshData.client != null &&
                             connection.isLgConnected) {
-                          List<KMLModel> kmlBalloons = await buildQueryTour(
+                          // List<KMLModel> kmlBalloons =
+
+                          await buildQueryTour(
                               context, widget.query, widget.places);
+
                           dialogBuilder(
                               context,
                               // 'Are you sure you want to start tour?',
@@ -398,23 +425,25 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                             TourStatusprovider tourStatus =
                                 Provider.of<TourStatusprovider>(context,
                                     listen: false);
-                            setState(() {
-                              _isTourOn = true;
-                              tourStatus.isTourOn = true;
-                            });
+                            tourStatus.isTourOn = true;
+                            if (mounted) {
+                              setState(() {
+                                _isTourOn = true;
+                              });
+                            }
 
                             await LgService(sshData).startTour('App Tour');
-                            for (int i = 0; i < kmlBalloons.length; i++) {
-                              if (_isTourOn) {
-                                await LgService(sshData).sendKMLToSlave(
-                                  LgService(sshData).balloonScreen,
-                                  kmlBalloons[i].body,
-                                );
-                                await Future.delayed(Duration(seconds: 60));
-                              } else {
-                                break;
-                              }
-                            }
+                            // for (int i = 0; i < kmlBalloons.length; i++) {
+                            //   if (_isTourOn) {
+                            //     await LgService(sshData).sendKMLToSlave(
+                            //       LgService(sshData).balloonScreen,
+                            //       kmlBalloons[i].body,
+                            //     );
+                            //     await Future.delayed(Duration(seconds: 60));
+                            //   } else {
+                            //     break;
+                            //   }
+                            // }
                           }, null);
                         } else {
                           dialogBuilder(
@@ -456,6 +485,12 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                           ? colorVal.colors.midShadow
                           : FontAppColors.secondaryFont,
                       onpressed: () async {
+                        final mapProvider = Provider.of<GoogleMapProvider>(
+                            context,
+                            listen: false);
+                        mapProvider.pinPillPosition =
+                            MediaQuery.of(context).size.height * 1;
+
                         final sshData =
                             Provider.of<SSHprovider>(context, listen: false);
 
@@ -479,10 +514,13 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                                 Provider.of<TourStatusprovider>(context,
                                     listen: false);
                             await LgService(sshData).stopTour();
-                            setState(() {
-                              _isTourOn = false;
-                              tourStatus.isTourOn = false;
-                            });
+                            mapProvider.allowSync = true;
+                            tourStatus.isTourOn = false;
+                            if (mounted) {
+                              setState(() {
+                                _isTourOn = false;
+                              });
+                            }
                             await LgService(sshData).clearKml();
                           }, null);
                         } else {
@@ -719,8 +757,10 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                         onpressed: () async {
                           SSHprovider sshData =
                               Provider.of<SSHprovider>(context, listen: false);
-                          await LgService(sshData).clearKml();
-                          await buildAppBalloonOverlay(context);
+
+                          Connectionprovider connection =
+                              Provider.of<Connectionprovider>(context,
+                                  listen: false);
 
                           final mapProvider = Provider.of<GoogleMapProvider>(
                               context,
@@ -732,6 +772,25 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                           mapProvider.clearPolylines();
                           mapProvider.pinPillPosition =
                               MediaQuery.of(context).size.height * 1;
+
+                          TourStatusprovider tourStatus =
+                              Provider.of<TourStatusprovider>(context,
+                                  listen: false);
+                          tourStatus.isTourOn = false;
+                          if (mounted) {
+                            setState(() {
+                              _isTourOn = false;
+                            });
+                          }
+
+                          mapProvider.allowSync = true;
+
+                          if (sshData.client != null &&
+                              connection.isLgConnected) {
+                            await LgService(sshData).clearKml();
+                            await LgService(sshData).stopTour();
+                            await buildAppBalloonOverlay(context);
+                          }
 
                           while (Navigator.of(context).canPop()) {
                             Navigator.of(context).pop();
@@ -814,13 +873,17 @@ class _FavIconState extends State<FavIcon> {
   Future<void> _checkIsFav() async {
     bool doesExist = await FavoritesSharedPref().isTourExist(widget.query);
     if (doesExist) {
-      setState(() {
-        _isFav = true;
-      });
+      if (mounted) {
+        setState(() {
+          _isFav = true;
+        });
+      }
     } else {
-      setState(() {
-        _isFav = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isFav = false;
+        });
+      }
     }
   }
 
@@ -834,9 +897,11 @@ class _FavIconState extends State<FavIcon> {
       onTriggered: () async {
         if (await FavoritesSharedPref().isTourExist(widget.query)) {
           await FavoritesSharedPref().removeTour(widget.query);
-          setState(() {
-            _isFav = false;
-          });
+          if (mounted) {
+            setState(() {
+              _isFav = false;
+            });
+          }
           if (widget.fromFav) {
             widget.onItemRemoved();
             Navigator.of(context).pop();
@@ -849,9 +914,11 @@ class _FavIconState extends State<FavIcon> {
             country: widget.country,
             isGenerated: true,
           ));
-          setState(() {
-            _isFav = true;
-          });
+          if (mounted) {
+            setState(() {
+              _isFav = true;
+            });
+          }
         }
       },
       child: Icon(

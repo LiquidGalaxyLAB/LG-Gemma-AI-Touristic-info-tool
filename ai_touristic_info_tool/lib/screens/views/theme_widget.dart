@@ -20,7 +20,9 @@ class _ThemeWidgetState extends State<ThemeWidget> {
 
   Color pickerColor = Color(0xff443a49);
   void changeColor(Color color) {
-    setState(() => pickerColor = color);
+    if (mounted) {
+      setState(() => pickerColor = color);
+    }
     ColorProvider colorProv =
         Provider.of<ColorProvider>(context, listen: false);
     colorProv.updateButtonColor(color);
@@ -107,9 +109,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                           ),
                           child: ElevatedButton(
                               onPressed: () {
-                                setState(() {
-                                  selectedTheme = 'default';
-                                });
+                                if (mounted) {
+                                  setState(() {
+                                    selectedTheme = 'default';
+                                  });
+                                }
                                 SettingsSharedPref.setTheme('default');
 
                                 ColorProvider colorProv =
@@ -168,9 +172,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                           ),
                           child: ElevatedButton(
                             onPressed: () {
-                              setState(() {
-                                selectedTheme = 'light';
-                              });
+                              if (mounted) {
+                                setState(() {
+                                  selectedTheme = 'light';
+                                });
+                              }
                               SettingsSharedPref.setTheme('light');
                               ColorProvider colorProv =
                                   Provider.of<ColorProvider>(context,
@@ -223,9 +229,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                           ),
                           child: ElevatedButton(
                             onPressed: () {
-                              setState(() {
-                                selectedTheme = 'dark';
-                              });
+                              if (mounted) {
+                                setState(() {
+                                  selectedTheme = 'dark';
+                                });
+                              }
                               SettingsSharedPref.setTheme('dark');
                               ColorProvider colorProv =
                                   Provider.of<ColorProvider>(context,
@@ -301,9 +309,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedColor = 0;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          selectedColor = 0;
+                        });
+                      }
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
 
@@ -325,9 +335,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedColor = 1;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          selectedColor = 1;
+                        });
+                      }
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
                       colorProv.updateButtonColor(Color(0xFFAB87C7));
@@ -347,9 +359,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedColor = 2;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          selectedColor = 2;
+                        });
+                      }
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
                       colorProv.updateButtonColor(Color(0xFF1D6F9A));
@@ -369,9 +383,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedColor = 3;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          selectedColor = 3;
+                        });
+                      }
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
                       colorProv.updateButtonColor(Color(0xFF2E8B57));
@@ -391,9 +407,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedColor = 4;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          selectedColor = 4;
+                        });
+                      }
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
                       colorProv.updateButtonColor(Color(0xFFAB4C4C));
@@ -413,9 +431,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedColor = 5;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          selectedColor = 5;
+                        });
+                      }
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
                       colorProv.updateButtonColor(Color(0xFFCE6C2F));
@@ -435,9 +455,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedColor = 6;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          selectedColor = 6;
+                        });
+                      }
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
                       colorProv.updateButtonColor(Color(0xFFD81B60));
@@ -457,9 +479,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedColor = 7;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          selectedColor = 7;
+                        });
+                      }
                       ColorProvider colorProv =
                           Provider.of<ColorProvider>(context, listen: false);
                       colorProv.updateButtonColor(Color(0xFF00796B));
@@ -537,9 +561,11 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                         FontsProvider fontProv, Widget? child) {
                       return GestureDetector(
                         onTap: () {
-                          setState(() {
-                            selectedColor = 8;
-                          });
+                          if (mounted) {
+                            setState(() {
+                              selectedColor = 8;
+                            });
+                          }
                           showDialog(
                               context: context,
                               builder: (context) {

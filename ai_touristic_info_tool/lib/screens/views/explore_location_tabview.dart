@@ -123,11 +123,12 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
   Future<void> _stopRecording() async {
     try {
       String? path = await _audioRecorder.stop();
-
-      setState(() {
-        _audioPath = path!;
-        _isAudioProcessing = true;
-      });
+      if (mounted) {
+        setState(() {
+          _audioPath = path!;
+          _isAudioProcessing = true;
+        });
+      }
       debugPrint('=========>>>>>> PATH: $_audioPath <<<<<<===========');
       convertSpeechToText();
     } catch (e) {
@@ -140,19 +141,22 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
       final status = await Permission.microphone.request();
 
       if (status == PermissionStatus.granted) {
-        setState(() {
-          _isRecording = true;
-        });
+        if (mounted) {
+          setState(() {
+            _isRecording = true;
+          });
+        }
         await _startRecording();
       } else if (status == PermissionStatus.permanentlyDenied) {
         debugPrint('Permission permanently denied');
       }
     } else {
       await _stopRecording();
-
-      setState(() {
-        _isRecording = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isRecording = false;
+        });
+      }
     }
   }
 
@@ -161,11 +165,13 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
     if (_audioPath != null) {
       final audioFile = File(_audioPath!);
       VoicesServicesApi().speechToTextApi(audioFile).then((value) {
-        setState(() {
-          audioPrompt = value;
-          _isAudioProcessing = false;
-          _isSTTFinished = true;
-        });
+        if (mounted) {
+          setState(() {
+            audioPrompt = value;
+            _isAudioProcessing = false;
+            _isSTTFinished = true;
+          });
+        }
       });
     }
   }
@@ -192,10 +198,12 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                             .exploreLocation_mapButton,
                         buttonColor: ButtonColors.mapButton,
                         onpressed: () {
-                          setState(() {
-                            showAddressFields = false;
-                            useMap = true;
-                          });
+                          if (mounted) {
+                            setState(() {
+                              showAddressFields = false;
+                              useMap = true;
+                            });
+                          }
                         },
                         height: MediaQuery.of(context).size.height * 0.1,
                         width: MediaQuery.of(context).size.width * 0.2,
@@ -221,11 +229,13 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                             .exploreLocation_typeAdd,
                         buttonColor: ButtonColors.locationButton,
                         onpressed: () {
-                          setState(() {
-                            showAddressFields = true;
-                            _isUseRecord = false;
-                            useMap = false;
-                          });
+                          if (mounted) {
+                            setState(() {
+                              showAddressFields = true;
+                              _isUseRecord = false;
+                              useMap = false;
+                            });
+                          }
                         },
                         height: MediaQuery.of(context).size.height * 0.1,
                         width: MediaQuery.of(context).size.width * 0.2,
@@ -360,10 +370,12 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                               hinttext: AppLocalizations.of(context)!
                                   .exploreLocation_countryHint,
                               onChanged: (value) {
-                                setState(() {
-                                  _countryController.text = value;
-                                  _chosenCountry = value;
-                                });
+                                if (mounted) {
+                                  setState(() {
+                                    _countryController.text = value;
+                                    _chosenCountry = value;
+                                  });
+                                }
                               },
                             ),
                             SizedBox(
@@ -384,14 +396,16 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                     onpressed: () async {
                                       if (_addressFormKey.currentState!
                                           .validate()) {
-                                        setState(() {
-                                          _city = _cityController.text;
-                                          _country = _chosenCountry ?? '';
-                                          _address = _addressController.text;
-                                          _addressQuery =
-                                              '$_address $_city $_country';
-                                          useMap = false;
-                                        });
+                                        if (mounted) {
+                                          setState(() {
+                                            _city = _cityController.text;
+                                            _country = _chosenCountry ?? '';
+                                            _address = _addressController.text;
+                                            _addressQuery =
+                                                '$_address $_city $_country';
+                                            useMap = false;
+                                          });
+                                        }
 
                                         MyLatLng myLatLng =
                                             await GeocodingService()
@@ -1070,10 +1084,12 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         AppLocalizations.of(context)!.button_TypePrompt,
                     buttonColor: ButtonColors.locationButton,
                     onpressed: () {
-                      setState(() {
-                        _isTypePrompt = true;
-                        // _isRecordPrompt = false;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          _isTypePrompt = true;
+                          // _isRecordPrompt = false;
+                        });
+                      }
                     },
                     height: MediaQuery.of(context).size.height * 0.08,
                     width: MediaQuery.of(context).size.width * 0.2,
@@ -1263,14 +1279,18 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                                       );
                                     } else {
                                       apiKey = apiKeyModel.key;
-                                      setState(() {
-                                        _isLoading = true;
-                                      });
+                                      if (mounted) {
+                                        setState(() {
+                                          _isLoading = true;
+                                        });
+                                      }
                                       String res = await GeminiServices()
                                           .checkAPIValidity(apiKey, context);
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
+                                      if (mounted) {
+                                        setState(() {
+                                          _isLoading = false;
+                                        });
+                                      }
                                       if (res == '') {
                                         Locale locale = await SettingsSharedPref
                                             .getLocale();

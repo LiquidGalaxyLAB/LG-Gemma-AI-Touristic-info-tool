@@ -131,9 +131,11 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
                             color: Colors.grey,
                           ),
                           onPressed: () {
-                            setState(() {
-                              _isHidden = !_isHidden;
-                            });
+                            if (mounted) {
+                              setState(() {
+                                _isHidden = !_isHidden;
+                              });
+                            }
                           },
                         ),
                         const SizedBox(width: 10),

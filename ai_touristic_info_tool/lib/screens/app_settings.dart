@@ -27,10 +27,12 @@ class _AppSettingsViewState extends State<AppSettingsView> {
   int selectedIndex = -1;
 
   void updateView(Widget newView, int index) {
-    setState(() {
-      view = newView;
-      selectedIndex = index;
-    });
+    if (mounted) {
+      setState(() {
+        view = newView;
+        selectedIndex = index;
+      });
+    }
   }
 
   @override

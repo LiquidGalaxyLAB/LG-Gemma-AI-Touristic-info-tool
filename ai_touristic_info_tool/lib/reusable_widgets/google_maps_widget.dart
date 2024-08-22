@@ -53,9 +53,11 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     // Set the callback to rebuild the map
     Provider.of<GoogleMapProvider>(context, listen: false)
         .setMapResetCallback(() {
-      setState(() {
-        _mapKey = UniqueKey(); // Update the map key to force rebuild
-      });
+      if (mounted) {
+        setState(() {
+          _mapKey = UniqueKey(); // Update the map key to force rebuild
+        });
+      }
     });
   }
 
@@ -188,10 +190,12 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                             polylines: Set<Polyline>.of(mapProvider.polylines),
                             onMapCreated: _onMapCreated,
                             onTap: (LatLng location) {
-                              setState(() {
-                                mapProvider.pinPillPosition =
-                                    MediaQuery.of(context).size.height * 1;
-                              });
+                              if (mounted) {
+                                setState(() {
+                                  mapProvider.pinPillPosition =
+                                      MediaQuery.of(context).size.height * 1;
+                                });
+                              }
                             }),
                         CustomBalloonGoogleMaps(
                           pinPillPosition: mapProvider.pinPillPosition,
@@ -201,13 +205,17 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                         if (widget.showCleaner)
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                mapProvider.clearMarkers();
-                                mapProvider.clearCustomMarkers();
-                                mapProvider.pinPillPosition =
-                                    MediaQuery.of(context).size.height * 1;
-                              });
-                              setState(() {});
+                              if (mounted) {
+                                setState(() {
+                                  mapProvider.clearMarkers();
+                                  mapProvider.clearCustomMarkers();
+                                  mapProvider.pinPillPosition =
+                                      MediaQuery.of(context).size.height * 1;
+                                });
+                              }
+                              if (mounted) {
+                                setState(() {});
+                              }
                             },
                             child: Container(
                               alignment: Alignment.topRight,

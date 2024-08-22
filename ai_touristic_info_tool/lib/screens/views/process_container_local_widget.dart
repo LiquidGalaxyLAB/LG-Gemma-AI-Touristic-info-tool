@@ -48,32 +48,34 @@ class _ProcessContainerWidgetState extends State<ProcessContainerWidget> {
     GemmaApiServices()
         .postaStreamEventsGemma(input: widget.query, context)
         .listen((event) {
-      setState(() {
-        if (event['type'] == 'chunk') {
-          _chunkController.sink.add(event['data']);
-        } else if (event['type'] == 'message') {
-          ModelErrorProvider errProvider =
-              Provider.of<ModelErrorProvider>(context, listen: false);
-          errProvider.hasStarted = true;
-          _currProgress++;
-          _messageController.sink.add(event['data']);
-        } else if (event['type'] == 'result') {
-          _isFinished = true;
-          _pois.addAll(event['data']);
-        } else if (event['type'] == 'error') {
-          _isError = true;
-          ModelErrorProvider errProvider =
-              Provider.of<ModelErrorProvider>(context, listen: false);
-          errProvider.isError = true;
-          _errorController.sink.add(event['data']);
-          if (event['data'].toString() ==
-              'The server is currently unavailable. Please try again later.') {
-            Connectionprovider connection =
-                Provider.of<Connectionprovider>(context, listen: false);
-            connection.isAiConnected = false;
+      if (mounted) {
+        setState(() {
+          if (event['type'] == 'chunk') {
+            _chunkController.sink.add(event['data']);
+          } else if (event['type'] == 'message') {
+            ModelErrorProvider errProvider =
+                Provider.of<ModelErrorProvider>(context, listen: false);
+            errProvider.hasStarted = true;
+            _currProgress++;
+            _messageController.sink.add(event['data']);
+          } else if (event['type'] == 'result') {
+            _isFinished = true;
+            _pois.addAll(event['data']);
+          } else if (event['type'] == 'error') {
+            _isError = true;
+            ModelErrorProvider errProvider =
+                Provider.of<ModelErrorProvider>(context, listen: false);
+            errProvider.isError = true;
+            _errorController.sink.add(event['data']);
+            if (event['data'].toString() ==
+                'The server is currently unavailable. Please try again later.') {
+              Connectionprovider connection =
+                  Provider.of<Connectionprovider>(context, listen: false);
+              connection.isAiConnected = false;
+            }
           }
-        }
-      });
+        });
+      }
     });
   }
 

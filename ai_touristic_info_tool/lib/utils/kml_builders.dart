@@ -649,7 +649,7 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
 //               font-size: ${headSize - 10}px;
 //               color: $primaryColor;
 //             }
-          
+
 //             .balloon pp{
 //               font-size: ${textSize}px;
 //               color: $primaryColor;
@@ -667,27 +667,27 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
 //               margin-top: 10px;
 //               text-align: left;
 //               font-size: ${textSize}px;
-//             }    
-        
+//             }
+
 //              .balloon linkp{
 //                font-size:  ${textSize}px;
 //               color: blue;
-//               text-decoration: underline; 
+//               text-decoration: underline;
 //             }
-          
+
 //             .balloon b {
 //               color: #ffff;
 //             }
-          
+
 //            .container-logo {
-//             width: 100px; 
+//             width: 100px;
 //             height: 50px;
 //             background-color: white;
 //             padding: 20px;
 //             border-radius: 10px;
 //             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 //             text-align: center;
-//             margin: auto; 
+//             margin: auto;
 //           }
 //           .logo img {
 //             max-width: 100%; /* Ensure image fits within container */
@@ -699,9 +699,9 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
 //           </style>
 // </head>
 // <body>
-        
+
 //         <div class="balloon">
-        
+
 //               <div style="text-align:center;">
 //                 <h2> ${escapeHtml(placeName)}</h2>
 //               </div>
@@ -720,8 +720,7 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
 //               <div class="details">
 //                 $linkDetails
 //               </div>
-      
-           
+
 //         </div>
 // </body>
 //   </html>
@@ -1415,7 +1414,8 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
   }
 }
 
-Future<List<KMLModel>> buildQueryTour(
+// Future<List<KMLModel>>
+buildQueryTour(
     BuildContext context, String query, List<PlacesModel> pois) async {
   FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
   ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
@@ -1625,7 +1625,7 @@ Future<List<KMLModel>> buildQueryTour(
 
   try {
     await LgService(sshData).sendKmlFileToMaster(kmlPlacemark.body, 'app-tour');
-    return kmlBallonsList;
+    // return kmlBallonsList;
   } catch (e) {
     print(e);
     return [];
@@ -1813,7 +1813,6 @@ Future<double> buildCustomTour(
 
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   final kmlPlacemark = KMLModel(name: 'app-tour', content: tourTagContent);
-
 
   try {
     await LgService(sshData).sendKmlFileToMaster(kmlPlacemark.body, 'app-tour');

@@ -40,9 +40,11 @@ class _SavedToursWidgetState extends State<SavedToursWidget> {
   Future<void> _loadTours() async {
     List<SavedToursModel> retrieved_tours =
         await FavoritesSharedPref().getToursList();
-    setState(() {
-      _favTours = retrieved_tours;
-    });
+    if (mounted) {
+      setState(() {
+        _favTours = retrieved_tours;
+      });
+    }
   }
 
   @override
@@ -164,12 +166,15 @@ class _SavedToursWidgetState extends State<SavedToursWidget> {
                                                 _favTours[index].query,
                                                 _favTours[index].city,
                                                 _favTours[index].country, () {
-                                              setState(() {
-                                                FavoritesSharedPref()
-                                                    .removeTour(
-                                                        _favTours[index].query);
-                                                _favTours.removeAt(index);
-                                              });
+                                              if (mounted) {
+                                                setState(() {
+                                                  FavoritesSharedPref()
+                                                      .removeTour(
+                                                          _favTours[index]
+                                                              .query);
+                                                  _favTours.removeAt(index);
+                                                });
+                                              }
                                             }, true);
                                           },
                                           icon: Icon(
@@ -199,11 +204,14 @@ class _SavedToursWidgetState extends State<SavedToursWidget> {
                                       children: [
                                         IconButton(
                                           onPressed: () {
-                                            setState(() {
-                                              FavoritesSharedPref().removeTour(
-                                                  _favTours[index].query);
-                                              _favTours.removeAt(index);
-                                            });
+                                            if (mounted) {
+                                              setState(() {
+                                                FavoritesSharedPref()
+                                                    .removeTour(
+                                                        _favTours[index].query);
+                                                _favTours.removeAt(index);
+                                              });
+                                            }
                                           },
                                           icon: Icon(
                                             Icons.delete,

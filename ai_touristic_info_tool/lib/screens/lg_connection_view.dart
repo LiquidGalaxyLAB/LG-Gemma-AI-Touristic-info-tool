@@ -253,91 +253,193 @@ class _ConnectionViewState extends State<ConnectionView> {
                                   height:
                                       MediaQuery.of(context).size.height * 0.5,
                                 ),
-                                Consumer<Connectionprovider>(
-                                  builder: (BuildContext context,
-                                      Connectionprovider conn, Widget? child) {
-                                    if (!conn.isLgConnected) {
-                                      return LgElevatedButton(
-                                        key: GlobalKeys
-                                            .showcaseKeyConnectionConnect,
-                                        // elevatedButtonContent: 'CONNECT LG',
-                                        elevatedButtonContent:
-                                            AppLocalizations.of(context)!
-                                                .lgConnection_connect,
-                                        buttonColor: LgAppColors.lgColor4,
-                                        fontColor: FontAppColors.secondaryFont,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.25,
+                                // Consumer<Connectionprovider>(
+                                //   builder: (BuildContext context,
+                                //       Connectionprovider conn, Widget? child) {
+                                //     // if (!conn.isLgConnected) {
+                                //       return
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    LgElevatedButton(
+                                      key: GlobalKeys
+                                          .showcaseKeyConnectionConnect,
+                                      // elevatedButtonContent: 'CONNECT LG',
+                                      elevatedButtonContent:
+                                          AppLocalizations.of(context)!
+                                              .lgConnection_connect,
+                                      buttonColor: LgAppColors.lgColor4,
+                                      fontColor: FontAppColors.secondaryFont,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25,
 
-                                        fontSize: value.fonts.textSize + 2,
-                                        isLoading: false,
-                                        isBold: true,
-                                        isPrefixIcon: true,
-                                        prefixIcon: Icons.cast_connected,
-                                        prefixIconColor:
-                                            FontAppColors.secondaryFont,
-                                        prefixIconSize: 30,
-                                        isSuffixIcon: false,
-                                        curvatureRadius: 50,
-                                        onpressed: () async {
-                                          /// checking first if form is valid
-                                          if (_form1Key.currentState!
-                                              .validate()) {
-                                            //saving date in shared pref
-                                            await LgConnectionSharedPref
-                                                .setUserName(
-                                                    _userNameController.text);
-                                            await LgConnectionSharedPref.setIP(
-                                                _ipController.text);
-                                            await LgConnectionSharedPref
-                                                .setPassword(
-                                                    _passwordController.text);
-                                            await LgConnectionSharedPref
-                                                .setPort(_portController.text);
-                                            await LgConnectionSharedPref
-                                                .setScreenAmount(int.parse(
-                                                    _screenAmountController
-                                                        .text));
-                                          }
+                                      fontSize: value.fonts.textSize + 2,
+                                      isLoading: false,
+                                      isBold: true,
+                                      isPrefixIcon: true,
+                                      prefixIcon: Icons.cast_connected,
+                                      prefixIconColor:
+                                          FontAppColors.secondaryFont,
+                                      prefixIconSize: 30,
+                                      isSuffixIcon: false,
+                                      curvatureRadius: 50,
+                                      onpressed: () async {
+                                        /// checking first if form is valid
+                                        if (_form1Key.currentState!
+                                            .validate()) {
+                                          //saving date in shared pref
+                                          await LgConnectionSharedPref
+                                              .setUserName(
+                                                  _userNameController.text);
+                                          await LgConnectionSharedPref.setIP(
+                                              _ipController.text);
+                                          await LgConnectionSharedPref
+                                              .setPassword(
+                                                  _passwordController.text);
+                                          await LgConnectionSharedPref.setPort(
+                                              _portController.text);
+                                          await LgConnectionSharedPref
+                                              .setScreenAmount(int.parse(
+                                                  _screenAmountController
+                                                      .text));
+                                        }
 
-                                          final sshData =
-                                              Provider.of<SSHprovider>(context,
-                                                  listen: false);
+                                        final sshData =
+                                            Provider.of<SSHprovider>(context,
+                                                listen: false);
 
-                                          ///start the loading process by setting `isloading` to true
+                                        ///start the loading process by setting `isloading` to true
+                                        if (mounted) {
                                           setState(() {
                                             _isLoading1 = true;
                                           });
+                                        }
 
-                                          /// Call the init function to set up the SSH client with the connection data
-                                          String? result =
-                                              await sshData.init(context);
+                                        /// Call the init function to set up the SSH client with the connection data
+                                        String? result =
+                                            await sshData.init(context);
 
-                                          Connectionprovider connection =
-                                              Provider.of<Connectionprovider>(
-                                                  context,
-                                                  listen: false);
+                                        Connectionprovider connection =
+                                            Provider.of<Connectionprovider>(
+                                                context,
+                                                listen: false);
 
-                                          ///checking on the connection status:
-                                          if (result == '') {
-                                            connection.isLgConnected = true;
+                                        ///checking on the connection status:
+                                        if (result == '') {
+                                          connection.isLgConnected = true;
 
-                                            ///If connected, the logos should appear by calling `setLogos` from the `LGService` calss
-                                            await LgService(sshData).setLogos();
-                                            await buildAppBalloonOverlay(
-                                                context);
-                                            //show snackbar that its connected:
+                                          ///If connected, the logos should appear by calling `setLogos` from the `LGService` calss
+                                          await LgService(sshData).setLogos();
+                                          await buildAppBalloonOverlay(context);
+                                          //show snackbar that its connected:
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                // 'You are now connected to the Liquid Galaxy successfully!',
+                                                AppLocalizations.of(context)!
+                                                    .lgConnection_success,
+                                                style: TextStyle(
+                                                    fontFamily: fontType,
+                                                    fontSize:
+                                                        fontProv.fonts.textSize,
+                                                    color: Colors.white),
+                                              ),
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                              backgroundColor:
+                                                  LgAppColors.lgColor4,
+                                            ),
+                                          );
+                                        } else {
+                                          connection.isLgConnected = false;
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                result!,
+                                                style: TextStyle(
+                                                    fontFamily: fontType,
+                                                    fontSize:
+                                                        fontProv.fonts.textSize,
+                                                    color: Colors.white),
+                                              ),
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                              backgroundColor:
+                                                  LgAppColors.lgColor4,
+                                            ),
+                                          );
+                                        }
+
+                                        ///stop the loading process by setting `isloading` to false
+                                        if (mounted) {
+                                          setState(() {
+                                            _isLoading1 = false;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.1,
+                                    ),
+                                    LgElevatedButton(
+                                      // elevatedButtonContent: 'DISCONNECT LG',
+                                      elevatedButtonContent:
+                                          AppLocalizations.of(context)!
+                                              .lgConnection_disconnect,
+                                      buttonColor: LgAppColors.lgColor2,
+                                      fontColor: FontAppColors.secondaryFont,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25,
+
+                                      fontSize: value.fonts.textSize + 2,
+                                      isLoading: false,
+                                      isBold: true,
+                                      isPrefixIcon: true,
+                                      prefixIcon: Icons
+                                          .signal_wifi_connected_no_internet_4,
+                                      prefixIconColor:
+                                          FontAppColors.secondaryFont,
+                                      prefixIconSize: 30,
+                                      isSuffixIcon: false,
+                                      curvatureRadius: 50,
+                                      onpressed: () async {
+                                        final sshData =
+                                            Provider.of<SSHprovider>(context,
+                                                listen: false);
+                                        Connectionprovider connection =
+                                            Provider.of<Connectionprovider>(
+                                                context,
+                                                listen: false);
+                                        dialogBuilder(
+                                            context,
+                                            // 'Are you sure you want to disconnect?',
+                                            AppLocalizations.of(context)!
+                                                .lgConnection_confirmDisconnect,
+                                            false,
+                                            // 'YES'
+                                            AppLocalizations.of(context)!
+                                                .defaults_yes, () {
+                                          if (connection.isLgConnected) {
+                                            sshData.disconnect();
+                                            connection.isLgConnected = false;
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
                                                 content: Text(
-                                                  // 'You are now connected to the Liquid Galaxy successfully!',
+                                                  // 'You are now disconnected from the Liquid Galaxy!',
                                                   AppLocalizations.of(context)!
-                                                      .lgConnection_success,
+                                                      .lgConnection_disconnectMsg,
                                                   style: TextStyle(
                                                       fontFamily: fontType,
                                                       fontSize: fontProv
@@ -351,12 +453,13 @@ class _ConnectionViewState extends State<ConnectionView> {
                                               ),
                                             );
                                           } else {
-                                            connection.isLgConnected = false;
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
                                                 content: Text(
-                                                  result!,
+                                                  // 'You are already disconnected!',
+                                                  AppLocalizations.of(context)!
+                                                      .lgConnection_errorDisconnect,
                                                   style: TextStyle(
                                                       fontFamily: fontType,
                                                       fontSize: fontProv
@@ -366,108 +469,14 @@ class _ConnectionViewState extends State<ConnectionView> {
                                                 duration:
                                                     const Duration(seconds: 3),
                                                 backgroundColor:
-                                                    LgAppColors.lgColor4,
+                                                    LgAppColors.lgColor2,
                                               ),
                                             );
                                           }
-
-                                          ///stop the loading process by setting `isloading` to false
-                                          setState(() {
-                                            _isLoading1 = false;
-                                          });
-                                        },
-                                      );
-                                    } else {
-                                      return LgElevatedButton(
-                                        // elevatedButtonContent: 'DISCONNECT LG',
-                                        elevatedButtonContent:
-                                            AppLocalizations.of(context)!
-                                                .lgConnection_disconnect,
-                                        buttonColor: LgAppColors.lgColor2,
-                                        fontColor: FontAppColors.secondaryFont,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.25,
-
-                                        fontSize: value.fonts.textSize + 2,
-                                        isLoading: false,
-                                        isBold: true,
-                                        isPrefixIcon: true,
-                                        prefixIcon: Icons
-                                            .signal_wifi_connected_no_internet_4,
-                                        prefixIconColor:
-                                            FontAppColors.secondaryFont,
-                                        prefixIconSize: 30,
-                                        isSuffixIcon: false,
-                                        curvatureRadius: 50,
-                                        onpressed: () async {
-                                          final sshData =
-                                              Provider.of<SSHprovider>(context,
-                                                  listen: false);
-                                          Connectionprovider connection =
-                                              Provider.of<Connectionprovider>(
-                                                  context,
-                                                  listen: false);
-                                          dialogBuilder(
-                                              context,
-                                              // 'Are you sure you want to disconnect?',
-                                              AppLocalizations.of(context)!
-                                                  .lgConnection_confirmDisconnect,
-                                              false,
-                                              // 'YES'
-                                              AppLocalizations.of(context)!
-                                                  .defaults_yes, () {
-                                            if (connection.isLgConnected) {
-                                              sshData.disconnect();
-                                              connection.isLgConnected = false;
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    // 'You are now disconnected from the Liquid Galaxy!',
-                                                    AppLocalizations.of(context)!
-                                                        .lgConnection_disconnectMsg,
-                                                    style: TextStyle(
-                                                        fontFamily: fontType,
-                                                        fontSize: fontProv
-                                                            .fonts.textSize,
-                                                        color: Colors.white),
-                                                  ),
-                                                  duration: const Duration(
-                                                      seconds: 3),
-                                                  backgroundColor:
-                                                      LgAppColors.lgColor4,
-                                                ),
-                                              );
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    // 'You are already disconnected!',
-                                                    AppLocalizations.of(context)!
-                                                        .lgConnection_errorDisconnect,
-                                                    style: TextStyle(
-                                                        fontFamily: fontType,
-                                                        fontSize: fontProv
-                                                            .fonts.textSize,
-                                                        color: Colors.white),
-                                                  ),
-                                                  duration: const Duration(
-                                                      seconds: 3),
-                                                  backgroundColor:
-                                                      LgAppColors.lgColor2,
-                                                ),
-                                              );
-                                            }
-                                          }, null);
-                                        },
-                                      );
-                                    }
-                                  },
+                                        }, null);
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

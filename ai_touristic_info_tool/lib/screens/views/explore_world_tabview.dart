@@ -104,11 +104,12 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
   Future<void> _stopRecording() async {
     try {
       String? path = await _audioRecorder.stop();
-
-      setState(() {
-        _audioPath = path!;
-        _isAudioProcessing = true;
-      });
+      if (mounted) {
+        setState(() {
+          _audioPath = path!;
+          _isAudioProcessing = true;
+        });
+      }
       debugPrint('=========>>>>>> PATH: $_audioPath <<<<<<===========');
       convertSpeechToText();
     } catch (e) {
@@ -121,19 +122,22 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
       final status = await Permission.microphone.request();
 
       if (status == PermissionStatus.granted) {
-        setState(() {
-          _isRecording = true;
-        });
+        if (mounted) {
+          setState(() {
+            _isRecording = true;
+          });
+        }
         await _startRecording();
       } else if (status == PermissionStatus.permanentlyDenied) {
         debugPrint('Permission permanently denied');
       }
     } else {
       await _stopRecording();
-
-      setState(() {
-        _isRecording = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isRecording = false;
+        });
+      }
     }
   }
 
@@ -141,11 +145,13 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
     if (_audioPath != null) {
       final audioFile = File(_audioPath!);
       VoicesServicesApi().speechToTextApi(audioFile).then((value) {
-        setState(() {
-          audioPrompt = value;
-          _isAudioProcessing = false;
-          _isSTTFinished = true;
-        });
+        if (mounted) {
+          setState(() {
+            audioPrompt = value;
+            _isAudioProcessing = false;
+            _isSTTFinished = true;
+          });
+        }
       });
     }
   }
@@ -595,10 +601,12 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                         AppLocalizations.of(context)!.button_TypePrompt,
                     buttonColor: ButtonColors.locationButton,
                     onpressed: () {
-                      setState(() {
-                        _isTypePrompt = true;
-                        _isRecordPrompt = false;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          _isTypePrompt = true;
+                          _isRecordPrompt = false;
+                        });
+                      }
                     },
                     height: MediaQuery.of(context).size.height * 0.08,
                     width: MediaQuery.of(context).size.width * 0.2,
@@ -744,15 +752,19 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                                         );
                                       } else {
                                         apiKey = apiKeyModel.key;
-                                        setState(() {
-                                          _isLoading = true;
-                                        });
+                                        if (mounted) {
+                                          setState(() {
+                                            _isLoading = true;
+                                          });
+                                        }
                                         String res = await GeminiServices()
                                             .checkAPIValidity(apiKey, context);
 
-                                        setState(() {
-                                          _isLoading = false;
-                                        });
+                                        if (mounted) {
+                                          setState(() {
+                                            _isLoading = false;
+                                          });
+                                        }
                                         if (res == '') {
                                           Locale locale =
                                               await SettingsSharedPref

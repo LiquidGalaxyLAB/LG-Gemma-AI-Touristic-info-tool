@@ -18,7 +18,9 @@ class _RecordingWaveWidgetState extends State<CustomRecordingWaveWidget> {
   void initState() {
     super.initState();
     _timer = Timer.periodic(const Duration(milliseconds: 150), (_) {
-      setState(() => _heights.add(_heights.removeAt(0)));
+      if (mounted) {
+        setState(() => _heights.add(_heights.removeAt(0)));
+      }
     });
   }
 

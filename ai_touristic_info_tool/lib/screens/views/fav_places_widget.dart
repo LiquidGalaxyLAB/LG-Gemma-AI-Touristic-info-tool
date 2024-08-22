@@ -18,7 +18,7 @@ class FavPlacesWidget extends StatefulWidget {
 
 class _FavPlacesWidgetState extends State<FavPlacesWidget> {
   List<PlacesModel> _favPlaces = [];
-  List<PlacesModel> _selectedPlaces = [];
+  Set<PlacesModel> _selectedPlaces = {};
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -30,9 +30,12 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
   Future<void> _loadPlaces() async {
     List<PlacesModel> retrievedPlaces =
         await FavoritesSharedPref().getPlacesList();
-    setState(() {
-      _favPlaces = retrievedPlaces;
-    });
+    if (mounted) {
+      setState(() {
+        _favPlaces = retrievedPlaces;
+        // _selectedPlaces = selectedPlaces;
+      });
+    }
   }
 
   Map<String, List<PlacesModel>> _groupPlacesByCountry() {
@@ -163,29 +166,42 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                                                       AppLocalizations.of(
                                                               context)!
                                                           .defaults_yes, () {
-                                                    setState(() {
-                                                      _favPlaces.remove(place);
+                                                    if (mounted) {
+                                                      setState(() {
+                                                        _favPlaces
+                                                            .remove(place);
+                                                        _selectedPlaces
+                                                            .remove(place);
 
-                                                      FavoritesSharedPref()
-                                                          .savePlacesList(
-                                                              _favPlaces);
-                                                      _loadPlaces();
-                                                    });
+                                                        // FavoritesSharedPref()
+                                                        //     .savePlacesList(
+                                                        //         _favPlaces);
+                                                        // List<PlacesModel>
+                                                        //     tempSelected =
+                                                        //     _selectedPlaces;
+                                                        // _loadPlaces(
+                                                        //     tempSelected);
+                                                      });
+                                                    }
                                                   }, () {});
                                                 },
                                                 onTap: () {
-                                                  setState(() {
-                                                    if (_selectedPlaces
-                                                        .contains(place)) {
-                                                      _selectedPlaces
-                                                          .remove(place);
-                                                    } else {
-                                                      _selectedPlaces
-                                                          .add(place);
-                                                    }
-                                                  });
+                                                  if (mounted) {
+                                                    setState(() {
+                                                      if (_selectedPlaces
+                                                          .contains(place)) {
+                                                        _selectedPlaces
+                                                            .remove(place);
+                                                      } else {
+                                                        _selectedPlaces
+                                                            .add(place);
+                                                      }
+                                                    });
+                                                  }
                                                 },
                                                 child: Chip(
+                                                  // key: ValueKey(
+                                                  //     'chip_${place.id},${place.name}.${place.country}'),
                                                   label: Text(
                                                     place.name,
                                                     style: TextStyle(
@@ -268,7 +284,8 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                               backgroundColor: LgAppColors.lgColor2),
                         );
                       } else {
-                        final List<PlacesModel> places = _selectedPlaces;
+                        final Set<PlacesModel> placesSet = _selectedPlaces;
+                        final List<PlacesModel> places = placesSet.toList();
 
                         showCustomizationDialog(context, places);
                       }

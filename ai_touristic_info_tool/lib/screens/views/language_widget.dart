@@ -114,9 +114,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                           .settingsLanguage_RestartWarning,
                       false,
                       AppLocalizations.of(context)!.defaults_restart, () async {
-                    setState(() {
-                      selectedOption = value!;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    }
                     await SettingsSharedPref.setLocale(Locale('en'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
@@ -136,9 +138,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                           .settingsLanguage_RestartWarning,
                       false,
                       AppLocalizations.of(context)!.defaults_restart, () async {
-                    setState(() {
-                      selectedOption = value!;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    }
                     await SettingsSharedPref.setLocale(Locale('es'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
@@ -158,9 +162,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                           .settingsLanguage_RestartWarning,
                       false,
                       AppLocalizations.of(context)!.defaults_restart, () async {
-                    setState(() {
-                      selectedOption = value!;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    }
                     await SettingsSharedPref.setLocale(Locale('de'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
@@ -180,9 +186,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                           .settingsLanguage_RestartWarning,
                       false,
                       AppLocalizations.of(context)!.defaults_restart, () async {
-                    setState(() {
-                      selectedOption = value!;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    }
                     await SettingsSharedPref.setLocale(Locale('fr'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
@@ -202,9 +210,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                           .settingsLanguage_RestartWarning,
                       false,
                       AppLocalizations.of(context)!.defaults_restart, () async {
-                    setState(() {
-                      selectedOption = value!;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    }
                     await SettingsSharedPref.setLocale(Locale('it'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
@@ -224,9 +234,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                           .settingsLanguage_RestartWarning,
                       false,
                       AppLocalizations.of(context)!.defaults_restart, () async {
-                    setState(() {
-                      selectedOption = value!;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    }
                     await SettingsSharedPref.setLocale(Locale('ja'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
@@ -246,9 +258,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                           .settingsLanguage_RestartWarning,
                       false,
                       AppLocalizations.of(context)!.defaults_restart, () async {
-                    setState(() {
-                      selectedOption = value!;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    }
                     await SettingsSharedPref.setLocale(Locale('hi'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();
@@ -268,9 +282,11 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                           .settingsLanguage_RestartWarning,
                       false,
                       AppLocalizations.of(context)!.defaults_restart, () async {
-                    setState(() {
-                      selectedOption = value!;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    }
                     await SettingsSharedPref.setLocale(Locale('ar'));
                     // Phoenix.rebirth(context);
                     Restart.restartApp();

@@ -68,7 +68,9 @@ class _APIWidgetState extends State<APIWidget> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        setState(() {});
+                        if (mounted) {
+                          setState(() {});
+                        }
                       },
                       child: Column(
                         children: [
