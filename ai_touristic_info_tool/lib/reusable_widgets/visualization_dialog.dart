@@ -408,9 +408,7 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                         ///checking the connection status first
                         if (sshData.client != null &&
                             connection.isLgConnected) {
-                          // List<KMLModel> kmlBalloons =
-
-                          await buildQueryTour(
+                          List<KMLModel> kmlBalloons = await buildQueryTour(
                               context, widget.query, widget.places);
 
                           dialogBuilder(
@@ -433,17 +431,21 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                             }
 
                             await LgService(sshData).startTour('App Tour');
-                            // for (int i = 0; i < kmlBalloons.length; i++) {
-                            //   if (_isTourOn) {
-                            //     await LgService(sshData).sendKMLToSlave(
-                            //       LgService(sshData).balloonScreen,
-                            //       kmlBalloons[i].body,
-                            //     );
-                            //     await Future.delayed(Duration(seconds: 60));
-                            //   } else {
-                            //     break;
-                            //   }
-                            // }
+                            for (int i = 0; i < kmlBalloons.length; i++) {
+                              if (_isTourOn) {
+                                await LgService(sshData).sendKMLToSlave(
+                                  LgService(sshData).balloonScreen,
+                                  kmlBalloons[i].body,
+                                );
+                                if (i == 0) {
+                                  await Future.delayed(Duration(seconds: 44));
+                                } else {
+                                  await Future.delayed(Duration(seconds: 47));
+                                }
+                              } else {
+                                break;
+                              }
+                            }
                           }, null);
                         } else {
                           dialogBuilder(

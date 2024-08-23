@@ -233,13 +233,17 @@ buildWebsiteLinkBallon(String placeName, String? city, String? country,
   String flagDiv;
   if (countryCode != 'None') {
     String cc = countryCode.toLowerCase();
-    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-
-    flagDiv = '''
+    try {
+      countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+      flagDiv = '''
               <div style="text-align:center;">
                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
               </div>
 ''';
+    } catch (e) {
+      countryFlagImg = '';
+      flagDiv = '<br>';
+    }
   } else {
     countryFlagImg = '';
     flagDiv = '<br>';
@@ -418,13 +422,17 @@ buildYoutubeLinkBallon(String placeName, String? city, String? country,
   String flagDiv;
   if (countryCode != 'None') {
     String cc = countryCode.toLowerCase();
-    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-
-    flagDiv = '''
+    try {
+      countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+      flagDiv = '''
               <div style="text-align:center;">
                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
               </div>
 ''';
+    } catch (e) {
+      countryFlagImg = '';
+      flagDiv = '<br>';
+    }
   } else {
     countryFlagImg = '';
     flagDiv = '<br>';
@@ -801,13 +809,17 @@ buildQueryPlacemark(
   String flagDiv;
   if (countryCode != 'None') {
     String cc = countryCode.toLowerCase();
-    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-
-    flagDiv = '''
+    try {
+      countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+      flagDiv = '''
               <div style="text-align:center;">
                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
               </div>
 ''';
+    } catch (e) {
+      countryFlagImg = '';
+      flagDiv = '<br>';
+    }
   } else {
     countryFlagImg = '';
     flagDiv = '<br>';
@@ -984,13 +996,17 @@ buildPlacePlacemark(
 
   if (countryCode != 'None') {
     String cc = countryCode.toLowerCase();
-    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-
-    flagDiv = '''
+    try {
+      countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+      flagDiv = '''
               <div style="text-align:center;">
                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
               </div>
 ''';
+    } catch (e) {
+      countryFlagImg = '';
+      flagDiv = '<br>';
+    }
   } else {
     countryFlagImg = '';
     flagDiv = '<br>';
@@ -1213,13 +1229,17 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
   String flagDiv;
   if (countryCode != 'None') {
     String cc = countryCode.toLowerCase();
-    countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-
-    flagDiv = '''
+    try {
+      countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+      flagDiv = '''
               <div style="text-align:center;">
                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
-              </ d iv>
+              </div>
 ''';
+    } catch (e) {
+      countryFlagImg = '';
+      flagDiv = '<br>';
+    }
   } else {
     countryFlagImg = '';
     flagDiv = '<br>';
@@ -1414,8 +1434,7 @@ buildShowPois(List<PlacesModel> pois, BuildContext context, double lat,
   }
 }
 
-// Future<List<KMLModel>>
-buildQueryTour(
+Future<List<KMLModel>> buildQueryTour(
     BuildContext context, String query, List<PlacesModel> pois) async {
   FontsProvider fonts = Provider.of<FontsProvider>(context, listen: false);
   ColorProvider colors = Provider.of<ColorProvider>(context, listen: false);
@@ -1464,13 +1483,17 @@ buildQueryTour(
     String flagDiv;
     if (countryCode != 'None') {
       String cc = countryCode.toLowerCase();
-      countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-
-      flagDiv = '''
+      try {
+        countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+        flagDiv = '''
               <div style="text-align:center;">
                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
               </div>
 ''';
+      } catch (e) {
+        countryFlagImg = '';
+        flagDiv = '<br>';
+      }
     } else {
       countryFlagImg = '';
       flagDiv = '<br></br>';
@@ -1618,14 +1641,15 @@ buildQueryTour(
     lookAtCoordinates: lookAts,
     poisNames: poisNames,
   );
-  String kmlContent = screenoverlayTags + tour.tourTag();
+  // String kmlContent = screenoverlayTags + tour.tourTag();
+  String kmlContent = tour.tourTag();
 
   final sshData = Provider.of<SSHprovider>(context, listen: false);
   final kmlPlacemark = KMLModel(name: 'app-tour', content: kmlContent);
 
   try {
     await LgService(sshData).sendKmlFileToMaster(kmlPlacemark.body, 'app-tour');
-    // return kmlBallonsList;
+    return kmlBallonsList;
   } catch (e) {
     print(e);
     return [];
@@ -1681,13 +1705,17 @@ Future<double> buildCustomTour(
     String flagDiv;
     if (countryCode != 'None') {
       String cc = countryCode.toLowerCase();
-      countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
-
-      flagDiv = '''
+      try {
+        countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+        flagDiv = '''
               <div style="text-align:center;">
                 <img src="$countryFlagImg" style="display: block; margin: auto; width: 50px; height: 45px;"/><br/><br/>
               </div>
 ''';
+      } catch (e) {
+        countryFlagImg = '';
+        flagDiv = '<br>';
+      }
     } else {
       countryFlagImg = '';
       flagDiv = '<br></br>';

@@ -350,6 +350,7 @@ class TourModel {
         // content += ballonVisibilityOnlyTag(i.toString(), 1);
         // content += waitOnlyTag;
         // content += ballonVisibilityOnlyTag(i.toString(), 0);
+        //Total: 5+3+36=44
       } else {
         // content += flyToCameraOnlyTag(
         //     lookAtCoordinates[i].latitude, lookAtCoordinates[i].longitude);
@@ -357,8 +358,9 @@ class TourModel {
             lookAtCoordinates[i].longitude, 'bounce', 8, '500', '60', '0', 0);
         content += flyToLookAtOnlyTag(lookAtCoordinates[i].latitude,
             lookAtCoordinates[i].longitude, 'smooth', 3, '200', '60', '0', 0);
-        content += OrbitModel.tag(lookAtObjOrbit, duration: 1);
+        content += OrbitModel.tag(lookAtObjOrbit, duration: 1);   //36 secs
         // content += ballonVisibilityOnlyTag(i.toString(), 1);
+        //Total: 8+3+36=47
 
         // content += waitOnlyTag;
         // content += ballonVisibilityOnlyTag(i.toString(), 0);

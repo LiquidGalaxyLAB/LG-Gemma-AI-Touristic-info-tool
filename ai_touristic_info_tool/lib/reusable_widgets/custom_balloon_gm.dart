@@ -24,7 +24,11 @@ class CustomBalloonGoogleMaps extends StatelessWidget {
 
     if (countryCode != 'None') {
       String cc = countryCode.toLowerCase();
+      try{
       countryFlagImg = "https://www.worldometers.info/img/flags/$cc-flag.gif";
+      }catch(e){
+        countryFlagImg = '';
+      }
     } else {
       countryFlagImg = '';
     }
