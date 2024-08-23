@@ -356,6 +356,7 @@
     "exploreLocation_askGemini": "Demandez à Gemini tout ce que vous voulez savoir à proximité :",
     "exploreLocation_askGemma": "Demandez à Gemma tout ce que vous voulez savoir à proximité :",
     "exploreLocation_missingAddress": "Veuillez d'abord entrer une adresse ci-dessus ou utiliser la carte !",
+    "exploreLocation_addressWarning":"Veuillez entrer une adresse valide pour obtenir des recommandations AI à proximité !",
     
 
     "exploreWorld_aiRecommendation": "Recommandations Touristiques AI dans le Monde",

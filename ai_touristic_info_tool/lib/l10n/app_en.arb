@@ -361,6 +361,7 @@
     "exploreLocation_askGemini": "Ask Gemini anything you want to know nearby:",
     "exploreLocation_askGemma": "Ask Gemma anything you want to know nearby:",
     "exploreLocation_missingAddress": "Please enter an address first above or use map!",
+    "exploreLocation_addressWarning":"Please add a city, and choose a country first to be able to generate POIs\nDo not forget to click on Save afterwards",
 
 
 

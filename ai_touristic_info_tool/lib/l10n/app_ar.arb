@@ -354,6 +354,7 @@
     "exploreLocation_askGemini": "اسأل Gemini أي شيء تود معرفته في الجوار:",
     "exploreLocation_askGemma": "اسأل Gemma أي شيء تود معرفته في الجوار:",
     "exploreLocation_missingAddress": "يرجى إدخال العنوان أولاً أعلاه أو استخدام الخريطة!",
+    "exploreLocation_addressWarning":"يرجى إدخال العنوان أولاً أعلاه أو استخدام الخريطة!",
 
 
     "exploreWorld_aiRecommendation": "توصيات سياحية ذكية عالمياً",

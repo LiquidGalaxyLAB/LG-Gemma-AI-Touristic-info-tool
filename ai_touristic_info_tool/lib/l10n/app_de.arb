@@ -354,6 +354,7 @@
     "exploreLocation_askGemini": "Fragen Sie Gemini, was Sie in der Nähe wissen möchten:",
     "exploreLocation_askGemma": "Fragen Sie Gemma, was Sie in der Nähe wissen möchten:",
     "exploreLocation_missingAddress": "Bitte geben Sie zuerst eine Adresse oben ein oder verwenden Sie die Karte!",
+    "exploreLocation_addressWarning":"Bitte geben Sie eine Adresse ein, um fortzufahren",
 
 
 

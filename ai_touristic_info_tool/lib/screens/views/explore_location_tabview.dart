@@ -232,7 +232,8 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                         onpressed: () {
                           dialogBuilder(
                               context,
-                              'Please add a city, and choose a country first to be able to generate POIs\nDo not forget to click on Save afterwards',
+                              // 'Please add a city, and choose a country first to be able to generate POIs\nDo not forget to click on Save afterwards',
+                              AppLocalizations.of(context)!.exploreLocation_addressWarning,
                               true,
                               AppLocalizations.of(context)!.defaults_ok, () {
                             if (mounted) {

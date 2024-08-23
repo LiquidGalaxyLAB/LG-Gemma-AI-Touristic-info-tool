@@ -357,6 +357,7 @@
     "exploreLocation_askGemini": "Geminiに近くの情報を尋ねてください:",
     "exploreLocation_askGemma": "Gemmaに近くの情報を尋ねてください:",
     "exploreLocation_missingAddress": "まず、上に住所を入力するか、地図を使用してください！",
+    "exploreLocation_addressWarning":"住所を入力してください！",
 
 
     "exploreWorld_aiRecommendation": "AI観光推薦 世界中",

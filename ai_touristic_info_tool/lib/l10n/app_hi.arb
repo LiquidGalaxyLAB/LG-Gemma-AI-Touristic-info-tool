@@ -353,6 +353,7 @@
     "exploreLocation_askGemini": "नजदीक के बारे में कुछ भी पूछें:",
     "exploreLocation_askGemma": "नजदीक के बारे में कुछ भी पूछें:",
     "exploreLocation_missingAddress": "कृपया पहले ऊपर एक पता दर्ज करें या मानचित्र का उपयोग करें!",
+    "exploreLocation_addressWarning":"कृपया एक पता दर्ज करें",
 
 
     "exploreWorld_aiRecommendation": "AI पर्यटन सिफारिशें विश्वभर में",
