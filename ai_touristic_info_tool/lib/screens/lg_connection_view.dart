@@ -371,7 +371,7 @@ class _ConnectionViewState extends State<ConnectionView> {
                                               duration:
                                                   const Duration(seconds: 3),
                                               backgroundColor:
-                                                  LgAppColors.lgColor4,
+                                                  LgAppColors.lgColor2,
                                             ),
                                           );
                                         }

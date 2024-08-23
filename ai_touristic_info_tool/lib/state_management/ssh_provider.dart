@@ -89,7 +89,8 @@ class SSHprovider extends ChangeNotifier {
 
     try {
       final socket = await SSHSocket.connect(ssh.host, ssh.port,
-          timeout: const Duration(seconds: 36000000));
+          // timeout: const Duration(seconds: 36000000));
+          timeout: const Duration(seconds: 30));
       String? password;
       bool isAuthenticated = false;
 
@@ -104,7 +105,8 @@ class SSHprovider extends ChangeNotifier {
         onAuthenticated: () {
           isAuthenticated = true;
         },
-        keepAliveInterval: const Duration(seconds: 36000000),
+        // keepAliveInterval: const Duration(seconds: 36000000),
+        keepAliveInterval: const Duration(seconds: 30),
       );
 
       /// Add a delay before checking isAuthenticated

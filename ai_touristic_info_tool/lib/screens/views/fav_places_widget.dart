@@ -172,6 +172,11 @@ class _FavPlacesWidgetState extends State<FavPlacesWidget> {
                                                             .remove(place);
                                                         _selectedPlaces
                                                             .remove(place);
+                                                        FavoritesSharedPref()
+                                                            .removePlace(
+                                                                place.name,
+                                                                place.country ??
+                                                                    'Worldwide');
 
                                                         // FavoritesSharedPref()
                                                         //     .savePlacesList(

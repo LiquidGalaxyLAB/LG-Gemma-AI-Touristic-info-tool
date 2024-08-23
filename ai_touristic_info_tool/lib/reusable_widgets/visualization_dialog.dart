@@ -392,11 +392,6 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                         final mapProvider = Provider.of<GoogleMapProvider>(
                             context,
                             listen: false);
-                        mapProvider.pinPillPosition =
-                            MediaQuery.of(context).size.height * 1;
-                        mapProvider.allowSync = false;
-                        mapProvider.clearCustomMarkers();
-                        mapProvider.clearMarkers();
 
                         final sshData =
                             Provider.of<SSHprovider>(context, listen: false);
@@ -408,6 +403,11 @@ class _VisualizationDialogState extends State<VisualizationDialog> {
                         ///checking the connection status first
                         if (sshData.client != null &&
                             connection.isLgConnected) {
+                          mapProvider.pinPillPosition =
+                              MediaQuery.of(context).size.height * 1;
+                          mapProvider.allowSync = false;
+                          mapProvider.clearCustomMarkers();
+                          mapProvider.clearMarkers();
                           List<KMLModel> kmlBalloons = await buildQueryTour(
                               context, widget.query, widget.places);
 

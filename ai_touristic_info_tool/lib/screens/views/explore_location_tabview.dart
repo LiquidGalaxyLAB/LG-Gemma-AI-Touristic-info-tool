@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
@@ -229,13 +230,19 @@ class _ExploreLocationTabViewState extends State<ExploreLocationTabView> {
                             .exploreLocation_typeAdd,
                         buttonColor: ButtonColors.locationButton,
                         onpressed: () {
-                          if (mounted) {
-                            setState(() {
-                              showAddressFields = true;
-                              _isUseRecord = false;
-                              useMap = false;
-                            });
-                          }
+                          dialogBuilder(
+                              context,
+                              'Please add a city, and choose a country first to be able to generate POIs\nDo not forget to click on Save afterwards',
+                              true,
+                              AppLocalizations.of(context)!.defaults_ok, () {
+                            if (mounted) {
+                              setState(() {
+                                showAddressFields = true;
+                                _isUseRecord = false;
+                                useMap = false;
+                              });
+                            }
+                          }, () {});
                         },
                         height: MediaQuery.of(context).size.height * 0.1,
                         width: MediaQuery.of(context).size.width * 0.2,
