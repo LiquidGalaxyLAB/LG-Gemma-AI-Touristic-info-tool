@@ -9,7 +9,8 @@
 ## Table of Contents
 - [About](#about)
 - [Main Features and Functionalities](#main-features-and-functionalities)
-- [Requirements](#requirements)
+- [Technologies Used](#technologies-used)
+- [Prerequisites](#prerequisites)
   - [Device Compatibility](#device-compatibility)
   - [Liquid Galaxy Integration (Optional)](#liquid-galaxy-integration-optional)
   - [Gemini API Key](#gemini-api-key)
@@ -20,10 +21,12 @@
   - [General for both Gemma and Gemini](#general-for-both-gemma-and-gemini)
   - [Using Gemma Codebase](#using-gemma-instead-of-gemini)
   - [Using Gemini Codebase](#using-gemini)
-- [User Guide](#user-guide)
+- [Usage](#usage)
+- [App Screenshots](#app-screenshots)
 - [Enhancement and Future Plans](#enhancement-and-future-plans)
 - [Technical Documentation](#technical-documentation)
-- [Contributors](#contributors)
+- [Contribution](#contribution)
+- [Project Info](#project-info)
 
 ---
 
@@ -65,10 +68,29 @@ With Liquid Galaxy technology, users can visualize their entire trip across mult
 
 ---
 
-## Requirements 
+## Technologies Used
+- Flutter & Dart
+- Langchain
+- Ollama
+- Web-Scraping
+- Python
+- Fast API & Langserve
+- Docker
+- Gemini API
+- Gemma Google Generative AI model
+- (KML) Keyhole Markup Language
+- Google Maps
+- Google Earth
+- Liquid Galaxy
+- Virtual Box and (CLI) Linux Commands
+
+---
+
+## Prerequisites 
 
 ### Device Compatibility
 - The application requires an Android tablet running Android 13 (API level 33) or higher.
+- The tablet has to be a 10 inch android tablet.
 
 ### Liquid Galaxy Integration (Optional)
 - To fully utilize the Liquid Galaxy features, ensure that the Liquid Galaxy core is installed. For detailed installation instructions, please refer to the [Liquid Galaxy repository](https://github.com/LiquidGalaxyLAB) and check the [training video done by me](https://youtu.be/jz-QZi__10c?si=SjxrbuDSZQXv6kRl) for more information.
@@ -173,27 +195,157 @@ To build the app from source, follow these steps:
 
  
 
-## User Guide
+## Usage
 
-1. You can download the app from the [Play Store]() or get the APK [here]().
+1. **Downloading the app**
+
+You can download the app from the [Play Store]() or download the [APK]().
+  
+2. **Set up**
+
+Make sure you have set up your API keys correctly, and that you have all the "[Prerequisites](#prerequisites)" needed to start using the application.
+
+3. **Connecting to the Liquid Galaxy system**
+
+If you have a Liquid Galaxy System available, you can Connect to the LG rig by entering your credentials:
+
+<br>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492932.png?raw=true" alt="Connection" width="800"/>
+
+If everything is correct, you should see the indicator turn green above.
+  
+4. **Worldwide Exploration**
+
+Use the app for exploring any place around the globe by choosing one of the recommendations or typing your own query:
+
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492453.png?raw=true" alt="worldwide" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492470.png?raw=true" alt="worldwide" width="800"/>
+
+5. **Explore locations Nearby**
+
+Use the app to explore anything you want to look for nearby a location by determining the location, and choosing one of the recommendations or typing your own query:
+
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492534.png?raw=true" alt="nearby" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492548.png?raw=true" alt="nearby" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492561.png?raw=true" alt="nearby" width="800"/>
+
+6. **Visualize the POIs**
+
+Through the AI-generated POIs and tour, you can view all POIs on Google Maps and Google Earth through the Liquid Galaxy System.
+- View the Point Details
+- Orbit around the point
+- Fetch Extra details from the web and Youtube about this point
+- Play/stop a tour
+- Add POI to favorites
+- Save the whole tour to view it later
+  
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493170.png?raw=true" alt="poi" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493170.png?raw=true" alt="poi" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493215.png?raw=true" alt="poi" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493161.png?raw=true" alt="poi" width="800"/>
 
 
-# Enhancement and Future Plans
+ 7. **Customize your own Tour**
+
+Using your saved places, you can customize your own tour upon your interest and save the tour for later visualizations. 
+- You can do that by selecting more than 2 points, then click on the customize button.
+- After that, you can drag your points from the side bar into the map
+- Click on Create
+- Visualize your tour
+- View your current tour
+- Reset the tour or remove a point
+- Add the tour to your favorites
+
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492903.png?raw=true" alt="custom" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492740.png?raw=true" alt="poi" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492727.png?raw=true" alt="poi" width="800"/>
+
+
+8. **View all your saved tours**
+
+Either you customized your own tours, or you saved one of the AI-generated tours, you can view them later.
+
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492708.png?raw=true" alt="favs" width="800"/>
+
+9. **Personalize your app**
+
+Through the settings page, you can personalize your app as needed:
+- Change App Language
+
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492615.png?raw=true" alt="lang" width="800"/>
+
+- Change App Theme
+  
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492595.png?raw=true" alt="theme" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492670.png?raw=true" alt="theme" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492676.png?raw=true" alt="theme" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492681.png?raw=true" alt="theme" width="800"/>
+
+- Change App Fontsize
+
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492590.png?raw=true" alt="font" width="800"/>
+
+
+10. **Managing your API keys**
+
+From the API keys settings, you can add, remove, view or edit a key
+- To add a key you will need to put a name, the value and choose the API key service (i.e. YouTube, Gemini, Deepgram...)
+- Refresh the API keys once you do any new operation on them
+
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492641.png?raw=true" alt="Gemini APi Key" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492681.png?raw=true" alt="api" width="800"/>
+
+
+---
+
+## App Screenshots and Liquid Galaxy Visualizations
+
+
+
+---
+
+## Enhancement and Future Plans
 
 While the main features are complete, future enhancements may include:
 - Adding a chat function for users to inquire about specific places.
 - Leveraging Gemini’s multimodality to allow users to upload images for location-based insights.
 
-# Technical Documentation
+## Technical Documentation
 
 For more detailed technical information, please refer to the [Wiki]().
 
-# Contributors
+## Contribution
+To contribute to the project, you can help by testing the app, reporting issues, or contributing code. Here’s how you can get involved:
+
+### Testing and Reporting Issues:
+- Test the App: Use the app extensively and report any bugs or performance issues you encounter.
+- Report Issues: If you find any bugs or have suggestions for improvements, please create a new issue in the repository.
+  
+### Code Contributions:
+- Fork the repository
+- Create a new branch (git checkout -b feature-branch)
+- Commit your changes (git commit -m 'Add feature')
+- Push to the branch (git push origin feature-branch)
+- Open a Pull Request: Submit a pull request to the main repository for review.
+  
+You can also contribute by suggesting or working on new features.
+
+We appreciate all forms of contribution and look forward to your involvement!
+
+
+## Project Info 
 
 This project was initiated as a Google Summer of Code 2024 project with Liquid Galaxy Org. The project was developed by:
 
-- **Mahinour Elsarky**: Project Developer and GSoC 2024 contributor
+- **Mahinour Elsarky**: Project Developer and GSoC 2024 contributor, [Email](mahinouralaa2002@gmail.com) , [LinkedIn](https://www.linkedin.com/in/mahinour-elsarky-122958216/), [GitHub](https://github.com/Mahy02)
 - **Claudia Diosan**: Mentor
 - **Andreu Ibañez**: Liquid Galaxy Org. Admin
 
+
+
+
+<br>
+
+
+Copyright (C) 2024 Mahinour Elsarky
 
