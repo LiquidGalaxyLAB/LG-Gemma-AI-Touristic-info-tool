@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the build method from the AboutScreen class, for the Dart programming language.">
+  <title>build method - AboutScreen class - about_view library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../../screens_about_view/screens_about_view-library.html">screens\about_view.dart</a></li>
+    <li><a href="../../screens_about_view/AboutScreen-class.html">AboutScreen</a></li>
+    <li class="self-crumb">build method</li>
+  </ol>
+  <div class="self-name">build</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="screens_about_view&#47;AboutScreen-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">build</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
+<span class="name ">build</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      <div class="features"><span class="feature">override</span></div>
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Describes the part of the user interface represented by this widget.</p>
+<p>The framework calls this method when this widget is inserted into the tree
+in a given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> and when the dependencies of this widget change
+(e.g., an <a href="https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html">InheritedWidget</a> referenced by this widget changes). This
+method can potentially be called in every frame and should not have any side
+effects beyond building a widget.</p>
+<p>The framework replaces the subtree below this widget with the widget
+returned by this method, either by updating the existing subtree or by
+removing the subtree and inflating a new subtree, depending on whether the
+widget returned by this method can update the root of the existing
+subtree, as determined by calling <a href="https://api.flutter.dev/flutter/widgets/Widget/canUpdate.html">Widget.canUpdate</a>.</p>
+<p>Typically implementations return a newly created constellation of widgets
+that are configured with information from this widget's constructor and
+from the given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>.</p>
+<p>The given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> contains information about the location in the
+tree at which this widget is being built. For example, the context
+provides the set of inherited widgets for this location in the tree. A
+given widget might be built with multiple different <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>
+arguments over time if the widget is moved around the tree or if the
+widget is inserted into the tree in multiple places at once.</p>
+<p>The implementation of this method must only depend on:</p>
+<ul>
+<li>the fields of the widget, which themselves must not change over time,
+and</li>
+<li>any ambient state obtained from the <code>context</code> using
+<a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
+</ul>
+<p>If a widget's <a href="../../screens_about_view/AboutScreen/build.html">build</a> method is to depend on anything else, use a
+<a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> instead.</p>
+<p>See also:</p>
+<ul>
+<li><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html">StatelessWidget</a>, which contains the discussion on performance considerations.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+Widget build(BuildContext context) {
+  return SingleChildScrollView(
+    child: Consumer2&lt;ColorProvider, FontsProvider&gt;(builder:
+        (BuildContext context, ColorProvider value, FontsProvider font,
+            Widget? child) {
+      return Column(
+        children: [
+          TopBarWidget(
+            grad1: SettingsSharedPref.getTheme() == &#39;light&#39;
+                ? value.colors.buttonColors
+                : value.colors.gradient1,
+            grad2: SettingsSharedPref.getTheme() == &#39;light&#39;
+                ? value.colors.buttonColors
+                : value.colors.gradient2,
+            grad3: SettingsSharedPref.getTheme() == &#39;light&#39;
+                ? value.colors.buttonColors
+                : value.colors.gradient3,
+            grad4: SettingsSharedPref.getTheme() == &#39;light&#39;
+                ? value.colors.buttonColors
+                : value.colors.gradient4,
+            height: MediaQuery.of(context).size.height * 0.1,
+            width: MediaQuery.of(context).size.width * 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                &#47;&#47;Local:
+                &#47;&#47; Image.asset(
+                &#47;&#47;   &quot;assets&#47;images&#47;appLogo-Gemma.png&quot;,
+                &#47;&#47;   scale: 0.5,
+                &#47;&#47; ),
+                &#47;&#47;Gemini:
+                Image.asset(
+                  &quot;assets&#47;images&#47;appLogo-Gemini.png&quot;,
+                  scale: 0.5,
+                ),
+
+                Text(
+                  &#47;&#47;Local:
+                  &#47;&#47; &quot;LG Gemma AI Touristic Info Tool&quot;,
+                  &#47;&#47;Gemini:
+                  &#47;&#47; &quot;LG Gemini AI Touristic Info Tool&quot;,
+                  AppLocalizations.of(context)!.appBar_title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      &#47;&#47; fontSize: titleSize,
+                      fontSize: font.fonts.titleSize,
+                      &#47;&#47; color: FontAppColors.secondaryFont,
+                      color: SettingsSharedPref.getTheme() == &#39;dark&#39;
+                          ? font.fonts.primaryFontColor
+                          : font.fonts.secondaryFontColor,
+                      fontFamily: fontType,
+                      fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          SettingsSharedPref.getTheme() == &#39;dark&#39;
+              ?
+              &#47;&#47;Local
+              &#47;&#47; Image.asset(
+              &#47;&#47;     &#39;assets&#47;images&#47;dark-logos-gemma.jpg&#39;,
+              &#47;&#47;     height: MediaQuery.of(context).size.height * 0.8,
+              &#47;&#47;     width: MediaQuery.of(context).size.width * 0.8,
+              &#47;&#47;   )
+              &#47;&#47;Gemini
+              Image.asset(
+                  &#39;assets&#47;images&#47;dark-logos-gemini.jpg&#39;,
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                )
+              :
+              &#47;&#47;Local
+              &#47;&#47; Image.asset(
+              &#47;&#47;     &#39;assets&#47;images&#47;Logos_Screen-gemma.jpg&#39;,
+              &#47;&#47;     height: MediaQuery.of(context).size.height * 0.8,
+              &#47;&#47;     width: MediaQuery.of(context).size.width * 1,
+              &#47;&#47;   ),
+              &#47;&#47;Gemini
+              Image.asset(
+                  &#39;assets&#47;images&#47;Logos_Screen-gemini.jpg&#39;,
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  width: MediaQuery.of(context).size.width * 1,
+                ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Color.fromARGB(79, 229, 79, 62),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Center(
+                  child: RichText(
+                    textAlign: TextAlign.justify,
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          &#47;&#47; text: &#39;Be aware of AI hallucinations !\n\n&#39;,
+                          text: AppLocalizations.of(context)!
+                              .aiHallucination_text1,
+                          style: TextStyle(
+                              &#47;&#47; fontSize: headingSize,
+                              fontSize: font.fonts.headingSize,
+                              color: LgAppColors.lgColor2,
+                              fontFamily: fontType,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text:
+                              &#47;&#47; &#39;The state of the art of most AI tools as 2024 can give you sometimes incorrect answers, or even the so called Hallucinations:\n\n&#39;,
+                              AppLocalizations.of(context)!
+                                  .aiHallucination_text2,
+                          style: TextStyle(
+                              color: font.fonts.primaryFontColor,
+                              fontSize: font.fonts.textSize + 4,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: fontType),
+                        ),
+                        TextSpan(
+                          text:
+                              &#47;&#47; &#39;AI hallucinations are incorrect or misleading results that AI models generate. These errors can be caused by a variety of factors, including insufficient training data, incorrect assumptions made by the model, or biases in the data used to train the model.\n\nThe Liquid Galaxy project has no control over this, and the contents responsibility is of the owners of the respective Large Language models used&#39;,
+                              AppLocalizations.of(context)!
+                                  .aiHallucination_text3,
+                          style: TextStyle(
+                              color: font.fonts.primaryFontColor,
+                              fontSize: font.fonts.textSize,
+                              fontFamily: fontType),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          const AppDescriptionWidget(),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          const DevelopersInfoWidget(),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () =&gt; launchUrlString(
+                    &#39;https:&#47;&#47;github.com&#47;LiquidGalaxyLAB&#47;LG-Gemma-AI-Touristic-info-tool&#39;),
+                child: Text(
+                  &#47;&#47; &#39;Project Github&#39;,
+                  AppLocalizations.of(context)!.about_projGit,
+                  style: TextStyle(
+                      fontFamily: fontType,
+                      fontSize: font.fonts.textSize,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline),
+                ),
+              ),
+              GestureDetector(
+                onTap: () =&gt; launchUrlString(&#39;https:&#47;&#47;www.liquidgalaxy.eu&#47;&#39;),
+                child: Text(
+                  &#47;&#47; &#39;Liquid Galaxy Website&#39;,
+                  AppLocalizations.of(context)!.about_lgWebsite,
+                  style: TextStyle(
+                      fontFamily: fontType,
+                      fontSize: font.fonts.textSize,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline),
+                ),
+              ),
+              GestureDetector(
+                onTap: () =&gt; launchUrlString(
+                    &#39;https:&#47;&#47;www.linkedin.com&#47;in&#47;mahinour-elsarky-122958216&#47;&#39;),
+                child: Text(
+                  &#47;&#47; &#39;My LinkedIn&#39;,
+                  AppLocalizations.of(context)!.about_linkedin,
+                  style: TextStyle(
+                      fontFamily: fontType,
+                      fontSize: font.fonts.textSize,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+        ],
+      );
+    }),
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../../screens_about_view/screens_about_view-library.html">about_view</a></li>
+    <li><a href="../../screens_about_view/AboutScreen-class.html">AboutScreen</a></li>
+    <li class="self-crumb">build method</li>
+</ol>
+
+
+    <h5>AboutScreen class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ai_touristic_info_tool
+      1.1.0+3
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

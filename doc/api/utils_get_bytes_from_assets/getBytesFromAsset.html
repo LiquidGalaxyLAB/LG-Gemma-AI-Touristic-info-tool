@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the getBytesFromAsset function from the get_bytes_from_assets library, for the Dart programming language.">
+  <title>getBytesFromAsset function - get_bytes_from_assets library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../utils_get_bytes_from_assets/utils_get_bytes_from_assets-library.html">utils\get_bytes_from_assets.dart</a></li>
+    <li class="self-crumb">getBytesFromAsset function</li>
+  </ol>
+  <div class="self-name">getBytesFromAsset</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="utils_get_bytes_from_assets&#47;utils_get_bytes_from_assets-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">getBytesFromAsset</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/pinenacl.encoding/Uint8List-class.html">Uint8List</a></span>&gt;</span></span>
+<span class="name ">getBytesFromAsset</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="getBytesFromAsset-param-path"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">path</span>, </span></li>
+<li><span class="parameter" id="getBytesFromAsset-param-width"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">width</span>, </span></li>
+</ol>})
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>This function loads an image from the asset bundle, resizes it to the specified width,
+and then returns the image as a <code>Uint8List</code> of bytes in PNG format.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>path</code>: The file path to the asset image within the project.</li>
+<li><code>width</code>: The desired width for the image. The image will be resized proportionally to this width.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>A <code>Future&lt;Uint8List&gt;</code> that completes with the image bytes in PNG format.</li>
+</ul>
+<p>Usage:</p>
+<pre class="language-dart"><code class="language-dart">Uint8List imageBytes = await getBytesFromAsset(path: 'assets/my_image.png', width: 100);
+</code></pre>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;Uint8List&gt; getBytesFromAsset({required String path, required int width}) async {
+  final ByteData _data = await rootBundle.load(path);
+  final ui.Codec _codec = await ui.instantiateImageCodec(_data.buffer.asUint8List(), targetWidth: width);
+  final ui.FrameInfo _fi = await _codec.getNextFrame();
+  final Uint8List _bytes = (await _fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+  return _bytes;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../utils_get_bytes_from_assets/utils_get_bytes_from_assets-library.html">get_bytes_from_assets</a></li>
+    <li class="self-crumb">getBytesFromAsset function</li>
+</ol>
+
+
+    <h5>get_bytes_from_assets library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ai_touristic_info_tool
+      1.1.0+3
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

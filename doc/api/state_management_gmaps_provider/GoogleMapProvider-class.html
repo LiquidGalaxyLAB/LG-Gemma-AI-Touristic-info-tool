@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the GoogleMapProvider class from the gmaps_provider library, for the Dart programming language.">
+  <title>GoogleMapProvider class - gmaps_provider library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../state_management_gmaps_provider/state_management_gmaps_provider-library.html">state_management\gmaps_provider.dart</a></li>
+    <li class="self-crumb">GoogleMapProvider class</li>
+  </ol>
+  <div class="self-name">GoogleMapProvider</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="state_management_gmaps_provider&#47;state_management_gmaps_provider-library-sidebar.html"
+    data-below-sidebar="state_management_gmaps_provider&#47;GoogleMapProvider-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">GoogleMapProvider</span> class 
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p><a href="../state_management_gmaps_provider/GoogleMapProvider-class.html">GoogleMapProvider</a> is a provider class responsible for managing the state and logic
+related to Google Maps in the application. It provides methods to add, remove, and
+update markers on the map, as well as methods to update the camera position and
+fly to a specific location. It also manages the state of the map controller, the
+current full address, the pin pill position, and the custom tour mode.</p>
+</section>
+
+
+    <section>
+      <dl class="dl-horizontal">
+        
+
+        
+        
+  <dt>Mixed in types</dt>
+  <dd>
+    <ul class="comma-separated clazz-relationships">
+        <li><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html">ChangeNotifier</a></li>
+    </ul>
+  </dd>
+
+
+
+        
+
+
+      </dl>
+    </section>
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+
+    <dl class="constructor-summary-list">
+        <dt id="GoogleMapProvider" class="callable">
+          <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/GoogleMapProvider.html">GoogleMapProvider</a></span><span class="signature">()</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="allowSync" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/allowSync.html">allowSync</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">getter/setter pair</span></div>
+
+</dd>
+
+        <dt id="bearing" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/bearing.html">bearing</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="center" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/center.html">center</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/LatLng-class.html">LatLng</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="currentFullAddress" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/currentFullAddress.html">currentFullAddress</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">getter/setter pair</span></div>
+
+</dd>
+
+        <dt id="currentlySelectedPin" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/currentlySelectedPin.html">currentlySelectedPin</a></span>
+  <span class="signature">&#8596; <a href="../models_places_model/PlacesModel-class.html">PlacesModel</a></span>
+  
+
+</dt>
+<dd>
+  <a href="../state_management_gmaps_provider/GoogleMapProvider/currentlySelectedPin.html">currentlySelectedPin</a> is a <a href="../models_places_model/PlacesModel-class.html">PlacesModel</a> object that represents the currently selected pin on the map.
+  <div class="features"><span class="feature">getter/setter pair</span></div>
+
+</dd>
+
+        <dt id="customTourMainMarkers" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/customTourMainMarkers.html">customTourMainMarkers</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/Marker-class.html">Marker</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hasListeners" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Whether any listeners are currently registered.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="isTourOn" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/isTourOn.html">isTourOn</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">getter/setter pair</span></div>
+
+</dd>
+
+        <dt id="isWorld" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/isWorld.html">isWorld</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">getter/setter pair</span></div>
+
+</dd>
+
+        <dt id="mapController" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/mapController.html">mapController</a></span>
+  <span class="signature">&#8592; <a href="https://pub.dev/documentation/google_maps_flutter/2.2.8/google_maps_flutter/GoogleMapController-class.html">GoogleMapController</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no getter</span></div>
+
+</dd>
+
+        <dt id="markers" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/markers.html">markers</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/Marker-class.html">Marker</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="onMapReset" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/onMapReset.html">onMapReset</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/Function-class.html">Function</a>?</span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">getter/setter pair</span></div>
+
+</dd>
+
+        <dt id="pinPillPosition" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/pinPillPosition.html">pinPillPosition</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">getter/setter pair</span></div>
+
+</dd>
+
+        <dt id="polylineMarkers" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/polylineMarkers.html">polylineMarkers</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/Polyline-class.html">Polyline</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/Marker-class.html">Marker</a></span>&gt;</span></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="polylines" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/polylines.html">polylines</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/Polyline-class.html">Polyline</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="tilt" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/tilt.html">tilt</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="zoom" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/zoom.html">zoom</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="zoomvalue" class="property">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/zoomvalue.html">zoomvalue</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="addListener" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></span><span class="signature">(<wbr><span class="parameter" id="addListener-param-listener"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">listener</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Register a closure to be called when the object changes.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="addMarker" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/addMarker.html">addMarker</a></span><span class="signature">(<wbr><span class="parameter" id="addMarker-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span><span class="parameter" id="addMarker-param-poi"><span class="type-annotation"><a href="../models_places_model/PlacesModel-class.html">PlacesModel</a></span> <span class="parameter-name">poi</span>, {</span><span class="parameter" id="addMarker-param-removeAll"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">removeAll</span> = <span class="default-value">true</span>, </span><span class="parameter" id="addMarker-param-isFromFav"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isFromFav</span> = <span class="default-value">false</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  <a href="../state_management_gmaps_provider/GoogleMapProvider/addMarker.html">addMarker</a> method adds a marker to the map.
+It takes a <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> object, a <a href="../models_places_model/PlacesModel-class.html">PlacesModel</a> object, and optional parameters <code>removeAll</code> and <code>isFromFav</code>.
+It adds a marker to the map with the given <code>poi</code> object and sets the marker's info window to display the name and description of the place.
+If <code>removeAll</code> is true, it removes all existing markers from the map before adding the new marker.
+If <code>isFromFav</code> is true, it adds the marker to the custom tour main markers set and removes the place from the displayed places list and adds it to the tour places list.
+  
+
+</dd>
+
+        <dt id="addMarkersForPolylines" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/addMarkersForPolylines.html">addMarkersForPolylines</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  <a href="../state_management_gmaps_provider/GoogleMapProvider/addMarkersForPolylines.html">addMarkersForPolylines</a> method adds markers for the polylines on the map.
+It takes no parameters and adds markers for the polylines on the map.
+  
+
+</dd>
+
+        <dt id="addPolylinesBetweenMarkers" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/addPolylinesBetweenMarkers.html">addPolylinesBetweenMarkers</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  <a href="../state_management_gmaps_provider/GoogleMapProvider/addPolylinesBetweenMarkers.html">addPolylinesBetweenMarkers</a> method adds polylines between the markers on the map.
+It takes no parameters and adds polylines between the markers on the map.
+  
+
+</dd>
+
+        <dt id="clearCustomMarkers" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/clearCustomMarkers.html">clearCustomMarkers</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="clearMarkers" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/clearMarkers.html">clearMarkers</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="clearPolylines" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/clearPolylines.html">clearPolylines</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="clearPolylinesMap" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/clearPolylinesMap.html">clearPolylinesMap</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="dispose" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">dispose</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Discards any resources used by the object. After this is called, the
+object is not in a usable state and should be discarded (calls to
+<a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a> will throw after the object is disposed).
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="flyToLocation" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/flyToLocation.html">flyToLocation</a></span><span class="signature">(<wbr><span class="parameter" id="flyToLocation-param-targetLocation"><span class="type-annotation"><a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/LatLng-class.html">LatLng</a></span> <span class="parameter-name">targetLocation</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  <a href="../state_management_gmaps_provider/GoogleMapProvider/flyToLocation.html">flyToLocation</a> method animates the camera to fly to a specific location on the map.
+It takes a <a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/LatLng-class.html">LatLng</a> object representing the target location and animates the camera to fly to that location.
+The method is asynchronous and returns a <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a> of <code>void</code>.
+  
+
+</dd>
+
+        <dt id="googleMapCustomTour" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/googleMapCustomTour.html">googleMapCustomTour</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="interpolatePoints" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/interpolatePoints.html">interpolatePoints</a></span><span class="signature">(<wbr><span class="parameter" id="interpolatePoints-param-start"><span class="type-annotation"><a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/LatLng-class.html">LatLng</a></span> <span class="parameter-name">start</span>, </span><span class="parameter" id="interpolatePoints-param-end"><span class="type-annotation"><a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/LatLng-class.html">LatLng</a></span> <span class="parameter-name">end</span>, </span><span class="parameter" id="interpolatePoints-param-numPoints"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">numPoints</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/LatLng-class.html">LatLng</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  <a href="../state_management_gmaps_provider/GoogleMapProvider/interpolatePoints.html">interpolatePoints</a> method interpolates points between two given points.
+It takes two <a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/LatLng-class.html">LatLng</a> objects representing the start and end points, and an <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> value representing the number of points to interpolate.
+  
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="notifyListeners" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Call all the registered listeners.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="removeListener" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></span><span class="signature">(<wbr><span class="parameter" id="removeListener-param-listener"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">listener</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Remove a previously registered closure from the list of closures that are
+notified when the object changes.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="removeMarker" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/removeMarker.html">removeMarker</a></span><span class="signature">(<wbr><span class="parameter" id="removeMarker-param-markerId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">markerId</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="setBitmapDescriptor" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/setBitmapDescriptor.html">setBitmapDescriptor</a></span><span class="signature">(<wbr><span class="parameter" id="setBitmapDescriptor-param-imagePath"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">imagePath</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  <a href="../state_management_gmaps_provider/GoogleMapProvider/setBitmapDescriptor.html">setBitmapDescriptor</a> method sets the bitmap descriptor for the icon marker on the map.
+It takes an <code>imagePath</code> parameter and sets the bitmap descriptor from the given image path.
+The image is converted to bytes and then set as the bitmap descriptor for the icon marker.
+The method is asynchronous and returns a <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a> of <code>void</code>.
+  
+
+</dd>
+
+        <dt id="setMapResetCallback" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/setMapResetCallback.html">setMapResetCallback</a></span><span class="signature">(<wbr><span class="parameter" id="setMapResetCallback-param-callback"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Function-class.html">Function</a></span> <span class="parameter-name">callback</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="updateBearing" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/updateBearing.html">updateBearing</a></span><span class="signature">(<wbr><span class="parameter" id="updateBearing-param-bearing"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">bearing</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="updateCameraPosition" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/updateCameraPosition.html">updateCameraPosition</a></span><span class="signature">(<wbr><span class="parameter" id="updateCameraPosition-param-position"><span class="type-annotation"><a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/CameraPosition-class.html">CameraPosition</a></span> <span class="parameter-name">position</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  <a href="../state_management_gmaps_provider/GoogleMapProvider/updateCameraPosition.html">updateCameraPosition</a> method updates the camera position of the map.
+It takes a <a href="https://pub.dev/documentation/google_maps_flutter_platform_interface/2.7.1/google_maps_flutter_platform_interface/CameraPosition-class.html">CameraPosition</a> object representing the new camera position and updates the camera position of the map.
+The method is asynchronous and returns a <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a> of <code>void</code>.
+  
+
+</dd>
+
+        <dt id="updateTilt" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/updateTilt.html">updateTilt</a></span><span class="signature">(<wbr><span class="parameter" id="updateTilt-param-tilt"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">tilt</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="updateZoom" class="callable">
+  <span class="name"><a href="../state_management_gmaps_provider/GoogleMapProvider/updateZoom.html">updateZoom</a></span><span class="signature">(<wbr><span class="parameter" id="updateZoom-param-zoom"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">zoom</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../state_management_gmaps_provider/state_management_gmaps_provider-library.html">gmaps_provider</a></li>
+    <li class="self-crumb">GoogleMapProvider class</li>
+</ol>
+
+
+    <h5>gmaps_provider library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ai_touristic_info_tool
+      1.1.0+3
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

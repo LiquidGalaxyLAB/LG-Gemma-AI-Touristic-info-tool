@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the addAPIKeyDialog function from the add_api_key_dialog library, for the Dart programming language.">
+  <title>addAPIKeyDialog function - add_api_key_dialog library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../dialogs_add_api_key_dialog/dialogs_add_api_key_dialog-library.html">dialogs\add_api_key_dialog.dart</a></li>
+    <li class="self-crumb">addAPIKeyDialog function</li>
+  </ol>
+  <div class="self-name">addAPIKeyDialog</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="dialogs_add_api_key_dialog&#47;dialogs_add_api_key_dialog-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">addAPIKeyDialog</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a></span>
+<span class="name ">addAPIKeyDialog</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="addAPIKeyDialog-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="addAPIKeyDialog-param-colorProv"><span class="type-annotation"><a href="../state_management_dynamic_colors_provider/ColorProvider-class.html">ColorProvider</a></span> <span class="parameter-name">colorProv</span>, </span></li>
+<li><span class="parameter" id="addAPIKeyDialog-param-_formKey"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/GlobalKey-class.html">GlobalKey</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/FormState-class.html">FormState</a></span>&gt;</span></span> <span class="parameter-name">_formKey</span>, </span></li>
+<li><span class="parameter" id="addAPIKeyDialog-param-fontProv"><span class="type-annotation"><a href="../state_management_dynamic_fonts_provider/FontsProvider-class.html">FontsProvider</a></span> <span class="parameter-name">fontProv</span>, </span></li>
+<li><span class="parameter" id="addAPIKeyDialog-param-_keyNameController"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span> <span class="parameter-name">_keyNameController</span>, </span></li>
+<li><span class="parameter" id="addAPIKeyDialog-param-_keyValueController"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span> <span class="parameter-name">_keyValueController</span>, </span></li>
+</ol>)
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Displays a dialog for adding a new API key with input fields and a dropdown.</p>
+<p>This function presents an <code>AlertDialog</code> that allows users to input a new API key,
+select a service type from a dropdown list, and validate the input. The dialog uses
+<code>ColorProvider</code> and <code>FontsProvider</code> for dynamic styling and localization through
+<code>AppLocalizations</code>. It checks if the API key name already exists before adding a new one.</p>
+<p><code>context</code> - The <code>BuildContext</code> used to locate the <code>ColorProvider</code> and <code>FontsProvider</code>.
+<code>colorProv</code> - The <code>ColorProvider</code> used to style the dialog's background color.
+<code> _formKey</code> - A <code>GlobalKey&lt;FormState&gt;</code> used to manage the form's state and validation.
+<code>fontProv</code> - The <code>FontsProvider</code> used to style the text and input fields in the dialog.
+<code> _keyNameController</code> - A <code>TextEditingController</code> for managing the API key name input field.
+<code> _keyValueController</code> - A <code>TextEditingController</code> for managing the API key value input field.</p>
+<p>The dialog includes:</p>
+<ul>
+<li>An input field for the API key name with validation to ensure the name is unique.</li>
+<li>An input field for the API key value.</li>
+<li>A dropdown list to select the service type from predefined options.</li>
+<li>Two buttons: "Done" to confirm the addition of the API key, and "Cancel" to close the dialog without saving.</li>
+</ul>
+<p>The <code>addAPIKeyDialog</code> function performs the following actions:</p>
+<ul>
+<li>Displays the dialog with the specified input fields and dropdown.</li>
+<li>Checks if the API key name already exists in the stored keys. If it does, it sets an error state.</li>
+<li>Adds the new API key if the name does not already exist.</li>
+<li>Shows a snack bar notification upon successful addition of the API key.</li>
+<li>Closes the dialog upon confirmation or cancellation.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;dynamic&gt; addAPIKeyDialog(
+    BuildContext context,
+    ColorProvider colorProv,
+    GlobalKey&lt;FormState&gt; _formKey,
+    FontsProvider fontProv,
+    TextEditingController _keyNameController,
+    TextEditingController _keyValueController) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      bool nameExists = false;
+      final _serviceController = TextEditingController(text: keyServicesAPI[0]);
+      String? _chosenService;
+      return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          int serviceIndex = keyServicesAPI.indexOf(_serviceController.text);
+          return AlertDialog(
+            backgroundColor: colorProv.colors.innerBackground,
+            content: Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Form(
+                key: _formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.settings_addApiKeyName,
+                          style: TextStyle(
+                              color: fontProv.fonts.primaryFontColor,
+                              fontSize: fontProv.fonts.textSize,
+                              fontFamily: fontType)),
+                      Center(
+                        child: TextFormFieldWidget(
+                          fontSize: fontProv.fonts.textSize,
+                          key: const ValueKey(&quot;key-name&quot;),
+                          textController: _keyNameController,
+                          isSuffixRequired: true,
+                          isPassword: false,
+                          maxLength: 100,
+                          maxlines: 1,
+                          width: MediaQuery.sizeOf(context).width * 0.85,
+                          onChanged: (value) {
+                            setState(() {
+                              nameExists = false;
+                            });
+                          },
+                        ),
+                      ),
+                      if (nameExists)
+                        Text(
+                          AppLocalizations.of(context)!.settings_nameExist,
+                            style: TextStyle(
+                                color: LgAppColors.lgColor2,
+                                fontSize: fontProv.fonts.textSize,
+                                fontFamily: fontType)),
+                      Text(
+                        AppLocalizations.of(context)!.settings_enterKey,
+                          style: TextStyle(
+                              color: fontProv.fonts.primaryFontColor,
+                              fontSize: fontProv.fonts.textSize,
+                              fontFamily: fontType)),
+                      Center(
+                        child: TextFormFieldWidget(
+                          fontSize: fontProv.fonts.textSize,
+                          key: const ValueKey(&quot;key-value&quot;),
+                          textController: _keyValueController,
+                          isSuffixRequired: true,
+                          isPassword: true,
+                          maxLength: 100,
+                          maxlines: 1,
+                          width: MediaQuery.sizeOf(context).width * 0.85,
+                        ),
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.settings_chooseServiceAPI,
+                          style: TextStyle(
+                              color: fontProv.fonts.primaryFontColor,
+                              fontSize: fontProv.fonts.textSize,
+                              fontFamily: fontType)),
+
+                      DropDownListWidget(
+                        key: const ValueKey(&quot;APIservices&quot;),
+                        items: keyServicesAPI,
+                        fontSize: fontProv.fonts.textSize,
+                        selectedValue: keyServicesAPI != -1
+                            ? keyServicesAPI[serviceIndex]
+                            : countries[0],
+                        hinttext: &#39;API Services&#39;,
+                        onChanged: (value) {
+                          setState(() {
+                            _serviceController.text = value;
+                            _chosenService = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            actions: &lt;Widget&gt;[
+              TextButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    List&lt;ApiKeyModel&gt; keys =
+                        await APIKeySharedPref.getApiKeys();
+
+                    if (keys.length &gt; 0) {
+                      for (int i = 0; i &lt; keys.length; i++) {
+                        if (keys[i].name == _keyNameController.text) {
+                          setState(() {
+                            nameExists = true;
+                          });
+                        } else {
+                          setState(() {
+                            nameExists = false;
+                          });
+                        }
+                      }
+                    }
+                    if (!nameExists) {
+                      if (keys.length == 0) {
+                        await APIKeySharedPref.addApiKey(ApiKeyModel(
+                            name: _keyNameController.text,
+                            key: _keyValueController.text,
+                            serviceType: _chosenService ?? keyServicesAPI[0],
+                            isDefault: true));
+                      } else {
+                        await APIKeySharedPref.addApiKey(ApiKeyModel(
+                          name: _keyNameController.text,
+                          key: _keyValueController.text,
+                          serviceType: _chosenService ?? keyServicesAPI[0],
+                        ));
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            backgroundColor: LgAppColors.lgColor4,
+                            content: Text(
+                              AppLocalizations.of(context)!.settings_apiKeyAddedNotification,
+                              style: TextStyle(
+                                fontSize: fontProv.fonts.textSize,
+                                color: Colors.white,
+                                fontFamily: fontType,
+                              ),
+                            )),
+                      );
+                      Navigator.of(context).pop();
+                    }
+                  }
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.defaults_done,
+                    style: TextStyle(
+                        color: LgAppColors.lgColor4,
+                        fontSize: fontProv.fonts.textSize,
+                        fontFamily: fontType)),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.defaults_cancel,
+                    style: TextStyle(
+                        color: LgAppColors.lgColor2,
+                        fontSize: fontProv.fonts.textSize,
+                        fontFamily: fontType)),
+              ),
+            ],
+          );
+        },
+      );
+    },
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../dialogs_add_api_key_dialog/dialogs_add_api_key_dialog-library.html">add_api_key_dialog</a></li>
+    <li class="self-crumb">addAPIKeyDialog function</li>
+</ol>
+
+
+    <h5>add_api_key_dialog library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ai_touristic_info_tool
+      1.1.0+3
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
