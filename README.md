@@ -247,7 +247,9 @@ Use the app to explore anything you want to look for nearby a location by determ
 <td>
 <img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492561.png?raw=true" alt="nearby" width="400"/>
 </td>
-<td></td> 
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724520610.png?raw=true" alt="nearby" width="400"/>
+</td> 
 </tr>
 </table>
 
@@ -367,7 +369,7 @@ From the API keys settings, you can add, remove, view or edit a key
 <img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492641.png?raw=true" alt="Gemini API Key" width="400"/>
 </td>
 <td>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492681.png?raw=true" alt="api" width="400"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724520151.png?raw=true" alt="api" width="400"/>
 </td>
 </tr>
 </table>
@@ -430,6 +432,33 @@ From the API keys settings, you can add, remove, view or edit a key
 
 
 ### Liquid Galaxy Visualizations:
+
+<table>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot%202024-08-24%20205526.png?raw=true" alt="Screenshot 1" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot%202024-08-24%20210041.png?raw=true" alt="Screenshot 2" width="400"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot%202024-08-24%20205559.png?raw=true" alt="Screenshot 3" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot%202024-08-24%20210224.png?raw=true" alt="Screenshot 4" width="400"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot%202024-08-24%20210359.png?raw=true" alt="Screenshot 5" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot%202024-08-24%20210435.png?raw=true" alt="Screenshot 6" width="400"/>
+</td>
+</tr>
+</table>
 
 
 ---
