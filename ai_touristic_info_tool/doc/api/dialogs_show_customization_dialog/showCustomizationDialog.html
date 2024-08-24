@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the showCustomizationDialog function from the show_customization_dialog library, for the Dart programming language.">
+  <title>showCustomizationDialog function - show_customization_dialog library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../dialogs_show_customization_dialog/dialogs_show_customization_dialog-library.html">dialogs\show_customization_dialog.dart</a></li>
+    <li class="self-crumb">showCustomizationDialog function</li>
+  </ol>
+  <div class="self-name">showCustomizationDialog</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="dialogs_show_customization_dialog&#47;dialogs_show_customization_dialog-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">showCustomizationDialog</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype">void</span>
+<span class="name ">showCustomizationDialog</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="showCustomizationDialog-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="showCustomizationDialog-param-selectedPlaces"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_places_model/PlacesModel-class.html">PlacesModel</a></span>&gt;</span></span> <span class="parameter-name">selectedPlaces</span></span></li>
+</ol>)
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Shows a customization dialog with a tutorial and options for customizing the display of selected places.</p>
+<p><code>context</code> - The BuildContext used to display the dialog.
+<code>selectedPlaces</code> - A list of selected <code>PlacesModel</code> items to display in the customization widget.</p>
+<p>The dialog contains:</p>
+<ul>
+<li>A <code>TopBarWidget</code> for the title and tutorial guide.</li>
+<li>A <code>CustomizationWidget</code> to handle place customization.</li>
+<li>A tutorial coach mark that highlights different UI elements with explanations.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void showCustomizationDialog(
+    BuildContext context, final List&lt;PlacesModel&gt; selectedPlaces) async {
+  Provider.of&lt;DisplayedListProvider&gt;(context, listen: false)
+      .setDisplayedList(List&lt;PlacesModel&gt;.from(selectedPlaces));
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Consumer2&lt;ColorProvider, FontsProvider&gt;(builder:
+          (BuildContext context, ColorProvider colorVal, FontsProvider fontVal,
+              Widget? child) {
+        return StatefulBuilder(
+          builder:
+              (BuildContext context, void Function(void Function()) setState) {
+            List&lt;TargetFocus&gt; customTargets = [];
+            customTargets.add(TargetFocus(
+                identify: GlobalKeys.showcaseKeyCustomizationDragDrop,
+                keyTarget: GlobalKeys.showcaseKeyCustomizationDragDrop,
+                shape: ShapeLightFocus.RRect,
+                radius: 10,
+                contents: [
+                  TargetContent(
+                      align: ContentAlign.left,
+                      child: Container(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: &lt;Widget&gt;[
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title1,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 30.0),
+                            ),
+                          ],
+                        ),
+                      ))
+                ]));
+            customTargets.add(TargetFocus(
+                identify: GlobalKeys.showcaseKeyCustomizationMap,
+                keyTarget: GlobalKeys.showcaseKeyCustomizationMap,
+                shape: ShapeLightFocus.RRect,
+                radius: 10,
+                contents: [
+                  TargetContent(
+                      align: ContentAlign.bottom,
+                      child: Container(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: &lt;Widget&gt;[
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title2,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 30.0),
+                            ),
+                          ],
+                        ),
+                      ))
+                ]));
+            customTargets.add(TargetFocus(
+                identify: GlobalKeys.showcaseKeyCustomizationCreate,
+                keyTarget: GlobalKeys.showcaseKeyCustomizationCreate,
+                shape: ShapeLightFocus.RRect,
+                radius: 10,
+                contents: [
+                  TargetContent(
+                      align: ContentAlign.bottom,
+                      child: Container(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: &lt;Widget&gt;[
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title3,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 30.0),
+                            ),
+                            Text(
+                                AppLocalizations.of(context)!
+                                    .tutorialCustomization_desc3,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                ))
+                          ],
+                        ),
+                      ))
+                ]));
+            customTargets.add(TargetFocus(
+                identify: GlobalKeys.showcaseKeyCustomizationReset,
+                keyTarget: GlobalKeys.showcaseKeyCustomizationReset,
+                shape: ShapeLightFocus.RRect,
+                radius: 10,
+                contents: [
+                  TargetContent(
+                      align: ContentAlign.bottom,
+                      child: Container(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: &lt;Widget&gt;[
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title4,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 30.0),
+                            ),
+                            Text(
+                                AppLocalizations.of(context)!
+                                    .tutorialCustomization_desc4,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                ))
+                          ],
+                        ),
+                      ))
+                ]));
+            customTargets.add(TargetFocus(
+                identify: GlobalKeys.showcaseKeyCustomizationCurrentTour,
+                keyTarget: GlobalKeys.showcaseKeyCustomizationCurrentTour,
+                shape: ShapeLightFocus.RRect,
+                radius: 10,
+                contents: [
+                  TargetContent(
+                      align: ContentAlign.top,
+                      child: Container(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: &lt;Widget&gt;[
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title5,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 30.0),
+                            ),
+                            Text(
+                                AppLocalizations.of(context)!
+                                    .tutorialCustomization_desc5,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                ))
+                          ],
+                        ),
+                      ))
+                ]));
+            customTargets.add(TargetFocus(
+                identify: GlobalKeys.showcaseKeyCustomizationAddFav,
+                keyTarget: GlobalKeys.showcaseKeyCustomizationAddFav,
+                shape: ShapeLightFocus.RRect,
+                radius: 10,
+                contents: [
+                  TargetContent(
+                      align: ContentAlign.top,
+                      child: Container(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: &lt;Widget&gt;[
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .tutorialCustomization_title6,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 30.0),
+                            ),
+                          ],
+                        ),
+                      ))
+                ]));
+
+&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;
+            return AlertDialog(
+              backgroundColor: colorVal.colors.innerBackground,
+              shadowColor: FontAppColors.secondaryFont,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              iconPadding: EdgeInsets.zero,
+              titlePadding: const EdgeInsets.only(bottom: 20),
+              contentPadding: EdgeInsets.zero,
+              actionsPadding: const EdgeInsets.only(bottom: 10),
+              surfaceTintColor: FontAppColors.secondaryFont,
+              title: Column(
+                children: [
+                  TopBarWidget(
+                    grad1: SettingsSharedPref.getTheme() == &#39;light&#39;
+                        ? colorVal.colors.buttonColors
+                        : colorVal.colors.gradient1,
+                    grad2: SettingsSharedPref.getTheme() == &#39;light&#39;
+                        ? colorVal.colors.buttonColors
+                        : colorVal.colors.gradient2,
+                    grad3: SettingsSharedPref.getTheme() == &#39;light&#39;
+                        ? colorVal.colors.buttonColors
+                        : colorVal.colors.gradient3,
+                    grad4: SettingsSharedPref.getTheme() == &#39;light&#39;
+                        ? colorVal.colors.buttonColors
+                        : colorVal.colors.gradient4,
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: Center(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              TutorialCoachMark(
+                                targets: customTargets,
+                                colorShadow: Colors.black,
+                                alignSkip: Alignment.bottomRight,
+                                textSkip:
+                                    AppLocalizations.of(context)!.defaults_skip,
+                                useSafeArea: true,
+                                textStyleSkip: TextStyle(
+                                    color: Colors.white, fontSize: 30),
+                                paddingFocus: 10,
+                                opacityShadow: 0.8,
+                                onClickTarget: (target) {
+                                  print(target);
+                                },
+                                onClickTargetWithTapPosition:
+                                    (target, tapDetails) {
+                                  print(&quot;target: $target&quot;);
+                                  print(
+                                      &quot;clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}&quot;);
+                                },
+                                onClickOverlay: (target) {
+                                  print(target);
+                                },
+                                onSkip: () {
+                                  print(&quot;skip&quot;);
+                                  return true;
+                                },
+                                onFinish: () {
+                                  print(&quot;finish&quot;);
+                                },
+                                &#47;&#47; );
+                              )..show(context: context);
+                            },
+                            child: Icon(Icons.lightbulb,
+                                color: LgAppColors.lgColor3,
+                                size: fontVal.fonts.headingSize),
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                AppLocalizations.of(context)!
+                                    .customapptour_title,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color:
+                                        SettingsSharedPref.getTheme() == &#39;dark&#39;
+                                            ? fontVal.fonts.primaryFontColor
+                                            : fontVal.fonts.secondaryFontColor,
+                                    fontSize: fontVal.fonts.headingSize,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: fontType),
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            alignment: Alignment.centerRight,
+                            icon: Icon(CupertinoIcons.xmark_circle_fill),
+                            color: LgAppColors.lgColor2,
+                            iconSize: fontVal.fonts.headingSize,
+                            onPressed: () async {
+                              DisplayedListProvider dlp =
+                                  Provider.of&lt;DisplayedListProvider&gt;(context,
+                                      listen: false);
+                              dlp.setTourPlaces([]);
+
+                              dlp.setDisplayedList(
+                                  List&lt;PlacesModel&gt;.from(selectedPlaces));
+                              dlp.setTourPlaces([]);
+                              GoogleMapProvider gmp =
+                                  Provider.of&lt;GoogleMapProvider&gt;(context,
+                                      listen: false);
+                              gmp.allowSync = true;
+                              gmp.clearMarkers();
+                              gmp.clearPolylines();
+                              gmp.clearCustomMarkers();
+                              gmp.clearPolylinesMap();
+                              gmp.pinPillPosition =
+                                  MediaQuery.of(context).size.height * 1;
+
+                              final sshData = Provider.of&lt;SSHprovider&gt;(context,
+                                  listen: false);
+
+                              Connectionprovider connection =
+                                  Provider.of&lt;Connectionprovider&gt;(context,
+                                      listen: false);
+
+                              if (sshData.client != null &amp;&amp;
+                                  connection.isLgConnected) {
+                                await LgService(sshData).clearKml();
+                              }
+
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              content: CustomizationWidget(
+                chosenPlaces: selectedPlaces,
+                firstLat: selectedPlaces[0].latitude,
+                firstLong: selectedPlaces[0].longitude,
+              ),
+            );
+          },
+        );
+      });
+    },
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../dialogs_show_customization_dialog/dialogs_show_customization_dialog-library.html">show_customization_dialog</a></li>
+    <li class="self-crumb">showCustomizationDialog function</li>
+</ol>
+
+
+    <h5>show_customization_dialog library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ai_touristic_info_tool
+      1.1.0+3
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

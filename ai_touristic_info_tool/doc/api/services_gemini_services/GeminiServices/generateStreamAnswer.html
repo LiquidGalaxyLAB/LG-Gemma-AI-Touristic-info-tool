@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the generateStreamAnswer method from the GeminiServices class, for the Dart programming language.">
+  <title>generateStreamAnswer method - GeminiServices class - gemini_services library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../../services_gemini_services/services_gemini_services-library.html">services\gemini_services.dart</a></li>
+    <li><a href="../../services_gemini_services/GeminiServices-class.html">GeminiServices</a></li>
+    <li class="self-crumb">generateStreamAnswer method</li>
+  </ol>
+  <div class="self-name">generateStreamAnswer</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="services_gemini_services&#47;GeminiServices-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">generateStreamAnswer</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Stream-class.html">Stream</a></span>
+<span class="name ">generateStreamAnswer</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="generateStreamAnswer-param-userQuery"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">userQuery</span>, </span></li>
+<li><span class="parameter" id="generateStreamAnswer-param-apiKey"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKey</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Generates a stream of AI-powered responses based on the user's query.</p>
+<p><code>userQuery</code> is the question or query input by the user.
+<code>apiKey</code> is the API key for the Gemini API.</p>
+<p>Yields a series of messages and streaming data as the AI processes the query.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Stream&lt;dynamic&gt; generateStreamAnswer(String userQuery, String apiKey) async* {
+  try {
+    List&lt;String&gt; links = await SearchServices().fetchUrls(userQuery);
+    print(links);
+
+    final embeddings = GoogleGenerativeAIEmbeddings(
+      apiKey: apiKey,
+    );
+
+    &#47;&#47; final loader = WebBaseLoader(links);
+    &#47;&#47; final documents = await loader.load();
+    &#47;&#47; const textSplitter = RecursiveCharacterTextSplitter(
+    &#47;&#47;   chunkSize: 1000,
+    &#47;&#47;   chunkOverlap: 200,
+    &#47;&#47; );
+    &#47;&#47; final splits = textSplitter.splitDocuments(documents);
+    final vectorStore = MemoryVectorStore(embeddings: embeddings);
+    await vectorStore.addDocuments(
+      documents: [
+        Document(pageContent: &#39;LangChain was created by Harrison&#39;),
+        Document(
+            pageContent: &#39;David ported LangChain to Dart in LangChain.dart&#39;),
+      ],
+    );
+
+    final retriever = vectorStore.asRetriever();
+    final setupAndRetrieval = Runnable.fromMap&lt;String&gt;({
+      &#39;context&#39;: retriever.pipe(
+        Runnable.mapInput(
+            (docs) =&gt; docs.map((d) =&gt; d.pageContent).join(&#39;\n&#39;)),
+      ),
+      &#39;question&#39;: Runnable.passthrough(),
+    });
+
+    ChatGoogleGenerativeAI llm = ChatGoogleGenerativeAI(
+      apiKey: apiKey,
+      defaultOptions: ChatGoogleGenerativeAIOptions(
+        &#47;&#47; model: &quot;gemini-1.5-pro&quot;,
+        model: &quot;gemini-1.0-pro&quot;,
+      ),
+    );
+
+    String prompt = &#39;&#39;&#39;
+      You are an advanced AI model acting as a touristic guide with extensive knowledge of various travel destinations and touristic information.
+      Use your internal knowledge to generate a comprehensive and accurate response.
+      Your answer must include Top 10 places, not more not less, with a brief description of each place, and what makes it unique.
+      Your answer must include the accurate address of each of the 10 places too.
+      Your answer must include the country.
+      Your answer must include additional information such as: pricing, rating, and amenities.
+      If any of the information is not available to you, leave empty.
+      Do not include null in your response.
+      Do not omit any place from the list for brevity.
+      Your answer MUST include all 10 places.
+      Make sure to include a &quot;source&quot; key with the URL from which the information for each place was retrieved.
+      Your answer must be in a well-defined valid JSON format, with correct curly braces, commas, and quotes. Only use double quotes for strings in your JSON format.
+      Each Place should include the following details: name (string), address (string), city (string), country (string), description (string), pricing (string), rating (float), amenities (string), source (string).
+      If a string is empty, do not write null, just leave it as an empty string.
+      If a float is empty, write it as 0.0
+      **Any key in the JSON must be wrapped by double quotes.**
+      The response should be in UTF-8 JSON format, all places enclosed in the &#39;places&#39; field of the JSON to be returned without any extra comments or quote wrappers.
+      The response should not be enclosed in a code section.
+
+
+
+      QUESTION: {question}
+
+      YOUR ANSWER:
+  &#39;&#39;&#39;;
+
+    &#47;&#47; QUESTION: $userQuery
+    &#47;&#47;QUESTION: {question}
+
+    final outputParser = JsonOutputParser&lt;ChatResult&gt;();
+    &#47;&#47; final chain = llm.pipe(outputParser);
+
+
+    Set&lt;String&gt; inputVariables = {};
+    inputVariables.add(&#39;question&#39;);
+    final chain = setupAndRetrieval
+        .pipe(
+            PromptTemplate(inputVariables: inputVariables, template: prompt))
+        .pipe(llm)
+        .pipe(outputParser);
+
+    yield {&#39;type&#39;: &#39;message&#39;, &#39;data&#39;: &#39;Starting...&#39;};
+
+    int currPlaceCount = 0;
+
+    &#47;&#47; final stream = chain.stream(PromptValue.string(prompt));
+    &#47;&#47; .map((result) =&gt; result.toString());
+    final stream = chain.stream(userQuery);
+    yield {
+      &#39;type&#39;: &#39;message&#39;,
+      &#39;data&#39;: &#39;Streaming&#39;
+    };
+    await for (var result in stream) {
+      final placeCount = RegExp(r&#39;name&#39;).allMatches(result.toString()).length;
+      if (result.toString().contains(&#39;name:&#39;)) {
+        if (currPlaceCount &lt; placeCount) {
+          currPlaceCount = placeCount;
+          yield {
+            &#39;type&#39;: &#39;message&#39;,
+            &#39;data&#39;: &#39;Streaming&#39;,
+          };
+        }
+      }
+      yield {
+        &#39;type&#39;: &#39;stream&#39;,
+        &#39;data&#39;: result,
+      };
+    }
+    yield {
+      &#39;type&#39;: &#39;message&#39;,
+      &#39;data&#39;: &#39;Preparing visualizations&#39;
+    };
+      } catch (e) {
+    print(&#39;exception&#39;);
+    print(e);
+    yield {
+      &#39;type&#39;: &#39;error&#39;,
+      &#39;data&#39;: &#39;An error occurred: ${e.toString()}&#39;
+
+    };
+
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../../services_gemini_services/services_gemini_services-library.html">gemini_services</a></li>
+    <li><a href="../../services_gemini_services/GeminiServices-class.html">GeminiServices</a></li>
+    <li class="self-crumb">generateStreamAnswer method</li>
+</ol>
+
+
+    <h5>GeminiServices class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ai_touristic_info_tool
+      1.1.0+3
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the DynamicAppColors.fromButtonColor constructor from Class DynamicAppColors from the dynamic_colors_model library, for the Dart programming language.">
+  <title>DynamicAppColors.fromButtonColor constructor - DynamicAppColors - dynamic_colors_model library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../../models_dynamic_colors_model/models_dynamic_colors_model-library.html">models\dynamic_colors_model.dart</a></li>
+    <li><a href="../../models_dynamic_colors_model/DynamicAppColors-class.html">DynamicAppColors</a></li>
+    <li class="self-crumb">DynamicAppColors.fromButtonColor factory constructor</li>
+  </ol>
+  <div class="self-name">DynamicAppColors.fromButtonColor</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="models_dynamic_colors_model&#47;DynamicAppColors-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-constructor">DynamicAppColors.fromButtonColor</span> constructor 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+      <span class="name ">DynamicAppColors.fromButtonColor</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="fromButtonColor-param-buttonColor"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/painting/Color-class.html">Color</a></span> <span class="parameter-name">buttonColor</span></span></li>
+</ol>)
+    </section>
+
+    
+<section class="desc markdown">
+  <p>Returns a <a href="../../models_dynamic_colors_model/DynamicAppColors-class.html">DynamicAppColors</a> from the given <code>buttonColor</code>.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">factory DynamicAppColors.fromButtonColor(Color buttonColor) {
+  Color grad1;
+  Color grad2;
+  Color grad3;
+  Color grad4;
+  Color innerBg;
+  Color buttons;
+  Color shd;
+  Color medShd;
+  Color darkShd;
+  if (SettingsSharedPref.getTheme() == &#39;dark&#39;) {
+    grad1 = Color.fromARGB(255, 34, 34, 34);
+    grad2 = Color.fromARGB(255, 34, 34, 34);
+    grad3 = Color.fromARGB(255, 68, 68, 68);
+    grad4 = Color.fromARGB(255, 102, 102, 102);
+    innerBg = Color.fromARGB(255, 26, 26, 26);
+    buttons = Color.fromARGB(255, 85, 85, 85);
+  } else if (SettingsSharedPref.getTheme() == &#39;light&#39;) {
+    grad1 = Color(0xFFF9F9F8);
+    grad2 = Color(0xFFF2F3F2);
+    grad3 = Color(0xFFECECEB);
+    grad4 = Color(0xFFE5E6E4);
+
+
+    innerBg = Colors.white;
+    if (isNearWhite(buttonColor)) {
+      buttons = Color.fromARGB(255, 210, 208, 208);
+    } else {
+      buttons = buttonColor;
+    }
+    &#47;&#47; buttons = buttonColor;
+  } else {
+    grad1 = adjustColor(buttonColor, 0.4);
+    grad2 = adjustColor(buttonColor, 0.6);
+    grad3 = adjustColor(buttonColor, 0.8);
+    grad4 = adjustColor(buttonColor, 1.0);
+    innerBg = Colors.white;
+    buttons = buttonColor;
+  }
+
+  if (SettingsSharedPref.getTheme() == &#39;light&#39;) {
+    darkShd = Colors.white;
+    medShd = Colors.white;
+    shd = Colors.white;
+  } else {
+    darkShd = lightenColor(buttons, 0.4);
+    medShd = lightenColor(buttons, 0.6);
+    shd = lightenColor(buttons, 0.8);
+  }
+  return DynamicAppColors(
+    gradient4: grad4,
+    gradient3: grad3,
+    gradient2: grad2,
+    gradient1: grad1,
+    buttonColors: buttons,
+    accentColor: Color.fromARGB(120, 252, 171, 21),
+    innerBackground: innerBg,
+    shadow: shd,
+    midShadow: medShd,
+    darkShadow: darkShd,
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../../models_dynamic_colors_model/models_dynamic_colors_model-library.html">dynamic_colors_model</a></li>
+    <li><a href="../../models_dynamic_colors_model/DynamicAppColors-class.html">DynamicAppColors</a></li>
+    <li class="self-crumb">DynamicAppColors.fromButtonColor factory constructor</li>
+</ol>
+
+
+    <h5>DynamicAppColors class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ai_touristic_info_tool
+      1.1.0+3
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

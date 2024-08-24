@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the editAPIKeyDialog function from the edit_api_key_dialog library, for the Dart programming language.">
+  <title>editAPIKeyDialog function - edit_api_key_dialog library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../dialogs_edit_api_key_dialog/dialogs_edit_api_key_dialog-library.html">dialogs\edit_api_key_dialog.dart</a></li>
+    <li class="self-crumb">editAPIKeyDialog function</li>
+  </ol>
+  <div class="self-name">editAPIKeyDialog</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="dialogs_edit_api_key_dialog&#47;dialogs_edit_api_key_dialog-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">editAPIKeyDialog</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a></span>
+<span class="name ">editAPIKeyDialog</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="editAPIKeyDialog-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="editAPIKeyDialog-param-colorProv"><span class="type-annotation"><a href="../state_management_dynamic_colors_provider/ColorProvider-class.html">ColorProvider</a></span> <span class="parameter-name">colorProv</span>, </span></li>
+<li><span class="parameter" id="editAPIKeyDialog-param-_formKey"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/GlobalKey-class.html">GlobalKey</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/FormState-class.html">FormState</a></span>&gt;</span></span> <span class="parameter-name">_formKey</span>, </span></li>
+<li><span class="parameter" id="editAPIKeyDialog-param-fontProv"><span class="type-annotation"><a href="../state_management_dynamic_fonts_provider/FontsProvider-class.html">FontsProvider</a></span> <span class="parameter-name">fontProv</span>, </span></li>
+<li><span class="parameter" id="editAPIKeyDialog-param-apiKeyName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKeyName</span>, </span></li>
+<li><span class="parameter" id="editAPIKeyDialog-param-apiKeyValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">apiKeyValue</span>, </span></li>
+<li><span class="parameter" id="editAPIKeyDialog-param-serviceType"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">serviceType</span>, </span></li>
+</ol>)
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Displays a dialog for editing an API key.</p>
+<p>This function presents an <code>AlertDialog</code> where the user can edit the value of an API key.
+It includes a text field for input, pre-populated with the current API key value.
+The dialog's appearance is dynamically styled based on the provided <code>ColorProvider</code>
+and <code>FontsProvider</code>, and it supports localization through <code>AppLocalizations</code>.</p>
+<p><code>context</code> - The <code>BuildContext</code> used to locate the <code>ColorProvider</code> and <code>FontsProvider</code>.
+<code>colorProv</code> - The <code>ColorProvider</code> used to style the dialog's background color.
+<code>_formKey</code> - A <code>GlobalKey&lt;FormState&gt;</code> used for form validation.
+<code>fontProv</code> - The <code>FontsProvider</code> used to style text and form elements.
+<code>apiKeyName</code> - The name of the API key being edited.
+<code>apiKeyValue</code> - The current value of the API key, used to pre-populate the text field.
+<code>serviceType</code> - The type of service associated with the API key.</p>
+<p>The dialog includes:</p>
+<ul>
+<li>A title displaying the API key name and service type.</li>
+<li>A text field for entering the new API key value.</li>
+<li>Two buttons: one for saving the changes and one for canceling.</li>
+</ul>
+<p>The <code>editAPIKeyDialog</code> function performs the following actions:</p>
+<ul>
+<li>Validates the input when the "Done" button is pressed.</li>
+<li>Updates the API key value using <code>APIKeySharedPref.editApiKey</code>.</li>
+<li>Shows a <code>SnackBar</code> notification upon successful update.</li>
+<li>Closes the dialog upon successful update or when the "Cancel" button is pressed</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;dynamic&gt; editAPIKeyDialog(
+  BuildContext context,
+  ColorProvider colorProv,
+  GlobalKey&lt;FormState&gt; _formKey,
+  FontsProvider fontProv,
+  String apiKeyName,
+  String apiKeyValue,
+  String serviceType,
+) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          TextEditingController _keyValueController =
+              TextEditingController(text: apiKeyValue);
+          return AlertDialog(
+            backgroundColor: colorProv.colors.innerBackground,
+            content: Container(
+              height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: Form(
+                key: _formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(&#39;$apiKeyName - $serviceType&#39;,
+                          style: TextStyle(
+                              color: fontProv.fonts.primaryFontColor,
+                              fontSize: fontProv.fonts.textSize,
+                              fontFamily: fontType)),
+                      Center(
+                        child: TextFormFieldWidget(
+                          fontSize: fontProv.fonts.textSize,
+                          key: const ValueKey(&quot;key-value-edit&quot;),
+                          textController: _keyValueController,
+                          isSuffixRequired: true,
+                          isPassword: true,
+                          maxLength: 100,
+                          maxlines: 1,
+                          width: MediaQuery.sizeOf(context).width * 0.85,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            actions: &lt;Widget&gt;[
+              TextButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    await APIKeySharedPref.editApiKey(
+                      apiKeyName,
+                      _keyValueController.text,
+                      serviceType,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          backgroundColor: LgAppColors.lgColor4,
+                          content: Text(
+                            AppLocalizations.of(context)!.settings_apiKeyEditedNotification,
+                            style: TextStyle(
+                              fontSize: fontProv.fonts.textSize,
+                              color: Colors.white,
+                              fontFamily: fontType,
+                            ),
+                          )),
+                    );
+
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.defaults_done,
+                    style: TextStyle(
+                        color: LgAppColors.lgColor4,
+                        fontSize: fontProv.fonts.textSize,
+                        fontFamily: fontType)),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.defaults_cancel,
+                    style: TextStyle(
+                        color: LgAppColors.lgColor2,
+                        fontSize: fontProv.fonts.textSize,
+                        fontFamily: fontType)),
+              ),
+            ],
+          );
+        },
+      );
+    },
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../dialogs_edit_api_key_dialog/dialogs_edit_api_key_dialog-library.html">edit_api_key_dialog</a></li>
+    <li class="self-crumb">editAPIKeyDialog function</li>
+</ol>
+
+
+    <h5>edit_api_key_dialog library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ai_touristic_info_tool
+      1.1.0+3
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

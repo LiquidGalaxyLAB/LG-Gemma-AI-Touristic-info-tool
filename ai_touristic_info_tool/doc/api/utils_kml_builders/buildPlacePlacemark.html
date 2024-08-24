@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the buildPlacePlacemark function from the kml_builders library, for the Dart programming language.">
+  <title>buildPlacePlacemark function - kml_builders library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../utils_kml_builders/utils_kml_builders-library.html">utils\kml_builders.dart</a></li>
+    <li class="self-crumb">buildPlacePlacemark function</li>
+  </ol>
+  <div class="self-name">buildPlacePlacemark</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="utils_kml_builders&#47;utils_kml_builders-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">buildPlacePlacemark</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype">dynamic</span>
+<span class="name ">buildPlacePlacemark</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="buildPlacePlacemark-param-place"><span class="type-annotation"><a href="../models_places_model/PlacesModel-class.html">PlacesModel</a></span> <span class="parameter-name">place</span>, </span></li>
+<li><span class="parameter" id="buildPlacePlacemark-param-index"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span>, </span></li>
+<li><span class="parameter" id="buildPlacePlacemark-param-query"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">query</span>, </span></li>
+<li><span class="parameter" id="buildPlacePlacemark-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, {</span></li>
+<li><span class="parameter" id="buildPlacePlacemark-param-visibility"><span class="type-annotation">dynamic</span> <span class="parameter-name">visibility</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="buildPlacePlacemark-param-viewOrbit"><span class="type-annotation">dynamic</span> <span class="parameter-name">viewOrbit</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="buildPlacePlacemark-param-duration"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">duration</span> = <span class="default-value">1.2</span>, </span></li>
+</ol>})
+
+        
+
+    </section>
+    
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">buildPlacePlacemark(
+    PlacesModel place, int index, String query, BuildContext context,
+    {visibility = true, viewOrbit = true, double duration = 1.2}) async {
+  FontsProvider fonts = Provider.of&lt;FontsProvider&gt;(context, listen: false);
+  ColorProvider colors = Provider.of&lt;ColorProvider&gt;(context, listen: false);
+  double textSize = fonts.fonts.textSize;
+  double titleSize = fonts.fonts.titleSize;
+  double headSize = fonts.fonts.headingSize;
+
+  String primaryColor;
+
+  if (SettingsSharedPref.getTheme() == &#39;light&#39;) {
+    primaryColor = &#39;black&#39;;
+  } else {
+    primaryColor = &#39;white&#39;;
+  }
+
+  &#47;&#47; String buttonColor =
+  &#47;&#47;     colors.colors.buttonColors.toHexString(enableAlpha: false).substring(2);
+  String grad1 =
+      colors.colors.gradient1.toHexString(enableAlpha: false).substring(2);
+  String grad2 =
+      colors.colors.gradient2.toHexString(enableAlpha: false).substring(2);
+  String grad3 =
+      colors.colors.gradient3.toHexString(enableAlpha: false).substring(2);
+  String grad4 =
+      colors.colors.gradient4.toHexString(enableAlpha: false).substring(2);
+
+  String indx = &#39;&#39;;
+  if (index != -1) {
+    indx = index.toString();
+  }
+  final sshData = Provider.of&lt;SSHprovider&gt;(context, listen: false);
+
+  String content = &#39;&#39;;
+
+  String placeName = escapeHtml(place.name);
+  String placeDescription = escapeHtml(place.description ?? &#39;&#39;);
+  String placeAddress = escapeHtml(place.address);
+  String placeCity = escapeHtml(place.city ?? &#39;&#39;);
+  String placeCountry = escapeHtml(place.country ?? &#39;&#39;);
+  String placeAmenities = escapeHtml(place.amenities ?? &#39;&#39;);
+  String placePrices = escapeHtml(place.price ?? &#39;\$\$&#39;);
+  double placesRating = place.ratings ?? 0;
+  double placeLatitude = place.latitude;
+  double placeLongitude = place.longitude;
+  &#47;&#47; String placeLink = escapeHtml(place.sourceLink ?? &#39;&#39;);
+
+  String countryCode = countryMap[placeCountry] ?? &#39;None&#39;;
+  String countryFlagImg;
+  String flagDiv;
+
+  if (countryCode != &#39;None&#39;) {
+    String cc = countryCode.toLowerCase();
+    try {
+      countryFlagImg = &quot;https:&#47;&#47;www.worldometers.info&#47;img&#47;flags&#47;$cc-flag.gif&quot;;
+      flagDiv = &#39;&#39;&#39;
+              &lt;div style=&quot;text-align:center;&quot;&gt;
+                &lt;img src=&quot;$countryFlagImg&quot; style=&quot;display: block; margin: auto; width: 50px; height: 45px;&quot;&#47;&gt;&lt;br&#47;&gt;&lt;br&#47;&gt;
+              &lt;&#47;div&gt;
+&#39;&#39;&#39;;
+    } catch (e) {
+      countryFlagImg = &#39;&#39;;
+      flagDiv = &#39;&lt;br&gt;&#39;;
+    }
+  } else {
+    countryFlagImg = &#39;&#39;;
+    flagDiv = &#39;&lt;br&gt;&#39;;
+  }
+
+  String icon =
+      &quot;https:&#47;&#47;github.com&#47;Mahy02&#47;LG-KISS-AI-App&#47;blob&#47;main&#47;assets&#47;images&#47;placemark_pin.png?raw=true&quot;;
+  String balloonContent = &#39;&#39;&#39;
+    &lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;LG Gemini AI Touristic Info Tool&lt;&#47;title&gt;
+    &lt;style&gt;
+             .balloon {
+               background: linear-gradient(135deg, #$grad1 5%, #$grad2 15%, #$grad3 60%, #$grad4 100%);
+              padding: 10px;
+              border-radius: 20px;
+              font-family: Lato, sans-serif;
+            }
+            .balloon h1 {
+              font-size: ${titleSize}px;
+              color: $primaryColor;
+            }
+             .balloon h2 {
+              font-size: ${headSize}px;
+              color: $primaryColor;
+            }
+            .balloon h3 {
+              font-size: ${headSize - 10}px;
+              color: $primaryColor;
+            }
+
+            .balloon pp{
+              font-size: ${textSize}px;
+              color: $primaryColor;
+            }
+            .balloon p {
+              font-size:  ${textSize}px;
+              color: #ffff;
+            }
+
+            .details {
+              background-color: rgba(255, 255, 255, 1);
+              color: #000;
+              padding: 10px;
+              border-radius: 10px;
+              margin-top: 10px;
+              text-align: left;
+              font-size: ${textSize}px;
+            }
+            .balloon b {
+              color: #ffff;
+            }
+
+           .container-logo {
+            width: 100px;
+            height: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto;
+          }
+          .logo img {
+            max-width: 100%; &#47;* Ensure image fits within container *&#47;
+            max-height: 100%; &#47;* Ensure image fits within container *&#47;
+            display: block;
+            margin: auto;
+            border-radius: 10px; &#47;* Optional rounded corners for the image *&#47;
+          }
+  &lt;&#47;style&gt;
+&lt;&#47;head&gt;
+&lt;body&gt;
+
+          &lt;div class=&quot;balloon&quot;&gt;
+
+              &lt;div style=&quot;text-align:center;&quot;&gt;
+                &lt;h1&gt;$query&lt;&#47;h1&gt;
+              &lt;&#47;div&gt;
+
+            &lt;br&gt;
+
+              &lt;div style=&quot;text-align:center;&quot;&gt;
+                &lt;h2&gt; $indx. $placeName&lt;&#47;h2&gt;
+              &lt;&#47;div&gt;
+
+              &lt;div style=&quot;text-align:center;&quot;&gt;
+                &lt;h3&gt;$placeCity&lt;&#47;h3&gt;
+                &lt;h3&gt;$placeCountry&lt;&#47;h3&gt;
+              &lt;&#47;div&gt;
+
+              $flagDiv
+
+              &lt;div style=&quot;text-align:justify;&quot;&gt;
+                &lt;pp&gt;$placeDescription&lt;&#47;pp&gt;
+              &lt;&#47;div&gt;
+
+              &lt;div class=&quot;details&quot;&gt;
+                &lt;p&gt;&lt;b&gt;Address:&lt;&#47;b&gt;$placeAddress&lt;&#47;p&gt;
+                &lt;p&gt;&lt;b&gt;Average Ratings:&lt;&#47;b&gt;$placesRating&lt;&#47;p&gt;
+                &lt;p&gt;&lt;b&gt;Pricing:&lt;&#47;b&gt;$placePrices&lt;&#47;p&gt;
+                &lt;p&gt;&lt;b&gt;Amenities:&lt;&#47;b&gt;$placeAmenities&lt;&#47;p&gt;
+              &lt;&#47;div&gt;
+          &lt;&#47;div&gt;
+&lt;&#47;body&gt;
+&lt;&#47;html&gt;
+&#39;&#39;&#39;;
+
+  LookAtModel lookAt = LookAtModel(
+    longitude: placeLongitude,
+    latitude: placeLatitude,
+    range: &#39;500&#39;,
+    tilt: &#39;60&#39;,
+    altitude: 0,
+    heading: &#39;0&#39;,
+    altitudeMode: &#39;relativeToGround&#39;,
+  );
+
+  PointModel point =
+      PointModel(lat: placeLatitude, lng: placeLongitude, altitude: 0);
+  LookAtModel lookAtObjOrbit = LookAtModel(
+    longitude: placeLongitude,
+    latitude: placeLatitude,
+    range: &#39;500&#39;,
+    tilt: &#39;90&#39;,
+    altitude: 0,
+    heading: &#39;0&#39;,
+    altitudeMode: &#39;relativeToGround&#39;,
+  );
+  String orbitContent = OrbitModel.tag(lookAtObjOrbit, duration: duration);
+  PlacemarkModel placemark = PlacemarkModel(
+      id: place.id.toString(),
+      name: placeName,
+      styleId: &#39;placemark-style&#39;,
+      description: placeDescription,
+      icon: icon,
+      balloonContent: balloonContent,
+      visibility: visibility,
+      viewOrbit: viewOrbit,
+      scale: 1,
+      lookAt: lookAt,
+      point: point,
+      orbitContent: orbitContent);
+
+  content += placemark.tag;
+
+  final kmlPlacemark = KMLModel(
+    name: &#39;$placeName-pin&#39;,
+    content: content,
+  );
+
+  ScreenOverlayModel screenOverlay = ScreenOverlayModel(
+    name: &quot;&quot;,
+    overlayX: 0,
+    overlayY: 1,
+    screenX: 1,
+    screenY: 1,
+    sizeX: 0.5,
+    sizeY: 0.5,
+    content: balloonContent,
+  );
+
+  String kmlName = &#39;place-Balloon&#39;;
+  String ballooncontent = &#39;&lt;name&gt;placeBalloon&lt;&#47;name&gt;&#39;;
+
+  final kmlBalloon = KMLModel(
+    name: kmlName,
+    content: ballooncontent,
+    screenOverlay: screenOverlay.balloonTag,
+  );
+
+  try {
+    await LgService(sshData).sendKmlFileToMaster(kmlPlacemark.body, placeName);
+    await LgService(sshData).sendKMLToSlave(
+      LgService(sshData).balloonScreen,
+      kmlBalloon.body,
+    );
+    await LgService(sshData).flyTo(lookAt);
+  } catch (e) {
+    print(e);
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">ai_touristic_info_tool</a></li>
+    <li><a href="../utils_kml_builders/utils_kml_builders-library.html">kml_builders</a></li>
+    <li class="self-crumb">buildPlacePlacemark function</li>
+</ol>
+
+
+    <h5>kml_builders library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ai_touristic_info_tool
+      1.1.0+3
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
