@@ -4,6 +4,7 @@ import 'package:ai_touristic_info_tool/helpers/favs_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 import 'package:ai_touristic_info_tool/models/places_model.dart';
+import 'package:ai_touristic_info_tool/services/gemma_api_services.dart';
 import 'package:ai_touristic_info_tool/services/lg_functionalities.dart';
 import 'package:ai_touristic_info_tool/services/search_services.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
@@ -297,121 +298,113 @@ class _PoiExpansionWidgetState extends State<PoiExpansionWidget> {
                                                     Provider.of<SearchProvider>(
                                                         context,
                                                         listen: false);
-                                                // Connectionprovider connection =
-                                                //     Provider.of<Connectionprovider>(
-                                                //         context,
-                                                //         listen: false);
+
                                                 //Local:
-                                                // if (!connection.isAiConnected) {
-                                                //   dialogBuilder(
-                                                //       context,
-                                                //       'NOT connected to AI Server!!\nPlease Connect!',
-                                                //       true,
-                                                //       'OK',
-                                                //       null,
-                                                //       null);
-                                                // } else {
-                                                srch.isLoading = true;
-                                                srch.showMap = false;
-                                                srch.searchPoiSelected =
-                                                    widget.placeModel.name;
-
-                                                ApiKeyModel? apiKeyModel =
-                                                    await APIKeySharedPref
-                                                        .getDefaultApiKey(
-                                                            'Youtube');
-
-                                                String apiKey;
-                                                List<String> _futureYoutubeUrls;
-                                                if (apiKeyModel == null) {
+                                                Connectionprovider connection =
+                                                    Provider.of<
+                                                            Connectionprovider>(
+                                                        context,
+                                                        listen: false);
+                                                if (!connection.isAiConnected) {
                                                   dialogBuilder(
                                                       context,
-                                                      // 'No API key found for Youtube API.\nPlease add an API key in the settings.',
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .poiExpansion_noAPIKeyYoutube,
+                                                      'NOT connected to AI Server!!\nPlease Connect!',
                                                       true,
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .defaults_ok,
-                                                      () {},
-                                                      () {});
-                                                  _futureYoutubeUrls = [];
+                                                      'OK',
+                                                      null,
+                                                      null);
                                                 } else {
-                                                  apiKey = apiKeyModel.key;
-                                                  _futureYoutubeUrls =
-                                                      await SearchServices()
-                                                          .fetchYoutubeUrls(
-                                                              query: widget
-                                                                  .placeModel
-                                                                  .name,
-                                                              context,
-                                                              apiKey);
+                                                  srch.isLoading = true;
+                                                  srch.showMap = false;
+                                                  srch.searchPoiSelected =
+                                                      widget.placeModel.name;
+
+                                                  ApiKeyModel? apiKeyModel =
+                                                      await APIKeySharedPref
+                                                          .getDefaultApiKey(
+                                                              'Youtube');
+
+                                                  String apiKey;
+                                                  List<String>
+                                                      _futureYoutubeUrls;
+                                                  if (apiKeyModel == null) {
+                                                    dialogBuilder(
+                                                        context,
+                                                        // 'No API key found for Youtube API.\nPlease add an API key in the settings.',
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .poiExpansion_noAPIKeyYoutube,
+                                                        true,
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .defaults_ok,
+                                                        () {},
+                                                        () {});
+                                                    _futureYoutubeUrls = [];
+                                                  } else {
+                                                    apiKey = apiKeyModel.key;
+                                                    _futureYoutubeUrls =
+                                                        await SearchServices()
+                                                            .fetchYoutubeUrls(
+                                                                query: widget
+                                                                    .placeModel
+                                                                    .name,
+                                                                context,
+                                                                apiKey);
+                                                  }
+
+                                                  //Local:
+                                                  List<String> _futureUrls =
+                                                      await GemmaApiServices().fetchWebUrlsWithGemma(
+                                                          widget
+                                                              .placeModel.name, context);
+
+                                                  //Gemini:
+
+                                                  // List<String> _futureUrls =
+                                                  //     await SearchServices()
+                                                  //         .fetchUrls(
+                                                  //             widget.placeModel
+                                                  //                 .name,
+                                                  //             numResults: 10);
+                                                  /////////////////////////////////////////
+
+                                                  // final sshData =
+                                                  //     Provider.of<SSHprovider>(context,
+                                                  //         listen: false);
+
+                                                  ///checking the connection status first
+                                                  // if (sshData.client != null &&
+                                                  //     connection.isLgConnected) {
+                                                  //   List<String> links =
+                                                  //       _futureUrls + _futureYoutubeUrls;
+                                                  // await buildAllLinksBalloon(
+                                                  //     widget.placeModel.name,
+                                                  //     widget.placeModel.city,
+                                                  //     widget.placeModel.country,
+                                                  //     widget.placeModel.latitude,
+                                                  //     widget.placeModel.longitude,
+                                                  //     links,
+                                                  //     context);
+                                                  // }
+
+                                                  srch.webSearchResults =
+                                                      _futureUrls;
+                                                  srch.youtubeSearchResults =
+                                                      _futureYoutubeUrls;
+                                                  srch.isLoading = false;
+                                                  srch.poiLat = widget
+                                                      .placeModel.latitude;
+                                                  srch.poiLong = widget
+                                                      .placeModel.longitude;
+                                                  srch.searchPoiCountry = widget
+                                                          .placeModel.country ??
+                                                      'Worldwide';
+                                                  srch.searchPoiCity =
+                                                      widget.placeModel.city ??
+                                                          '';
+                                                  // Local: put }
                                                 }
-
-                                                //Local:
-                                                // List<String> _futureUrls = await Api()
-                                                //     .fetchWebUrls(
-                                                //         widget.placeModel.name);
-
-                                                //Gemini:
-                                                // Map<String, dynamic> _geminiWebResults =
-                                                //     await LangchainService()
-                                                //         .generatewebLinks(
-                                                //             widget.placeModel.name);
-                                                // List<dynamic> _futureUrlsDynamic =
-                                                //     _geminiWebResults['links'];
-                                                // List<String> _futureUrls = [];
-                                                // for (var link in _futureUrlsDynamic) {
-                                                //   _futureUrls.add(link.toString());
-                                                // }
-                                                // List<String> _futureUrls =
-                                                //     await LangchainService().fetchUrls(
-                                                //         widget.placeModel.name,
-                                                //         urlNum: 10);
-                                                List<String> _futureUrls =
-                                                    await SearchServices()
-                                                        .fetchUrls(
-                                                            widget.placeModel
-                                                                .name,
-                                                            numResults: 10);
-                                                /////////////////////////////////////////
-
-                                                // final sshData =
-                                                //     Provider.of<SSHprovider>(context,
-                                                //         listen: false);
-
-                                                ///checking the connection status first
-                                                // if (sshData.client != null &&
-                                                //     connection.isLgConnected) {
-                                                //   List<String> links =
-                                                //       _futureUrls + _futureYoutubeUrls;
-                                                // await buildAllLinksBalloon(
-                                                //     widget.placeModel.name,
-                                                //     widget.placeModel.city,
-                                                //     widget.placeModel.country,
-                                                //     widget.placeModel.latitude,
-                                                //     widget.placeModel.longitude,
-                                                //     links,
-                                                //     context);
-                                                // }
-
-                                                srch.webSearchResults =
-                                                    _futureUrls;
-                                                srch.youtubeSearchResults =
-                                                    _futureYoutubeUrls;
-                                                srch.isLoading = false;
-                                                srch.poiLat =
-                                                    widget.placeModel.latitude;
-                                                srch.poiLong =
-                                                    widget.placeModel.longitude;
-                                                srch.searchPoiCountry =
-                                                    widget.placeModel.country ??
-                                                        'Worldwide';
-                                                srch.searchPoiCity =
-                                                    widget.placeModel.city ??
-                                                        '';
-                                                //Local: }
                                               }
                                             },
                                             child: Container(

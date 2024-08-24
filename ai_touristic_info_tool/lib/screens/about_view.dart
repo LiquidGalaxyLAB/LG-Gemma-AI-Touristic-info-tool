@@ -39,22 +39,22 @@ class AboutScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   //Local:
-                  // Image.asset(
-                  //   "assets/images/appLogo-Gemma.png",
-                  //   scale: 0.5,
-                  // ),
-                  //Gemini:
                   Image.asset(
-                    "assets/images/appLogo-Gemini.png",
+                    "assets/images/appLogo-Gemma.png",
                     scale: 0.5,
                   ),
+                  //Gemini:
+                  // Image.asset(
+                  //   "assets/images/appLogo-Gemini.png",
+                  //   scale: 0.5,
+                  // ),
 
                   Text(
                     //Local:
-                    // "LG Gemma AI Touristic Info Tool",
+                    "LG Gemma AI Touristic Info Tool",
                     //Gemini:
                     // "LG Gemini AI Touristic Info Tool",
-                    AppLocalizations.of(context)!.appBar_title,
+                    // AppLocalizations.of(context)!.appBar_title,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         // fontSize: titleSize,
@@ -75,30 +75,30 @@ class AboutScreen extends StatelessWidget {
             SettingsSharedPref.getTheme() == 'dark'
                 ?
                 //Local
-                // Image.asset(
-                //     'assets/images/dark-logos-gemma.jpg',
-                //     height: MediaQuery.of(context).size.height * 0.8,
-                //     width: MediaQuery.of(context).size.width * 0.8,
-                //   )
-                //Gemini
                 Image.asset(
-                    'assets/images/dark-logos-gemini.jpg',
+                    'assets/images/dark-logos-gemma.jpg',
                     height: MediaQuery.of(context).size.height * 0.8,
                     width: MediaQuery.of(context).size.width * 0.8,
                   )
+                //Gemini
+                // Image.asset(
+                //     'assets/images/dark-logos-gemini.jpg',
+                //     height: MediaQuery.of(context).size.height * 0.8,
+                //     width: MediaQuery.of(context).size.width * 0.8,
+                //   )
                 :
                 //Local
-                // Image.asset(
-                //     'assets/images/Logos_Screen-gemma.jpg',
-                //     height: MediaQuery.of(context).size.height * 0.8,
-                //     width: MediaQuery.of(context).size.width * 1,
-                //   ),
-                //Gemini
                 Image.asset(
-                    'assets/images/Logos_Screen-gemini.jpg',
+                    'assets/images/Logos_Screen-gemma.jpg',
                     height: MediaQuery.of(context).size.height * 0.8,
                     width: MediaQuery.of(context).size.width * 1,
                   ),
+                //Gemini
+                // Image.asset(
+                //     'assets/images/Logos_Screen-gemini.jpg',
+                //     height: MediaQuery.of(context).size.height * 0.8,
+                //     width: MediaQuery.of(context).size.width * 1,
+                //   ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
@@ -287,7 +287,8 @@ class AppDescriptionWidget extends StatelessWidget {
                 // "Leveraging GEMMA, one of the latest open-source generative text AI models, our app generates personalized POIs, running locally on the AI server at Lleida Lab using Docker technology.",
                 //Gemini:
                 // "Leveraging Gemini, one of the latest open-source generative text AI models, our app generates personalized POIs, running locally on the AI server at Lleida Lab using Docker technology.",
-                AppLocalizations.of(context)!.about_appDesc6Gemini,
+                // AppLocalizations.of(context)!.about_appDesc6Gemini,
+                AppLocalizations.of(context)!.about_appDesc6Gemma,
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontFamily: fontType,

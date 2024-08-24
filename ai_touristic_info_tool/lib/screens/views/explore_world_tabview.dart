@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
+import 'package:ai_touristic_info_tool/dialogs/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
@@ -11,6 +13,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/recommendation_container
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/services/gemini_services.dart';
 import 'package:ai_touristic_info_tool/services/voices_services.dart';
+import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
@@ -581,7 +584,8 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                   // 'Explore anything worldwide with Gemma. Ask away! ',
                   //Gemini
                   // 'Explore anything worldwide with Gemini. Ask away! ',
-                  AppLocalizations.of(context)!.exploreWorld_askGemini,
+                  // AppLocalizations.of(context)!.exploreWorld_askGemini,
+                  AppLocalizations.of(context)!.exploreWorld_askGemma,
                   style: TextStyle(
                     // fontSize: textSize + 10,
                     fontSize: fontsProv.fonts.textSize + 10,
@@ -704,99 +708,99 @@ class _ExploreWorldTabViewState extends State<ExploreWorldTabView> {
                                           query, '', '', () {}, false);
                                     } else {
                                       //Local
-                                      // Connectionprovider connection =
-                                      //     Provider.of<Connectionprovider>(context,
-                                      //         listen: false);
-                                      // if (!connection.isAiConnected) {
-                                      //   dialogBuilder(
-                                      //       context,
-                                      //       'NOT connected to AI Server!!\nPlease Connect!',
-                                      //       true,
-                                      //       'OK',
-                                      //       null,
-                                      //       null);
-                                      // } else {
-                                      //   showStreamingDialog(
-                                      //       context, query, '', '');
-                                      // }
-                                      //Gemini:
-                                      ApiKeyModel? apiKeyModel =
-                                          await APIKeySharedPref
-                                              .getDefaultApiKey('Gemini');
-                                      String apiKey;
-                                      if (apiKeyModel == null) {
-                                        //snackbar:
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                              backgroundColor:
-                                                  LgAppColors.lgColor2,
-                                              content: Consumer<FontsProvider>(
-                                                builder: (BuildContext context,
-                                                    FontsProvider value,
-                                                    Widget? child) {
-                                                  return Text(
-                                                    // 'Please add a default API Key for Gemini in the settings!',
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .settings_apiKeyNotSetDefaultError,
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          value.fonts.textSize,
-                                                      color: Colors.white,
-                                                      fontFamily: fontType,
-                                                    ),
-                                                  );
-                                                },
-                                              )),
-                                        );
+                                      Connectionprovider connection =
+                                          Provider.of<Connectionprovider>(context,
+                                              listen: false);
+                                      if (!connection.isAiConnected) {
+                                        dialogBuilder(
+                                            context,
+                                            'NOT connected to AI Server!!\nPlease Connect!',
+                                            true,
+                                            'OK',
+                                            null,
+                                            null);
                                       } else {
-                                        apiKey = apiKeyModel.key;
-                                        if (mounted) {
-                                          setState(() {
-                                            _isLoading = true;
-                                          });
-                                        }
-                                        String res = await GeminiServices()
-                                            .checkAPIValidity(apiKey, context);
-
-                                        if (mounted) {
-                                          setState(() {
-                                            _isLoading = false;
-                                          });
-                                        }
-                                        if (res == '') {
-                                          Locale locale =
-                                              await SettingsSharedPref
-                                                  .getLocale();
-                                          showStreamingGeminiDialog(context,
-                                              query, '', '', apiKey, locale);
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                                backgroundColor:
-                                                    LgAppColors.lgColor2,
-                                                content:
-                                                    Consumer<FontsProvider>(
-                                                  builder:
-                                                      (BuildContext context,
-                                                          FontsProvider value,
-                                                          Widget? child) {
-                                                    return Text(
-                                                      res,
-                                                      style: TextStyle(
-                                                        fontSize: value
-                                                            .fonts.textSize,
-                                                        color: Colors.white,
-                                                        fontFamily: fontType,
-                                                      ),
-                                                    );
-                                                  },
-                                                )),
-                                          );
-                                        }
+                                        showStreamingDialog(
+                                            context, query, '', '');
                                       }
+                                      //Gemini:
+                                    //   ApiKeyModel? apiKeyModel =
+                                    //       await APIKeySharedPref
+                                    //           .getDefaultApiKey('Gemini');
+                                    //   String apiKey;
+                                    //   if (apiKeyModel == null) {
+                                    //     //snackbar:
+                                    //     ScaffoldMessenger.of(context)
+                                    //         .showSnackBar(
+                                    //       SnackBar(
+                                    //           backgroundColor:
+                                    //               LgAppColors.lgColor2,
+                                    //           content: Consumer<FontsProvider>(
+                                    //             builder: (BuildContext context,
+                                    //                 FontsProvider value,
+                                    //                 Widget? child) {
+                                    //               return Text(
+                                    //                 // 'Please add a default API Key for Gemini in the settings!',
+                                    //                 AppLocalizations.of(
+                                    //                         context)!
+                                    //                     .settings_apiKeyNotSetDefaultError,
+                                    //                 style: TextStyle(
+                                    //                   fontSize:
+                                    //                       value.fonts.textSize,
+                                    //                   color: Colors.white,
+                                    //                   fontFamily: fontType,
+                                    //                 ),
+                                    //               );
+                                    //             },
+                                    //           )),
+                                    //     );
+                                    //   } else {
+                                    //     apiKey = apiKeyModel.key;
+                                    //     if (mounted) {
+                                    //       setState(() {
+                                    //         _isLoading = true;
+                                    //       });
+                                    //     }
+                                    //     String res = await GeminiServices()
+                                    //         .checkAPIValidity(apiKey, context);
+
+                                    //     if (mounted) {
+                                    //       setState(() {
+                                    //         _isLoading = false;
+                                    //       });
+                                    //     }
+                                    //     if (res == '') {
+                                    //       Locale locale =
+                                    //           await SettingsSharedPref
+                                    //               .getLocale();
+                                    //       showStreamingGeminiDialog(context,
+                                    //           query, '', '', apiKey, locale);
+                                    //     } else {
+                                    //       ScaffoldMessenger.of(context)
+                                    //           .showSnackBar(
+                                    //         SnackBar(
+                                    //             backgroundColor:
+                                    //                 LgAppColors.lgColor2,
+                                    //             content:
+                                    //                 Consumer<FontsProvider>(
+                                    //               builder:
+                                    //                   (BuildContext context,
+                                    //                       FontsProvider value,
+                                    //                       Widget? child) {
+                                    //                 return Text(
+                                    //                   res,
+                                    //                   style: TextStyle(
+                                    //                     fontSize: value
+                                    //                         .fonts.textSize,
+                                    //                     color: Colors.white,
+                                    //                     fontFamily: fontType,
+                                    //                   ),
+                                    //                 );
+                                    //               },
+                                    //             )),
+                                    //       );
+                                    //     }
+                                    //   }
                                     }
                                   });
                                 }

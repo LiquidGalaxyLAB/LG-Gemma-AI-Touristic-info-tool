@@ -4,6 +4,7 @@ import 'package:ai_touristic_info_tool/reusable_widgets/app_divider_widget.dart'
 import 'package:ai_touristic_info_tool/reusable_widgets/lg_elevated_button.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/text_field.dart';
 import 'package:ai_touristic_info_tool/reusable_widgets/top_bar_widget.dart';
+import 'package:ai_touristic_info_tool/services/gemma_api_services.dart';
 import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
@@ -27,11 +28,12 @@ class ConnectionView extends StatefulWidget {
 class _ConnectionViewState extends State<ConnectionView> {
   /// `form key` for our configuration form
   final _form1Key = GlobalKey<FormState>();
-  // final _form2Key = GlobalKey<FormState>();
+  final _form2Key = GlobalKey<FormState>();
+  final _tempKey = GlobalKey<FormState>();
 
   /// `is loading` to Track the loading state
   bool _isLoading1 = false;
-  // bool _isLoading2 = false;
+  bool _isLoading2 = false;
 
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _ipController =
@@ -47,10 +49,10 @@ class _ConnectionViewState extends State<ConnectionView> {
           ? '3'
           : LgConnectionSharedPref.getScreenAmount().toString());
 
-  // final TextEditingController _aiIpAddressController =
-  //     TextEditingController(text: LgConnectionSharedPref.getAiIp());
-  // final TextEditingController _aiPortController =
-  //     TextEditingController(text: LgConnectionSharedPref.getAiPort());
+  final TextEditingController _aiIpAddressController =
+      TextEditingController(text: LgConnectionSharedPref.getAiIp());
+  final TextEditingController _aiPortController =
+      TextEditingController(text: LgConnectionSharedPref.getAiPort());
 
   @override
   Widget build(BuildContext context) {
@@ -485,204 +487,201 @@ class _ConnectionViewState extends State<ConnectionView> {
                       ),
                       //Locallllllllllllllllllllllllllllllllllllllll GEMMMAAAAAAAAAAAAAAAAAAA
 
-                      // SizedBox(
-                      //   height: MediaQuery.of(context).size.height * 0.05,
-                      // ),
-                      // Consumer<FontsProvider>(
-                      //   builder: (BuildContext context, FontsProvider value,
-                      //       Widget? child) {
-                      //     return Text(
-                      //       'AI Server Connection',
-                      //       style: TextStyle(
-                      //         fontFamily: fontType,
-                      //         // fontSize: headingSize - 8,
-                      //         fontSize: value.fonts.headingSize - 8,
-                      //         // color: FontAppColors.primaryFont,
-                      //         color: value.fonts.primaryFontColor,
-                      //         fontWeight: FontWeight.bold,
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
-                      // // SizedBox(
-                      // //   height: MediaQuery.of(context).size.height * 0.05,
-                      // // ),
-                      // Consumer<FontsProvider>(
-                      //   builder: (BuildContext context, FontsProvider value,
-                      //       Widget? child) {
-                      //     return Form(
-                      //       key: _form2Key,
-                      //       child: Row(
-                      //         children: [
-                      //           Column(
-                      //             children: [
-                      //               Padding(
-                      //                 padding: const EdgeInsets.all(5.0),
-                      //                 child: TextFormFieldWidget(
-                      //                   // fontSize: textSize,
-                      //                   fontSize: value.fonts.textSize,
-                      //                   label: 'AI IP Address',
-                      //                   key: const ValueKey("aiIP"),
-                      //                   textController: _aiIpAddressController,
-                      //                   isSuffixRequired: true,
-                      //                   // isHidden: false,
-                      //                   isPassword: false,
-                      //                   maxLength: 50,
-                      //                   maxlines: 1,
-                      //                   width:
-                      //                       MediaQuery.sizeOf(context).width *
-                      //                           0.5,
-                      //                 ),
-                      //               ),
-                      //               Padding(
-                      //                 padding: const EdgeInsets.all(5.0),
-                      //                 child: TextFormFieldWidget(
-                      //                   // fontSize: textSize,
-                      //                   fontSize: value.fonts.textSize,
-                      //                   label: 'AI Port',
-                      //                   key: const ValueKey("aiPort"),
-                      //                   textController: _aiPortController,
-                      //                   isSuffixRequired: true,
-                      //                   // isHidden: false,
-                      //                   isPassword: false,
-                      //                   maxLength: 50,
-                      //                   maxlines: 1,
-                      //                   width:
-                      //                       MediaQuery.sizeOf(context).width *
-                      //                           0.5,
-                      //                 ),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //           SizedBox(
-                      //             width:
-                      //                 MediaQuery.of(context).size.width * 0.05,
-                      //           ),
-                      //           AppDividerWidget(
-                      //             height:
-                      //                 MediaQuery.of(context).size.height * 0.2,
-                      //           ),
-                      //           SizedBox(
-                      //             width:
-                      //                 MediaQuery.of(context).size.width * 0.05,
-                      //           ),
-                      //           Column(
-                      //             children: [
-                      //               LgElevatedButton(
-                      //                 elevatedButtonContent: 'CONNECT AI',
-                      //                 buttonColor: LgAppColors.lgColor4,
-                      //                 fontColor: FontAppColors.secondaryFont,
-                      //                 height:
-                      //                     MediaQuery.of(context).size.height *
-                      //                         0.05,
-                      //                 width: MediaQuery.of(context).size.width *
-                      //                     0.25,
-                      //                 // fontSize: textSize + 2,
-                      //                 fontSize: value.fonts.textSize + 2,
-                      //                 isLoading: false,
-                      //                 isBold: true,
-                      //                 isPrefixIcon: true,
-                      //                 prefixIcon: Icons.cast_connected,
-                      //                 prefixIconColor:
-                      //                     FontAppColors.secondaryFont,
-                      //                 prefixIconSize: 30,
-                      //                 isSuffixIcon: false,
-                      //                 curvatureRadius: 50,
-                      //                 onpressed: () async {
-                      //                   /// checking first if form is valid
-                      //                   if (_form2Key.currentState!
-                      //                       .validate()) {
-                      //                     //saving date in shared pref
-                      //                     await LgConnectionSharedPref.setAiIp(
-                      //                         _aiIpAddressController.text);
-                      //                     await LgConnectionSharedPref
-                      //                         .setAiPort(
-                      //                             _aiPortController.text);
-                      //                   }
-                      //                   final stringUrl =
-                      //                       'http://${_aiIpAddressController.text}:${_aiPortController.text}/health';
-                      //                   final url = Uri.parse(stringUrl);
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
 
-                      //                   ///start the loading process by setting `isloading` to true
-                      //                   setState(() {
-                      //                     _isLoading2 = true;
-                      //                   });
+                      Consumer<FontsProvider>(
+                        builder: (BuildContext context, FontsProvider value,
+                            Widget? child) {
+                          return Text(
+                            'AI Server Connection',
+                            style: TextStyle(
+                              fontFamily: fontType,
+                              // fontSize: headingSize - 8,
+                              fontSize: value.fonts.headingSize - 8,
+                              // color: FontAppColors.primaryFont,
+                              color: value.fonts.primaryFontColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          );
+                        },
+                      ),
 
-                      //                   Connectionprovider connection =
-                      //                       Provider.of<Connectionprovider>(
-                      //                           context,
-                      //                           listen: false);
+                      Consumer<FontsProvider>(
+                        builder: (BuildContext context, FontsProvider value,
+                            Widget? child) {
+                          return Form(
+                            key: _form2Key,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: TextFormFieldWidget(
+                                        // fontSize: textSize,
+                                        fontSize: value.fonts.textSize,
+                                        label: 'AI IP Address',
+                                        key: const ValueKey("aiIP"),
+                                        textController: _aiIpAddressController,
+                                        isSuffixRequired: true,
+                                        // isHidden: false,
+                                        isPassword: false,
+                                        maxLength: 50,
+                                        maxlines: 1,
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.5,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: TextFormFieldWidget(
+                                        // fontSize: textSize,
+                                        fontSize: value.fonts.textSize,
+                                        label: 'AI Port',
+                                        key: const ValueKey("aiPort"),
+                                        textController: _aiPortController,
+                                        isSuffixRequired: true,
+                                        // isHidden: false,
+                                        isPassword: false,
+                                        maxLength: 50,
+                                        maxlines: 1,
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.5,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                AppDividerWidget(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                ),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    LgElevatedButton(
+                                      elevatedButtonContent: 'CONNECT AI',
+                                      buttonColor: LgAppColors.lgColor4,
+                                      fontColor: FontAppColors.secondaryFont,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25,
+                                      // fontSize: textSize + 2,
+                                      fontSize: value.fonts.textSize + 2,
+                                      isLoading: false,
+                                      isBold: true,
+                                      isPrefixIcon: true,
+                                      prefixIcon: Icons.cast_connected,
+                                      prefixIconColor:
+                                          FontAppColors.secondaryFont,
+                                      prefixIconSize: 30,
+                                      isSuffixIcon: false,
+                                      curvatureRadius: 50,
+                                      onpressed: () async {
+                                        /// checking first if form is valid
+                                        if (_form2Key.currentState!
+                                            .validate()) {
+                                          //saving date in shared pref
+                                          await LgConnectionSharedPref.setAiIp(
+                                              _aiIpAddressController.text);
+                                          await LgConnectionSharedPref
+                                              .setAiPort(
+                                                  _aiPortController.text);
+                                        }
+                                        final stringUrl =
+                                            'http://${_aiIpAddressController.text}:${_aiPortController.text}/health';
+                                        final url = Uri.parse(stringUrl);
 
-                      //                   String result = '';
+                                        ///start the loading process by setting `isloading` to true
+                                        setState(() {
+                                          _isLoading2 = true;
+                                        });
 
-                      //                   if (!await Api().isServerAvailable()) {
-                      //                     result =
-                      //                         'The server is currently unavailable. Please try again later.';
-                      //                   } else {
-                      //                     String res =
-                      //                         await Api().isEndpointAvailable();
+                                        Connectionprovider connection =
+                                            Provider.of<Connectionprovider>(
+                                                context,
+                                                listen: false);
 
-                      //                     if (res != 'Success') {
-                      //                       result = res;
-                      //                     }
-                      //                   }
+                                        String result = '';
 
-                      //                   ///checking on the connection status:
-                      //                   if (result == '') {
-                      //                     connection.isAiConnected = true;
-                      //                   } else {
-                      //                     connection.isAiConnected = false;
+                                        if (!await GemmaApiServices()
+                                            .isServerAvailable()) {
+                                          result =
+                                              'The server is currently unavailable. Please try again later.';
+                                        } else {
+                                          String res = await GemmaApiServices()
+                                              .isEndpointAvailable(context);
 
-                      //                     // ignore: use_build_context_synchronously
-                      //                     dialogBuilder(context, result, true,
-                      //                         'OK', null, null);
-                      //                   }
+                                          if (res != 'Success') {
+                                            result = res;
+                                          }
+                                        }
 
-                      //                   ///stop the loading process by setting `isloading` to false
-                      //                   setState(() {
-                      //                     _isLoading2 = false;
-                      //                   });
-                      //                 },
-                      //               ),
-                      //               SizedBox(
-                      //                 height:
-                      //                     MediaQuery.of(context).size.height *
-                      //                         0.05,
-                      //               ),
-                      //               // LgElevatedButton(
-                      //               //   elevatedButtonContent: 'DISCONNECT AI',
-                      //               //   buttonColor: LgAppColors.lgColor2,
-                      //               //   fontColor: FontAppColors.secondaryFont,
-                      //               //   height: MediaQuery.of(context).size.height * 0.05,
-                      //               //   width: MediaQuery.of(context).size.width * 0.25,
-                      //               //   fontSize: textSize + 2,
-                      //               //   isLoading: false,
-                      //               //   isBold: true,
-                      //               //   isPrefixIcon: true,
-                      //               //   curvatureRadius: 50,
-                      //               //   prefixIcon:
-                      //               //       Icons.signal_wifi_connected_no_internet_4,
-                      //               //   prefixIconColor: FontAppColors.secondaryFont,
-                      //               //   prefixIconSize: 30,
-                      //               //   isSuffixIcon: false,
-                      //               //   onpressed: () async {},
-                      //               // ),
-                      //             ],
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
-                      // SizedBox(
-                      //   height: MediaQuery.of(context).size.height * 0.05,
-                      // ),
+                                        ///checking on the connection status:
+                                        if (result == '') {
+                                          connection.isAiConnected = true;
+                                        } else {
+                                          connection.isAiConnected = false;
+
+                                          // ignore: use_build_context_synchronously
+                                          dialogBuilder(context, result, true,
+                                              'OK', null, null);
+                                        }
+
+                                        ///stop the loading process by setting `isloading` to false
+                                        setState(() {
+                                          _isLoading2 = false;
+                                        });
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                    ),
+                                    // LgElevatedButton(
+                                    //   elevatedButtonContent: 'DISCONNECT AI',
+                                    //   buttonColor: LgAppColors.lgColor2,
+                                    //   fontColor: FontAppColors.secondaryFont,
+                                    //   height: MediaQuery.of(context).size.height * 0.05,
+                                    //   width: MediaQuery.of(context).size.width * 0.25,
+                                    //   fontSize: textSize + 2,
+                                    //   isLoading: false,
+                                    //   isBold: true,
+                                    //   isPrefixIcon: true,
+                                    //   curvatureRadius: 50,
+                                    //   prefixIcon:
+                                    //       Icons.signal_wifi_connected_no_internet_4,
+                                    //   prefixIconColor: FontAppColors.secondaryFont,
+                                    //   prefixIconSize: 30,
+                                    //   isSuffixIcon: false,
+                                    //   onpressed: () async {},
+                                    // ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
                     ],
                   ),
                   if ((_isLoading1 && _form1Key.currentState!.validate())
 
-                      //LOCAL: || (_isLoading2 && _form2Key.currentState!.validate())
-                      )
+                      // LOCAL:
+                      ||
+                      (_isLoading2 && _form2Key.currentState!.validate()))
 
                     /// Show the loading indicator if `_isLoading` is true
 

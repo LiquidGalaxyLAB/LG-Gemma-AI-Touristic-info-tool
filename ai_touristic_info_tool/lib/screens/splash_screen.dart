@@ -37,14 +37,14 @@ class _SplashScreenState extends State<SplashScreen> {
             child: SettingsSharedPref.getTheme() == 'dark'
                 ? 
                 //Local
-                // Image.asset('assets/images/dark-logos-gemma.jpg')
+                Image.asset('assets/images/dark-logos-gemma.jpg')
                 //Gemini
-                Image.asset('assets/images/dark-logos-gemini.jpg')
+                // Image.asset('assets/images/dark-logos-gemini.jpg')
                 : 
                 //Local
-                // Image.asset('assets/images/Logos_Screen-gemma.jpg')
+                Image.asset('assets/images/Logos_Screen-gemma.jpg')
                 //Gemini
-                 Image.asset('assets/images/Logos_Screen-gemini.jpg')
+                //  Image.asset('assets/images/Logos_Screen-gemini.jpg')
                 ));
   }
 }

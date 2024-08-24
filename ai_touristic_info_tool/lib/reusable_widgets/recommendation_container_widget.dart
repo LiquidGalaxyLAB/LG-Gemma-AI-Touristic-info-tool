@@ -1,9 +1,12 @@
 import 'package:ai_touristic_info_tool/constants.dart';
+import 'package:ai_touristic_info_tool/dialogs/dialog_builder.dart';
+import 'package:ai_touristic_info_tool/dialogs/show_stream_local_dialog.dart';
 import 'package:ai_touristic_info_tool/helpers/apiKey_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/prompts_shared_pref.dart';
 import 'package:ai_touristic_info_tool/helpers/settings_shared_pref.dart';
 import 'package:ai_touristic_info_tool/models/api_key_model.dart';
 import 'package:ai_touristic_info_tool/services/gemini_services.dart';
+import 'package:ai_touristic_info_tool/state_management/connection_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_colors_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/dynamic_fonts_provider.dart';
 import 'package:ai_touristic_info_tool/state_management/model_error_provider.dart';
@@ -87,90 +90,87 @@ class _RecommendationContainerState extends State<RecommendationContainer> {
               showVisualizationDialog(context, value, widget.title, widget.city,
                   widget.country, () {}, false);
             } else {
-              // Connectionprovider connection =
-              //     Provider.of<Connectionprovider>(context, listen: false);
+          
               //Local:
-              // if (!connection.isAiConnected) {
-              //   dialogBuilder(
-              //       context,
-              //       'NOT connected to AI Server!!\nPlease Connect!',
-              //       true,
-              //       'OK',
-              //       null,
-              //       null);
-              // } else {
-              // showStreamingDialog(context, query, city ?? '', country ?? '');
-              // }
-              // With Gemini:
-              //  Map<String, dynamic> result =
-              //   await LangchainService().generateAnswer(query);
-              // print(result);
-              //result["places"][i]["name"]
-              // name address city country description pricing rating amenities source
-
-              ApiKeyModel? apiKeyModel =
-                  await APIKeySharedPref.getDefaultApiKey('Gemini');
-
-              String apiKey;
-              if (apiKeyModel == null) {
-                //snackbar:
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      backgroundColor: LgAppColors.lgColor2,
-                      content: Consumer<FontsProvider>(
-                        builder: (BuildContext context, FontsProvider value,
-                            Widget? child) {
-                          return Text(
-                            // 'Please add a default API Key for Gemini in the settings!',
-                            AppLocalizations.of(context)!
-                                .settings_apiKeyNotSetDefaultError,
-                            style: TextStyle(
-                              fontSize: value.fonts.textSize,
-                              color: Colors.white,
-                              fontFamily: fontType,
-                            ),
-                          );
-                        },
-                      )),
-                );
+                  Connectionprovider connection =
+                  Provider.of<Connectionprovider>(context, listen: false);
+              if (!connection.isAiConnected) {
+                dialogBuilder(
+                    context,
+                    'NOT connected to AI Server!!\nPlease Connect!',
+                    true,
+                    'OK',
+                    null,
+                    null);
               } else {
-                apiKey = apiKeyModel.key;
-                if (mounted) {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                }
-                String res =
-                    await GeminiServices().checkAPIValidity(apiKey, context);
-                if (mounted) {
-                  setState(() {
-                    _isLoading = false;
-                  });
-                }
-                if (res == '') {
-                  Locale locale = await SettingsSharedPref.getLocale();
-                  showStreamingGeminiDialog(context, widget.query,
-                      widget.city ?? '', widget.country ?? '', apiKey, locale);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        backgroundColor: LgAppColors.lgColor2,
-                        content: Consumer<FontsProvider>(
-                          builder: (BuildContext context, FontsProvider value,
-                              Widget? child) {
-                            return Text(
-                              res,
-                              style: TextStyle(
-                                fontSize: value.fonts.textSize,
-                                color: Colors.white,
-                                fontFamily: fontType,
-                              ),
-                            );
-                          },
-                        )),
-                  );
-                }
+              showStreamingDialog(context, widget.query, widget.city ?? '', widget.country ?? '');
+          
               }
+              // With Gemini:
+
+              // ApiKeyModel? apiKeyModel =
+              //     await APIKeySharedPref.getDefaultApiKey('Gemini');
+
+              // String apiKey;
+            //   if (apiKeyModel == null) {
+            //     //snackbar:
+            //     ScaffoldMessenger.of(context).showSnackBar(
+            //       SnackBar(
+            //           backgroundColor: LgAppColors.lgColor2,
+            //           content: Consumer<FontsProvider>(
+            //             builder: (BuildContext context, FontsProvider value,
+            //                 Widget? child) {
+            //               return Text(
+            //                 // 'Please add a default API Key for Gemini in the settings!',
+            //                 AppLocalizations.of(context)!
+            //                     .settings_apiKeyNotSetDefaultError,
+            //                 style: TextStyle(
+            //                   fontSize: value.fonts.textSize,
+            //                   color: Colors.white,
+            //                   fontFamily: fontType,
+            //                 ),
+            //               );
+            //             },
+            //           )),
+            //     );
+            //   } else {
+            //     apiKey = apiKeyModel.key;
+            //     if (mounted) {
+            //       setState(() {
+            //         _isLoading = true;
+            //       });
+            //     }
+            //     String res =
+            //         await GeminiServices().checkAPIValidity(apiKey, context);
+            //     if (mounted) {
+            //       setState(() {
+            //         _isLoading = false;
+            //       });
+            //     }
+            //     if (res == '') {
+            //       Locale locale = await SettingsSharedPref.getLocale();
+            //       showStreamingGeminiDialog(context, widget.query,
+            //           widget.city ?? '', widget.country ?? '', apiKey, locale);
+            //     } else {
+            //       ScaffoldMessenger.of(context).showSnackBar(
+            //         SnackBar(
+            //             backgroundColor: LgAppColors.lgColor2,
+            //             content: Consumer<FontsProvider>(
+            //               builder: (BuildContext context, FontsProvider value,
+            //                   Widget? child) {
+            //                 return Text(
+            //                   res,
+            //                   style: TextStyle(
+            //                     fontSize: value.fonts.textSize,
+            //                     color: Colors.white,
+            //                     fontFamily: fontType,
+            //                   ),
+            //                 );
+            //               },
+            //             )),
+            //       );
+            //     }
+            //   }
             }
           });
         }
