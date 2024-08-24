@@ -218,16 +218,39 @@ If everything is correct, you should see the indicator turn green above.
 
 Use the app for exploring any place around the globe by choosing one of the recommendations or typing your own query:
 
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492453.png?raw=true" alt="worldwide" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492470.png?raw=true" alt="worldwide" width="800"/>
+<table>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492453.png?raw=true" alt="worldwide" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492470.png?raw=true" alt="worldwide" width="400"/>
+</td>
+</tr>
+</table>
+
 
 5. **Explore locations Nearby**
 
 Use the app to explore anything you want to look for nearby a location by determining the location, and choosing one of the recommendations or typing your own query:
 
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492534.png?raw=true" alt="nearby" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492548.png?raw=true" alt="nearby" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492561.png?raw=true" alt="nearby" width="800"/>
+<table>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492534.png?raw=true" alt="nearby" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492548.png?raw=true" alt="nearby" width="400"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492561.png?raw=true" alt="nearby" width="400"/>
+</td>
+<td></td> 
+</tr>
+</table>
+
 
 6. **Visualize the POIs**
 
@@ -239,10 +262,25 @@ Through the AI-generated POIs and tour, you can view all POIs on Google Maps and
 - Add POI to favorites
 - Save the whole tour to view it later
   
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493170.png?raw=true" alt="poi" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493170.png?raw=true" alt="poi" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493215.png?raw=true" alt="poi" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493161.png?raw=true" alt="poi" width="800"/>
+<table>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493170.png?raw=true" alt="poi" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492955.png?raw=true" alt="poi" width="400"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493215.png?raw=true" alt="poi" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493161.png?raw=true" alt="poi" width="400"/>
+</td>
+</tr>
+</table>
+
 
 
  7. **Customize your own Tour**
@@ -256,34 +294,65 @@ Using your saved places, you can customize your own tour upon your interest and 
 - Reset the tour or remove a point
 - Add the tour to your favorites
 
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492903.png?raw=true" alt="custom" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492740.png?raw=true" alt="poi" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492727.png?raw=true" alt="poi" width="800"/>
+<table>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492903.png?raw=true" alt="custom" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492740.png?raw=true" alt="poi" width="400"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492727.png?raw=true" alt="poi" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492909.png?raw=true" alt="poi" width="400"/>
+</td>
+</tr>
+</table>
+
 
 
 8. **View all your saved tours**
 
 Either you customized your own tours, or you saved one of the AI-generated tours, you can view them later.
 
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492708.png?raw=true" alt="favs" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492708.png?raw=true" alt="favs" width="600"/>
 
 9. **Personalize your app**
 
 Through the settings page, you can personalize your app as needed:
 - Change App Language
 
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492615.png?raw=true" alt="lang" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492615.png?raw=true" alt="lang" width="600"/>
 
 - Change App Theme
   
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492595.png?raw=true" alt="theme" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492670.png?raw=true" alt="theme" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492676.png?raw=true" alt="theme" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492681.png?raw=true" alt="theme" width="800"/>
+<table>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492595.png?raw=true" alt="theme" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492670.png?raw=true" alt="theme" width="400"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492676.png?raw=true" alt="theme" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492681.png?raw=true" alt="theme" width="400"/>
+</td>
+</tr>
+</table>
+
 
 - Change App Fontsize
 
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492590.png?raw=true" alt="font" width="800"/>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492590.png?raw=true" alt="font" width="600"/>
 
 
 10. **Managing your API keys**
@@ -292,14 +361,75 @@ From the API keys settings, you can add, remove, view or edit a key
 - To add a key you will need to put a name, the value and choose the API key service (i.e. YouTube, Gemini, Deepgram...)
 - Refresh the API keys once you do any new operation on them
 
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492641.png?raw=true" alt="Gemini APi Key" width="800"/>
-<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492681.png?raw=true" alt="api" width="800"/>
+<table>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492641.png?raw=true" alt="Gemini API Key" width="400"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492681.png?raw=true" alt="api" width="400"/>
+</td>
+</tr>
+</table>
+
 
 
 ---
 
 ## App Screenshots and Liquid Galaxy Visualizations
 
+### App Screenshots:
+
+<table>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492442.png?raw=true" alt="Screenshot 1" width="250"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492578.png?raw=true" alt="Screenshot 2" width="250"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492582.png?raw=true" alt="Screenshot 3" width="250"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492584.png?raw=true" alt="Screenshot 4" width="250"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492637.png?raw=true" alt="Screenshot 5" width="250"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492644.png?raw=true" alt="Screenshot 6" width="250"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492895.png?raw=true" alt="Screenshot 8" width="250"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724492979.png?raw=true" alt="Screenshot 9" width="250"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493032.png?raw=true" alt="Screenshot 10" width="250"/>
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493042.png?raw=true" alt="Screenshot 11" width="250"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493069.png?raw=true" alt="Screenshot 12" width="250"/>
+</td>
+<td>
+<img src="https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/blob/main/ai_touristic_info_tool/assets/screenshots/Screenshot_1724493099.png?raw=true" alt="Screenshot 13" width="250"/>
+</td>
+</tr>
+</table>
+
+
+
+### Liquid Galaxy Visualizations:
 
 
 ---
