@@ -1,14 +1,3 @@
-1. Install dependencies and build image
+1. For building from source code please follow the [documenation](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#building-from-the-source-code)
 
-```
-docker build -t gemma-ai-touristic-tool .
-```
-
-
-2. Run Container
-
-```
-docker run --gpus=all -v ollama:/root/.ollama -p 8089:8089 gemma-ai-touristic-tool
-```
-
-
+2. For running the docker container on your machine please follow the [documentation](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#docker-user-guide-for-running-gemma-locally)
