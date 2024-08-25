@@ -99,7 +99,7 @@ With Liquid Galaxy technology, users can visualize their entire trip across mult
 - You can go to the [Google AI Studio](https://ai.google.dev/aistudio) and click on "Get a Gemini API key" to create your own API key.
 
 ### Gemma Docker Installation (Optional)
-- To run a Docker container for using the Gemma model locally, follow the [Docker guide]().
+- To run a Docker container for using the Gemma model locally, follow the [Docker guide](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#docker-user-guide-for-running-gemma-locally).
 - Once the container is running, you can interact with the model through the terminal using the following CURL command. Replace "your_input_here" with your desired query:
 
 ```bash
@@ -471,7 +471,27 @@ While the main features are complete, future enhancements may include:
 
 ## Technical Documentation
 
-For more detailed technical information, please refer to the [Wiki]().
+For more detailed technical information, please refer to the [Wiki](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki).
+
+For Detailed AI-Documentation please refer to the following links in the Wiki:
+
+- [What is Langchain?](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#what-is-langchain)
+- [Gemini vs. Gemma](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#gemini-vs-gemma)
+- [Docker user-guide for running Gemma locally](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#docker-user-guide-for-running-gemma-locally)
+- [Creating a dockerfile with Ollama](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#creating-a-dockerfile-with-ollama-from-a-technical-aspect)
+- [Docker issues and challenges](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#docker-issues--challenges-from-a-technical-aspect)
+- [Ollama with Langchain for running local models](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#ollama-with-langchain-for-running-local-models)
+- [RAG (Retrieval Augment Generation)](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#rag-retrieval-augment-generation)
+- [Project AI architecture](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#project-ai-architecture-overview)
+- [Web Scraping & Web Loaders](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#web-scraping-and-web-loaders)
+- [Prompt Engineering](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#prompt-engineering)
+- [Output Parsers and its challenges](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#output-parsers-and-its-challenges)
+- [Real-life stream of model responses](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#real-life-stream-of-models-responses)
+- [Integrating Real-Time Data Streams in Flutter UI](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#integrating-real-time-data-streams-in-flutter-ui)
+- [LangServe and FastAPI for deployment](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#langserve-and-fastapi-for-deployment)
+- [Gemini with Langchain flutter package](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#gemini-with-langchain-flutter-package)
+- [Building Gemma AI from source code](https://github.com/LiquidGalaxyLAB/LG-Gemma-AI-Touristic-info-tool/wiki/AI-Documentation#building-from-the-source-code)
+
 
 ## Contribution
 To contribute to the project, you can help by testing the app, reporting issues, or contributing code. Here’s how you can get involved:
