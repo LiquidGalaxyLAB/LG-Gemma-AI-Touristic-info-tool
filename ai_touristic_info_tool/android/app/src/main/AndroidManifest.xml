@@ -6,7 +6,7 @@
     <!-- Optional: Add this permission if you want to save your recordings in public folders -->
     <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
 
-    <compatible-screens>
+    <!-- <compatible-screens>
     <screen android:screenSize="large" android:screenDensity="ldpi" />
     <screen android:screenSize="large" android:screenDensity="mdpi" />
 
@@ -14,10 +14,17 @@
     <screen android:screenSize="xlarge" android:screenDensity="mdpi" />
     <screen android:screenSize="xlarge" android:screenDensity="hdpi" />
     <screen android:screenSize="xlarge" android:screenDensity="xhdpi" />
-    </compatible-screens>
+    </compatible-screens> -->
+
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="false"
+        android:requiresSmallestWidthDp="600"
+        android:smallScreens="false"
+        android:xlargeScreens="true" />
 
     <application
-        android:label="AI Touristic tool"
+        android:label="Touristic AI Exploration tool"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"

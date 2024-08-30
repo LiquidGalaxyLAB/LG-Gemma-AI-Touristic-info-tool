@@ -87,7 +87,7 @@ flutter_launcher_icons:
   #Local:
   # image_path: "assets/images/appLogo-Gemma.png"
   #Gemini:
-  image_path: "assets/images/psLogo.jpg"
+  image_path: "assets/images/newSmallLogo.jpg"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
